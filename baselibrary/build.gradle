@@ -1,0 +1,154 @@
+apply plugin: 'com.android.library'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
+android {
+    compileSdkVersion rootProject.ext.android.compileSdkVersion
+    defaultConfig {
+        minSdkVersion rootProject.ext.android.minSdkVersion
+        targetSdkVersion rootProject.ext.android.targetSdkVersion
+        versionCode rootProject.ext.android.versionCode
+        versionName rootProject.ext.android.versionName
+    }
+    packagingOptions {
+        exclude 'META-INF/DEPENDENCIES'
+        exclude 'META-INF/NOTICE'
+        exclude 'META-INF/MANIFEST'
+        exclude 'META-INF/LICENSE'
+        exclude 'META-INF/LICENSE.txt'
+        exclude 'META-INF/NOTICE.txt'
+    }
+
+}
+dependencies {
+    api fileTree(dir: 'libs', include: ['*.jar'])
+    testImplementation 'junit:junit:4.12'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.1'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
+    //kotlin
+    api rootProject.ext.dependencies.kotlin_jdk
+
+    api(rootProject.ext.dependencies.appcompat_v7) { exclude group: 'android.arch.lifecycle' }
+    api rootProject.ext.dependencies.core_ktx
+    api rootProject.ext.dependencies.constraintLayout
+
+    api(rootProject.ext.dependencies.recycleview)   { exclude group: 'android.arch.lifecycle' }
+
+    api(rootProject.ext.dependencies.rxlifecycle3) {
+        exclude module: 'rxjava'
+        exclude module: 'jsr305'
+        exclude module: 'lifecycle'
+    }
+    api(rootProject.ext.dependencies.rxlifecycle3_components) {
+        exclude module: 'rxjava'
+        exclude module: 'rxandroid'
+        exclude module: 'rxlifecycle'
+        exclude module: 'lifecycle'
+    }
+    api(rootProject.ext.dependencies.rxlifecycle3_android) {
+        exclude module: 'rxlifecycle'
+        exclude module: 'lifecycle'
+    }
+    api(rootProject.ext.dependencies.rxlifecycle3_android_lifecycle) {
+        exclude module: 'lifecycle'
+        exclude module: 'rxlifecycle'
+    }
+    api(rootProject.ext.dependencies.rxlifecycle3_kotlin) {
+        exclude module: 'rxlifecycle'
+        exclude module: 'lifecycle'
+    }
+    api(rootProject.ext.dependencies.rxlifecycle3_kotlin_lifecycle) {
+        exclude module: 'lifecycle'
+        exclude module: 'rxlifecycle'
+    }
+    //utilcode
+    api rootProject.ext.dependencies.utilcode
+
+    //mmkv
+    api rootProject.ext.dependencies.mmkv
+
+
+    //kodein
+    api rootProject.ext.dependencies.kodein
+    api rootProject.ext.dependencies.kodein_android
+    api rootProject.ext.dependencies.kodein_android_support
+//okhttp
+    api rootProject.ext.dependencies.okhttp3
+    api(rootProject.ext.dependencies.okhttp3_log) {
+        exclude module: "okhttp"
+    }
+
+    //retrofit
+    api(rootProject.ext.dependencies.retrofit) {
+        exclude module: 'okhttp'
+        exclude module: 'okio'
+    }
+    api(rootProject.ext.dependencies.retrofit_converter_gson) {
+        exclude module: 'gson'
+        exclude module: 'okhttp'
+        exclude module: 'okio'
+        exclude module: 'retrofit'
+    }
+    api(rootProject.ext.dependencies.retrofit_adapter_rxjava2) {
+        exclude module: 'rxjava'
+        exclude module: 'okhttp'
+        exclude module: 'retrofit'
+        exclude module: 'okio'
+    }
+    api(rootProject.ext.dependencies.retrofit_converter_scalars) {
+        exclude module: 'rxjava'
+        exclude module: 'okhttp'
+        exclude module: 'retrofit'
+        exclude module: 'okio'
+    }
+    //glide
+    api rootProject.ext.dependencies.glide
+    api(rootProject.ext.dependencies.glide_okhttp) {
+        exclude group: "okhttp"
+    }
+    kapt rootProject.ext.dependencies.glide_compiler
+
+    //kodeins
+    //rxCache
+    api(rootProject.ext.dependencies.rxCache) {
+        exclude module: "rxjava"
+        exclude module: "annotation"
+    }
+    api(rootProject.ext.dependencies.rxCache_gson) {
+        exclude module: "rxjava"
+        exclude module: "annotation"
+    }
+    //multidex
+    api rootProject.ext.dependencies.multidex
+
+    //autosize
+    api rootProject.ext.dependencies.autosize
+
+    api 'com.jeremyliao:live-event-bus-x:1.4.4'
+
+    //gson
+    api rootProject.ext.dependencies.gson
+    //rxpermission
+    api(rootProject.ext.dependencies.rxpermission) {
+        exclude group: "androix"
+        exclude module: "rxjava"
+        exclude module: "annotation"
+    }
+    //rxDownload
+    api(rootProject.ext.dependencies.rxDownload) {
+        exclude module: "rxjava"
+        exclude module: "annotation"
+    }
+    //rxBinding
+    api(rootProject.ext.dependencies.rxBinding) {
+        exclude module: "rxjava"
+        exclude module: "annotation"
+    }
+    //mvrx
+    api rootProject.ext.dependencies.mvrx
+
+    //epoxy
+    api rootProject.ext.dependencies.epoxy
+    kapt rootProject.ext.dependencies.epoxyProcessor
+
+}

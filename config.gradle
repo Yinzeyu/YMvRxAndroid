@@ -1,0 +1,256 @@
+//★修改version后需要将versionCode重置为从1开始★
+def version_Name = "1.0.8"//只能是X.X.X格式，X为数字
+//build版本从1开始：偶数测试版、奇数正式版
+def version_Build = 29//只能是1-999的数字(预想999次build应该可以发版)
+
+/**********************************************************************打包后续事项**********************************************************************
+ 1.打包(使用V1签名)完毕后，需要使用360加固助手进行加固和多渠道操作
+ 2.设置签名：选择应用加固-签名设置-添加签名后勾选启用自动签名
+ 3.加固助手多渠道配置：将Channel_Info.txt文件中的Channel信息复制到txt文件中，选择应用加固-多渠道设置-导入摸板-勾选启用多渠道打包
+ 4.设置生成包的地址：选择应用加固-基础设置-选择加固包的输出路径
+ 5.加固和多渠道：选择应用加固-添加应用-等待加固和多渠道整个流程完成
+ 6.查看加固情况：选择应用加固-右键加固包-选择任务详情-即可查看加固情况
+ 7.手动设置渠道和签名(当遇到有加固失败的情况，就需要手动设置渠道和签名)：
+ ①选择失败的渠道，将Channel_Info.txt文件中对应的Channel信息复制到新的txt文件中
+ ②选择工具包-渠道打包-自己选择APK和输出路径(选择加固后没有渠道的包，结尾为_jiagu_sign.apk)-使用多渠道配置文件(刚才自己新建的txt)-生成渠道包
+ ③选择工具包-签名APK-自己选择APK和输出路径(选择第②步生成的渠道包)-使用已配置的签名(V1)-开始签名-->完成失败APK的签名
+ *******************************************************************************************************************************************************/
+
+//默认显示的version_Code信息为:三位之前表示版本号、后三位表示当前版本的build次数
+def version_Code = (version_Name.replace(".", "")).toInteger() * 1000 + version_Build
+ext {
+    android = [
+            applicationId          : "com.yzy.example",
+            compileSdkVersion      : 29,
+            minSdkVersion          : 21,
+            targetSdkVersion       : 29,
+            versionName            : version_Name,
+            versionCode            : version_Code,
+            //渠道信息详见APP下Channel_Info.txt文件
+            buildTime              : new Date().format("yyyyMMdd"), //编译日期
+            computer               : Math.abs((System.getProperty("user.name") + "@"
+                    + InetAddress.localHost.hostName).hashCode()),
+            javaSourceCompatibility: JavaVersion.VERSION_1_8,
+            javaTargetCompatibility: JavaVersion.VERSION_1_8
+    ]
+
+    libsVersion = [
+            //support
+            androidx = "1.0.2",
+            constraintLayoutVersion = "1.1.3",
+
+            //kotlin
+            kotlinVersion = "1.3.41",
+
+            //anko
+            ankoVersion = "0.10.8",
+
+            //Glide
+            glideVersion = "4.9.0",
+
+            //kodein
+            kodeinVersion = "6.3.3",
+
+            //Rx
+            rxJavaVersion = "2.1.1",
+            rxAndroidVersion = "2.1.0",
+            rxKotlinVersion = "2.3.0",
+            rxLifecycleVersion = "3.0.0",
+            //rxPermission
+            rxPermissionVersion = "0.10.2",
+            //RxDownload
+            rxDownloadVersion = "1.2.7",
+            //RxBinding
+            rxBindingVersion = "2.1.1",
+            //RxCache
+            rxCacheVersion = "1.8.3-2.x",
+            rxCacheGsonVersion = "0.0.4",
+            //autodispose
+            autodisposeVersion = '1.2.0',
+
+            //lifecycle
+            lifecycleVersion = "1.1.1",
+
+            //okhttp
+            okhttp3Version = "3.10.0",
+
+            //retrofit
+            retrofitVersion = "2.6.0",
+            retrofitRxJavaAdapterVersion = "2.6.0",
+            retrofitGsonConverterVersion = "2.6.0",
+            retrofitScalarsConverterVersion = "2.6.0",
+
+            //gosn
+            gsonVersion = "2.8.5",
+
+            //baseRecycleViewAdapter
+            baseRecycleViewAdapterVersion = "2.9.46",
+
+            //multidex
+            multidexVersion = "1.0.3",
+
+            //mmkv
+            mmkvVersion = "1.0.22",
+
+            //objectBox
+            objectBoxVersion = "2.3.1",
+
+            //utilcode
+            utilcodeVersion = "1.24.6",
+
+            //leakcanary
+            leakcanaryVersion = "2.0-alpha-3",
+
+            //blockcanary
+            blockcanaryVersion = "1.5.0",
+
+            //stetho
+            stethoVersion = "1.5.1",
+
+            //bugly
+            buglyCrashreportVersion = "2.6.6.1",
+            buglyNativecrashreportVersion = "3.3.1",
+
+            agentweb = "4.0.2",
+            //umeng log
+            umengLogVersion = "7.5.3",
+            //epoxy 不能用最新版本，最新版本使用的是androidx
+            epoxyVersion = "3.7.0",
+
+            //mvrx
+            mvrxVersion = "1.0.2"
+    ]
+
+
+    dependencies = [
+            //support
+            appcompat_v7                  : "androidx.appcompat:appcompat:$rootProject.androidx",
+            design                        : "com.google.android.material:material:1.0.0",
+            core_ktx                      : "androidx.core:core-ktx:$rootProject.androidx",
+            recycleview                   : "androidx.recyclerview:recyclerview:1.0.0",
+            cardview                      : "androidx.cardview:cardview:1.0.0",
+            constraintLayout              : "androidx.constraintlayout:constraintlayout:$rootProject.constraintLayoutVersion",
+
+            //kotlin
+            kotlin_jdk                    : "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$rootProject.kotlinVersion",
+            //glide
+            //https://github.com/bumptech/glide 目前最新是4.9.0
+            glide                         : "com.github.bumptech.glide:glide:$rootProject.glideVersion",
+            glide_okhttp                  : "com.github.bumptech.glide:okhttp3-integration:$rootProject.glideVersion",
+            glide_compiler                : "com.github.bumptech.glide:compiler:$rootProject.glideVersion",
+            //https://github.com/zjupure/GlideWebpDecoder
+//            glide_webp                    : "com.zlc.glide:webpdecoder:1.3.$rootProject.glideVersion",
+
+            //kodein
+            //https://github.com/Kodein-Framework/Kodein-DI
+            kodein                        : "org.kodein.di:kodein-di-generic-jvm:$rootProject.kodeinVersion",
+            kodein_android                : "org.kodein.di:kodein-di-framework-android-core:$rootProject.kodeinVersion",
+            kodein_android_support        : "org.kodein.di:kodein-di-framework-android-x:$rootProject.kodeinVersion",
+
+            //Rx
+            //https://github.com/ReactiveX/RxJava
+            rxjava2                       : "io.reactivex.rxjava2:rxandroid:2.1.1",
+            //https://github.com/ReactiveX/RxAndroid
+            rxAndroid                     : "io.reactivex.rxjava2:rxandroid:$rootProject.rxAndroidVersion",
+            //https://github.com/ReactiveX/RxKotlin
+            rxKotlin                      : "io.reactivex.rxjava2:rxkotlin:$rootProject.rxKotlinVersion",
+            //https://github.com/trello/RxLifecycle
+            rxlifecycle3                  : "com.trello.rxlifecycle3:rxlifecycle:$rootProject.rxLifecycleVersion",
+            rxlifecycle3_android          : "com.trello.rxlifecycle3:rxlifecycle-android:$rootProject.rxLifecycleVersion",
+            rxlifecycle3_android_lifecycle: "com.trello.rxlifecycle3:rxlifecycle-android-lifecycle:$rootProject.rxLifecycleVersion",
+            rxlifecycle3_components       : "com.trello.rxlifecycle3:rxlifecycle-components:$rootProject.rxLifecycleVersion",
+            rxlifecycle3_kotlin           : "com.trello.rxlifecycle3:rxlifecycle-kotlin:$rootProject.rxLifecycleVersion",
+            rxlifecycle3_kotlin_lifecycle : "com.trello.rxlifecycle3:rxlifecycle-android-lifecycle-kotlin:$rootProject.rxLifecycleVersion",
+            //https://github.com/tbruyelle/RxPermissions
+            rxpermission                  : "com.github.tbruyelle:rxpermissions:$rootProject.rxPermissionVersion",
+            //https://github.com/ssseasonnn/RxDownload
+            rxDownload                    : "zlc.season:rxdownload3:$rootProject.rxDownloadVersion",
+            //https://github.com/JakeWharton/RxBinding
+            rxBinding                     : "com.jakewharton.rxbinding3:rxbinding:3.0.0-alpha2",
+            //https://github.com/VictorAlbertos/RxCache
+            rxCache                       : "com.github.VictorAlbertos.RxCache:runtime:$rootProject.rxCacheVersion",
+            rxCache_gson                  : "com.github.VictorAlbertos.Jolyglot:gson:$rootProject.rxCacheGsonVersion",
+            //https://github.com/uber/AutoDispose
+            autodispose                   : "com.uber.autodispose:autodispose-android:$rootProject.autodisposeVersion",
+            autodispose_ktx               : "com.uber.autodispose:autodispose-android-ktx:$rootProject.autodisposeVersion",
+            autodispose_archs_ktx         : "com.uber.autodispose:autodispose-android-archcomponents-ktx:$rootProject.autodisposeVersion",
+
+            //lifecycle
+            lifecycle                     : "androidx.lifecycle:lifecycle-runtime:2.0.0",
+            lifecycle_common_java8        : "androidx.lifecycle:lifecycle-common-java8:2.0.0",
+            lifecycle_viewmodel           : "androidx.lifecycle:lifecycle-viewmodel:2.0.0",
+            lifecycle_livedata            : "androidx.lifecycle:lifecycle-livedata:2.0.0",
+            lifecycle_reactivestreams     : "androidx.lifecycle:lifecycle-reactivestreams:2.0.0",
+            lifecycle_processor           : "androidx.lifecycle:lifecycle-compiler:2.0.0",
+
+            //okhttp
+            //https://github.com/square/okhttp
+            okhttp3                       : "com.squareup.okhttp3:okhttp:$rootProject.okhttp3Version",
+            okhttp3_log                   : "com.squareup.okhttp3:logging-interceptor:$rootProject.okhttp3Version",
+
+            //retrofit
+            //https://github.com/square/retrofit
+            retrofit                      : "com.squareup.retrofit2:retrofit:$rootProject.retrofitVersion",
+            retrofit_adapter_rxjava2      : "com.squareup.retrofit2:adapter-rxjava2:$rootProject.retrofitRxJavaAdapterVersion",
+            retrofit_converter_gson       : "com.squareup.retrofit2:converter-gson:$rootProject.retrofitGsonConverterVersion",
+            retrofit_converter_scalars    : "com.squareup.retrofit2:converter-scalars:$rootProject.retrofitScalarsConverterVersion",
+
+            //baseRecycleViewAdapter
+            //https://github.com/CymChad/BaseRecyclerViewAdapterHelper
+            baseRecycleViewAdapter        : "com.github.CymChad:BaseRecyclerViewAdapterHelper:$rootProject.baseRecycleViewAdapterVersion",
+
+            //gson
+            //https://github.com/google/gson
+            gson                          : "com.google.code.gson:gson:$rootProject.gsonVersion",
+
+            //multidex
+            multidex                      : "androidx.multidex:multidex:2.0.0",
+            //mmkv
+            //https://github.com/Tencent/MMKV
+            mmkv                          : "com.tencent:mmkv:$rootProject.mmkvVersion",
+
+            //ObjectBox
+            //https://github.com/objectbox/objectbox-java
+            objectBox_RxJava              : "io.objectbox:objectbox-rxjava:$rootProject.objectBoxVersion",
+            objectBox_Kotlin              : "io.objectbox:objectbox-kotlin:$rootProject.objectBoxVersion",
+
+            //utilcode
+            //https://github.com/Blankj/AndroidUtilCode
+            utilcode                      : "com.blankj:utilcode:$rootProject.utilcodeVersion",
+
+            //autosize
+            //https://github.com/JessYanCoding/AndroidAutoSize
+            autosize                      : "me.jessyan:autosize:1.1.2",
+
+            //leakcanary
+            //https://github.com/square/leakcanary
+            leakcanary_debug              : "com.squareup.leakcanary:leakcanary-android:$rootProject.leakcanaryVersion",
+
+            //blockcanary
+            //https://github.com/markzhai/AndroidPerformanceMonitor
+            blockcanary_debug             : "com.github.markzhai:blockcanary-android:$rootProject.blockcanaryVersion",
+            blockcanary_release           : "com.github.markzhai:blockcanary-no-op:$rootProject.blockcanaryVersion",
+
+            //stetho
+            //https://github.com/facebook/stetho
+            stetho                        : "com.facebook.stetho:stetho:$rootProject.stethoVersion",
+            stetho_okhttp                 : "com.facebook.stetho:stetho-okhttp3:$rootProject.stethoVersion",
+
+            //bugly
+            //https://cas.bugly.qq.com
+            bugly                         : "com.tencent.bugly:crashreport:$rootProject.buglyCrashreportVersion",
+            bugly_native                  : "com.tencent.bugly:nativecrashreport:$rootProject.buglyNativecrashreportVersion",
+
+            agentweb                      : "com.just.agentweb:agentweb:$rootProject.agentweb",
+            //友盟统计 https://developer.umeng.com/docs/66632/detail/66889
+            umenglog                      : "com.umeng.sdk:analytics:$rootProject.umengLogVersion",
+            //mvrx
+            //https://github.com/airbnb/MvRx
+            mvrx                          : "com.airbnb.android:mvrx:$rootProject.mvrxVersion",
+
+            //epoxy
+            //https://github.com/airbnb/epoxy
+            epoxy                         : "com.airbnb.android:epoxy:$rootProject.epoxyVersion",
+            epoxyProcessor                : "com.airbnb.android:epoxy-processor:$rootProject.epoxyVersion"
+    ]
+}
