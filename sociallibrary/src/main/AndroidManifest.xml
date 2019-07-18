@@ -1,7 +1,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.yzy.sociallib">
-
-  <application>
+    <!-- 用于调用 JNI -->
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <application>
     <!--支付宝支付-->
     <activity
         android:name="com.alipay.sdk.app.H5PayActivity"
@@ -53,5 +54,6 @@
         android:exported="true"
         android:targetActivity="com.yzy.sociallib.handler.wx.WXPayCallbackActivity"
         android:theme="@android:style/Theme.Translucent" />
+        
   </application>
 </manifest>
