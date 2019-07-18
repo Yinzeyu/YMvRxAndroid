@@ -1,30 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-  <style name="AppSplash" parent="Theme.AppCompat.Light.NoActionBar">
-    <!-- 设置启动背景透明 -->
-    <item name="android:windowIsTranslucent">true</item>
-    <!-- 设置启动不要Title -->
-    <item name="android:windowNoTitle">true</item>
-  </style>
+    <style name="AppSplash" parent="Theme.AppCompat.Light.NoActionBar">
+        <!-- 设置启动背景透明 -->
+        <item name="android:windowIsTranslucent">true</item>
+        <!-- 设置启动不要Title -->
+        <item name="android:windowNoTitle">true</item>
+    </style>
 
-  <!--充值取消白屏问题-->
-  <style name="Theme.Mike" parent="AppSplash">
-    <item name="android:windowAnimationStyle">@style/Animation</item>
-  </style>
+    <!--充值取消白屏问题-->
+    <style name="Theme.Mike" parent="AppSplash">
+        <item name="android:windowAnimationStyle">@style/Animation</item>
+    </style>
 
-  <style name="Animation">
-    <item name="android:activityOpenEnterAnimation">@null</item>
-    <item name="android:activityOpenExitAnimation">@null</item>
-    <item name="android:activityCloseEnterAnimation">@null</item>
-    <item name="android:activityCloseExitAnimation">@null</item>
-    <item name="android:taskOpenEnterAnimation">@null</item>
-    <item name="android:taskOpenExitAnimation">@null</item>
-    <item name="android:taskCloseEnterAnimation">@null</item>
-    <item name="android:taskCloseExitAnimation">@null</item>
-    <item name="android:taskToFrontEnterAnimation">@null</item>
-    <item name="android:taskToFrontExitAnimation">@null</item>
-    <item name="android:taskToBackEnterAnimation">@null</item>
-    <item name="android:taskToBackExitAnimation">@null</item>
-  </style>
+    <style name="Animation">
+        <item name="android:activityOpenEnterAnimation">@null</item>
+        <item name="android:activityOpenExitAnimation">@null</item>
+        <item name="android:activityCloseEnterAnimation">@null</item>
+        <item name="android:activityCloseExitAnimation">@null</item>
+        <item name="android:taskOpenEnterAnimation">@null</item>
+        <item name="android:taskOpenExitAnimation">@null</item>
+        <item name="android:taskCloseEnterAnimation">@null</item>
+        <item name="android:taskCloseExitAnimation">@null</item>
+        <item name="android:taskToFrontEnterAnimation">@null</item>
+        <item name="android:taskToFrontExitAnimation">@null</item>
+        <item name="android:taskToBackEnterAnimation">@null</item>
+        <item name="android:taskToBackExitAnimation">@null</item>
+    </style>
 </resources>
