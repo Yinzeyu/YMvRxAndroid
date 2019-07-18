@@ -74,6 +74,23 @@
         <meta-data
             android:name="com.huawei.hms.client.appid"
             android:value="appid=xxxxxx" />
+
+
+        <activity
+            android:name="com.tencent.tauth.AuthActivity"
+            android:launchMode="singleTask"
+            android:noHistory="true">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <!-- TODO 修改scheme值-->
+                <!--<data android:scheme="tencent1106880993"/>-->
+                <data android:scheme="tencent1111111"/>
+            </intent-filter>
+        </activity>
     </application>
 
 </manifest>

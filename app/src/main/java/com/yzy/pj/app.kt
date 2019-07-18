@@ -4,6 +4,10 @@ import com.yzy.commonlibrary.CommonApplication
 import com.yzy.commonlibrary.constants.StringConstants
 import com.yzy.commonlibrary.repository.blackRepositoryModel
 import com.yzy.pj.push.PushModel
+import com.yzy.sociallib.AimySocial
+import com.yzy.sociallib.config.PlatformType
+import com.yzy.sociallib.entity.platform.CommPlatConfigBean
+import com.yzy.sociallib.entity.platform.SinaPlatConfigBean
 import org.kodein.di.Kodein
 
 class app : CommonApplication() {
@@ -50,4 +54,20 @@ class app : CommonApplication() {
         builder.import(blackRepositoryModel)
     }
 
+    private fun initSocial() {
+        AimySocial.init(
+            applicationContext,
+            CommPlatConfigBean(PlatformType.WEIXIN, ""),  // 微信key
+            CommPlatConfigBean(PlatformType.QQ, appkey = ""), // qqkey
+            SinaPlatConfigBean(
+                PlatformType.SINA_WEIBO,
+                appkey = "1472835731",
+                redirectUrl = "http://www.meda.cc",
+                scope = (
+                        "email,direct_messages_read,direct_messages_write,"
+                                + "friendships_groups_read,friendships_groups_write,statuses_to_me_read,"
+                                + "follow_app_official_microblog," + "invitation_write")
+            )
+        )
+    }
 }
