@@ -72,7 +72,7 @@ ext {
             lifecycleVersion = "1.1.1",
 
             //okhttp
-            okhttp3Version = "3.10.0",
+            okhttp3Version = "4.0.1",
 
             //retrofit
             retrofitVersion = "2.6.0",
@@ -104,9 +104,6 @@ ext {
             //blockcanary
             blockcanaryVersion = "1.5.0",
 
-            //stetho
-            stethoVersion = "1.5.1",
-
             //bugly
             buglyCrashreportVersion = "2.6.6.1",
             buglyNativecrashreportVersion = "3.3.1",
@@ -118,7 +115,8 @@ ext {
             epoxyVersion = "3.7.0",
 
             //mvrx
-            mvrxVersion = "1.0.2"
+            mvrxVersion = "1.0.2",
+            lottie = "3.0.7"
     ]
 
 
@@ -159,7 +157,7 @@ ext {
             rxlifecycle3_android          : "com.trello.rxlifecycle3:rxlifecycle-android:$rootProject.rxLifecycleVersion",
             rxlifecycle3_android_lifecycle: "com.trello.rxlifecycle3:rxlifecycle-android-lifecycle:$rootProject.rxLifecycleVersion",
             rxlifecycle3_components       : "com.trello.rxlifecycle3:rxlifecycle-components:$rootProject.rxLifecycleVersion",
-            rxlifecycle3_kotlin           : "com.trello.rxlifecycle3:rxlifecycle-kotlin:$rootProject.rxLifecycleVersion",
+//            rxlifecycle3_kotlin           : "com.trello.rxlifecycle3:rxlifecycle-kotlin:$rootProject.rxLifecycleVersion",
             rxlifecycle3_kotlin_lifecycle : "com.trello.rxlifecycle3:rxlifecycle-android-lifecycle-kotlin:$rootProject.rxLifecycleVersion",
             //https://github.com/tbruyelle/RxPermissions
             rxpermission                  : "com.github.tbruyelle:rxpermissions:$rootProject.rxPermissionVersion",
@@ -176,12 +174,12 @@ ext {
             autodispose_archs_ktx         : "com.uber.autodispose:autodispose-android-archcomponents-ktx:$rootProject.autodisposeVersion",
 
             //lifecycle
-            lifecycle                     : "androidx.lifecycle:lifecycle-runtime:2.0.0",
-            lifecycle_common_java8        : "androidx.lifecycle:lifecycle-common-java8:2.0.0",
-            lifecycle_viewmodel           : "androidx.lifecycle:lifecycle-viewmodel:2.0.0",
-            lifecycle_livedata            : "androidx.lifecycle:lifecycle-livedata:2.0.0",
-            lifecycle_reactivestreams     : "androidx.lifecycle:lifecycle-reactivestreams:2.0.0",
-            lifecycle_processor           : "androidx.lifecycle:lifecycle-compiler:2.0.0",
+//            lifecycle                     : "androidx.lifecycle:lifecycle-runtime:2.0.0",
+//            lifecycle_common_java8        : "androidx.lifecycle:lifecycle-common-java8:2.0.0",
+//            lifecycle_viewmodel           : "androidx.lifecycle:lifecycle-viewmodel:2.0.0",
+//            lifecycle_livedata            : "androidx.lifecycle:lifecycle-livedata:2.0.0",
+//            lifecycle_reactivestreams     : "androidx.lifecycle:lifecycle-reactivestreams:2.0.0",
+//            lifecycle_processor           : "androidx.lifecycle:lifecycle-compiler:2.0.0",
 
             //okhttp
             //https://github.com/square/okhttp
@@ -224,18 +222,7 @@ ext {
 
             //leakcanary
             //https://github.com/square/leakcanary
-            leakcanary_debug              : "com.squareup.leakcanary:leakcanary-android:$rootProject.leakcanaryVersion",
-
-            //blockcanary
-            //https://github.com/markzhai/AndroidPerformanceMonitor
-            blockcanary_debug             : "com.github.markzhai:blockcanary-android:$rootProject.blockcanaryVersion",
-            blockcanary_release           : "com.github.markzhai:blockcanary-no-op:$rootProject.blockcanaryVersion",
-
-            //stetho
-            //https://github.com/facebook/stetho
-            stetho                        : "com.facebook.stetho:stetho:$rootProject.stethoVersion",
-            stetho_okhttp                 : "com.facebook.stetho:stetho-okhttp3:$rootProject.stethoVersion",
-
+            leakcanary_debug              : "com.squareup.leakcanary:leakcanary-android:2.0-alpha-3",
             //bugly
             //https://cas.bugly.qq.com
             bugly                         : "com.tencent.bugly:crashreport:$rootProject.buglyCrashreportVersion",
@@ -251,6 +238,9 @@ ext {
             //epoxy
             //https://github.com/airbnb/epoxy
             epoxy                         : "com.airbnb.android:epoxy:$rootProject.epoxyVersion",
-            epoxyProcessor                : "com.airbnb.android:epoxy-processor:$rootProject.epoxyVersion"
+            epoxyProcessor                : "com.airbnb.android:epoxy-processor:$rootProject.epoxyVersion",
+            //lottie，2.8.0以上是androidx,
+            lottie                : "com.airbnb.android:lottie:$rootProject.lottie"
+
     ]
 }

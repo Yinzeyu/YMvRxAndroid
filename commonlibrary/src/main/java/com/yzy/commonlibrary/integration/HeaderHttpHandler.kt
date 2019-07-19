@@ -30,7 +30,7 @@ internal class HeaderHttpHandler : GlobeHttpHandler {
         for ((key, value) in staticHeaders) {
             builder.addHeader(key, value)
         }
-        val url = request.url().toString()
+        val url = request.url.toString()
         var noAddToken = false
         for (i in 0 until listNoAddToken.size) {
             if (url.contains(listNoAddToken[i])) {

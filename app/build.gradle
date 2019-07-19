@@ -114,6 +114,8 @@ dependencies {
     implementation project(":sociallibrary")
     implementation project(":push")
     kapt 'com.airbnb.android:epoxy-processor:3.7.0'
+    debugImplementation rootProject.ext.dependencies.leakcanary_debug
+
 }
 //放在这省的忘
 //@SuppressLint("ParcelCreator")

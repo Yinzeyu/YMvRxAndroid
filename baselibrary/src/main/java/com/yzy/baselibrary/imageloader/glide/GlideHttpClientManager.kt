@@ -2,9 +2,13 @@ package com.yzy.baselibrary.imageloader.glide
 
 import android.text.TextUtils
 import com.yzy.baselibrary.http.ssl.SSLManager
+import okhttp3.Interceptor
 import okhttp3.OkHttpClient
+import okhttp3.Response
 import java.util.*
 import java.util.concurrent.TimeUnit
+import java.io.IOException
+
 
 /**
  * description: Glide配置的OkHttpClick.
@@ -30,19 +34,7 @@ object GlideHttpClientManager {
     val okHttpClient: OkHttpClient
         get() {
             val builder = OkHttpClient.Builder()
-            builder.addNetworkInterceptor { chain ->
-                val request = chain.request()
-                val response = chain.proceed(request)
-                response.newBuilder()
-                    .body(
-                        ProgressResponseBody(
-                            request.url().toString(),
-                            LISTENER,
-                            response.body()!!
-                        )
-                    )
-                    .build()
-            }
+            builder.addNetworkInterceptor(NetworkInterceptor())
             builder.sslSocketFactory(
                 SSLManager.createSSLSocketFactory(),
                 SSLManager.createX509TrustManager()
@@ -68,8 +60,26 @@ object GlideHttpClientManager {
     }
 
     fun getProgressListener(url: String): OnImageProgressListener? {
-        return if (TextUtils.isEmpty(url) ||  listenersMap.isEmpty()) {
+        return if (TextUtils.isEmpty(url) || listenersMap.isEmpty()) {
             null
         } else listenersMap[url]
+    }
+
+    class NetworkInterceptor : Interceptor {
+        @Throws(IOException::class)
+        override fun intercept(chain: Interceptor.Chain): Response {
+            val request = chain.request()
+            val response = chain.proceed(request)
+            response.newBuilder()
+                .body(
+                    ProgressResponseBody(
+                        request.url.toString(),
+                        LISTENER,
+                        response.body!!
+                    )
+                )
+                .build()
+            return response
+        }
     }
 }

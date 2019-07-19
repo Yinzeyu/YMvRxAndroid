@@ -31,7 +31,7 @@ class ProgressResponseBody internal constructor(
 
     override fun source(): BufferedSource {
         if (bufferedSource == null) {
-            bufferedSource = Okio.buffer(source(responseBody.source()))
+            bufferedSource = source(responseBody.source()).buffer()
         }
         return bufferedSource!!
     }

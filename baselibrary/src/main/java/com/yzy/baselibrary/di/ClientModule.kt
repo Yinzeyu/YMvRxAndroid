@@ -73,13 +73,16 @@ class ClientModule {
                     builder.addInterceptor(it)
                 }
                 if (BuildConfig.DEBUG) {//log拦截
-                    builder.addInterceptor(HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY))//log
+                    val httpLoggingInterceptor = HttpLoggingInterceptor()
+                    builder.addInterceptor(httpLoggingInterceptor.apply {
+                        httpLoggingInterceptor.level = HttpLoggingInterceptor.Level.BODY
+                    })//log
                     //测试服忽略证书校验
                     builder.sslSocketFactory(
                         SSLManager.createSSLSocketFactory(),
                         SSLManager.createX509TrustManager()
                     )
-                    builder.hostnameVerifier { _, _ -> true }
+                    builder.hostnameVerifier(SSLManager.hostnameVerifier)
                 }
                 builder.build()
             }

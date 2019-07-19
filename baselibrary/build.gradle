@@ -54,10 +54,10 @@ dependencies {
         exclude module: 'lifecycle'
         exclude module: 'rxlifecycle'
     }
-    api(rootProject.ext.dependencies.rxlifecycle3_kotlin) {
-        exclude module: 'rxlifecycle'
-        exclude module: 'lifecycle'
-    }
+//    api(rootProject.ext.dependencies.rxlifecycle3_kotlin) {
+//        exclude module: 'rxlifecycle'
+//        exclude module: 'lifecycle'
+//    }
     api(rootProject.ext.dependencies.rxlifecycle3_kotlin_lifecycle) {
         exclude module: 'lifecycle'
         exclude module: 'rxlifecycle'

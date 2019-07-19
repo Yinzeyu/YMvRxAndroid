@@ -4,6 +4,7 @@ import android.os.Environment
 import com.yzy.baselibrary.app.BaseApplication
 import com.yzy.baselibrary.http.GlobeHttpHandler
 import okhttp3.HttpUrl
+import okhttp3.HttpUrl.Companion.toHttpUrlOrNull
 import okhttp3.Interceptor
 import org.kodein.di.Kodein
 import org.kodein.di.generic.bind
@@ -72,7 +73,7 @@ class GlobeConfigModule private constructor(builder: Builder) {
             if (baseUrl.isBlank()) {
                 throw IllegalArgumentException("baseUrl can not be empty")
             }
-            this.baseUrl = HttpUrl.parse(baseUrl)
+            this.baseUrl = baseUrl.toHttpUrlOrNull()
             return this
         }
 
