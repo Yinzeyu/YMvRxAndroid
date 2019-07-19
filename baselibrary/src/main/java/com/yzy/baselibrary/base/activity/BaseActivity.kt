@@ -8,6 +8,8 @@ import android.view.View
 import android.view.WindowManager
 import com.blankj.utilcode.util.BarUtils
 import com.trello.rxlifecycle3.components.support.RxAppCompatActivity
+import com.yzy.baselibrary.base.dialog.ActionLoadingDialog
+import com.yzy.baselibrary.base.dialog.LoadingDialog
 import com.yzy.baselibrary.extention.screenHeight
 import com.yzy.baselibrary.extention.screenWidth
 import com.yzy.baselibrary.extention.setStatusColor
@@ -18,6 +20,8 @@ import org.kodein.di.android.retainedSubKodein
 import org.kodein.di.generic.kcontext
 
 abstract class BaseActivity : RxAppCompatActivity(), KodeinAware {
+    private var loadingDialog: LoadingDialog? = null
+    private var actionLoadingDialog: ActionLoadingDialog? = null
     override val kodeinTrigger = KodeinTrigger()
     override val kodeinContext: KodeinContext<*> = kcontext(this)
     override val kodein by retainedSubKodein(kodein(), copy = Copy.All) {
@@ -64,5 +68,52 @@ abstract class BaseActivity : RxAppCompatActivity(), KodeinAware {
 
     protected open fun initKodein(builder: Kodein.MainBuilder) {
     }
+
+    open fun showLoading(style: (LoadingDialog.() -> Unit)? = null) {
+        if (supportFragmentManager.findFragmentByTag(TAG_FRAGMENT_LOADING) != null
+            || supportFragmentManager.findFragmentByTag(TAG_FRAGMENT_LOADING_ACTION) != null
+        ) {
+            //loading已经在显示中
+            return
+        }
+        if (loadingDialog == null) {
+            loadingDialog = LoadingDialog.newInstance()
+        }
+        style?.let {
+            loadingDialog?.apply(it)
+        }
+        loadingDialog?.show(supportFragmentManager, TAG_FRAGMENT_LOADING)
+    }
+
+    open fun showActionLoading(
+        tips: String? = null,
+        style: (ActionLoadingDialog.() -> Unit)? = null
+    ) {
+        if (supportFragmentManager.findFragmentByTag(TAG_FRAGMENT_LOADING_ACTION) != null ||
+            supportFragmentManager.findFragmentByTag(TAG_FRAGMENT_LOADING) != null
+        ) {
+            //loading已经在显示中
+            return
+        }
+        if (actionLoadingDialog == null) {
+            actionLoadingDialog = ActionLoadingDialog.newInstance()
+        }
+        actionLoadingDialog?.setTips(tips)
+        style?.let {
+            actionLoadingDialog?.apply(it)
+        }
+        actionLoadingDialog?.show(supportFragmentManager, TAG_FRAGMENT_LOADING_ACTION)
+    }
+
+    open fun dismissLoading() {
+        loadingDialog?.dismiss()
+        actionLoadingDialog?.dismiss()
+    }
+
+    companion object {
+        private const val TAG_FRAGMENT_LOADING = "LoadingDialog"
+        private const val TAG_FRAGMENT_LOADING_ACTION = "ActionLoadingDialog"
+    }
+
 
 }

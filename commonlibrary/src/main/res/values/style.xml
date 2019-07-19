@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-
+    <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@android:color/black</item>
@@ -10,12 +10,16 @@
         <item name="android:splitMotionEvents">false</item>
         <!--背景色-->
         <item name="android:windowBackground">@android:color/white</item>
+        <!--光标等控件的选中状态颜色-->
+        <item name="android:colorControlActivated">#30D18B</item>
         <!-- 设置无标题-->
         <item name="windowNoTitle">true</item>
+        <item name="android:includeFontPadding">false</item>
     </style>
 
     <style name="SplashTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <item name="android:statusBarColor">@android:color/transparent</item>
+
         <!--背景色-->
         <item name="android:windowBackground">@drawable/splash_bg</item>
     </style>

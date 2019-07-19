@@ -11,6 +11,9 @@ import androidx.lifecycle.LifecycleOwner
 import com.blankj.utilcode.util.BarUtils
 import com.trello.rxlifecycle3.components.support.RxFragment
 import com.yzy.baselibrary.app.BaseApplication
+import com.yzy.baselibrary.base.activity.BaseActivity
+import com.yzy.baselibrary.base.dialog.ActionLoadingDialog
+import com.yzy.baselibrary.base.dialog.LoadingDialog
 import com.yzy.baselibrary.extention.screenHeight
 import com.yzy.baselibrary.extention.screenWidth
 import org.kodein.di.Kodein
@@ -25,6 +28,7 @@ import org.kodein.di.generic.kcontext
  *@author: yzy.
  */
 abstract class BaseFragment : RxFragment(), KodeinAware, LifecycleOwner {
+    private var loadingDialog: LoadingDialog? = null
 
     /** 屏幕宽度  */
     var mScreenWidth: Int = 0
@@ -112,6 +116,7 @@ abstract class BaseFragment : RxFragment(), KodeinAware, LifecycleOwner {
         isFirst = false
         initData()
     }
+
     /**
      * 需要在onCreateView中调用的方法
      */
@@ -124,6 +129,7 @@ abstract class BaseFragment : RxFragment(), KodeinAware, LifecycleOwner {
      */
     protected open fun initKodein(builder: Kodein.MainBuilder) {
     }
+
     /**
      * 初始化View
      */
@@ -133,4 +139,39 @@ abstract class BaseFragment : RxFragment(), KodeinAware, LifecycleOwner {
      * 初始化数据
      */
     protected abstract fun initData()
+
+    protected open fun showLoading(style: (LoadingDialog.() -> Unit)? = null) {
+        if (mActivity is BaseActivity) {
+            (mActivity as BaseActivity).showLoading(style)
+        }
+    }
+
+    protected open fun showActionLoading(
+        tips: String? = null,
+        style: (ActionLoadingDialog.() -> Unit)? = null
+    ) {
+        if (mActivity is BaseActivity) {
+            (mActivity as BaseActivity).showActionLoading(tips, style)
+        }
+    }
+
+    protected open fun dismissLoading() {
+        if (mActivity is BaseActivity) {
+            (mActivity as BaseActivity).dismissLoading()
+        }
+    }
+
+    /**
+     * 给布局设置状态栏高度的TopMargin
+     */
+    fun setTopStatusBarPadding() {
+        rootView?.let {
+            it.setPadding(
+                it.paddingLeft,
+                it.paddingTop + mStatusBarHeight,
+                it.paddingRight,
+                it.paddingBottom
+            )
+        }
+    }
 }

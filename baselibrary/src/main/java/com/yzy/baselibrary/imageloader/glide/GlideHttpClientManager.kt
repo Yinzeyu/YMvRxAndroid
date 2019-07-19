@@ -68,7 +68,7 @@ object GlideHttpClientManager {
     }
 
     fun getProgressListener(url: String): OnImageProgressListener? {
-        return if (TextUtils.isEmpty(url) || this.listenersMap == null || listenersMap.isEmpty()) {
+        return if (TextUtils.isEmpty(url) ||  listenersMap.isEmpty()) {
             null
         } else listenersMap[url]
     }

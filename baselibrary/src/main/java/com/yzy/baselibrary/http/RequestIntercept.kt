@@ -35,7 +35,7 @@ class RequestIntercept @Inject constructor(private val mHandler: GlobeHttpHandle
         val responseBody = originalResponse.body()
         val source = responseBody!!.source()
         source.request(java.lang.Long.MAX_VALUE) // Buffer the entire body.
-        val buffer = source.buffer()
+        val buffer = source.buffer
 
         //获取content的压缩类型
         val encoding = originalResponse

@@ -332,9 +332,7 @@ private fun setMiUIStatusBarTextColor(activity: Activity, isBlack: Boolean) {
     } catch (e: Exception) {
         //            Logger.e("不是MIUI");
     }
-
 }
-
 /**
  * 魅族设置状态栏字体颜色
  *

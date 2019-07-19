@@ -19,6 +19,7 @@ android {
         exclude 'META-INF/NOTICE.txt'
     }
 
+    sourceSets { main { assets.srcDirs = ['src/main/assets', 'src/main/assets/'] } }
 }
 dependencies {
     api fileTree(dir: 'libs', include: ['*.jar'])
@@ -32,7 +33,7 @@ dependencies {
     api rootProject.ext.dependencies.core_ktx
     api rootProject.ext.dependencies.constraintLayout
 
-    api(rootProject.ext.dependencies.recycleview)   { exclude group: 'android.arch.lifecycle' }
+    api(rootProject.ext.dependencies.recycleview) { exclude group: 'android.arch.lifecycle' }
 
     api(rootProject.ext.dependencies.rxlifecycle3) {
         exclude module: 'rxjava'
@@ -150,5 +151,7 @@ dependencies {
     //epoxy
     api rootProject.ext.dependencies.epoxy
     kapt rootProject.ext.dependencies.epoxyProcessor
+
+    api rootProject.ext.dependencies.lottie
 
 }

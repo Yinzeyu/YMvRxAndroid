@@ -2,8 +2,11 @@ package com.yzy.pj
 
 
 import android.content.Intent
+import android.graphics.Color
 import com.yzy.baselibrary.base.activity.BaseActivity
 import com.yzy.baselibrary.extention.load
+import com.yzy.baselibrary.extention.setStatusColor
+import com.yzy.baselibrary.extention.uiMode2FullScreen
 import com.yzy.baselibrary.utils.SchedulersUtil
 import io.reactivex.Flowable
 import io.reactivex.disposables.Disposable
@@ -12,16 +15,22 @@ import java.util.concurrent.TimeUnit
 
 
 class SplashActivity : BaseActivity() {
-    override fun layoutResId(): Int =R.layout.activity_splash;
+    override fun layoutResId(): Int = R.layout.activity_splash;
 
     override fun initView() {
-        iv_sp.load("https://up.enterdesk.com/edpic_source/66/6d/c7/666dc7648df7e11fcd92710185610927.jpg",0)
+        iv_sp.load(
+            "https://up.enterdesk.com/edpic_source/66/6d/c7/666dc7648df7e11fcd92710185610927.jpg",
+            0
+        )
     }
 
     override fun initDate() {
         getCheckSmsCode()
     }
 
+    override fun initStatus() {
+        uiMode2FullScreen(true)
+    }
 
     private val mCountdown = 6L
     var mSmsDisposable: Disposable? = null
