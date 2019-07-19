@@ -105,7 +105,7 @@ ext {
             blockcanaryVersion = "1.5.0",
 
             //bugly
-            buglyCrashreportVersion = "2.6.6.1",
+            buglyCrashreportVersion = "3.0.0",
             buglyNativecrashreportVersion = "3.3.1",
 
             agentweb = "4.0.2",
@@ -172,14 +172,6 @@ ext {
             autodispose                   : "com.uber.autodispose:autodispose-android:$rootProject.autodisposeVersion",
             autodispose_ktx               : "com.uber.autodispose:autodispose-android-ktx:$rootProject.autodisposeVersion",
             autodispose_archs_ktx         : "com.uber.autodispose:autodispose-android-archcomponents-ktx:$rootProject.autodisposeVersion",
-
-            //lifecycle
-//            lifecycle                     : "androidx.lifecycle:lifecycle-runtime:2.0.0",
-//            lifecycle_common_java8        : "androidx.lifecycle:lifecycle-common-java8:2.0.0",
-//            lifecycle_viewmodel           : "androidx.lifecycle:lifecycle-viewmodel:2.0.0",
-//            lifecycle_livedata            : "androidx.lifecycle:lifecycle-livedata:2.0.0",
-//            lifecycle_reactivestreams     : "androidx.lifecycle:lifecycle-reactivestreams:2.0.0",
-//            lifecycle_processor           : "androidx.lifecycle:lifecycle-compiler:2.0.0",
 
             //okhttp
             //https://github.com/square/okhttp
