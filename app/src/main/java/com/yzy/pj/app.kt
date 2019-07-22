@@ -1,9 +1,11 @@
 package com.yzy.pj
 
 import com.blankj.utilcode.util.LogUtils
+import com.scwang.smartrefresh.layout.SmartRefreshLayout
 import com.tencent.bugly.crashreport.CrashReport
 import com.yzy.commonlibrary.CommonApplication
 import com.yzy.commonlibrary.constants.StringConstants
+import com.yzy.commonlibrary.refresh.MidaMusicHeader
 import com.yzy.commonlibrary.repository.blackRepositoryModel
 import com.yzy.pj.push.PushModel
 import com.yzy.sociallib.AimySocial
@@ -88,5 +90,14 @@ class app : CommonApplication() {
                                 + "follow_app_official_microblog," + "invitation_write")
             )
         )
+    }
+
+    init{
+        //设置全局的下拉刷新样式
+        //设置全局的Header构建器
+        SmartRefreshLayout.setDefaultRefreshHeaderCreator { context, layout ->
+            layout.setPrimaryColorsId(R.color.white, R.color.c_ff30d18b)//全局设置主题颜色
+            MidaMusicHeader(context)//.setTimeFormat(new DynamicTimeFormat("更新于 %s"));//指定为经典Header，默认是 贝塞尔雷达Header
+        }
     }
 }

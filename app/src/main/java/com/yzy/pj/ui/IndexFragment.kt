@@ -5,6 +5,7 @@ import com.airbnb.epoxy.EpoxyVisibilityTracker
 import com.airbnb.mvrx.Fail
 import com.airbnb.mvrx.Loading
 import com.airbnb.mvrx.Success
+import com.scwang.smartrefresh.layout.SmartRefreshLayout
 import com.yzy.baselibrary.base.MvRxEpoxyController
 import com.yzy.baselibrary.base.fragment.BaseMvRxEpoxyFragment
 import com.yzy.baselibrary.base.simpleController
@@ -13,7 +14,7 @@ import com.yzy.pj.R
 import kotlinx.android.synthetic.main.fragemnt_index.*
 
 class IndexFragment : BaseMvRxEpoxyFragment() {
-
+    lateinit var refreshLayout: SmartRefreshLayout
     override val contentLayout: Int = R.layout.fragemnt_index
     //加载显示loading
     private var needShowLoading = true
@@ -29,7 +30,18 @@ class IndexFragment : BaseMvRxEpoxyFragment() {
                     messageBean(it)
                 }
             }
+            if (state.hasMore) {
+                //有更多数据
+                loadMoreItem {
+                    id("ImdexLoadMore")
+                    tipsText("数据加载中…")//自定义提示文字
+                    onLoadMore {
+                        gankViewModel.loadMoreData(10, 27)
+                    }
+                }
+            }
         }
+
         //加载失败
         when (state.request) {
             is Loading -> {
@@ -41,16 +53,13 @@ class IndexFragment : BaseMvRxEpoxyFragment() {
             }
             is Fail -> {
                 dismissLoading()
+                commListSrl.finishRefresh()
                 //数据加载失败
             }
-            is Success -> dismissLoading()
-        }
-        if (state.request is Loading || state.request is Success) {
-            dismissLoading()
-            //没有评论的显示
-
-        } else if (state.request is Fail) {
-            dismissLoading()
+            is Success -> {
+                dismissLoading()
+                commListSrl.finishRefresh()
+            }
 
         }
     }
@@ -59,7 +68,11 @@ class IndexFragment : BaseMvRxEpoxyFragment() {
     override fun initView(root: View?) {
         commListErv.setController(epoxyController)
         EpoxyVisibilityTracker().attach(commListErv)
-        gankViewModel.getFuli(10, 17)
+        refreshLayout = commListSrl
+        gankViewModel.loadData(10, 17)
+        refreshLayout.setOnRefreshListener {
+            gankViewModel.loadData(10, 17)
+        }
     }
 
 

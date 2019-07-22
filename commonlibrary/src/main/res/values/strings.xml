@@ -1,3 +1,5 @@
 <resources>
     <string name="exit_app">再按一次退出程序</string>
+    <string name="loadMore_tips">数据加载中…</string>
+    <string name="noMore_tips">没有更多了~</string>
 </resources>
