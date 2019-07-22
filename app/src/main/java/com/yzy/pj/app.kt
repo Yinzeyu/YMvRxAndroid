@@ -1,5 +1,7 @@
 package com.yzy.pj
 
+import com.blankj.utilcode.util.LogUtils
+import com.tencent.bugly.crashreport.CrashReport
 import com.yzy.commonlibrary.CommonApplication
 import com.yzy.commonlibrary.constants.StringConstants
 import com.yzy.commonlibrary.repository.blackRepositoryModel
@@ -20,6 +22,8 @@ class app : CommonApplication() {
             StringConstants.Push.XM_RELEASE_SECRET
         )
         PushModel.getPushModel().initHWPush(this)
+        initBug()
+        initLog()
     }
 
     override fun baseInitCreate() {
@@ -52,6 +56,21 @@ class app : CommonApplication() {
     override fun initKodein(builder: Kodein.MainBuilder) {
         super.initKodein(builder)
         builder.import(blackRepositoryModel)
+    }
+
+    private fun initBug() {
+        //初始化key
+        CrashReport.initCrashReport(
+            applicationContext,
+            if (BuildConfig.DEBUG) "8e9eedd10f" else "2ae17bde1d",
+            false
+        )
+    }
+
+    private fun initLog() {
+        LogUtils.getConfig()
+            .setLogSwitch(BuildConfig.DEBUG)//log开关
+            .setGlobalTag("Aimy").stackDeep = 3//log栈
     }
 
     private fun initSocial() {

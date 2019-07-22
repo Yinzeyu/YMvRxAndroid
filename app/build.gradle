@@ -1,9 +1,8 @@
 apply plugin: 'com.android.application'
-
 apply plugin: 'kotlin-android'
-
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
+apply from: 'and_res_guard.gradle'
 //打包时间
 static def releaseTime() {
     return new Date().format("yyyy-MM-dd", TimeZone.getTimeZone("UTC"))
@@ -115,7 +114,7 @@ dependencies {
     implementation project(":push")
     kapt 'com.airbnb.android:epoxy-processor:3.7.0'
     debugImplementation rootProject.ext.dependencies.leakcanary_debug
-
+    implementation 'com.scwang.smartrefresh:SmartRefreshLayout:1.1.0-andx-14'
 }
 //放在这省的忘
 //@SuppressLint("ParcelCreator")

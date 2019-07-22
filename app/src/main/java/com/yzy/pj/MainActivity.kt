@@ -34,7 +34,7 @@ class MainActivity : BaseActivity() {
                 .commitAllowingStateLoss()
         }
         supportFragmentManager.beginTransaction()
-            .hide(indexFragment!!)
+            .hide(indexFragment)
             .show(indexFragment)
             .commitAllowingStateLoss()
     }
