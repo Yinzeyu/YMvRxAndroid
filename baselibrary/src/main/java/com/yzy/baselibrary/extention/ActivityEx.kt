@@ -9,13 +9,16 @@ import android.view.View
 import android.view.ViewTreeObserver
 import android.view.WindowManager
 import android.widget.FrameLayout
+import android.widget.Toast
 import androidx.annotation.ColorInt
+import com.blankj.utilcode.util.ToastUtils
 import com.yzy.baselibrary.utils.NavigationUtils
 import com.yzy.baselibrary.utils.NavigationUtils.Companion.getNavigationBarHeight
 import com.yzy.baselibrary.utils.SchedulersUtil
 import io.reactivex.Flowable
 import io.reactivex.disposables.Disposable
 import java.util.concurrent.TimeUnit
+import kotlin.math.max
 
 /**
  * description :Activity相关扩展：如屏幕宽高、状态栏高度、虚拟导航键高度获取、键盘高度获取、键盘监听
@@ -86,13 +89,17 @@ fun Activity.getHeightNavigationBar(): Int {
     return NavigationUtils.getNavigationBarHeight(this)
 }
 
+fun Context.toast(text: String) = ToastUtils.showLong(text)
+
+fun Context.toast(resId: Int) = ToastUtils.showLong(getString(resId))
+
 /**获取当前键盘高度*/
 fun Activity.getHeightKeyboard(): Int {
     val rect = Rect()
     //使用最外层布局填充，进行测算计算
     window.decorView.getWindowVisibleDisplayFrame(rect)
     val heightDiff = window.decorView.height - (rect.bottom - rect.top)
-    return Math.max(0, heightDiff - mStatusBarHeight - getHeightNavigationBar())
+    return max(0, heightDiff - mStatusBarHeight - getHeightNavigationBar())
 }
 
 /**添加键盘监听*/
@@ -238,57 +245,57 @@ private const val UI_HIDE_NAI = View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
 //----------------------------↓↓↓组合出状态栏和导航键的操作↓↓↓----------------------------//
 /**正常显示1:填充顶部和底部*/
 private const val UI_MERGE_NORMAL_ALL = UI_STABLE or
-    UI_STICKY or
-    UI_LOW_POWER or
-    UI_FILL_TOP or
-    UI_FILL_BOTTOM
+        UI_STICKY or
+        UI_LOW_POWER or
+        UI_FILL_TOP or
+        UI_FILL_BOTTOM
 /**正常显示2:只填充顶部*/
 private const val UI_MERGE_NORMAL_TOP = UI_STABLE or
-    UI_STICKY or
-    UI_LOW_POWER or
-    UI_FILL_TOP
+        UI_STICKY or
+        UI_LOW_POWER or
+        UI_FILL_TOP
 /**全屏填充顶部和底部*/
 private const val UI_MERGE_FULL_SCREEN_ALL = UI_STABLE or
-    UI_STICKY or
-    UI_LOW_POWER or
-    UI_FILL_BOTTOM or
-    UI_FILL_TOP or
-    UI_HIDE_NAI or
-    View.SYSTEM_UI_FLAG_FULLSCREEN
+        UI_STICKY or
+        UI_LOW_POWER or
+        UI_FILL_BOTTOM or
+        UI_FILL_TOP or
+        UI_HIDE_NAI or
+        View.SYSTEM_UI_FLAG_FULLSCREEN
 /**全屏只填充顶部*/
 private const val UI_MERGE_FULL_SCREEN_TOP = UI_STABLE or
-    UI_STICKY or
-    UI_LOW_POWER or
-    UI_FILL_TOP or
-    UI_HIDE_NAI or
-    View.SYSTEM_UI_FLAG_FULLSCREEN
+        UI_STICKY or
+        UI_LOW_POWER or
+        UI_FILL_TOP or
+        UI_HIDE_NAI or
+        View.SYSTEM_UI_FLAG_FULLSCREEN
 /**非全屏填充顶部和底部*/
 private const val UI_MERGE_NO_FULL_SCREEN_ALL = UI_STABLE or
-    UI_FILL_TOP or
-    UI_FILL_BOTTOM
+        UI_FILL_TOP or
+        UI_FILL_BOTTOM
 /**非全屏只填充顶部*/
 private const val UI_MERGE_NO_FULL_SCREEN_TOP = UI_STABLE or
-    UI_FILL_TOP
+        UI_FILL_TOP
 /**隐藏底部并填充顶部和底部*/
 private const val UI_MERGE_HIDE_NAV_FILL_ALL = UI_STABLE or
-    UI_STICKY or
-    UI_FILL_TOP or
-    UI_FILL_BOTTOM or
-    UI_HIDE_NAI
+        UI_STICKY or
+        UI_FILL_TOP or
+        UI_FILL_BOTTOM or
+        UI_HIDE_NAI
 /**隐藏底部并填充底部*/
 private const val UI_MERGE_HIDE_NAV_FILL_TOP = UI_STABLE or
-    UI_STICKY or
-    UI_FILL_TOP or
-    UI_HIDE_NAI
+        UI_STICKY or
+        UI_FILL_TOP or
+        UI_HIDE_NAI
 /**显示底部并填充顶部和底部*/
 private const val UI_MERGE_SHOW_NAV_FILL_ALL = UI_STABLE or
-    UI_STICKY or
-    UI_FILL_TOP or
-    UI_FILL_BOTTOM
+        UI_STICKY or
+        UI_FILL_TOP or
+        UI_FILL_BOTTOM
 /**显示底部并填充底部*/
 private const val UI_MERGE_SHOW_NAV_FILL_TOP = UI_STABLE or
-    UI_STICKY or
-    UI_FILL_TOP
+        UI_STICKY or
+        UI_FILL_TOP
 
 
 /**设置状态栏字体为黑色*/
@@ -333,6 +340,7 @@ private fun setMiUIStatusBarTextColor(activity: Activity, isBlack: Boolean) {
         //            Logger.e("不是MIUI");
     }
 }
+
 /**
  * 魅族设置状态栏字体颜色
  *

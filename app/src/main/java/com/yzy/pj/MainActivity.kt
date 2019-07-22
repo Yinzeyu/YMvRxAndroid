@@ -1,75 +1,62 @@
 package com.yzy.pj
 
-import com.airbnb.epoxy.AsyncEpoxyController
-import com.airbnb.epoxy.EpoxyVisibilityTracker
-import com.airbnb.mvrx.Fail
-import com.airbnb.mvrx.Loading
-import com.airbnb.mvrx.Success
-import com.yzy.baselibrary.base.activity.BaseMvRxEpoxyActivity
-import com.yzy.baselibrary.base.simpleController
+import com.blankj.utilcode.constant.TimeConstants
+import com.blankj.utilcode.util.ActivityUtils
+import com.yzy.baselibrary.base.activity.BaseActivity
+import com.yzy.baselibrary.extention.mContext
 import com.yzy.baselibrary.extention.setStatusBarBlackText
-import com.yzy.commonlibrary.repository.model.GankViewModel
-import com.yzy.pj.ui.atMeMessageItem
-import kotlinx.android.synthetic.main.activity_main.*
+import com.yzy.baselibrary.extention.toast
+import com.yzy.pj.ui.IndexFragment
 
-class MainActivity : BaseMvRxEpoxyActivity() {
-    //加载显示loading
-    private var needShowLoading = true
+class MainActivity : BaseActivity() {
 
-    private val gankViewModel: GankViewModel by lazy {
-        GankViewModel()
-    }
-
-    override fun epoxyController(): AsyncEpoxyController =
-        simpleController(gankViewModel) { state ->
-            if (state.fuliBean.isNotEmpty()) {
-                state.fuliBean.forEach {
-                    atMeMessageItem {
-                        id(it.url)
-                        messageBean(it)
-                    }
-                }
-            }
-            //加载失败
-            when (state.request) {
-                is Loading -> {
-                    if (state.fuliBean.isEmpty() && needShowLoading) {
-                        //没有数据默认为第一次加载
-                        showLoading()
-                        needShowLoading = false
-                    }
-                }
-                is Fail -> {
-                    dismissLoading()
-                    //数据加载失败
-                }
-                is Success -> dismissLoading()
-            }
-            if (state.request is Loading || state.request is Success) {
-                dismissLoading()
-                //没有评论的显示
-
-            } else if (state.request is Fail) {
-                dismissLoading()
-
-            }
-        }
-
+    /** 点击退出的时间  */
+    private var mExitTime: Long = 0
+    private lateinit var indexFragment: IndexFragment
     override fun layoutResId(): Int = R.layout.activity_main;
 
+
     override fun initView() {
-        setStatusBarBlackText()
-        commListErv.setController(epoxyController)
-        EpoxyVisibilityTracker().attach(commListErv)
-        gankViewModel.getFuli(10, 17)
+        finishAllActivity()
     }
 
     override fun initStatus() {
+        setStatusBarBlackText()
     }
 
     override fun initDate() {
-        subscribeVM(gankViewModel)
+        indexFragment = IndexFragment.newInstance()
+
+        //添加到fm
+        if (!indexFragment.isAdded) {
+            supportFragmentManager.beginTransaction()
+                .add(R.id.itemLayoutView, indexFragment)
+                .commitAllowingStateLoss()
+        }
+        supportFragmentManager.beginTransaction()
+            .hide(indexFragment!!)
+            .show(indexFragment)
+            .commitAllowingStateLoss()
     }
 
+    private fun finishAllActivity() {
+        // 先关闭其他activity
+        ActivityUtils.finishOtherActivities(this@MainActivity::class.java, false)
+        //清理奔溃前的fragment
+        for (fragment in supportFragmentManager.fragments) {
+            supportFragmentManager.beginTransaction()
+                .remove(fragment)
+                .commitAllowingStateLoss()
+        }
+    }
 
+    override fun onBackPressed() {
+        if (System.currentTimeMillis() - mExitTime > 2 * TimeConstants.SEC) {
+            mContext.toast(R.string.exit_app)
+            mExitTime = System.currentTimeMillis()
+        } else {
+            ActivityUtils.finishAllActivities()
+            finish()
+        }
+    }
 }
