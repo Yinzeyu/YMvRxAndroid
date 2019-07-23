@@ -108,7 +108,9 @@ android {
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    //kotlin
+    implementation rootProject.ext.dependencies.kotlin_jdk
+
     implementation project(":commonlibrary")
     implementation project(":sociallibrary")
     implementation project(":push")

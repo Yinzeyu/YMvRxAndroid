@@ -143,7 +143,7 @@ ext {
             //https://github.com/Kodein-Framework/Kodein-DI
             kodein                        : "org.kodein.di:kodein-di-generic-jvm:$rootProject.kodeinVersion",
             kodein_android                : "org.kodein.di:kodein-di-framework-android-core:$rootProject.kodeinVersion",
-            kodein_android_support        : "org.kodein.di:kodein-di-framework-android-x:$rootProject.kodeinVersion",
+            kodein_androidx_support        : "org.kodein.di:kodein-di-framework-android-x:$rootProject.kodeinVersion",
 
             //Rx
             //https://github.com/ReactiveX/RxJava

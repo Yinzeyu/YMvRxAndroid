@@ -23,9 +23,9 @@ android {
 }
 dependencies {
     api fileTree(dir: 'libs', include: ['*.jar'])
-    testImplementation 'junit:junit:4.12'
-    androidTestImplementation 'androidx.test.ext:junit:1.1.1'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
+//    testImplementation 'junit:junit:4.12'
+//    androidTestImplementation 'androidx.test.ext:junit:1.1.1'
+//    androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
     //kotlin
     api rootProject.ext.dependencies.kotlin_jdk
 
@@ -72,7 +72,7 @@ dependencies {
     //kodein
     api rootProject.ext.dependencies.kodein
     api rootProject.ext.dependencies.kodein_android
-    api rootProject.ext.dependencies.kodein_android_support
+    api rootProject.ext.dependencies.kodein_androidx_support
 //okhttp
     api rootProject.ext.dependencies.okhttp3
     api(rootProject.ext.dependencies.okhttp3_log) {

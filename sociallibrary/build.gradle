@@ -27,5 +27,5 @@ dependencies {
     implementation(rootProject.ext.dependencies.appcompat_v7)
 
     //kotlin
-    api rootProject.ext.dependencies.kotlin_jdk
+    implementation rootProject.ext.dependencies.kotlin_jdk
 }
