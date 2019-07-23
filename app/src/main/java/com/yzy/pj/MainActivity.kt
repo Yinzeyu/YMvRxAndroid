@@ -14,8 +14,6 @@ class MainActivity : BaseActivity() {
     private var mExitTime: Long = 0
     private lateinit var indexFragment: IndexFragment
     override fun layoutResId(): Int = R.layout.activity_main;
-
-
     override fun initView() {
         finishAllActivity()
     }
