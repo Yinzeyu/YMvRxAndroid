@@ -257,7 +257,7 @@ class QQHandler(context: Context, config: PlatformConfig) : SSOHandler() {
 
   override fun release() {
     deleTempImageFile(mTempImgFilePath)
-    Log.d("AimySocial", "$TAG : currentHandler had set null")
+    Log.d("Social", "$TAG : currentHandler had set null")
     // 回调完成，重置currentHandler
 //    PlatformManager.currentHandlerMap.remove(this.hashCode())
     PlatformManager.currentHandler = null

@@ -70,7 +70,7 @@ class WXHandler(context: Context, config: PlatformConfig) : SSOHandler() {
                     //支付返回
                     ConstantsAPI.COMMAND_PAY_BY_WX -> this@WXHandler.onPayCallback(resp as PayResp)
                     else -> {
-                        Log.e("AimySocial", "$TAG : wxEventHandler 回调为null")
+                        Log.e("Social", "$TAG : wxEventHandler 回调为null")
                     }
                 }
             }

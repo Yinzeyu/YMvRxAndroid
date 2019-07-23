@@ -83,14 +83,14 @@ class SinaWBHandler(context: Context, config: PlatformConfig) : SSOHandler() {
         if (mSsoHandler != null) {
           mSsoHandler?.authorizeCallBack(content.request, content.result, content.data)
         } else {
-          Log.e("AimySocial", "$TAG :授权回调的ssohandler为null")
+          Log.e("Social", "$TAG :授权回调的ssohandler为null")
         }
       }
       is NewIntentContent -> {
         if (mSinaWBHandler != null) {
           mSinaWBHandler?.doResultIntent(content.intent, mWbShareCallback)
         } else {
-          Log.e("AimySocial", "$TAG :分享回调的sinawbhandler为null")
+          Log.e("Social", "$TAG :分享回调的sinawbhandler为null")
         }
       }
     }

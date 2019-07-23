@@ -56,12 +56,12 @@ public class PushModel {
         mPushAgent.register(new IUmengRegisterCallback() {
             @Override
             public void onSuccess(String s) {
-                Log.i("aimymusic", "device token: $deviceToken");
+                Log.i("zhixiang", "device token: $deviceToken");
             }
 
             @Override
             public void onFailure(String s, String s1) {
-                Log.i("aimymusic", "register failed: $s $s1");
+                Log.i("zhixiang", "register failed: $s $s1");
             }
         });
     }

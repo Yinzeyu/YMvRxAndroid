@@ -8,7 +8,7 @@ import com.yzy.commonlibrary.constants.StringConstants
 import com.yzy.commonlibrary.refresh.MidaMusicHeader
 import com.yzy.commonlibrary.repository.blackRepositoryModel
 import com.yzy.pj.push.PushModel
-import com.yzy.sociallib.AimySocial
+import com.yzy.sociallib.Social
 import com.yzy.sociallib.config.PlatformType
 import com.yzy.sociallib.entity.platform.CommPlatConfigBean
 import com.yzy.sociallib.entity.platform.SinaPlatConfigBean
@@ -25,7 +25,6 @@ class app : CommonApplication() {
         )
         PushModel.getPushModel().initHWPush(this)
         initBug()
-        initLog()
     }
 
     override fun baseInitCreate() {
@@ -69,14 +68,8 @@ class app : CommonApplication() {
         )
     }
 
-    private fun initLog() {
-        LogUtils.getConfig()
-            .setLogSwitch(BuildConfig.DEBUG)//log开关
-            .setGlobalTag("Aimy").stackDeep = 3//log栈
-    }
-
     private fun initSocial() {
-        AimySocial.init(
+        Social.init(
             applicationContext,
             CommPlatConfigBean(PlatformType.WEIXIN, ""),  // 微信key
             CommPlatConfigBean(PlatformType.QQ, appkey = ""), // qqkey

@@ -19,9 +19,9 @@ import com.yzy.sociallib.entity.content.*
  * @date 2019/7/15
  * @author: yzy.
  */
-object AimySocial {
+object Social {
 
-  private const val TAG = "AimySocial"
+  private const val TAG = "Social"
   private const val FAST_CLICK_DELAY_TIME = 3000
   /**
    * 上次处理的时间
@@ -38,7 +38,7 @@ object AimySocial {
     for (config in configs) {
       if (!config.appkey.isNullOrEmpty()) {
         if (!PlatformManager.initPlat(context, config)) {
-          Log.e("AimySocial", "$TAG: ${config.name} 初始化失败")
+          Log.e("Social", "$TAG: ${config.name} 初始化失败")
         }
       }
     }
@@ -263,7 +263,7 @@ object AimySocial {
   private fun performOperation(bean: OperationBean) {
     // 两次处理的时间间隔不能小于3s
     if (System.currentTimeMillis() - last < FAST_CLICK_DELAY_TIME) {
-      Log.d("AimySocial", "$TAG 重复处理 上次处理时间$last 本次处理时间 ${System.currentTimeMillis()}")
+      Log.d("Social", "$TAG 重复处理 上次处理时间$last 本次处理时间 ${System.currentTimeMillis()}")
       return
     }
 

@@ -17,10 +17,12 @@ open class CommonApplication : BaseApplication() {
         super.initKodein(builder)
         builder.import(databaseModule)
     }
+
     override fun initInMainProcess() {
         super.initInMainProcess()
         initObjectDebug()
     }
+
     /**
      * 数据库调试
      */
@@ -29,7 +31,8 @@ open class CommonApplication : BaseApplication() {
             AndroidObjectBrowser(boxStore).start(this)
         }
     }
-    val databaseModule = Kodein.Module(KODEIN_MODULE_DATABASE_TAG) {
+
+    private val databaseModule = Kodein.Module(KODEIN_MODULE_DATABASE_TAG) {
         bind<BoxStore>() with singleton {
             MyObjectBox.builder().androidContext(BaseApplication.INSTANCE).build();
         }

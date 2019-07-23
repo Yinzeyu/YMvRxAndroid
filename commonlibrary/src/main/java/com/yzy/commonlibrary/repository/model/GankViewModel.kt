@@ -50,11 +50,10 @@ class GankViewModel(initialState: ConversationDetailState = ConversationDetailSt
                 hasMoreend = false;
                 list = it.invoke() ?: emptyList()
             }
-
             copy(
                 hasMore = hasMoreend,
-                fuliBean = list
-                , request = it
+                fuliBean = list,
+                request = it
             )
         }
 

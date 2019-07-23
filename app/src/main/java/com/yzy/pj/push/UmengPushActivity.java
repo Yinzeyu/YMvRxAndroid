@@ -23,7 +23,6 @@ import org.json.JSONObject;
 //华为、小米、魅族对后台进程做了诸多限制。若使用一键清理，应用的channel进程被清除，将接收不到推送。为了增加推送的送达率，可选择接入华为、小米、魅族托管弹窗功能。
 // 通知将由华为、小米、魅族系统托管弹出，点击通知栏将跳转到指定的Activity。
 //该Activity需继承自UmengNotifyClickActivity，同时实现父类的onMessage方法，对该方法的intent参数进一步解析即可，该方法异步调用，不阻塞主线程。示例如下
-//com.aimymusic.android.receiver.UmengPushActivity
 public class UmengPushActivity extends UmengNotifyClickActivity {
   @Override
   public void onMessage(Intent intent) {

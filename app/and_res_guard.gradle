@@ -89,16 +89,5 @@ andResGuard {
     artifact = 'com.tencent.mm:SevenZip:1.2.17'
     //path = "/usr/local/bin/7za"
   }
-  /**
-   * 可选： 如果不设置则会默认覆盖assemble输出的apk
-   **/
-//  System.out.print(variant)
-//  boolean debug = Integer.valueOf(rootProject.ext.android.versionCode) % 2 == 0
-//  finalApkBackupPath = "${project.rootDir}/APK/咪哒" +
-//                       (debug ? "Debug" : "Release") +
-//                       "_build${String.valueOf(rootProject.ext.android.versionCode)}" +
-//                       "_${String.valueOf(rootProject.ext.android.buildTime)}" +
-//                       "_${String.valueOf(rootProject.ext.android.computer)}" +
-//                       "${BuildType.name}" +
-//                       ".apk"
+
 }

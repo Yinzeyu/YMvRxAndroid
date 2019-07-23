@@ -13,11 +13,11 @@ object FilePathUtils {
   /**
    * 公司文件夹名称
    */
-  private val COMPANY_FOLDER = "aimyunion"
+  private val COMPANY_FOLDER = "zhi_xiang"
   /**
    * APP文件夹名称
    */
-  private val APP_FOLDER = "aimyfun"
+  private val APP_FOLDER = "zhi_xiang_path"
   /**
    * 图片
    */

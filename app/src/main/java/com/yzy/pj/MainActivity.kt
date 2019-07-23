@@ -24,6 +24,7 @@ class MainActivity : BaseActivity() {
         setStatusBarBlackText()
     }
 
+
     override fun initDate() {
         indexFragment = IndexFragment.newInstance()
 

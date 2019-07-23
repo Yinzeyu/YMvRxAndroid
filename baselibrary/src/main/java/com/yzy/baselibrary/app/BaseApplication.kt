@@ -75,7 +75,7 @@ open class BaseApplication : Application(), KodeinAware {
         Utils.init(this)
         LogUtils.getConfig()
             .setLogSwitch(BuildConfig.DEBUG)//log开关
-            .setGlobalTag("Aimy").stackDeep = 3//log栈
+            .setGlobalTag("zhixiang").stackDeep = 3//log栈
     }
 
     //初始化 liveDataBus
