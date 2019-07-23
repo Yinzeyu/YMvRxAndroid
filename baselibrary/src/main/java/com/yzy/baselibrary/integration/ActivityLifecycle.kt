@@ -15,7 +15,7 @@ class ActivityLifecycle constructor(private val appManager: AppManager) :
 
     override fun onActivityPaused(activity: Activity?) {
         if (appManager.getCurrentActivity() == activity) {
-            //FIXME 打开第三方页面时AppModule出现null无法墙砖为FragmentActivity的情况，所以暂时注释掉 by case 2018年10月25日11:36:22
+            //FIXME 打开第三方页面时AppModule出现null无法强转为FragmentActivity的情况，所以暂时注释掉 by case 2018年10月25日11:36:22
 //      appManager.setCurrentActivity(null)
         }
     }

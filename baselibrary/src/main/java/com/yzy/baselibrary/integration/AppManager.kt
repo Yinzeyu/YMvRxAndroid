@@ -8,6 +8,7 @@ import com.yzy.baselibrary.bus.RxBus
 import io.reactivex.Flowable
 import io.reactivex.subscribers.DefaultSubscriber
 import java.util.*
+import kotlin.system.exitProcess
 
 /**
  *description: AppManager.
@@ -22,6 +23,7 @@ class AppManager constructor(var application: Application?) {
         .toFlowableMainThreadBackpressure(AppManagerEvent::class.java)
     //当前在前台的activity
     private var mCurrentActivity: Activity? = null
+
 
     init {
         mActivityList = LinkedList()
@@ -236,7 +238,7 @@ class AppManager constructor(var application: Application?) {
             if (mActivityList != null) {
                 mActivityList = null
             }
-            System.exit(0)
+            exitProcess(0)
         } catch (e: Exception) {
             e.printStackTrace()
         }
