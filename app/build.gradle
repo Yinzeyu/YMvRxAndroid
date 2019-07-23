@@ -30,15 +30,15 @@ android {
     productFlavors {
         pj {
             applicationId rootProject.ext.android.applicationId
-            manifestPlaceholders = [app_icon: "@mipmap/ic_launcher", app_roundIcon: "@mipmap/ic_launcher", app_name: "扑金"]
+            manifestPlaceholders = [app_icon: "@mipmap/ic_launcher", app_roundIcon: "@mipmap/ic_launcher", app_name: "帅哥"]
         }
         tengxun {
             applicationId rootProject.ext.android.applicationId
-            manifestPlaceholders = [app_icon: "@mipmap/ic_launcher", app_roundIcon: "@mipmap/ic_launcher", app_name: "扑金"]
+            manifestPlaceholders = [app_icon: "@mipmap/ic_launcher", app_roundIcon: "@mipmap/ic_launcher", app_name: "帅哥"]
         }
         xiaomi {
             applicationId rootProject.ext.android.applicationId
-            manifestPlaceholders = [app_icon: "@mipmap/ic_launcher", app_roundIcon: "@mipmap/ic_launcher", app_name: "扑金"]
+            manifestPlaceholders = [app_icon: "@mipmap/ic_launcher", app_roundIcon: "@mipmap/ic_launcher", app_name: "帅哥"]
         }
     }
 
