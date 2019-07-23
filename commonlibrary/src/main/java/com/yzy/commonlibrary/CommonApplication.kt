@@ -34,7 +34,7 @@ open class CommonApplication : BaseApplication() {
 
     private val databaseModule = Kodein.Module(KODEIN_MODULE_DATABASE_TAG) {
         bind<BoxStore>() with singleton {
-            MyObjectBox.builder().androidContext(BaseApplication.INSTANCE).build();
+            MyObjectBox.builder().androidContext(INSTANCE).build();
         }
     }
 }
