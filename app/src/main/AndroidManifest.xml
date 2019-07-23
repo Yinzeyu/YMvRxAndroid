@@ -30,9 +30,13 @@
             android:launchMode="singleTask"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar"
-            android:windowSoftInputMode="adjustPan|stateHidden">
+            android:windowSoftInputMode="adjustPan|stateHidden" />
 
-        </activity>
+        <activity
+            android:name=".ui.video.TasteVideoActivity"
+            android:launchMode="singleTask"
+            android:windowSoftInputMode="adjustPan|stateHidden" />
+
 
         <meta-data
             android:name="android.max_aspect"
@@ -82,12 +86,13 @@
             android:noHistory="true">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
+
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
 
                 <!-- TODO 修改scheme值-->
                 <!--<data android:scheme="tencent1106880993"/>-->
-                <data android:scheme="tencent1111111"/>
+                <data android:scheme="tencent1111111" />
             </intent-filter>
         </activity>
     </application>

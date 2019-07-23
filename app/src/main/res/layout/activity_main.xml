@@ -6,11 +6,14 @@
     android:layout_height="match_parent"
     android:background="@android:color/white"
     tools:context=".MainActivity">
+
     <FrameLayout
         android:id="@+id/itemLayoutView"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        app:layout_constraintBottom_toTopOf="@+id/linearLayout"
+        android:layout_marginBottom="49.5dp"
+        android:background="#596DFF"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -18,11 +21,55 @@
     <LinearLayout
         android:id="@+id/linearLayout"
         android:layout_width="0dp"
-        android:layout_height="44dp"
-        android:background="@android:color/holo_red_dark"
+        android:layout_height="64.5dp"
         android:orientation="horizontal"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="49.5dp"
+            android:layout_gravity="bottom"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="象园" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="49.5dp"
+            android:layout_gravity="bottom"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="象园" />
+
+        <TextView
+            android:id="@+id/tv_main_height"
+            android:layout_width="65dp"
+            android:layout_height="match_parent"
+            android:background="@drawable/shape_main_shake"
+            android:gravity="bottom|center_horizontal"
+            android:paddingBottom="3.5dp"
+            android:text="摇一摇"
+            android:textColor="#ff010101"
+            android:textSize="12sp" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="49.5dp"
+            android:layout_gravity="bottom"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="象园" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="49.5dp"
+            android:layout_gravity="bottom"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="象园" />
+
+    </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

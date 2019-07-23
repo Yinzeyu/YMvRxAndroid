@@ -97,13 +97,9 @@ android {
     }
     sourceSets {
         main {
-            jni.srcDirs = []
             jniLibs.srcDirs = ['libs']
         }
     }
-//    dataBinding {
-//        enabled true
-//    }
 }
 
 dependencies {

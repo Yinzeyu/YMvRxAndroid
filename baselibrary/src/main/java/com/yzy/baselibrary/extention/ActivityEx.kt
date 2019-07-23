@@ -3,22 +3,11 @@ package com.yzy.baselibrary.extention
 import android.app.Activity
 import android.content.Context
 import android.content.res.Resources
-import android.graphics.Rect
-import android.util.Log
 import android.view.View
-import android.view.ViewTreeObserver
 import android.view.WindowManager
 import android.widget.FrameLayout
-import android.widget.Toast
 import androidx.annotation.ColorInt
 import com.blankj.utilcode.util.ToastUtils
-import com.yzy.baselibrary.utils.NavigationUtils
-import com.yzy.baselibrary.utils.NavigationUtils.Companion.getNavigationBarHeight
-import com.yzy.baselibrary.utils.SchedulersUtil
-import io.reactivex.Flowable
-import io.reactivex.disposables.Disposable
-import java.util.concurrent.TimeUnit
-import kotlin.math.max
 
 /**
  * description :Activity相关扩展：如屏幕宽高、状态栏高度、虚拟导航键高度获取、键盘高度获取、键盘监听
@@ -29,16 +18,7 @@ import kotlin.math.max
  */
 //打印的Tag
 private val TAG = "ActivityEx"
-//需要保存键盘高度
-private var saveKeyboardHeight = 0
-//方便判断改变的临时变量
-private var tempKeyboardHeight = 0
-//方便判断改变的临时变量
-private var tempNavigationBarHeight = 0
-//为了解决一直重复设置高度的问题
-private var lastSetSetKeyboardHeight = 0
-//防止键盘高度改变太快
-private var disposable: Disposable? = null
+
 
 /** 上下文(方便使用)*/
 val Activity.mContext: Context
@@ -84,59 +64,55 @@ var Activity.mUiSystem: Int
         window.decorView.systemUiVisibility = value
     }
 
-/**获取虚拟导航高度(部分手机可能不准)*/
-fun Activity.getHeightNavigationBar(): Int {
-    return NavigationUtils.getNavigationBarHeight(this)
-}
 
 fun Context.toast(text: String) = ToastUtils.showLong(text)
 
 fun Context.toast(resId: Int) = ToastUtils.showLong(getString(resId))
 
-/**获取当前键盘高度*/
-fun Activity.getHeightKeyboard(): Int {
-    val rect = Rect()
-    //使用最外层布局填充，进行测算计算
-    window.decorView.getWindowVisibleDisplayFrame(rect)
-    val heightDiff = window.decorView.height - (rect.bottom - rect.top)
-    return max(0, heightDiff - mStatusBarHeight - getHeightNavigationBar())
-}
-
-/**添加键盘监听*/
-fun Activity.addListerKeyboard(
-    naHeight: ((naHeight: Int) -> Unit)? = null,
-    keyboardHeight: ((keyboardHeight: Int) -> Unit)? = null
-) {
-    val onGlobalLayoutListener = ViewTreeObserver.OnGlobalLayoutListener {
-        val realKeyboardHeight = getHeightKeyboard()
-        if (realKeyboardHeight != lastSetSetKeyboardHeight && window.decorView.height > 0
-            && (realKeyboardHeight > 300 || realKeyboardHeight == 0)
-        ) {
-            lastSetSetKeyboardHeight = realKeyboardHeight
-            disposable?.dispose()
-            disposable = Flowable.timer(100, TimeUnit.MILLISECONDS)
-                .onBackpressureLatest()
-                .compose(SchedulersUtil.applyFlowableSchedulers())
-                .subscribe {
-                    val navigationHeight = getNavigationBarHeight(this)
-                    if (navigationHeight != tempNavigationBarHeight) {
-                        naHeight?.invoke(navigationHeight)
-                        Log.i(TAG, "虚拟导航键高度=$naHeight")
-                        tempNavigationBarHeight = navigationHeight
-                    }
-                    if (realKeyboardHeight != tempKeyboardHeight) {
-                        keyboardHeight?.invoke(realKeyboardHeight)
-                        Log.i(TAG, "键盘高度=$realKeyboardHeight")
-                        tempKeyboardHeight = realKeyboardHeight
-                        if (realKeyboardHeight > 100) {
-                            saveKeyboardHeight = realKeyboardHeight
-                        }
-                    }
-                }
-        }
-    }
-    window.decorView.viewTreeObserver.addOnGlobalLayoutListener(onGlobalLayoutListener)
-}
+///**获取当前键盘高度*/
+//fun Activity.getHeightKeyboard(): Int {
+//    val rect = Rect()
+//    //使用最外层布局填充，进行测算计算
+//    window.decorView.getWindowVisibleDisplayFrame(rect)
+//    val heightDiff = window.decorView.height - (rect.bottom - rect.top)
+//    return max(0, heightDiff - mStatusBarHeight - getHeightNavigationBar())
+//}
+//
+///**添加键盘监听*/
+//fun Activity.addListerKeyboard(
+//    naHeight: ((naHeight: Int) -> Unit)? = null,
+//    keyboardHeight: ((keyboardHeight: Int) -> Unit)? = null
+//) {
+//    val onGlobalLayoutListener = ViewTreeObserver.OnGlobalLayoutListener {
+//        val realKeyboardHeight = getHeightKeyboard()
+//        if (realKeyboardHeight != lastSetSetKeyboardHeight && window.decorView.height > 0
+//            && (realKeyboardHeight > 300 || realKeyboardHeight == 0)
+//        ) {
+//            lastSetSetKeyboardHeight = realKeyboardHeight
+//            disposable?.dispose()
+//            disposable = Flowable.timer(100, TimeUnit.MILLISECONDS)
+//                .onBackpressureLatest()
+//                .compose(SchedulersUtil.applyFlowableSchedulers())
+//                .subscribe {
+//                    val navigationHeight = getNavigationBarHeight(this)
+//                    if (navigationHeight != tempNavigationBarHeight) {
+//                        naHeight?.invoke(navigationHeight)
+//                        Log.i(TAG, "虚拟导航键高度=$naHeight")
+//                        tempNavigationBarHeight = navigationHeight
+//                    }
+//                    if (realKeyboardHeight != tempKeyboardHeight) {
+//                        keyboardHeight?.invoke(realKeyboardHeight)
+//                        Log.i(TAG, "键盘高度=$realKeyboardHeight")
+//                        tempKeyboardHeight = realKeyboardHeight
+//                        if (realKeyboardHeight > 100) {
+//                            saveKeyboardHeight = realKeyboardHeight
+//                        }
+//                    }
+//                }
+//        }
+//    }
+//    window.decorView.viewTreeObserver.addOnGlobalLayoutListener(onGlobalLayoutListener)
+//}
 
 /**设置状态栏颜色*/
 fun Activity.setStatusColor(@ColorInt color: Int) {

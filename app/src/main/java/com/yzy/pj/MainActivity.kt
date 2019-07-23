@@ -1,12 +1,14 @@
 package com.yzy.pj
 
+import android.graphics.Color
 import com.blankj.utilcode.constant.TimeConstants
 import com.blankj.utilcode.util.ActivityUtils
+import com.blankj.utilcode.util.KeyboardUtils
+import com.blankj.utilcode.util.LogUtils
 import com.yzy.baselibrary.base.activity.BaseActivity
-import com.yzy.baselibrary.extention.mContext
-import com.yzy.baselibrary.extention.setStatusBarBlackText
-import com.yzy.baselibrary.extention.toast
+import com.yzy.baselibrary.extention.*
 import com.yzy.pj.ui.IndexFragment
+import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : BaseActivity() {
 
@@ -24,6 +26,14 @@ class MainActivity : BaseActivity() {
 
 
     override fun initDate() {
+        val defaultInfo = "屏幕宽度:$mScreenWidth\n屏幕高度:$mScreenHeight\n状态栏高度:$mStatusBarHeight"
+        //键盘监听
+        addListerKeyboard(naHeight = {
+
+        }, keyboardHeight = {
+
+        })
+
         indexFragment = IndexFragment.newInstance()
 
         //添加到fm
@@ -36,6 +46,11 @@ class MainActivity : BaseActivity() {
             .hide(indexFragment)
             .show(indexFragment)
             .commitAllowingStateLoss()
+//        startActivity(Intent(this, TasteVideoActivity::class.java))
+        tv_main_height.setOnClickListener {
+
+            KeyboardUtils.showSoftInput()
+        }
     }
 
     private fun finishAllActivity() {
