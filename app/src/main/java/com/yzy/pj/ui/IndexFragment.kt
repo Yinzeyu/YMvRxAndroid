@@ -33,7 +33,7 @@ class IndexFragment : BaseMvRxEpoxyFragment() {
             if (state.hasMore) {
                 //有更多数据
                 loadMoreItem {
-                    id("ImdexLoadMore")
+                    id("IndexLoadMore")
                     tipsText("数据加载中…")//自定义提示文字
                     onLoadMore {
                         gankViewModel.loadMoreData(10, 27)
@@ -41,7 +41,6 @@ class IndexFragment : BaseMvRxEpoxyFragment() {
                 }
             }
         }
-
         //加载失败
         when (state.request) {
             is Loading -> {

@@ -29,15 +29,15 @@ android {
     }
     productFlavors {
         pj {
-            applicationId "cn.aiguanggao.pj"
+            applicationId rootProject.ext.android.applicationId
             manifestPlaceholders = [app_icon: "@mipmap/ic_launcher", app_roundIcon: "@mipmap/ic_launcher", app_name: "扑金"]
         }
         tengxun {
-            applicationId "cn.aiguanggao.pj"
+            applicationId rootProject.ext.android.applicationId
             manifestPlaceholders = [app_icon: "@mipmap/ic_launcher", app_roundIcon: "@mipmap/ic_launcher", app_name: "扑金"]
         }
         xiaomi {
-            applicationId "cn.aiguanggao.pj"
+            applicationId rootProject.ext.android.applicationId
             manifestPlaceholders = [app_icon: "@mipmap/ic_launcher", app_roundIcon: "@mipmap/ic_launcher", app_name: "扑金"]
         }
     }
@@ -49,21 +49,21 @@ android {
             outputFileName = "${variant.productFlavors[0].name}Member_v${defaultConfig.versionName}_${releaseTime()}.apk"
         }
     }
-    //可以配置不同版本的keystore
-    signingConfigs {
-        debug {
-            storeFile file(DEBUG_STORE_FILE_AIMYMUSIC)
-            storePassword DEBUG_STORE_PASSWORD_AIMYMUSIC
-            keyAlias DEBUG_KEY_ALIAS_AIMYMUSIC
-            keyPassword DEBUG_KEY_PASSWORD_AIMYMUSIC
-        }
-        release {
-            storeFile file(RELEASE_STORE_FILE_AIMYMUSIC)
-            storePassword RELEASE_STORE_PASSWORD_AIMYMUSIC
-            keyAlias RELEASE_KEY_ALIAS_AIMYMUSIC
-            keyPassword RELEASE_KEY_PASSWORD_AIMYMUSIC
-        }
-    }
+//    //可以配置不同版本的keystore
+//    signingConfigs {
+//        debug {
+//            storeFile file(DEBUG_STORE_FILE_AIMYMUSIC)
+//            storePassword DEBUG_STORE_PASSWORD_AIMYMUSIC
+//            keyAlias DEBUG_KEY_ALIAS_AIMYMUSIC
+//            keyPassword DEBUG_KEY_PASSWORD_AIMYMUSIC
+//        }
+//        release {
+//            storeFile file(RELEASE_STORE_FILE_AIMYMUSIC)
+//            storePassword RELEASE_STORE_PASSWORD_AIMYMUSIC
+//            keyAlias RELEASE_KEY_ALIAS_AIMYMUSIC
+//            keyPassword RELEASE_KEY_PASSWORD_AIMYMUSIC
+//        }
+//    }
 
     buildTypes {
         release {
@@ -76,7 +76,7 @@ android {
             // 开启ZipAlign优化
             zipAlignEnabled true
             //签名
-            signingConfig signingConfigs.release
+//            signingConfig signingConfigs.release
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
         debug {
@@ -90,7 +90,7 @@ android {
             // 不移除无用的resource文件
             shrinkResources false
             //签名
-            signingConfig signingConfigs.debug
+//            signingConfig signingConfigs.debug
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
 
