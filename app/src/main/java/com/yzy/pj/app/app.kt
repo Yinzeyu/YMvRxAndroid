@@ -1,17 +1,17 @@
-package com.yzy.pj
+package com.yzy.pj.app
 
-import com.blankj.utilcode.util.LogUtils
 import com.scwang.smartrefresh.layout.SmartRefreshLayout
 import com.tencent.bugly.crashreport.CrashReport
 import com.yzy.commonlibrary.CommonApplication
 import com.yzy.commonlibrary.constants.StringConstants
 import com.yzy.commonlibrary.refresh.MidaMusicHeader
 import com.yzy.commonlibrary.repository.blackRepositoryModel
+import com.yzy.pj.BuildConfig
+import com.yzy.pj.R
 import com.yzy.pj.push.PushModel
 import com.yzy.sociallib.Social
 import com.yzy.sociallib.config.PlatformType
 import com.yzy.sociallib.entity.platform.CommPlatConfigBean
-import com.yzy.sociallib.entity.platform.SinaPlatConfigBean
 import org.kodein.di.Kodein
 
 class app : CommonApplication() {

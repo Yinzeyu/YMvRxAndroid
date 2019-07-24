@@ -1,5 +1,6 @@
-package com.yzy.pj
+package com.yzy.pj.ui.home
 
+import android.content.Intent
 import com.blankj.utilcode.constant.TimeConstants
 import com.blankj.utilcode.util.ActivityUtils
 import com.blankj.utilcode.util.KeyboardUtils
@@ -7,7 +8,9 @@ import com.blankj.utilcode.util.LogUtils
 import com.gyf.immersionbar.ktx.immersionBar
 import com.yzy.baselibrary.base.activity.BaseActivity
 import com.yzy.baselibrary.extention.*
+import com.yzy.pj.R
 import com.yzy.pj.ui.IndexFragment
+import com.yzy.pj.ui.elephant.ElephantActivity
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : BaseActivity() {
@@ -64,9 +67,8 @@ class MainActivity : BaseActivity() {
             .hide(indexFragment)
             .show(indexFragment)
             .commitAllowingStateLoss()
-//        startActivity(Intent(this, TasteVideoActivity::class.java))
-        tv_main_height.setOnClickListener {
-            KeyboardUtils.showSoftInput()
+        flMainElephant.click {
+            startActivity(Intent(this,ElephantActivity::class.java))
         }
     }
 

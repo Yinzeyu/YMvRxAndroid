@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@android:color/white"
-    tools:context=".MainActivity">
+    tools:context=".ui.home.MainActivity">
 
     <FrameLayout
         android:id="@+id/itemLayoutView"
@@ -18,58 +18,122 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <LinearLayout
-        android:id="@+id/linearLayout"
+    <FrameLayout
+        android:id="@+id/flMainElephant"
         android:layout_width="0dp"
-        android:layout_height="64.5dp"
-        android:orientation="horizontal"
+        android:layout_height="49.5dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/flMainGame"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent">
 
         <TextView
-            android:layout_width="0dp"
-            android:layout_height="49.5dp"
-            android:layout_gravity="bottom"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:text="象园" />
-
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="49.5dp"
-            android:layout_gravity="bottom"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:text="象园" />
-
-        <TextView
-            android:id="@+id/tv_main_height"
-            android:layout_width="65dp"
-            android:layout_height="match_parent"
-            android:background="@drawable/shape_main_shake"
-            android:gravity="bottom|center_horizontal"
-            android:paddingBottom="3.5dp"
-            android:text="摇一摇"
-            android:textColor="#ff010101"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal|bottom"
+            android:drawableTop="@drawable/icon_elephant_unselected"
+            android:drawablePadding="4dp"
+            android:gravity="center_horizontal"
+            android:paddingBottom="2dp"
+            android:text="@string/str_main_elephant"
+            android:textColor="@color/color_010101"
             android:textSize="12sp" />
 
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="49.5dp"
-            android:layout_gravity="bottom"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:text="象园" />
+    </FrameLayout>
+
+
+    <FrameLayout
+        android:id="@+id/flMainGame"
+        android:layout_width="0dp"
+        android:layout_height="49.5dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/flMainShake"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/flMainElephant">
 
         <TextView
-            android:layout_width="0dp"
-            android:layout_height="49.5dp"
-            android:layout_gravity="bottom"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:text="象园" />
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal|bottom"
+            android:drawableTop="@drawable/icon_game_unselected"
+            android:drawablePadding="4dp"
+            android:gravity="center_horizontal"
+            android:paddingBottom="2dp"
+            android:text="@string/str_main_game"
+            android:textColor="@color/color_010101"
+            android:textSize="12sp" />
 
-    </LinearLayout>
+    </FrameLayout>
+
+    <FrameLayout
+        android:id="@+id/flMainShake"
+        android:layout_width="65dp"
+        android:layout_height="65dp"
+        android:background="@drawable/shape_main_shake"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/flMainTask"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/flMainGame">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal|bottom"
+            android:drawableTop="@drawable/icon_shake"
+            android:drawablePadding="9dp"
+            android:gravity="center_horizontal"
+            android:paddingBottom="2dp"
+            android:text="@string/str_main_shake"
+            android:textColor="@color/color_010101"
+            android:textSize="12sp" />
+
+    </FrameLayout>
+
+    <FrameLayout
+        android:id="@+id/flMainTask"
+        android:layout_width="0dp"
+        android:layout_height="49.5dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/flMainMy"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/flMainShake">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal|bottom"
+            android:drawableTop="@drawable/icon_task_unselected"
+            android:drawablePadding="4dp"
+            android:gravity="center_horizontal"
+            android:paddingBottom="2dp"
+            android:text="@string/str_main_task"
+            android:textColor="@color/color_010101"
+            android:textSize="12sp" />
+
+    </FrameLayout>
+
+
+    <FrameLayout
+        android:id="@+id/flMainMy"
+        android:layout_width="0dp"
+        android:layout_height="49.5dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/flMainTask">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal|bottom"
+            android:drawableTop="@drawable/icon_my_unselected"
+            android:drawablePadding="3dp"
+            android:gravity="center_horizontal"
+            android:paddingBottom="2dp"
+            android:text="@string/str_mai_my"
+            android:textColor="@color/color_010101"
+            android:textSize="12sp" />
+
+    </FrameLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

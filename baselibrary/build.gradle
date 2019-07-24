@@ -23,62 +23,88 @@ android {
 }
 dependencies {
     api fileTree(dir: 'libs', include: ['*.jar'])
-//    testImplementation 'junit:junit:4.12'
-//    androidTestImplementation 'androidx.test.ext:junit:1.1.1'
-//    androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
-    //kotlin
     api rootProject.ext.dependencies.kotlin_jdk
-
-    api(rootProject.ext.dependencies.appcompat_v7) { exclude group: 'android.arch.lifecycle' }
-    api rootProject.ext.dependencies.core_ktx
+    api(rootProject.ext.dependencies.appcompat_v7) {
+        exclude group: 'io.reactivex.rxjava2'
+        exclude group: 'androidx.annotation'
+        exclude group: 'androidx.lifecycle'
+    }
+    api(rootProject.ext.dependencies.core_ktx) {
+        exclude group: 'org.jetbrains.kotlin'
+        exclude group: 'androidx.annotation'
+        exclude group: 'androidx.core'
+    }
     api rootProject.ext.dependencies.constraintLayout
 
-    api(rootProject.ext.dependencies.recycleview) { exclude group: 'android.arch.lifecycle' }
+    api(rootProject.ext.dependencies.recycleview) {
+        exclude group: 'androidx.lifecycle'
+        exclude group: 'androidx.annotation'
+        exclude group: 'androidx.legacy'
+        exclude group: 'androidx.core'
+    }
 
     api(rootProject.ext.dependencies.rxlifecycle3) {
-        exclude module: 'rxjava'
+        exclude group: 'io.reactivex.rxjava2'
         exclude module: 'jsr305'
-        exclude module: 'lifecycle'
+        exclude group: 'androidx.lifecycle'
     }
     api(rootProject.ext.dependencies.rxlifecycle3_components) {
-        exclude module: 'rxjava'
-        exclude module: 'rxandroid'
-        exclude module: 'rxlifecycle'
-        exclude module: 'lifecycle'
+        exclude group: 'com.trello.rxlifecycle3'
+        exclude group: 'androidx.annotation'
+        exclude group: 'androidx.appcompat'
+        exclude group: 'io.reactivex.rxjava2'
+        exclude group: 'org.reactivestreams'
     }
     api(rootProject.ext.dependencies.rxlifecycle3_android) {
-        exclude module: 'rxlifecycle'
-        exclude module: 'lifecycle'
+        exclude group: 'io.reactivex.rxjava2'
+        exclude group: 'androidx.annotation'
+        exclude group: 'androidx.lifecycle'
+        exclude group: 'com.trello.rxlifecycle3'
     }
     api(rootProject.ext.dependencies.rxlifecycle3_android_lifecycle) {
-        exclude module: 'lifecycle'
-        exclude module: 'rxlifecycle'
+        exclude group: 'com.trello.rxlifecycle3'
+        exclude group: 'org.jetbrains.kotlin'
+        exclude group: 'androidx.lifecycle'
+        exclude group: 'io.reactivex.rxjava2'
+        exclude group: 'androidx.annotation'
     }
 //    api(rootProject.ext.dependencies.rxlifecycle3_kotlin) {
 //        exclude module: 'rxlifecycle'
 //        exclude module: 'lifecycle'
 //    }
     api(rootProject.ext.dependencies.rxlifecycle3_kotlin_lifecycle) {
-        exclude module: 'lifecycle'
-        exclude module: 'rxlifecycle'
+        exclude group: 'com.trello.rxlifecycle3'
+        exclude group: 'org.jetbrains.kotlin'
     }
     //utilcode
-    api rootProject.ext.dependencies.utilcode
-
+    api(rootProject.ext.dependencies.utilcode) {
+        exclude group: "com.google.code.gson"
+    }
     //mmkv
-    api rootProject.ext.dependencies.mmkv
-
-
-    //kodein
-    api rootProject.ext.dependencies.kodein
-    api rootProject.ext.dependencies.kodein_android
-    api rootProject.ext.dependencies.kodein_androidx_support
-//okhttp
-    api rootProject.ext.dependencies.okhttp3
-    api(rootProject.ext.dependencies.okhttp3_log) {
-        exclude module: "okhttp"
+    api(rootProject.ext.dependencies.mmkv) {
+        exclude group: "androidx.annotation"
     }
 
+    //kodein
+    api(rootProject.ext.dependencies.kodein) {
+    }
+    api(rootProject.ext.dependencies.kodein_android) {
+        exclude group: "org.jetbrains.kotlin"
+        exclude group: "org.kodein.di"
+    }
+    api(rootProject.ext.dependencies.kodein_androidx_support) {
+        exclude group: "androidx.appcompat"
+        exclude group: "org.jetbrains.kotlin"
+        exclude group: "org.kodein.di"
+    }
+
+
+
+    api(rootProject.ext.dependencies.okhttp3) {
+    }
+    //okhttp
+    api(rootProject.ext.dependencies.okhttp3_log) {
+    }
     //retrofit
     api(rootProject.ext.dependencies.retrofit) {
         exclude module: 'okhttp'
@@ -103,60 +129,80 @@ dependencies {
         exclude module: 'okio'
     }
     //glide
-    api rootProject.ext.dependencies.glide
+    api(rootProject.ext.dependencies.glide) {
+        exclude group: "androidx.fragment"
+    }
+
+
     api(rootProject.ext.dependencies.glide_okhttp) {
-        exclude group: "okhttp"
     }
     kapt rootProject.ext.dependencies.glide_compiler
 
     //kodeins
     //rxCache
+
     api(rootProject.ext.dependencies.rxCache) {
-        exclude module: "rxjava"
-        exclude module: "annotation"
+
+
     }
     api(rootProject.ext.dependencies.rxCache_gson) {
-        exclude module: "rxjava"
-        exclude module: "annotation"
+
     }
+
     //multidex
     api rootProject.ext.dependencies.multidex
 
     //autosize
     api rootProject.ext.dependencies.autosize
 
-    api 'com.jeremyliao:live-event-bus-x:1.4.4'
-
+    api('com.jeremyliao:live-event-bus-x:1.4.4') {
+        exclude group: 'androidx.lifecycle'
+        exclude group: 'com.google.code.gson'
+    }
     //gson
     api rootProject.ext.dependencies.gson
     //rxpermission
     api(rootProject.ext.dependencies.rxpermission) {
-        exclude group: "androix"
-        exclude module: "rxjava"
-        exclude module: "annotation"
+        exclude group: 'androidx.fragment'
+        exclude group: 'io.reactivex.rxjava2'
+        exclude group: 'androidx.annotation'
     }
     //rxDownload
     api(rootProject.ext.dependencies.rxDownload) {
-        exclude module: "rxjava"
-        exclude module: "annotation"
+        exclude group: 'io.reactivex.rxjava2'
+        exclude group: 'com.squareup.retrofit2'
+        exclude group: 'org.jetbrains.kotlin'
+        exclude group: 'androidx.appcompat'
+        exclude group: 'com.squareup.okhttp3'
     }
     //rxBinding
     api(rootProject.ext.dependencies.rxBinding) {
-        exclude module: "rxjava"
-        exclude module: "annotation"
+        exclude group: 'io.reactivex.rxjava2'
+        exclude group: 'org.jetbrains.kotlin'
+        exclude group: 'androidx.annotation'
     }
     //mvrx
-    api rootProject.ext.dependencies.mvrx
+    api(rootProject.ext.dependencies.mvrx) {
+
+    }
 
     //epoxy
-    api rootProject.ext.dependencies.epoxy
+    api(rootProject.ext.dependencies.epoxy) {
+
+    }
     kapt rootProject.ext.dependencies.epoxyProcessor
 
-    api rootProject.ext.dependencies.lottie
+
+    api(rootProject.ext.dependencies.lottie) {
+        exclude group: 'com.squareup.okio'
+        exclude group: 'androidx.appcompat'
+    }
     // 基础依赖包，必须要依赖
     api 'com.gyf.immersionbar:immersionbar:3.0.0-beta05'
     // fragment快速实现（可选）
     api 'com.gyf.immersionbar:immersionbar-components:3.0.0-beta05'
     // kotlin扩展（可选）
-    api 'com.gyf.immersionbar:immersionbar-ktx:3.0.0-beta05'
+    api('com.gyf.immersionbar:immersionbar-ktx:3.0.0-beta05') {
+        exclude group: 'org.jetbrains.kotlin'
+    }
 }

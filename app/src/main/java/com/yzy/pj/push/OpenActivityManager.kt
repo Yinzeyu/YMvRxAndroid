@@ -1,10 +1,5 @@
 package com.yzy.pj.push
 
-import android.content.Context
-import android.content.Intent
-import com.xiaomi.push.it
-import com.yzy.pj.MainActivity
-
 
 /**
  * description :

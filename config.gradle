@@ -61,7 +61,7 @@ ext {
             //RxDownload
             rxDownloadVersion = "1.2.7",
             //RxBinding
-            rxBindingVersion = "2.1.1",
+//            rxBindingVersion = "2.1.1",
             //RxCache
             rxCacheVersion = "1.8.3-2.x",
             rxCacheGsonVersion = "0.0.4",
@@ -84,7 +84,7 @@ ext {
             gsonVersion = "2.8.5",
 
             //baseRecycleViewAdapter
-            baseRecycleViewAdapterVersion = "2.9.46",
+//            baseRecycleViewAdapterVersion = "2.9.46",
 
             //multidex
             multidexVersion = "1.0.3",
@@ -93,7 +93,7 @@ ext {
             mmkvVersion = "1.0.22",
 
             //objectBox
-            objectBoxVersion = "2.3.1",
+            objectBoxVersion = "2.3.4",
 
             //utilcode
             utilcodeVersion = "1.24.6",
@@ -123,7 +123,7 @@ ext {
     dependencies = [
             //support
             appcompat_v7                  : "androidx.appcompat:appcompat:$rootProject.androidx",
-            design                        : "com.google.android.material:material:1.0.0",
+//            design                        : "com.google.android.material:material:1.0.0",
             core_ktx                      : "androidx.core:core-ktx:$rootProject.androidx",
             recycleview                   : "androidx.recyclerview:recyclerview:1.0.0",
             cardview                      : "androidx.cardview:cardview:1.0.0",
@@ -143,7 +143,7 @@ ext {
             //https://github.com/Kodein-Framework/Kodein-DI
             kodein                        : "org.kodein.di:kodein-di-generic-jvm:$rootProject.kodeinVersion",
             kodein_android                : "org.kodein.di:kodein-di-framework-android-core:$rootProject.kodeinVersion",
-            kodein_androidx_support        : "org.kodein.di:kodein-di-framework-android-x:$rootProject.kodeinVersion",
+            kodein_androidx_support       : "org.kodein.di:kodein-di-framework-android-x:$rootProject.kodeinVersion",
 
             //Rx
             //https://github.com/ReactiveX/RxJava
@@ -187,7 +187,7 @@ ext {
 
             //baseRecycleViewAdapter
             //https://github.com/CymChad/BaseRecyclerViewAdapterHelper
-            baseRecycleViewAdapter        : "com.github.CymChad:BaseRecyclerViewAdapterHelper:$rootProject.baseRecycleViewAdapterVersion",
+//            baseRecycleViewAdapter        : "com.github.CymChad:BaseRecyclerViewAdapterHelper:$rootProject.baseRecycleViewAdapterVersion",
 
             //gson
             //https://github.com/google/gson
@@ -232,7 +232,7 @@ ext {
             epoxy                         : "com.airbnb.android:epoxy:$rootProject.epoxyVersion",
             epoxyProcessor                : "com.airbnb.android:epoxy-processor:$rootProject.epoxyVersion",
             //lottie，2.8.0以上是androidx,
-            lottie                : "com.airbnb.android:lottie:$rootProject.lottie"
+            lottie                        : "com.airbnb.android:lottie:$rootProject.lottie"
 
     ]
 }

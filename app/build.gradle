@@ -32,14 +32,14 @@ android {
             applicationId rootProject.ext.android.applicationId
             manifestPlaceholders = [app_icon: "@mipmap/ic_launcher", app_roundIcon: "@mipmap/ic_launcher", app_name: "帅哥"]
         }
-        tengxun {
-            applicationId rootProject.ext.android.applicationId
-            manifestPlaceholders = [app_icon: "@mipmap/ic_launcher", app_roundIcon: "@mipmap/ic_launcher", app_name: "帅哥"]
-        }
-        xiaomi {
-            applicationId rootProject.ext.android.applicationId
-            manifestPlaceholders = [app_icon: "@mipmap/ic_launcher", app_roundIcon: "@mipmap/ic_launcher", app_name: "帅哥"]
-        }
+//        tengxun {
+//            applicationId rootProject.ext.android.applicationId
+//            manifestPlaceholders = [app_icon: "@mipmap/ic_launcher", app_roundIcon: "@mipmap/ic_launcher", app_name: "帅哥"]
+//        }
+//        xiaomi {
+//            applicationId rootProject.ext.android.applicationId
+//            manifestPlaceholders = [app_icon: "@mipmap/ic_launcher", app_roundIcon: "@mipmap/ic_launcher", app_name: "帅哥"]
+//        }
     }
 
     // 3.0 gradle 批量打包
@@ -111,6 +111,10 @@ dependencies {
     implementation project(":sociallibrary")
     implementation project(":push")
     kapt 'com.airbnb.android:epoxy-processor:3.7.0'
+    implementation('androidx.viewpager2:viewpager2:1.0.0-beta02') {
+
+
+    }
     debugImplementation rootProject.ext.dependencies.leakcanary_debug
 
 }

@@ -59,9 +59,9 @@ abstract class BaseFragment : RxFragment(), KodeinAware, LifecycleOwner {
      */
     protected abstract val contentLayout: Int
 
-    override fun onAttach(context: Context?) {
+    override fun onAttach(context: Context) {
         super.onAttach(context)
-        this.mContext = context!!
+        this.mContext = context
         this.mActivity = activity!!
         mScreenWidth = mContext.screenWidth()
         mScreenHeight = mContext.screenHeight()

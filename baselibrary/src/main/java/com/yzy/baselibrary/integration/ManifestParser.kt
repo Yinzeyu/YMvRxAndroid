@@ -2,7 +2,6 @@ package com.yzy.baselibrary.integration
 
 import android.app.Application
 import android.content.pm.PackageManager
-import com.yzy.baselibrary.integration.ConfigModule
 import java.util.*
 
 /**

@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="str_main_shake">摇一摇</string>
+    <string name="str_main_task">任务</string>
+    <string name="str_mai_my">我的</string>
+    <string name="str_main_game">游乐园</string>
+    <string name="str_main_elephant">象园</string>
+</resources>

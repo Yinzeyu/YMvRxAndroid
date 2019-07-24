@@ -2,10 +2,10 @@ package com.yzy.pj
 
 
 import android.content.Intent
-import android.graphics.Color
 import com.yzy.baselibrary.base.activity.BaseActivity
 import com.yzy.baselibrary.extention.load
 import com.yzy.baselibrary.utils.SchedulersUtil
+import com.yzy.pj.ui.home.MainActivity
 import io.reactivex.Flowable
 import io.reactivex.disposables.Disposable
 import kotlinx.android.synthetic.main.activity_splash.*

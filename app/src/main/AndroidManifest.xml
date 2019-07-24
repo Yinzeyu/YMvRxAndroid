@@ -4,7 +4,7 @@
     package="com.yzy.pj">
 
     <application
-        android:name=".app"
+        android:name=".app.app"
         android:allowBackup="true"
         android:icon="${app_icon}"
         android:label="${app_name}"
@@ -26,7 +26,7 @@
         </activity>
 
         <activity
-            android:name=".MainActivity"
+            android:name=".ui.home.MainActivity"
             android:launchMode="singleTask"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar"
@@ -35,6 +35,11 @@
         <activity
             android:name=".ui.video.TasteVideoActivity"
             android:launchMode="singleTask"
+            android:windowSoftInputMode="adjustPan|stateHidden" />
+
+        <activity
+            android:name=".ui.elephant.ElephantActivity"
+            android:launchMode="singleTop"
             android:windowSoftInputMode="adjustPan|stateHidden" />
 
 
