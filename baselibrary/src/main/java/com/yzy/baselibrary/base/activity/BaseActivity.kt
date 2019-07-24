@@ -1,20 +1,10 @@
 package com.yzy.baselibrary.base.activity
 
-import android.app.Activity
-import android.content.Context
-import android.graphics.Color
 import android.os.Bundle
-import android.view.View
-import android.view.WindowManager
-import com.blankj.utilcode.util.BarUtils
 import com.gyf.immersionbar.ktx.immersionBar
 import com.trello.rxlifecycle3.components.support.RxAppCompatActivity
 import com.yzy.baselibrary.base.dialog.ActionLoadingDialog
 import com.yzy.baselibrary.base.dialog.LoadingDialog
-import com.yzy.baselibrary.extention.screenHeight
-import com.yzy.baselibrary.extention.screenWidth
-import com.yzy.baselibrary.extention.setStatusColor
-import com.yzy.baselibrary.extention.uiMode1Normal
 import org.kodein.di.*
 import org.kodein.di.android.*
 import org.kodein.di.android.retainedSubKodein

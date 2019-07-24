@@ -2,11 +2,7 @@ package com.yzy.baselibrary.extention
 
 import android.app.Activity
 import android.content.Context
-import android.content.res.Resources
-import android.view.View
-import android.view.WindowManager
 import android.widget.FrameLayout
-import androidx.annotation.ColorInt
 import com.blankj.utilcode.util.ToastUtils
 
 /**

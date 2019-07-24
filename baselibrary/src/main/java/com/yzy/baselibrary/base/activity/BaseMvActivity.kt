@@ -11,7 +11,9 @@ abstract class BaseMvActivity : BaseActivity(), MvRxView {
     final override val mvrxViewId: String by lazy { mvrxPersistedViewId }
     override fun initBeforeCreateView(savedInstanceState: Bundle?) {
         mvrxViewModelStore.restoreViewModels(this, savedInstanceState)
-        mvrxPersistedViewId = savedInstanceState?.getString(PERSISTED_VIEW_ID_KEY) ?: this::class.java.simpleName + "_" + UUID.randomUUID().toString()
+        mvrxPersistedViewId =
+            savedInstanceState?.getString(PERSISTED_VIEW_ID_KEY) ?: this::class.java.simpleName
+                    + "_" + UUID.randomUUID().toString()
     }
 
 
@@ -20,4 +22,5 @@ abstract class BaseMvActivity : BaseActivity(), MvRxView {
         mvrxViewModelStore.saveViewModels(outState)
     }
 }
+
 private const val PERSISTED_VIEW_ID_KEY = "mvrx:persisted_view_id"

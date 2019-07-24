@@ -5,8 +5,6 @@ import android.content.Intent
 import android.graphics.Color
 import com.yzy.baselibrary.base.activity.BaseActivity
 import com.yzy.baselibrary.extention.load
-import com.yzy.baselibrary.extention.setStatusColor
-import com.yzy.baselibrary.extention.uiMode2FullScreen
 import com.yzy.baselibrary.utils.SchedulersUtil
 import io.reactivex.Flowable
 import io.reactivex.disposables.Disposable
@@ -28,12 +26,9 @@ class SplashActivity : BaseActivity() {
         getCheckSmsCode()
     }
 
-    override fun initStatus() {
-        uiMode2FullScreen(true)
-    }
 
     private val mCountdown = 6L
-    var mSmsDisposable: Disposable? = null
+    private var mSmsDisposable: Disposable? = null
 
     /**
      * 撤销倒计时
