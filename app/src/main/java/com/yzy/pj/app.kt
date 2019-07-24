@@ -72,16 +72,16 @@ class app : CommonApplication() {
         Social.init(
             applicationContext,
             CommPlatConfigBean(PlatformType.WEIXIN, ""),  // 微信key
-            CommPlatConfigBean(PlatformType.QQ, appkey = ""), // qqkey
-            SinaPlatConfigBean(
-                PlatformType.SINA_WEIBO,
-                appkey = "1472835731",
-                redirectUrl = "http://www.meda.cc",
-                scope = (
-                        "email,direct_messages_read,direct_messages_write,"
-                                + "friendships_groups_read,friendships_groups_write,statuses_to_me_read,"
-                                + "follow_app_official_microblog," + "invitation_write")
-            )
+            CommPlatConfigBean(PlatformType.QQ, appkey = "") // qqkey
+//            SinaPlatConfigBean(
+//                PlatformType.SINA_WEIBO,
+//                appkey = "1472835731",
+//                redirectUrl = "http://www.meda.cc",
+//                scope = (
+//                        "email,direct_messages_read,direct_messages_write,"
+//                                + "friendships_groups_read,friendships_groups_write,statuses_to_me_read,"
+//                                + "follow_app_official_microblog," + "invitation_write")
+//            )
         )
     }
 

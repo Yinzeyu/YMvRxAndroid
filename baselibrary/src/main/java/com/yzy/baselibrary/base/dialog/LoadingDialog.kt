@@ -10,8 +10,8 @@ import com.yzy.baselibrary.R
 
 /**
  *description: Loading的通用Dialog.
- *@date 2019/5/13 11:00.
- *@author: YangYang.
+ *@date 2019/7/15
+ *@author: yzy.
  */
 class LoadingDialog : DialogFragment() {
 

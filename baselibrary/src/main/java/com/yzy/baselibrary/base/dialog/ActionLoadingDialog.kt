@@ -11,8 +11,8 @@ import com.yzy.baselibrary.extention.showTextNotNull
 
 /**
  *description: 操作类型的loading默认点击外部不消失，按返回键不消失.
- *@date 2019/5/13 11:00.
- *@author: YangYang.
+ *@date 2019/7/15
+ *@author: yzy.
  */
 class ActionLoadingDialog : BaseFragmentDialog() {
 

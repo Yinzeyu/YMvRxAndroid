@@ -1,6 +1,7 @@
 package com.yzy.baselibrary.extention
 
 import android.app.Activity
+import android.content.res.Resources
 import android.graphics.Rect
 import android.util.DisplayMetrics
 import android.util.Log
@@ -95,6 +96,13 @@ fun getNavigationBarHeight(activity: Activity): Int {
         0
     }
 }
+
+/**状态栏高度*/
+val Activity.mStatusBarHeight: Int
+    get() {
+        return Resources.getSystem()
+            .getDimensionPixelSize(resources.getIdentifier("status_bar_height", "dimen", "android"))
+    }
 
 /**判断虚拟导航键是否显示*/
 fun navigationBarIsShow(activity: Activity): Boolean {

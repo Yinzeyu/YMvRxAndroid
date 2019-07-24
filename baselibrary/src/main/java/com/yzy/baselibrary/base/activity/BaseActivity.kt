@@ -7,6 +7,7 @@ import android.os.Bundle
 import android.view.View
 import android.view.WindowManager
 import com.blankj.utilcode.util.BarUtils
+import com.gyf.immersionbar.ktx.immersionBar
 import com.trello.rxlifecycle3.components.support.RxAppCompatActivity
 import com.yzy.baselibrary.base.dialog.ActionLoadingDialog
 import com.yzy.baselibrary.base.dialog.LoadingDialog
@@ -57,10 +58,10 @@ abstract class BaseActivity : RxAppCompatActivity(), KodeinAware {
 
     /** 适配状态栏  */
     protected open fun initStatus() {
-        //默认状态栏无背景色
-        setStatusColor(Color.TRANSPARENT)
-        //布局填充到状态栏
-        uiMode1Normal()
+        immersionBar {
+            transparentStatusBar()
+            statusBarDarkFont(true)
+        }
     }
 
     /** 这里可以做一些setContentView之前的操作,如全屏、常亮、设置Navigation颜色、状态栏颜色等  */

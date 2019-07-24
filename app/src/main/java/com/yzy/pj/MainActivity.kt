@@ -1,10 +1,10 @@
 package com.yzy.pj
 
-import android.graphics.Color
 import com.blankj.utilcode.constant.TimeConstants
 import com.blankj.utilcode.util.ActivityUtils
 import com.blankj.utilcode.util.KeyboardUtils
 import com.blankj.utilcode.util.LogUtils
+import com.gyf.immersionbar.ktx.immersionBar
 import com.yzy.baselibrary.base.activity.BaseActivity
 import com.yzy.baselibrary.extention.*
 import com.yzy.pj.ui.IndexFragment
@@ -21,7 +21,11 @@ class MainActivity : BaseActivity() {
     }
 
     override fun initStatus() {
-        setStatusBarBlackText()
+        immersionBar {
+            statusBarColor(R.color.white)
+            statusBarDarkFont(true)
+            fitsSystemWindows(true)
+        }
     }
 
 
@@ -29,9 +33,23 @@ class MainActivity : BaseActivity() {
         val defaultInfo = "屏幕宽度:$mScreenWidth\n屏幕高度:$mScreenHeight\n状态栏高度:$mStatusBarHeight"
         //键盘监听
         addListerKeyboard(naHeight = {
-
+            LogUtils.e(
+                "contentHeight" + String.format(
+                    "%s\n虚拟导航键高度:%d\n键盘高度:%d",
+                    defaultInfo,
+                    it,
+                    getHeightKeyboard()
+                )
+            )
         }, keyboardHeight = {
-
+            LogUtils.e(
+                "contentHeight" + String.format(
+                    "%s\n虚拟导航键高度:%d\n键盘高度:%d",
+                    defaultInfo,
+                    getHeightNavigationBar(),
+                    it
+                )
+            )
         })
 
         indexFragment = IndexFragment.newInstance()
@@ -48,7 +66,6 @@ class MainActivity : BaseActivity() {
             .commitAllowingStateLoss()
 //        startActivity(Intent(this, TasteVideoActivity::class.java))
         tv_main_height.setOnClickListener {
-
             KeyboardUtils.showSoftInput()
         }
     }

@@ -153,5 +153,10 @@ dependencies {
     kapt rootProject.ext.dependencies.epoxyProcessor
 
     api rootProject.ext.dependencies.lottie
-
+    // 基础依赖包，必须要依赖
+    api 'com.gyf.immersionbar:immersionbar:3.0.0-beta05'
+    // fragment快速实现（可选）
+    api 'com.gyf.immersionbar:immersionbar-components:3.0.0-beta05'
+    // kotlin扩展（可选）
+    api 'com.gyf.immersionbar:immersionbar-ktx:3.0.0-beta05'
 }

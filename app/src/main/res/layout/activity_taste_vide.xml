@@ -7,7 +7,8 @@
     <RelativeLayout
         android:id="@+id/fl_videoView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+     >
 
         <com.pili.pldroid.player.widget.PLVideoTextureView
             android:id="@+id/plVideoVIew"

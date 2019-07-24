@@ -35,7 +35,7 @@ class GankViewModel(initialState: ConversationDetailState = ConversationDetailSt
             }
             it
         }.execute {
-            var hasMoreend: Boolean = false
+            var hasMoreend: Boolean
             val list: List<FuliBean>?
             if (isLoadMore) {
                 val list1 = it.invoke() ?: emptyList()
