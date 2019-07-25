@@ -10,7 +10,7 @@ import com.yzy.commonlibrary.repository.bean.FuliBean
 import com.yzy.pj.R
 import kotlinx.android.synthetic.main.main_item.view.*
 
-@EpoxyModelClass(layout = R.layout.main_item)
+@EpoxyModelClass(layout = R.layout.item)
 abstract class ElephantItem : BaseEpoxyModel<BaseEpoxyHolder>() {
 
     @EpoxyAttribute
