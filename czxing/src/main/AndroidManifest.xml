@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    package="me.devilsen.czxing">
+
+    <uses-feature android:name="android.hardware.mCamera" />
+
+    <uses-permission android:name="android.permission.CAMERA" />
+
+    <application
+        android:supportsRtl="true"
+        tools:ignore="GoogleAppIndexingWarning">
+
+        <activity
+            android:name=".ScanActivity"
+            android:launchMode="singleTop"
+            android:theme="@style/ScanTheme" />
+
+        <activity
+            android:name=".ResultActivity"
+            android:launchMode="singleTop"
+            android:theme="@style/ScanResultTheme" />
+    </application>
+
+</manifest>

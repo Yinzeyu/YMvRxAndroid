@@ -12,7 +12,9 @@ import com.yzy.sociallib.callback.ShareCallback
 import com.yzy.sociallib.config.OperationType
 import com.yzy.sociallib.config.PlatformType
 import com.yzy.sociallib.config.SocialConstants
+import com.yzy.sociallib.entity.content.*
 import com.yzy.sociallib.entity.platform.PlatformConfig
+import com.yzy.sociallib.extention.*
 import com.yzy.sociallib.handler.SSOHandler
 import com.yzy.sociallib.utils.AppUtils
 import com.yzy.sociallib.utils.FilePathUtils
@@ -22,10 +24,7 @@ import com.tencent.connect.share.QzoneShare
 import com.tencent.tauth.IUiListener
 import com.tencent.tauth.Tencent
 import com.tencent.tauth.UiError
-import com.yzy.sociallib.entity.content.*
-import com.yzy.sociallib.extention.*
-import com.yzy.sociallib.utils.BitmapUtils
-import com.yzy.sociallib.utils.FileUtils
+
 import org.json.JSONObject
 import java.io.File
 import java.util.*
@@ -144,7 +143,7 @@ class QQHandler(context: Context, config: PlatformConfig) : SSOHandler() {
     }
 
     paramsBean.bitmap?.let {
-      BitmapUtils.saveBitmapFile(it, imagePath)
+      com.yzy.sociallib.utils.BitmapUtils.saveBitmapFile(it, imagePath)
     }
 
     if (paramsBean.shareType != QQShare.SHARE_TO_QQ_TYPE_IMAGE) {
@@ -300,7 +299,7 @@ class QQHandler(context: Context, config: PlatformConfig) : SSOHandler() {
 
   private fun deleTempImageFile(path: String) {
     val file = File(path)
-    FileUtils.deleteFile(file)
+    com.yzy.sociallib.utils.FileUtils.deleteFile(file)
   }
 
   /**

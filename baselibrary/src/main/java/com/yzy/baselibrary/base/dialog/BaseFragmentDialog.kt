@@ -13,6 +13,7 @@ import android.view.ViewGroup.LayoutParams.WRAP_CONTENT
 import android.view.WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.FragmentManager
+import com.yzy.baselibrary.R
 import com.yzy.baselibrary.extention.dp2px
 import com.yzy.baselibrary.extention.isDoubleClick
 import com.yzy.baselibrary.extention.setBackgroundAlpha
@@ -47,34 +48,30 @@ abstract class BaseFragmentDialog : DialogFragment() {
     }
 
 
-    protected abstract fun setView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View
-
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         setStyle()
-        val view = setView(inflater, container, savedInstanceState)
+        val view =  inflater.inflate(contentLayout, container, false)
         viewLoadedListener?.invoke(view)
+        initView(view)
+        initBeforeCreateView(savedInstanceState)
         return view
     }
+    /**
+     * 内容布局的ResId
+     */
+    protected abstract val contentLayout: Int
+    /**
+     * 需要在onCreateView中调用的方法
+     */
+    protected open fun initBeforeCreateView(savedInstanceState: Bundle?) {
 
-    /**** 降低背景的Window等级 ****/
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        if (lowerBackground) mContext.setBackgroundAlpha(0.3F)
-        super.onViewCreated(view, savedInstanceState)
     }
 
-    override fun onDestroyView() {
-        if (lowerBackground) mContext.setBackgroundAlpha(1F)
-        super.onDestroyView()
-    }
+    protected abstract fun initView(view: View)
 
     /**
      * 防止同时弹出两个dialog
@@ -84,7 +81,6 @@ abstract class BaseFragmentDialog : DialogFragment() {
             return
         }
         showListener?.invoke()
-//        super.show(manager, tag)
         setBooleanField("mDismissed", false)
         setBooleanField("mShownByMe", true)
         val ft = manager.beginTransaction()
@@ -132,10 +128,10 @@ abstract class BaseFragmentDialog : DialogFragment() {
         //获取Window
         val window = dialog?.window
         //无标题
-        dialog?.requestWindowFeature(DialogFragment.STYLE_NO_TITLE)
+        dialog?.requestWindowFeature(STYLE_NO_TITLE)
         // 透明背景
         window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
-        if (lowerBackground) window?.setDimAmount(0F) // 去除 dialog 弹出的阴影
+        if (lowerBackground) window?.setDimAmount(0F) else window?.setDimAmount(0.5F)// 去除 dialog 弹出的阴影
         dialog?.setCanceledOnTouchOutside(touchOutside)
         //设置宽高
         window!!.decorView.setPadding(0, 0, 0, 0)
@@ -152,5 +148,6 @@ abstract class BaseFragmentDialog : DialogFragment() {
         mAnimation?.also { window.setWindowAnimations(it) }
         window.attributes = wlp
     }
+
 
 }

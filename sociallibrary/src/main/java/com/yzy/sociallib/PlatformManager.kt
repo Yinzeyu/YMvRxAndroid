@@ -12,6 +12,7 @@ import com.yzy.sociallib.handler.qq.QQHandler
 import com.yzy.sociallib.handler.sina.SinaWBHandler
 import com.yzy.sociallib.handler.wx.WXHandler
 
+
 /**
  * description: 平台配置的管理类
  * @date 2019/7/15

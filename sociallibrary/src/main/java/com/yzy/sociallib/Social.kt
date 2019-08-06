@@ -11,8 +11,9 @@ import com.yzy.sociallib.config.OperationType
 import com.yzy.sociallib.config.PlatformType
 import com.yzy.sociallib.config.SocialConstants
 import com.yzy.sociallib.entity.OperationBean
-import com.yzy.sociallib.entity.platform.PlatformConfig
 import com.yzy.sociallib.entity.content.*
+import com.yzy.sociallib.entity.platform.PlatformConfig
+
 
 /**
  * description: 库对外暴露的入口类

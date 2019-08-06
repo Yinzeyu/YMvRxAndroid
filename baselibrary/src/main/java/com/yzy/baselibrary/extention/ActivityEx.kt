@@ -8,12 +8,9 @@ import com.blankj.utilcode.util.ToastUtils
 /**
  * description :Activity相关扩展：如屏幕宽高、状态栏高度、虚拟导航键高度获取、键盘高度获取、键盘监听
  * 额外增加：设置状态栏颜色、设置是否填充布局到状态栏、设置虚拟导航键是否隐藏、设置是否全屏显示等
- *
  *@date 2019/7/15
  *@author: yzy.
  */
-//打印的Tag
-private val TAG = "ActivityEx"
 
 
 /** 上下文(方便使用)*/
@@ -46,6 +43,4 @@ val Activity.mContentView: FrameLayout
     get() {
         return this.findViewById(android.R.id.content)
     }
-fun Context.toast(text: String) = ToastUtils.showLong(text)
 
-fun Context.toast(resId: Int) = ToastUtils.showLong(getString(resId))

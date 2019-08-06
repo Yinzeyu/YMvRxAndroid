@@ -1,12 +1,11 @@
 package com.yzy.sociallib.extention
 
 import android.net.Uri
+import com.yzy.sociallib.entity.content.*
 import com.yzy.sociallib.handler.qq.QQHandler
 import com.sina.weibo.sdk.api.*
 import com.tencent.connect.share.QQShare
 import com.tencent.mm.opensdk.modelmsg.*
-import com.yzy.sociallib.entity.content.*
-import com.yzy.sociallib.utils.BitmapUtils
 import java.io.File
 
 /**
@@ -19,7 +18,7 @@ fun WXMediaMessage.setImgMsg(content: ShareImageContent): WXMediaMessage {
   content.img?.let {
     if (!it.isRecycled) {
       mediaObject = WXImageObject(content.img)
-      thumbData = BitmapUtils.bmpToByteArray(content.img, false)
+      thumbData = com.yzy.sociallib.utils.BitmapUtils.bmpToByteArray(content.img, false)
     }
   }
   return this
@@ -34,7 +33,7 @@ fun WXMediaMessage.setMusicMsg(content: ShareMusicContent): WXMediaMessage {
     mediaObject = musicObject
     title = content.title
     description = content.description
-    thumbData = BitmapUtils.bmpToByteArray(content.img, false)
+    thumbData = com.yzy.sociallib.utils.BitmapUtils.bmpToByteArray(content.img, false)
   }
   return this
 }
@@ -60,7 +59,7 @@ fun WXMediaMessage.setVideoMsg(content: ShareVideoContent): WXMediaMessage {
     mediaObject = videoObject
     title = content.title
     description = content.description
-    thumbData = BitmapUtils.bmpToByteArray(content.img, false)
+    thumbData = com.yzy.sociallib.utils.BitmapUtils.bmpToByteArray(content.img, false)
   }
   return this
 }
@@ -74,7 +73,7 @@ fun WXMediaMessage.setWebMsg(content: ShareWebContent): WXMediaMessage {
     mediaObject = webpageObject
     title = content.title
     description = content.description
-    thumbData = BitmapUtils.bmpToByteArray(content.img, false)
+    thumbData = com.yzy.sociallib.utils.BitmapUtils.bmpToByteArray(content.img, false)
   }
   return this
 }
@@ -164,7 +163,7 @@ fun WeiboMultiMessage.setVideoMsg(content: ShareVideoContent):WeiboMultiMessage{
       val videoSourceObject = VideoSourceObject()
       videoSourceObject.actionUrl = content.videoUrl
       videoSourceObject.title = content.title
-      videoSourceObject.thumbData = BitmapUtils.bmpToByteArray(content.img, false)
+      videoSourceObject.thumbData = com.yzy.sociallib.utils.BitmapUtils.bmpToByteArray(content.img, false)
       videoSourceObject.description = content.description
       videoSourceObject.videoPath = Uri.fromFile(File(content.videoUrl?:""))
       this.videoSourceObject = videoSourceObject
@@ -178,7 +177,7 @@ fun WeiboMultiMessage.setWebMsg(content: ShareWebContent):WeiboMultiMessage{
   content.img?.let {
     if(!it.isRecycled){
       val mediaObject = WebpageObject()
-      mediaObject.thumbData = BitmapUtils.bmpToByteArray(content.img, false)
+      mediaObject.thumbData = com.yzy.sociallib.utils.BitmapUtils.bmpToByteArray(content.img, false)
       mediaObject.title = content.title
       mediaObject.actionUrl = content.webPageUrl
       mediaObject.description = content.description

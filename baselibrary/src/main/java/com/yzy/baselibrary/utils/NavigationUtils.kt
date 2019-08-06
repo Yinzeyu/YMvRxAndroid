@@ -1,12 +1,8 @@
 package com.yzy.baselibrary.utils
 
-import android.app.Activity
 import android.graphics.Color
-import android.util.DisplayMetrics
 import android.view.View
-import android.view.ViewGroup
 import android.view.Window
-import com.blankj.utilcode.util.BarUtils
 
 /**
  * description :如果遇到全屏的页面，可能不准，需要自己处理

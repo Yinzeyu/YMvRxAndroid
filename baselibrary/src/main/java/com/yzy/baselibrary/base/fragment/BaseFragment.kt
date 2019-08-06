@@ -10,7 +10,6 @@ import android.widget.RelativeLayout
 import androidx.lifecycle.LifecycleOwner
 import com.blankj.utilcode.util.BarUtils
 import com.trello.rxlifecycle3.components.support.RxFragment
-import com.yzy.baselibrary.app.BaseApplication
 import com.yzy.baselibrary.base.activity.BaseActivity
 import com.yzy.baselibrary.base.dialog.ActionLoadingDialog
 import com.yzy.baselibrary.base.dialog.LoadingDialog
@@ -49,7 +48,7 @@ abstract class BaseFragment : RxFragment(), KodeinAware, LifecycleOwner {
 
 
     override val kodein: Kodein = Kodein.lazy {
-        extend(BaseApplication.INSTANCE.kodein)
+        extend(com.yzy.baselibrary.app.BaseApplication.INSTANCE.kodein)
         initKodein(this)
     }
 
@@ -147,11 +146,11 @@ abstract class BaseFragment : RxFragment(), KodeinAware, LifecycleOwner {
     }
 
     protected open fun showActionLoading(
-        tips: String? = null,
+        tips: String? = null, resImage: Int = 0,
         style: (ActionLoadingDialog.() -> Unit)? = null
     ) {
         if (mActivity is BaseActivity) {
-            (mActivity as BaseActivity).showActionLoading(tips, style)
+            (mActivity as BaseActivity).showActionLoading(tips, resImage, style)
         }
     }
 

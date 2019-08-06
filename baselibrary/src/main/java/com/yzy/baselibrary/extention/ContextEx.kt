@@ -11,8 +11,10 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.WindowManager
 import android.view.inputmethod.InputMethodManager
+import android.widget.Toast
 import androidx.core.content.ContextCompat
 import com.yzy.baselibrary.BuildConfig
+import com.yzy.baselibrary.toast.YToast
 
 /**
  *description: Context相关的扩展.
@@ -26,13 +28,17 @@ fun Context.getConnectivityManager() = getSystemService(Context.CONNECTIVITY_SER
 
 fun Context.getInputMethodManager() = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
 
-fun Context.getVersionCode(): Int =BuildConfig.VERSION_CODE
+fun Context.getVersionCode(): Int = com.yzy.baselibrary.BuildConfig.VERSION_CODE
 
-fun Context.getVersionName(): String =BuildConfig.VERSION_NAME
+fun Context.getVersionName(): String = com.yzy.baselibrary.BuildConfig.VERSION_NAME
 
 fun Context.getResColor(resId: Int): Int = ContextCompat.getColor(this, resId)
 
 fun Context.getResDrawable(resId: Int): Drawable? = ContextCompat.getDrawable(this, resId)
+
+fun Context.toast(text: String, duration: Int = Toast.LENGTH_SHORT) = YToast.showCenterToast(this, text, duration)
+
+fun Context.toast(resId: Int, duration: Int = Toast.LENGTH_SHORT) = YToast.showCenterToast(this, getString(resId), duration)
 
 fun Context.inflate(layoutResource: Int, parent: ViewGroup? = null, attachToRoot: Boolean = false): View {
   return LayoutInflater.from(this).inflate(layoutResource, parent, attachToRoot)

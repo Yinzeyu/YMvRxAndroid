@@ -2,8 +2,6 @@ package com.yzy.baselibrary.base
 
 import android.view.View
 import com.airbnb.epoxy.EpoxyHolder
-import kotlin.properties.ReadOnlyProperty
-import kotlin.reflect.KProperty
 
 /**
  *description: Holder的基类.

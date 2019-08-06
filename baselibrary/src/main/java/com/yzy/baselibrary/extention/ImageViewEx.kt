@@ -19,7 +19,7 @@ import java.io.File
  *@author: yzy.
  *  加载url图片,默认CenterCrop和CrossFade效果
  */
-fun ImageView.load(url: String?, placeholderId: Int) {
+fun ImageView.load(url: String?, placeholderId: Int=0) {
     url?.let {
         val config: ImageConfig = ImageConfig.builder()
             .useCrossFade(false)
@@ -64,7 +64,7 @@ fun ImageView.load(@DrawableRes resourceId: Int?) {
  * 加载文件图片,默认CenterCrop和CrossFade效果
  */
 fun ImageView.load(file: File?) {
-    GlideApp.with(BaseApplication.INSTANCE)
+    com.yzy.baselibrary.imageloader.glide.GlideApp.with(BaseApplication.INSTANCE)
         .asBitmap()
         .load(file)
         .centerCrop()

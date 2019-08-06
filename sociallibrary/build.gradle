@@ -22,10 +22,15 @@ android {
 
 dependencies {
     api fileTree(dir: 'libs', include: ['*.jar'])
-    api 'com.tencent.mm.opensdk:wechat-sdk-android-with-mta:5.1.6'
+    api 'com.tencent.mm.opensdk:wechat-sdk-android-with-mta:5.4.0'
     implementation 'com.sina.weibo.sdk:core:4.4.0:openDefaultRelease@aar'
     implementation(rootProject.ext.dependencies.appcompat_v7)
 
     //kotlin
     implementation rootProject.ext.dependencies.kotlin_jdk
+
+    //utilcode
+    implementation(rootProject.ext.dependencies.utilcode) {
+        exclude group: "com.google.code.gson"
+    }
 }

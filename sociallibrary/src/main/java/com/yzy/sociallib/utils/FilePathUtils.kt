@@ -1,6 +1,7 @@
 package com.yzy.sociallib.utils
 
 import android.content.Context
+import com.blankj.utilcode.util.SDCardUtils
 
 import java.io.File
 
@@ -10,31 +11,40 @@ import java.io.File
  * @author: yzy.
  */
 object FilePathUtils {
-  /**
-   * 公司文件夹名称
-   */
-  private val COMPANY_FOLDER = "zhi_xiang"
-  /**
-   * APP文件夹名称
-   */
-  private val APP_FOLDER = "zhi_xiang_path"
-  /**
-   * 图片
-   */
-  val IMAGES = "images"
+    /**
+     * 公司文件夹名称
+     */
+    private const val COMPANY_FOLDER = "zhi_xiang"
+    /**
+     * 图片
+     */
+    const val IMAGES = "images"
 
-  /**
-   * 获取自定义的app的主目录
-   */
-  fun getAppPath(context: Context): String {
-    SDCardUtils.initSDCardPaths(context)
-    return ((if (!SDCardUtils.paths.isEmpty())
-      SDCardUtils.paths[0] + File.separator
-    else
-      context.cacheDir.path + File.separator)
-        + COMPANY_FOLDER
-        + File.separator
-        + APP_FOLDER
-        + File.separator)
-  }
+    /**
+     * 获取自定义的app的主目录
+     */
+    fun getAppPath(context: Context): String {
+        val rootDir = if (SDCardUtils.getSDCardPathByEnvironment().isNotBlank())
+            SDCardUtils.getSDCardPathByEnvironment()
+        else
+            context.cacheDir.path
+        return (rootDir
+                + File.separator
+                + COMPANY_FOLDER
+                + File.separator)
+    }
+
+    /**
+     * 初始化项目的各种文件夹
+     */
+    fun initAppFile(context: Context) {
+        val appPath = getAppPath(context)
+        //图片
+        FileUtils.createOrExistsDir(appPath + IMAGES)
+    }
+
+    fun getProvider(context: Context): String {
+        return context.packageName + ".version3.provider"
+    }
+
 }

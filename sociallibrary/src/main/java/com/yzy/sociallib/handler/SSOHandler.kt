@@ -7,6 +7,7 @@ import com.yzy.sociallib.entity.content.OperationContent
 import com.yzy.sociallib.entity.content.PayContent
 import com.yzy.sociallib.entity.content.ShareContent
 
+
 /**
  * description: handler的抽象类
  * @date 2019/7/15

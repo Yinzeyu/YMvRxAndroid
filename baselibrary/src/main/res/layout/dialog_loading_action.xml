@@ -7,31 +7,27 @@
 
     <LinearLayout
         android:id="@+id/loadingParent"
-        android:layout_width="120dp"
-        android:layout_height="120dp"
+        android:layout_width="173dp"
+        android:layout_height="173dp"
         android:layout_gravity="center"
         android:background="@drawable/shape_solid_black60_8"
         android:gravity="center"
         android:orientation="vertical"
         android:paddingTop="10dp">
 
-        <com.airbnb.lottie.LottieAnimationView
-            android:id="@+id/loadingLav"
-            android:layout_width="72dp"
-            android:layout_height="72dp"
-            app:lottie_autoPlay="true"
-            app:lottie_fileName="submit.json"
-            app:lottie_loop="true" />
+        <ImageView
+            android:id="@+id/ivCenterView"
+            android:layout_width="78dp"
+            android:layout_height="70dp" />
 
         <TextView
             android:id="@+id/loadingTv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:layout_marginBottom="16dp"
+            android:layout_marginTop="10dp"
+            android:includeFontPadding="false"
             android:textColor="#ffffffff"
-            android:textSize="12sp"
-            android:visibility="gone"
+            android:textSize="15sp"
             tools:text="资料更新中"
             tools:visibility="visible" />
     </LinearLayout>

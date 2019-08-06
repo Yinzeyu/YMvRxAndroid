@@ -6,8 +6,10 @@ import android.content.Context
 import android.view.View
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleOwner
+import com.yzy.baselibrary.utils.SchedulersUtil
 import com.jakewharton.rxbinding3.view.clicks
 import com.trello.rxlifecycle3.android.lifecycle.kotlin.bindUntilEvent
+import io.reactivex.functions.Consumer
 import java.util.concurrent.TimeUnit
 
 /**
@@ -17,21 +19,16 @@ import java.util.concurrent.TimeUnit
  */
 
 @SuppressLint("CheckResult")
-inline fun View.click(crossinline function: () -> kotlin.Unit) {
-    clicks()
-        .throttleFirst(600, TimeUnit.MILLISECONDS)
-        .subscribe {
-            function()
-        }
+inline fun View.click(crossinline function: () -> Unit) {
+    this.clicks().throttleFirst(600, TimeUnit.MILLISECONDS).subscribe { function() }
 }
 
 /**
  * 点击事件，默认销毁的时候
  */
 @SuppressLint("CheckResult")
-inline fun View.click(owner: LifecycleOwner, crossinline function: () -> kotlin.Unit) {
-    clicks()
-        .throttleFirst(600, TimeUnit.MILLISECONDS)
+inline fun View.click(owner: LifecycleOwner, crossinline function: () -> Unit) {
+    clicks().throttleFirst(600, TimeUnit.MILLISECONDS)
         .bindUntilEvent(owner, Lifecycle.Event.ON_DESTROY)
         .subscribe {
             function()
@@ -42,14 +39,14 @@ inline fun View.click(owner: LifecycleOwner, crossinline function: () -> kotlin.
 /**
  * 点击事件
  */
-@SuppressLint("CheckResult")
 inline fun View.click(
     owner: LifecycleOwner, event: Lifecycle.Event,
-    crossinline function: () -> kotlin.Unit
+    crossinline function: () -> Unit
 ) {
     clicks()
         .throttleFirst(600, TimeUnit.MILLISECONDS)
         .bindUntilEvent(owner, event)
+        .compose(SchedulersUtil.applySchedulers())
         .subscribe {
             function()
         }
@@ -58,14 +55,15 @@ inline fun View.click(
 /**
  * 点击事件
  */
-@SuppressLint("CheckResult")
 inline fun View.longClick(
-    owner: LifecycleOwner, event: Lifecycle.Event,
-    crossinline function: () -> kotlin.Unit
+    owner: LifecycleOwner,
+    event: Lifecycle.Event,
+    crossinline function: () -> Unit
 ) {
     clicks()
         .throttleFirst(600, TimeUnit.MILLISECONDS)
         .bindUntilEvent(owner, event)
+        .compose(SchedulersUtil.applySchedulers())
         .subscribe {
             function()
         }
@@ -113,3 +111,116 @@ fun View.disable() {
     this.isEnabled = false
 }
 
+var android.view.View.backgroundColor: Int
+    @Deprecated(NO_GETTER, level = DeprecationLevel.ERROR) get() = noGetter()
+    set(v) = setBackgroundColor(v)
+
+var android.view.View.backgroundResource: Int
+    @Deprecated(NO_GETTER, level = DeprecationLevel.ERROR) get() = noGetter()
+    set(v) = setBackgroundResource(v)
+
+var android.widget.ImageView.imageResource: Int
+    @Deprecated(NO_GETTER, level = DeprecationLevel.ERROR) get() = noGetter()
+    set(v) = setImageResource(v)
+
+var android.widget.ImageView.imageURI: android.net.Uri?
+    @Deprecated(NO_GETTER, level = DeprecationLevel.ERROR) get() = noGetter()
+    set(v) = setImageURI(v)
+
+var android.widget.ImageView.imageBitmap: android.graphics.Bitmap?
+    @Deprecated(NO_GETTER, level = DeprecationLevel.ERROR) get() = noGetter()
+    set(v) = setImageBitmap(v)
+
+var android.widget.TextView.textColor: Int
+    @Deprecated(NO_GETTER, level = DeprecationLevel.ERROR) get() = noGetter()
+    set(v) = setTextColor(v)
+
+var android.widget.TextView.hintTextColor: Int
+    @Deprecated(NO_GETTER, level = DeprecationLevel.ERROR) get() = noGetter()
+    set(v) = setHintTextColor(v)
+
+var android.widget.TextView.linkTextColor: Int
+    @Deprecated(NO_GETTER, level = DeprecationLevel.ERROR) get() = noGetter()
+    set(v) = setLinkTextColor(v)
+
+var android.widget.TextView.lines: Int
+    @Deprecated(NO_GETTER, level = DeprecationLevel.ERROR) get() = noGetter()
+    set(v) = setLines(v)
+
+var android.widget.TextView.singleLine: Boolean
+    @Deprecated(NO_GETTER, level = DeprecationLevel.ERROR) get() = noGetter()
+    set(v) = setSingleLine(v)
+
+var android.widget.RelativeLayout.horizontalGravity: Int
+    @Deprecated(NO_GETTER, level = DeprecationLevel.ERROR) get() = noGetter()
+    set(v) = setHorizontalGravity(v)
+
+var android.widget.RelativeLayout.verticalGravity: Int
+    @Deprecated(NO_GETTER, level = DeprecationLevel.ERROR) get() = noGetter()
+    set(v) = setVerticalGravity(v)
+
+var android.widget.LinearLayout.horizontalGravity: Int
+    @Deprecated(NO_GETTER, level = DeprecationLevel.ERROR) get() = noGetter()
+    set(v) = setHorizontalGravity(v)
+
+var android.widget.LinearLayout.verticalGravity: Int
+    @Deprecated(NO_GETTER, level = DeprecationLevel.ERROR) get() = noGetter()
+    set(v) = setVerticalGravity(v)
+
+var android.widget.AbsListView.selectorResource: Int
+    @Deprecated(NO_GETTER, level = DeprecationLevel.ERROR) get() = noGetter()
+    set(v) = setSelector(v)
+
+var android.widget.CheckedTextView.checkMarkDrawableResource: Int
+    @Deprecated(NO_GETTER, level = DeprecationLevel.ERROR) get() = noGetter()
+    set(v) = setCheckMarkDrawable(v)
+
+var android.widget.CompoundButton.buttonDrawableResource: Int
+    @Deprecated(NO_GETTER, level = DeprecationLevel.ERROR) get() = noGetter()
+    set(v) = setButtonDrawable(v)
+
+var android.widget.TabWidget.leftStripDrawableResource: Int
+    @Deprecated(NO_GETTER, level = DeprecationLevel.ERROR) get() = noGetter()
+    set(v) = setLeftStripDrawable(v)
+
+var android.widget.TabWidget.rightStripDrawableResource: Int
+    @Deprecated(NO_GETTER, level = DeprecationLevel.ERROR) get() = noGetter()
+    set(v) = setRightStripDrawable(v)
+
+var android.widget.TextView.hintResource: Int
+    @Deprecated(NO_GETTER, level = DeprecationLevel.ERROR) get() = noGetter()
+    set(v) = setHint(v)
+
+var android.widget.TextView.textResource: Int
+    @Deprecated(NO_GETTER, level = DeprecationLevel.ERROR)
+    get() = noGetter()
+    set(v) = setText(v)
+
+var android.widget.Toolbar.logoResource: Int
+    @Deprecated(NO_GETTER, level = DeprecationLevel.ERROR) get() = noGetter()
+    set(v) = setLogo(v)
+
+var android.widget.Toolbar.logoDescriptionResource: Int
+    @Deprecated(NO_GETTER, level = DeprecationLevel.ERROR) get() = noGetter()
+    set(v) = setLogoDescription(v)
+
+var android.widget.Toolbar.navigationContentDescriptionResource: Int
+    @Deprecated(NO_GETTER, level = DeprecationLevel.ERROR) get() = noGetter()
+    set(v) = setNavigationContentDescription(v)
+
+var android.widget.Toolbar.navigationIconResource: Int
+    @Deprecated(NO_GETTER, level = DeprecationLevel.ERROR) get() = noGetter()
+    set(v) = setNavigationIcon(v)
+
+var android.widget.Toolbar.subtitleResource: Int
+    @Deprecated(NO_GETTER, level = DeprecationLevel.ERROR) get() = noGetter()
+    set(v) = setSubtitle(v)
+
+var android.widget.Toolbar.titleResource: Int
+    @Deprecated(NO_GETTER, level = DeprecationLevel.ERROR) get() = noGetter()
+    set(v) = setTitle(v)
+
+
+fun noGetter(): Nothing = throw RuntimeException("Property does not have a getter")
+
+const val NO_GETTER: String = "Property does not have a getter"

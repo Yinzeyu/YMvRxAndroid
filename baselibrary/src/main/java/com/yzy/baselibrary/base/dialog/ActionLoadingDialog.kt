@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.fragment.app.FragmentManager
 import com.yzy.baselibrary.R
@@ -14,10 +15,19 @@ import com.yzy.baselibrary.extention.showTextNotNull
  *@date 2019/7/15
  *@author: yzy.
  */
-class ActionLoadingDialog : BaseFragmentDialog() {
+class ActionLoadingDialog(override val contentLayout: Int = R.layout.dialog_loading_action) :
+    BaseFragmentDialog() {
+    override fun initView(view: View) {
+        loadingTv = view.findViewById(R.id.loadingTv)
+        ivCenterView = view.findViewById(R.id.ivCenterView)
+        ivCenterView?.setImageResource(res)
+        loadingTv?.showTextNotNull(tips)
+    }
 
     private var loadingTv: TextView? = null
+    private var ivCenterView: ImageView? = null
     private var tips: String? = null
+    private var res: Int = 0
 
     init {
         touchOutside = false
@@ -25,20 +35,14 @@ class ActionLoadingDialog : BaseFragmentDialog() {
         isCancelable = false
     }
 
-    override fun setView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-        val view = inflater.inflate(R.layout.dialog_loading_action, container, false)
-        loadingTv = view.findViewById(R.id.loadingTv)
-        loadingTv?.showTextNotNull(tips)
-        return view
-    }
-
     fun setTips(text: String?) {
         tips = text
         loadingTv?.showTextNotNull(tips)
+    }
+
+    fun setImageRes(resImage: Int) {
+        res = resImage
+        ivCenterView?.setImageResource(res)
     }
 
     companion object {

@@ -10,8 +10,10 @@ import com.yzy.sociallib.callback.ShareCallback
 import com.yzy.sociallib.config.OperationType
 import com.yzy.sociallib.config.PlatformType
 import com.yzy.sociallib.config.SocialConstants
+import com.yzy.sociallib.entity.content.*
 import com.yzy.sociallib.entity.platform.PlatformConfig
 import com.yzy.sociallib.entity.platform.SinaPlatConfigBean
+import com.yzy.sociallib.extention.*
 import com.yzy.sociallib.handler.SSOHandler
 import com.yzy.sociallib.utils.AppUtils
 import com.sina.weibo.sdk.WbSdk
@@ -23,8 +25,6 @@ import com.sina.weibo.sdk.auth.WbConnectErrorMessage
 import com.sina.weibo.sdk.auth.sso.SsoHandler
 import com.sina.weibo.sdk.share.WbShareCallback
 import com.sina.weibo.sdk.share.WbShareHandler
-import com.yzy.sociallib.entity.content.*
-import com.yzy.sociallib.extention.*
 
 
 /**

@@ -1,25 +1,24 @@
 package com.yzy.baselibrary.base.activity
 
 import android.os.Bundle
-import com.airbnb.mvrx.MvRxView
 import com.airbnb.mvrx.MvRxViewModelStore
-import java.util.*
+import com.airbnb.mvrx.MvRxViewModelStoreOwner
 
-abstract class BaseMvActivity : BaseActivity(), MvRxView {
+abstract class BaseMvActivity : BaseActivity(), MvRxViewModelStoreOwner {
     override val mvrxViewModelStore by lazy { MvRxViewModelStore(viewModelStore) }
-    private lateinit var mvrxPersistedViewId: String
-    final override val mvrxViewId: String by lazy { mvrxPersistedViewId }
+
     override fun initBeforeCreateView(savedInstanceState: Bundle?) {
         mvrxViewModelStore.restoreViewModels(this, savedInstanceState)
-        mvrxPersistedViewId =
-            savedInstanceState?.getString(PERSISTED_VIEW_ID_KEY) ?: this::class.java.simpleName+ "_" + UUID.randomUUID().toString()
+        initMvrxPersistedViewId(savedInstanceState)
     }
 
-
+    protected open fun initMvrxPersistedViewId(savedInstanceState: Bundle?) {
+    }
+    protected open fun initSaveInstanceState(outState: Bundle) {
+    }
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
         mvrxViewModelStore.saveViewModels(outState)
+        initSaveInstanceState(outState)
     }
 }
-
-private const val PERSISTED_VIEW_ID_KEY = "mvrx:persisted_view_id"

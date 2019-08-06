@@ -1,10 +1,13 @@
 package com.yzy.baselibrary.base.activity
 
 import android.os.Bundle
-import com.gyf.immersionbar.ktx.immersionBar
-import com.trello.rxlifecycle3.components.support.RxAppCompatActivity
 import com.yzy.baselibrary.base.dialog.ActionLoadingDialog
 import com.yzy.baselibrary.base.dialog.LoadingDialog
+import com.yzy.baselibrary.base.dialog.dslLoadingDialog
+import com.yzy.baselibrary.toast.YToast
+import com.gyf.immersionbar.ImmersionBar
+import com.gyf.immersionbar.ktx.immersionBar
+import com.trello.rxlifecycle3.components.support.RxAppCompatActivity
 import org.kodein.di.*
 import org.kodein.di.android.*
 import org.kodein.di.android.retainedSubKodein
@@ -51,7 +54,12 @@ abstract class BaseActivity : RxAppCompatActivity(), KodeinAware {
         immersionBar {
             transparentStatusBar()
             statusBarDarkFont(true)
+            statusImmersionBar(this)
         }
+    }
+
+    protected open fun statusImmersionBar(immersionBar: ImmersionBar) {
+
     }
 
     /** 这里可以做一些setContentView之前的操作,如全屏、常亮、设置Navigation颜色、状态栏颜色等  */
@@ -67,6 +75,9 @@ abstract class BaseActivity : RxAppCompatActivity(), KodeinAware {
             //loading已经在显示中
             return
         }
+//        loadingDialog = dslLoadingDialog(supportFragmentManager, TAG_FRAGMENT_LOADING, dsl = {
+//            dismiss()
+//        })
         if (loadingDialog == null) {
             loadingDialog = LoadingDialog.newInstance()
         }
@@ -77,7 +88,7 @@ abstract class BaseActivity : RxAppCompatActivity(), KodeinAware {
     }
 
     open fun showActionLoading(
-        tips: String? = null,
+        tips: String? = null, resImage: Int = 0,
         style: (ActionLoadingDialog.() -> Unit)? = null
     ) {
         if (supportFragmentManager.findFragmentByTag(TAG_FRAGMENT_LOADING_ACTION) != null ||
@@ -90,6 +101,7 @@ abstract class BaseActivity : RxAppCompatActivity(), KodeinAware {
             actionLoadingDialog = ActionLoadingDialog.newInstance()
         }
         actionLoadingDialog?.setTips(tips)
+        actionLoadingDialog?.setImageRes(resImage)
         style?.let {
             actionLoadingDialog?.apply(it)
         }
@@ -106,5 +118,11 @@ abstract class BaseActivity : RxAppCompatActivity(), KodeinAware {
         private const val TAG_FRAGMENT_LOADING_ACTION = "ActionLoadingDialog"
     }
 
+
+    override fun onDestroy() {
+        super.onDestroy()
+        //移除所有Activity类型的Toast防止内存泄漏
+        YToast.cancelActivityToast(this)
+    }
 
 }

@@ -3,9 +3,9 @@ package com.yzy.baselibrary.base
 import android.graphics.drawable.Drawable
 import android.view.View
 import android.view.ViewGroup
+import com.yzy.baselibrary.extention.dp2px
 import com.airbnb.epoxy.EpoxyAttribute
 import com.airbnb.epoxy.EpoxyModel
-import com.yzy.baselibrary.extention.dp2px
 
 
 /**

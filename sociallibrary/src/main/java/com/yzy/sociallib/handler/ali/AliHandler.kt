@@ -17,6 +17,7 @@ import com.yzy.sociallib.entity.content.PayContent
 import com.yzy.sociallib.entity.platform.AliPlatConfigBean
 import com.yzy.sociallib.entity.platform.PlatformConfig
 import com.yzy.sociallib.handler.SSOHandler
+
 import com.alipay.sdk.app.AuthTask
 import com.alipay.sdk.app.PayTask
 

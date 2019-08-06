@@ -10,7 +10,9 @@ import com.yzy.sociallib.callback.ShareCallback
 import com.yzy.sociallib.config.OperationType
 import com.yzy.sociallib.config.PlatformType
 import com.yzy.sociallib.config.SocialConstants
+import com.yzy.sociallib.entity.content.*
 import com.yzy.sociallib.entity.platform.PlatformConfig
+import com.yzy.sociallib.extention.*
 import com.yzy.sociallib.handler.SSOHandler
 import com.tencent.mm.opensdk.constants.ConstantsAPI
 import com.tencent.mm.opensdk.modelbase.BaseReq
@@ -25,8 +27,7 @@ import com.tencent.mm.opensdk.modelpay.PayResp
 import com.tencent.mm.opensdk.openapi.IWXAPI
 import com.tencent.mm.opensdk.openapi.IWXAPIEventHandler
 import com.tencent.mm.opensdk.openapi.WXAPIFactory
-import com.yzy.sociallib.entity.content.*
-import com.yzy.sociallib.extention.*
+
 
 /**
  * description: 微信处理
@@ -52,33 +53,25 @@ class WXHandler(context: Context, config: PlatformConfig) : SSOHandler() {
 
     var wxAPI: IWXAPI? = WXAPIFactory.createWXAPI(context, config.appkey, true)
         private set
-    var wxEventHandler: IWXAPIEventHandler
-        private set
+
+    fun callbackWXEventHandler(resp: BaseResp?) {
+        when (resp?.type ?: -1) {
+            //授权返回
+            ConstantsAPI.COMMAND_SENDAUTH -> this@WXHandler.onAuthCallback(resp as SendAuth.Resp)
+            //分享返回
+            ConstantsAPI.COMMAND_SENDMESSAGE_TO_WX ->
+                this@WXHandler.onShareCallback(resp as SendMessageToWX.Resp)
+            //支付返回
+            ConstantsAPI.COMMAND_PAY_BY_WX -> this@WXHandler.onPayCallback(resp as PayResp)
+            else -> {
+                Log.e("Social", "$TAG : wxEventHandler 回调为null")
+            }
+        }
+    }
 
 
     init {
         wxAPI?.registerApp(config.appkey)
-        wxEventHandler = object : IWXAPIEventHandler {
-            override fun onResp(resp: BaseResp?) {
-                val type = resp?.type ?: -1
-                when (type) {
-                    //授权返回
-                    ConstantsAPI.COMMAND_SENDAUTH -> this@WXHandler.onAuthCallback(resp as SendAuth.Resp)
-                    //分享返回
-                    ConstantsAPI.COMMAND_SENDMESSAGE_TO_WX ->
-                        this@WXHandler.onShareCallback(resp as SendMessageToWX.Resp)
-                    //支付返回
-                    ConstantsAPI.COMMAND_PAY_BY_WX -> this@WXHandler.onPayCallback(resp as PayResp)
-                    else -> {
-                        Log.e("Social", "$TAG : wxEventHandler 回调为null")
-                    }
-                }
-            }
-
-            override fun onReq(p0: BaseReq?) {
-            }
-
-        }
     }
 
     override val isInstalled: Boolean
