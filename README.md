@@ -12,6 +12,15 @@
 + objectBox
 + lottie
 ## 更新日志
+##### 2019/8/8
+##### 增加二维码跳转
+##### 修复Viewpager2无法去掉水波纹问题
+##### 增加activity 跳转方法
+##### 更新Viewpager2版本为bate3
+##### 增加lib ZXing   github地址：https://github.com/devilsen/CZXing
+##### 分享模块lib 地址：https://github.com/apiosource/YSocialApi
+##### 推送模块lib 地址：https://github.com/Yinzeyu/YUMPush
+##### 收集常用的三方框架：https://github.com/Yinzeyu/lib
 
 ##### 2019/8/6
 ##### base 增加MvrvDialog 基类  
