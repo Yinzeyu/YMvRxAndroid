@@ -1,5 +1,6 @@
 package com.yzy.pj.ui.elephant
 
+import android.content.Context
 import androidx.viewpager2.widget.ViewPager2
 import com.airbnb.epoxy.AsyncEpoxyController
 import com.airbnb.mvrx.Fail
@@ -7,12 +8,19 @@ import com.airbnb.mvrx.Loading
 import com.airbnb.mvrx.Success
 import com.yzy.baselibrary.base.activity.BaseMvRxEpoxyActivity
 import com.yzy.baselibrary.base.simpleController
+import com.yzy.baselibrary.extention.startActivity
 import com.yzy.commonlibrary.repository.model.GankViewModel
 import com.yzy.pj.R
-import com.yzy.pj.ui.atMeMessageItem
 import kotlinx.android.synthetic.main.activity_elephant.*
 
-class ElephantActivity : BaseMvRxEpoxyActivity() {
+class ViewPager2Activity : BaseMvRxEpoxyActivity() {
+
+    companion object {
+        fun starElephantActivity(context: Context) {
+            context.startActivity<ViewPager2Activity>()
+        }
+    }
+
     //加载显示loading
     private var needShowLoading = true
     private val gankViewModel: GankViewModel by lazy {
@@ -55,6 +63,7 @@ class ElephantActivity : BaseMvRxEpoxyActivity() {
         gankViewModel.loadData(10, 17)
         tElephantViewPager.adapter = epoxyController.adapter
         tElephantViewPager.orientation = ViewPager2.ORIENTATION_VERTICAL
+        tElephantViewPager.getChildAt(0).overScrollMode = ViewPager2.OVER_SCROLL_NEVER
 
     }
 

@@ -13,13 +13,10 @@ import java.util.concurrent.TimeUnit
 
 
 class SplashActivity : BaseActivity() {
-    override fun layoutResId(): Int = R.layout.activity_splash;
+    override fun layoutResId(): Int = R.layout.activity_splash
 
     override fun initView() {
-        iv_sp.load(
-            "https://up.enterdesk.com/edpic_source/66/6d/c7/666dc7648df7e11fcd92710185610927.jpg",
-            0
-        )
+        iv_sp.load("https://up.enterdesk.com/edpic_source/66/6d/c7/666dc7648df7e11fcd92710185610927.jpg")
     }
 
     override fun initDate() {
