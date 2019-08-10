@@ -1,1 +1,1 @@
-include ':app', ':baselibrary', ':commonlibrary', ':sociallibrary', ':push', ':czxing'
+include ':app', ':baselibrary', ':commonlibrary', ':sociallibrary', ':push'

@@ -114,10 +114,9 @@ dependencies {
     implementation project(":commonlibrary")
     implementation project(":sociallibrary")
     implementation project(":push")
-    implementation project(":czxing")
     kapt 'com.airbnb.android:epoxy-processor:3.7.0'
     implementation('androidx.viewpager2:viewpager2:1.0.0-beta03') {
-
+    implementation 'me.devilsen:CZXing:0.7.3'
 
     }
     debugImplementation rootProject.ext.dependencies.leakcanary_debug
