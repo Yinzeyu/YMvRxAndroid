@@ -12,6 +12,14 @@
 + objectBox
 + lottie
 ## 更新日志
+##### 2019/8/16
+##### 增加单张图片显示效果库
+##### 移除原有zxing 模块（存在bug）
+##### 将http 部分方法迁移到commLib 中
+##### 修改AbnormalResponseBodyConverter  data 字段可能为null 问题
+##### 修改Glide 方法加载本地失败图片崩溃问题
+##### 将jsbridge 库下沉到base
+
 ##### 2019/8/8
 ##### 增加二维码跳转
 ##### 修复Viewpager2无法去掉水波纹问题
