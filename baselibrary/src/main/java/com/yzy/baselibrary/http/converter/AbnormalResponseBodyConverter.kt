@@ -19,7 +19,7 @@ class AbnormalResponseBodyConverter<T> constructor(
 ) : Converter<ResponseBody, T> {
     private val KEY_DATA = "data"
     private val KEY_CODE = "code"
-    private val EMPTY_DATA_LIST_CONVER = "{\"data\":[]}"
+    private val DATA_LIST_COLVER = "{\"data\":[]}"
     private val EMPTY_DATA_OBJECT_CONVER = "{\"data\":{}}"
     private val EMPTY_DATA_LIST_ADD = "{\"data\":[],"
     private val EMPTY_DATA_OBJECT_ADD = "{\"data\":{},"
@@ -33,7 +33,15 @@ class AbnormalResponseBodyConverter<T> constructor(
         }
 
         var resStr = String(value.bytes())
+
         val resJsonOb = JSONObject(resStr)
+        /**
+         * 增加这个判断是防止有data 但是为null 的情况
+         */
+        if (resJsonOb.has(KEY_DATA) && resJsonOb.getString(KEY_DATA) == "null") {
+            resJsonOb.remove(KEY_DATA)
+            resStr = resJsonOb.toString()
+        }
         if (resStr.isNotEmpty()
             && resStr.startsWith("{")
             && resJsonOb.has(KEY_CODE)
@@ -45,7 +53,7 @@ class AbnormalResponseBodyConverter<T> constructor(
                 resStr = EMPTY_DATA_OBJECT_ADD + resStr.substring(1)
             } catch (e: Exception) {
                 try {
-                    adapter.fromJson(EMPTY_DATA_LIST_CONVER)
+                    adapter.fromJson(DATA_LIST_COLVER)
                     resStr = EMPTY_DATA_LIST_ADD + resStr.substring(1)
                 } catch (e: Exception) {
                     e.printStackTrace()
