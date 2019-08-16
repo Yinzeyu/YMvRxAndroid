@@ -2,7 +2,6 @@ package com.yzy.baselibrary.http.converter
 
 import com.google.gson.Gson
 import com.google.gson.TypeAdapter
-import okhttp3.MediaType
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.RequestBody
 import okhttp3.RequestBody.Companion.toRequestBody

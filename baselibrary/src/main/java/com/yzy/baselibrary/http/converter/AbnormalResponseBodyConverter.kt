@@ -34,7 +34,7 @@ class AbnormalResponseBodyConverter<T> constructor(
 
         var resStr = String(value.bytes())
         val resJsonOb = JSONObject(resStr)
-        if (!resStr.isEmpty()
+        if (resStr.isNotEmpty()
             && resStr.startsWith("{")
             && resJsonOb.has(KEY_CODE)
             && resJsonOb.getInt(KEY_CODE) == 200

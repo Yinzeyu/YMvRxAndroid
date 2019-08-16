@@ -1,6 +1,6 @@
 package com.yzy.commonlibrary.http
 
-import com.yzy.baselibrary.http.response.ApiException
+import com.yzy.commonlibrary.http.response.ApiException
 
 
 /**

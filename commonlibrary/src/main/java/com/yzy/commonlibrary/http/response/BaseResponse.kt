@@ -1,4 +1,4 @@
-package com.yzy.baselibrary.http.response
+package com.yzy.commonlibrary.http.response
 
 /**
  *description: 网络请求返回的基类,接口文档没有不确定.

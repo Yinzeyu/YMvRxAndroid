@@ -1,4 +1,4 @@
-package com.yzy.baselibrary.http.response
+package com.yzy.commonlibrary.http.response
 
 import io.reactivex.observers.ResourceObserver
 

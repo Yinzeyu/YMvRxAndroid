@@ -92,7 +92,7 @@ class GlideImageLoaderStrategy : BaseImageLoaderStrategy {
                     }
                     //设置错误的占位图片
                     if (config.errorSrc != 0) {
-                        kotlin.error(config.errorSrc)
+                        error(config.errorSrc)
                     }
                     //高斯模糊
                     if (config.blur) {

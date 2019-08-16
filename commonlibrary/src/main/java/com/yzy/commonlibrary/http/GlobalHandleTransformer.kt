@@ -1,9 +1,9 @@
-package com.yzy.baselibrary.http
+package com.yzy.commonlibrary.http
 
 import com.yzy.baselibrary.http.retry.FlowableRetryDelay
 import com.yzy.baselibrary.http.retry.ObservableRetryDelay
 import com.yzy.baselibrary.http.retry.RetryConfig
-import com.yzy.baselibrary.http.response.BaseResponse
+import com.yzy.commonlibrary.http.response.BaseResponse
 import com.yzy.baselibrary.utils.SchedulersUtil
 import io.reactivex.*
 import io.reactivex.android.schedulers.AndroidSchedulers

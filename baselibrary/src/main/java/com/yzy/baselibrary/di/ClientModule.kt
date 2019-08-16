@@ -1,10 +1,10 @@
 package com.yzy.baselibrary.di
 
-import com.yzy.baselibrary.http.converter.AbnormalConverterFactory
 import com.google.gson.GsonBuilder
 import com.google.gson.JsonPrimitive
 import com.google.gson.JsonSerializer
 import com.yzy.baselibrary.BuildConfig
+import com.yzy.baselibrary.http.converter.AbnormalConverterFactory
 import com.yzy.baselibrary.http.ssl.SSLManager
 import io.rx_cache2.internal.RxCache
 import io.victoralbertos.jolyglot.GsonSpeaker

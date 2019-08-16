@@ -1,4 +1,4 @@
-package com.yzy.baselibrary.http.response
+package com.yzy.commonlibrary.http.response
 
 /**
  *description: 网络请求异常的Exception.

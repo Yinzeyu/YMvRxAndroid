@@ -9,7 +9,6 @@ import com.yzy.pj.R
 import com.yzy.pj.ui.IndexFragment
 import com.yzy.pj.ui.elephant.ViewPager2Activity
 import kotlinx.android.synthetic.main.activity_main.*
-import me.devilsen.czxing.Scanner
 
 class MainActivity : BaseActivity() {
 
@@ -61,9 +60,9 @@ class MainActivity : BaseActivity() {
         }
 
         flScanView.click {
-            Scanner.with(mContext).setOnScanResultDelegate {
-
-            }.start()
+//            Scanner.with(mContext).setOnScanResultDelegate {
+//
+//            }.start()
         }
     }
 

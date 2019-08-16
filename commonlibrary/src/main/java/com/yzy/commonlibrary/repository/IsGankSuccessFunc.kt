@@ -1,6 +1,6 @@
 package com.yzy.commonlibrary.repository
 
-import com.yzy.baselibrary.http.response.ApiException
+import com.yzy.commonlibrary.http.response.ApiException
 import com.yzy.commonlibrary.repository.bean.GankBaseBean
 import io.reactivex.functions.Function
 
