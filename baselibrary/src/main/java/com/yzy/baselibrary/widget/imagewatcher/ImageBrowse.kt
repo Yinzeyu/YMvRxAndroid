@@ -15,7 +15,7 @@ import kotlin.math.min
  * @author : case
  * @date : 2018/8/7 21:46
  */
-class ImageBrowse private constructor() {
+class ImageBrowse {
     private var mWatcher: ImageWatcher? = null
 
     fun show(iv: ImageView?, viewList: List<ImageView?>?, urlList: List<String>?) {
@@ -61,6 +61,5 @@ class ImageBrowse private constructor() {
                     .create()
             return imageBrowse
         }
-
     }
 }
