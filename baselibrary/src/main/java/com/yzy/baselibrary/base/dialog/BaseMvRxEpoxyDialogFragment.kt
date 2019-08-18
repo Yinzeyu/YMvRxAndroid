@@ -5,7 +5,7 @@ import com.yzy.baselibrary.base.MvRxEpoxyController
 import com.airbnb.mvrx.BaseMvRxViewModel
 
 
-abstract class BaseMvRxEpoxyDialogFragment : CommonDialogFragment() {
+abstract class  BaseMvRxEpoxyDialogFragment : CommonDialogFragment() {
     protected val epoxyController by lazy { epoxyController() }
 
     override fun invalidate() {

@@ -204,5 +204,5 @@ dependencies {
     api('com.gyf.immersionbar:immersionbar-ktx:3.0.0-beta05') {
         exclude group: 'org.jetbrains.kotlin'
     }
-    implementation 'com.shizhefei:LargeImageView:1.1.0'
+//    implementation 'com.shizhefei:LargeImageView:1.1.0'
 }

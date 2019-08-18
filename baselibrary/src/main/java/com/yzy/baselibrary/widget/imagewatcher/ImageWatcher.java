@@ -36,9 +36,8 @@ import androidx.viewpager.widget.PagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
 
-import com.shizhefei.view.largeimage.LargeImageView;
-import com.shizhefei.view.largeimage.factory.FileBitmapDecoderFactory;
 import com.yzy.baselibrary.R;
+import com.yzy.baselibrary.widget.imagewatcher.factory.FileBitmapDecoderFactory;
 
 import java.io.File;
 import java.lang.ref.WeakReference;
