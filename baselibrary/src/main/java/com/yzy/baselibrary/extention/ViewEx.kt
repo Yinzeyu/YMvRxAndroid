@@ -5,6 +5,7 @@ import android.app.Activity
 import android.content.Context
 import android.graphics.Color
 import android.view.View
+import android.view.ViewManager
 import com.yzy.baselibrary.R
 import com.yzy.baselibrary.utils.PressEffectHelper
 
@@ -94,6 +95,12 @@ fun View.visibleGone(visible: Boolean) = if (visible) visible() else gone()
 
 //显示或者不显示但占位
 fun View.visibleInvisible(visible: Boolean) = if (visible) visible() else invisible()
+//从父控件移除
+fun View.removeParent() {
+    val parentTemp = parent
+    if (parentTemp is ViewManager) parentTemp.removeView(this)
+}
+
 
 var android.view.View.backgroundColor: Int
     @Deprecated(NO_GETTER, level = DeprecationLevel.ERROR) get() = noGetter()

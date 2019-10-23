@@ -2,30 +2,23 @@ package com.yzy.pj.ui.elephant
 
 import android.content.Context
 import android.util.Log
-import androidx.viewpager2.widget.ViewPager2
-import com.airbnb.epoxy.AsyncEpoxyController
 import com.airbnb.epoxy.EpoxyVisibilityTracker
 import com.airbnb.mvrx.Fail
 import com.airbnb.mvrx.Loading
 import com.airbnb.mvrx.Success
 import com.blankj.utilcode.util.LogUtils
 import com.blankj.utilcode.util.NetworkUtils
-import com.scwang.smart.refresh.layout.SmartRefreshLayout
-import com.xiaomi.push.it
-import com.yzy.baselibrary.base.BaseActivity
 import com.yzy.baselibrary.base.MvRxEpoxyController
 import com.yzy.baselibrary.extention.mContext
 import com.yzy.baselibrary.extention.startActivity
-import com.yzy.commonlibrary.repository.model.ConversationDetailState
-import com.yzy.commonlibrary.repository.model.GankViewModel
+import com.yzy.commonlibrary.comm.CommActivity
 import com.yzy.commonlibrary.repository.model.HomeState
 import com.yzy.commonlibrary.repository.model.HomeViewModel
 import com.yzy.pj.R
 import com.yzy.pj.ui.item.*
 import kotlinx.android.synthetic.main.activity_elephant.*
 
-class ViewPager2Activity : BaseActivity() {
-//    private var mSmartSwipeRefresh: SmartRefreshLayout? = null
+class ViewPager2Activity : CommActivity() {
     companion object {
         fun starElephantActivity(context: Context) {
             context.startActivity<ViewPager2Activity>()
@@ -66,7 +59,7 @@ class ViewPager2Activity : BaseActivity() {
                 }
             }
             //有数据支持下拉刷新
-//            mSmartSwipeRefresh?.swipeConsumer?.enableTop()
+            smRefresh.setEnableRefresh(false)
             //根据返回信息判断是否可以加载更多
             if (state.hasMore) {
                 loadMoreItem {
@@ -78,6 +71,8 @@ class ViewPager2Activity : BaseActivity() {
                 }
             }
         } else {
+            smRefresh.setEnableRefresh(false)
+
             //没有数据，不能下拉刷新也不能加载更多
 //            mSmartSwipeRefresh?.disableRefresh()
             //无数据
@@ -113,11 +108,12 @@ class ViewPager2Activity : BaseActivity() {
         EpoxyVisibilityTracker().attach(homeEpoxyRecycler)
 
         smRefresh.setOnRefreshListener {
-
+            gankViewModel.refreshData()
         }
         smRefresh.setOnLoadMoreListener {
 
         }
+        smRefresh.setEnableLoadMore(false)
         //请求状态和结果监听
         gankViewModel.subscribe { state ->
             if (state.request is Loading) {//请求开始
@@ -125,13 +121,14 @@ class ViewPager2Activity : BaseActivity() {
                 if (state.banners.isNullOrEmpty() && state.articles.isNullOrEmpty()
                 ) {
                     //显示loading
-//                    showLoadingView()
+                    showLoadingView()
                     //为了防止loading结束后还存在失败的view所以需刷新一下
                     epoxyController.requestModelBuild()
                 }
             } else if (state.request.complete) {//请求结束
-//                mSmartSwipeRefresh?.finished(state.request is Success)
-//                dismissLoadingView()
+                smRefresh.finishRefresh(state.request is Success)
+                smRefresh.finishLoadMore(state.request is Success)
+                dismissLoadingView()
                 epoxyController.data = state
                 if (state.request is Fail) {//请求失败
                     Log.e("CASE", "失败原因:${(state.request as Fail<Any>).error.message ?: ""}")
