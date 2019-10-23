@@ -8,7 +8,9 @@ import com.yzy.baselibrary.extention.*
 import com.yzy.pj.R
 import com.yzy.pj.ui.IndexFragment
 import com.yzy.pj.ui.elephant.ViewPager2Activity
+import com.yzy.pj.ui.video.TasteVideoActivity
 import kotlinx.android.synthetic.main.activity_main.*
+import me.devilsen.czxing.Scanner
 
 class MainActivity : BaseActivity() {
 
@@ -60,9 +62,12 @@ class MainActivity : BaseActivity() {
         }
 
         flScanView.click {
-//            Scanner.with(mContext).setOnScanResultDelegate {
-//
-//            }.start()
+            Scanner.with(mContext).setOnScanResultDelegate { _, _ ->
+
+            }.start()
+        }
+        flPlay.click {
+            TasteVideoActivity.starTasteVideoActivity(mContext)
         }
     }
 
