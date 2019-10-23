@@ -59,7 +59,7 @@ class ViewPager2Activity : CommActivity() {
                 }
             }
             //有数据支持下拉刷新
-            smRefresh.setEnableRefresh(false)
+            smRefresh.setEnableRefresh(true)
             //根据返回信息判断是否可以加载更多
             if (state.hasMore) {
                 loadMoreItem {
