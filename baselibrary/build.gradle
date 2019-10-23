@@ -59,7 +59,7 @@ dependencies {
     api rootProject.ext.dependencies.rxpermission
     api rootProject.ext.dependencies.autosize
     api(rootProject.ext.dependencies.live_event_bus)
-    api(rootProject.ext.dependencies.rxBinding)
+//    api(rootProject.ext.dependencies.rxBinding)
     api rootProject.ext.dependencies.mvrx
     api rootProject.ext.dependencies.epoxy
     kapt rootProject.ext.dependencies.epoxyProcessor

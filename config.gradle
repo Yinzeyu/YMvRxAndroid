@@ -65,7 +65,7 @@ ext {
 //            //https://github.com/ssseasonnn/RxDownload
 //            rxDownload                    : "zlc.season:rxdownload3:$rootProject.rxDownloadVersion",
             //https://github.com/JakeWharton/RxBinding
-            rxBinding                 : "com.jakewharton.rxbinding3:rxbinding:3.0.0",
+//            rxBinding                 : "com.jakewharton.rxbinding3:rxbinding:3.0.0",
 //            https://github.com/VictorAlbertos/RxCache
 //            rxCache                       : "com.github.VictorAlbertos.RxCache:runtime:$rootProject.rxCacheVersion",
 //            rxCache_gson                  : "com.github.VictorAlbertos.Jolyglot:gson:$rootProject.rxCacheGsonVersion",
@@ -130,6 +130,8 @@ ext {
             lottie                    : "com.airbnb.android:lottie:3.1.0",
             live_event_bus            : "com.jeremyliao:live-event-bus-x:1.5.3",
             smart                     : "com.scwang.smart:refresh-layout-kernel:2.0.0-alpha-1",
+            //https://github.com/panpf/sketch
+//            sketch                     : "me.panpf:sketch:2.7.1-rc01",
             smart_classics            : "com.scwang.smart:refresh-footer-classics:2.0.0-alpha-1"
 
     ]
