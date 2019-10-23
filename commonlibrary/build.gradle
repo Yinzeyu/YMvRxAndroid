@@ -36,6 +36,7 @@ dependencies {
     api rootProject.ext.dependencies.bugly_native
 
     api rootProject.ext.dependencies.smart
+    api rootProject.ext.dependencies.smart_classics
     api rootProject.ext.dependencies.objectBox_RxJava
     api rootProject.ext.dependencies.objectBox_Kotlin
 

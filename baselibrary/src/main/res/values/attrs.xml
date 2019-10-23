@@ -21,4 +21,5 @@
         <attr name="left_bottom_radiusX" format="dimension" />
         <attr name="left_bottom_radiusY" format="dimension" />
     </declare-styleable>
+
 </resources>

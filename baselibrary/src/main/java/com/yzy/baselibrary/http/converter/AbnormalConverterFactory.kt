@@ -21,8 +21,7 @@ class AbnormalConverterFactory private constructor(private val gson: Gson) : Con
     }
   }
 
-  override fun responseBodyConverter(type: Type, annotations: Array<Annotation>,
-                                     retrofit: Retrofit): Converter<ResponseBody, *> {
+  override fun responseBodyConverter(type: Type, annotations: Array<Annotation>, retrofit: Retrofit): Converter<ResponseBody, *> {
     val adapter = gson.getAdapter(TypeToken.get(type))
     return AbnormalResponseBodyConverter(gson, adapter)
   }

@@ -1,6 +1,9 @@
 package com.yzy.pj.app
 
+import android.content.Context
+import com.scwang.smart.refresh.footer.ClassicsFooter
 import com.scwang.smart.refresh.layout.SmartRefreshLayout
+import com.scwang.smart.refresh.layout.api.RefreshFooter
 import com.tencent.bugly.crashreport.CrashReport
 import com.yzy.baselibrary.di.GlobeConfigModule
 import com.yzy.baselibrary.http.RequestIntercept
@@ -8,7 +11,7 @@ import com.yzy.commonlibrary.CommonApplication
 import com.yzy.commonlibrary.constants.ApiConstants
 import com.yzy.commonlibrary.constants.StringConstants
 import com.yzy.commonlibrary.integration.HeaderHttpHandler
-import com.yzy.commonlibrary.refresh.MidaMusicHeader
+import com.yzy.commonlibrary.refresh.RefreshHeader
 import com.yzy.commonlibrary.repository.blackRepositoryModel
 import com.yzy.pj.BuildConfig
 import com.yzy.pj.R
@@ -95,12 +98,26 @@ class app : CommonApplication() {
         )
     }
 
-    init{
-        //设置全局的下拉刷新样式
+    init {
         //设置全局的Header构建器
-        SmartRefreshLayout.setDefaultRefreshHeaderCreator { context, layout ->
+        SmartRefreshLayout.setDefaultRefreshFooterCreator { context, layout ->
             layout.setPrimaryColorsId(R.color.white, R.color.c_ff30d18b)//全局设置主题颜色
-            MidaMusicHeader(context)//.setTimeFormat(new DynamicTimeFormat("更新于 %s"));//指定为经典Header，默认是 贝塞尔雷达Header
+            RefreshHeader(context)
+            ClassicsFooter(context)
         }
+
+//        (object : SmartRefreshLayout.SmartSwipeRefreshViewCreator {
+//            override fun createRefreshHeader(context: Context?): SmartSwipeRefresh.SmartSwipeRefreshHeader {
+//                return if (context == null) ClassicHeader(context) else CCRefreshHeader(context)
+//            }
+//
+//            override fun createRefreshFooter(context: Context?): SmartSwipeRefresh.SmartSwipeRefreshFooter {
+//                return ClassicFooter(context)
+//            }
+//        })
+//        SmartRefreshLayout.setDefaultRefreshHeaderCreator { context, layout ->
+//            layout.setPrimaryColorsId(R.color.white, R.color.c_ff30d18b)//全局设置主题颜色
+//            RefreshHeader(context)
+//        }
     }
 }

@@ -17,32 +17,6 @@ import javax.security.auth.login.LoginException
  *@author: yzy.
  */
 object RxGlobalHandleUtil {
-
-//  private val tokenExpiredRetryConfig = RetryConfig {
-//    refreshToken()
-//  }
-
-  private var refreshTokenPublishSubject: PublishSubject<Boolean> = PublishSubject.create<Boolean>()
-  private var isRefreshingToken: AtomicBoolean = AtomicBoolean(false)
-
-//  private fun refreshToken(): Single<Boolean> {
-//    if (isRefreshingToken.compareAndSet(false, true)) {
-//      val oauthRepository by BaseApplication.INSTANCE.kodein.instance<OauthRepository>()
-//      oauthRepository.refreshToken()
-//        .map {
-//          true
-//        }
-//        .doOnNext {
-//          isRefreshingToken.set(false)
-//        }
-//        .doOnError {
-//          isRefreshingToken.set(false)
-//        }
-//        .subscribe(refreshTokenPublishSubject)
-//    }
-//    return refreshTokenPublishSubject.single(false)
-//  }
-
   fun <T> globalHandle(): GlobalHandleTransformer<T> {
     return GlobalHandleTransformer(
         upStreamSchedulerProvider = { AndroidSchedulers.mainThread() },
@@ -51,7 +25,6 @@ object RxGlobalHandleUtil {
             //全局成功预处理
             when (when {
                 it.code > 0 -> it.code
-                it.status > 0 -> it.status
                 else -> 0
             }) {
                 ErrorCode.SUCCESS -> {
@@ -60,16 +33,16 @@ object RxGlobalHandleUtil {
                 }
                 ErrorCode.NEED_LOGIN -> {
                     //请求成功返回登录异常
-                    Observable.error(LoginException(it.code, it.message))
+                    Observable.error(ApiException(it.code, it.message))
                 }
                 ErrorCode.TOKEN_EXPIRED -> {
                     //token过期需要刷新token
-                    Observable.error(TokenExpiredException())
+                    Observable.error(ApiException())
                 }
                 //其他请求成功，返回异常
                 else -> {
                     ApiErrorMessageHelper.showToastMessage(it.code, it.message)
-                    Observable.error(ApiException(it.code, it.message, it.fields))
+                    Observable.error(ApiException(it.code, it.message))
                 }
             }
         },
@@ -77,9 +50,7 @@ object RxGlobalHandleUtil {
             //全局异常预处理，
             when (it) {
                 is LoginException -> {
-                    //登录异常，跳转到登录页面
-//            OauthRepository.clearCache()
-//            LoginComponent.startLogin()
+
                 }
             }
             Observable.error<T>(it)
@@ -97,7 +68,6 @@ object RxGlobalHandleUtil {
                         RetryConfig()
                     }
                 }
-//          is TokenExpiredException -> tokenExpiredRetryConfig
                 else -> RetryConfig()
             }
         }

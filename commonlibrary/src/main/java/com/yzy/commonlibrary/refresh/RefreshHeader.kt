@@ -17,10 +17,11 @@ import com.yzy.commonlibrary.R
  *@date 2019/6/13 18:17.
  *@author: YangYang.
  */
-class MidaMusicHeader(context: Context) : RefreshHeader {
+class RefreshHeader(context: Context) : RefreshHeader {
 
     private val rootView: View =
-        LayoutInflater.from(context).inflate(R.layout.layout_refresh_header, null)
+        LayoutInflater.from(context)
+            .inflate(R.layout.layout_refresh_header, null)
 
     private var headerLav: LottieAnimationView? = null
     private var headerTv: TextView? = null
