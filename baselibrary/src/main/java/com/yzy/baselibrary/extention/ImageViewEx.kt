@@ -64,7 +64,7 @@ fun ImageView.load(@DrawableRes resourceId: Int?) {
  * 加载文件图片,默认CenterCrop和CrossFade效果
  */
 fun ImageView.load(file: File?) {
-    com.yzy.baselibrary.imageloader.glide.GlideApp.with(BaseApplication.INSTANCE)
+    GlideApp.with(BaseApplication.INSTANCE)
         .asBitmap()
         .load(file)
         .centerCrop()
