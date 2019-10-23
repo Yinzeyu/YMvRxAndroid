@@ -4,7 +4,6 @@ import android.app.Activity
 import android.content.Context
 import android.graphics.PixelFormat
 import android.view.WindowManager
-import com.yzy.baselibrary.toast.inner.BaseToast
 
 
 /**

@@ -11,9 +11,8 @@ import com.yzy.baselibrary.toast.inner.ActivityToast
 import com.yzy.baselibrary.toast.inner.BaseToast
 import com.yzy.baselibrary.toast.inner.IToast
 import com.yzy.baselibrary.toast.inner.SystemToast
-import com.yzy.baselibrary.utils.rom.ROM
-import com.yzy.baselibrary.utils.rom.RomIdentifier
 import com.blankj.utilcode.util.ActivityUtils
+import com.blankj.utilcode.util.RomUtils
 import com.blankj.utilcode.util.SizeUtils
 
 
@@ -29,37 +28,34 @@ object YToast {
     private var lastTime: Long = 0L
     //上一条toast需要展示的时长
     private var lastDuration: Int = 0
-
-
-    private fun make(mContext: Context?): IToast? {
+    fun make(mContext: Context?): IToast? {
         mContext?.let {
             if (NotificationManagerCompat.from(it).areNotificationsEnabled()) {
                 //有通知权限直接用系统的
                 return SystemToast(it)
             } else {
                 //没有通知权限
-                val romType = RomIdentifier.getRomType(mContext)
-                when (romType) {
-                    ROM.EMUI // 华为用自定义的
+                when {
+                    RomUtils.isHuawei() // 华为用自定义的
                     -> {
-                        if (ActivityUtils.getTopActivity() != null) {
+                        return if (ActivityUtils.getTopActivity() != null) {
                             //部分机型taost需要悬浮窗权限先用activity的
-                            return ActivityToast(ActivityUtils.getTopActivity())
+                            ActivityToast(ActivityUtils.getTopActivity())
                         } else {
-                            return BaseToast(it)
+                            BaseToast(it)
                         }
                     }
-                    ROM.MIUI // 小米还是用系统的没问题
+                    RomUtils.isXiaomi() // 小米还是用系统的没问题
                     -> {
                         return SystemToast(it)
                     }
-                    ROM.Flyme // 魅族是个坑
+                    RomUtils.isMeizu() // 魅族是个坑
                     -> {
-                        if (ActivityUtils.getTopActivity() != null) {
+                        return if (ActivityUtils.getTopActivity() != null) {
                             //部分机型taost需要悬浮窗权限先用activity的
-                            return ActivityToast(ActivityUtils.getTopActivity())
+                            ActivityToast(ActivityUtils.getTopActivity())
                         } else {
-                            return BaseToast(it)
+                            BaseToast(it)
                         }
                     }
                     else

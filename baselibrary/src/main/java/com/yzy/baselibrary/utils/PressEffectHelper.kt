@@ -17,7 +17,7 @@ import java.util.concurrent.TimeUnit
 /**
  *description: 按下效果工具类.
  *@date 2019/7/2 14:18.
- *@author: YangYang.
+ *@author: yzy.
  */
 class PressEffectHelper private constructor() {
 
