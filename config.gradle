@@ -55,11 +55,11 @@ ext {
             kodein_androidx_support       : "org.kodein.di:kodein-di-framework-android-x:6.4.1",
 
             //https://github.com/trello/RxLifecycle
-            rxlifecycle3                  : "com.trello.rxlifecycle3:rxlifecycle:3.1.0",
-            rxlifecycle3_android          : "com.trello.rxlifecycle3:rxlifecycle-android:3.1.0",
-            rxlifecycle3_android_lifecycle: "com.trello.rxlifecycle3:rxlifecycle-android-lifecycle:3.1.0",
-            rxlifecycle3_components       : "com.trello.rxlifecycle3:rxlifecycle-components:3.1.0",
-            rxlifecycle3_kotlin_lifecycle : "com.trello.rxlifecycle3:rxlifecycle-android-lifecycle-kotlin:3.1.0",
+//            rxlifecycle3                  : "com.trello.rxlifecycle3:rxlifecycle:3.1.0",
+//            rxlifecycle3_android          : "com.trello.rxlifecycle3:rxlifecycle-android:3.1.0",
+//            rxlifecycle3_android_lifecycle: "com.trello.rxlifecycle3:rxlifecycle-android-lifecycle:3.1.0",
+//            rxlifecycle3_components       : "com.trello.rxlifecycle3:rxlifecycle-components:3.1.0",
+//            rxlifecycle3_kotlin_lifecycle : "com.trello.rxlifecycle3:rxlifecycle-android-lifecycle-kotlin:3.1.0",
             //https://github.com/tbruyelle/RxPermissions
             rxpermission                  : "com.github.tbruyelle:rxpermissions:0.10.2",
 //            //https://github.com/ssseasonnn/RxDownload

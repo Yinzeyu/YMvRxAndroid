@@ -10,7 +10,7 @@ import org.kodein.di.generic.bind
 import org.kodein.di.generic.singleton
 
 class GankRepository : BaseRemoteDataSource() {
-    private val service: GankService = retrofitService(GankService::class.java)
+    private val service: GankService = getApi(GankService::class.java)
     /**
      * 获取福利
      */

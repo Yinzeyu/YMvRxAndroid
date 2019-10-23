@@ -36,11 +36,11 @@ dependencies {
     api rootProject.ext.dependencies.appcompat_v7
     api rootProject.ext.dependencies.core_ktx
     api rootProject.ext.dependencies.constraintLayout
-    api rootProject.ext.dependencies.rxlifecycle3
-    api rootProject.ext.dependencies.rxlifecycle3_android
-    api rootProject.ext.dependencies.rxlifecycle3_android_lifecycle
-    api rootProject.ext.dependencies.rxlifecycle3_components
-    api rootProject.ext.dependencies.rxlifecycle3_kotlin_lifecycle
+//    api rootProject.ext.dependencies.rxlifecycle3
+//    api rootProject.ext.dependencies.rxlifecycle3_android
+//    api rootProject.ext.dependencies.rxlifecycle3_android_lifecycle
+//    api rootProject.ext.dependencies.rxlifecycle3_components
+//    api rootProject.ext.dependencies.rxlifecycle3_kotlin_lifecycle
     api rootProject.ext.dependencies.utilcode
     api rootProject.ext.dependencies.kodein
     api rootProject.ext.dependencies.kodein_android

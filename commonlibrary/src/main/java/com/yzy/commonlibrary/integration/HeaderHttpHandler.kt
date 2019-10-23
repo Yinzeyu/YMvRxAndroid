@@ -11,7 +11,7 @@ import okhttp3.Response
  *@date 2019/7/15
  *@author: yzy.
  */
-internal class HeaderHttpHandler : GlobeHttpHandler {
+open class HeaderHttpHandler : GlobeHttpHandler {
     override fun onHttpResultResponse(
         httpResult: String,
         chain: Interceptor.Chain,

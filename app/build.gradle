@@ -18,10 +18,10 @@ android {
         flavorDimensions "default"
         multiDexEnabled true
         resConfigs "zh", "en"//保留中文和英文资源
-        ndk {
-            // 设置支持的so库架构，设置一个可以减小包的大小
-            abiFilters "armeabi-v7a" //, "arm64-v8a"
-        }
+//        ndk {
+//            // 设置支持的so库架构，设置一个可以减小包的大小
+//            abiFilters "armeabi-v7a" //, "arm64-v8a"
+//        }
     }
     //使用Kotlin实验特性
     androidExtensions {

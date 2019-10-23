@@ -6,15 +6,8 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.FrameLayout
-import android.widget.RelativeLayout
 import com.airbnb.mvrx.BaseMvRxFragment
 import com.airbnb.mvrx.BaseMvRxViewModel
-import com.blankj.utilcode.util.BarUtils
-import com.yzy.baselibrary.base.dialog.ActionLoadingDialog
-import com.yzy.baselibrary.base.dialog.LoadingDialog
-import com.yzy.baselibrary.extention.screenHeight
-import com.yzy.baselibrary.extention.screenWidth
 import org.kodein.di.Kodein
 import org.kodein.di.KodeinAware
 import org.kodein.di.KodeinContext
@@ -27,8 +20,6 @@ import org.kodein.di.generic.kcontext
  *@author: yzy.
  */
 abstract class BaseFragment : BaseMvRxFragment(), KodeinAware {
-    private var loadingDialog: LoadingDialog? = null
-
     //页面基础信息
     lateinit var mContext: Activity
     private var isFragmentVisible = true
@@ -48,8 +39,6 @@ abstract class BaseFragment : BaseMvRxFragment(), KodeinAware {
         extend(com.yzy.baselibrary.app.BaseApplication.INSTANCE.kodein)
         initKodein(this)
     }
-
-
     /**
      * 内容布局的ResId
      */

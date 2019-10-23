@@ -5,8 +5,6 @@ import com.airbnb.mvrx.BaseMvRxActivity
 import com.airbnb.mvrx.BaseMvRxViewModel
 import com.airbnb.mvrx.MvRxView
 import com.airbnb.mvrx.MvRxViewId
-import com.yzy.baselibrary.base.dialog.ActionLoadingDialog
-import com.yzy.baselibrary.base.dialog.LoadingDialog
 import com.yzy.baselibrary.toast.YToast
 import com.gyf.immersionbar.ImmersionBar
 import com.gyf.immersionbar.ktx.immersionBar

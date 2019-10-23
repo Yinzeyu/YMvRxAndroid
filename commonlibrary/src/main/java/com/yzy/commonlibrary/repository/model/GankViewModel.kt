@@ -56,7 +56,6 @@ class GankViewModel(initialState: ConversationDetailState = ConversationDetailSt
                 request = it
             )
         }
-
     }
 
     //加载数据

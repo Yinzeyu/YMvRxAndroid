@@ -1,6 +1,7 @@
 package com.yzy.baselibrary.di
 
 import android.os.Environment
+import com.google.gson.Gson
 import com.yzy.baselibrary.app.BaseApplication
 import com.yzy.baselibrary.http.GlobeHttpHandler
 import okhttp3.HttpUrl
@@ -27,6 +28,8 @@ class GlobeConfigModule private constructor(builder: Builder) {
     private lateinit var mInterceptors: List<Interceptor>
     private lateinit var mCacheFile: File
     val globeConfigModule = Kodein.Module(KODEIN_MODULE_GLOBECINFIG_TAG) {
+
+        bind<Gson>() with singleton { Gson() }
 
         bind<HttpUrl>() with singleton {
             mApiUrl

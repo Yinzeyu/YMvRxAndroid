@@ -3,15 +3,12 @@ package com.yzy.baselibrary.extention
 import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Context
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
-import androidx.annotation.LayoutRes
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleOwner
 import com.yzy.baselibrary.utils.SchedulersUtil
 import com.jakewharton.rxbinding3.view.clicks
-import com.trello.rxlifecycle3.android.lifecycle.kotlin.bindUntilEvent
+import com.yzy.baselibrary.R
 import io.reactivex.functions.Consumer
 import java.util.concurrent.TimeUnit
 
@@ -21,55 +18,21 @@ import java.util.concurrent.TimeUnit
  *@author: yzy.
  */
 
+/**
+ * Description:
+ * @author: caiyoufei
+ * @date: 2019/9/24 10:39
+ */
+//点击事件
 @SuppressLint("CheckResult")
-inline fun View.click(crossinline function: () -> Unit) {
-    this.clicks().throttleFirst(600, TimeUnit.MILLISECONDS).subscribe { function() }
-}
-
-/**
- * 点击事件，默认销毁的时候
- */
-@SuppressLint("CheckResult")
-inline fun View.click(owner: LifecycleOwner, crossinline function: () -> Unit) {
-    clicks().throttleFirst(600, TimeUnit.MILLISECONDS)
-        .bindUntilEvent(owner, Lifecycle.Event.ON_DESTROY)
-        .subscribe {
-            function()
+inline fun View.click(crossinline function: (view: View) -> Unit) {
+    this.setOnClickListener {
+        val tag = this.getTag(R.id.id_tag_click)
+        if (tag == null || System.currentTimeMillis() - tag.toString().toLong() > 600) {
+            this.setTag(R.id.id_tag_click, System.currentTimeMillis())
+            function.invoke(it)
         }
-}
-
-
-/**
- * 点击事件
- */
-inline fun View.click(
-    owner: LifecycleOwner, event: Lifecycle.Event,
-    crossinline function: () -> Unit
-) {
-    clicks()
-        .throttleFirst(600, TimeUnit.MILLISECONDS)
-        .bindUntilEvent(owner, event)
-        .compose(SchedulersUtil.applySchedulers())
-        .subscribe {
-            function()
-        }
-}
-
-/**
- * 点击事件
- */
-inline fun View.longClick(
-    owner: LifecycleOwner,
-    event: Lifecycle.Event,
-    crossinline function: () -> Unit
-) {
-    clicks()
-        .throttleFirst(600, TimeUnit.MILLISECONDS)
-        .bindUntilEvent(owner, event)
-        .compose(SchedulersUtil.applySchedulers())
-        .subscribe {
-            function()
-        }
+    }
 }
 
 // 黑暗 0.0F ~ 1.0F 透明

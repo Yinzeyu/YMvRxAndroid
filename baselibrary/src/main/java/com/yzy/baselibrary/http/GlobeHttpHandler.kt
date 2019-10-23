@@ -13,8 +13,7 @@ interface GlobeHttpHandler {
 
   companion object {
     val EMPTY: GlobeHttpHandler = object : GlobeHttpHandler {
-      override fun onHttpResultResponse(httpResult: String, chain: Interceptor.Chain,
-                                        response: Response): Response {
+      override fun onHttpResultResponse(httpResult: String, chain: Interceptor.Chain, response: Response): Response {
         return response
       }
 

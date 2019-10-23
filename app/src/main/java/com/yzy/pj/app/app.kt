@@ -2,8 +2,12 @@ package com.yzy.pj.app
 
 import com.scwang.smart.refresh.layout.SmartRefreshLayout
 import com.tencent.bugly.crashreport.CrashReport
+import com.yzy.baselibrary.di.GlobeConfigModule
+import com.yzy.baselibrary.http.RequestIntercept
 import com.yzy.commonlibrary.CommonApplication
+import com.yzy.commonlibrary.constants.ApiConstants
 import com.yzy.commonlibrary.constants.StringConstants
+import com.yzy.commonlibrary.integration.HeaderHttpHandler
 import com.yzy.commonlibrary.refresh.MidaMusicHeader
 import com.yzy.commonlibrary.repository.blackRepositoryModel
 import com.yzy.pj.BuildConfig
@@ -56,6 +60,12 @@ class app : CommonApplication() {
 
     override fun initKodein(builder: Kodein.MainBuilder) {
         super.initKodein(builder)
+        val build = GlobeConfigModule
+            .builder()
+            .baseUrl(ApiConstants.Address.BASE_URL)
+            .addInterceptor(RequestIntercept(HeaderHttpHandler()))
+            .build()
+        builder.import(build.globeConfigModule)
         builder.import(blackRepositoryModel)
     }
 
