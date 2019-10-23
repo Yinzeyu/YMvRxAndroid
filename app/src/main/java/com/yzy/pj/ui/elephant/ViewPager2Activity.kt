@@ -41,16 +41,13 @@ class ViewPager2Activity : BaseActivity() {
             is Loading -> {
                 if (state.fuliBean.isEmpty() && needShowLoading) {
                     //没有数据默认为第一次加载
-                    showLoading()
                     needShowLoading = false
                 }
             }
             is Fail -> {
-                dismissLoading()
                 //数据加载失败
             }
             is Success -> {
-                dismissLoading()
             }
 
         }

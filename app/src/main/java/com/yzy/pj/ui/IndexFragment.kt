@@ -6,7 +6,6 @@ import com.airbnb.mvrx.Fail
 import com.airbnb.mvrx.Loading
 import com.airbnb.mvrx.Success
 import com.scwang.smart.refresh.layout.SmartRefreshLayout
-import com.xiaomi.push.it
 import com.yzy.baselibrary.base.BaseFragment
 import com.yzy.baselibrary.base.MvRxEpoxyController
 import com.yzy.commonlibrary.repository.model.ConversationDetailState
@@ -47,17 +46,14 @@ class IndexFragment : BaseFragment() {
             is Loading -> {
                 if (state.fuliBean.isEmpty() && needShowLoading) {
                     //没有数据默认为第一次加载
-                    showLoading()
                     needShowLoading = false
                 }
             }
             is Fail -> {
-                dismissLoading()
                 commListSrl.finishRefresh()
                 //数据加载失败
             }
             is Success -> {
-                dismissLoading()
                 commListSrl.finishRefresh()
             }
 

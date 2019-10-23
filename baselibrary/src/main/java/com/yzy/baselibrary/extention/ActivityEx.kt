@@ -43,4 +43,3 @@ val Activity.mContentView: FrameLayout
     get() {
         return this.findViewById(android.R.id.content)
     }
-

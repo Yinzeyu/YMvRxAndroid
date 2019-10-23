@@ -19,8 +19,6 @@ abstract class BaseActivity : BaseMvRxActivity(), MvRxView, KodeinAware {
     //MvRxView
     private val mvrxViewIdProperty = MvRxViewId()
     final override val mvrxViewId: String by mvrxViewIdProperty
-    private var loadingDialog: LoadingDialog? = null
-    private var actionLoadingDialog: ActionLoadingDialog? = null
     override val kodeinTrigger = KodeinTrigger()
     override val kodeinContext: KodeinContext<*> = kcontext(this)
     override val kodein by retainedSubKodein(kodein(), copy = Copy.All) {
@@ -49,8 +47,8 @@ abstract class BaseActivity : BaseMvRxActivity(), MvRxView, KodeinAware {
     protected abstract fun layoutResId(): Int
 
 
-    abstract fun initView();
-    abstract fun initDate();
+    abstract fun initView()
+    abstract fun initDate()
     /**
      * 需要在onCreateView中调用的方法
      */
@@ -78,60 +76,6 @@ abstract class BaseActivity : BaseMvRxActivity(), MvRxView, KodeinAware {
     protected open fun onCreateBefore() {}
 
     protected open fun initKodein(builder: Kodein.MainBuilder) {
-    }
-
-    open fun showLoading(style: (LoadingDialog.() -> Unit)? = null) {
-        if (supportFragmentManager.findFragmentByTag(TAG_FRAGMENT_LOADING) != null
-            || supportFragmentManager.findFragmentByTag(TAG_FRAGMENT_LOADING_ACTION) != null
-        ) {
-            //loading已经在显示中
-            return
-        }
-//        loadingDialog = dslLoadingDialog(supportFragmentManager, TAG_FRAGMENT_LOADING, dsl = {
-//            dismiss()
-//        })
-        if (loadingDialog == null) {
-            loadingDialog = LoadingDialog.newInstance()
-        }
-        style?.let {
-            loadingDialog?.apply(it)
-        }
-        loadingDialog?.show(supportFragmentManager,
-            TAG_FRAGMENT_LOADING
-        )
-    }
-
-    open fun showActionLoading(
-        tips: String? = null, resImage: Int = 0,
-        style: (ActionLoadingDialog.() -> Unit)? = null
-    ) {
-        if (supportFragmentManager.findFragmentByTag(TAG_FRAGMENT_LOADING_ACTION) != null ||
-            supportFragmentManager.findFragmentByTag(TAG_FRAGMENT_LOADING) != null
-        ) {
-            //loading已经在显示中
-            return
-        }
-        if (actionLoadingDialog == null) {
-            actionLoadingDialog = ActionLoadingDialog.newInstance()
-        }
-        actionLoadingDialog?.setTips(tips)
-        actionLoadingDialog?.setImageRes(resImage)
-        style?.let {
-            actionLoadingDialog?.apply(it)
-        }
-        actionLoadingDialog?.show(supportFragmentManager,
-            TAG_FRAGMENT_LOADING_ACTION
-        )
-    }
-
-    open fun dismissLoading() {
-        loadingDialog?.dismiss()
-        actionLoadingDialog?.dismiss()
-    }
-
-    companion object {
-        private const val TAG_FRAGMENT_LOADING = "LoadingDialog"
-        private const val TAG_FRAGMENT_LOADING_ACTION = "ActionLoadingDialog"
     }
     protected fun subscribeVM(vararg viewModels: BaseMvRxViewModel<*>) {
         viewModels.forEach {
