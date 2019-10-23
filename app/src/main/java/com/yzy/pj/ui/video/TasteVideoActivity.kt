@@ -1,16 +1,12 @@
 package com.yzy.pj.ui.video
 
 import com.airbnb.epoxy.AsyncEpoxyController
-import com.yzy.baselibrary.base.activity.BaseMvRxEpoxyActivity
-import com.yzy.baselibrary.base.simpleController
+import com.yzy.baselibrary.base.BaseActivity
 import com.yzy.pj.GlobalLayoutUtils
 import com.yzy.pj.R
 import kotlinx.android.synthetic.main.activity_taste_vide.*
 
-class TasteVideoActivity : BaseMvRxEpoxyActivity() {
-    override fun epoxyController(): AsyncEpoxyController = simpleController {
-
-    }
+class TasteVideoActivity : BaseActivity() {
 
     override fun layoutResId(): Int = R.layout.activity_taste_vide
     override fun initView() {

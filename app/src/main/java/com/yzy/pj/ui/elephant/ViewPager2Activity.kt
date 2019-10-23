@@ -6,14 +6,16 @@ import com.airbnb.epoxy.AsyncEpoxyController
 import com.airbnb.mvrx.Fail
 import com.airbnb.mvrx.Loading
 import com.airbnb.mvrx.Success
-import com.yzy.baselibrary.base.activity.BaseMvRxEpoxyActivity
-import com.yzy.baselibrary.base.simpleController
+import com.xiaomi.push.it
+import com.yzy.baselibrary.base.BaseActivity
+import com.yzy.baselibrary.base.MvRxEpoxyController
 import com.yzy.baselibrary.extention.startActivity
+import com.yzy.commonlibrary.repository.model.ConversationDetailState
 import com.yzy.commonlibrary.repository.model.GankViewModel
 import com.yzy.pj.R
 import kotlinx.android.synthetic.main.activity_elephant.*
 
-class ViewPager2Activity : BaseMvRxEpoxyActivity() {
+class ViewPager2Activity : BaseActivity() {
 
     companion object {
         fun starElephantActivity(context: Context) {
@@ -26,36 +28,34 @@ class ViewPager2Activity : BaseMvRxEpoxyActivity() {
     private val gankViewModel: GankViewModel by lazy {
         GankViewModel()
     }
-
-    override fun epoxyController(): AsyncEpoxyController =
-        simpleController(gankViewModel) { state ->
-            if (state.fuliBean.isNotEmpty()) {
-                state.fuliBean.forEach {
-                    elephantItem {
-                        id(it.url)
-                        messageBean(it)
-                    }
+    private val epoxyController = MvRxEpoxyController<ConversationDetailState> { state ->
+        if (state.fuliBean.isNotEmpty()) {
+            state.fuliBean.forEach {
+                elephantItem {
+                    id(it.url)
+                    messageBean(it)
                 }
-            }
-            //加载失败
-            when (state.request) {
-                is Loading -> {
-                    if (state.fuliBean.isEmpty() && needShowLoading) {
-                        //没有数据默认为第一次加载
-                        showLoading()
-                        needShowLoading = false
-                    }
-                }
-                is Fail -> {
-                    dismissLoading()
-                    //数据加载失败
-                }
-                is Success -> {
-                    dismissLoading()
-                }
-
             }
         }
+        when (state.request) {
+            is Loading -> {
+                if (state.fuliBean.isEmpty() && needShowLoading) {
+                    //没有数据默认为第一次加载
+                    showLoading()
+                    needShowLoading = false
+                }
+            }
+            is Fail -> {
+                dismissLoading()
+                //数据加载失败
+            }
+            is Success -> {
+                dismissLoading()
+            }
+
+        }
+    }
+
 
     override fun layoutResId(): Int = R.layout.activity_elephant
 

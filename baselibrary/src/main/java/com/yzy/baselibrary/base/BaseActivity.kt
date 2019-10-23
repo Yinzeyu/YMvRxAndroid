@@ -1,19 +1,24 @@
-package com.yzy.baselibrary.base.activity
+package com.yzy.baselibrary.base
 
 import android.os.Bundle
+import com.airbnb.mvrx.BaseMvRxActivity
+import com.airbnb.mvrx.BaseMvRxViewModel
+import com.airbnb.mvrx.MvRxView
+import com.airbnb.mvrx.MvRxViewId
 import com.yzy.baselibrary.base.dialog.ActionLoadingDialog
 import com.yzy.baselibrary.base.dialog.LoadingDialog
-import com.yzy.baselibrary.base.dialog.dslLoadingDialog
 import com.yzy.baselibrary.toast.YToast
 import com.gyf.immersionbar.ImmersionBar
 import com.gyf.immersionbar.ktx.immersionBar
-import com.trello.rxlifecycle3.components.support.RxAppCompatActivity
 import org.kodein.di.*
 import org.kodein.di.android.*
 import org.kodein.di.android.retainedSubKodein
 import org.kodein.di.generic.kcontext
 
-abstract class BaseActivity : RxAppCompatActivity(), KodeinAware {
+abstract class BaseActivity : BaseMvRxActivity(), MvRxView, KodeinAware {
+    //MvRxView
+    private val mvrxViewIdProperty = MvRxViewId()
+    final override val mvrxViewId: String by mvrxViewIdProperty
     private var loadingDialog: LoadingDialog? = null
     private var actionLoadingDialog: ActionLoadingDialog? = null
     override val kodeinTrigger = KodeinTrigger()
@@ -33,6 +38,10 @@ abstract class BaseActivity : RxAppCompatActivity(), KodeinAware {
         initDate()
     }
 
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        mvrxViewIdProperty.saveTo(outState)
+    }
 
     /**
      * 页面内容布局resId
@@ -61,6 +70,9 @@ abstract class BaseActivity : RxAppCompatActivity(), KodeinAware {
     protected open fun statusImmersionBar(immersionBar: ImmersionBar) {
 
     }
+    override fun invalidate() {
+    }
+
 
     /** 这里可以做一些setContentView之前的操作,如全屏、常亮、设置Navigation颜色、状态栏颜色等  */
     protected open fun onCreateBefore() {}
@@ -84,7 +96,9 @@ abstract class BaseActivity : RxAppCompatActivity(), KodeinAware {
         style?.let {
             loadingDialog?.apply(it)
         }
-        loadingDialog?.show(supportFragmentManager, TAG_FRAGMENT_LOADING)
+        loadingDialog?.show(supportFragmentManager,
+            TAG_FRAGMENT_LOADING
+        )
     }
 
     open fun showActionLoading(
@@ -105,7 +119,9 @@ abstract class BaseActivity : RxAppCompatActivity(), KodeinAware {
         style?.let {
             actionLoadingDialog?.apply(it)
         }
-        actionLoadingDialog?.show(supportFragmentManager, TAG_FRAGMENT_LOADING_ACTION)
+        actionLoadingDialog?.show(supportFragmentManager,
+            TAG_FRAGMENT_LOADING_ACTION
+        )
     }
 
     open fun dismissLoading() {
@@ -117,7 +133,13 @@ abstract class BaseActivity : RxAppCompatActivity(), KodeinAware {
         private const val TAG_FRAGMENT_LOADING = "LoadingDialog"
         private const val TAG_FRAGMENT_LOADING_ACTION = "ActionLoadingDialog"
     }
-
+    protected fun subscribeVM(vararg viewModels: BaseMvRxViewModel<*>) {
+        viewModels.forEach {
+            it.subscribe(owner = this, subscriber = {
+                postInvalidate()
+            })
+        }
+    }
 
     override fun onDestroy() {
         super.onDestroy()

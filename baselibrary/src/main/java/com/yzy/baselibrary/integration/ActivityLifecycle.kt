@@ -3,7 +3,7 @@ package com.yzy.baselibrary.integration
 import android.app.Activity
 import android.app.Application
 import android.os.Bundle
-import com.yzy.baselibrary.base.activity.BaseActivity
+import com.yzy.baselibrary.base.BaseActivity
 
 /**
  *description: ActivityLifecycleCallbacks实现.

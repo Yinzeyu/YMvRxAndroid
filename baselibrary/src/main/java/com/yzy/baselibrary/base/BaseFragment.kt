@@ -1,4 +1,4 @@
-package com.yzy.baselibrary.base.fragment
+package com.yzy.baselibrary.base
 
 import android.app.Activity
 import android.content.Context
@@ -7,10 +7,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.RelativeLayout
-import androidx.lifecycle.LifecycleOwner
+import com.airbnb.mvrx.BaseMvRxFragment
+import com.airbnb.mvrx.BaseMvRxViewModel
 import com.blankj.utilcode.util.BarUtils
-import com.trello.rxlifecycle3.components.support.RxFragment
-import com.yzy.baselibrary.base.activity.BaseActivity
 import com.yzy.baselibrary.base.dialog.ActionLoadingDialog
 import com.yzy.baselibrary.base.dialog.LoadingDialog
 import com.yzy.baselibrary.extention.screenHeight
@@ -26,7 +25,7 @@ import org.kodein.di.generic.kcontext
  *@date 2019/7/15
  *@author: yzy.
  */
-abstract class BaseFragment : RxFragment(), KodeinAware, LifecycleOwner {
+abstract class BaseFragment : BaseMvRxFragment(), KodeinAware{
     private var loadingDialog: LoadingDialog? = null
 
     /** 屏幕宽度  */
@@ -100,6 +99,9 @@ abstract class BaseFragment : RxFragment(), KodeinAware, LifecycleOwner {
         lazyLoad()
     }
 
+    override fun invalidate() {
+    }
+
     /**
      * 懒加载
      */
@@ -160,6 +162,13 @@ abstract class BaseFragment : RxFragment(), KodeinAware, LifecycleOwner {
         }
     }
 
+    protected fun subscribeVM(vararg viewModels: BaseMvRxViewModel<*>) {
+        viewModels.forEach {
+            it.subscribe(owner = this, subscriber = {
+                postInvalidate()
+            })
+        }
+    }
     /**
      * 给布局设置状态栏高度的TopMargin
      */

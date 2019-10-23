@@ -3,7 +3,7 @@ package com.yzy.pj.ui.home
 import com.blankj.utilcode.constant.TimeConstants
 import com.blankj.utilcode.util.ActivityUtils
 import com.blankj.utilcode.util.LogUtils
-import com.yzy.baselibrary.base.activity.BaseActivity
+import com.yzy.baselibrary.base.BaseActivity
 import com.yzy.baselibrary.extention.*
 import com.yzy.pj.R
 import com.yzy.pj.ui.IndexFragment

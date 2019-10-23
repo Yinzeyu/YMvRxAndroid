@@ -1,4 +1,4 @@
-package com.yzy.baselibrary.base.dialog
+package com.yzy.baselibrary.base
 
 import android.content.Context
 import android.content.DialogInterface
@@ -13,17 +13,16 @@ import android.view.ViewGroup.LayoutParams.WRAP_CONTENT
 import android.view.WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.FragmentManager
-import com.yzy.baselibrary.R
 import com.yzy.baselibrary.extention.dp2px
 import com.yzy.baselibrary.extention.isDoubleClick
-import com.yzy.baselibrary.extention.setBackgroundAlpha
+import com.yzy.pj.baselibrary.base.dialog.BaseDialogFragment
 
 /**
  *description: Dialog的基类.
  *@date 2019/7/15
  *@author: yzy.
  */
-abstract class BaseFragmentDialog : DialogFragment() {
+abstract class BaseFragmentDialog : BaseDialogFragment() {
 
     var mWidth = WRAP_CONTENT
     var mHeight = WRAP_CONTENT
@@ -54,16 +53,18 @@ abstract class BaseFragmentDialog : DialogFragment() {
         savedInstanceState: Bundle?
     ): View? {
         setStyle()
-        val view =  inflater.inflate(contentLayout, container, false)
+        val view = inflater.inflate(contentLayout, container, false)
         viewLoadedListener?.invoke(view)
         initView(view)
         initBeforeCreateView(savedInstanceState)
         return view
     }
+
     /**
      * 内容布局的ResId
      */
     protected abstract val contentLayout: Int
+
     /**
      * 需要在onCreateView中调用的方法
      */

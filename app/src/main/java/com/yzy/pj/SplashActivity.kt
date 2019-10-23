@@ -2,7 +2,7 @@ package com.yzy.pj
 
 
 import android.content.Intent
-import com.yzy.baselibrary.base.activity.BaseActivity
+import com.yzy.baselibrary.base.BaseActivity
 import com.yzy.baselibrary.extention.load
 import com.yzy.baselibrary.utils.SchedulersUtil
 import com.yzy.pj.ui.home.MainActivity

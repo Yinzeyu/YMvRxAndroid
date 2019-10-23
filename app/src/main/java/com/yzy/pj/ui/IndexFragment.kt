@@ -6,14 +6,15 @@ import com.airbnb.mvrx.Fail
 import com.airbnb.mvrx.Loading
 import com.airbnb.mvrx.Success
 import com.scwang.smart.refresh.layout.SmartRefreshLayout
+import com.xiaomi.push.it
+import com.yzy.baselibrary.base.BaseFragment
 import com.yzy.baselibrary.base.MvRxEpoxyController
-import com.yzy.baselibrary.base.fragment.BaseMvRxEpoxyFragment
-import com.yzy.baselibrary.base.simpleController
+import com.yzy.commonlibrary.repository.model.ConversationDetailState
 import com.yzy.commonlibrary.repository.model.GankViewModel
 import com.yzy.pj.R
 import kotlinx.android.synthetic.main.fragemnt_index.*
 
-class IndexFragment : BaseMvRxEpoxyFragment() {
+class IndexFragment : BaseFragment() {
     lateinit var refreshLayout: SmartRefreshLayout
     override val contentLayout: Int = R.layout.fragemnt_index
     //加载显示loading
@@ -22,7 +23,7 @@ class IndexFragment : BaseMvRxEpoxyFragment() {
         GankViewModel()
     }
 
-    override fun epoxyController(): MvRxEpoxyController = simpleController(gankViewModel) { state ->
+    private val epoxyController = MvRxEpoxyController<ConversationDetailState> { state ->
         if (state.fuliBean.isNotEmpty()) {
             state.fuliBean.forEach {
                 atMeMessageItem {
@@ -62,6 +63,7 @@ class IndexFragment : BaseMvRxEpoxyFragment() {
 
         }
     }
+
 
 
     override fun initView(root: View?) {

@@ -1,14 +1,12 @@
 package com.yzy.baselibrary.base.dialog
 
-import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.fragment.app.FragmentManager
 import com.yzy.baselibrary.R
 import com.yzy.baselibrary.extention.showTextNotNull
+import com.yzy.baselibrary.base.BaseFragmentDialog
 
 /**
  *description: 操作类型的loading默认点击外部不消失，按返回键不消失.
@@ -27,6 +25,7 @@ class ActionLoadingDialog(override val contentLayout: Int = R.layout.dialog_load
     private var loadingTv: TextView? = null
     private var ivCenterView: ImageView? = null
     private var tips: String? = null
+
     private var res: Int = 0
 
     init {
