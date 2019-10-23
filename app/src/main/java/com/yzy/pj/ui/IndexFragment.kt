@@ -5,7 +5,7 @@ import com.airbnb.epoxy.EpoxyVisibilityTracker
 import com.airbnb.mvrx.Fail
 import com.airbnb.mvrx.Loading
 import com.airbnb.mvrx.Success
-import com.scwang.smartrefresh.layout.SmartRefreshLayout
+import com.scwang.smart.refresh.layout.SmartRefreshLayout
 import com.yzy.baselibrary.base.MvRxEpoxyController
 import com.yzy.baselibrary.base.fragment.BaseMvRxEpoxyFragment
 import com.yzy.baselibrary.base.simpleController

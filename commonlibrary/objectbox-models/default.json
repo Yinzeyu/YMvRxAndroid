@@ -10,103 +10,143 @@
       "properties": [
         {
           "id": "1:4563814513367477351",
-          "name": "userId"
+          "name": "userId",
+          "type": 6,
+          "flags": 129
         },
         {
           "id": "2:7562922306188892725",
-          "name": "avatarUrl"
+          "name": "avatarUrl",
+          "type": 9
         },
         {
           "id": "3:4030894938213596601",
-          "name": "userName"
+          "name": "userName",
+          "type": 9
         },
         {
           "id": "4:7520213623042509139",
-          "name": "birthday"
+          "name": "birthday",
+          "type": 9
         },
         {
           "id": "5:4681739927456646127",
-          "name": "gender"
+          "name": "gender",
+          "type": 5,
+          "flags": 4
         },
         {
           "id": "6:6156105027460456508",
-          "name": "bio"
+          "name": "bio",
+          "type": 9
         },
         {
           "id": "7:3428666958833675499",
-          "name": "zodiacName"
+          "name": "zodiacName",
+          "type": 9
         },
         {
           "id": "8:3619414156278187941",
-          "name": "perfectInfo"
+          "name": "perfectInfo",
+          "type": 5,
+          "flags": 4
         },
         {
           "id": "9:4910367657662348312",
-          "name": "imToken"
+          "name": "imToken",
+          "type": 9
         },
         {
           "id": "10:521162851485033689",
-          "name": "phoneNumber"
+          "name": "phoneNumber",
+          "type": 9
         },
         {
           "id": "11:3575322551745958292",
-          "name": "genderUpdateNum"
+          "name": "genderUpdateNum",
+          "type": 5,
+          "flags": 4
         },
         {
           "id": "12:2676089671290817909",
-          "name": "cityCode"
+          "name": "cityCode",
+          "type": 9
         },
         {
           "id": "13:7701322364077263338",
-          "name": "userLat"
+          "name": "userLat",
+          "type": 8,
+          "flags": 2
         },
         {
           "id": "14:8164954017901525067",
-          "name": "userLong"
+          "name": "userLong",
+          "type": 8,
+          "flags": 2
         },
         {
           "id": "15:7488235068123972716",
-          "name": "userLevel"
+          "name": "userLevel",
+          "type": 5,
+          "flags": 4
         },
         {
           "id": "16:35268546063836637",
-          "name": "relationship"
+          "name": "relationship",
+          "type": 5,
+          "flags": 4
         },
         {
           "id": "17:8021576101302163888",
-          "name": "feedNumber"
+          "name": "feedNumber",
+          "type": 5,
+          "flags": 4
         },
         {
           "id": "18:2767850587658784948",
-          "name": "popularity"
+          "name": "popularity",
+          "type": 5,
+          "flags": 4
         },
         {
           "id": "19:1157181883704445631",
-          "name": "wealth"
+          "name": "wealth",
+          "type": 5,
+          "flags": 4
         },
         {
           "id": "20:7742681119091032745",
-          "name": "online"
+          "name": "online",
+          "type": 5,
+          "flags": 4
         },
         {
           "id": "21:6980069696046801280",
-          "name": "loginTime"
+          "name": "loginTime",
+          "type": 6,
+          "flags": 2
         },
         {
           "id": "22:2276241477611384020",
-          "name": "logoutTime"
+          "name": "logoutTime",
+          "type": 6,
+          "flags": 2
         },
         {
           "id": "23:2318402777278997908",
-          "name": "popularityLabel"
+          "name": "popularityLabel",
+          "type": 9
         },
         {
           "id": "24:1471393947044164183",
-          "name": "wealthLabel"
+          "name": "wealthLabel",
+          "type": 9
         },
         {
           "id": "25:2777510560003235917",
-          "name": "bigdataUserType"
+          "name": "bigdataUserType",
+          "type": 5,
+          "flags": 4
         }
       ],
       "relations": []
@@ -116,8 +156,8 @@
   "lastIndexId": "0:0",
   "lastRelationId": "0:0",
   "lastSequenceId": "0:0",
-  "modelVersion": 4,
-  "modelVersionParserMinimum": 4,
+  "modelVersion": 5,
+  "modelVersionParserMinimum": 5,
   "retiredEntityUids": [],
   "retiredIndexUids": [],
   "retiredPropertyUids": [],

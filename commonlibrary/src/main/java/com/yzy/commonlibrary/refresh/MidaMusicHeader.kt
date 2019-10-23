@@ -5,11 +5,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.widget.TextView
 import com.airbnb.lottie.LottieAnimationView
-import com.scwang.smartrefresh.layout.api.RefreshHeader
-import com.scwang.smartrefresh.layout.api.RefreshKernel
-import com.scwang.smartrefresh.layout.api.RefreshLayout
-import com.scwang.smartrefresh.layout.constant.RefreshState
-import com.scwang.smartrefresh.layout.constant.SpinnerStyle
+import com.scwang.smart.refresh.layout.api.RefreshHeader
+import com.scwang.smart.refresh.layout.api.RefreshKernel
+import com.scwang.smart.refresh.layout.api.RefreshLayout
+import com.scwang.smart.refresh.layout.constant.RefreshState
+import com.scwang.smart.refresh.layout.constant.SpinnerStyle
 import com.yzy.commonlibrary.R
 
 /**

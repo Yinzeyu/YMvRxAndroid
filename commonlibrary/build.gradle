@@ -15,8 +15,15 @@ android {
         sourceCompatibility rootProject.ext.android.javaSourceCompatibility
         targetCompatibility rootProject.ext.android.javaTargetCompatibility
     }
+    //使用Kotlin实验特性
     androidExtensions {
         experimental = true
+    }
+    kapt {
+        correctErrorTypes = true
+    }
+    kotlinOptions {
+        jvmTarget = "1.8"
     }
     sourceSets { main { assets.srcDirs = ['src/main/assets', 'src/main/assets/'] } }
 }
@@ -24,16 +31,12 @@ android {
 dependencies {
     api fileTree(dir: 'libs', include: ['*.jar'])
     api project(":baselibrary")
-    //腾讯bugly
+    kapt rootProject.ext.dependencies.epoxyProcessor
     api rootProject.ext.dependencies.bugly
     api rootProject.ext.dependencies.bugly_native
-//    //baseRecycleViewAdapter
-//    api rootProject.ext.dependencies.baseRecycleViewAdapter
-    //ObjectBox
-    api(rootProject.ext.dependencies.objectBox_RxJava) {
-        exclude group: 'io.reactivex.rxjava2'
-        exclude group: 'io.objectbox'
-    }
+
+    api rootProject.ext.dependencies.smart
+    api rootProject.ext.dependencies.objectBox_RxJava
     api rootProject.ext.dependencies.objectBox_Kotlin
-    api 'com.scwang.smartrefresh:SmartRefreshLayout:1.1.0-andx-14'
+
 }

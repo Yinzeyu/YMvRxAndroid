@@ -18,14 +18,20 @@ android {
         flavorDimensions "default"
         multiDexEnabled true
         resConfigs "zh", "en"//保留中文和英文资源
-//        ndk {
-//            // 设置支持的so库架构，设置一个可以减小包的大小
-//            abiFilters "armeabi-v7a", "arm64-v8a"
-//        }
+        ndk {
+            // 设置支持的so库架构，设置一个可以减小包的大小
+            abiFilters "armeabi-v7a" //, "arm64-v8a"
+        }
     }
     //使用Kotlin实验特性
     androidExtensions {
         experimental = true
+    }
+    kapt {
+        correctErrorTypes = true
+    }
+    kotlinOptions {
+        jvmTarget = "1.8"
     }
     compileOptions {
         sourceCompatibility rootProject.ext.android.javaSourceCompatibility
@@ -36,14 +42,6 @@ android {
             applicationId rootProject.ext.android.applicationId
             manifestPlaceholders = [app_icon: "@mipmap/ic_launcher", app_roundIcon: "@mipmap/ic_launcher", app_name: "帅哥"]
         }
-//        tengxun {
-//            applicationId rootProject.ext.android.applicationId
-//            manifestPlaceholders = [app_icon: "@mipmap/ic_launcher", app_roundIcon: "@mipmap/ic_launcher", app_name: "帅哥"]
-//        }
-//        xiaomi {
-//            applicationId rootProject.ext.android.applicationId
-//            manifestPlaceholders = [app_icon: "@mipmap/ic_launcher", app_roundIcon: "@mipmap/ic_launcher", app_name: "帅哥"]
-//        }
     }
 
     // 3.0 gradle 批量打包
@@ -53,26 +51,9 @@ android {
             outputFileName = "${variant.productFlavors[0].name}Member_v${defaultConfig.versionName}_${releaseTime()}.apk"
         }
     }
-//    //可以配置不同版本的keystore
-//    signingConfigs {
-//        debug {
-//            storeFile file(DEBUG_STORE_FILE_AIMYMUSIC)
-//            storePassword DEBUG_STORE_PASSWORD_AIMYMUSIC
-//            keyAlias DEBUG_KEY_ALIAS_AIMYMUSIC
-//            keyPassword DEBUG_KEY_PASSWORD_AIMYMUSIC
-//        }
-//        release {
-//            storeFile file(RELEASE_STORE_FILE_AIMYMUSIC)
-//            storePassword RELEASE_STORE_PASSWORD_AIMYMUSIC
-//            keyAlias RELEASE_KEY_ALIAS_AIMYMUSIC
-//            keyPassword RELEASE_KEY_PASSWORD_AIMYMUSIC
-//        }
-//    }
 
     buildTypes {
         release {
-            // release模式下，不显示log
-            buildConfigField("boolean", "LOG_DEBUG", "false")
             // 不开启混淆
             minifyEnabled false
             // 移除无用的resource文件
@@ -85,8 +66,6 @@ android {
         }
         debug {
 
-            // debug模式下，显示log
-            buildConfigField("boolean", "LOG_DEBUG", "true")
             // 不开启混淆
             minifyEnabled false
             // 不开启ZipAlign优化
@@ -108,19 +87,13 @@ android {
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-    //kotlin
     implementation rootProject.ext.dependencies.kotlin_jdk
-
     implementation project(":commonlibrary")
     implementation project(":sociallibrary")
     implementation project(":push")
-    kapt 'com.airbnb.android:epoxy-processor:3.7.0'
-    implementation('androidx.viewpager2:viewpager2:1.0.0-beta03') {
-//    implementation 'me.devilsen:CZXing:0.7.3'
-
-    }
-    debugImplementation rootProject.ext.dependencies.leakcanary_debug
-
+    kapt rootProject.ext.dependencies.epoxyProcessor
+    implementation 'androidx.viewpager2:viewpager2:1.0.0-beta05'
+    implementation 'me.devilsen:CZXing:0.9.5'
 }
 //放在这省的忘
 //@SuppressLint("ParcelCreator")

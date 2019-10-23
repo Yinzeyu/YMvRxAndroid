@@ -80,7 +80,7 @@ open class BaseApplication : Application(), KodeinAware {
 
     //初始化 liveDataBus
     private fun initLiveBus() {
-        LiveEventBus.get()
+        LiveEventBus
             .config()
             .supportBroadcast(this)
             .lifecycleObserverAlwaysActive(true)

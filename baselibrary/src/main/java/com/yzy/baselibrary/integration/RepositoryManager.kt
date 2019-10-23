@@ -1,6 +1,5 @@
 package com.yzy.baselibrary.integration
 
-import io.rx_cache2.internal.RxCache
 import retrofit2.Retrofit
 import java.util.*
 
@@ -9,7 +8,7 @@ import java.util.*
  *@date 2019/7/15
  *@author: yzy.
  */
-class RepositoryManager constructor(private val retrofit: Retrofit, private val rxCache: RxCache) :
+class RepositoryManager constructor(private val retrofit: Retrofit) :
     IRepositoryManager {
 
   private val mRetrofitServiceCache = LinkedHashMap<String, Any>()
@@ -35,7 +34,7 @@ class RepositoryManager constructor(private val retrofit: Retrofit, private val 
       if (mCacheServiceCache.containsKey(service.name)) {
         continue
       }
-      mCacheServiceCache[service.name] = rxCache.using(service)
+      mCacheServiceCache[service.name] = service.name
     }
   }
 

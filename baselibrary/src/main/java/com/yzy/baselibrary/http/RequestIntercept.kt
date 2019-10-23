@@ -6,16 +6,13 @@ import okhttp3.Response
 import okio.Buffer
 import java.io.IOException
 import java.nio.charset.Charset
-import javax.inject.Inject
-import javax.inject.Singleton
 
 /**
  *description: 描述.
  *@date 2019/7/15
  *@author: yzy.
  */
-@Singleton
-class RequestIntercept @Inject constructor(private val mHandler: GlobeHttpHandler?) : Interceptor {
+class RequestIntercept constructor(private val mHandler: GlobeHttpHandler?) : Interceptor {
 
     @Throws(IOException::class)
     override fun intercept(chain: Interceptor.Chain): Response {

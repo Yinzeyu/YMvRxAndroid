@@ -6,8 +6,6 @@ import com.google.gson.JsonSerializer
 import com.yzy.baselibrary.BuildConfig
 import com.yzy.baselibrary.http.converter.AbnormalConverterFactory
 import com.yzy.baselibrary.http.ssl.SSLManager
-import io.rx_cache2.internal.RxCache
-import io.victoralbertos.jolyglot.GsonSpeaker
 import okhttp3.HttpUrl
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
@@ -29,7 +27,6 @@ import java.util.concurrent.TimeUnit
 
 const val KODEIN_MODULE_CLIENT_TAG = "clientModule"
 
-const val KODEIN_TAG_FILE_RXCACHE = "rxCacheFile"
 
 class ClientModule {
 
@@ -52,17 +49,7 @@ class ClientModule {
 
             bind<Retrofit.Builder>() with singleton { Retrofit.Builder() }
 
-            bind<File>(KODEIN_TAG_FILE_RXCACHE) with singleton {
-                val cacheDirectory = File(instance<File>(KODEIN_TAG_FILE_CACHEDIR), "RxCache")
-                if (!cacheDirectory.exists()) {
-                    cacheDirectory.mkdirs()
-                }
-                cacheDirectory
-            }
 
-            bind<RxCache>() with singleton {
-                RxCache.Builder().persistence(instance(KODEIN_TAG_FILE_RXCACHE), GsonSpeaker())
-            }
 
             bind<OkHttpClient>() with singleton {
                 val builder = instance<OkHttpClient.Builder>()

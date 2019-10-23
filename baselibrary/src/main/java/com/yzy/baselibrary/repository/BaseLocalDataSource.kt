@@ -3,7 +3,6 @@ package com.yzy.baselibrary.repository
 import com.tencent.mmkv.MMKV
 import com.yzy.baselibrary.app.BaseApplication
 import com.yzy.baselibrary.integration.IRepositoryManager
-import io.rx_cache2.internal.RxCache
 import org.kodein.di.Kodein
 import org.kodein.di.generic.instance
 
@@ -21,8 +20,6 @@ open class BaseLocalDataSource : ILocalDataSource {
     //键值对缓存
     protected val mmkv: MMKV by kodein.instance()
 
-    //RxCache网络请求缓存
-    protected val rxCache: RxCache by kodein.instance()
 
     /**
      * 获取RxCache的Service

@@ -22,7 +22,7 @@ val appModule = Kodein.Module(KODEIN_MODULE_APP_TAG) {
     bind<AppManager>() with singleton { AppManager(BaseApplication.INSTANCE) }
 
     //IRepositoryManager
-    bind<IRepositoryManager>() with singleton { RepositoryManager(instance(), instance()) }
+    bind<IRepositoryManager>() with singleton { RepositoryManager(instance()) }
 
     //GSON
     bind<Gson>() with singleton { Gson() }

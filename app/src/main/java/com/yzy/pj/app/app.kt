@@ -1,6 +1,6 @@
 package com.yzy.pj.app
 
-import com.scwang.smartrefresh.layout.SmartRefreshLayout
+import com.scwang.smart.refresh.layout.SmartRefreshLayout
 import com.tencent.bugly.crashreport.CrashReport
 import com.yzy.commonlibrary.CommonApplication
 import com.yzy.commonlibrary.constants.StringConstants

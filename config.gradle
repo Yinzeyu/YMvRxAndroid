@@ -34,179 +34,77 @@ ext {
             javaTargetCompatibility: JavaVersion.VERSION_1_8
     ]
 
-    libsVersion = [
-            //support
-            androidx = "1.0.2",
-            constraintLayoutVersion = "1.1.3",
-
-            //kotlin
-            kotlinVersion = "1.3.41",
-
-            //anko
-            ankoVersion = "0.10.8",
-
-            //Glide
-            glideVersion = "4.9.0",
-
-            //kodein
-            kodeinVersion = "6.3.3",
-
-            //Rx
-            rxJavaVersion = "2.1.1",
-            rxAndroidVersion = "2.1.0",
-            rxKotlinVersion = "2.3.0",
-            rxLifecycleVersion = "3.0.0",
-            //rxPermission
-            rxPermissionVersion = "0.10.2",
-            //RxDownload
-            rxDownloadVersion = "1.2.7",
-            //RxBinding
-//            rxBindingVersion = "2.1.1",
-            //RxCache
-            rxCacheVersion = "1.8.3-2.x",
-            rxCacheGsonVersion = "0.0.4",
-            //autodispose
-            autodisposeVersion = '1.2.0',
-
-            //lifecycle
-            lifecycleVersion = "1.1.1",
-
-            //okhttp
-            okhttp3Version = "4.0.1",
-
-            //retrofit
-            retrofitVersion = "2.6.0",
-            retrofitRxJavaAdapterVersion = "2.6.0",
-            retrofitGsonConverterVersion = "2.6.0",
-            retrofitScalarsConverterVersion = "2.6.0",
-
-            //gosn
-            gsonVersion = "2.8.5",
-
-            //baseRecycleViewAdapter
-//            baseRecycleViewAdapterVersion = "2.9.46",
-
-            //multidex
-            multidexVersion = "1.0.3",
-
-            //mmkv
-            mmkvVersion = "1.0.22",
-
-            //objectBox
-            objectBoxVersion = "2.3.4",
-
-            //utilcode
-            utilcodeVersion = "1.24.6",
-
-            //leakcanary
-            leakcanaryVersion = "2.0-alpha-3",
-
-            //blockcanary
-            blockcanaryVersion = "1.5.0",
-
-            //bugly
-            buglyCrashreportVersion = "3.0.0",
-            buglyNativecrashreportVersion = "3.3.1",
-
-            agentweb = "4.0.2",
-            //umeng log
-            umengLogVersion = "7.5.3",
-            //epoxy 不能用最新版本，最新版本使用的是androidx
-            epoxyVersion = "3.7.0",
-
-            //mvrx
-            mvrxVersion = "1.0.2",
-            lottie = "3.0.7"
-    ]
-
-
     dependencies = [
-            //support
-            appcompat_v7                  : "androidx.appcompat:appcompat:$rootProject.androidx",
-//            design                        : "com.google.android.material:material:1.0.0",
-            core_ktx                      : "androidx.core:core-ktx:$rootProject.androidx",
+            appcompat_v7                  : "androidx.appcompat:appcompat:1.1.0",
+            core_ktx                      : "androidx.core:core-ktx:1.1.0",
             recycleview                   : "androidx.recyclerview:recyclerview:1.0.0",
             cardview                      : "androidx.cardview:cardview:1.0.0",
-            constraintLayout              : "androidx.constraintlayout:constraintlayout:$rootProject.constraintLayoutVersion",
-
+            constraintLayout              : "androidx.constraintlayout:constraintlayout:1.1.3",
             //kotlin
-            kotlin_jdk                    : "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$rootProject.kotlinVersion",
-            //glide
-            //https://github.com/bumptech/glide 目前最新是4.9.0
-            glide                         : "com.github.bumptech.glide:glide:$rootProject.glideVersion",
-            glide_okhttp                  : "com.github.bumptech.glide:okhttp3-integration:$rootProject.glideVersion",
-            glide_compiler                : "com.github.bumptech.glide:compiler:$rootProject.glideVersion",
+            kotlin_jdk                    : "org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.3.50",
+            //https://github.com/bumptech/glide
+            glide                         : "com.github.bumptech.glide:glide:4.10.0",
+            glide_okhttp                  : "com.github.bumptech.glide:okhttp3-integration:4.10.0",
+            glide_compiler                : "com.github.bumptech.glide:compiler:4.10.0",
             //https://github.com/zjupure/GlideWebpDecoder
 //            glide_webp                    : "com.zlc.glide:webpdecoder:1.3.$rootProject.glideVersion",
 
-            //kodein
             //https://github.com/Kodein-Framework/Kodein-DI
-            kodein                        : "org.kodein.di:kodein-di-generic-jvm:$rootProject.kodeinVersion",
-            kodein_android                : "org.kodein.di:kodein-di-framework-android-core:$rootProject.kodeinVersion",
-            kodein_androidx_support       : "org.kodein.di:kodein-di-framework-android-x:$rootProject.kodeinVersion",
+            kodein                        : "org.kodein.di:kodein-di-generic-jvm:6.4.1",
+            kodein_android                : "org.kodein.di:kodein-di-framework-android-core:6.4.1",
+            kodein_androidx_support       : "org.kodein.di:kodein-di-framework-android-x:6.4.1",
 
-            //Rx
-            //https://github.com/ReactiveX/RxJava
-            rxjava2                       : "io.reactivex.rxjava2:rxandroid:2.1.1",
-            //https://github.com/ReactiveX/RxAndroid
-            rxAndroid                     : "io.reactivex.rxjava2:rxandroid:$rootProject.rxAndroidVersion",
-            //https://github.com/ReactiveX/RxKotlin
-            rxKotlin                      : "io.reactivex.rxjava2:rxkotlin:$rootProject.rxKotlinVersion",
             //https://github.com/trello/RxLifecycle
-            rxlifecycle3                  : "com.trello.rxlifecycle3:rxlifecycle:$rootProject.rxLifecycleVersion",
-            rxlifecycle3_android          : "com.trello.rxlifecycle3:rxlifecycle-android:$rootProject.rxLifecycleVersion",
-            rxlifecycle3_android_lifecycle: "com.trello.rxlifecycle3:rxlifecycle-android-lifecycle:$rootProject.rxLifecycleVersion",
-            rxlifecycle3_components       : "com.trello.rxlifecycle3:rxlifecycle-components:$rootProject.rxLifecycleVersion",
-//            rxlifecycle3_kotlin           : "com.trello.rxlifecycle3:rxlifecycle-kotlin:$rootProject.rxLifecycleVersion",
-            rxlifecycle3_kotlin_lifecycle : "com.trello.rxlifecycle3:rxlifecycle-android-lifecycle-kotlin:$rootProject.rxLifecycleVersion",
+            rxlifecycle3                  : "com.trello.rxlifecycle3:rxlifecycle:3.1.0",
+            rxlifecycle3_android          : "com.trello.rxlifecycle3:rxlifecycle-android:3.1.0",
+            rxlifecycle3_android_lifecycle: "com.trello.rxlifecycle3:rxlifecycle-android-lifecycle:3.1.0",
+            rxlifecycle3_components       : "com.trello.rxlifecycle3:rxlifecycle-components:3.1.0",
+            rxlifecycle3_kotlin_lifecycle : "com.trello.rxlifecycle3:rxlifecycle-android-lifecycle-kotlin:3.1.0",
             //https://github.com/tbruyelle/RxPermissions
-            rxpermission                  : "com.github.tbruyelle:rxpermissions:$rootProject.rxPermissionVersion",
-            //https://github.com/ssseasonnn/RxDownload
-            rxDownload                    : "zlc.season:rxdownload3:$rootProject.rxDownloadVersion",
+            rxpermission                  : "com.github.tbruyelle:rxpermissions:0.10.2",
+//            //https://github.com/ssseasonnn/RxDownload
+//            rxDownload                    : "zlc.season:rxdownload3:$rootProject.rxDownloadVersion",
             //https://github.com/JakeWharton/RxBinding
-            rxBinding                     : "com.jakewharton.rxbinding3:rxbinding:3.0.0-alpha2",
-            //https://github.com/VictorAlbertos/RxCache
-            rxCache                       : "com.github.VictorAlbertos.RxCache:runtime:$rootProject.rxCacheVersion",
-            rxCache_gson                  : "com.github.VictorAlbertos.Jolyglot:gson:$rootProject.rxCacheGsonVersion",
+            rxBinding                     : "com.jakewharton.rxbinding3:rxbinding:3.0.0",
+//            https://github.com/VictorAlbertos/RxCache
+//            rxCache                       : "com.github.VictorAlbertos.RxCache:runtime:$rootProject.rxCacheVersion",
+//            rxCache_gson                  : "com.github.VictorAlbertos.Jolyglot:gson:$rootProject.rxCacheGsonVersion",
             //https://github.com/uber/AutoDispose
-            autodispose                   : "com.uber.autodispose:autodispose-android:$rootProject.autodisposeVersion",
-            autodispose_ktx               : "com.uber.autodispose:autodispose-android-ktx:$rootProject.autodisposeVersion",
-            autodispose_archs_ktx         : "com.uber.autodispose:autodispose-android-archcomponents-ktx:$rootProject.autodisposeVersion",
+            autodispose                   : "com.uber.autodispose:autodispose-android:1.2.0",
+            autodispose_ktx               : "com.uber.autodispose:autodispose-android-ktx:1.2.0",
+            autodispose_archs_ktx         : "com.uber.autodispose:autodispose-android-archcomponents-ktx:1.2.0",
 
-            //okhttp
             //https://github.com/square/okhttp
-            okhttp3                       : "com.squareup.okhttp3:okhttp:$rootProject.okhttp3Version",
-            okhttp3_log                   : "com.squareup.okhttp3:logging-interceptor:$rootProject.okhttp3Version",
+            okhttp3                       : "com.squareup.okhttp3:okhttp:4.2.2",
+            okhttp3_log                   : "com.squareup.okhttp3:logging-interceptor:4.2.2",
 
             //retrofit
             //https://github.com/square/retrofit
-            retrofit                      : "com.squareup.retrofit2:retrofit:$rootProject.retrofitVersion",
-            retrofit_adapter_rxjava2      : "com.squareup.retrofit2:adapter-rxjava2:$rootProject.retrofitRxJavaAdapterVersion",
-            retrofit_converter_gson       : "com.squareup.retrofit2:converter-gson:$rootProject.retrofitGsonConverterVersion",
-            retrofit_converter_scalars    : "com.squareup.retrofit2:converter-scalars:$rootProject.retrofitScalarsConverterVersion",
+            retrofit                      : "com.squareup.retrofit2:retrofit:2.6.2",
+            retrofit_adapter_rxjava2      : "com.squareup.retrofit2:adapter-rxjava2:2.6.2",
+            retrofit_converter_gson       : "com.squareup.retrofit2:converter-gson:2.6.2",
+            retrofit_converter_scalars    : "com.squareup.retrofit2:converter-scalars:2.6.2",
 
-            //baseRecycleViewAdapter
             //https://github.com/CymChad/BaseRecyclerViewAdapterHelper
 //            baseRecycleViewAdapter        : "com.github.CymChad:BaseRecyclerViewAdapterHelper:$rootProject.baseRecycleViewAdapterVersion",
 
-            //gson
             //https://github.com/google/gson
-            gson                          : "com.google.code.gson:gson:$rootProject.gsonVersion",
+            gson                          : "com.google.code.gson:gson:2.8.6",
 
             //multidex
-            multidex                      : "androidx.multidex:multidex:2.0.0",
+            multidex                      : "androidx.multidex:multidex:2.0.1",
             //mmkv
             //https://github.com/Tencent/MMKV
-            mmkv                          : "com.tencent:mmkv:$rootProject.mmkvVersion",
+            mmkv                          : "com.tencent:mmkv-static:1.0.23",
 
             //ObjectBox
             //https://github.com/objectbox/objectbox-java
-            objectBox_RxJava              : "io.objectbox:objectbox-rxjava:$rootProject.objectBoxVersion",
-            objectBox_Kotlin              : "io.objectbox:objectbox-kotlin:$rootProject.objectBoxVersion",
+            objectBox_RxJava              : "io.objectbox:objectbox-rxjava:2.4.0-RC",
+            objectBox_Kotlin              : "io.objectbox:objectbox-kotlin:2.4.0-RC",
 
-            //utilcode
+
             //https://github.com/Blankj/AndroidUtilCode
-            utilcode                      : "com.blankj:utilcode:$rootProject.utilcodeVersion",
+            utilcode                      : "com.blankj:utilcode:1.25.7",
 
             //autosize
             //https://github.com/JessYanCoding/AndroidAutoSize
@@ -217,22 +115,21 @@ ext {
             leakcanary_debug              : "com.squareup.leakcanary:leakcanary-android:2.0-alpha-3",
             //bugly
             //https://cas.bugly.qq.com
-            bugly                         : "com.tencent.bugly:crashreport:$rootProject.buglyCrashreportVersion",
-            bugly_native                  : "com.tencent.bugly:nativecrashreport:$rootProject.buglyNativecrashreportVersion",
+            bugly                         : "com.tencent.bugly:crashreport:3.0.0",
+            bugly_native                  : "com.tencent.bugly:nativecrashreport:3.6.0.1",
 
-            agentweb                      : "com.just.agentweb:agentweb:$rootProject.agentweb",
-            //友盟统计 https://developer.umeng.com/docs/66632/detail/66889
-            umenglog                      : "com.umeng.sdk:analytics:$rootProject.umengLogVersion",
             //mvrx
             //https://github.com/airbnb/MvRx
-            mvrx                          : "com.airbnb.android:mvrx:$rootProject.mvrxVersion",
+            mvrx                          : "com.airbnb.android:mvrx:1.2.1",
 
             //epoxy
             //https://github.com/airbnb/epoxy
-            epoxy                         : "com.airbnb.android:epoxy:$rootProject.epoxyVersion",
-            epoxyProcessor                : "com.airbnb.android:epoxy-processor:$rootProject.epoxyVersion",
+            epoxy                         : "com.airbnb.android:epoxy:3.8.0",
+            epoxyProcessor                : "com.airbnb.android:epoxy-processor:3.8.0",
             //lottie，2.8.0以上是androidx,
-            lottie                        : "com.airbnb.android:lottie:$rootProject.lottie"
+            lottie                        : "com.airbnb.android:lottie:3.1.0",
+            live_event_bus                : "com.jeremyliao:live-event-bus-x:1.5.3",
+            smart                : "com.scwang.smart:refresh-layout-kernel:2.0.0-alpha-1"
 
     ]
 }
