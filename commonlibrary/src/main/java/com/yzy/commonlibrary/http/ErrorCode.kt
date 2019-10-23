@@ -10,7 +10,7 @@ package com.yzy.commonlibrary.http
 interface ErrorCode {
     //服务器返回的错误
     companion object {
-        const val SUCCESS = 200//成功返回数据
+        const val SUCCESS = 0//成功返回数据
         const val NEED_LOGIN = 302
         const val TOKEN_EXPIRED = 317
     }

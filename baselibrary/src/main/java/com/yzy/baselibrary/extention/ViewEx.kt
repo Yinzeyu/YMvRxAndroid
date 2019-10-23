@@ -3,14 +3,10 @@ package com.yzy.baselibrary.extention
 import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Context
+import android.graphics.Color
 import android.view.View
-import androidx.lifecycle.Lifecycle
-import androidx.lifecycle.LifecycleOwner
-import com.yzy.baselibrary.utils.SchedulersUtil
-import com.jakewharton.rxbinding3.view.clicks
 import com.yzy.baselibrary.R
-import io.reactivex.functions.Consumer
-import java.util.concurrent.TimeUnit
+import com.yzy.baselibrary.utils.PressEffectHelper
 
 /**
  *description: View的扩展.
@@ -33,6 +29,23 @@ inline fun View.click(crossinline function: (view: View) -> Unit) {
             function.invoke(it)
         }
     }
+}
+//设置按下效果为改变背景色
+fun View.pressEffectBgColor(
+    bgColor: Int = Color.parseColor("#f7f7f7"),
+    topLeftRadiusDp: Float = 0f,
+    topRightRadiusDp: Float = 0f,
+    bottomRightRadiusDp: Float = 0f,
+    bottomLeftRadiusDp: Float = 0f
+) {
+    PressEffectHelper.bgColorEffect(
+        this,
+        bgColor,
+        topLeftRadiusDp,
+        topRightRadiusDp,
+        bottomRightRadiusDp,
+        bottomLeftRadiusDp
+    )
 }
 
 // 黑暗 0.0F ~ 1.0F 透明
@@ -76,6 +89,11 @@ fun View.enable() {
 fun View.disable() {
     this.isEnabled = false
 }
+//显示或者不显示且不占位
+fun View.visibleGone(visible: Boolean) = if (visible) visible() else gone()
+
+//显示或者不显示但占位
+fun View.visibleInvisible(visible: Boolean) = if (visible) visible() else invisible()
 
 var android.view.View.backgroundColor: Int
     @Deprecated(NO_GETTER, level = DeprecationLevel.ERROR) get() = noGetter()

@@ -7,6 +7,10 @@ import io.reactivex.Observable
 import retrofit2.http.GET
 import retrofit2.http.Path
 import com.google.gson.annotations.SerializedName
+import com.yzy.commonlibrary.http.response.BaseResponse
+import com.yzy.commonlibrary.repository.bean.ArticleDataBean
+import com.yzy.commonlibrary.repository.bean.BannerBean
+import retrofit2.http.Query
 
 
 /**
@@ -40,4 +44,16 @@ interface GankService {
         @Path("month") month: String,
         @Path("day") day: String
     ): Observable<GankBaseBean<String>>
+
+
+    @GET("banner/json")
+    fun banner(
+        @Query("page") page: String,
+        @Query("size") size: String
+    ): Observable<BaseResponse<MutableList<BannerBean>>>
+
+    @GET("article/list/{page}/json")
+    fun article(
+        @Path("page") page: String
+    ): Observable<BaseResponse<ArticleDataBean>>
 }

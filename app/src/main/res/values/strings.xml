@@ -5,4 +5,9 @@
     <string name="str_mai_my">我的</string>
     <string name="str_main_game">游乐园</string>
     <string name="str_main_elephant">象园</string>
+    <string name="load_more_info">数据加载中</string>
+    <string name="load_more_fail">加载失败，点击重试</string>
+    <string name="net_error_retry">网络异常，点击屏幕重试</string>
+    <string name="net_fail_retry">加载失败，点击屏幕重试</string>
+    <string name="no_data">该模块暂时还没有数据哦</string>
 </resources>

@@ -131,7 +131,7 @@ ext {
             live_event_bus            : "com.jeremyliao:live-event-bus-x:1.5.3",
             smart                     : "com.scwang.smart:refresh-layout-kernel:2.0.0-alpha-1",
             //https://github.com/panpf/sketch
-//            sketch                     : "me.panpf:sketch:2.7.1-rc01",
+            sketch                     : "me.panpf:sketch:2.7.1-rc01",
             smart_classics            : "com.scwang.smart:refresh-footer-classics:2.0.0-alpha-1"
 
     ]

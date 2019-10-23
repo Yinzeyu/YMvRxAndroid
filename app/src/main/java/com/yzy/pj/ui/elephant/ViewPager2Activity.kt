@@ -1,22 +1,31 @@
 package com.yzy.pj.ui.elephant
 
 import android.content.Context
+import android.util.Log
 import androidx.viewpager2.widget.ViewPager2
 import com.airbnb.epoxy.AsyncEpoxyController
+import com.airbnb.epoxy.EpoxyVisibilityTracker
 import com.airbnb.mvrx.Fail
 import com.airbnb.mvrx.Loading
 import com.airbnb.mvrx.Success
+import com.blankj.utilcode.util.LogUtils
+import com.blankj.utilcode.util.NetworkUtils
+import com.scwang.smart.refresh.layout.SmartRefreshLayout
 import com.xiaomi.push.it
 import com.yzy.baselibrary.base.BaseActivity
 import com.yzy.baselibrary.base.MvRxEpoxyController
+import com.yzy.baselibrary.extention.mContext
 import com.yzy.baselibrary.extention.startActivity
 import com.yzy.commonlibrary.repository.model.ConversationDetailState
 import com.yzy.commonlibrary.repository.model.GankViewModel
+import com.yzy.commonlibrary.repository.model.HomeState
+import com.yzy.commonlibrary.repository.model.HomeViewModel
 import com.yzy.pj.R
+import com.yzy.pj.ui.item.*
 import kotlinx.android.synthetic.main.activity_elephant.*
 
 class ViewPager2Activity : BaseActivity() {
-
+//    private var mSmartSwipeRefresh: SmartRefreshLayout? = null
     companion object {
         fun starElephantActivity(context: Context) {
             context.startActivity<ViewPager2Activity>()
@@ -25,31 +34,73 @@ class ViewPager2Activity : BaseActivity() {
 
     //加载显示loading
     private var needShowLoading = true
-    private val gankViewModel: GankViewModel by lazy {
-        GankViewModel()
+    private val gankViewModel: HomeViewModel by lazy {
+        HomeViewModel()
     }
-    private val epoxyController = MvRxEpoxyController<ConversationDetailState> { state ->
-        if (state.fuliBean.isNotEmpty()) {
-            state.fuliBean.forEach {
-                elephantItem {
-                    id(it.url)
-                    messageBean(it)
+    //epoxy
+    private val epoxyController = MvRxEpoxyController<HomeState> { state ->
+        //有数据
+        if (!state.banners.isNullOrEmpty() || !state.articles.isNullOrEmpty()) {
+            //处理Banner'
+            if (!state.banners.isNullOrEmpty()) {
+                bannerItem {
+                    id("home_banner_${state.banners.hashCode() + state.banners!!.size}")
+                    dataList(state.banners)
                 }
             }
-        }
-        when (state.request) {
-            is Loading -> {
-                if (state.fuliBean.isEmpty() && needShowLoading) {
-                    //没有数据默认为第一次加载
-                    needShowLoading = false
+            //处理文章列表
+            if (!state.articles.isNullOrEmpty()) {
+                state.articles.forEachIndexed { index, articleBean ->
+                    //文章
+                    wanArticleItem {
+                        id(articleBean.id)
+                        dataBean(articleBean)
+                        onItemClick { bean ->
+//                            bean?.link?.let { url -> WebActivity.startActivity(mContext, url) }
+                        }
+                    }
+                    //分割线
+                    dividerItem {
+                        id("home_line_banner")
+                    }
                 }
             }
-            is Fail -> {
-                //数据加载失败
+            //有数据支持下拉刷新
+//            mSmartSwipeRefresh?.swipeConsumer?.enableTop()
+            //根据返回信息判断是否可以加载更多
+            if (state.hasMore) {
+                loadMoreItem {
+                    id("home_line_more")
+                    fail(state.request is Fail)
+                    onLoadMore {
+                        gankViewModel.loadMoreData()
+                    }
+                }
             }
-            is Success -> {
+        } else {
+            //没有数据，不能下拉刷新也不能加载更多
+//            mSmartSwipeRefresh?.disableRefresh()
+            //无数据
+            when {
+                state.request is Success -> errorEmptyItem {
+                    id("home_suc_no_data")
+                    imageResource(R.drawable.svg_no_data)
+                    tipsText(mContext.getString(R.string.no_data))
+                }
+                //无网络或者请求失败
+                state.request is Fail -> errorEmptyItem {
+                    id("home_fail_no_data")
+                    if (NetworkUtils.isConnected()) {
+                        imageResource(R.drawable.svg_fail)
+                        tipsText(mContext.getString(R.string.net_fail_retry))
+                    } else {
+                        imageResource(R.drawable.svg_no_network)
+                        tipsText(mContext.getString(R.string.net_error_retry))
+                    }
+                    onRetryClick { gankViewModel.refreshData() }
+                }
+                else -> LogUtils.i("初始化无数据空白")
             }
-
         }
     }
 
@@ -57,11 +108,36 @@ class ViewPager2Activity : BaseActivity() {
     override fun layoutResId(): Int = R.layout.activity_elephant
 
     override fun initView() {
-        gankViewModel.loadData(10, 17)
-        tElephantViewPager.adapter = epoxyController.adapter
-        tElephantViewPager.orientation = ViewPager2.ORIENTATION_VERTICAL
-        tElephantViewPager.getChildAt(0).overScrollMode = ViewPager2.OVER_SCROLL_NEVER
+        gankViewModel.refreshData()
+        homeEpoxyRecycler.setController(epoxyController)
+        EpoxyVisibilityTracker().attach(homeEpoxyRecycler)
 
+        smRefresh.setOnRefreshListener {
+
+        }
+        smRefresh.setOnLoadMoreListener {
+
+        }
+        //请求状态和结果监听
+        gankViewModel.subscribe { state ->
+            if (state.request is Loading) {//请求开始
+                //如果没有显示下拉刷新则显示loading
+                if (state.banners.isNullOrEmpty() && state.articles.isNullOrEmpty()
+                ) {
+                    //显示loading
+//                    showLoadingView()
+                    //为了防止loading结束后还存在失败的view所以需刷新一下
+                    epoxyController.requestModelBuild()
+                }
+            } else if (state.request.complete) {//请求结束
+//                mSmartSwipeRefresh?.finished(state.request is Success)
+//                dismissLoadingView()
+                epoxyController.data = state
+                if (state.request is Fail) {//请求失败
+                    Log.e("CASE", "失败原因:${(state.request as Fail<Any>).error.message ?: ""}")
+                }
+            }
+        }
     }
 
     override fun initDate() {

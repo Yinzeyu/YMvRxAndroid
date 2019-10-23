@@ -21,6 +21,8 @@ import com.yzy.sociallib.config.PlatformType
 import com.yzy.sociallib.entity.platform.CommPlatConfigBean
 import org.kodein.di.Kodein
 
+
+
 class app : CommonApplication() {
 
     override fun initInMainProcess() {
@@ -74,11 +76,11 @@ class app : CommonApplication() {
 
     private fun initBug() {
         //初始化key
-        CrashReport.initCrashReport(
-            applicationContext,
-            if (BuildConfig.DEBUG) "8e9eedd10f" else "2ae17bde1d",
-            false
-        )
+//        CrashReport.initCrashReport(
+//            applicationContext,
+//            if (BuildConfig.DEBUG) "8e9eedd10f" else "2ae17bde1d",
+//            false
+//        )
     }
 
     private fun initSocial() {
@@ -86,38 +88,20 @@ class app : CommonApplication() {
             applicationContext,
             CommPlatConfigBean(PlatformType.WEIXIN, ""),  // 微信key
             CommPlatConfigBean(PlatformType.QQ, appkey = "") // qqkey
-//            SinaPlatConfigBean(
-//                PlatformType.SINA_WEIBO,
-//                appkey = "1472835731",
-//                redirectUrl = "http://www.meda.cc",
-//                scope = (
-//                        "email,direct_messages_read,direct_messages_write,"
-//                                + "friendships_groups_read,friendships_groups_write,statuses_to_me_read,"
-//                                + "follow_app_official_microblog," + "invitation_write")
-//            )
         )
     }
 
     init {
         //设置全局的Header构建器
-        SmartRefreshLayout.setDefaultRefreshFooterCreator { context, layout ->
-            layout.setPrimaryColorsId(R.color.white, R.color.c_ff30d18b)//全局设置主题颜色
+        //设置全局的Header构建器
+        SmartRefreshLayout.setDefaultRefreshHeaderCreator { context, layout ->
+            layout.setPrimaryColorsId(R.color.colorPrimary, android.R.color.white)//全局设置主题颜色
             RefreshHeader(context)
-            ClassicsFooter(context)
         }
-
-//        (object : SmartRefreshLayout.SmartSwipeRefreshViewCreator {
-//            override fun createRefreshHeader(context: Context?): SmartSwipeRefresh.SmartSwipeRefreshHeader {
-//                return if (context == null) ClassicHeader(context) else CCRefreshHeader(context)
-//            }
-//
-//            override fun createRefreshFooter(context: Context?): SmartSwipeRefresh.SmartSwipeRefreshFooter {
-//                return ClassicFooter(context)
-//            }
-//        })
-//        SmartRefreshLayout.setDefaultRefreshHeaderCreator { context, layout ->
-//            layout.setPrimaryColorsId(R.color.white, R.color.c_ff30d18b)//全局设置主题颜色
-//            RefreshHeader(context)
-//        }
+        //设置全局的Footer构建器
+        SmartRefreshLayout.setDefaultRefreshFooterCreator { context, layout ->
+            //指定为经典Footer，默认是 BallPulseFooter
+            ClassicsFooter(context).setDrawableSize(20f)
+        }
     }
 }
