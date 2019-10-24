@@ -8,6 +8,7 @@ import com.yzy.baselibrary.extention.*
 import com.yzy.pj.R
 import com.yzy.pj.ui.IndexFragment
 import com.yzy.pj.ui.elephant.ViewPager2Activity
+import com.yzy.pj.ui.initAddFriendDialog
 import com.yzy.pj.ui.video.TasteVideoActivity
 import kotlinx.android.synthetic.main.activity_main.*
 import me.devilsen.czxing.Scanner
@@ -68,6 +69,11 @@ class MainActivity : BaseActivity() {
         }
         flPlay.click {
             TasteVideoActivity.starTasteVideoActivity(mContext)
+        }
+        flShowDialog.click {
+            initAddFriendDialog(supportFragmentManager){
+
+            }
         }
     }
 

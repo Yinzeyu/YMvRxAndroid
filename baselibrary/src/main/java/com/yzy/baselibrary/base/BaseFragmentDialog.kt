@@ -1,5 +1,6 @@
 package com.yzy.baselibrary.base
 
+import android.app.Activity
 import android.content.Context
 import android.content.DialogInterface
 import android.graphics.Color
@@ -13,16 +14,19 @@ import android.view.ViewGroup.LayoutParams.WRAP_CONTENT
 import android.view.WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.FragmentManager
+import androidx.lifecycle.LifecycleOwner
+import com.airbnb.mvrx.MvRxView
+import com.airbnb.mvrx.MvRxViewId
+import com.airbnb.mvrx.MvRxViewModelStore
 import com.yzy.baselibrary.extention.dp2px
 import com.yzy.baselibrary.extention.isDoubleClick
-import com.yzy.pj.baselibrary.base.dialog.BaseDialogFragment
 
 /**
  *description: Dialog的基类.
  *@date 2019/7/15
  *@author: yzy.
  */
-abstract class BaseFragmentDialog : BaseDialogFragment() {
+abstract class BaseFragmentDialog : DialogFragment(), MvRxView {
 
     var mWidth = WRAP_CONTENT
     var mHeight = WRAP_CONTENT
@@ -34,16 +38,27 @@ abstract class BaseFragmentDialog : BaseDialogFragment() {
     var mSoftInputMode: Int = SOFT_INPUT_STATE_ALWAYS_HIDDEN
     var lowerBackground = false // 是否降级背景，例如图片预览的时候不可以降级（设置Activity的透明度）
     lateinit var mContext: Context
+    lateinit var mActivity: Activity
 
     /****** listener ******/
     private var viewLoadedListener: ((View) -> Unit)? = null
     private var showListener: (() -> Unit)? = null
     private var disListener: (() -> Unit)? = null
+    override val mvrxViewModelStore by lazy { MvRxViewModelStore(viewModelStore) }
 
+    private val mvrxViewIdProperty = MvRxViewId()
+    final override val mvrxViewId: String by mvrxViewIdProperty
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        mvrxViewModelStore.restoreViewModels(this, savedInstanceState)
+        mvrxViewIdProperty.restoreFrom(savedInstanceState)
+        super.onCreate(savedInstanceState)
+    }
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
         mContext = context
+        mActivity = context as Activity
     }
 
 
@@ -53,11 +68,15 @@ abstract class BaseFragmentDialog : BaseDialogFragment() {
         savedInstanceState: Bundle?
     ): View? {
         setStyle()
-        val view = inflater.inflate(contentLayout, container, false)
+        val view = inflater.inflate(contentLayout, container)
         viewLoadedListener?.invoke(view)
-        initView(view)
         initBeforeCreateView(savedInstanceState)
         return view
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        initView(view)
     }
 
     /**
@@ -73,12 +92,14 @@ abstract class BaseFragmentDialog : BaseDialogFragment() {
     }
 
     protected abstract fun initView(view: View)
+    //防止快速弹出多个
+    private var showTime = 0L
 
     /**
      * 防止同时弹出两个dialog
      */
     override fun show(manager: FragmentManager, tag: String?) {
-        if (isDoubleClick() || activity?.isFinishing == true) {
+        if (System.currentTimeMillis() - showTime < 500 || activity?.isFinishing == true) {
             return
         }
         showListener?.invoke()
@@ -150,5 +171,21 @@ abstract class BaseFragmentDialog : BaseDialogFragment() {
         window.attributes = wlp
     }
 
+    override val subscriptionLifecycleOwner: LifecycleOwner
+        get() = this.viewLifecycleOwnerLiveData.value ?: this
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        mvrxViewModelStore.saveViewModels(outState)
+        mvrxViewIdProperty.saveTo(outState)
+    }
+
+    override fun onStart() {
+        super.onStart()
+        postInvalidate()
+    }
+
+    override fun invalidate() {
+    }
 
 }
