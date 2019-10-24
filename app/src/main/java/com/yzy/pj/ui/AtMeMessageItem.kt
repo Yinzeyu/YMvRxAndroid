@@ -6,6 +6,7 @@ import com.airbnb.epoxy.EpoxyModelClass
 import com.yzy.baselibrary.base.BaseEpoxyHolder
 import com.yzy.baselibrary.base.BaseEpoxyModel
 import com.yzy.baselibrary.extention.load
+import com.yzy.commonlibrary.repository.bean.BannerBean
 import com.yzy.commonlibrary.repository.bean.FuliBean
 import com.yzy.pj.R
 import kotlinx.android.synthetic.main.main_item.view.*
@@ -14,10 +15,10 @@ import kotlinx.android.synthetic.main.main_item.view.*
 abstract class AtMeMessageItem : BaseEpoxyModel<BaseEpoxyHolder>() {
 
     @EpoxyAttribute
-    lateinit var messageBean: FuliBean
+    lateinit var messageBean: BannerBean
 
     override fun onBind(itemView: View) {
         super.onBind(itemView)
-        itemView.iv_item_bg.load(messageBean.url, 0)
+        itemView.iv_item_bg.load(messageBean.imagePath, 0)
     }
 }

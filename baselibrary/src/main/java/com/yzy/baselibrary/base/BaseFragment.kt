@@ -6,8 +6,10 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.FrameLayout
 import com.airbnb.mvrx.BaseMvRxFragment
 import com.airbnb.mvrx.BaseMvRxViewModel
+import com.yzy.baselibrary.extention.removeParent
 import org.kodein.di.Kodein
 import org.kodein.di.KodeinAware
 import org.kodein.di.KodeinContext
@@ -26,7 +28,7 @@ abstract class BaseFragment : BaseMvRxFragment(), KodeinAware {
     private var isPrepared = false
     private var isFirst = true
     private var isInViewPager = false
-    protected var rootView: View? = null
+    protected var rootView: FrameLayout? = null
     override val kodeinTrigger = KodeinTrigger()
     override val kodeinContext: KodeinContext<*> get() = kcontext(activity)
 
@@ -49,9 +51,20 @@ abstract class BaseFragment : BaseMvRxFragment(), KodeinAware {
         savedInstanceState: Bundle?
     ): View? {
         initBeforeCreateView(savedInstanceState)
-        if (contentLayout != 0) {
-            rootView = inflater.inflate(contentLayout, null)
-            rootView?.layoutParams = ViewGroup.LayoutParams(-1, -1)
+        //第一次的时候加载xml
+        if (contentLayout > 0 && rootView == null) {
+            val contentView = inflater.inflate(contentLayout, null)
+            if (contentView is FrameLayout) {
+                contentView.layoutParams = ViewGroup.LayoutParams(-1, -1)
+                rootView = contentView
+            } else {
+                rootView = FrameLayout(mContext)
+                rootView?.layoutParams = ViewGroup.LayoutParams(-1, -1)
+                rootView?.addView(contentView, ViewGroup.LayoutParams(-1, -1))
+            }
+        } else {
+            //防止重新create时还存在
+            rootView?.removeParent()
         }
         return rootView
     }
@@ -109,12 +122,4 @@ abstract class BaseFragment : BaseMvRxFragment(), KodeinAware {
      * 初始化数据
      */
     protected abstract fun initData()
-
-    protected fun subscribeVM(vararg viewModels: BaseMvRxViewModel<*>) {
-        viewModels.forEach {
-            it.subscribe(owner = this, subscriber = {
-                postInvalidate()
-            })
-        }
-    }
 }

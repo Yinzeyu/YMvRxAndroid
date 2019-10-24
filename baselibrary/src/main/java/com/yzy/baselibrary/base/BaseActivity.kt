@@ -75,13 +75,7 @@ abstract class BaseActivity : BaseMvRxActivity(), MvRxView, KodeinAware {
 
     protected open fun initKodein(builder: Kodein.MainBuilder) {
     }
-    protected fun subscribeVM(vararg viewModels: BaseMvRxViewModel<*>) {
-        viewModels.forEach {
-            it.subscribe(owner = this, subscriber = {
-                postInvalidate()
-            })
-        }
-    }
+
 
     override fun onDestroy() {
         super.onDestroy()

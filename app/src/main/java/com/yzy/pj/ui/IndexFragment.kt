@@ -1,20 +1,22 @@
 package com.yzy.pj.ui
 
+import android.util.Log
 import android.view.View
 import com.airbnb.epoxy.EpoxyVisibilityTracker
 import com.airbnb.mvrx.Fail
 import com.airbnb.mvrx.Loading
 import com.airbnb.mvrx.Success
 import com.scwang.smart.refresh.layout.SmartRefreshLayout
+import com.xiaomi.push.it
 import com.yzy.baselibrary.base.BaseFragment
 import com.yzy.baselibrary.base.MvRxEpoxyController
+import com.yzy.commonlibrary.comm.CommFragment
 import com.yzy.commonlibrary.repository.model.ConversationDetailState
 import com.yzy.commonlibrary.repository.model.GankViewModel
 import com.yzy.pj.R
 import kotlinx.android.synthetic.main.fragemnt_index.*
 
-class IndexFragment : BaseFragment() {
-    lateinit var refreshLayout: SmartRefreshLayout
+class IndexFragment : CommFragment() {
     override val contentLayout: Int = R.layout.fragemnt_index
     //加载显示loading
     private var needShowLoading = true
@@ -23,58 +25,44 @@ class IndexFragment : BaseFragment() {
     }
 
     private val epoxyController = MvRxEpoxyController<ConversationDetailState> { state ->
-        if (state.fuliBean.isNotEmpty()) {
-            state.fuliBean.forEach {
+        if (!state.banners.isNullOrEmpty()) {
+            state.banners.forEach {
                 atMeMessageItem {
-                    id(it.url)
+                    id("home_banner_${it.hashCode() + it.id}")
                     messageBean(it)
                 }
             }
-            if (state.hasMore) {
-                //有更多数据
-                loadMoreItem {
-                    id("IndexLoadMore")
-                    tipsText("数据加载中…")//自定义提示文字
-                    onLoadMore {
-                        gankViewModel.loadMoreData(10, 27)
-                    }
-                }
-            }
-        }
-        //加载失败
-        when (state.request) {
-            is Loading -> {
-                if (state.fuliBean.isEmpty() && needShowLoading) {
-                    //没有数据默认为第一次加载
-                    needShowLoading = false
-                }
-            }
-            is Fail -> {
-                commListSrl.finishRefresh()
-                //数据加载失败
-            }
-            is Success -> {
-                commListSrl.finishRefresh()
-            }
-
         }
     }
-
 
 
     override fun initView(root: View?) {
         commListErv.setController(epoxyController)
         EpoxyVisibilityTracker().attach(commListErv)
-        refreshLayout = commListSrl
-        gankViewModel.loadData(10, 17)
-        refreshLayout.setOnRefreshListener {
-            gankViewModel.loadData(10, 17)
+        gankViewModel.loadData()
+        //请求状态和结果监听
+        gankViewModel.subscribe { state ->
+            if (state.request is Loading) {//请求开始
+                //如果没有显示下拉刷新则显示loading
+                if (state.banners.isNullOrEmpty()) {
+                    //显示loading
+                    showLoadingView()
+                    //为了防止loading结束后还存在失败的view所以需刷新一下
+                    epoxyController.data = state//透明背景的loading需要这样设置
+                    //epoxyController.requestModelBuild()非透明背景的loading还可以这样设置
+                }
+            } else if (state.request.complete) {//请求结束
+                dismissLoadingView()
+                epoxyController.data = state
+                if (state.request is Fail) {//请求失败
+                    Log.e("CASE", "失败原因:${(state.request as Fail<Any>).error.message ?: ""}")
+                }
+            }
         }
     }
 
 
     override fun initData() {
-        subscribeVM(gankViewModel)
     }
 
     companion object {
