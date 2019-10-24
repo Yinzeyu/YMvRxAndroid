@@ -2,6 +2,7 @@ package com.yzy.baselibrary.imageloader
 
 import android.content.Context
 import android.graphics.Bitmap
+import android.graphics.drawable.Drawable
 import android.net.Uri
 import android.widget.ImageView
 
@@ -31,7 +32,7 @@ class ImageConfig constructor(builder: Builder? = null) {
   var margin: Int = 0 // 圆角加载的边距
   var imageLoadScaleType: ImageLoadScaleType = ImageLoadScaleType.CenterCrop //图片显示的类型，默认为CenterCrop
   var thumbnail: Float = 1.0F // 缩略图大小
-  var success: ((bitmap: Bitmap?) -> Unit)? = null //图片加载成功的回调
+  var success: ((bitmap: Drawable?) -> Unit)? = null //图片加载成功的回调
   var failed: (() -> Unit)? = null //图片加载失败的回调
   var progress: ((url: String, isComplete: Boolean, percentage: Int, bytesRead: Long, totalBytes: Long) -> Unit)? =
     null //图片加载进度的回调
@@ -84,7 +85,7 @@ class ImageConfig constructor(builder: Builder? = null) {
     var margin: Int = 0
     var imageLoadScaleType: ImageLoadScaleType = ImageLoadScaleType.CenterCrop//ScaleType
     var thumbnail: Float = 1.0F // 缩略图大小
-    var success: ((bitmap: Bitmap?) -> Unit)? = null
+    var success: ((bitmap: Drawable?) -> Unit)? = null
     var failed: (() -> Unit)? = null
     var progress: ((url: String, isComplete: Boolean, percentage: Int, bytesRead: Long, totalBytes: Long) -> Unit)? =
       null //图片加载进度的回调
@@ -231,7 +232,7 @@ class ImageConfig constructor(builder: Builder? = null) {
     /**
      * 加载成功的回调
      */
-    fun onSuccess(success: (bitmap: Bitmap?) -> Unit): Builder {
+    fun onSuccess(success: (bitmap: Drawable?) -> Unit): Builder {
       this.success = success
       return this
     }

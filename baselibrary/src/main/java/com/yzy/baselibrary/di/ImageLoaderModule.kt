@@ -13,9 +13,7 @@ import org.kodein.di.generic.singleton
  *@date 2019/7/15
  *@author: yzy.
  */
-const val KODEIN_MODULE_IMAGELOADER_TAG = "imageLoaderModule"
-
-val imageLoaderModule = Kodein.Module(KODEIN_MODULE_IMAGELOADER_TAG) {
+val imageLoaderModule = Kodein.Module("imageLoaderModule") {
     bind<BaseImageLoaderStrategy>() with singleton {
         GlideImageLoaderStrategy()
     }

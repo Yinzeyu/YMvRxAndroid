@@ -3,6 +3,8 @@ package com.yzy.baselibrary.imageloader.glide
 import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.drawable.Drawable
+import android.widget.ImageView
+import androidx.annotation.Nullable
 import com.bumptech.glide.Glide
 import com.bumptech.glide.disklrucache.DiskLruCache
 import com.yzy.baselibrary.imageloader.BaseImageLoaderStrategy
@@ -16,7 +18,10 @@ import com.bumptech.glide.load.engine.cache.DiskCache
 import com.bumptech.glide.load.engine.cache.SafeKeyGenerator
 import com.bumptech.glide.load.model.GlideUrl
 import com.bumptech.glide.load.resource.bitmap.BitmapTransitionOptions
+import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import com.bumptech.glide.request.target.CustomTarget
+import com.bumptech.glide.request.target.DrawableImageViewTarget
+import com.bumptech.glide.request.transition.Transition
 import com.bumptech.glide.signature.EmptySignature
 import com.yzy.baselibrary.imageloader.cache.DataCacheKey
 import java.io.File
@@ -58,7 +63,7 @@ class GlideImageLoaderStrategy : BaseImageLoaderStrategy {
         }
         config.context?.let { context ->
             val glideRequest = GlideApp.with(context)
-                .asBitmap()
+                .asDrawable()
                 .apply {
                     if (config.url?.isNotBlank() == true) {
                         load(config.url)
@@ -110,7 +115,7 @@ class GlideImageLoaderStrategy : BaseImageLoaderStrategy {
                     }
                     //暂时只写了渐入效果，如果要多种效果可以用枚举
                     if (config.useCrossFade) {
-                        transition(BitmapTransitionOptions.withCrossFade())
+                        transition(DrawableTransitionOptions.withCrossFade())
                     } else {
                         dontAnimate()
                     }
@@ -135,24 +140,18 @@ class GlideImageLoaderStrategy : BaseImageLoaderStrategy {
             }
 
             if (config.success != null || config.failed != null) {
-                //需要监听成功或者失败的回调的
-                glideRequest.into(object : CustomTarget<Bitmap>() {
-                    override fun onResourceReady(
-                        resource: Bitmap,
-                        transition: com.bumptech.glide.request.transition.Transition<in Bitmap>?
-                    ) {
-                        config.imageView?.setImageBitmap(resource)
-                        config.success?.invoke(resource)
-                    }
-
-                    override fun onLoadCleared(placeholder: Drawable?) {
-                    }
-
-                    override fun onLoadFailed(errorDrawable: Drawable?) {
+                config.imageView?.let {
+                    glideRequest.into(object :DrawableImageViewTarget(it){
+                        override fun onResourceReady(resource: Drawable, transition: Transition<in Drawable>?) {
+                            config.success?.invoke(resource)
+                            super.onResourceReady(resource, transition)
+                        }
+                        override fun onLoadFailed(errorDrawable: Drawable?) {
                         super.onLoadFailed(errorDrawable)
                         config.failed?.invoke()
                     }
-                })
+                    })
+                }
             } else {
                 config.imageView?.let {
                     glideRequest.into(it)
