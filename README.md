@@ -11,6 +11,7 @@
 + SmartRefreshLayout
 + objectBox
 + lottie
++七牛播放器
 
 
 ## 更新日志
