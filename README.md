@@ -11,6 +11,18 @@
 + SmartRefreshLayout
 + objectBox
 + lottie
+
+
+## 更新日志
+##### 2019/10/24
+##### 将jsbridge 移动到commLib 中
+##### 合并baseActivity  和baseFragment 更加简化父类方法
+##### 删除部分base库中的扩展，只保留最精简的扩展
+##### 更新所有第三方库版本，移除rxCache，移除lifecycle依赖
+##### 移除原有多余的请求基类 更加简化请求逻辑
+##### 移除room 等类 使用第三方utils 提供的工具类
+
+
 ## 更新日志
 ##### 2019/8/16
 ##### 增加单张图片显示效果库
