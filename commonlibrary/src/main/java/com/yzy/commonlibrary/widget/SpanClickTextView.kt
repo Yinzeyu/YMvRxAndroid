@@ -1,4 +1,4 @@
-package com.yzy.baselibrary.widget
+package com.yzy.commonlibrary.widget
 
 import android.annotation.SuppressLint
 import android.content.Context
@@ -10,7 +10,7 @@ import android.view.View
 
 import androidx.appcompat.widget.AppCompatTextView
 
-import com.yzy.baselibrary.utils.span.LinkTouchMovementMethod
+import com.yzy.commonlibrary.widget.span.LinkTouchMovementMethod
 
 
 /**

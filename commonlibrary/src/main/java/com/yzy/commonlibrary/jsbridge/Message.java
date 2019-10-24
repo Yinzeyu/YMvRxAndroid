@@ -1,4 +1,4 @@
-package com.yzy.baselibrary.jsbridge;
+package com.yzy.commonlibrary.jsbridge;
 
 import android.text.TextUtils;
 import org.json.JSONArray;

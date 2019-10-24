@@ -1,10 +1,13 @@
 package com.yzy.commonlibrary.http
 
+import com.yzy.baselibrary.extention.applyFollowableSchedulers
+import com.yzy.baselibrary.extention.applyMaybeSchedulers
+import com.yzy.baselibrary.extention.applySchedulers
+import com.yzy.baselibrary.extention.applySingleSchedulers
 import com.yzy.baselibrary.http.retry.FlowableRetryDelay
 import com.yzy.baselibrary.http.retry.ObservableRetryDelay
 import com.yzy.baselibrary.http.retry.RetryConfig
 import com.yzy.commonlibrary.http.response.BaseResponse
-import com.yzy.baselibrary.utils.SchedulersUtil
 import io.reactivex.*
 import io.reactivex.android.schedulers.AndroidSchedulers
 
@@ -35,7 +38,7 @@ class GlobalHandleTransformer<T> constructor(
             .observeOn(upStreamSchedulerProvider())
             .retryWhen(ObservableRetryDelay(retryConfigProvider))
             .observeOn(downStreamSchedulerProvider())
-            .compose(SchedulersUtil.applySchedulers())
+            .compose(applySchedulers())
 
     override fun apply(upstream: Flowable<BaseResponse<T>>): Flowable<T> =
         upstream
@@ -50,7 +53,7 @@ class GlobalHandleTransformer<T> constructor(
             .observeOn(upStreamSchedulerProvider())
             .retryWhen(FlowableRetryDelay(retryConfigProvider))
             .observeOn(downStreamSchedulerProvider())
-            .compose(SchedulersUtil.applyFlowableSchedulers())
+            .compose(applyFollowableSchedulers())
 
     override fun apply(upstream: Maybe<BaseResponse<T>>): Maybe<T> =
         upstream
@@ -65,7 +68,7 @@ class GlobalHandleTransformer<T> constructor(
             .observeOn(upStreamSchedulerProvider())
             .retryWhen(FlowableRetryDelay(retryConfigProvider))
             .observeOn(downStreamSchedulerProvider())
-            .compose(SchedulersUtil.applyMaybeSchedulers())
+            .compose(applyMaybeSchedulers())
 
     override fun apply(upstream: Single<BaseResponse<T>>): Single<T> =
         upstream
@@ -80,5 +83,5 @@ class GlobalHandleTransformer<T> constructor(
             .observeOn(upStreamSchedulerProvider())
             .retryWhen(FlowableRetryDelay(retryConfigProvider))
             .observeOn(downStreamSchedulerProvider())
-            .compose(SchedulersUtil.applySingleSchedulers())
+            .compose(applySingleSchedulers())
 }

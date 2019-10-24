@@ -71,42 +71,33 @@ fun isDoubleClick(): Boolean {
 }
 
 
-fun View.gone() {
-    this.visibility = View.GONE
-}
+fun View.gone() { this.visibility = View.GONE }
 
-fun View.invisible() {
-    this.visibility = View.INVISIBLE
-}
+fun View.invisible() { this.visibility = View.INVISIBLE }
 
-fun View.visible() {
-    this.visibility = View.VISIBLE
-}
-
-fun View.enable() {
-    this.isEnabled = true
-}
-
-fun View.disable() {
-    this.isEnabled = false
-}
+fun View.visible() { this.visibility = View.VISIBLE }
 //显示或者不显示且不占位
 fun View.visibleGone(visible: Boolean) = if (visible) visible() else gone()
 
 //显示或者不显示但占位
 fun View.visibleInvisible(visible: Boolean) = if (visible) visible() else invisible()
+
+fun View.enable() { this.isEnabled = true }
+
+fun View.disable() { this.isEnabled = false }
+
+
 //从父控件移除
 fun View.removeParent() {
     val parentTemp = parent
     if (parentTemp is ViewManager) parentTemp.removeView(this)
 }
 
-
-var android.view.View.backgroundColor: Int
+var View.backgroundColor: Int
     @Deprecated(NO_GETTER, level = DeprecationLevel.ERROR) get() = noGetter()
     set(v) = setBackgroundColor(v)
 
-var android.view.View.backgroundResource: Int
+var View.backgroundResource: Int
     @Deprecated(NO_GETTER, level = DeprecationLevel.ERROR) get() = noGetter()
     set(v) = setBackgroundResource(v)
 

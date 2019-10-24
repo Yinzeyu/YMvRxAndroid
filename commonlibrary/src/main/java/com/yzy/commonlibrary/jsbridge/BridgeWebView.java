@@ -1,4 +1,4 @@
-package com.yzy.baselibrary.jsbridge;
+package com.yzy.commonlibrary.jsbridge;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
@@ -7,7 +7,6 @@ import android.os.Looper;
 import android.os.SystemClock;
 import android.text.TextUtils;
 import android.util.AttributeSet;
-import android.webkit.SslErrorHandler;
 import android.webkit.WebView;
 import java.net.URLEncoder;
 

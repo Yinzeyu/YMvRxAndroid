@@ -1,5 +1,6 @@
 package com.yzy.baselibrary.extention
 
+import android.app.Activity
 import android.content.ClipboardManager
 import android.content.Context
 import android.graphics.drawable.Drawable
@@ -11,6 +12,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.WindowManager
 import android.view.inputmethod.InputMethodManager
+import android.widget.FrameLayout
 import android.widget.Toast
 import androidx.core.content.ContextCompat
 import com.yzy.baselibrary.BuildConfig
@@ -22,15 +24,9 @@ import com.yzy.baselibrary.toast.YToast
  *@author: yzy.
  */
 
-fun Context.getClipboardManager() = getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
+fun Context.getVersionCode(): Int = BuildConfig.VERSION_CODE
 
-fun Context.getConnectivityManager() = getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
-
-fun Context.getInputMethodManager() = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-
-fun Context.getVersionCode(): Int = com.yzy.baselibrary.BuildConfig.VERSION_CODE
-
-fun Context.getVersionName(): String = com.yzy.baselibrary.BuildConfig.VERSION_NAME
+fun Context.getVersionName(): String = BuildConfig.VERSION_NAME
 
 fun Context.getResColor(resId: Int): Int = ContextCompat.getColor(this, resId)
 
@@ -48,37 +44,19 @@ fun Context.dp2px(dip: Int): Int {
   val scale = resources.displayMetrics.density
   return (dip * scale + 0.5f).toInt()
 }
+/** 上下文(方便使用)*/
+val Activity.mContext: Context get() { return this }
 
-fun Context.screenWidth(): Int {
-  val windowManager = this.getSystemService(Context.WINDOW_SERVICE) as WindowManager
-  val dm = DisplayMetrics()
-  val display = windowManager.defaultDisplay
-  display.getMetrics(dm)
-  return dm.widthPixels
-}
+/**Activity本身(弹窗,权限请求等需要用到Activity)*/
+val Activity.mActivity: Activity  get() { return this }
 
-fun Context.screenHeight(): Int {
-  val windowManager = this.getSystemService(Context.WINDOW_SERVICE) as WindowManager
-  val dm = DisplayMetrics()
-  val display = windowManager.defaultDisplay
-  display.getMetrics(dm)
-  return dm.heightPixels
-}
+/**屏幕宽度*/
+val Activity.mScreenWidth: Int get() { return resources.displayMetrics.widthPixels }
 
-fun Context.getTextFromClipboard(): CharSequence {
-  val clipData = getClipboardManager().primaryClip
-  if (clipData != null && clipData.itemCount > 0) {
-    return clipData.getItemAt(0).coerceToText(this)
-  }
-  return ""
-}
+/**屏幕高度(包含状态栏高度但不包含底部虚拟按键高度)*/
+val Activity.mScreenHeight: Int get() { return resources.displayMetrics.heightPixels }
 
-fun Context.getUriFromClipboard(): Uri? {
-  val clipData = getClipboardManager().primaryClip
-  if (clipData != null && clipData.itemCount > 0) {
-    return clipData.getItemAt(0).uri
-  }
 
-  return null
-}
+/**ContentView*/
+val Activity.mContentView: FrameLayout get() { return this.findViewById(android.R.id.content) }
 

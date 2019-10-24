@@ -1,4 +1,4 @@
-package com.yzy.baselibrary.jsbridge;
+package com.yzy.commonlibrary.jsbridge;
 
 import android.content.Context;
 import android.webkit.WebView;

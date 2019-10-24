@@ -2,9 +2,10 @@ package com.yzy.pj
 
 
 import android.content.Intent
+import com.xiaomi.push.it
 import com.yzy.baselibrary.base.BaseActivity
+import com.yzy.baselibrary.extention.applyFollowableSchedulers
 import com.yzy.baselibrary.extention.load
-import com.yzy.baselibrary.utils.SchedulersUtil
 import com.yzy.pj.ui.home.MainActivity
 import io.reactivex.Flowable
 import io.reactivex.disposables.Disposable
@@ -43,7 +44,7 @@ class SplashActivity : BaseActivity() {
         //倒计时
         mSmsDisposable = Flowable.intervalRange(1, mCountdown, 0, 1, TimeUnit.SECONDS)
             .onBackpressureBuffer()
-            .compose(SchedulersUtil.applyFlowableSchedulers())
+            .compose(applyFollowableSchedulers())
             .subscribe {
                 tv_text_click.text = String.format("%d s", mCountdown - it)
                 if (it == mCountdown) {

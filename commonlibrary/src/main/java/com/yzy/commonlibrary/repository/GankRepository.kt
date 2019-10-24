@@ -1,9 +1,9 @@
 package com.yzy.commonlibrary.repository
 
+import com.yzy.baselibrary.extention.applySchedulers
 import com.yzy.baselibrary.http.GlobeHttpHandler
 import com.yzy.baselibrary.repository.BaseRemoteDataSource
 import com.yzy.commonlibrary.repository.bean.FuliBean
-import com.yzy.baselibrary.utils.SchedulersUtil
 import com.yzy.commonlibrary.http.RxGlobalHandleUtil
 import com.yzy.commonlibrary.repository.bean.ArticleDataBean
 import com.yzy.commonlibrary.repository.bean.BannerBean
@@ -19,7 +19,7 @@ class GankRepository : BaseRemoteDataSource() {
      * 获取福利
      */
     fun getSysMsgList(month: Int, day: Int): Observable<List<FuliBean>> {
-        return service.getFuli(month, day).compose(SchedulersUtil.applySchedulers()).map(IsGankSuccessFunc())
+        return service.getFuli(month, day).compose(applySchedulers()).map(IsGankSuccessFunc())
     }
 
 

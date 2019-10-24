@@ -1,6 +1,5 @@
-package com.yzy.baselibrary.utils.span
+package com.yzy.commonlibrary.widget.span
 
-import android.text.Layout
 import android.text.Selection
 import android.text.Spannable
 import android.text.method.LinkMovementMethod

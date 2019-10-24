@@ -1,4 +1,4 @@
-package com.yzy.baselibrary.utils.span
+package com.yzy.commonlibrary.widget.span
 
 import android.graphics.Color
 import android.text.TextPaint

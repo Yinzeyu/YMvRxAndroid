@@ -5,9 +5,7 @@ import com.blankj.utilcode.util.NetworkUtils
 import com.yzy.commonlibrary.http.response.ApiException
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.subjects.PublishSubject
 import java.net.ConnectException
-import java.util.concurrent.atomic.AtomicBoolean
 import javax.security.auth.login.LoginException
 
 
@@ -41,7 +39,7 @@ object RxGlobalHandleUtil {
                 }
                 //其他请求成功，返回异常
                 else -> {
-                    ApiErrorMessageHelper.showToastMessage(it.code, it.message)
+                    ApiErrorMessageHelper.showToastMessage(it.message)
                     Observable.error(ApiException(it.code, it.message))
                 }
             }

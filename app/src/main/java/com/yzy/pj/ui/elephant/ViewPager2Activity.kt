@@ -43,13 +43,13 @@ class ViewPager2Activity : CommActivity() {
             }
             //处理文章列表
             if (!state.articles.isNullOrEmpty()) {
-                state.articles.forEachIndexed { index, articleBean ->
+                state.articles.forEachIndexed { _, articleBean ->
                     //文章
                     wanArticleItem {
                         id(articleBean.id)
                         dataBean(articleBean)
-                        onItemClick { bean ->
-//                            bean?.link?.let { url -> WebActivity.startActivity(mContext, url) }
+                        onItemClick {
+                            //                            bean?.link?.let { url -> WebActivity.startActivity(mContext, url) }
                         }
                     }
                     //分割线

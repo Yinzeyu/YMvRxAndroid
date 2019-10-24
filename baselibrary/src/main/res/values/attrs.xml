@@ -1,8 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <declare-styleable name="ClearEditText">
-        <attr name="rightDrawable" format="reference" />
-    </declare-styleable>
+
     <!--圆形圆角控件-->
     <declare-styleable name="RoundImageView">
         <attr name="shape_type">

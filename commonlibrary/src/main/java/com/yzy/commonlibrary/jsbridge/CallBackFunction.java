@@ -1,4 +1,4 @@
-package com.yzy.baselibrary.jsbridge;
+package com.yzy.commonlibrary.jsbridge;
 
 public interface CallBackFunction {
 	

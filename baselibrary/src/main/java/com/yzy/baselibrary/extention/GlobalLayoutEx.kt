@@ -7,10 +7,7 @@ import android.util.DisplayMetrics
 import android.util.Log
 import android.view.ViewTreeObserver
 import io.reactivex.Flowable
-import io.reactivex.FlowableTransformer
-import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
-import io.reactivex.schedulers.Schedulers
 import java.util.concurrent.TimeUnit
 import kotlin.math.max
 
@@ -55,7 +52,7 @@ fun Activity.addListerKeyboard(
             disposable?.dispose()
             disposable = Flowable.timer(100, TimeUnit.MILLISECONDS)
                 .onBackpressureLatest()
-                .compose(applyFlowableSchedulers())
+                .compose(applyFollowableSchedulers())
                 .subscribe {
                     val navigationHeight = getNavigationBarHeight(this)
                     if (navigationHeight != tempNavigationBarHeight) {
@@ -114,10 +111,10 @@ fun navigationBarIsShow(activity: Activity): Boolean {
     return realMetrics.widthPixels - metrics.widthPixels > 0 || realMetrics.heightPixels - metrics.heightPixels > 0
 }
 
-fun <T> applyFlowableSchedulers(): FlowableTransformer<T, T> {
-    return FlowableTransformer { followable ->
-        followable.subscribeOn(Schedulers.io())
-            .unsubscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
-    }
-}
+//fun <T> applyFlowableSchedulers(): FlowableTransformer<T, T> {
+//    return FlowableTransformer { followable ->
+//        followable.subscribeOn(Schedulers.io())
+//            .unsubscribeOn(Schedulers.io())
+//            .observeOn(AndroidSchedulers.mainThread())
+//    }
+//}

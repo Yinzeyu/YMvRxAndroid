@@ -59,7 +59,8 @@ class TimeUtils private constructor() {
       } else {
         localFormatter.timeZone = TimeZone.getDefault()
       }
-      return localFormatter.format(utcDate.time)
+
+      return localFormatter.format(utcDate?.time)
     } catch (e: Exception) {
       e.printStackTrace()
     }
