@@ -30,7 +30,7 @@ android {
 
 dependencies {
     api fileTree(dir: 'libs', include: ['*.jar'])
-    api project(":baselibrary")
+    api project(":ybase")
     kapt rootProject.ext.dependencies.epoxyProcessor
     api rootProject.ext.dependencies.bugly
     api rootProject.ext.dependencies.bugly_native

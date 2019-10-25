@@ -103,8 +103,8 @@ configurations.all {
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation rootProject.ext.dependencies.kotlin_jdk
-    implementation project(":commonlibrary")
-    implementation project(":sociallibrary")
+    implementation project(":ycomm")
+    implementation project(":social")
     implementation project(":push")
     kapt rootProject.ext.dependencies.epoxyProcessor
     implementation 'androidx.viewpager2:viewpager2:1.0.0-beta05'
