@@ -70,12 +70,12 @@
     <output-test url="file://$MODULE_DIR$/build/intermediates/javac/pjDebugUnitTest/classes" />
     <exclude-output />
     <content url="file://$MODULE_DIR$">
-      <sourceFolder url="file://$MODULE_DIR$/build/generated/source/kapt/pjDebug" isTestSource="false" generated="true" />
-      <sourceFolder url="file://$MODULE_DIR$/build/generated/ap_generated_sources/pjDebug/out" isTestSource="false" generated="true" />
-      <sourceFolder url="file://$MODULE_DIR$/build/generated/aidl_source_output_dir/pjDebug/out" isTestSource="false" generated="true" />
-      <sourceFolder url="file://$MODULE_DIR$/build/generated/source/buildConfig/pj/debug" isTestSource="false" generated="true" />
-      <sourceFolder url="file://$MODULE_DIR$/build/generated/renderscript_source_output_dir/pjDebug/out" isTestSource="false" generated="true" />
       <sourceFolder url="file://$MODULE_DIR$/build/generated/source/kaptKotlin/pjDebug" isTestSource="false" generated="true" />
+      <sourceFolder url="file://$MODULE_DIR$/build/generated/ap_generated_sources/pjDebug/out" isTestSource="false" generated="true" />
+      <sourceFolder url="file://$MODULE_DIR$/build/generated/source/kapt/pjDebug" isTestSource="false" generated="true" />
+      <sourceFolder url="file://$MODULE_DIR$/build/generated/source/buildConfig/pj/debug" isTestSource="false" generated="true" />
+      <sourceFolder url="file://$MODULE_DIR$/build/generated/aidl_source_output_dir/pjDebug/out" isTestSource="false" generated="true" />
+      <sourceFolder url="file://$MODULE_DIR$/build/generated/renderscript_source_output_dir/pjDebug/out" isTestSource="false" generated="true" />
       <sourceFolder url="file://$MODULE_DIR$/build/generated/res/rs/pj/debug" type="java-resource" generated="true" />
       <sourceFolder url="file://$MODULE_DIR$/src/pjDebug/res" type="java-resource" />
       <sourceFolder url="file://$MODULE_DIR$/src/pjDebug/resources" type="java-resource" />
@@ -84,11 +84,11 @@
       <sourceFolder url="file://$MODULE_DIR$/src/pjDebug/java" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/pjDebug/rs" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/pjDebug/shaders" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/build/generated/source/kapt/pjDebugAndroidTest" isTestSource="true" generated="true" />
-      <sourceFolder url="file://$MODULE_DIR$/build/generated/ap_generated_sources/pjDebugAndroidTest/out" isTestSource="true" generated="true" />
       <sourceFolder url="file://$MODULE_DIR$/build/generated/aidl_source_output_dir/pjDebugAndroidTest/out" isTestSource="true" generated="true" />
       <sourceFolder url="file://$MODULE_DIR$/build/generated/source/buildConfig/androidTest/pj/debug" isTestSource="true" generated="true" />
       <sourceFolder url="file://$MODULE_DIR$/build/generated/renderscript_source_output_dir/pjDebugAndroidTest/out" isTestSource="true" generated="true" />
+      <sourceFolder url="file://$MODULE_DIR$/build/generated/ap_generated_sources/pjDebugAndroidTest/out" isTestSource="true" generated="true" />
+      <sourceFolder url="file://$MODULE_DIR$/build/generated/source/kapt/pjDebugAndroidTest" isTestSource="true" generated="true" />
       <sourceFolder url="file://$MODULE_DIR$/build/generated/res/rs/androidTest/pj/debug" type="java-test-resource" generated="true" />
       <sourceFolder url="file://$MODULE_DIR$/src/androidTestPjDebug/res" type="java-test-resource" />
       <sourceFolder url="file://$MODULE_DIR$/src/androidTestPjDebug/resources" type="java-test-resource" />
@@ -177,8 +177,8 @@
       <library name="Gradle: kaptGeneratedClasses">
         <CLASSES>
           <root url="file://$MODULE_DIR$/build/tmp/kapt3/classes/pjDebugAndroidTest" />
-          <root url="file://$MODULE_DIR$/build/tmp/kapt3/classes/pjDebug" />
           <root url="file://$MODULE_DIR$/build/tmp/kapt3/classes/pjDebugUnitTest" />
+          <root url="file://$MODULE_DIR$/build/tmp/kapt3/classes/pjDebug" />
           <root url="file://$MODULE_DIR$/build/tmp/kapt3/classes/pjRelease" />
           <root url="file://$MODULE_DIR$/build/tmp/kapt3/classes/pjReleaseUnitTest" />
         </CLASSES>
