@@ -76,7 +76,7 @@ abstract class BaseFragmentDialog : DialogFragment(), MvRxView {
             contentView?.parent?.let { parent -> ((parent as ViewGroup).removeView(contentView)) }
         }
         initBeforeCreateView(savedInstanceState)
-        return view
+        return contentView
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

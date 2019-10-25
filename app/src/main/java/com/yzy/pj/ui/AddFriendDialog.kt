@@ -16,8 +16,9 @@ import com.yzy.commonlibrary.repository.model.GankViewModel
 import com.yzy.pj.R
 import kotlinx.android.synthetic.main.dialog_add_friend_layout.*
 
-class AddFriendDialog(override val contentLayout: Int = R.layout.dialog_add_friend_layout) :
+class AddFriendDialog() :
     CommDialogFragment() {
+    override fun contentLayout(): Int= R.layout.dialog_add_friend_layout
     var goMyCodeCallback: (() -> Unit)? = null
     var goPasswordCallback: (() -> Unit)? = null
     var goScanFriendCallback: (() -> Unit)? = null
