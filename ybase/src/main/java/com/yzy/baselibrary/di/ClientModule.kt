@@ -16,7 +16,6 @@ import org.kodein.di.generic.instance
 import org.kodein.di.generic.singleton
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
-import java.io.File
 import java.util.concurrent.TimeUnit
 
 /**
@@ -65,10 +64,12 @@ class ClientModule {
                         httpLoggingInterceptor.level = HttpLoggingInterceptor.Level.BODY
                     })//log
                     //测试服忽略证书校验
-                    builder.sslSocketFactory(
-                        SSLManager.createSSLSocketFactory(),
-                        SSLManager.createX509TrustManager()
-                    )
+                    SSLManager.createSSLSocketFactory()?.let {
+                        builder.sslSocketFactory(
+                            it,
+                            SSLManager.TrustAllCerts()
+                        )
+                    }
                     builder.hostnameVerifier(SSLManager.hostnameVerifier)
                 }
                 builder.build()

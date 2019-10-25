@@ -35,11 +35,13 @@ object GlideHttpClientManager {
         get() {
             val builder = OkHttpClient.Builder()
             builder.addNetworkInterceptor(NetworkInterceptor())
-            builder.sslSocketFactory(
-                SSLManager.createSSLSocketFactory(),
-                SSLManager.createX509TrustManager()
-            )
-                .hostnameVerifier(SSLManager.hostnameVerifier)
+            SSLManager.createSSLSocketFactory()?.let {
+                builder.sslSocketFactory(
+                    it,
+                    SSLManager.TrustAllCerts()
+                )
+            }
+            builder.hostnameVerifier(SSLManager.hostnameVerifier)
             builder.connectTimeout(30, TimeUnit.SECONDS)
             builder.writeTimeout(30, TimeUnit.SECONDS)
             builder.readTimeout(30, TimeUnit.SECONDS)
