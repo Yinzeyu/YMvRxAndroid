@@ -61,37 +61,49 @@ abstract class BaseFragmentDialog : DialogFragment(), MvRxView {
         mActivity = context as Activity
     }
 
-
+    private var contentView: View? = null
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         setStyle()
-        val view = inflater.inflate(contentLayout, container)
-        viewLoadedListener?.invoke(view)
+        if (contentView == null) {
+            val view = inflater.inflate(contentLayout(), container, false)
+            contentView = view
+            viewLoadedListener?.invoke(view)
+        } else {
+            contentView?.parent?.let { parent -> ((parent as ViewGroup).removeView(contentView)) }
+        }
         initBeforeCreateView(savedInstanceState)
         return view
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        val c = context
+        if (lowerBackground && c != null) setBackgroundAlpha(c, 0.3F)
         super.onViewCreated(view, savedInstanceState)
         initView(view)
     }
 
-    /**
-     * 内容布局的ResId
-     */
-    protected abstract val contentLayout: Int
-
-    /**
-     * 需要在onCreateView中调用的方法
-     */
-    protected open fun initBeforeCreateView(savedInstanceState: Bundle?) {
-
+    override fun onDestroyView() {
+        val c = context
+        if (lowerBackground && c != null) setBackgroundAlpha(c, 1F)
+        super.onDestroyView()
     }
 
-    protected abstract fun initView(view: View)
+    // 黑暗 0.0F ~ 1.0F 透明
+    protected open fun setBackgroundAlpha(
+        context: Context,
+        alpha: Float
+    ) {
+        val act = context as? Activity ?: return
+        val attributes = act.window.attributes
+        attributes.alpha = alpha
+        act.window.attributes = attributes
+    }
+
+
     //防止快速弹出多个
     private var showTime = 0L
 
@@ -188,4 +200,13 @@ abstract class BaseFragmentDialog : DialogFragment(), MvRxView {
     override fun invalidate() {
     }
 
+    //XML布局
+    protected abstract fun contentLayout(): Int
+
+    /**
+     * 需要在onCreateView中调用的方法
+     */
+    protected open fun initBeforeCreateView(savedInstanceState: Bundle?) {}
+
+    protected abstract fun initView(view: View)
 }

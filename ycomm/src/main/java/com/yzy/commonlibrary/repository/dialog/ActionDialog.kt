@@ -1,11 +1,13 @@
 package com.yzy.commonlibrary.repository.dialog
 
+import android.os.Bundle
 import android.view.*
 import android.widget.TextView
 import androidx.fragment.app.FragmentManager
 import com.blankj.utilcode.util.ScreenUtils
 import com.yzy.baselibrary.base.BaseFragmentDialog
 import com.yzy.commonlibrary.R
+import kotlinx.android.synthetic.main.dialog_action.*
 import kotlinx.android.synthetic.main.dialog_action.view.dialogActionHint
 
 /**
@@ -14,14 +16,11 @@ import kotlinx.android.synthetic.main.dialog_action.view.dialogActionHint
  * @date: 2019/9/24 13:03
  */
 class ActionDialog : BaseFragmentDialog() {
+  override fun contentLayout(): Int =R.layout.dialog_action
   override fun initView(view: View) {
-    textHint = view.dialogActionHint
-    textHint?.text = hintText
+    dialogActionHint?.text = hintText
   }
-
-  override val contentLayout: Int =R.layout.dialog_action
   var hintText: String = "加载中..."
-  private var textHint: TextView? = null
 
   companion object {
     fun newInstance(
@@ -36,7 +35,7 @@ class ActionDialog : BaseFragmentDialog() {
   }
 
   fun show(fragmentManager: FragmentManager) {
-    textHint?.text = hintText
+    dialogActionHint?.text = hintText
     show(fragmentManager, "ActionDialog")
   }
 }
@@ -47,6 +46,6 @@ inline fun actionDialog(
   dsl: ActionDialog.() -> Unit
 ) {
   val dialog = ActionDialog.newInstance()
-      .apply(dsl)
+    .apply(dsl)
   dialog.show(fragmentManager)
 }
