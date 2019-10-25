@@ -39,6 +39,7 @@ class IndexFragment : CommFragment() {
         commListErv.setController(epoxyController)
         EpoxyVisibilityTracker().attach(commListErv)
         gankViewModel.loadData()
+        gankViewModel.load1Data(20,1)
         //请求状态和结果监听
         gankViewModel.subscribe { state ->
             if (state.request is Loading) {//请求开始
@@ -53,6 +54,7 @@ class IndexFragment : CommFragment() {
             } else if (state.request.complete) {//请求结束
                 dismissLoadingView()
                 epoxyController.data = state
+
                 if (state.request is Fail) {//请求失败
                     Log.e("CASE", "失败原因:${(state.request as Fail<Any>).error.message ?: ""}")
                 }

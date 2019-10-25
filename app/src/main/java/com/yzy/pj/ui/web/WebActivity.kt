@@ -9,7 +9,6 @@ import android.webkit.WebSettings
 import android.webkit.WebView
 import com.gyf.immersionbar.ImmersionBar
 
-import com.jeremyliao.liveeventbus.LiveEventBus
 import com.just.agentweb.AgentWeb
 import com.just.agentweb.DefaultWebClient
 import com.yzy.baselibrary.extention.getResColor

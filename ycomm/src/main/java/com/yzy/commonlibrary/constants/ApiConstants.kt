@@ -14,6 +14,7 @@ interface ApiConstants {
             private const val WWW = ""//外部访问地址
             private const val AGREEMENT = "agreement"//协议下统一拼接路径
             val BASE_URL = "https://www.wanandroid.com/"
+            val GANK_URL = "https://gank.io/"
             private val H5_PREFIX = if (BuildConfig.DEBUG) {//外部链接访问的前缀
                 HTTPS + DEV
             } else {

@@ -7,6 +7,7 @@ import com.yzy.commonlibrary.repository.bean.FuliBean
 import com.yzy.commonlibrary.http.RxGlobalHandleUtil
 import com.yzy.commonlibrary.repository.bean.ArticleDataBean
 import com.yzy.commonlibrary.repository.bean.BannerBean
+import com.yzy.commonlibrary.repository.bean.GankAndroidBean
 import com.yzy.commonlibrary.repository.service.GankService
 import io.reactivex.Observable
 import org.kodein.di.Kodein
@@ -18,8 +19,8 @@ class GankRepository : BaseRemoteDataSource() {
     /**
      * 获取福利
      */
-    fun getSysMsgList(month: Int, day: Int): Observable<List<FuliBean>> {
-        return service.getFuli(month, day).compose(applySchedulers()).map(IsGankSuccessFunc())
+    fun getSysMsgList(month: Int, day: Int): Observable<List<GankAndroidBean>> {
+        return service.getAndroid(month, day).compose(applySchedulers()).map(IsGankSuccessFunc())
     }
 
 

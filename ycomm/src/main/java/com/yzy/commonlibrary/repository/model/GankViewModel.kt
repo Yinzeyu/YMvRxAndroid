@@ -3,19 +3,18 @@ package com.yzy.commonlibrary.repository.model
 import android.util.Log
 import com.airbnb.mvrx.*
 import com.yzy.baselibrary.app.BaseApplication
-import com.yzy.commonlibrary.repository.bean.FuliBean
 import com.yzy.baselibrary.base.MvRxViewModel
 import com.yzy.commonlibrary.repository.GankRepository
-import com.yzy.commonlibrary.repository.bean.ArticleBean
-import com.yzy.commonlibrary.repository.bean.ArticleDataBean
-import com.yzy.commonlibrary.repository.bean.BannerBean
+import com.yzy.commonlibrary.repository.bean.*
 import io.reactivex.functions.Consumer
 import org.kodein.di.generic.instance
 
 data class ConversationDetailState(
     /** 是否有更多数据 */
     val banners: MutableList<BannerBean> = mutableListOf(),
-    val request: Async<Any> = Uninitialized
+    val request: Async<Any> = Uninitialized,
+    val fuliBean: List<GankAndroidBean> = emptyList(),
+    val Frequest: Async<Any> = Uninitialized
 ) : MvRxState
 
 private var isLoadMore = false
@@ -30,7 +29,7 @@ class GankViewModel(initialState: ConversationDetailState = ConversationDetailSt
         }
         ganRepository.banner().execute {
             copy(
-                banners = it()?: mutableListOf(),
+                banners = it() ?: mutableListOf(),
                 request = it
             )
         }
@@ -42,6 +41,40 @@ class GankViewModel(initialState: ConversationDetailState = ConversationDetailSt
         getBanner()
     }
 
+    private fun getFuli(month: Int, day: Int) = withState { state ->
+        if (state.Frequest is Loading) {
+            return@withState
+        }
+        ganRepository.getSysMsgList(month, day).execute {
+            var hasMoreend: Boolean = false
+            val list: List<GankAndroidBean>?
+            if (isLoadMore) {
+                val list1 = it.invoke() ?: emptyList()
+                if (list1.isEmpty()) {
+                    hasMoreend = false
+                    list = fuliBean
+                } else {
+                    hasMoreend = true
+                    list = fuliBean + list1
+                }
+            } else {
+                hasMoreend = false;
+                list = it.invoke() ?: emptyList()
+            }
+
+            copy(
+                fuliBean = list
+                , Frequest = it
+            )
+        }
+
+    }
+
+    //加载数据
+    fun load1Data(month: Int, day: Int) {
+        isLoadMore = false
+        getFuli(month, day)
+    }
 
 }
 

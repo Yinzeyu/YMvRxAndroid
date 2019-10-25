@@ -22,7 +22,7 @@ class RequestIntercept constructor(private val mHandler: GlobeHttpHandler?) : In
         mHandler?.let {
             request = it.onHttpRequestBefore(chain, request)
         }
-
+        val headerValues = request.headers("urlname")
         val requestBuffer = Buffer()
         request.body?.writeTo(requestBuffer)
 
