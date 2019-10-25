@@ -15,7 +15,7 @@
 ## Screenshots
 ![](/image/Screenshot_1571908550.png "")
 <div align:left;display:inline;>
-<img width="200" height="360" src="https://github.com/Yinzeyu/MvRxMvvm/tree/master/image/Screenshot_1571908550.png"/>
+<img width="200" height="360" src="/image/Screenshot_1571908550.png"/>
 <img width="200" height="360" src="https://github.com/Yinzeyu/MvRxMvvm/tree/master/image/Screenshot_1571908558.png"/>
 <img width="200" height="360" src="https://github.com/Yinzeyu/MvRxMvvm/tree/master/image/Screenshot_1571908583.png"/>
 <img width="200" height="360" src="https://github.com/Yinzeyu/MvRxMvvm/tree/master/image/Screenshot_1571908590.png"/>
