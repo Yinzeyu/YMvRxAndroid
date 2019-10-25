@@ -11,7 +11,7 @@ import retrofit2.Retrofit
  *@author: yzy.
  */
 open class BaseRemoteDataSource : IRemoteDataSource {
-    protected var kodein: Kodein = BaseApplication.INSTANCE.kodein
+    protected var kodein: Kodein = BaseApplication.getApp().kodein
     private val stringRetrofitMap: MutableMap<String, Any> = mutableMapOf()
     private val retrofit: Retrofit by kodein.instance()
 

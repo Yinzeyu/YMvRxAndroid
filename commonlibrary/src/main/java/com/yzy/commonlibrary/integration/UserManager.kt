@@ -73,7 +73,6 @@ class UserManager private constructor() {
 
     //保存Token
     internal fun saveToken(token: String) {
-        BaseApplication.INSTANCE
         MMKV.defaultMMKV().encode(StringConstants.Mmkv.KEY_TOKEN, token)
     }
 

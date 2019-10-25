@@ -22,7 +22,7 @@ private var isLoadMore = false
 
 class GankViewModel(initialState: ConversationDetailState = ConversationDetailState()) :
     MvRxViewModel<ConversationDetailState>(initialState) {
-    private val ganRepository: GankRepository by BaseApplication.INSTANCE.kodein.instance()
+    private val ganRepository: GankRepository by BaseApplication.getApp().kodein.instance()
 
     private fun getBanner() = withState { state ->
         if (state.request is Loading) {

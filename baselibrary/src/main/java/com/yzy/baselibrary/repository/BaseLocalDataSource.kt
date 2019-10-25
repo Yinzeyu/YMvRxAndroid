@@ -12,7 +12,7 @@ import org.kodein.di.generic.instance
  */
 open class BaseLocalDataSource : ILocalDataSource {
 
-    protected var kodein: Kodein = BaseApplication.INSTANCE.kodein
+    protected var kodein: Kodein = BaseApplication.getApp().kodein
     //键值对缓存
     protected val mmkv: MMKV by kodein.instance()
 }

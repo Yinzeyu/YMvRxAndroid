@@ -9,7 +9,7 @@ import org.kodein.di.generic.bind
 import org.kodein.di.generic.instance
 import org.kodein.di.generic.singleton
 
-open class CommonApplication : BaseApplication() {
+abstract class CommonApplication : BaseApplication() {
     //数据库
     private val boxStore: BoxStore by kodein.instance()
 
@@ -17,9 +17,7 @@ open class CommonApplication : BaseApplication() {
         super.initKodein(builder)
         builder.import(databaseModule)
     }
-
-    override fun initInMainProcess() {
-        super.initInMainProcess()
+    override fun initInMainThread() {
         initObjectDebug()
     }
 
@@ -34,7 +32,7 @@ open class CommonApplication : BaseApplication() {
 
     private val databaseModule = Kodein.Module(KODEIN_MODULE_DATABASE_TAG) {
         bind<BoxStore>() with singleton {
-            MyObjectBox.builder().androidContext(INSTANCE).build();
+            MyObjectBox.builder().androidContext(getApp()).build();
         }
     }
 }

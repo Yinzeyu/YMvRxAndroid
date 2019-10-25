@@ -71,10 +71,6 @@
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/file_paths" />
         </provider>
-        <!--网络请求-->
-        <meta-data
-            android:name="com.yzy.commonlibrary.CommonConfig"
-            android:value="ConfigModule" />
     </application>
 
 </manifest>

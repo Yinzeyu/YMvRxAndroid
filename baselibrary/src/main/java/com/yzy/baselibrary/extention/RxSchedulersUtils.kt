@@ -14,7 +14,6 @@ fun <T> applySchedulers(): ObservableTransformer<T, T> {
             .observeOn(AndroidSchedulers.mainThread())
     }
 }
-
 fun <T> applyFollowableSchedulers(): FlowableTransformer<T, T> {
     return FlowableTransformer { observable ->
         observable.subscribeOn(Schedulers.io())

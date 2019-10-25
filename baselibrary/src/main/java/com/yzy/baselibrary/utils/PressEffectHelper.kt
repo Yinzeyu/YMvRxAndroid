@@ -7,6 +7,7 @@ import android.graphics.drawable.GradientDrawable
 import android.view.MotionEvent
 import android.view.View
 import com.blankj.utilcode.util.SizeUtils
+import com.yzy.baselibrary.extention.applySchedulers
 import io.reactivex.Observable
 import io.reactivex.ObservableTransformer
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -244,23 +245,14 @@ class PressEffectHelper private constructor() {
             cancelLongClick()
             longPressDisposable = Observable.just(view)
                 .delay(LONGPRESS_TIME, TimeUnit.MILLISECONDS)
-                .compose(rx2SchedulerHelperO())
+                .compose(applySchedulers())
                 .subscribe({
                     isLongClick = true
                     view.performLongClick()
                 }, {
                 })
         }
-        /**
-         * 统一线程处理(Rx 2.x)
-         */
-        private fun <T> rx2SchedulerHelperO(): ObservableTransformer<T, T> {//compose简化线程
-            return ObservableTransformer { observable ->
-                observable.subscribeOn(Schedulers.io())
-                    .unsubscribeOn(Schedulers.io())
-                    .observeOn(AndroidSchedulers.mainThread())
-            }
-        }
+
         private fun cancelLongClick() {
             if (longPressDisposable != null && longPressDisposable?.isDisposed != true) {
                 longPressDisposable?.dispose()

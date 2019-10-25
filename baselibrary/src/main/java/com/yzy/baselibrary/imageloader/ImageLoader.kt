@@ -58,7 +58,7 @@ class ImageLoader constructor(private var strategy: BaseImageLoaderStrategy) {
 
 //图片加载的dsl
 fun imageLoad(config: ImageConfig.Builder.() -> Unit) {
-  val loader: ImageLoader by BaseApplication.INSTANCE.kodein.instance()
+  val loader: ImageLoader by BaseApplication.getApp().kodein.instance()
   val builder = ImageConfig.builder()
   builder.apply(config)
   loader.loadImage(builder.build())

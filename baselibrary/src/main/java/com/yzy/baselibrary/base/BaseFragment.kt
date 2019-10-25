@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import android.widget.FrameLayout
 import com.airbnb.mvrx.BaseMvRxFragment
 import com.airbnb.mvrx.BaseMvRxViewModel
+import com.yzy.baselibrary.app.BaseApplication
 import com.yzy.baselibrary.extention.removeParent
 import org.kodein.di.Kodein
 import org.kodein.di.KodeinAware
@@ -38,7 +39,7 @@ abstract class BaseFragment : BaseMvRxFragment(), KodeinAware {
     }
 
     override val kodein: Kodein = Kodein.lazy {
-        extend(com.yzy.baselibrary.app.BaseApplication.INSTANCE.kodein)
+        extend(BaseApplication.getApp().kodein)
         initKodein(this)
     }
     /**

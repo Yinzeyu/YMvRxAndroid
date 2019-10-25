@@ -27,7 +27,7 @@ class HomeViewModel(
     state: HomeState = HomeState()
 ) : MvRxViewModel<HomeState>(state) {
     private var page = 0
-    private val ganRepository: GankRepository by BaseApplication.INSTANCE.kodein.instance()
+    private val ganRepository: GankRepository by BaseApplication.getApp().kodein.instance()
 
     //刷新数据
     fun refreshData() = withState { state ->

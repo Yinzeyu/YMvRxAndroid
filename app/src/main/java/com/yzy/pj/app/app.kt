@@ -24,9 +24,12 @@ import org.kodein.di.Kodein
 
 
 class app : CommonApplication() {
+    override fun initInChildThread() {
 
-    override fun initInMainProcess() {
-        super.initInMainProcess()
+    }
+
+    override fun initInMainThread() {
+        super.initInMainThread()
         PushModel.getPushModel().initMiPush(
             this,
             StringConstants.Push.XM_RELEASE_KEY,

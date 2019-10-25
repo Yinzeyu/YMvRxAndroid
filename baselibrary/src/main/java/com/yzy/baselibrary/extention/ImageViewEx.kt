@@ -35,13 +35,13 @@ fun ImageView.load(url: String?, placeholderId: Int=0) {
 
 fun ImageView.load(url: String?, placeholderId: Int=0,config: ImageConfig){
     url?.let {
-        config.context = BaseApplication.INSTANCE
+        config.context = BaseApplication.getApp()
         config.imageView = this
         config.url=url
         config.errorSrc=placeholderId
         config.placeholder=placeholderId
         config.useCrossFade=false
-        val loader: ImageLoader by BaseApplication.INSTANCE.kodein.instance()
+        val loader: ImageLoader by BaseApplication.getApp().kodein.instance()
         loader.loadImage(config)
     }
 }
@@ -51,9 +51,9 @@ fun ImageView.load(url: String?, placeholderId: Int=0,config: ImageConfig){
  */
 fun ImageView.load(config: ImageConfig) {
     config.url?.let {
-        config.context = BaseApplication.INSTANCE
+        config.context = BaseApplication.getApp()
         config.imageView = this
-        val loader: ImageLoader by BaseApplication.INSTANCE.kodein.instance()
+        val loader: ImageLoader by BaseApplication.getApp().kodein.instance()
         loader.loadImage(config)
     }
 }
@@ -91,7 +91,7 @@ fun ImageView.load(config: ImageConfig) {
 // * 加载文件图片,默认CenterCrop和CrossFade效果
 // */
 //fun ImageView.load(file: File?) {
-//    GlideApp.with(BaseApplication.INSTANCE)
+//    GlideApp.with(BaseApplication.getApp())
 //        .asBitmap()
 //        .load(file)
 //        .centerCrop()
