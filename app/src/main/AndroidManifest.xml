@@ -41,6 +41,13 @@
             android:name=".ui.elephant.ViewPager2Activity"
             android:launchMode="singleTop"
             android:windowSoftInputMode="adjustPan|stateHidden" />
+        <!--web-->
+        <activity
+            android:name=".ui.web.WebActivity"
+            android:configChanges="screenLayout|orientation"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan|stateHidden"/>
 
 
         <meta-data

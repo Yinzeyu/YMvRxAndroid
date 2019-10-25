@@ -1,5 +1,6 @@
 package com.yzy.pj.ui.home
 
+import android.content.Context
 import com.blankj.utilcode.constant.TimeConstants
 import com.blankj.utilcode.util.ActivityUtils
 import com.blankj.utilcode.util.LogUtils
@@ -14,7 +15,11 @@ import kotlinx.android.synthetic.main.activity_main.*
 import me.devilsen.czxing.Scanner
 
 class MainActivity : BaseActivity() {
-
+    companion object {
+        fun starMainActivity(context: Context) {
+            context.startActivity<MainActivity>()
+        }
+    }
     /** 点击退出的时间  */
     private var mExitTime: Long = 0
     private lateinit var indexFragment: IndexFragment

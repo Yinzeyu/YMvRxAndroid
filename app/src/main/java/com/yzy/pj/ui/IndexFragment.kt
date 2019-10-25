@@ -19,7 +19,6 @@ import kotlinx.android.synthetic.main.fragemnt_index.*
 class IndexFragment : CommFragment() {
     override val contentLayout: Int = R.layout.fragemnt_index
     //加载显示loading
-    private var needShowLoading = true
     private val gankViewModel: GankViewModel by lazy {
         GankViewModel()
     }

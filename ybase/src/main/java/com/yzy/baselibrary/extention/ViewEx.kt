@@ -49,6 +49,10 @@ fun View.pressEffectBgColor(
     )
 }
 
+//设置按下效果为改变透明度
+fun View.pressEffectAlpha(pressAlpha: Float = 0.7f) {
+    PressEffectHelper.alphaEffect(this, pressAlpha)
+}
 // 黑暗 0.0F ~ 1.0F 透明
 fun Context.setBackgroundAlpha(alpha: Float) {
     val act = this as? Activity ?: return

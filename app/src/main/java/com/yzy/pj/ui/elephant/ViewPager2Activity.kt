@@ -16,6 +16,7 @@ import com.yzy.commonlibrary.repository.model.HomeState
 import com.yzy.commonlibrary.repository.model.HomeViewModel
 import com.yzy.pj.R
 import com.yzy.pj.ui.item.*
+import com.yzy.pj.ui.web.WebActivity
 import kotlinx.android.synthetic.main.activity_elephant.*
 
 class ViewPager2Activity : CommActivity() {
@@ -47,7 +48,7 @@ class ViewPager2Activity : CommActivity() {
                         id(articleBean.id)
                         dataBean(articleBean)
                         onItemClick {
-                            //                            bean?.link?.let { url -> WebActivity.startActivity(mContext, url) }
+                            it?.link?.let { url -> WebActivity.startActivity(mContext, url) }
                         }
                     }
                     //分割线
@@ -123,7 +124,7 @@ class ViewPager2Activity : CommActivity() {
                     //为了防止loading结束后还存在失败的view所以需刷新一下
                     epoxyController.data = state//透明背景的loading需要这样设置
                     //epoxyController.requestModelBuild()非透明背景的loading还可以这样设置
-            }
+                }
             } else if (state.request.complete) {//请求结束
                 smRefresh.finishRefresh(state.request is Success)
                 smRefresh.finishLoadMore(state.request is Success)
