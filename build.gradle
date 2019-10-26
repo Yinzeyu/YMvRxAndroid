@@ -25,6 +25,7 @@ allprojects {
         maven { url "https://dl.bintray.com/thelasterstar/maven/" }
         maven { url 'https://dl.bintray.com/umsdk/release' }
         maven { url 'https://dl.bintray.com/kotlin/kotlin-eap' }
+        maven {url  "https://dl.bintray.com/rongcloud/maven"}
     }
 }
 

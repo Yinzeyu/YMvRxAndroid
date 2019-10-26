@@ -19,8 +19,8 @@ import com.yzy.pj.push.PushModel
 import com.yzy.sociallib.Social
 import com.yzy.sociallib.config.PlatformType
 import com.yzy.sociallib.entity.platform.CommPlatConfigBean
+import io.rong.imlib.RongIMClient
 import org.kodein.di.Kodein
-
 
 
 class app : CommonApplication() {
@@ -37,6 +37,7 @@ class app : CommonApplication() {
         )
         PushModel.getPushModel().initHWPush(this)
         initBug()
+        RongIMClient.init(this, "mgb7ka1nmdndg")
     }
 
     override fun baseInitCreate() {

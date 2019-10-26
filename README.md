@@ -31,6 +31,7 @@
 ##### 更改项目名称为YMvRxAndroid
 ##### 更新viewpager2 版本
 ##### 增加 agentweb webView
+##### 增加 融云ImLib 等待稍后完成即时通讯等相关业务
 ## 2019/10/24
 ##### 将jsbridge 移动到commLib 中
 ##### 合并baseActivity  和baseFragment 更加简化父类方法

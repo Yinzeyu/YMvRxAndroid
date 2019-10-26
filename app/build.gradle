@@ -111,6 +111,7 @@ dependencies {
     implementation 'me.devilsen:CZXing:0.9.5'
     //web https://github.com/Justson/AgentWeb
     implementation 'com.just.agentweb:agentweb:4.1.2'
+    implementation 'cn.rongcloud.sdk:im_lib:2.9.18'
 }
 //放在这省的忘
 //@SuppressLint("ParcelCreator")
