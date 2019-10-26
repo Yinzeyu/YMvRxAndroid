@@ -46,24 +46,20 @@ class GankViewModel(initialState: ConversationDetailState = ConversationDetailSt
             return@withState
         }
         ganRepository.getSysMsgList(month, day).execute {
-            var hasMoreend: Boolean = false
             val list: List<GankAndroidBean>?
-            if (isLoadMore) {
+            list = if (isLoadMore) {
                 val list1 = it.invoke() ?: emptyList()
                 if (list1.isEmpty()) {
-                    hasMoreend = false
-                    list = fuliBean
+                    fuliBean
                 } else {
-                    hasMoreend = true
-                    list = fuliBean + list1
+                    fuliBean + list1
                 }
             } else {
-                hasMoreend = false;
-                list = it.invoke() ?: emptyList()
+                it.invoke() ?: emptyList()
             }
 
             copy(
-                fuliBean = list
+                fuliBean = list ?: mutableListOf()
                 , Frequest = it
             )
         }

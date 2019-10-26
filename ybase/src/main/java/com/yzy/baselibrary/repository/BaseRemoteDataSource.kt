@@ -16,7 +16,7 @@ open class BaseRemoteDataSource : IRemoteDataSource {
     private val retrofit: Retrofit by kodein.instance()
 
     fun <T> getApi(retrofitClass: Class<T>): T {
-        var result: Any? = null
+        var result: Any?
         synchronized(stringRetrofitMap) {
             result = stringRetrofitMap[retrofitClass.name]
             if (result == null) {

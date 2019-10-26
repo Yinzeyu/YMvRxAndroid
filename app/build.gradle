@@ -107,7 +107,7 @@ dependencies {
     implementation project(":social")
     implementation project(":push")
     kapt rootProject.ext.dependencies.epoxyProcessor
-    implementation 'androidx.viewpager2:viewpager2:1.0.0-beta05'
+    implementation 'androidx.viewpager2:viewpager2:1.0.0-rc01'
     implementation 'me.devilsen:CZXing:0.9.5'
     //web https://github.com/Justson/AgentWeb
     implementation 'com.just.agentweb:agentweb:4.1.2'

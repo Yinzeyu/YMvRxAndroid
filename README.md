@@ -20,6 +20,16 @@
 <img width="200" height="360" src="/image/Screenshot_1571908590.png"/>
 
 </div>
+## 更新日志
+##### 2019/10/26
+##### 更新studio 版本为4.0 （使用studio 4.0以下版本请自行降级）
+##### 更新kotlin jdk 版本（使用studio 4.0以下版本请自行降级）
+##### 增加retrofit  api 地址请求案例
+##### 更新依赖model
+##### 更改项目名称为YMvRxAndroid
+##### 更新viewpager2 版本
+##### 增加 agentweb webView
+
 
 ## 更新日志
 ##### 2019/10/24

@@ -65,7 +65,7 @@ class DiscreteBanner<T> @JvmOverloads constructor(
     mPager = DiscreteScrollView(context)
     mPager.setBanner(true)
     mPager.setItemTransitionTimeMillis(defaultScrollTime)
-    mPager.addOnItemChangedListener { viewHolder, adapterPostion ->
+    mPager.addOnItemChangedListener { _, adapterPostion ->
       val position = if (looper && mLooperAdapter != null) {
         mLooperAdapter?.getRealPosition(adapterPostion) ?: 0
       } else {

@@ -137,7 +137,7 @@ class ViewPager2Activity : CommActivity() {
         }
     }
 
-    override fun initDate() {
+    override fun initData() {
     }
 
 }

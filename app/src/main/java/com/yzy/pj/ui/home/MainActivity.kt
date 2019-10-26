@@ -28,7 +28,7 @@ class MainActivity : BaseActivity() {
         finishAllActivity()
     }
 
-    override fun initDate() {
+    override fun initData() {
         val defaultInfo = "屏幕宽度:$mScreenWidth\n屏幕高度:$mScreenHeight\n状态栏高度:$mStatusBarHeight"
         //键盘监听
         addListerKeyboard(naHeight = {

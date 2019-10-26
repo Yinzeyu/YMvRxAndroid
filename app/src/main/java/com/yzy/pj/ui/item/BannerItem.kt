@@ -10,6 +10,7 @@ import com.yzy.baselibrary.base.BaseEpoxyModel
 import com.yzy.baselibrary.extention.load
 import com.yzy.commonlibrary.repository.bean.BannerBean
 import com.yzy.pj.R
+import com.yzy.pj.ui.web.WebActivity
 import com.yzy.pj.widget.discretescrollview.DSVOrientation
 import com.yzy.pj.widget.discretescrollview.DiscreteBanner
 import com.yzy.pj.widget.discretescrollview.holder.DiscreteHolder
@@ -40,7 +41,7 @@ abstract class BannerItem : BaseEpoxyModel<BaseEpoxyHolder>() {
                 .setLooper(true)
                 .setAutoPlay(true)
                 .setOnItemClick { _, t ->
-                    //                    WebActivity.startActivity(banner.context, t.url ?: "")
+                   WebActivity.startActivity(banner.context, t.url ?: "")
                 }
                 .also {
                     if (!vertical) {

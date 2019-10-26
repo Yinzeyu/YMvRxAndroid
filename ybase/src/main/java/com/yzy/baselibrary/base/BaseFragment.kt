@@ -8,7 +8,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.FrameLayout
 import com.airbnb.mvrx.BaseMvRxFragment
-import com.airbnb.mvrx.BaseMvRxViewModel
 import com.yzy.baselibrary.app.BaseApplication
 import com.yzy.baselibrary.extention.removeParent
 import org.kodein.di.Kodein
@@ -40,7 +39,7 @@ abstract class BaseFragment : BaseMvRxFragment(), KodeinAware {
 
     override val kodein: Kodein = Kodein.lazy {
         extend(BaseApplication.getApp().kodein)
-        initKodein(this)
+        initKd(this)
     }
     /**
      * 内容布局的ResId
@@ -112,7 +111,7 @@ abstract class BaseFragment : BaseMvRxFragment(), KodeinAware {
     /**
      * 初始化kodein
      */
-    protected open fun initKodein(builder: Kodein.MainBuilder) {}
+    protected open fun initKd(builder: Kodein.MainBuilder) {}
 
     /**
      * 初始化View

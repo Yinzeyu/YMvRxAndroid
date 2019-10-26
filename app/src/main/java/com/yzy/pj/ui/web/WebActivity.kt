@@ -57,7 +57,7 @@ class WebActivity : CommTitleActivity() {
 
     //加载数据
     @SuppressLint("SetJavaScriptEnabled")
-    override fun initDate() {
+    override fun initData() {
         webUrl = intent.getStringExtra(WEB_URL) ?: "https://www.baidu.com"//获取加载地址
         agentWeb = agentBuilder?.createAgentWeb()?.ready()?.go(webUrl)//创建web并打开
         //设置适配

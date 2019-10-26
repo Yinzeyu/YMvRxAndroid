@@ -18,7 +18,7 @@ class TasteVideoActivity : BaseActivity() {
         plVideoVIew.start()
     }
 
-    override fun initDate() {
+    override fun initData() {
     }
 
 

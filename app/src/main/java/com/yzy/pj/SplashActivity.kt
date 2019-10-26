@@ -50,7 +50,7 @@ class SplashActivity : BaseActivity() {
         }
     }
 
-    override fun initDate() {
+    override fun initData() {
         PermissionUtils.permission(PermissionConstants.STORAGE)
             .callback(object : PermissionUtils.SimpleCallback {
                 //权限允许

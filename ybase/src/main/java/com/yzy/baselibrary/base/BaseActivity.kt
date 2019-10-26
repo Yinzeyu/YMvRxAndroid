@@ -2,7 +2,6 @@ package com.yzy.baselibrary.base
 
 import android.os.Bundle
 import com.airbnb.mvrx.BaseMvRxActivity
-import com.airbnb.mvrx.BaseMvRxViewModel
 import com.airbnb.mvrx.MvRxView
 import com.airbnb.mvrx.MvRxViewId
 import com.yzy.baselibrary.toast.YToast
@@ -15,12 +14,12 @@ import org.kodein.di.generic.kcontext
 
 abstract class BaseActivity : BaseMvRxActivity(), MvRxView, KodeinAware {
     //MvRxView
-    private val mvrxViewIdProperty = MvRxViewId()
-    final override val mvrxViewId: String by mvrxViewIdProperty
+    private val mvRxViewIdProperty = MvRxViewId()
+    final override val mvrxViewId: String by mvRxViewIdProperty
     override val kodeinTrigger = KodeinTrigger()
     override val kodeinContext: KodeinContext<*> = kcontext(this)
     override val kodein by retainedSubKodein(kodein(), copy = Copy.All) {
-        initKodein(this)
+        initKd(this)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -31,12 +30,12 @@ abstract class BaseActivity : BaseMvRxActivity(), MvRxView, KodeinAware {
         setContentView(layoutResId())
         kodeinTrigger.trigger()
         initView()
-        initDate()
+        initData()
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
-        mvrxViewIdProperty.saveTo(outState)
+        mvRxViewIdProperty.saveTo(outState)
     }
 
     /**
@@ -46,7 +45,7 @@ abstract class BaseActivity : BaseMvRxActivity(), MvRxView, KodeinAware {
 
 
     abstract fun initView()
-    abstract fun initDate()
+    abstract fun initData()
     /**
      * 需要在onCreateView中调用的方法
      */
@@ -73,7 +72,7 @@ abstract class BaseActivity : BaseMvRxActivity(), MvRxView, KodeinAware {
     /** 这里可以做一些setContentView之前的操作,如全屏、常亮、设置Navigation颜色、状态栏颜色等  */
     protected open fun onCreateBefore() {}
 
-    protected open fun initKodein(builder: Kodein.MainBuilder) {
+    protected open fun initKd(builder: Kodein.MainBuilder) {
     }
 
 
