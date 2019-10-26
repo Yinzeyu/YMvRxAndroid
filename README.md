@@ -20,7 +20,9 @@
 <img width="200" height="360" src="/image/Screenshot_1571908590.png"/>
 
 </div>
+
 ## 更新日志
+
 ##### 2019/10/26
 ##### 更新studio 版本为4.0 （使用studio 4.0以下版本请自行降级）
 ##### 更新kotlin jdk 版本（使用studio 4.0以下版本请自行降级）
@@ -30,8 +32,6 @@
 ##### 更新viewpager2 版本
 ##### 增加 agentweb webView
 
-
-## 更新日志
 ##### 2019/10/24
 ##### 将jsbridge 移动到commLib 中
 ##### 合并baseActivity  和baseFragment 更加简化父类方法
