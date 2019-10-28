@@ -6,7 +6,7 @@ package com.yzy.commonlibrary.repository.bean
  *@author: YangYang.
  */
 
-data class GankBaseBean<out T>(
+data class GankBaseBean<T>(
     val error: Boolean,
-    val results: List<T>
+    val results: MutableList<T>
 )

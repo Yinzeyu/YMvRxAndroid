@@ -5,10 +5,6 @@ import android.view.View
 import com.airbnb.epoxy.EpoxyVisibilityTracker
 import com.airbnb.mvrx.Fail
 import com.airbnb.mvrx.Loading
-import com.airbnb.mvrx.Success
-import com.scwang.smart.refresh.layout.SmartRefreshLayout
-import com.xiaomi.push.it
-import com.yzy.baselibrary.base.BaseFragment
 import com.yzy.baselibrary.base.MvRxEpoxyController
 import com.yzy.commonlibrary.comm.CommFragment
 import com.yzy.commonlibrary.repository.model.ConversationDetailState
@@ -39,7 +35,6 @@ class IndexFragment : CommFragment() {
         commListErv.setController(epoxyController)
         EpoxyVisibilityTracker().attach(commListErv)
         gankViewModel.loadData()
-        gankViewModel.load1Data(20,1)
         //请求状态和结果监听
         gankViewModel.subscribe { state ->
             if (state.request is Loading) {//请求开始

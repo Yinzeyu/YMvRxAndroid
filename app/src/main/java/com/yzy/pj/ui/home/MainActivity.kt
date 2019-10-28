@@ -20,6 +20,7 @@ class MainActivity : BaseActivity() {
             context.startActivity<MainActivity>()
         }
     }
+
     /** 点击退出的时间  */
     private var mExitTime: Long = 0
     private lateinit var indexFragment: IndexFragment
@@ -76,9 +77,13 @@ class MainActivity : BaseActivity() {
             TasteVideoActivity.starTasteVideoActivity(mContext)
         }
         flShowDialog.click {
-            initAddFriendDialog(supportFragmentManager){
+            initAddFriendDialog(supportFragmentManager) {
 
             }
+        }
+
+        flDoubleApi.click {
+            GankActivity.starGankActivity(mContext)
         }
     }
 
