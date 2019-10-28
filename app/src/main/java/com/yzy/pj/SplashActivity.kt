@@ -1,11 +1,10 @@
 package com.yzy.pj
 
 
-import android.content.Intent
 import android.util.Log
 import com.blankj.utilcode.constant.PermissionConstants
 import com.blankj.utilcode.util.PermissionUtils
-import com.xiaomi.push.it
+import com.gyf.immersionbar.ktx.immersionBar
 import com.yzy.baselibrary.base.BaseActivity
 import com.yzy.baselibrary.extention.applyFollowableSchedulers
 import com.yzy.baselibrary.extention.load
@@ -30,6 +29,9 @@ class SplashActivity : BaseActivity() {
     private var hasSDPermission: Boolean? = null
     //倒计时是否结束
     private var countDownFinish: Boolean? = null
+    override fun initStatus() {
+        immersionBar { statusBarDarkFont(false) }
+    }
 
     override fun initView() {
         iv_sp.load("https://up.enterdesk.com/edpic_source/66/6d/c7/666dc7648df7e11fcd92710185610927.jpg")

@@ -7,8 +7,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.webkit.WebSettings
 import android.webkit.WebView
-import com.gyf.immersionbar.ImmersionBar
-
 import com.just.agentweb.AgentWeb
 import com.just.agentweb.DefaultWebClient
 import com.yzy.baselibrary.extention.getResColor
@@ -39,11 +37,6 @@ class WebActivity : CommTitleActivity() {
             if (url.isNotBlank()) intent.putExtra(WEB_URL, url)
             context.startActivity(intent)
         }
-    }
-
-    override fun statusImmersionBar(immersionBar: ImmersionBar) {
-        super.statusImmersionBar(immersionBar)
-        immersionBar.fitsSystemWindows(true)
     }
 
     //xml

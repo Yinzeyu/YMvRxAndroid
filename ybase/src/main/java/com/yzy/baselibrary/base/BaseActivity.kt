@@ -4,11 +4,11 @@ import android.os.Bundle
 import com.airbnb.mvrx.BaseMvRxActivity
 import com.airbnb.mvrx.MvRxView
 import com.airbnb.mvrx.MvRxViewId
-import com.yzy.baselibrary.toast.YToast
 import com.gyf.immersionbar.ImmersionBar
 import com.gyf.immersionbar.ktx.immersionBar
+import com.yzy.baselibrary.toast.YToast
 import org.kodein.di.*
-import org.kodein.di.android.*
+import org.kodein.di.android.kodein
 import org.kodein.di.android.retainedSubKodein
 import org.kodein.di.generic.kcontext
 
@@ -59,6 +59,7 @@ abstract class BaseActivity : BaseMvRxActivity(), MvRxView, KodeinAware {
             transparentStatusBar()
             statusBarDarkFont(true)
             statusImmersionBar(this)
+            fitsSystemWindows(true)
         }
     }
 
