@@ -1,11 +1,12 @@
 package com.yzy.pj.ui.home
 
 import android.content.Context
-import com.blankj.utilcode.constant.TimeConstants
-import com.blankj.utilcode.util.ActivityUtils
+import androidx.annotation.IntRange
+import com.blankj.utilcode.util.FragmentUtils
 import com.blankj.utilcode.util.LogUtils
-import com.yzy.baselibrary.base.BaseActivity
 import com.yzy.baselibrary.extention.*
+import com.yzy.commonlibrary.comm.CommActivity
+import com.yzy.commonlibrary.comm.CommFragment
 import com.yzy.pj.R
 import com.yzy.pj.ui.IndexFragment
 import com.yzy.pj.ui.elephant.ViewPager2Activity
@@ -14,19 +15,20 @@ import com.yzy.pj.ui.video.TasteVideoActivity
 import kotlinx.android.synthetic.main.activity_main.*
 import me.devilsen.czxing.Scanner
 
-class MainActivity : BaseActivity() {
+class MainActivity : CommActivity() {
     companion object {
         fun starMainActivity(context: Context) {
             context.startActivity<MainActivity>()
         }
     }
 
-    /** 点击退出的时间  */
-    private var mExitTime: Long = 0
-    private lateinit var indexFragment: IndexFragment
+    //当前页面
+    private var currentFragment: CommFragment? = null
+    //子列表合集，方便外部调用选中那个
+    private var fragmentList = mutableListOf<CommFragment>()
+
     override fun layoutResId(): Int = R.layout.activity_main
     override fun initView() {
-        finishAllActivity()
     }
 
     override fun initData() {
@@ -52,18 +54,11 @@ class MainActivity : BaseActivity() {
             )
         })
 
-        indexFragment = IndexFragment.newInstance()
 
-        //添加到fm
-        if (!indexFragment.isAdded) {
-            supportFragmentManager.beginTransaction()
-                .add(R.id.itemLayoutView, indexFragment)
-                .commitAllowingStateLoss()
-        }
-        supportFragmentManager.beginTransaction()
-            .hide(indexFragment)
-            .show(indexFragment)
-            .commitAllowingStateLoss()
+        fragmentList = mutableListOf(IndexFragment.newInstance())
+        //设置选中
+        selectFragment(0)
+
         flMainElephant.click {
             ViewPager2Activity.starElephantActivity(mContext)
         }
@@ -87,24 +82,35 @@ class MainActivity : BaseActivity() {
         }
     }
 
-    private fun finishAllActivity() {
-        // 先关闭其他activity
-        ActivityUtils.finishOtherActivities(this@MainActivity::class.java, false)
-        //清理奔溃前的fragment
-        for (fragment in supportFragmentManager.fragments) {
-            supportFragmentManager.beginTransaction()
-                .remove(fragment)
-                .commitAllowingStateLoss()
+    //设置选中的fragment
+    private fun selectFragment(@IntRange(from = 0, to = 2) index: Int) {
+        //需要显示的fragment
+        val fragment = fragmentList[index]
+        //和当前选中的一样，则不再处理
+        if (currentFragment == fragment) return
+        //先关闭之前显示的
+        currentFragment?.let { FragmentUtils.hide(it) }
+        //设置现在需要显示的
+        currentFragment = fragment
+        if (!fragment.isAdded) { //没有添加，则添加并显示
+            val tag = fragment::class.java.simpleName
+            FragmentUtils.add(supportFragmentManager, fragment, mainContainer.id, tag, false)
+        } else { //添加了就直接显示
+            FragmentUtils.show(fragment)
         }
     }
 
+    private var touchTime = 0L
+    private val waitTime = 2000L
     override fun onBackPressed() {
-        if (System.currentTimeMillis() - mExitTime > 2 * TimeConstants.SEC) {
-            mContext.toast(R.string.exit_app)
-            mExitTime = System.currentTimeMillis()
+        val currentTime = System.currentTimeMillis()
+        if (currentTime - touchTime >= waitTime) {
+            //让Toast的显示时间和等待时间相同
+            toast(R.string.double_exit)
+            touchTime = currentTime
         } else {
-            ActivityUtils.finishAllActivities()
-            finish()
+//      AppUtils.exitApp()
+            super.onBackPressed()
         }
     }
 }
