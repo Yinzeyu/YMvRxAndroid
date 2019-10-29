@@ -2,24 +2,17 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical">
 
-    <RelativeLayout
-        android:id="@+id/fl_videoView"
+    <com.yzy.pj.widget.RecorderView
+        android:id="@+id/message_chat_recorder_view"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="300dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
      >
 
-        <com.pili.pldroid.player.widget.PLVideoTextureView
-            android:id="@+id/plVideoVIew"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_centerInParent="true" />
-
-        <ImageView
-            android:id="@+id/iv_image_video_cover"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:visibility="gone" />
-    </RelativeLayout>
+    </com.yzy.pj.widget.RecorderView>
 </androidx.constraintlayout.widget.ConstraintLayout>

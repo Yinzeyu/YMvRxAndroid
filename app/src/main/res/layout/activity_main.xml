@@ -71,7 +71,7 @@
             android:drawablePadding="4dp"
             android:gravity="center"
             android:paddingBottom="2dp"
-            android:text="播放"
+            android:text="音频录制"
             android:textColor="@color/color_010101"
             android:textSize="12sp" />
 
@@ -115,5 +115,23 @@
             android:textSize="12sp" />
 
     </FrameLayout>
+    <FrameLayout
+        android:id="@+id/flDoublePlay"
+        android:layout_width="50dp"
+        android:layout_height="49.5dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/flDoubleApi">
 
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center_horizontal|bottom"
+            android:drawablePadding="4dp"
+            android:gravity="center"
+            android:paddingBottom="2dp"
+            android:text="列表播放"
+            android:textColor="@color/color_010101"
+            android:textSize="12sp" />
+
+    </FrameLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
