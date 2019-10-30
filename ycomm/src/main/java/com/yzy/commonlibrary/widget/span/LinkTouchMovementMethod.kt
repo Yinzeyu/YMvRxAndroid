@@ -21,7 +21,7 @@ class LinkTouchMovementMethod constructor(var mPressedSpan: TouchableSpan?) : Li
         if (event.action == MotionEvent.ACTION_DOWN) {
             mPressedSpan = getPressedSpan(textView, spannable, event)
             if (mPressedSpan != null) {
-                mPressedSpan!!.mIsPressed = true;
+                mPressedSpan?.mIsPressed = true
                 Selection.setSelection(
                     spannable, spannable.getSpanStart(mPressedSpan),
                     spannable.getSpanEnd(mPressedSpan)
@@ -30,13 +30,13 @@ class LinkTouchMovementMethod constructor(var mPressedSpan: TouchableSpan?) : Li
         } else if (event.action == MotionEvent.ACTION_MOVE) {
             val touchedSpan = getPressedSpan(textView, spannable, event)
             if (mPressedSpan != null && touchedSpan !== mPressedSpan) {
-                mPressedSpan!!.mIsPressed = false;
+                mPressedSpan?.mIsPressed = false;
                 mPressedSpan = null
                 Selection.removeSelection(spannable)
             }
         } else {
             if (mPressedSpan != null) {
-                mPressedSpan!!.mIsPressed = false;
+                mPressedSpan?.mIsPressed = false;
                 super.onTouchEvent(textView, spannable, event)
             }
             mPressedSpan = null

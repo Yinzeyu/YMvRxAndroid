@@ -1,5 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="color_010101">#010101</color>
-
+    <color name="background">#111111</color>
+    <color name="c_white">#ffffff</color>
+    <color name="c_ff2e4e">#ff2e4e</color>
+    <color name="c_fefefe">#fefefe</color>
+    <color name="c_f3f3f3">#f3f3f3</color>
+    <color name="c_666666">#666666</color>
+    <color name="c_41c961">#41c961</color>
+    <color name="c_ccffffff">#ccffffff</color>
 </resources>

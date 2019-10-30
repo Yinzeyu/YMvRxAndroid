@@ -1,10 +1,7 @@
 package com.yzy.pj.app
 
-import android.content.Context
 import com.scwang.smart.refresh.footer.ClassicsFooter
 import com.scwang.smart.refresh.layout.SmartRefreshLayout
-import com.scwang.smart.refresh.layout.api.RefreshFooter
-import com.tencent.bugly.crashreport.CrashReport
 import com.yzy.baselibrary.di.GlobeConfigModule
 import com.yzy.baselibrary.http.RequestIntercept
 import com.yzy.commonlibrary.CommonApplication
