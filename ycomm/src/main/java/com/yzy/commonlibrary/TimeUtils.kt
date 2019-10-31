@@ -66,4 +66,17 @@ class TimeUtils private constructor() {
     }
     return ""
   }
+
+  /**
+   * 根据时长转化为分和秒显示
+   */
+  fun getPlayTime(duration: Long): String {
+    val minutes = duration / 60000
+    val seconds = duration % 60000 / 1000
+    return (if (minutes < 10) "0$minutes" else minutes).toString() + ":" + if (seconds < 10)
+      "0$seconds"
+    else
+      seconds
+  }
+
 }

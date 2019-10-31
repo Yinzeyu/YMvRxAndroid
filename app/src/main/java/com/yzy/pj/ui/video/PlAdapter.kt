@@ -10,6 +10,7 @@ class PlAdapter : EpoxyAdapter() {
             val plItem = PlPlayItem_().apply {
                 id("PlAdapter$it")
                 bgColor(Color.parseColor("#111111"))
+                path(it)
             }
             addModel(plItem)
         }

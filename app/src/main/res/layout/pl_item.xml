@@ -6,6 +6,24 @@
     android:layout_height="match_parent"
     tools:background="@color/background">
 
+    <com.pili.pldroid.player.widget.PLVideoTextureView
+        android:id="@+id/item_video_video_view"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_gravity="center_horizontal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+    <!--视频第一帧图-->
+    <ImageView
+        android:visibility="gone"
+        android:id="@+id/item_video_video_first_frame"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/black"
+        android:contentDescription="@null" />
+
     <ImageView
         android:id="@+id/iv_play_item_play_audio_bg"
         android:layout_width="0dp"
@@ -312,18 +330,18 @@
             tools:text="仅自己可见" />
     </LinearLayout>
 
-    <ImageView
-        android:id="@+id/iv_play_item_play_audio_cover"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginBottom="222.5dp"
-        android:contentDescription="@null"
-        android:scaleType="centerCrop"
-        android:src="@drawable/shape_placeholder_c666"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintDimensionRatio="1:1"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent" />
+    <!--    <ImageView-->
+    <!--        android:id="@+id/iv_play_item_play_audio_cover"-->
+    <!--        android:layout_width="0dp"-->
+    <!--        android:layout_height="0dp"-->
+    <!--        android:layout_marginBottom="222.5dp"-->
+    <!--        android:contentDescription="@null"-->
+    <!--        android:scaleType="centerCrop"-->
+    <!--        android:src="@drawable/shape_placeholder_c666"-->
+    <!--        app:layout_constraintBottom_toBottomOf="parent"-->
+    <!--        app:layout_constraintDimensionRatio="1:1"-->
+    <!--        app:layout_constraintLeft_toLeftOf="parent"-->
+    <!--        app:layout_constraintRight_toRightOf="parent" />-->
 
     <ImageView
         android:id="@+id/pav_play_item_play_audio"
@@ -381,23 +399,23 @@
         app:layout_constraintLeft_toRightOf="@+id/tv_play_item_play_audio_title"
         app:layout_constraintTop_toTopOf="@+id/tv_play_item_play_audio_title" />
 
-    <ProgressBar
-        android:id="@+id/pb_play_item_play"
-        style="@style/follow_style"
-        android:layout_width="30dp"
-        android:layout_height="30dp"
-        android:visibility="gone"
-        app:layout_constraintBottom_toBottomOf="@+id/iv_play_item_play_audio_cover"
-        app:layout_constraintLeft_toLeftOf="@+id/iv_play_item_play_audio_cover"
-        app:layout_constraintRight_toRightOf="@+id/iv_play_item_play_audio_cover"
-        app:layout_constraintTop_toTopOf="@+id/iv_play_item_play_audio_cover" />
+    <!--    <ProgressBar-->
+    <!--        android:id="@+id/pb_play_item_play"-->
+    <!--        style="@style/follow_style"-->
+    <!--        android:layout_width="30dp"-->
+    <!--        android:layout_height="30dp"-->
+    <!--        android:visibility="gone"-->
+    <!--        app:layout_constraintBottom_toBottomOf="@+id/iv_play_item_play_audio_cover"-->
+    <!--        app:layout_constraintLeft_toLeftOf="@+id/iv_play_item_play_audio_cover"-->
+    <!--        app:layout_constraintRight_toRightOf="@+id/iv_play_item_play_audio_cover"-->
+    <!--        app:layout_constraintTop_toTopOf="@+id/iv_play_item_play_audio_cover" />-->
 
     <com.yzy.pj.widget.AimyLoadingView
         android:id="@+id/alv_play_item_loading"
         android:layout_width="64dp"
         android:layout_height="64dp"
-        app:layout_constraintBottom_toBottomOf="@+id/iv_play_item_play_audio_cover"
-        app:layout_constraintLeft_toLeftOf="@+id/iv_play_item_play_audio_cover"
-        app:layout_constraintRight_toRightOf="@+id/iv_play_item_play_audio_cover"
-        app:layout_constraintTop_toTopOf="@+id/iv_play_item_play_audio_cover" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>
