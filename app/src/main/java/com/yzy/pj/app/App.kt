@@ -34,7 +34,7 @@ class App : CommonApplication() {
             StringConstants.Push.XM_RELEASE_SECRET
         )
         PushModel.getPushModel().initHWPush(this)
-        initBug()
+//        initBug()
         RongIMClient.init(this, "mgb7ka1nmdndg")
         IMUtils.init(this@App)
     }
@@ -77,14 +77,14 @@ class App : CommonApplication() {
         builder.import(blackRepositoryModel)
     }
 
-    private fun initBug() {
+//    private fun initBug() {
         //初始化key
 //        CrashReport.initCrashReport(
 //            applicationContext,
 //            if (BuildConfig.DEBUG) "8e9eedd10f" else "2ae17bde1d",
 //            false
 //        )
-    }
+//    }
 
     private fun initSocial() {
         Social.init(
