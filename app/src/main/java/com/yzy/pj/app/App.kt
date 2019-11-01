@@ -14,9 +14,6 @@ import com.yzy.pj.BuildConfig
 import com.yzy.pj.R
 import com.yzy.pj.imModel.IMUtils
 import com.yzy.pj.push.PushModel
-import com.yzy.sociallib.Social
-import com.yzy.sociallib.config.PlatformType
-import com.yzy.sociallib.entity.platform.CommPlatConfigBean
 import io.rong.imlib.RongIMClient
 import org.kodein.di.Kodein
 
@@ -86,13 +83,13 @@ class App : CommonApplication() {
 //        )
 //    }
 
-    private fun initSocial() {
-        Social.init(
-            applicationContext,
-            CommPlatConfigBean(PlatformType.WEIXIN, ""),  // 微信key
-            CommPlatConfigBean(PlatformType.QQ, appkey = "") // qqkey
-        )
-    }
+//    private fun initSocial() {
+//        Social.init(
+//            applicationContext,
+//            CommPlatConfigBean(PlatformType.WEIXIN, ""),  // 微信key
+//            CommPlatConfigBean(PlatformType.QQ, appkey = "") // qqkey
+//        )
+//    }
 
     init {
         //设置全局的Header构建器
