@@ -24,7 +24,7 @@ object IMUtils {
     fun init(app: Context) {
         IMInit {
             context = app
-            key = ""
+            key = "mgb7ka1nmdndg"
             tokenProvider = IMTokenProviderImpl()
             fileUploadProvider = IMFileUploadProviderImpl()
         }
