@@ -338,10 +338,10 @@
     <!--        android:contentDescription="@null"-->
     <!--        android:scaleType="centerCrop"-->
     <!--        android:src="@drawable/shape_placeholder_c666"-->
-    <!--        app:layout_constraintBottom_toBottomOf="parent"-->
-    <!--        app:layout_constraintDimensionRatio="1:1"-->
-    <!--        app:layout_constraintLeft_toLeftOf="parent"-->
-    <!--        app:layout_constraintRight_toRightOf="parent" />-->
+    <!--        App:layout_constraintBottom_toBottomOf="parent"-->
+    <!--        App:layout_constraintDimensionRatio="1:1"-->
+    <!--        App:layout_constraintLeft_toLeftOf="parent"-->
+    <!--        App:layout_constraintRight_toRightOf="parent" />-->
 
     <ImageView
         android:id="@+id/pav_play_item_play_audio"
@@ -405,10 +405,10 @@
     <!--        android:layout_width="30dp"-->
     <!--        android:layout_height="30dp"-->
     <!--        android:visibility="gone"-->
-    <!--        app:layout_constraintBottom_toBottomOf="@+id/iv_play_item_play_audio_cover"-->
-    <!--        app:layout_constraintLeft_toLeftOf="@+id/iv_play_item_play_audio_cover"-->
-    <!--        app:layout_constraintRight_toRightOf="@+id/iv_play_item_play_audio_cover"-->
-    <!--        app:layout_constraintTop_toTopOf="@+id/iv_play_item_play_audio_cover" />-->
+    <!--        App:layout_constraintBottom_toBottomOf="@+id/iv_play_item_play_audio_cover"-->
+    <!--        App:layout_constraintLeft_toLeftOf="@+id/iv_play_item_play_audio_cover"-->
+    <!--        App:layout_constraintRight_toRightOf="@+id/iv_play_item_play_audio_cover"-->
+    <!--        App:layout_constraintTop_toTopOf="@+id/iv_play_item_play_audio_cover" />-->
 
     <com.yzy.pj.widget.AimyLoadingView
         android:id="@+id/alv_play_item_loading"

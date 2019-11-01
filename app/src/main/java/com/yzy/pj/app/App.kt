@@ -12,6 +12,7 @@ import com.yzy.commonlibrary.refresh.RefreshHeader
 import com.yzy.commonlibrary.repository.blackRepositoryModel
 import com.yzy.pj.BuildConfig
 import com.yzy.pj.R
+import com.yzy.pj.imModel.IMUtils
 import com.yzy.pj.push.PushModel
 import com.yzy.sociallib.Social
 import com.yzy.sociallib.config.PlatformType
@@ -20,7 +21,7 @@ import io.rong.imlib.RongIMClient
 import org.kodein.di.Kodein
 
 
-class app : CommonApplication() {
+class App : CommonApplication() {
     override fun initInChildThread() {
 
     }
@@ -35,6 +36,7 @@ class app : CommonApplication() {
         PushModel.getPushModel().initHWPush(this)
         initBug()
         RongIMClient.init(this, "mgb7ka1nmdndg")
+        IMUtils.init(this@App)
     }
 
     override fun baseInitCreate() {

@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.yzy.pj">
     <application
-        android:name=".app.app"
+        android:name=".app.App"
         android:allowBackup="true"
         android:icon="${app_icon}"
         android:label="${app_name}"
