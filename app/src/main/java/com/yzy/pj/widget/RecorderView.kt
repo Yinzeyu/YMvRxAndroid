@@ -221,7 +221,6 @@ class RecorderView(context: Context, attrs: AttributeSet) : View(context, attrs)
 
     //开始录制
     private fun startRecording() {
-        LogUtils.e("startRecording", "startRecording")
         if (isRecording) return
         isRecording = true
 
@@ -233,7 +232,6 @@ class RecorderView(context: Context, attrs: AttributeSet) : View(context, attrs)
     //停止录制
     private fun stopRecording() {
         if (isRecording) {
-            LogUtils.e("startRecording", "startRecording")
             mediaRecorderHelper?.stopRecorder()
             isRecording = false
             if (listener != null && !isCancel && mediaRecorderHelper != null) {
