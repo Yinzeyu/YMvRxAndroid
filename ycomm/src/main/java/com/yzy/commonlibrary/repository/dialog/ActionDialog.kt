@@ -16,36 +16,37 @@ import kotlinx.android.synthetic.main.dialog_action.view.dialogActionHint
  * @date: 2019/9/24 13:03
  */
 class ActionDialog : BaseFragmentDialog() {
-  override fun contentLayout(): Int =R.layout.dialog_action
-  override fun initView(view: View) {
-    dialogActionHint?.text = hintText
-  }
-  var hintText: String = "加载中..."
-
-  companion object {
-    fun newInstance(
-      touchCancel: Boolean = true
-    ): ActionDialog {
-      val dialog = ActionDialog()
-      dialog.mGravity = Gravity.CENTER
-      dialog.touchOutside = touchCancel
-      dialog.mWidth = ScreenUtils.getScreenWidth() / 3
-      return dialog
+    override fun contentLayout(): Int = R.layout.dialog_action
+    override fun initView(view: View) {
+        dialogActionHint?.text = hintText
     }
-  }
 
-  fun show(fragmentManager: FragmentManager) {
-    dialogActionHint?.text = hintText
-    show(fragmentManager, "ActionDialog")
-  }
+    var hintText: String = "加载中..."
+
+    companion object {
+        fun newInstance(
+                touchCancel: Boolean = true
+        ): ActionDialog {
+            val dialog = ActionDialog()
+            dialog.mGravity = Gravity.CENTER
+            dialog.touchOutside = touchCancel
+            dialog.mWidth = ScreenUtils.getScreenWidth() / 3
+            return dialog
+        }
+    }
+
+    fun show(fragmentManager: FragmentManager) {
+        dialogActionHint?.text = hintText
+        show(fragmentManager, "ActionDialog")
+    }
 }
 
 //  DSL style
 inline fun actionDialog(
-  fragmentManager: FragmentManager,
-  dsl: ActionDialog.() -> Unit
+        fragmentManager: FragmentManager,
+        dsl: ActionDialog.() -> Unit
 ) {
-  val dialog = ActionDialog.newInstance()
-    .apply(dsl)
-  dialog.show(fragmentManager)
+    val dialog = ActionDialog.newInstance()
+            .apply(dsl)
+    dialog.show(fragmentManager)
 }

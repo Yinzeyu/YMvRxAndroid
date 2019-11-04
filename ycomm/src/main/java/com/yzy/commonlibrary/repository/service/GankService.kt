@@ -29,12 +29,12 @@ interface GankService {
 
     @GET("banner/json")
     fun banner(
-        @Query("page") page: String,
-        @Query("size") size: String
+            @Query("page") page: String,
+            @Query("size") size: String
     ): Observable<BaseResponse<MutableList<BannerBean>>>
 
     @GET("article/list/{page}/json")
     fun article(
-        @Path("page") page: String
+            @Path("page") page: String
     ): Observable<BaseResponse<ArticleDataBean>>
 }

@@ -5,4 +5,4 @@ package com.yzy.sociallib.entity.content
  *@date 2019/7/15
  *@author: yzy.
  */
-data class AliAuthContent(var authInfo:String): AuthContent()
+data class AliAuthContent(var authInfo: String) : AuthContent()

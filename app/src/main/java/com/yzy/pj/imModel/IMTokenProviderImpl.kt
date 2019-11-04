@@ -10,7 +10,7 @@ import com.yzy.pj.im.IMTokenProvider
  */
 class IMTokenProviderImpl : IMTokenProvider {
 
-  override fun getToken(success: (token: String) -> Unit) {
+    override fun getToken(success: (token: String) -> Unit) {
 //    val oauthRepository: OauthRepository by App.INSTANCE.kodein.instance()
 //    val disposable = oauthRepository.getRongCloudToken()
 //      .subscribe({
@@ -18,5 +18,5 @@ class IMTokenProviderImpl : IMTokenProvider {
 //      }, {
 //        LogUtils.e("融云token获取失败", it)
 //      })
-  }
+    }
 }

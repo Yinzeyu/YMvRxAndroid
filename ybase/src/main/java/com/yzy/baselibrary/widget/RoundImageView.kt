@@ -17,9 +17,9 @@ import com.yzy.baselibrary.R
  * @author: yzy.
  */
 open class RoundImageView @JvmOverloads constructor(
-    context: Context,
-    attributeSet: AttributeSet? = null,
-    defAttrStyle: Int = 0
+        context: Context,
+        attributeSet: AttributeSet? = null,
+        defAttrStyle: Int = 0
 ) : AppCompatImageView(context, attributeSet, defAttrStyle) {
 
     enum class ShapeType {
@@ -113,117 +113,117 @@ open class RoundImageView @JvmOverloads constructor(
 
     private fun initAttrs(context: Context, attributeSet: AttributeSet?, defAttrStyle: Int) {
         val array =
-            context.obtainStyledAttributes(
-                attributeSet,
-                R.styleable.RoundImageView,
-                defAttrStyle,
-                0
-            )
+                context.obtainStyledAttributes(
+                        attributeSet,
+                        R.styleable.RoundImageView,
+                        defAttrStyle,
+                        0
+                )
         (0..array.indexCount)
-            .asSequence()
-            .map { array.getIndex(it) }
-            .forEach {
-                when (it) {
-                    R.styleable.RoundImageView_shape_type ->
-                        mShapeType = when {
-                            array.getInt(it, 0) == 0 -> ShapeType.Circle
-                            array.getInt(it, 0) == 1 -> ShapeType.Round
-                            else -> ShapeType.Circle
-                        }
-                    R.styleable.RoundImageView_border_width ->
-                        mBorderWidth = array.getDimension(
-                            it,
-                            TypedValue.applyDimension(
-                                TypedValue.COMPLEX_UNIT_DIP,
-                                0f,
-                                resources.displayMetrics
+                .asSequence()
+                .map { array.getIndex(it) }
+                .forEach {
+                    when (it) {
+                        R.styleable.RoundImageView_shape_type ->
+                            mShapeType = when {
+                                array.getInt(it, 0) == 0 -> ShapeType.Circle
+                                array.getInt(it, 0) == 1 -> ShapeType.Round
+                                else -> ShapeType.Circle
+                            }
+                        R.styleable.RoundImageView_border_width ->
+                            mBorderWidth = array.getDimension(
+                                    it,
+                                    TypedValue.applyDimension(
+                                            TypedValue.COMPLEX_UNIT_DIP,
+                                            0f,
+                                            resources.displayMetrics
+                                    )
                             )
-                        )
-                    R.styleable.RoundImageView_border_color ->
-                        mBorderColor = array.getColor(it, Color.parseColor("#FFFFFF"))
-                    R.styleable.RoundImageView_radius ->
-                        mRadius = array.getDimension(
-                            it,
-                            TypedValue.applyDimension(
-                                TypedValue.COMPLEX_UNIT_DIP,
-                                0f,
-                                resources.displayMetrics
+                        R.styleable.RoundImageView_border_color ->
+                            mBorderColor = array.getColor(it, Color.parseColor("#FFFFFF"))
+                        R.styleable.RoundImageView_radius ->
+                            mRadius = array.getDimension(
+                                    it,
+                                    TypedValue.applyDimension(
+                                            TypedValue.COMPLEX_UNIT_DIP,
+                                            0f,
+                                            resources.displayMetrics
+                                    )
                             )
-                        )
-                    R.styleable.RoundImageView_left_top_radiusX ->
-                        mLeftTopRadiusX = array.getDimension(
-                            it,
-                            TypedValue.applyDimension(
-                                TypedValue.COMPLEX_UNIT_DIP,
-                                0f,
-                                resources.displayMetrics
+                        R.styleable.RoundImageView_left_top_radiusX ->
+                            mLeftTopRadiusX = array.getDimension(
+                                    it,
+                                    TypedValue.applyDimension(
+                                            TypedValue.COMPLEX_UNIT_DIP,
+                                            0f,
+                                            resources.displayMetrics
+                                    )
                             )
-                        )
-                    R.styleable.RoundImageView_left_top_radiusY ->
-                        mLeftTopRadiusY = array.getDimension(
-                            it,
-                            TypedValue.applyDimension(
-                                TypedValue.COMPLEX_UNIT_DIP,
-                                0f,
-                                resources.displayMetrics
+                        R.styleable.RoundImageView_left_top_radiusY ->
+                            mLeftTopRadiusY = array.getDimension(
+                                    it,
+                                    TypedValue.applyDimension(
+                                            TypedValue.COMPLEX_UNIT_DIP,
+                                            0f,
+                                            resources.displayMetrics
+                                    )
                             )
-                        )
-                    R.styleable.RoundImageView_left_bottom_radiusX ->
-                        mLeftBottomRadiusX = array.getDimension(
-                            it,
-                            TypedValue.applyDimension(
-                                TypedValue.COMPLEX_UNIT_DIP,
-                                0f,
-                                resources.displayMetrics
+                        R.styleable.RoundImageView_left_bottom_radiusX ->
+                            mLeftBottomRadiusX = array.getDimension(
+                                    it,
+                                    TypedValue.applyDimension(
+                                            TypedValue.COMPLEX_UNIT_DIP,
+                                            0f,
+                                            resources.displayMetrics
+                                    )
                             )
-                        )
-                    R.styleable.RoundImageView_left_bottom_radiusY ->
-                        mLeftBottomRadiusY = array.getDimension(
-                            it,
-                            TypedValue.applyDimension(
-                                TypedValue.COMPLEX_UNIT_DIP,
-                                0f,
-                                resources.displayMetrics
+                        R.styleable.RoundImageView_left_bottom_radiusY ->
+                            mLeftBottomRadiusY = array.getDimension(
+                                    it,
+                                    TypedValue.applyDimension(
+                                            TypedValue.COMPLEX_UNIT_DIP,
+                                            0f,
+                                            resources.displayMetrics
+                                    )
                             )
-                        )
-                    R.styleable.RoundImageView_right_bottom_radiusX ->
-                        mRightBottomRadiusX = array.getDimension(
-                            it,
-                            TypedValue.applyDimension(
-                                TypedValue.COMPLEX_UNIT_DIP,
-                                0f,
-                                resources.displayMetrics
+                        R.styleable.RoundImageView_right_bottom_radiusX ->
+                            mRightBottomRadiusX = array.getDimension(
+                                    it,
+                                    TypedValue.applyDimension(
+                                            TypedValue.COMPLEX_UNIT_DIP,
+                                            0f,
+                                            resources.displayMetrics
+                                    )
                             )
-                        )
-                    R.styleable.RoundImageView_right_bottom_radiusY ->
-                        mRightBottomRadiusY = array.getDimension(
-                            it,
-                            TypedValue.applyDimension(
-                                TypedValue.COMPLEX_UNIT_DIP,
-                                0f,
-                                resources.displayMetrics
+                        R.styleable.RoundImageView_right_bottom_radiusY ->
+                            mRightBottomRadiusY = array.getDimension(
+                                    it,
+                                    TypedValue.applyDimension(
+                                            TypedValue.COMPLEX_UNIT_DIP,
+                                            0f,
+                                            resources.displayMetrics
+                                    )
                             )
-                        )
-                    R.styleable.RoundImageView_right_top_radiusX ->
-                        mRightTopRadiusX = array.getDimension(
-                            it,
-                            TypedValue.applyDimension(
-                                TypedValue.COMPLEX_UNIT_DIP,
-                                0f,
-                                resources.displayMetrics
+                        R.styleable.RoundImageView_right_top_radiusX ->
+                            mRightTopRadiusX = array.getDimension(
+                                    it,
+                                    TypedValue.applyDimension(
+                                            TypedValue.COMPLEX_UNIT_DIP,
+                                            0f,
+                                            resources.displayMetrics
+                                    )
                             )
-                        )
-                    R.styleable.RoundImageView_right_top_radiusY ->
-                        mRightTopRadiusY = array.getDimension(
-                            it,
-                            TypedValue.applyDimension(
-                                TypedValue.COMPLEX_UNIT_DIP,
-                                0f,
-                                resources.displayMetrics
+                        R.styleable.RoundImageView_right_top_radiusY ->
+                            mRightTopRadiusY = array.getDimension(
+                                    it,
+                                    TypedValue.applyDimension(
+                                            TypedValue.COMPLEX_UNIT_DIP,
+                                            0f,
+                                            resources.displayMetrics
+                                    )
                             )
-                        )
+                    }
                 }
-            }
         refresh8Radius()
         mShowBorder = mBorderWidth != 0F
         array.recycle()
@@ -312,10 +312,10 @@ open class RoundImageView @JvmOverloads constructor(
         } else {//绘制带边框的圆形需要把内部圆形和外部圆形边框都要扔进path
             mShapePath.addCircle(mRadius, mRadius, mRadius - mBorderWidth, Path.Direction.CW)
             mBorderPath.addCircle(
-                mRadius,
-                mRadius,
-                mRadius - mBorderWidth / 2.0f,
-                Path.Direction.CW
+                    mRadius,
+                    mRadius,
+                    mRadius - mBorderWidth / 2.0f,
+                    Path.Direction.CW
             )
         }
     }
@@ -323,53 +323,53 @@ open class RoundImageView @JvmOverloads constructor(
     private fun buildRoundPath() {//构建圆角类型的Path路径
         if (!mShowBorder) {//绘制不带边框的圆角实际上只需要把一个圆角矩形扔进path即可
             floatArrayOf(
-                mLeftTopRadiusX, mLeftTopRadiusY,
-                mRightTopRadiusX, mRightTopRadiusY,
-                mRightBottomRadiusX, mRightBottomRadiusY,
-                mLeftBottomRadiusX, mLeftBottomRadiusY
+                    mLeftTopRadiusX, mLeftTopRadiusY,
+                    mRightTopRadiusX, mRightTopRadiusY,
+                    mRightBottomRadiusX, mRightBottomRadiusY,
+                    mLeftBottomRadiusX, mLeftBottomRadiusY
             ).run {
                 mShapePath.addRoundRect(
-                    RectF(0f, 0f, mWidth.toFloat(), mHeight.toFloat()),
-                    this,
-                    Path.Direction.CW
+                        RectF(0f, 0f, mWidth.toFloat(), mHeight.toFloat()),
+                        this,
+                        Path.Direction.CW
                 )
             }
 
         } else {//绘制带边框的圆角实际上只需要把一个圆角矩形和一个圆角矩形的变量都扔进path即可
             floatArrayOf(
-                mLeftTopRadiusX - mBorderWidth / 2.0f,
-                mLeftTopRadiusY - mBorderWidth / 2.0f,
-                mRightTopRadiusX - mBorderWidth / 2.0f,
-                mRightTopRadiusY - mBorderWidth / 2.0f,
-                mRightBottomRadiusX - mBorderWidth / 2.0f,
-                mRightBottomRadiusY - mBorderWidth / 2.0f,
-                mLeftBottomRadiusX - mBorderWidth / 2.0f,
-                mLeftBottomRadiusY - mBorderWidth / 2.0f
+                    mLeftTopRadiusX - mBorderWidth / 2.0f,
+                    mLeftTopRadiusY - mBorderWidth / 2.0f,
+                    mRightTopRadiusX - mBorderWidth / 2.0f,
+                    mRightTopRadiusY - mBorderWidth / 2.0f,
+                    mRightBottomRadiusX - mBorderWidth / 2.0f,
+                    mRightBottomRadiusY - mBorderWidth / 2.0f,
+                    mLeftBottomRadiusX - mBorderWidth / 2.0f,
+                    mLeftBottomRadiusY - mBorderWidth / 2.0f
             ).run {
                 mBorderPath.addRoundRect(
-                    RectF(
-                        mBorderWidth / 2.0f,
-                        mBorderWidth / 2.0f,
-                        mWidth.toFloat() - mBorderWidth / 2.0f,
-                        mHeight.toFloat() - mBorderWidth / 2.0f
-                    ), this, Path.Direction.CW
+                        RectF(
+                                mBorderWidth / 2.0f,
+                                mBorderWidth / 2.0f,
+                                mWidth.toFloat() - mBorderWidth / 2.0f,
+                                mHeight.toFloat() - mBorderWidth / 2.0f
+                        ), this, Path.Direction.CW
                 )
             }
 
             floatArrayOf(
-                mLeftTopRadiusX - mBorderWidth, mLeftTopRadiusY - mBorderWidth,
-                mRightTopRadiusX - mBorderWidth, mRightTopRadiusY - mBorderWidth,
-                mRightBottomRadiusX - mBorderWidth, mRightBottomRadiusY - mBorderWidth,
-                mLeftBottomRadiusX - mBorderWidth, mLeftBottomRadiusY - mBorderWidth
+                    mLeftTopRadiusX - mBorderWidth, mLeftTopRadiusY - mBorderWidth,
+                    mRightTopRadiusX - mBorderWidth, mRightTopRadiusY - mBorderWidth,
+                    mRightBottomRadiusX - mBorderWidth, mRightBottomRadiusY - mBorderWidth,
+                    mLeftBottomRadiusX - mBorderWidth, mLeftBottomRadiusY - mBorderWidth
             ).run {
                 mShapePath.addRoundRect(
-                    RectF(
-                        mBorderWidth,
-                        mBorderWidth,
-                        mWidth.toFloat() - mBorderWidth,
-                        mHeight.toFloat() - mBorderWidth
-                    ),
-                    this, Path.Direction.CW
+                        RectF(
+                                mBorderWidth,
+                                mBorderWidth,
+                                mWidth.toFloat() - mBorderWidth,
+                                mHeight.toFloat() - mBorderWidth
+                        ),
+                        this, Path.Direction.CW
                 )
             }
 
@@ -462,10 +462,10 @@ open class RoundImageView @JvmOverloads constructor(
     override fun onSaveInstanceState(): Parcelable = Bundle().apply {
         putParcelable(STATE_INSTANCE, super.onSaveInstanceState())
         putInt(
-            STATE_INSTANCE_SHAPE_TYPE, when (mShapeType) {
-                ShapeType.Circle -> 0
-                ShapeType.Round -> 1
-            }
+                STATE_INSTANCE_SHAPE_TYPE, when (mShapeType) {
+            ShapeType.Circle -> 0
+            ShapeType.Round -> 1
+        }
         )
         putFloat(STATE_INSTANCE_BORDER_WIDTH, mBorderWidth)
         putInt(STATE_INSTANCE_BORDER_COLOR, mBorderColor)

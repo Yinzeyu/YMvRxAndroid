@@ -8,9 +8,9 @@ import android.graphics.Bitmap
  *@author: yzy.
  */
 data class ShareVideoContent(
-    override var img: Bitmap? = null,   //缩略图
-    override var url: String? = null,        //网页
-    override var description: String? = null,    //描述
-    var videoUrl: String? = null,       //视频url
-    var title: String? = null     //标题
+        override var img: Bitmap? = null,   //缩略图
+        override var url: String? = null,        //网页
+        override var description: String? = null,    //描述
+        var videoUrl: String? = null,       //视频url
+        var title: String? = null     //标题
 ) : ShareContent()

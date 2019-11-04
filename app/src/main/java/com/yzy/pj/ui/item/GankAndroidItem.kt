@@ -18,34 +18,34 @@ import kotlinx.android.synthetic.main.item_gank_android.view.*
  */
 @EpoxyModelClass(layout = R.layout.item_gank_android)
 abstract class GankAndroidItem : BaseEpoxyModel<BaseEpoxyHolder>() {
-  //数据源
-  @EpoxyAttribute
-  var dataBean: GankAndroidBean? = null
-  //点击item
-  @EpoxyAttribute(EpoxyAttribute.Option.DoNotHash)
-  var onItemClick: ((bean: GankAndroidBean?) -> Unit)? = null
+    //数据源
+    @EpoxyAttribute
+    var dataBean: GankAndroidBean? = null
+    //点击item
+    @EpoxyAttribute(EpoxyAttribute.Option.DoNotHash)
+    var onItemClick: ((bean: GankAndroidBean?) -> Unit)? = null
 
-  override fun onBind(itemView: View) {
-    dataBean?.let {
-      //发布者
-      itemView.itemGankAndroidUser.text = it.who
-      //发布时间
-      itemView.itemGankAndroidTime.text = it.publishTime
-      //内容
-      itemView.itemGankAndroidDes.text = it.desc
-      //图片
+    override fun onBind(itemView: View) {
+        dataBean?.let {
+            //发布者
+            itemView.itemGankAndroidUser.text = it.who
+            //发布时间
+            itemView.itemGankAndroidTime.text = it.publishTime
+            //内容
+            itemView.itemGankAndroidDes.text = it.desc
+            //图片
 //      itemView.itemGankAndroidNine.visibleGone(!it.images.isNullOrEmpty())
 //      if (!it.images.isNullOrEmpty()) {
 //        //多张图片，九宫格
 //        val nieView: NineGridView<PicBean> = itemView.findViewById(R.id.itemGankAndroidNine)
 //        setMultiImages(it.urlImgs, nieView)
 //      }
+        }
+        //item点击
+        itemView.click { onItemClick?.invoke(dataBean) }
+        //item按压效果
+        itemView.pressEffectBgColor()
     }
-    //item点击
-    itemView.click { onItemClick?.invoke(dataBean) }
-    //item按压效果
-    itemView.pressEffectBgColor()
-  }
 
 //  private fun setMultiImages(
 //    picBeans: List<PicBean>,

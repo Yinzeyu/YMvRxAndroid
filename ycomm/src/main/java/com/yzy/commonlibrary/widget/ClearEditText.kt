@@ -20,10 +20,10 @@ import com.yzy.commonlibrary.R
  *
  * @author yin97
  */
-open class ClearEditText constructor(context: Context, attrs: AttributeSet, defStyle: Int)  : AppCompatEditText(
-    context,
-    attrs,
-    defStyle
+open class ClearEditText constructor(context: Context, attrs: AttributeSet, defStyle: Int) : AppCompatEditText(
+        context,
+        attrs,
+        defStyle
 ), TextWatcher {
 
     private var mClearDrawable: Drawable? = null
@@ -86,8 +86,8 @@ open class ClearEditText constructor(context: Context, attrs: AttributeSet, defS
     protected fun setDrawableVisible(visible: Boolean) {
         val right = if (visible) mClearDrawable else null
         setCompoundDrawables(
-            compoundDrawables[0], compoundDrawables[1], right,
-            compoundDrawables[3]
+                compoundDrawables[0], compoundDrawables[1], right,
+                compoundDrawables[3]
         )
     }
 

@@ -1,179 +1,179 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical">
+             xmlns:app="http://schemas.android.com/apk/res-auto"
+             android:layout_width="match_parent"
+             android:layout_height="match_parent"
+             android:orientation="vertical">
 
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/constraintLayout"
-        android:layout_width="match_parent"
-        android:layout_height="484dp"
-        android:layout_gravity="bottom"
-        android:background="@drawable/shape_dialog_friend"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+            android:id="@+id/constraintLayout"
+            android:layout_width="match_parent"
+            android:layout_height="484dp"
+            android:layout_gravity="bottom"
+            android:background="@drawable/shape_dialog_friend"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
 
         <TextView
-            android:id="@+id/textView30"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="19.5dp"
-            android:layout_marginTop="17.5dp"
-            android:text="添加好友"
-            android:textColor="#ff49544e"
-            android:textSize="15sp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+                android:id="@+id/textView30"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="19.5dp"
+                android:layout_marginTop="17.5dp"
+                android:text="添加好友"
+                android:textColor="#ff49544e"
+                android:textSize="15sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"/>
 
         <ImageView
-            android:id="@+id/ivDialogFriend"
-            android:layout_width="27dp"
-            android:layout_height="27dp"
-            android:layout_marginTop="11.5dp"
-            android:layout_marginEnd="20dp"
-            android:background="@drawable/shape_dialog_right_clear"
-            android:padding="6dp"
-            android:src="@drawable/icon_claer_dialog"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+                android:id="@+id/ivDialogFriend"
+                android:layout_width="27dp"
+                android:layout_height="27dp"
+                android:layout_marginTop="11.5dp"
+                android:layout_marginEnd="20dp"
+                android:background="@drawable/shape_dialog_right_clear"
+                android:padding="6dp"
+                android:src="@drawable/icon_claer_dialog"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"/>
 
 
         <View
-            android:id="@+id/view18"
-            android:layout_width="0dp"
-            android:layout_height="0.5dp"
-            android:layout_marginTop="55dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+                android:id="@+id/view18"
+                android:layout_width="0dp"
+                android:layout_height="0.5dp"
+                android:layout_marginTop="55dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"/>
 
         <com.airbnb.epoxy.EpoxyRecyclerView
-            android:id="@+id/dialgView"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/view18" />
+                android:id="@+id/dialgView"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/view18"/>
 
         <View
-            android:id="@+id/view19"
-            android:layout_width="1dp"
-            android:layout_height="1dp"
-            android:layout_marginTop="94dp"
-            android:visibility="gone"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/view18" />
+                android:id="@+id/view19"
+                android:layout_width="1dp"
+                android:layout_height="1dp"
+                android:layout_marginTop="94dp"
+                android:visibility="gone"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/view18"/>
 
         <View
-            android:id="@+id/vMyCode"
-            android:layout_width="150dp"
-            android:layout_height="150dp"
-            android:layout_marginEnd="10dp"
-            android:background="@drawable/shape_dialog_friend_code"
-            android:visibility="gone"
-            app:layout_constraintEnd_toStartOf="@+id/view19"
-            app:layout_constraintTop_toTopOf="@+id/view19" />
+                android:id="@+id/vMyCode"
+                android:layout_width="150dp"
+                android:layout_height="150dp"
+                android:layout_marginEnd="10dp"
+                android:background="@drawable/shape_dialog_friend_code"
+                android:visibility="gone"
+                app:layout_constraintEnd_toStartOf="@+id/view19"
+                app:layout_constraintTop_toTopOf="@+id/view19"/>
 
         <TextView
-            android:id="@+id/textView31"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="11dp"
-            android:text="我的二维码"
-            android:textColor="#ff49544e"
-            android:textSize="15sp"
-            android:visibility="gone"
-            app:layout_constraintEnd_toEndOf="@+id/vMyCode"
-            app:layout_constraintStart_toStartOf="@+id/vMyCode"
-            app:layout_constraintTop_toBottomOf="@+id/vMyCode" />
+                android:id="@+id/textView31"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="11dp"
+                android:text="我的二维码"
+                android:textColor="#ff49544e"
+                android:textSize="15sp"
+                android:visibility="gone"
+                app:layout_constraintEnd_toEndOf="@+id/vMyCode"
+                app:layout_constraintStart_toStartOf="@+id/vMyCode"
+                app:layout_constraintTop_toBottomOf="@+id/vMyCode"/>
 
         <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="14dp"
-            android:text="扫一扫，加我为好友"
-            android:textColor="#ff8d8d8d"
-            android:textSize="15sp"
-            android:visibility="gone"
-            app:layout_constraintEnd_toEndOf="@+id/textView31"
-            app:layout_constraintStart_toStartOf="@+id/textView31"
-            app:layout_constraintTop_toBottomOf="@+id/textView31" />
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="14dp"
+                android:text="扫一扫，加我为好友"
+                android:textColor="#ff8d8d8d"
+                android:textSize="15sp"
+                android:visibility="gone"
+                app:layout_constraintEnd_toEndOf="@+id/textView31"
+                app:layout_constraintStart_toStartOf="@+id/textView31"
+                app:layout_constraintTop_toBottomOf="@+id/textView31"/>
 
         <View
-            android:id="@+id/vMyPassword"
-            android:layout_width="150dp"
-            android:layout_height="150dp"
-            android:layout_marginStart="10dp"
-            android:background="@drawable/shape_dialog_friend_code"
-            android:visibility="gone"
-            app:layout_constraintStart_toEndOf="@+id/view19"
-            app:layout_constraintTop_toTopOf="@+id/view19" />
+                android:id="@+id/vMyPassword"
+                android:layout_width="150dp"
+                android:layout_height="150dp"
+                android:layout_marginStart="10dp"
+                android:background="@drawable/shape_dialog_friend_code"
+                android:visibility="gone"
+                app:layout_constraintStart_toEndOf="@+id/view19"
+                app:layout_constraintTop_toTopOf="@+id/view19"/>
 
         <TextView
-            android:id="@+id/textView32"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="11dp"
-            android:text="我的口令"
-            android:textColor="#ff49544e"
-            android:textSize="15sp"
-            android:visibility="gone"
-            app:layout_constraintEnd_toEndOf="@+id/vMyPassword"
-            app:layout_constraintStart_toStartOf="@+id/vMyPassword"
-            app:layout_constraintTop_toBottomOf="@+id/vMyPassword" />
+                android:id="@+id/textView32"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="11dp"
+                android:text="我的口令"
+                android:textColor="#ff49544e"
+                android:textSize="15sp"
+                android:visibility="gone"
+                app:layout_constraintEnd_toEndOf="@+id/vMyPassword"
+                app:layout_constraintStart_toStartOf="@+id/vMyPassword"
+                app:layout_constraintTop_toBottomOf="@+id/vMyPassword"/>
 
         <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="14dp"
-            android:text="发送到微信添加好友"
-            android:textColor="#ff8d8d8d"
-            android:textSize="15sp"
-            android:visibility="gone"
-            app:layout_constraintEnd_toEndOf="@+id/textView32"
-            app:layout_constraintStart_toStartOf="@+id/textView32"
-            app:layout_constraintTop_toBottomOf="@+id/textView32" />
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="14dp"
+                android:text="发送到微信添加好友"
+                android:textColor="#ff8d8d8d"
+                android:textSize="15sp"
+                android:visibility="gone"
+                app:layout_constraintEnd_toEndOf="@+id/textView32"
+                app:layout_constraintStart_toStartOf="@+id/textView32"
+                app:layout_constraintTop_toBottomOf="@+id/textView32"/>
 
         <ImageView
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:src="@drawable/icon_qr_code"
-            android:visibility="gone"
-            app:layout_constraintBottom_toBottomOf="@+id/vMyCode"
-            app:layout_constraintEnd_toEndOf="@+id/vMyCode"
-            app:layout_constraintStart_toStartOf="@+id/vMyCode"
-            app:layout_constraintTop_toTopOf="@+id/vMyCode" />
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:src="@drawable/icon_qr_code"
+                android:visibility="gone"
+                app:layout_constraintBottom_toBottomOf="@+id/vMyCode"
+                app:layout_constraintEnd_toEndOf="@+id/vMyCode"
+                app:layout_constraintStart_toStartOf="@+id/vMyCode"
+                app:layout_constraintTop_toTopOf="@+id/vMyCode"/>
 
         <ImageView
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:src="@drawable/icon_copy"
-            android:visibility="gone"
-            app:layout_constraintBottom_toBottomOf="@+id/vMyPassword"
-            app:layout_constraintEnd_toEndOf="@+id/vMyPassword"
-            app:layout_constraintStart_toStartOf="@+id/vMyPassword"
-            app:layout_constraintTop_toTopOf="@+id/vMyPassword" />
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:src="@drawable/icon_copy"
+                android:visibility="gone"
+                app:layout_constraintBottom_toBottomOf="@+id/vMyPassword"
+                app:layout_constraintEnd_toEndOf="@+id/vMyPassword"
+                app:layout_constraintStart_toStartOf="@+id/vMyPassword"
+                app:layout_constraintTop_toTopOf="@+id/vMyPassword"/>
 
         <TextView
-            android:id="@+id/tvAddFriend"
-            android:layout_width="88dp"
-            android:layout_height="42dp"
-            android:layout_marginBottom="27dp"
-            android:background="@drawable/icon_dialog_botton_btn"
-            android:gravity="center"
-            android:text="扫一扫"
-            android:textColor="#ffffffff"
-            android:textSize="15sp"
-            android:visibility="gone"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
+                android:id="@+id/tvAddFriend"
+                android:layout_width="88dp"
+                android:layout_height="42dp"
+                android:layout_marginBottom="27dp"
+                android:background="@drawable/icon_dialog_botton_btn"
+                android:gravity="center"
+                android:text="扫一扫"
+                android:textColor="#ffffffff"
+                android:textSize="15sp"
+                android:visibility="gone"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"/>
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

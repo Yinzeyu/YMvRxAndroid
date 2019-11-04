@@ -18,9 +18,9 @@ import java.nio.file.attribute.AclEntry.newBuilder
  */
 open class HeaderHttpHandler : GlobeHttpHandler {
     override fun onHttpResultResponse(
-        httpResult: String,
-        chain: Interceptor.Chain,
-        response: Response
+            httpResult: String,
+            chain: Interceptor.Chain,
+            response: Response
     ): Response {
         return response
     }
@@ -63,11 +63,11 @@ open class HeaderHttpHandler : GlobeHttpHandler {
 
             //重建新的HttpUrl，修改需要修改的url部分
             val newFullUrl = request.url
-                .newBuilder()
-                .scheme("https")//更换网络协议
-                .host(newBaseUrl?.host ?: request.url.host)//更换主机名
-                .port(newBaseUrl?.port ?: request.url.port)//更换端口
-                .build()
+                    .newBuilder()
+                    .scheme("https")//更换网络协议
+                    .host(newBaseUrl?.host ?: request.url.host)//更换主机名
+                    .port(newBaseUrl?.port ?: request.url.port)//更换端口
+                    .build()
             //重建这个request，通过builder.url(newFullUrl).build()；
             // 然后返回一个response至此结束修改
             Log.e("Url", "intercept: $newFullUrl");

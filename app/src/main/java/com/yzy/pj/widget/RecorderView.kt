@@ -161,7 +161,7 @@ class RecorderView(context: Context, attrs: AttributeSet) : View(context, attrs)
                 val distanceY: Float = abs(centerY - event.y)
                 //点击位置与圆心的直线距离
                 val distanceZ: Float =
-                    sqrt(distanceX.toDouble().pow(2.0) + distanceY.toDouble().pow(2.0)).toFloat()
+                        sqrt(distanceX.toDouble().pow(2.0) + distanceY.toDouble().pow(2.0)).toFloat()
                 //点中中间的圆才算开始录音
                 isCanSpeak = distanceZ <= circleRadius
                 if (isCanSpeak) {
@@ -172,7 +172,7 @@ class RecorderView(context: Context, attrs: AttributeSet) : View(context, attrs)
             } else if (event.action and MotionEvent.ACTION_MASK == MotionEvent.ACTION_MOVE) {
                 isCancel = (event.y < minHalfHeight - bitReNormal!!.height / 2f) && isRecording
             } else if (event.action and MotionEvent.ACTION_MASK == MotionEvent.ACTION_UP
-                || event.action and MotionEvent.ACTION_MASK == MotionEvent.ACTION_CANCEL
+                    || event.action and MotionEvent.ACTION_MASK == MotionEvent.ACTION_CANCEL
             ) {
                 if (isCancel && listener != null && isRecording) {
                     listener?.cancelRecorder()
@@ -200,19 +200,19 @@ class RecorderView(context: Context, attrs: AttributeSet) : View(context, attrs)
 //    }
         if (!PermissionUtils.hasRecordPermission()) {
             permissionDisposable = RxPermissions(context as BaseActivity)
-                .request(Manifest.permission.RECORD_AUDIO)
-                .subscribe {
-                    if (it) {
-                        //这个返回true不准
-                        audioPermissions = if (PermissionUtils.hasRecordPermission()) {
-                            true
-                        } else {
-                            LogUtils.e("showAudioRecordPermissionDialog")
+                    .request(Manifest.permission.RECORD_AUDIO)
+                    .subscribe {
+                        if (it) {
+                            //这个返回true不准
+                            audioPermissions = if (PermissionUtils.hasRecordPermission()) {
+                                true
+                            } else {
+                                LogUtils.e("showAudioRecordPermissionDialog")
 //                PermissionUtils.showAudioRecordPermissionDialog(context as ChatActivity)
-                            false
+                                false
+                            }
                         }
                     }
-                }
         } else {
             audioPermissions = true
         }
@@ -238,7 +238,7 @@ class RecorderView(context: Context, attrs: AttributeSet) : View(context, attrs)
             isRecording = false
             if (listener != null && !isCancel && mediaRecorderHelper != null) {
                 listener?.completeRecorder(
-                    Uri.fromFile(mediaRecorderHelper?.voiceFile), mediaRecorderHelper?.duration ?: 0
+                        Uri.fromFile(mediaRecorderHelper?.voiceFile), mediaRecorderHelper?.duration ?: 0
                 )
             }
         }
@@ -249,7 +249,7 @@ class RecorderView(context: Context, attrs: AttributeSet) : View(context, attrs)
         if (canvas != null) {
             if (minHalfHeight == 0f) {
                 minHalfHeight =
-                    paddingTop + bitReNormal!!.height / 2f + distanceBitText + distanceText + textSize + timeSize
+                        paddingTop + bitReNormal!!.height / 2f + distanceBitText + distanceText + textSize + timeSize
             }
             //清除画布
             canvas.drawPaint(paintClear)
@@ -282,10 +282,10 @@ class RecorderView(context: Context, attrs: AttributeSet) : View(context, attrs)
         val lenTime = paintText.measureText(timeStr)
         //绘制时间
         canvas.drawText(
-            timeStr,
-            width / 2f - lenTime / 2f - dp1,
-            textY - distanceText - timeSize,
-            paintText
+                timeStr,
+                width / 2f - lenTime / 2f - dp1,
+                textY - distanceText - timeSize,
+                paintText
         )
     }
 
@@ -304,10 +304,10 @@ class RecorderView(context: Context, attrs: AttributeSet) : View(context, attrs)
     //绘制图片
     private fun drawBitmap(canvas: Canvas, bitmap: Bitmap) {
         canvas.drawBitmap(
-            bitmap,
-            (width - bitmap.width) / 2f,
-            minHalfHeight - bitmap.height / 2f,
-            paintRe
+                bitmap,
+                (width - bitmap.width) / 2f,
+                minHalfHeight - bitmap.height / 2f,
+                paintRe
         )
     }
 

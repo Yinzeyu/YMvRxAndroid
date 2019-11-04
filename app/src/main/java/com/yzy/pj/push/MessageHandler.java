@@ -14,10 +14,10 @@ import com.umeng.message.entity.UMessage;
 
 public class MessageHandler extends UmengMessageHandler {
 
-  @Override
-  public Notification getNotification(Context context, UMessage uMessage) {
-    //默认为0，若填写的builder_id并不存在，也使用默认。
-    return super.getNotification(context, uMessage);
-  }
+    @Override
+    public Notification getNotification(Context context, UMessage uMessage) {
+        //默认为0，若填写的builder_id并不存在，也使用默认。
+        return super.getNotification(context, uMessage);
+    }
 
 }

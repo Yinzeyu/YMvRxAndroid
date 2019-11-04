@@ -31,21 +31,22 @@ inline fun View.click(crossinline function: (view: View) -> Unit) {
         }
     }
 }
+
 //设置按下效果为改变背景色
 fun View.pressEffectBgColor(
-    bgColor: Int = Color.parseColor("#f7f7f7"),
-    topLeftRadiusDp: Float = 0f,
-    topRightRadiusDp: Float = 0f,
-    bottomRightRadiusDp: Float = 0f,
-    bottomLeftRadiusDp: Float = 0f
+        bgColor: Int = Color.parseColor("#f7f7f7"),
+        topLeftRadiusDp: Float = 0f,
+        topRightRadiusDp: Float = 0f,
+        bottomRightRadiusDp: Float = 0f,
+        bottomLeftRadiusDp: Float = 0f
 ) {
     PressEffectHelper.bgColorEffect(
-        this,
-        bgColor,
-        topLeftRadiusDp,
-        topRightRadiusDp,
-        bottomRightRadiusDp,
-        bottomLeftRadiusDp
+            this,
+            bgColor,
+            topLeftRadiusDp,
+            topRightRadiusDp,
+            bottomRightRadiusDp,
+            bottomLeftRadiusDp
     )
 }
 
@@ -53,6 +54,7 @@ fun View.pressEffectBgColor(
 fun View.pressEffectAlpha(pressAlpha: Float = 0.7f) {
     PressEffectHelper.alphaEffect(this, pressAlpha)
 }
+
 // 黑暗 0.0F ~ 1.0F 透明
 fun Context.setBackgroundAlpha(alpha: Float) {
     val act = this as? Activity ?: return
@@ -75,20 +77,31 @@ fun isDoubleClick(): Boolean {
 }
 
 
-fun View.gone() { this.visibility = View.GONE }
+fun View.gone() {
+    this.visibility = View.GONE
+}
 
-fun View.invisible() { this.visibility = View.INVISIBLE }
+fun View.invisible() {
+    this.visibility = View.INVISIBLE
+}
 
-fun View.visible() { this.visibility = View.VISIBLE }
+fun View.visible() {
+    this.visibility = View.VISIBLE
+}
+
 //显示或者不显示且不占位
 fun View.visibleGone(visible: Boolean) = if (visible) visible() else gone()
 
 //显示或者不显示但占位
 fun View.visibleInvisible(visible: Boolean) = if (visible) visible() else invisible()
 
-fun View.enable() { this.isEnabled = true }
+fun View.enable() {
+    this.isEnabled = true
+}
 
-fun View.disable() { this.isEnabled = false }
+fun View.disable() {
+    this.isEnabled = false
+}
 
 
 //从父控件移除

@@ -8,7 +8,7 @@ import android.graphics.Bitmap
  *@author: yzy.
  */
 open class ShareContent : OperationContent {
-  open var img:Bitmap? = null   // 图片或者缩略图
-  open var url:String? = null   // 网页的地址
-  open var description:String? = null  // 描述
+    open var img: Bitmap? = null   // 图片或者缩略图
+    open var url: String? = null   // 网页的地址
+    open var description: String? = null  // 描述
 }

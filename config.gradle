@@ -19,10 +19,12 @@ def version_Build = 29//只能是1-999的数字(预想999次build应该可以发
 //默认显示的version_Code信息为:三位之前表示版本号、后三位表示当前版本的build次数
 def version_Code = (version_Name.replace(".", "")).toInteger() * 1000 + version_Build
 ext {
+    isApplication = true
     android = [
             applicationId          : "com.yzy.example",
             compileSdkVersion      : 29,
             minSdkVersion          : 21,
+            buildToolsVersion      : "29.0.2",
             targetSdkVersion       : 29,
             versionName            : version_Name,
             versionCode            : version_Code,

@@ -43,7 +43,7 @@ class TasteVideoActivity : BaseActivity() {
                 mActivity.toast("录音时间过短，无法发送")
                 return
             }
-            val play = MediaPlayer.create (mContext,path)
+            val play = MediaPlayer.create(mContext, path)
             play.start()
 
         }

@@ -11,10 +11,10 @@ import android.text.style.ClickableSpan
  * Time:14:06
  */
 abstract class TouchableSpan constructor(
-    var mNormalTextColor: Int,
-    var mPressedTextColor: Int,
-    var mPressedBackgroundColor: Int,
-    var mIsShowUnderLine: Boolean = false
+        var mNormalTextColor: Int,
+        var mPressedTextColor: Int,
+        var mPressedBackgroundColor: Int,
+        var mIsShowUnderLine: Boolean = false
 ) : ClickableSpan() {
     var mIsPressed: Boolean = false
     override fun updateDrawState(ds: TextPaint) {

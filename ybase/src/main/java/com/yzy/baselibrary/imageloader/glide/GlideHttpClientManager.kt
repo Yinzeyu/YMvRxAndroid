@@ -17,7 +17,7 @@ import java.io.IOException
  */
 object GlideHttpClientManager {
     private val listenersMap =
-        Collections.synchronizedMap(HashMap<String, OnImageProgressListener>())
+            Collections.synchronizedMap(HashMap<String, OnImageProgressListener>())
     private val LISTENER = object : ProgressResponseBody.InternalProgressListener {
         override fun onProgress(url: String, bytesRead: Long, totalBytes: Long) {
             val onProgressListener = getProgressListener(url)
@@ -37,8 +37,8 @@ object GlideHttpClientManager {
             builder.addNetworkInterceptor(NetworkInterceptor())
             SSLManager.createSSLSocketFactory()?.let {
                 builder.sslSocketFactory(
-                    it,
-                    SSLManager.TrustAllCerts()
+                        it,
+                        SSLManager.TrustAllCerts()
                 )
             }
             builder.hostnameVerifier(SSLManager.hostnameVerifier)
@@ -73,14 +73,14 @@ object GlideHttpClientManager {
             val request = chain.request()
             val response = chain.proceed(request)
             response.newBuilder()
-                .body(
-                    ProgressResponseBody(
-                        request.url.toString(),
-                        LISTENER,
-                        response.body!!
+                    .body(
+                            ProgressResponseBody(
+                                    request.url.toString(),
+                                    LISTENER,
+                                    response.body!!
+                            )
                     )
-                )
-                .build()
+                    .build()
             return response
         }
     }

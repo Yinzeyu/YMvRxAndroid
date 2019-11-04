@@ -16,7 +16,7 @@ internal object IMMessageDispatcher {
      * 根据objectName分类的消息接收回调
      */
     private val messageReceiveCallbackMap =
-        mutableMapOf<String, MutableList<(message: Message) -> Unit>>()
+            mutableMapOf<String, MutableList<(message: Message) -> Unit>>()
 
     /**
      * 所有消息的回调
@@ -29,17 +29,17 @@ internal object IMMessageDispatcher {
     fun dispatcherMessage(message: Message) {
         //需要切换到主线程
         val disposable = Observable.just(message)
-            .subscribeOn(Schedulers.io())
-            .unsubscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribe { message1 ->
-                allMessageReceiveCallbackList.forEach {
-                    it.invoke(message1)
+                .subscribeOn(Schedulers.io())
+                .unsubscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe { message1 ->
+                    allMessageReceiveCallbackList.forEach {
+                        it.invoke(message1)
+                    }
+                    messageReceiveCallbackMap[message1.objectName]?.forEach {
+                        it.invoke(message1)
+                    }
                 }
-                messageReceiveCallbackMap[message1.objectName]?.forEach {
-                    it.invoke(message1)
-                }
-            }
     }
 
     /**
@@ -48,8 +48,8 @@ internal object IMMessageDispatcher {
      * @param objectName 消息的objectName,为空的话表示所有类型的消息都监听
      */
     fun addMessageReceiveCallBack(
-        callback: (message: Message) -> Unit,
-        objectName: String? = null
+            callback: (message: Message) -> Unit,
+            objectName: String? = null
     ) {
         if (objectName.isNullOrBlank()) {
             allMessageReceiveCallbackList.add(callback)
@@ -69,8 +69,8 @@ internal object IMMessageDispatcher {
      * @param objectName 消息的objectName,为空的话表示所有类型的消息都监听
      */
     fun removeMessageReceiveCallBack(
-        callback: (message: Message) -> Unit,
-        objectName: String? = null
+            callback: (message: Message) -> Unit,
+            objectName: String? = null
     ) {
         if (objectName.isNullOrBlank()) {
             allMessageReceiveCallbackList.remove(callback)

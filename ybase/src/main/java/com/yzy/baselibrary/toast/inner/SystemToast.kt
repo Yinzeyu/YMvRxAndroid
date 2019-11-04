@@ -33,7 +33,7 @@ class SystemToast(var mContext: Context) : IToast, Cloneable {
 
     init {
         val layoutInflater =
-            mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
+                mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
         this.contentView = layoutInflater.inflate(R.layout.base_layout_toast, null)
     }
 

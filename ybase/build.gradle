@@ -4,6 +4,7 @@ apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
 android {
     compileSdkVersion rootProject.ext.android.compileSdkVersion
+    buildToolsVersion rootProject.ext.android.buildToolsVersion
     defaultConfig {
         minSdkVersion rootProject.ext.android.minSdkVersion
         targetSdkVersion rootProject.ext.android.targetSdkVersion
@@ -36,11 +37,6 @@ dependencies {
     api rootProject.ext.dependencies.appcompat_v7
     api rootProject.ext.dependencies.core_ktx
     api rootProject.ext.dependencies.constraintLayout
-//    api rootProject.ext.dependencies.rxlifecycle3
-//    api rootProject.ext.dependencies.rxlifecycle3_android
-//    api rootProject.ext.dependencies.rxlifecycle3_android_lifecycle
-//    api rootProject.ext.dependencies.rxlifecycle3_components
-//    api rootProject.ext.dependencies.rxlifecycle3_kotlin_lifecycle
     api rootProject.ext.dependencies.utilcode
     api rootProject.ext.dependencies.kodein
     api rootProject.ext.dependencies.kodein_android
@@ -59,14 +55,11 @@ dependencies {
     api rootProject.ext.dependencies.rxpermission
     api rootProject.ext.dependencies.autosize
     api rootProject.ext.dependencies.live_event_bus
-//    api(rootProject.ext.dependencies.rxBinding)
     api rootProject.ext.dependencies.mvrx
     api rootProject.ext.dependencies.epoxy
     kapt rootProject.ext.dependencies.epoxyProcessor
     api rootProject.ext.dependencies.mmkv
     api rootProject.ext.dependencies.lottie
-//    api rootProject.ext.dependencies.sketch
-//    api 'com.ycjiang:ImagePreview:2.2.6'
 //    https://github.com/gyf-dev/ImmersionBar
     // 基础依赖包，必须要依赖
     api 'com.gyf.immersionbar:immersionbar:3.0.0'

@@ -10,7 +10,7 @@ interface ApiConstants {
             private const val HTTP = "http://"
             private const val HTTPS = "https://"
             private const val DEV = ""//测试服地址
-            private const val REL =""//正式服地址
+            private const val REL = ""//正式服地址
             private const val WWW = ""//外部访问地址
             private const val AGREEMENT = "agreement"//协议下统一拼接路径
             val BASE_URL = "https://www.wanandroid.com/"

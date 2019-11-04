@@ -66,6 +66,7 @@ abstract class BaseActivity : BaseMvRxActivity(), MvRxView, KodeinAware {
     protected open fun statusImmersionBar(immersionBar: ImmersionBar) {
 
     }
+
     override fun invalidate() {
     }
 

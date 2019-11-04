@@ -8,7 +8,7 @@ import android.content.Intent
  *@author: yzy.
  */
 data class ActivityResultContent(
-    var request: Int,
-    var result: Int,
-    var data: Intent?
+        var request: Int,
+        var result: Int,
+        var data: Intent?
 ) : OperationContent

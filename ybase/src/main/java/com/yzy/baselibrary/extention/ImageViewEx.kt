@@ -19,28 +19,27 @@ import java.io.File
  *@author: yzy.
  *  加载url图片,默认CenterCrop和CrossFade效果
  */
-fun ImageView.load(url: String?, placeholderId: Int=0) {
+fun ImageView.load(url: String?, placeholderId: Int = 0) {
     url?.let {
         val config: ImageConfig = ImageConfig.builder()
-            .useCrossFade(false)
-            .url(it)
-            .errorSrc(placeholderId)//设置默认的占位图
-            .placeholder(placeholderId)//设置默认的加载错误图
-            .build()
+                .useCrossFade(false)
+                .url(it)
+                .errorSrc(placeholderId)//设置默认的占位图
+                .placeholder(placeholderId)//设置默认的加载错误图
+                .build()
         load(config)
     }
 }
 
 
-
-fun ImageView.load(url: String?, placeholderId: Int=0,config: ImageConfig){
+fun ImageView.load(url: String?, placeholderId: Int = 0, config: ImageConfig) {
     url?.let {
         config.context = BaseApplication.getApp()
         config.imageView = this
-        config.url=url
-        config.errorSrc=placeholderId
-        config.placeholder=placeholderId
-        config.useCrossFade=false
+        config.url = url
+        config.errorSrc = placeholderId
+        config.placeholder = placeholderId
+        config.useCrossFade = false
         val loader: ImageLoader by BaseApplication.getApp().kodein.instance()
         loader.loadImage(config)
     }
@@ -114,7 +113,6 @@ fun ImageView.load(config: ImageConfig) {
 //        load(config)
 //    }
 //}
-
 
 
 ///**

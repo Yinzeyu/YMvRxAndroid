@@ -12,9 +12,9 @@ import com.yzy.sociallib.entity.content.OperationContent
  *@author: yzy.
  */
 data class OperationBean(
-    var operationContext: Context,        // 操作上下文
-    var operationPlat: PlatformType,      // 平台类型
-    var operationType: OperationType,     // 操作类型
-    var operationCallback: OperationCallback,   // 回调
-    var operationContent: OperationContent? = null  // 平台内容
+        var operationContext: Context,        // 操作上下文
+        var operationPlat: PlatformType,      // 平台类型
+        var operationType: OperationType,     // 操作类型
+        var operationCallback: OperationCallback,   // 回调
+        var operationContent: OperationContent? = null  // 平台内容
 )

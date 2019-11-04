@@ -20,33 +20,33 @@ import kotlinx.android.synthetic.main.item_comm_error_empty.view.*
 @EpoxyModelClass(layout = R.layout.item_comm_error_empty)
 abstract class ErrorEmptyItem : BaseEpoxyModel<BaseEpoxyHolder>() {
 
-  //图片的资源ID
-  @EpoxyAttribute
+    //图片的资源ID
+    @EpoxyAttribute
 
-  @DrawableRes
-  var imageResource: Int? = null
+    @DrawableRes
+    var imageResource: Int? = null
 
-  //提示的文字，不设置就没有文字
-  @EpoxyAttribute
-  var tipsText: CharSequence? = null
-  @EpoxyAttribute
-  var tipsColor: Int? = null
+    //提示的文字，不设置就没有文字
+    @EpoxyAttribute
+    var tipsText: CharSequence? = null
+    @EpoxyAttribute
+    var tipsColor: Int? = null
 
-  //重试点击事件
-  @EpoxyAttribute(EpoxyAttribute.Option.DoNotHash)
-  var onRetryClick: (() -> Unit)? = null
+    //重试点击事件
+    @EpoxyAttribute(EpoxyAttribute.Option.DoNotHash)
+    var onRetryClick: (() -> Unit)? = null
 
-  override fun onBind(itemView: View) {
-    super.onBind(itemView)
-    imageResource?.let { itemView.errorEmptyIv.setImageResource(it) }
-    tipsColor?.let { itemView.errorEmptyTips.setTextColor(it) }
-    tipsText?.let { itemView.errorEmptyTips.text = it }
-    itemView.errorEmptyIv.visibleGone(imageResource != null)
-    itemView.errorEmptyTips.visibleGone(!tipsText.isNullOrBlank())
-    itemView.errorEmptyRoot.click {
-      if (NetUtils.instance.checkToast()) {
-        onRetryClick?.invoke()
-      }
+    override fun onBind(itemView: View) {
+        super.onBind(itemView)
+        imageResource?.let { itemView.errorEmptyIv.setImageResource(it) }
+        tipsColor?.let { itemView.errorEmptyTips.setTextColor(it) }
+        tipsText?.let { itemView.errorEmptyTips.text = it }
+        itemView.errorEmptyIv.visibleGone(imageResource != null)
+        itemView.errorEmptyTips.visibleGone(!tipsText.isNullOrBlank())
+        itemView.errorEmptyRoot.click {
+            if (NetUtils.instance.checkToast()) {
+                onRetryClick?.invoke()
+            }
+        }
     }
-  }
 }

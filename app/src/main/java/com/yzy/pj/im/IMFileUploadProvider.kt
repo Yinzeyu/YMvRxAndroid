@@ -15,10 +15,10 @@ interface IMFileUploadProvider {
      * @param progress 文件上传进度
      */
     fun uploadFile(
-        filePath: String,
-        success: (filePath: String, url: String) -> Unit,
-        failed: (filePath: String?) -> Unit,
-        progress: (filePath: String, progress: Int) -> Unit
+            filePath: String,
+            success: (filePath: String, url: String) -> Unit,
+            failed: (filePath: String?) -> Unit,
+            progress: (filePath: String, progress: Int) -> Unit
     )
 
 }

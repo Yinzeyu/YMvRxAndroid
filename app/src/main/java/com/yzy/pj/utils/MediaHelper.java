@@ -47,7 +47,7 @@ public class MediaHelper {
         if (!dir.exists()) {
             dir.mkdirs();
         }
-        File soundFile = new File(dir, System.currentTimeMillis()+".amr");
+        File soundFile = new File(dir, System.currentTimeMillis() + ".amr");
         if (!soundFile.exists()) {
             try {
                 soundFile.createNewFile();

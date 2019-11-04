@@ -10,12 +10,12 @@ import io.reactivex.functions.Function
  *@author: yzy.
  */
 class IsGankSuccessFunc<T> : Function<GankBaseBean<T>, MutableList<T>> {
-  @Throws(Exception::class)
-  override fun apply(bean: GankBaseBean<T>): MutableList<T> {
-    return if (bean.error) {
-      throw ApiException(400, "接口请求异常")
-    } else {
-      bean.results
+    @Throws(Exception::class)
+    override fun apply(bean: GankBaseBean<T>): MutableList<T> {
+        return if (bean.error) {
+            throw ApiException(400, "接口请求异常")
+        } else {
+            bean.results
+        }
     }
-  }
 }

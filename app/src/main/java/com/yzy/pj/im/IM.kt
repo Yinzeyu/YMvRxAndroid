@@ -98,8 +98,8 @@ object IM {
      * @param callback 指定类型消息接收到的回调
      */
     fun removeMessageReceivedListener(
-        objectName: String? = null,
-        callback: (message: Message) -> Unit
+            objectName: String? = null,
+            callback: (message: Message) -> Unit
     ) {
         IMMessageDispatcher.removeMessageReceiveCallBack(callback, objectName)
     }
@@ -121,30 +121,30 @@ object IM {
      * @param progress 消息的发送进度的回调
      */
     fun sendMessage(
-        conversationType: Conversation.ConversationType,
-        targetId: String,
-        content: MessageContent,
-        pushContent: String? = null,
-        pushData: String? = null,
-        messageType: IMMessageType? = IMMessageType.Other,
-        success: ((message: Message?, type: IMMessageType) -> Unit)? = null,
-        error: ((message: Message?, type: IMMessageType, errorCode: Int?) -> Unit)? = null,
-        attached: ((message: Message?, type: IMMessageType) -> Unit)? = null,
-        canceled: ((message: Message?, type: IMMessageType) -> Unit)? = null,
-        progress: ((message: Message?, type: IMMessageType, progress: Int) -> Unit)? = null
+            conversationType: Conversation.ConversationType,
+            targetId: String,
+            content: MessageContent,
+            pushContent: String? = null,
+            pushData: String? = null,
+            messageType: IMMessageType? = IMMessageType.Other,
+            success: ((message: Message?, type: IMMessageType) -> Unit)? = null,
+            error: ((message: Message?, type: IMMessageType, errorCode: Int?) -> Unit)? = null,
+            attached: ((message: Message?, type: IMMessageType) -> Unit)? = null,
+            canceled: ((message: Message?, type: IMMessageType) -> Unit)? = null,
+            progress: ((message: Message?, type: IMMessageType, progress: Int) -> Unit)? = null
     ) {
         IMCore.sendMessage(
-            conversationType,
-            targetId,
-            content,
-            pushContent,
-            pushData,
-            messageType,
-            success,
-            error,
-            attached,
-            canceled,
-            progress
+                conversationType,
+                targetId,
+                content,
+                pushContent,
+                pushData,
+                messageType,
+                success,
+                error,
+                attached,
+                canceled,
+                progress
         )
     }
 
@@ -165,12 +165,12 @@ object IM {
      * @param error 消息插入失败的回调
      */
     fun insertSendMessage(
-        conversationType: Conversation.ConversationType,
-        targetId: String,
-        content: MessageContent,
-        sentStatus: Message.SentStatus? = Message.SentStatus.READ,
-        success: ((message: Message?) -> Unit)? = null,
-        error: ((errorCode: Int?) -> Unit)? = null
+            conversationType: Conversation.ConversationType,
+            targetId: String,
+            content: MessageContent,
+            sentStatus: Message.SentStatus? = Message.SentStatus.READ,
+            success: ((message: Message?) -> Unit)? = null,
+            error: ((errorCode: Int?) -> Unit)? = null
     ) {
         IMCore.insertSendMessage(conversationType, targetId, content, sentStatus, success, error)
     }
@@ -183,10 +183,10 @@ object IM {
      * @param sentStatus 插入的发出的消息状态，默认是已读
      */
     fun insertSendMessage(
-        conversationType: Conversation.ConversationType,
-        targetId: String,
-        content: MessageContent,
-        sentStatus: Message.SentStatus? = Message.SentStatus.READ
+            conversationType: Conversation.ConversationType,
+            targetId: String,
+            content: MessageContent,
+            sentStatus: Message.SentStatus? = Message.SentStatus.READ
     ): Observable<Message> {
         return Observable.create<Message> { emitter ->
             IMCore.insertSendMessage(conversationType, targetId, content, sentStatus, success = {
@@ -201,7 +201,7 @@ object IM {
                 emitter.onComplete()
             })
         }.observeOn(Schedulers.io())
-            .subscribeOn(AndroidSchedulers.mainThread())
+                .subscribeOn(AndroidSchedulers.mainThread())
     }
 
     /**
@@ -216,24 +216,24 @@ object IM {
      * @param error 消息插入失败的回调
      */
     fun insertReceiveMessage(
-        conversationType: Conversation.ConversationType,
-        targetId: String,
-        senderUserId: String,
-        sentTime: Long,
-        content: MessageContent,
-        receivedStatus: Message.ReceivedStatus? = Message.ReceivedStatus(1),
-        success: ((message: Message?) -> Unit)? = null,
-        error: ((errorCode: Int?) -> Unit)? = null
+            conversationType: Conversation.ConversationType,
+            targetId: String,
+            senderUserId: String,
+            sentTime: Long,
+            content: MessageContent,
+            receivedStatus: Message.ReceivedStatus? = Message.ReceivedStatus(1),
+            success: ((message: Message?) -> Unit)? = null,
+            error: ((errorCode: Int?) -> Unit)? = null
     ) {
         IMCore.insertReceiveMessage(
-            conversationType,
-            targetId,
-            senderUserId,
-            sentTime,
-            content,
-            receivedStatus,
-            success,
-            error
+                conversationType,
+                targetId,
+                senderUserId,
+                sentTime,
+                content,
+                receivedStatus,
+                success,
+                error
         )
     }
 
@@ -247,44 +247,44 @@ object IM {
      * @param receivedStatus 插入的接收到的消息状态，默认是已读
      */
     fun insertReceiveMessage(
-        conversationType: Conversation.ConversationType,
-        targetId: String,
-        senderUserId: String,
-        sentTime: Long,
-        content: MessageContent,
-        receivedStatus: Message.ReceivedStatus? = Message.ReceivedStatus(1)
+            conversationType: Conversation.ConversationType,
+            targetId: String,
+            senderUserId: String,
+            sentTime: Long,
+            content: MessageContent,
+            receivedStatus: Message.ReceivedStatus? = Message.ReceivedStatus(1)
     ): Observable<Message> {
         return Observable.create<Message> { emitter ->
             IMCore.insertReceiveMessage(
-                conversationType,
-                targetId,
-                senderUserId,
-                sentTime,
-                content,
-                receivedStatus,
-                success = {
-                    if (it != null) {
-                        emitter.onNext(it)
-                    } else {
-                        emitter.onError(operateFailedException)
-                    }
-                    emitter.onComplete()
-                },
-                error = {
-                    emitter.onError(createIMException(it))
-                    emitter.onComplete()
-                })
+                    conversationType,
+                    targetId,
+                    senderUserId,
+                    sentTime,
+                    content,
+                    receivedStatus,
+                    success = {
+                        if (it != null) {
+                            emitter.onNext(it)
+                        } else {
+                            emitter.onError(operateFailedException)
+                        }
+                        emitter.onComplete()
+                    },
+                    error = {
+                        emitter.onError(createIMException(it))
+                        emitter.onComplete()
+                    })
         }.observeOn(Schedulers.io())
-            .subscribeOn(AndroidSchedulers.mainThread())
+                .subscribeOn(AndroidSchedulers.mainThread())
     }
 
     /**
      * 删除指定消息
      */
     fun deleteMessages(
-        vararg message: Message,
-        success: ((isSuccess: Boolean) -> Unit)? = null,
-        error: ((errorCode: Int?) -> Unit)? = null
+            vararg message: Message,
+            success: ((isSuccess: Boolean) -> Unit)? = null,
+            error: ((errorCode: Int?) -> Unit)? = null
     ) {
         IMCore.deleteMessages(message.toList(), success, error)
     }
@@ -295,30 +295,30 @@ object IM {
     fun deleteMessages(vararg message: Message): Observable<Boolean> {
         return Observable.create<Boolean> { emitter ->
             IMCore.deleteMessages(
-                message.toList(),
-                success = {
-                    if (it) {
-                        emitter.onNext(it)
-                    } else {
-                        emitter.onError(operateFailedException)
-                    }
-                    emitter.onComplete()
-                },
-                error = {
-                    emitter.onError(createIMException(it))
-                    emitter.onComplete()
-                })
+                    message.toList(),
+                    success = {
+                        if (it) {
+                            emitter.onNext(it)
+                        } else {
+                            emitter.onError(operateFailedException)
+                        }
+                        emitter.onComplete()
+                    },
+                    error = {
+                        emitter.onError(createIMException(it))
+                        emitter.onComplete()
+                    })
         }.observeOn(Schedulers.io())
-            .subscribeOn(AndroidSchedulers.mainThread())
+                .subscribeOn(AndroidSchedulers.mainThread())
     }
 
     /**
      * 删除指定ID的消息
      */
     fun deleteMessagesByIds(
-        vararg id: Int,
-        success: ((isSuccess: Boolean) -> Unit)? = null,
-        error: ((errorCode: Int?) -> Unit)? = null
+            vararg id: Int,
+            success: ((isSuccess: Boolean) -> Unit)? = null,
+            error: ((errorCode: Int?) -> Unit)? = null
     ) {
         IMCore.deleteMessagesByIds(id.toList(), success, error)
     }
@@ -329,29 +329,29 @@ object IM {
     fun deleteMessagesByIds(vararg id: Int): Observable<Boolean> {
         return Observable.create<Boolean> { emitter ->
             IMCore.deleteMessagesByIds(
-                id.toList(),
-                success = {
-                    if (it) {
-                        emitter.onNext(it)
-                    } else {
-                        emitter.onError(operateFailedException)
-                    }
-                    emitter.onComplete()
-                },
-                error = {
-                    emitter.onError(createIMException(it))
-                    emitter.onComplete()
-                })
+                    id.toList(),
+                    success = {
+                        if (it) {
+                            emitter.onNext(it)
+                        } else {
+                            emitter.onError(operateFailedException)
+                        }
+                        emitter.onComplete()
+                    },
+                    error = {
+                        emitter.onError(createIMException(it))
+                        emitter.onComplete()
+                    })
         }.observeOn(Schedulers.io())
-            .subscribeOn(AndroidSchedulers.mainThread())
+                .subscribeOn(AndroidSchedulers.mainThread())
     }
 
     /**
      * 获取所有会话的未读消息总数量
      */
     fun getTotalUnreadCount(
-        success: (count: Int) -> Unit,
-        error: ((errorCode: Int?) -> Unit)? = null
+            success: (count: Int) -> Unit,
+            error: ((errorCode: Int?) -> Unit)? = null
     ) {
         IMCore.getTotalUnreadCount(success, error)
     }
@@ -362,16 +362,16 @@ object IM {
     fun getTotalUnreadCount(): Observable<Int> {
         return Observable.create<Int> { emitter ->
             IMCore.getTotalUnreadCount(
-                success = {
-                    emitter.onNext(it)
-                    emitter.onComplete()
-                },
-                error = {
-                    emitter.onError(createIMException(it))
-                    emitter.onComplete()
-                })
+                    success = {
+                        emitter.onNext(it)
+                        emitter.onComplete()
+                    },
+                    error = {
+                        emitter.onError(createIMException(it))
+                        emitter.onComplete()
+                    })
         }.observeOn(Schedulers.io())
-            .subscribeOn(AndroidSchedulers.mainThread())
+                .subscribeOn(AndroidSchedulers.mainThread())
     }
 
 
@@ -379,9 +379,9 @@ object IM {
      * 获取指定会话类型的未读消息总数量
      */
     fun getUnreadCount(
-        vararg conversationTypes: Conversation.ConversationType,
-        success: (count: Int) -> Unit,
-        error: ((errorCode: Int?) -> Unit)? = null
+            vararg conversationTypes: Conversation.ConversationType,
+            success: (count: Int) -> Unit,
+            error: ((errorCode: Int?) -> Unit)? = null
     ) {
         IMCore.getUnreadCount(conversationTypes.toList().toTypedArray(), success, error)
     }
@@ -392,17 +392,17 @@ object IM {
     fun getUnreadCount(vararg conversationTypes: Conversation.ConversationType): Observable<Int> {
         return Observable.create<Int> { emitter ->
             IMCore.getUnreadCount(
-                conversationTypes.toList().toTypedArray(),
-                success = {
-                    emitter.onNext(it)
-                    emitter.onComplete()
-                },
-                error = {
-                    emitter.onError(createIMException(it))
-                    emitter.onComplete()
-                })
+                    conversationTypes.toList().toTypedArray(),
+                    success = {
+                        emitter.onNext(it)
+                        emitter.onComplete()
+                    },
+                    error = {
+                        emitter.onError(createIMException(it))
+                        emitter.onComplete()
+                    })
         }.observeOn(Schedulers.io())
-            .subscribeOn(AndroidSchedulers.mainThread())
+                .subscribeOn(AndroidSchedulers.mainThread())
     }
 
 
@@ -410,10 +410,10 @@ object IM {
      * 获取指定会话的未读消息数量
      */
     fun getConversationUnreadCount(
-        conversationType: Conversation.ConversationType,
-        targetId: String,
-        success: (count: Int) -> Unit,
-        error: ((errorCode: Int?) -> Unit)? = null
+            conversationType: Conversation.ConversationType,
+            targetId: String,
+            success: (count: Int) -> Unit,
+            error: ((errorCode: Int?) -> Unit)? = null
     ) {
         IMCore.getConversationUnreadCount(conversationType, targetId, success, error)
     }
@@ -422,31 +422,31 @@ object IM {
      * 获取指定会话的未读消息数量
      */
     fun getConversationUnreadCount(
-        conversationType: Conversation.ConversationType,
-        targetId: String
+            conversationType: Conversation.ConversationType,
+            targetId: String
     ): Observable<Int> {
         return Observable.create<Int> { emitter ->
             IMCore.getConversationUnreadCount(
-                conversationType,
-                targetId,
-                success = {
-                    emitter.onNext(it)
-                    emitter.onComplete()
-                },
-                error = {
-                    emitter.onError(createIMException(it))
-                    emitter.onComplete()
-                })
+                    conversationType,
+                    targetId,
+                    success = {
+                        emitter.onNext(it)
+                        emitter.onComplete()
+                    },
+                    error = {
+                        emitter.onError(createIMException(it))
+                        emitter.onComplete()
+                    })
         }.observeOn(Schedulers.io())
-            .subscribeOn(AndroidSchedulers.mainThread())
+                .subscribeOn(AndroidSchedulers.mainThread())
     }
 
     /**
      * 获取本地会话的列表
      */
     fun getConversationList(
-        success: (conversationList: List<Conversation>) -> Unit,
-        error: ((errorCode: Int?) -> Unit)? = null
+            success: (conversationList: List<Conversation>) -> Unit,
+            error: ((errorCode: Int?) -> Unit)? = null
     ) {
         IMCore.getConversationList(success, error)
     }
@@ -457,16 +457,16 @@ object IM {
     fun getConversationList(): Observable<List<Conversation>> {
         return Observable.create<List<Conversation>> { emitter ->
             IMCore.getConversationList(
-                success = {
-                    emitter.onNext(it)
-                    emitter.onComplete()
-                },
-                error = {
-                    emitter.onError(createIMException(it))
-                    emitter.onComplete()
-                })
+                    success = {
+                        emitter.onNext(it)
+                        emitter.onComplete()
+                    },
+                    error = {
+                        emitter.onError(createIMException(it))
+                        emitter.onComplete()
+                    })
         }.observeOn(Schedulers.io())
-            .subscribeOn(AndroidSchedulers.mainThread())
+                .subscribeOn(AndroidSchedulers.mainThread())
     }
 
 
@@ -474,10 +474,10 @@ object IM {
      * 获取指定的本地会话
      */
     fun getConversation(
-        conversationType: Conversation.ConversationType,
-        targetId: String,
-        success: (conversation: Conversation?) -> Unit,
-        error: ((errorCode: Int?) -> Unit)? = null
+            conversationType: Conversation.ConversationType,
+            targetId: String,
+            success: (conversation: Conversation?) -> Unit,
+            error: ((errorCode: Int?) -> Unit)? = null
     ) {
         IMCore.getConversation(conversationType, targetId, success, error)
     }
@@ -486,23 +486,23 @@ object IM {
      * 获取指定的本地会话
      */
     fun getConversation(
-        conversationType: Conversation.ConversationType,
-        targetId: String
+            conversationType: Conversation.ConversationType,
+            targetId: String
     ): Observable<Conversation> {
         return Observable.create<Conversation> { emitter ->
             IMCore.getConversation(conversationType, targetId,
-                success = { conversation ->
-                    conversation?.let {
-                        emitter.onNext(it)
-                    }
-                    emitter.onComplete()
-                },
-                error = {
-                    emitter.onError(createIMException(it))
-                    emitter.onComplete()
-                })
+                    success = { conversation ->
+                        conversation?.let {
+                            emitter.onNext(it)
+                        }
+                        emitter.onComplete()
+                    },
+                    error = {
+                        emitter.onError(createIMException(it))
+                        emitter.onComplete()
+                    })
         }.observeOn(Schedulers.io())
-            .subscribeOn(AndroidSchedulers.mainThread())
+                .subscribeOn(AndroidSchedulers.mainThread())
     }
 
 
@@ -514,10 +514,10 @@ object IM {
      * @param error 异常回调
      */
     fun removeConversation(
-        conversation: Conversation,
-        isClearMessage: Boolean = false,
-        success: (isSuccess: Boolean) -> Unit,
-        error: ((errorCode: Int?) -> Unit)? = null
+            conversation: Conversation,
+            isClearMessage: Boolean = false,
+            success: (isSuccess: Boolean) -> Unit,
+            error: ((errorCode: Int?) -> Unit)? = null
     ) {
         IMCore.removeConversation(conversation, isClearMessage, success, error)
     }
@@ -528,27 +528,27 @@ object IM {
      * @param isClearMessage 是否同时清除消息
      */
     fun removeConversation(
-        conversation: Conversation,
-        isClearMessage: Boolean = false
+            conversation: Conversation,
+            isClearMessage: Boolean = false
     ): Observable<Boolean> {
         return Observable.create<Boolean> { emitter ->
             IMCore.removeConversation(
-                conversation,
-                isClearMessage,
-                success = {
-                    if (it) {
-                        emitter.onNext(it)
-                    } else {
-                        emitter.onError(operateFailedException)
-                    }
-                    emitter.onComplete()
-                },
-                error = {
-                    emitter.onError(createIMException(it))
-                    emitter.onComplete()
-                })
+                    conversation,
+                    isClearMessage,
+                    success = {
+                        if (it) {
+                            emitter.onNext(it)
+                        } else {
+                            emitter.onError(operateFailedException)
+                        }
+                        emitter.onComplete()
+                    },
+                    error = {
+                        emitter.onError(createIMException(it))
+                        emitter.onComplete()
+                    })
         }.observeOn(Schedulers.io())
-            .subscribeOn(AndroidSchedulers.mainThread())
+                .subscribeOn(AndroidSchedulers.mainThread())
     }
 
     /**
@@ -560,11 +560,11 @@ object IM {
      * @param error 异常回调
      */
     fun removeConversation(
-        conversationType: Conversation.ConversationType,
-        targetId: String,
-        isClearMessage: Boolean = false,
-        success: (isSuccess: Boolean) -> Unit,
-        error: ((errorCode: Int?) -> Unit)? = null
+            conversationType: Conversation.ConversationType,
+            targetId: String,
+            isClearMessage: Boolean = false,
+            success: (isSuccess: Boolean) -> Unit,
+            error: ((errorCode: Int?) -> Unit)? = null
     ) {
         IMCore.removeConversation(conversationType, targetId, isClearMessage, success, error)
     }
@@ -576,29 +576,29 @@ object IM {
      * @param isClearMessage 是否同时清除消息
      */
     fun removeConversation(
-        conversationType: Conversation.ConversationType,
-        targetId: String,
-        isClearMessage: Boolean = false
+            conversationType: Conversation.ConversationType,
+            targetId: String,
+            isClearMessage: Boolean = false
     ): Observable<Boolean> {
         return Observable.create<Boolean> { emitter ->
             IMCore.removeConversation(
-                conversationType,
-                targetId,
-                isClearMessage,
-                success = {
-                    if (it) {
-                        emitter.onNext(it)
-                    } else {
-                        emitter.onError(operateFailedException)
-                    }
-                    emitter.onComplete()
-                },
-                error = {
-                    emitter.onError(createIMException(it))
-                    emitter.onComplete()
-                })
+                    conversationType,
+                    targetId,
+                    isClearMessage,
+                    success = {
+                        if (it) {
+                            emitter.onNext(it)
+                        } else {
+                            emitter.onError(operateFailedException)
+                        }
+                        emitter.onComplete()
+                    },
+                    error = {
+                        emitter.onError(createIMException(it))
+                        emitter.onComplete()
+                    })
         }.observeOn(Schedulers.io())
-            .subscribeOn(AndroidSchedulers.mainThread())
+                .subscribeOn(AndroidSchedulers.mainThread())
     }
 
 
@@ -606,9 +606,9 @@ object IM {
      * 清除指定会话的未读消息的状态
      */
     fun clearMessagesUnreadStatus(
-        conversation: Conversation,
-        success: (isSuccess: Boolean) -> Unit,
-        error: ((errorCode: Int?) -> Unit)? = null
+            conversation: Conversation,
+            success: (isSuccess: Boolean) -> Unit,
+            error: ((errorCode: Int?) -> Unit)? = null
     ) {
         IMCore.clearMessagesUnreadStatus(conversation, success, error)
     }
@@ -617,35 +617,35 @@ object IM {
      * 清除指定会话的未读消息的状态
      */
     fun clearMessagesUnreadStatus(
-        conversation: Conversation
+            conversation: Conversation
     ): Observable<Boolean> {
         return Observable.create<Boolean> { emitter ->
             IMCore.clearMessagesUnreadStatus(
-                conversation,
-                success = {
-                    if (it) {
-                        emitter.onNext(it)
-                    } else {
-                        emitter.onError(operateFailedException)
-                    }
-                    emitter.onComplete()
-                },
-                error = {
-                    emitter.onError(createIMException(it))
-                    emitter.onComplete()
-                })
+                    conversation,
+                    success = {
+                        if (it) {
+                            emitter.onNext(it)
+                        } else {
+                            emitter.onError(operateFailedException)
+                        }
+                        emitter.onComplete()
+                    },
+                    error = {
+                        emitter.onError(createIMException(it))
+                        emitter.onComplete()
+                    })
         }.observeOn(Schedulers.io())
-            .subscribeOn(AndroidSchedulers.mainThread())
+                .subscribeOn(AndroidSchedulers.mainThread())
     }
 
     /**
      * 清除指定会话的未读消息的状态
      */
     fun clearMessagesUnreadStatus(
-        conversationType: Conversation.ConversationType,
-        targetId: String,
-        success: (isSuccess: Boolean) -> Unit,
-        error: ((errorCode: Int?) -> Unit)? = null
+            conversationType: Conversation.ConversationType,
+            targetId: String,
+            success: (isSuccess: Boolean) -> Unit,
+            error: ((errorCode: Int?) -> Unit)? = null
     ) {
         IMCore.clearMessagesUnreadStatus(conversationType, targetId, success, error)
     }
@@ -654,27 +654,27 @@ object IM {
      * 清除指定会话的未读消息的状态
      */
     fun clearMessagesUnreadStatus(
-        conversationType: Conversation.ConversationType,
-        targetId: String
+            conversationType: Conversation.ConversationType,
+            targetId: String
     ): Observable<Boolean> {
         return Observable.create<Boolean> { emitter ->
             IMCore.clearMessagesUnreadStatus(
-                conversationType,
-                targetId,
-                success = {
-                    if (it) {
-                        emitter.onNext(it)
-                    } else {
-                        emitter.onError(operateFailedException)
-                    }
-                    emitter.onComplete()
-                },
-                error = {
-                    emitter.onError(createIMException(it))
-                    emitter.onComplete()
-                })
+                    conversationType,
+                    targetId,
+                    success = {
+                        if (it) {
+                            emitter.onNext(it)
+                        } else {
+                            emitter.onError(operateFailedException)
+                        }
+                        emitter.onComplete()
+                    },
+                    error = {
+                        emitter.onError(createIMException(it))
+                        emitter.onComplete()
+                    })
         }.observeOn(Schedulers.io())
-            .subscribeOn(AndroidSchedulers.mainThread())
+                .subscribeOn(AndroidSchedulers.mainThread())
     }
 
     /**
@@ -686,11 +686,11 @@ object IM {
      * @param error
      */
     fun getHistoryMessages(
-        conversation: Conversation,
-        oldestMessageId: Int = -1,
-        count: Int = 20,
-        success: (messageList: List<Message>) -> Unit,
-        error: ((errorCode: Int?) -> Unit)? = null
+            conversation: Conversation,
+            oldestMessageId: Int = -1,
+            count: Int = 20,
+            success: (messageList: List<Message>) -> Unit,
+            error: ((errorCode: Int?) -> Unit)? = null
     ) {
         IMCore.getHistoryMessages(conversation, oldestMessageId, count, success, error)
     }
@@ -702,25 +702,25 @@ object IM {
      * @param count  要获取的消息数量。默认20
      */
     fun getHistoryMessages(
-        conversation: Conversation,
-        oldestMessageId: Int = -1,
-        count: Int = 20
+            conversation: Conversation,
+            oldestMessageId: Int = -1,
+            count: Int = 20
     ): Observable<List<Message>> {
         return Observable.create<List<Message>> { emitter ->
             IMCore.getHistoryMessages(
-                conversation,
-                oldestMessageId,
-                count,
-                success = {
-                    emitter.onNext(it)
-                    emitter.onComplete()
-                },
-                error = {
-                    emitter.onError(createIMException(it))
-                    emitter.onComplete()
-                })
+                    conversation,
+                    oldestMessageId,
+                    count,
+                    success = {
+                        emitter.onNext(it)
+                        emitter.onComplete()
+                    },
+                    error = {
+                        emitter.onError(createIMException(it))
+                        emitter.onComplete()
+                    })
         }.observeOn(Schedulers.io())
-            .subscribeOn(AndroidSchedulers.mainThread())
+                .subscribeOn(AndroidSchedulers.mainThread())
     }
 
     /**
@@ -733,12 +733,12 @@ object IM {
      * @param error
      */
     fun getHistoryMessages(
-        conversationType: Conversation.ConversationType,
-        targetId: String,
-        oldestMessageId: Int = -1,
-        count: Int = 20,
-        success: (messageList: List<Message>) -> Unit,
-        error: ((errorCode: Int?) -> Unit)? = null
+            conversationType: Conversation.ConversationType,
+            targetId: String,
+            oldestMessageId: Int = -1,
+            count: Int = 20,
+            success: (messageList: List<Message>) -> Unit,
+            error: ((errorCode: Int?) -> Unit)? = null
     ) {
         IMCore.getHistoryMessages(conversationType, targetId, oldestMessageId, count, success, error)
     }
@@ -752,27 +752,27 @@ object IM {
      * @param count  要获取的消息数量。默认20
      */
     fun getHistoryMessages(
-        conversationType: Conversation.ConversationType,
-        targetId: String,
-        oldestMessageId: Int = -1,
-        count: Int = 20
+            conversationType: Conversation.ConversationType,
+            targetId: String,
+            oldestMessageId: Int = -1,
+            count: Int = 20
     ): Observable<List<Message>> {
         return Observable.create<List<Message>> { emitter ->
             IMCore.getHistoryMessages(
-                conversationType,
-                targetId,
-                oldestMessageId,
-                count,
-                success = {
-                    emitter.onNext(it)
-                    emitter.onComplete()
-                },
-                error = {
-                    emitter.onError(createIMException(it))
-                    emitter.onComplete()
-                })
+                    conversationType,
+                    targetId,
+                    oldestMessageId,
+                    count,
+                    success = {
+                        emitter.onNext(it)
+                        emitter.onComplete()
+                    },
+                    error = {
+                        emitter.onError(createIMException(it))
+                        emitter.onComplete()
+                    })
         }.observeOn(Schedulers.io())
-            .subscribeOn(AndroidSchedulers.mainThread())
+                .subscribeOn(AndroidSchedulers.mainThread())
     }
 
     /**
@@ -785,12 +785,12 @@ object IM {
      * @param error
      */
     fun searchMessages(
-        conversation: Conversation,
-        keyword: String,
-        count: Int = 0,
-        beginTime: Long = 0,
-        success: (messageList: List<Message>) -> Unit,
-        error: ((errorCode: Int?) -> Unit)? = null
+            conversation: Conversation,
+            keyword: String,
+            count: Int = 0,
+            beginTime: Long = 0,
+            success: (messageList: List<Message>) -> Unit,
+            error: ((errorCode: Int?) -> Unit)? = null
     ) {
         IMCore.searchMessages(conversation, keyword, count, beginTime, success, error)
     }
@@ -803,27 +803,27 @@ object IM {
      * @param beginTime  查询记录的起始时间, 传0时从最新消息开始搜索。
      */
     fun searchMessages(
-        conversation: Conversation,
-        keyword: String,
-        count: Int = 0,
-        beginTime: Long = 0
+            conversation: Conversation,
+            keyword: String,
+            count: Int = 0,
+            beginTime: Long = 0
     ): Observable<List<Message>> {
         return Observable.create<List<Message>> { emitter ->
             IMCore.searchMessages(
-                conversation,
-                keyword,
-                count,
-                beginTime,
-                success = {
-                    emitter.onNext(it)
-                    emitter.onComplete()
-                },
-                error = {
-                    emitter.onError(createIMException(it))
-                    emitter.onComplete()
-                })
+                    conversation,
+                    keyword,
+                    count,
+                    beginTime,
+                    success = {
+                        emitter.onNext(it)
+                        emitter.onComplete()
+                    },
+                    error = {
+                        emitter.onError(createIMException(it))
+                        emitter.onComplete()
+                    })
         }.observeOn(Schedulers.io())
-            .subscribeOn(AndroidSchedulers.mainThread())
+                .subscribeOn(AndroidSchedulers.mainThread())
     }
 
     /**
@@ -837,13 +837,13 @@ object IM {
      * @param error
      */
     fun searchMessages(
-        conversationType: Conversation.ConversationType,
-        targetId: String,
-        keyword: String,
-        count: Int = 0,
-        beginTime: Long = 0,
-        success: (messageList: List<Message>) -> Unit,
-        error: ((errorCode: Int?) -> Unit)? = null
+            conversationType: Conversation.ConversationType,
+            targetId: String,
+            keyword: String,
+            count: Int = 0,
+            beginTime: Long = 0,
+            success: (messageList: List<Message>) -> Unit,
+            error: ((errorCode: Int?) -> Unit)? = null
     ) {
         IMCore.searchMessages(conversationType, targetId, keyword, count, beginTime, success, error)
     }
@@ -857,100 +857,100 @@ object IM {
      * @param beginTime  查询记录的起始时间, 传0时从最新消息开始搜索。
      */
     fun searchMessages(
-        conversationType: Conversation.ConversationType,
-        targetId: String,
-        keyword: String,
-        count: Int = 0,
-        beginTime: Long = 0
+            conversationType: Conversation.ConversationType,
+            targetId: String,
+            keyword: String,
+            count: Int = 0,
+            beginTime: Long = 0
     ): Observable<List<Message>> {
         return Observable.create<List<Message>> { emitter ->
             IMCore.searchMessages(
-                conversationType,
-                targetId,
-                keyword,
-                count,
-                beginTime,
-                success = {
-                    emitter.onNext(it)
-                    emitter.onComplete()
-                },
-                error = {
-                    emitter.onError(createIMException(it))
-                    emitter.onComplete()
-                })
+                    conversationType,
+                    targetId,
+                    keyword,
+                    count,
+                    beginTime,
+                    success = {
+                        emitter.onNext(it)
+                        emitter.onComplete()
+                    },
+                    error = {
+                        emitter.onError(createIMException(it))
+                        emitter.onComplete()
+                    })
         }.observeOn(Schedulers.io())
-            .subscribeOn(AndroidSchedulers.mainThread())
+                .subscribeOn(AndroidSchedulers.mainThread())
     }
 
     /**
      * 获取会话的通知的状态
      */
     fun getConversationNotificationStatus(
-        conversationType: Conversation.ConversationType,
-        targetId: String
+            conversationType: Conversation.ConversationType,
+            targetId: String
     ): Observable<Boolean> {
         return Observable.create<Boolean> { emitter ->
             IMCore.getConversationNotificationStatus(
-                conversationType,
-                targetId,
-                success = {
-                    emitter.onNext(it)
-                    emitter.onComplete()
-                },
-                error = {
-                    emitter.onError(createIMException(it))
-                    emitter.onComplete()
-                })
+                    conversationType,
+                    targetId,
+                    success = {
+                        emitter.onNext(it)
+                        emitter.onComplete()
+                    },
+                    error = {
+                        emitter.onError(createIMException(it))
+                        emitter.onComplete()
+                    })
         }.observeOn(Schedulers.io())
-            .subscribeOn(AndroidSchedulers.mainThread())
+                .subscribeOn(AndroidSchedulers.mainThread())
     }
 
     /**
      * 设置会话的通知状态
      */
     fun setConversationNotificationStatus(
-        conversationType: Conversation.ConversationType,
-        targetId: String,
-        isNotify: Boolean
+            conversationType: Conversation.ConversationType,
+            targetId: String,
+            isNotify: Boolean
     ): Observable<Boolean> {
         return Observable.create<Boolean> { emitter ->
             IMCore.setConversationNotificationStatus(
-                conversationType,
-                targetId,
-                isNotify,
-                success = {
-                    emitter.onNext(it)
-                    emitter.onComplete()
-                },
-                error = {
-                    emitter.onError(createIMException(it))
-                    emitter.onComplete()
-                })
+                    conversationType,
+                    targetId,
+                    isNotify,
+                    success = {
+                        emitter.onNext(it)
+                        emitter.onComplete()
+                    },
+                    error = {
+                        emitter.onError(createIMException(it))
+                        emitter.onComplete()
+                    })
         }.observeOn(Schedulers.io())
-            .subscribeOn(AndroidSchedulers.mainThread())
+                .subscribeOn(AndroidSchedulers.mainThread())
     }
 
     /**
      * 设置消息的接收状态
      */
     fun setMessageReceivedStatus(
-        messageId: Int,
-        receivedStatus: Message.ReceivedStatus
+            messageId: Int,
+            receivedStatus: Message.ReceivedStatus
     ): Observable<Boolean> {
         return Observable.create<Boolean> { emitter ->
             IMCore.setMessageReceivedStatus(
-                messageId,
-                receivedStatus,
-                success = {
-                    emitter.onNext(it)
-                    emitter.onComplete()
-                },
-                error = {
-                    emitter.onError(createIMException(it))
-                    emitter.onComplete()
-                })
+                    messageId,
+                    receivedStatus,
+                    success = {
+                        emitter.onNext(it)
+                        emitter.onComplete()
+                    },
+                    error = {
+                        emitter.onError(createIMException(it))
+                        emitter.onComplete()
+                    })
         }.observeOn(Schedulers.io())
-            .subscribeOn(AndroidSchedulers.mainThread())
+                .subscribeOn(AndroidSchedulers.mainThread())
     }
 
     //更新接收到的消息为已读
@@ -962,23 +962,23 @@ object IM {
      * 设置消息的扩展信息
      */
     fun setMessageExtra(
-        messageId: Int,
-        value: String
+            messageId: Int,
+            value: String
     ): Observable<Boolean> {
         return Observable.create<Boolean> { emitter ->
             IMCore.setMessageExtra(
-                messageId,
-                value,
-                success = {
-                    emitter.onNext(it)
-                    emitter.onComplete()
-                },
-                error = {
-                    emitter.onError(createIMException(it))
-                    emitter.onComplete()
-                })
+                    messageId,
+                    value,
+                    success = {
+                        emitter.onNext(it)
+                        emitter.onComplete()
+                    },
+                    error = {
+                        emitter.onError(createIMException(it))
+                        emitter.onComplete()
+                    })
         }.observeOn(Schedulers.io())
-            .subscribeOn(AndroidSchedulers.mainThread())
+                .subscribeOn(AndroidSchedulers.mainThread())
     }
 
     /**
@@ -994,8 +994,8 @@ object IM {
  * IM初始化的配置Bean
  */
 data class IMInitConfig(
-    var context: Context? = null,
-    var key: String? = null,
-    var fileUploadProvider: IMFileUploadProvider? = null,
-    var tokenProvider: IMTokenProvider? = null
+        var context: Context? = null,
+        var key: String? = null,
+        var fileUploadProvider: IMFileUploadProvider? = null,
+        var tokenProvider: IMTokenProvider? = null
 )

@@ -1,167 +1,167 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    package="com.yzy.pj">
+          xmlns:tools="http://schemas.android.com/tools"
+          package="com.yzy.pj">
     <application
-        android:name=".app.App"
-        android:allowBackup="true"
-        android:fullBackupContent="@xml/backup_descriptor"
-        android:icon="${app_icon}"
-        android:label="${app_name}"
-        android:largeHeap="true"
-        android:roundIcon="${app_roundIcon}"
-        android:supportsRtl="true"
-        android:networkSecurityConfig="@xml/network_security_config"
-        android:theme="@style/AppTheme"
-        tools:ignore="GoogleAppIndexingWarning"
-        tools:replace="android:allowBackup"
-        tools:targetApi="n">
+            android:name=".app.App"
+            android:allowBackup="true"
+            android:fullBackupContent="@xml/backup_descriptor"
+            android:icon="${app_icon}"
+            android:label="${app_name}"
+            android:largeHeap="true"
+            android:roundIcon="${app_roundIcon}"
+            android:supportsRtl="true"
+            android:networkSecurityConfig="@xml/network_security_config"
+            android:theme="@style/AppTheme"
+            tools:ignore="GoogleAppIndexingWarning"
+            tools:replace="android:allowBackup"
+            tools:targetApi="n">
         <activity
-            android:name=".SplashActivity"
-            android:launchMode="singleTop"
-            android:screenOrientation="portrait"
-            android:theme="@style/SplashTheme">
+                android:name=".SplashActivity"
+                android:launchMode="singleTop"
+                android:screenOrientation="portrait"
+                android:theme="@style/SplashTheme">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+                <action android:name="android.intent.action.MAIN"/>
 
-                <category android:name="android.intent.category.LAUNCHER" />
+                <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
 
         <activity
-            android:name=".ui.home.MainActivity"
-            android:launchMode="singleTask"
-            android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.NoActionBar"
-            android:windowSoftInputMode="adjustPan|stateHidden" />
+                android:name=".ui.home.MainActivity"
+                android:launchMode="singleTask"
+                android:screenOrientation="portrait"
+                android:theme="@style/AppTheme.NoActionBar"
+                android:windowSoftInputMode="adjustPan|stateHidden"/>
 
         <activity
-            android:name=".ui.video.TasteVideoActivity"
-            android:launchMode="singleTask"
-            android:windowSoftInputMode="adjustPan|stateHidden" />
+                android:name=".ui.video.TasteVideoActivity"
+                android:launchMode="singleTask"
+                android:windowSoftInputMode="adjustPan|stateHidden"/>
 
         <activity
-            android:name=".ui.elephant.ViewPager2Activity"
-            android:launchMode="singleTop"
-            android:windowSoftInputMode="adjustPan|stateHidden" />
+                android:name=".ui.elephant.ViewPager2Activity"
+                android:launchMode="singleTop"
+                android:windowSoftInputMode="adjustPan|stateHidden"/>
         <!--web-->
         <activity
-            android:name=".ui.web.WebActivity"
-            android:configChanges="screenLayout|orientation"
-            android:launchMode="singleTop"
-            android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustPan|stateHidden" />
+                android:name=".ui.web.WebActivity"
+                android:configChanges="screenLayout|orientation"
+                android:launchMode="singleTop"
+                android:screenOrientation="portrait"
+                android:windowSoftInputMode="adjustPan|stateHidden"/>
 
         <activity
-            android:name=".ui.home.GankActivity"
-            android:configChanges="screenLayout|orientation"
-            android:launchMode="singleTop"
-            android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustPan|stateHidden" />
+                android:name=".ui.home.GankActivity"
+                android:configChanges="screenLayout|orientation"
+                android:launchMode="singleTop"
+                android:screenOrientation="portrait"
+                android:windowSoftInputMode="adjustPan|stateHidden"/>
 
 
         <activity
-            android:name=".ui.video.PLDroidActivity"
-            android:configChanges="screenLayout|orientation"
-            android:launchMode="singleTop"
-            android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustPan|stateHidden" />
+                android:name=".ui.video.PLDroidActivity"
+                android:configChanges="screenLayout|orientation"
+                android:launchMode="singleTop"
+                android:screenOrientation="portrait"
+                android:windowSoftInputMode="adjustPan|stateHidden"/>
 
 
         <meta-data
-            android:name="android.max_aspect"
-            android:value="2.4" />
+                android:name="android.max_aspect"
+                android:value="2.4"/>
 
 
         <!--友盟push about-->
         <activity
-            android:name=".push.UmengPushActivity"
-            android:exported="true"
-            android:launchMode="singleTask"
-            android:screenOrientation="portrait"
-            android:theme="@android:style/Theme.Translucent" />
+                android:name=".push.UmengPushActivity"
+                android:exported="true"
+                android:launchMode="singleTask"
+                android:screenOrientation="portrait"
+                android:theme="@android:style/Theme.Translucent"/>
 
         <!--魅族push应用定义消息receiver声明 -->
         <receiver android:name=".MeiReceiver">
             <intent-filter>
                 <!-- 接收push消息 -->
-                <action android:name="com.meizu.flyme.push.intent.MESSAGE" />
+                <action android:name="com.meizu.flyme.push.intent.MESSAGE"/>
                 <!-- 接收register消息 -->
-                <action android:name="com.meizu.flyme.push.intent.REGISTER.FEEDBACK" />
+                <action android:name="com.meizu.flyme.push.intent.REGISTER.FEEDBACK"/>
                 <!-- 接收unregister消息-->
-                <action android:name="com.meizu.flyme.push.intent.UNREGISTER.FEEDBACK" />
+                <action android:name="com.meizu.flyme.push.intent.UNREGISTER.FEEDBACK"/>
                 <!-- 兼容低版本Flyme3推送服务配置 -->
-                <action android:name="com.meizu.c2dm.intent.REGISTRATION" />
-                <action android:name="com.meizu.c2dm.intent.RECEIVE" />
+                <action android:name="com.meizu.c2dm.intent.REGISTRATION"/>
+                <action android:name="com.meizu.c2dm.intent.RECEIVE"/>
 
-                <category android:name="${applicationId}" />
+                <category android:name="${applicationId}"/>
             </intent-filter>
         </receiver>
 
-<!--        <meta-data-->
-<!--            android:name="com.vivo.push.api_key"-->
-<!--            android:value="xxxxxx" />-->
-<!--        <meta-data-->
-<!--            android:name="com.vivo.push.app_id"-->
-<!--            android:value="xxxxxx" />-->
+        <!--        <meta-data-->
+        <!--            android:name="com.vivo.push.api_key"-->
+        <!--            android:value="xxxxxx" />-->
+        <!--        <meta-data-->
+        <!--            android:name="com.vivo.push.app_id"-->
+        <!--            android:value="xxxxxx" />-->
 
-<!--        <meta-data-->
-<!--            android:name="com.huawei.hms.client.appid"-->
-<!--            android:value="appid=xxxxxx" />-->
+        <!--        <meta-data-->
+        <!--            android:name="com.huawei.hms.client.appid"-->
+        <!--            android:value="appid=xxxxxx" />-->
 
 
-<!--        <activity-->
-<!--            android:name="com.tencent.tauth.AuthActivity"-->
-<!--            android:launchMode="singleTask"-->
-<!--            android:noHistory="true">-->
-<!--            <intent-filter>-->
-<!--                <action android:name="android.intent.action.VIEW" />-->
+        <!--        <activity-->
+        <!--            android:name="com.tencent.tauth.AuthActivity"-->
+        <!--            android:launchMode="singleTask"-->
+        <!--            android:noHistory="true">-->
+        <!--            <intent-filter>-->
+        <!--                <action android:name="android.intent.action.VIEW" />-->
 
-<!--                <category android:name="android.intent.category.DEFAULT" />-->
-<!--                <category android:name="android.intent.category.BROWSABLE" />-->
+        <!--                <category android:name="android.intent.category.DEFAULT" />-->
+        <!--                <category android:name="android.intent.category.BROWSABLE" />-->
 
-<!--                &lt;!&ndash; TODO 修改scheme值&ndash;&gt;-->
-<!--                &lt;!&ndash;<data android:scheme="tencent1106880993"/>&ndash;&gt;-->
-<!--                <data android:scheme="tencent1111111" />-->
-<!--            </intent-filter>-->
-<!--        </activity>-->
+        <!--                &lt;!&ndash; TODO 修改scheme值&ndash;&gt;-->
+        <!--                &lt;!&ndash;<data android:scheme="tencent1106880993"/>&ndash;&gt;-->
+        <!--                <data android:scheme="tencent1111111" />-->
+        <!--            </intent-filter>-->
+        <!--        </activity>-->
 
         <service
-            android:name="io.rong.imlib.ipc.RongService"
-            android:exported="true"
-            android:process=":ipc" />
+                android:name="io.rong.imlib.ipc.RongService"
+                android:exported="true"
+                android:process=":ipc"/>
 
         <receiver
-            android:name="io.rong.imlib.ConnectChangeReceiver"
-            android:exported="true" />
+                android:name="io.rong.imlib.ConnectChangeReceiver"
+                android:exported="true"/>
 
         <receiver
-            android:name="io.rong.imlib.HeartbeatReceiver"
-            android:process=":ipc" />
+                android:name="io.rong.imlib.HeartbeatReceiver"
+                android:process=":ipc"/>
         <!-- imlib config end -->
 
         <!--必选： SDK 核心功能-->
         <service
-            android:name="io.rong.push.rongpush.PushService"
-            android:exported="true"
-            android:permission="android.permission.BIND_JOB_SERVICE"
-            android:process="io.rong.push" />
+                android:name="io.rong.push.rongpush.PushService"
+                android:exported="true"
+                android:permission="android.permission.BIND_JOB_SERVICE"
+                android:process="io.rong.push"/>
 
         <!-- push 相关事件接收器 -->
         <receiver
-            android:name="io.rong.push.rongpush.PushReceiver"
-            android:process="io.rong.push">   <!-- 此处进程可以改名，名称需要和PushService所在进程统一 -->
+                android:name="io.rong.push.rongpush.PushReceiver"
+                android:process="io.rong.push">   <!-- 此处进程可以改名，名称需要和PushService所在进程统一 -->
             <!-- 心跳事件和网络切换事件监听,必须 -->
             <intent-filter>
-                <action android:name="io.rong.push.intent.action.HEART_BEAT" />
-                <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
+                <action android:name="io.rong.push.intent.action.HEART_BEAT"/>
+                <action android:name="android.net.conn.CONNECTIVITY_CHANGE"/>
             </intent-filter>
 
             <!-- 部分用户事件监听, 用来提高推送拉活率; 可移除 -->
             <intent-filter>
-                <action android:name="android.intent.action.USER_PRESENT" />
-                <action android:name="android.intent.action.ACTION_POWER_CONNECTED" />
-                <action android:name="android.intent.action.ACTION_POWER_DISCONNECTED" />
+                <action android:name="android.intent.action.USER_PRESENT"/>
+                <action android:name="android.intent.action.ACTION_POWER_CONNECTED"/>
+                <action android:name="android.intent.action.ACTION_POWER_DISCONNECTED"/>
             </intent-filter>
         </receiver>
     </application>

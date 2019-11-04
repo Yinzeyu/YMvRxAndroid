@@ -49,20 +49,20 @@ class GlobeConfigModule private constructor(builder: Builder) {
         this.mHandler = builder.handler ?: GlobeHttpHandler.EMPTY
         this.mInterceptors = builder.interceptors
         this.mCacheFile = builder.cacheFile
-            ?: if (Environment.getExternalStorageState() == Environment.MEDIA_MOUNTED) {
-                var file: File? = BaseApplication.getApp().externalCacheDir//获取系统管理的sd卡缓存文件
-                if (file == null) {//如果获取的为空,就是用自己定义的缓存文件夹做缓存路径
-                    val cacheFilePath =
-                        Environment.getDataDirectory().path + BaseApplication.getApp().packageName
-                    file = File(cacheFilePath)
-                    if (!file.exists()) {
-                        file.mkdirs()
+                ?: if (Environment.getExternalStorageState() == Environment.MEDIA_MOUNTED) {
+                    var file: File? = BaseApplication.getApp().externalCacheDir//获取系统管理的sd卡缓存文件
+                    if (file == null) {//如果获取的为空,就是用自己定义的缓存文件夹做缓存路径
+                        val cacheFilePath =
+                                Environment.getDataDirectory().path + BaseApplication.getApp().packageName
+                        file = File(cacheFilePath)
+                        if (!file.exists()) {
+                            file.mkdirs()
+                        }
                     }
+                    file
+                } else {
+                    BaseApplication.getApp().cacheDir
                 }
-                file
-            } else {
-                BaseApplication.getApp().cacheDir
-            }
     }
 
     class Builder {

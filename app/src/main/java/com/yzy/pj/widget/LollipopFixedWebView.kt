@@ -13,16 +13,16 @@ import android.webkit.WebView
  * @date: 2019/10/3 16:06
  */
 class LollipopFixedWebView @JvmOverloads constructor(
-    context: Context,
-    attrs: AttributeSet? = null,
-    defStyleAttr: Int = 0,
-    defStyleRes: Int = 0
+        context: Context,
+        attrs: AttributeSet? = null,
+        defStyleAttr: Int = 0,
+        defStyleRes: Int = 0
 ) : WebView(getFixedContext(context), attrs, defStyleAttr, defStyleRes) {
     companion object {
 
         private fun getFixedContext(context: Context): Context {
             return if (Build.VERSION.SDK_INT in 21..22) context.createConfigurationContext(
-                Configuration()
+                    Configuration()
             ) else context
         }
     }

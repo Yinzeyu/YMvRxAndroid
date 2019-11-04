@@ -25,17 +25,17 @@ fun IMSend(config: SendMessageConfig.() -> Unit) {
     val configBean = SendMessageConfig()
     configBean.apply(config)
     val bean = SendMessageBean(
-        configBean.conversationType,
-        configBean.targetId,
-        configBean.content,
-        configBean.pushContent,
-        configBean.pushData,
-        configBean.messageType,
-        configBean.success,
-        configBean.error,
-        configBean.attached,
-        configBean.canceled,
-        configBean.progress
+            configBean.conversationType,
+            configBean.targetId,
+            configBean.content,
+            configBean.pushContent,
+            configBean.pushData,
+            configBean.messageType,
+            configBean.success,
+            configBean.error,
+            configBean.attached,
+            configBean.canceled,
+            configBean.progress
     )
     IM.sendMessage(bean)
 }

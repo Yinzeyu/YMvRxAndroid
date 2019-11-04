@@ -38,22 +38,22 @@ abstract class BannerItem : BaseEpoxyModel<BaseEpoxyHolder>() {
             itemView.tag = tag
             val banner: DiscreteBanner<BannerBean> = itemView.findViewById(R.id.itemBanner)
             banner.setOrientation(if (vertical) DSVOrientation.VERTICAL else DSVOrientation.HORIZONTAL)
-                .setLooper(true)
-                .setAutoPlay(true)
-                .setOnItemClick { _, t ->
-                   WebActivity.startActivity(banner.context, t.url ?: "")
-                }
-                .also {
-                    if (!vertical) {
-                        it.setIndicatorGravity(Gravity.BOTTOM or Gravity.END)
-                        it.setIndicatorOffsetY(-it.defaultOffset / 2f)
-                        it.setIndicatorOffsetX(-it.defaultOffset)
+                    .setLooper(true)
+                    .setAutoPlay(true)
+                    .setOnItemClick { _, t ->
+                        WebActivity.startActivity(banner.context, t.url ?: "")
                     }
-                }
-                .setPages(object : DiscreteHolderCreator {
-                    override fun createHolder(view: View) = HomeBannerHolderView(view)
-                    override fun getLayoutId() = R.layout.item_banner_child
-                }, data)
+                    .also {
+                        if (!vertical) {
+                            it.setIndicatorGravity(Gravity.BOTTOM or Gravity.END)
+                            it.setIndicatorOffsetY(-it.defaultOffset / 2f)
+                            it.setIndicatorOffsetX(-it.defaultOffset)
+                        }
+                    }
+                    .setPages(object : DiscreteHolderCreator {
+                        override fun createHolder(view: View) = HomeBannerHolderView(view)
+                        override fun getLayoutId() = R.layout.item_banner_child
+                    }, data)
         }
     }
 }
@@ -62,9 +62,9 @@ abstract class BannerItem : BaseEpoxyModel<BaseEpoxyHolder>() {
 class HomeBannerHolderView(view: View?) : DiscreteHolder<BannerBean>(view) {
     private var imageView: ImageView? = null
     override fun updateUI(
-        data: BannerBean,
-        position: Int,
-        count: Int
+            data: BannerBean,
+            position: Int,
+            count: Int
     ) {
         imageView?.load(data.imagePath)
     }

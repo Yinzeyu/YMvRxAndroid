@@ -17,8 +17,8 @@ import com.yzy.pj.R
 import kotlinx.android.synthetic.main.dialog_add_friend_layout.*
 
 class AddFriendDialog() :
-    CommDialogFragment() {
-    override fun contentLayout(): Int= R.layout.dialog_add_friend_layout
+        CommDialogFragment() {
+    override fun contentLayout(): Int = R.layout.dialog_add_friend_layout
     var goMyCodeCallback: (() -> Unit)? = null
     var goPasswordCallback: (() -> Unit)? = null
     var goScanFriendCallback: (() -> Unit)? = null
@@ -86,8 +86,8 @@ class AddFriendDialog() :
 
 //  DSL style
 inline fun initAddFriendDialog(
-    fragmentManager: FragmentManager,
-    dsl: AddFriendDialog.() -> Unit
+        fragmentManager: FragmentManager,
+        dsl: AddFriendDialog.() -> Unit
 ) {
     val dialog = AddFriendDialog.newInstance().apply(dsl)
     dialog.mGravity = Gravity.BOTTOM

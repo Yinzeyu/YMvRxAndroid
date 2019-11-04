@@ -47,8 +47,8 @@ abstract class BaseFragment : BaseMvRxFragment(), KodeinAware {
     protected abstract val contentLayout: Int
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
+            inflater: LayoutInflater, container: ViewGroup?,
+            savedInstanceState: Bundle?
     ): View? {
         initBeforeCreateView(savedInstanceState)
         //第一次的时候加载xml

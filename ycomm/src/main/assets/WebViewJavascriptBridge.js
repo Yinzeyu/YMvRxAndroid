@@ -1,7 +1,7 @@
 //notation: js file can only use this kind of comments
 //since comments will cause error when use in webview.loadurl,
 //comments will be remove by java use regexp
-(function() {
+(function () {
     if (window.WebViewJavascriptBridge) {
         return;
     }
@@ -24,12 +24,14 @@
         messagingIframe.style.display = 'none';
         doc.documentElement.appendChild(messagingIframe);
     }
+
     //创建消息体队列iframe
     function _createQueueReadyIframe4biz(doc) {
         bizMessagingIframe = doc.createElement('iframe');
         bizMessagingIframe.style.display = 'none';
         doc.documentElement.appendChild(bizMessagingIframe);
     }
+
     //set default messageHandler  初始化默认的消息线程
     function init(messageHandler) {
         if (WebViewJavascriptBridge._messageHandler) {
@@ -54,6 +56,7 @@
     function registerHandler(handlerName, handler) {
         messageHandlers[handlerName] = handler;
     }
+
     // 调用线程
     function callHandler(handlerName, data, responseCallback) {
         _doSend({
@@ -86,7 +89,7 @@
 
     //提供给native使用,
     function _dispatchMessageFromNative(messageJSON) {
-        setTimeout(function() {
+        setTimeout(function () {
             var message = JSON.parse(messageJSON);
             var responseCallback;
             //java call finished, now need to call js callback function
@@ -101,7 +104,7 @@
                 //直接发送
                 if (message.callbackId) {
                     var callbackResponseId = message.callbackId;
-                    responseCallback = function(responseData) {
+                    responseCallback = function (responseData) {
                         _doSend({
                             responseId: callbackResponseId,
                             responseData: responseData
@@ -132,7 +135,7 @@
             receiveMessageQueue.push(messageJSON);
         }
         _dispatchMessageFromNative(messageJSON);
-       
+
     }
 
     var WebViewJavascriptBridge = window.WebViewJavascriptBridge = {

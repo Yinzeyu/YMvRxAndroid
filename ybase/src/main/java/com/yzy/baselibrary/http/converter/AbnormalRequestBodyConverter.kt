@@ -16,7 +16,7 @@ import java.nio.charset.Charset
  *@author: yzy.
  */
 class AbnormalRequestBodyConverter<T>(private val gson: Gson, private val adapter: TypeAdapter<T>) :
-    Converter<T, RequestBody> {
+        Converter<T, RequestBody> {
     private val MEDIA_TYPE = "application/json; charset=UTF-8".toMediaTypeOrNull()
     private val UTF_8 = Charset.forName("UTF-8")
 

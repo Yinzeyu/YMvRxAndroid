@@ -16,13 +16,13 @@ object SDCardUtils {
     fun initSDCardPaths(context: Context): List<String> {
         Log.d("socially1", "init sd path")
         val storageManager = context
-            .getSystemService(Context.STORAGE_SERVICE) as StorageManager
+                .getSystemService(Context.STORAGE_SERVICE) as StorageManager
         val paths: MutableList<String> = mutableListOf()
         try {
             val getVolumePathsMethod = StorageManager::class.java.getMethod("getVolumePaths")
             getVolumePathsMethod.isAccessible = true
             val invoke: MutableList<*> =
-                getVolumePathsMethod.invoke(storageManager) as MutableList<*>
+                    getVolumePathsMethod.invoke(storageManager) as MutableList<*>
 
             for (any in invoke) {
                 paths.add(any as String)

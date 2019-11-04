@@ -15,41 +15,41 @@ import com.yzy.sociallib.entity.content.ShareContent
  */
 abstract class SSOHandler {
 
-  /**
-   * 判断是否安装平台
-   */
-  open val isInstalled: Boolean
-    get() = true
+    /**
+     * 判断是否安装平台
+     */
+    open val isInstalled: Boolean
+        get() = true
 
-  /**
-   * 重写onActivityResult
-   */
-  open fun onActivityResult(content: OperationContent) {
+    /**
+     * 重写onActivityResult
+     */
+    open fun onActivityResult(content: OperationContent) {
 
-  }
+    }
 
-  /**
-   *  支付
-   */
-  open fun pay(type: PlatformType, content: PayContent, callback: OperationCallback) {
+    /**
+     *  支付
+     */
+    open fun pay(type: PlatformType, content: PayContent, callback: OperationCallback) {
 
-  }
+    }
 
-  /**
-   * 分享
-   */
-  open fun share(type: PlatformType, content: ShareContent, callback: OperationCallback) {
-  }
+    /**
+     * 分享
+     */
+    open fun share(type: PlatformType, content: ShareContent, callback: OperationCallback) {
+    }
 
-  /**
-   * 授权
-   */
-  open fun authorize(type: PlatformType, callback: OperationCallback, content: AuthContent? = null) {
-  }
+    /**
+     * 授权
+     */
+    open fun authorize(type: PlatformType, callback: OperationCallback, content: AuthContent? = null) {
+    }
 
-  /**
-   * 资源释放
-   */
-  open fun release() {
-  }
+    /**
+     * 资源释放
+     */
+    open fun release() {
+    }
 }

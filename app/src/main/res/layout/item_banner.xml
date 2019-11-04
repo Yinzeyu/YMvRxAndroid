@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <com.yzy.pj.widget.discretescrollview.DiscreteBanner
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/itemBanner"
-    android:layout_width="match_parent"
-    android:layout_height="200dp"
-    />
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/itemBanner"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+/>

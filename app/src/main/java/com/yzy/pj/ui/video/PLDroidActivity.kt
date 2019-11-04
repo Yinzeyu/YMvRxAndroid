@@ -18,6 +18,7 @@ class PLDroidActivity : CommActivity() {
     override fun initStatus() {
         immersionBar { statusBarDarkFont(false) }
     }
+
     /**
      * 滑动切换的position
      */

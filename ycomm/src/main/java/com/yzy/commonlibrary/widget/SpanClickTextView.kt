@@ -20,9 +20,9 @@ import com.yzy.commonlibrary.widget.span.LinkTouchMovementMethod
  * @author: yzy.
  */
 class SpanClickTextView @JvmOverloads constructor(
-    context: Context,
-    attrs: AttributeSet? = null,
-    defStyleAttr: Int = 0
+        context: Context,
+        attrs: AttributeSet? = null,
+        defStyleAttr: Int = 0
 ) : AppCompatTextView(context, attrs, defStyleAttr), View.OnClickListener {
     private var preventClick: Boolean = false
     private var clickListener: View.OnClickListener? = null

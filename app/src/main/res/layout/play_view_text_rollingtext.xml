@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <TextView
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:gravity="center_vertical"
-    android:paddingBottom="2dp"
-    android:shadowColor="@color/black_10"
-    android:shadowDy="1"
-    android:shadowRadius="2"
-    android:textColor="@color/white"
-    android:textSize="12sp"
-    tools:text="热河路就像八十年代的金坛县，梧桐垃圾灰各式各样的杂货店热河路就...八十年代的金坛县，梧桐垃圾灰尘和各式各样的杂货店"
-    />
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center_vertical"
+        android:paddingBottom="2dp"
+        android:shadowColor="@color/black_10"
+        android:shadowDy="1"
+        android:shadowRadius="2"
+        android:textColor="@color/white"
+        android:textSize="12sp"
+        tools:text="热河路就像八十年代的金坛县，梧桐垃圾灰各式各样的杂货店热河路就...八十年代的金坛县，梧桐垃圾灰尘和各式各样的杂货店"
+/>

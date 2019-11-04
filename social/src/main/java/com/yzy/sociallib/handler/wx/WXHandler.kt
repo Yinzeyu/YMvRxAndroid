@@ -39,9 +39,9 @@ class WXHandler(context: Context, config: PlatformConfig) : SSOHandler() {
     companion object {
         const val TAG = "WXHandler"
         private val opList = listOf(
-            OperationType.PAY,
-            OperationType.AUTH,
-            OperationType.SHARE
+                OperationType.PAY,
+                OperationType.AUTH,
+                OperationType.SHARE
         )
     }
 
@@ -87,7 +87,7 @@ class WXHandler(context: Context, config: PlatformConfig) : SSOHandler() {
         mPayType = type
         if (wxAPI == null) {
             callback.onErrors
-                ?.invoke(type, SocialConstants.PAY_ERROR, "$TAG :wxAPI 为null")
+                    ?.invoke(type, SocialConstants.PAY_ERROR, "$TAG :wxAPI 为null")
             release()
             return
         }
@@ -110,7 +110,7 @@ class WXHandler(context: Context, config: PlatformConfig) : SSOHandler() {
         setPlatCurrentHandler(callback)
         if (wxAPI == null) {
             callback.onErrors
-                ?.invoke(type, SocialConstants.PAY_ERROR, "$TAG :wxAPI 为null")
+                    ?.invoke(type, SocialConstants.PAY_ERROR, "$TAG :wxAPI 为null")
             release()
             return
         }
@@ -142,7 +142,7 @@ class WXHandler(context: Context, config: PlatformConfig) : SSOHandler() {
             }
             else -> {
                 callback.onErrors
-                    ?.invoke(type, SocialConstants.MEDIA_ERROR, "$TAG : content 类型错误")
+                        ?.invoke(type, SocialConstants.MEDIA_ERROR, "$TAG : content 类型错误")
                 release()
                 return
             }
@@ -151,7 +151,7 @@ class WXHandler(context: Context, config: PlatformConfig) : SSOHandler() {
         // msg.mediaObject 没有被赋值说明 content.img == null 或者 content.img 被回收了
         if (msg.mediaObject == null) {
             callback.onErrors
-                ?.invoke(type, SocialConstants.BITMAP_ERROR, "$TAG : content.img 错误")
+                    ?.invoke(type, SocialConstants.BITMAP_ERROR, "$TAG : content.img 错误")
             release()
             return
         }
@@ -165,7 +165,7 @@ class WXHandler(context: Context, config: PlatformConfig) : SSOHandler() {
         wxAPI?.let {
             if (!it.sendReq(req)) {
                 callback.onErrors
-                    ?.invoke(type, SocialConstants.SHARE_ERROR, "$TAG : 微信分享请求失败")
+                        ?.invoke(type, SocialConstants.SHARE_ERROR, "$TAG : 微信分享请求失败")
                 release()
             }
 
@@ -176,7 +176,7 @@ class WXHandler(context: Context, config: PlatformConfig) : SSOHandler() {
         setPlatCurrentHandler(callback)
         if (wxAPI == null) {
             callback.onErrors
-                ?.invoke(type, SocialConstants.PAY_ERROR, "$TAG :wxAPI 为null")
+                    ?.invoke(type, SocialConstants.PAY_ERROR, "$TAG :wxAPI 为null")
             release()
             return
         }
@@ -189,9 +189,9 @@ class WXHandler(context: Context, config: PlatformConfig) : SSOHandler() {
         wxAPI?.let {
             if (!it.sendReq(req)) {
                 callback.onErrors?.invoke(
-                    type,
-                    SocialConstants.LOGIN_ERROR,
-                    "$TAG : 微信授权请求出错"
+                        type,
+                        SocialConstants.LOGIN_ERROR,
+                        "$TAG : 微信授权请求出错"
                 )
                 release()
             }
@@ -227,11 +227,11 @@ class WXHandler(context: Context, config: PlatformConfig) : SSOHandler() {
     private fun onAuthCallback(resp: SendAuth.Resp) {
         if (mCallback !is AuthCallback) {
             mCallback.onErrors
-                ?.invoke(
-                    PlatformType.WEIXIN,
-                    SocialConstants.AUTH_ERROR,
-                    "$TAG : callback 类型错误"
-                )
+                    ?.invoke(
+                            PlatformType.WEIXIN,
+                            SocialConstants.AUTH_ERROR,
+                            "$TAG : callback 类型错误"
+                    )
             return
         }
         val callback = mCallback as AuthCallback
@@ -251,11 +251,11 @@ class WXHandler(context: Context, config: PlatformConfig) : SSOHandler() {
             //授权失败
             else -> {
                 callback.onErrors
-                    ?.invoke(
-                        PlatformType.WEIXIN,
-                        SocialConstants.AUTH_ERROR,
-                        "$TAG : 授权失败"
-                    )
+                        ?.invoke(
+                                PlatformType.WEIXIN,
+                                SocialConstants.AUTH_ERROR,
+                                "$TAG : 授权失败"
+                        )
             }
         }
         release()
@@ -267,11 +267,11 @@ class WXHandler(context: Context, config: PlatformConfig) : SSOHandler() {
     private fun onShareCallback(resp: SendMessageToWX.Resp) {
         if (mCallback !is ShareCallback) {
             mCallback.onErrors
-                ?.invoke(
-                    PlatformType.WEIXIN,
-                    SocialConstants.AUTH_ERROR,
-                    "$TAG : 授权失败"
-                )
+                    ?.invoke(
+                            PlatformType.WEIXIN,
+                            SocialConstants.AUTH_ERROR,
+                            "$TAG : 授权失败"
+                    )
             return
         }
         val callback = mCallback as ShareCallback
@@ -289,11 +289,11 @@ class WXHandler(context: Context, config: PlatformConfig) : SSOHandler() {
             // 分享失败
             else -> {
                 callback.onErrors
-                    ?.invoke(
-                        mShareType,
-                        SocialConstants.SHARE_ERROR,
-                        "$TAG 分享失败:code:${resp.errCode},str:${resp.errStr}"
-                    )
+                        ?.invoke(
+                                mShareType,
+                                SocialConstants.SHARE_ERROR,
+                                "$TAG 分享失败:code:${resp.errCode},str:${resp.errStr}"
+                        )
             }
         }
         release()
@@ -305,11 +305,11 @@ class WXHandler(context: Context, config: PlatformConfig) : SSOHandler() {
     private fun onPayCallback(resp: PayResp) {
         if (mCallback !is PayCallback) {
             mCallback.onErrors
-                ?.invoke(
-                    PlatformType.WEIXIN,
-                    SocialConstants.AUTH_ERROR,
-                    "$TAG : 授权失败"
-                )
+                    ?.invoke(
+                            PlatformType.WEIXIN,
+                            SocialConstants.AUTH_ERROR,
+                            "$TAG : 授权失败"
+                    )
             return
         }
         val callback = mCallback as PayCallback
@@ -326,8 +326,8 @@ class WXHandler(context: Context, config: PlatformConfig) : SSOHandler() {
             // 支付失败
             else -> {
                 callback.onErrors?.invoke(
-                    PlatformType.WEIXIN,
-                    SocialConstants.PAY_ERROR, "$TAG : 支付失败:code:${resp.errCode},str:${resp.errStr}"
+                        PlatformType.WEIXIN,
+                        SocialConstants.PAY_ERROR, "$TAG : 支付失败:code:${resp.errCode},str:${resp.errStr}"
                 )
             }
         }

@@ -4,20 +4,20 @@
     <!--圆形圆角控件-->
     <declare-styleable name="RoundImageView">
         <attr name="shape_type">
-            <enum name="Circle" value="0" />
-            <enum name="Round" value="1" />
+            <enum name="Circle" value="0"/>
+            <enum name="Round" value="1"/>
         </attr>
-        <attr name="border_width" format="dimension" />
-        <attr name="border_color" format="color" />
-        <attr name="radius" format="dimension" />
-        <attr name="left_top_radiusX" format="dimension" />
-        <attr name="left_top_radiusY" format="dimension" />
-        <attr name="right_top_radiusX" format="dimension" />
-        <attr name="right_top_radiusY" format="dimension" />
-        <attr name="right_bottom_radiusX" format="dimension" />
-        <attr name="right_bottom_radiusY" format="dimension" />
-        <attr name="left_bottom_radiusX" format="dimension" />
-        <attr name="left_bottom_radiusY" format="dimension" />
+        <attr name="border_width" format="dimension"/>
+        <attr name="border_color" format="color"/>
+        <attr name="radius" format="dimension"/>
+        <attr name="left_top_radiusX" format="dimension"/>
+        <attr name="left_top_radiusY" format="dimension"/>
+        <attr name="right_top_radiusX" format="dimension"/>
+        <attr name="right_top_radiusY" format="dimension"/>
+        <attr name="right_bottom_radiusX" format="dimension"/>
+        <attr name="right_bottom_radiusY" format="dimension"/>
+        <attr name="left_bottom_radiusX" format="dimension"/>
+        <attr name="left_bottom_radiusY" format="dimension"/>
     </declare-styleable>
 
 </resources>

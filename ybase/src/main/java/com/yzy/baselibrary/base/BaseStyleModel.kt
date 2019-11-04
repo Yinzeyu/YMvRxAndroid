@@ -69,9 +69,9 @@ abstract class BaseStyleModel<T : View> : EpoxyModel<T>() {
 
     private fun setMargin(view: T) {
         if (leftMarginDp == null
-            && topMarginDp == null
-            && rightMarginDp == null
-            && bottomMarginDp == null
+                && topMarginDp == null
+                && rightMarginDp == null
+                && bottomMarginDp == null
         ) {
             return
         }
@@ -98,10 +98,10 @@ abstract class BaseStyleModel<T : View> : EpoxyModel<T>() {
         if (view.layoutParams is ViewGroup.MarginLayoutParams) {
             val marginLayoutParams = (view.layoutParams as ViewGroup.MarginLayoutParams)
             marginLayoutParams.setMargins(
-                left,
-                top,
-                right,
-                bottom
+                    left,
+                    top,
+                    right,
+                    bottom
             )
             view.layoutParams = marginLayoutParams
         }

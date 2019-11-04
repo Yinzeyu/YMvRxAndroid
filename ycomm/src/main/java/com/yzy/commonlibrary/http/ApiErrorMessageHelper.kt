@@ -8,17 +8,17 @@ import io.reactivex.Observable
  */
 object ApiErrorMessageHelper {
 
-  /**
-   * 根据errorCode，显示相应的信息
-   */
-  fun showToastMessage(serviceMessage: String?
-  ) {
-      serviceMessage?.let {
-        Observable.just(it)
-          .compose(applySchedulers())
-          .subscribe({
+    /**
+     * 根据errorCode，显示相应的信息
+     */
+    fun showToastMessage(serviceMessage: String?
+    ) {
+        serviceMessage?.let {
+            Observable.just(it)
+                    .compose(applySchedulers())
+                    .subscribe({
 
-          }, {})
+                    }, {})
+        }
     }
-  }
 }

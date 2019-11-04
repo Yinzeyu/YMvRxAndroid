@@ -29,6 +29,7 @@ class SplashActivity : BaseActivity() {
     private var hasSDPermission: Boolean? = null
     //倒计时是否结束
     private var countDownFinish: Boolean? = null
+
     override fun initStatus() {
         immersionBar { statusBarDarkFont(false) }
     }
@@ -41,35 +42,35 @@ class SplashActivity : BaseActivity() {
         //有尺寸了才开始计时
         splashTime?.post {
             disposable = Flowable.intervalRange(0, count + 1, 0, 1, TimeUnit.SECONDS)
-                .compose(applyFollowableSchedulers())
-                .doOnNext { splashTime.text = String.format("%d", max(1, count - it)) }
-                .doOnComplete {
-                    Log.e("CASE", "倒计时结束")
-                    countDownFinish = true
-                    goNextPage()
-                }
-                .subscribe()
+                    .compose(applyFollowableSchedulers())
+                    .doOnNext { splashTime.text = String.format("%d", max(1, count - it)) }
+                    .doOnComplete {
+                        Log.e("CASE", "倒计时结束")
+                        countDownFinish = true
+                        goNextPage()
+                    }
+                    .subscribe()
         }
     }
 
     override fun initData() {
         PermissionUtils.permission(PermissionConstants.STORAGE)
-            .callback(object : PermissionUtils.SimpleCallback {
-                //权限允许
-                override fun onGranted() {
-                    Log.e("CASE", "有SD卡读写权限")
-                    hasSDPermission = true
-                    goNextPage()
-                }
+                .callback(object : PermissionUtils.SimpleCallback {
+                    //权限允许
+                    override fun onGranted() {
+                        Log.e("CASE", "有SD卡读写权限")
+                        hasSDPermission = true
+                        goNextPage()
+                    }
 
-                //权限拒绝
-                override fun onDenied() {
-                    mContext.toast("没有SD卡权限,不能使用APP")
-                    hasSDPermission = false
-                    goNextPage()
-                }
-            })
-            .request()
+                    //权限拒绝
+                    override fun onDenied() {
+                        mContext.toast("没有SD卡权限,不能使用APP")
+                        hasSDPermission = false
+                        goNextPage()
+                    }
+                })
+                .request()
     }
 
     //打开下个页面

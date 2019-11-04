@@ -34,7 +34,7 @@ interface IMConstant {
              * Connection action：Network is unavailable
              */
             const val ACTION_IM_CONNECTION_NETWORK_UNAVAILABLE =
-                "action.im.connection.network_unavailable"
+                    "action.im.connection.network_unavailable"
             /**
              * Connection action：Connect Success.
              */
@@ -51,7 +51,7 @@ interface IMConstant {
              * Connection action：Login on the other device, and be kicked offline.
              */
             const val ACTION_IM_CONNECTION_KICKED_OFFLINE_BY_OTHER_CLIENT =
-                "action.im.connection.kicked_offline_by_other_client"
+                    "action.im.connection.kicked_offline_by_other_client"
             /**
              * Connection action：Token incorrect.
              */

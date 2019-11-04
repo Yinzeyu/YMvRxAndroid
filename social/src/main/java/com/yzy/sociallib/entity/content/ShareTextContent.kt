@@ -6,7 +6,7 @@ package com.yzy.sociallib.entity.content
  *@author: yzy.
  */
 data class ShareTextContent(
-    override var description: String? = null,   //描述
-    override var url: String? = null,   // 连接
-    var atUser: String? = null
+        override var description: String? = null,   //描述
+        override var url: String? = null,   // 连接
+        var atUser: String? = null
 ) : ShareContent()

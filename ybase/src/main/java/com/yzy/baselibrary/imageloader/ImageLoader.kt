@@ -9,11 +9,11 @@ import org.kodein.di.generic.instance
  *@author: yzy.
  */
 enum class ImageLoadScaleType {
-  CenterCrop,
-  FitCenter,
-  CenterInside,
-  CircleCrop,
-  NoScaleType
+    CenterCrop,
+    FitCenter,
+    CenterInside,
+    CircleCrop,
+    NoScaleType
 }
 
 /**
@@ -23,11 +23,11 @@ enum class ImageLoadScaleType {
  */
 
 enum class CornerType {
-  ALL,
-  TOP_LEFT, TOP_RIGHT, BOTTOM_LEFT, BOTTOM_RIGHT,
-  TOP, BOTTOM, LEFT, RIGHT,
-  OTHER_TOP_LEFT, OTHER_TOP_RIGHT, OTHER_BOTTOM_LEFT, OTHER_BOTTOM_RIGHT,
-  DIAGONAL_FROM_TOP_LEFT, DIAGONAL_FROM_TOP_RIGHT
+    ALL,
+    TOP_LEFT, TOP_RIGHT, BOTTOM_LEFT, BOTTOM_RIGHT,
+    TOP, BOTTOM, LEFT, RIGHT,
+    OTHER_TOP_LEFT, OTHER_TOP_RIGHT, OTHER_BOTTOM_LEFT, OTHER_BOTTOM_RIGHT,
+    DIAGONAL_FROM_TOP_LEFT, DIAGONAL_FROM_TOP_RIGHT
 }
 
 /**
@@ -37,29 +37,29 @@ enum class CornerType {
  */
 
 enum class DiskCacheStrategyType {
-  ALL,
-  NONE,
-  RESOURCE,
-  DATA,
-  AUTOMATIC
+    ALL,
+    NONE,
+    RESOURCE,
+    DATA,
+    AUTOMATIC
 }
 
 class ImageLoader constructor(private var strategy: BaseImageLoaderStrategy) {
 
-  fun loadImage(config: ImageConfig) {
-    strategy.loadImage(config)
-  }
+    fun loadImage(config: ImageConfig) {
+        strategy.loadImage(config)
+    }
 
-  fun setLoadImgStrategy(strategy: BaseImageLoaderStrategy) {
-    this.strategy = strategy
-  }
+    fun setLoadImgStrategy(strategy: BaseImageLoaderStrategy) {
+        this.strategy = strategy
+    }
 
 }
 
 //图片加载的dsl
 fun imageLoad(config: ImageConfig.Builder.() -> Unit) {
-  val loader: ImageLoader by BaseApplication.getApp().kodein.instance()
-  val builder = ImageConfig.builder()
-  builder.apply(config)
-  loader.loadImage(builder.build())
+    val loader: ImageLoader by BaseApplication.getApp().kodein.instance()
+    val builder = ImageConfig.builder()
+    builder.apply(config)
+    loader.loadImage(builder.build())
 }

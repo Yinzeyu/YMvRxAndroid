@@ -46,10 +46,10 @@ abstract class CommDialogFragment : BaseFragmentDialog() {
 
     //显示loadingView
     private fun startShowLoadingView(
-        transY: Float = getLoadingViewTransY(),
-        height: Int = getLoadingViewHeight(),
-        gravity: Int = getLoadingViewGravity(),
-        bgColor: Int = getLoadingViewBgColor()
+            transY: Float = getLoadingViewTransY(),
+            height: Int = getLoadingViewHeight(),
+            gravity: Int = getLoadingViewGravity(),
+            bgColor: Int = getLoadingViewBgColor()
     ) {
         if (loadingView.parent == null) {
             val parent = view as FrameLayout

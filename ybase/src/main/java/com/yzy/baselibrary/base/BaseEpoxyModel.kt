@@ -16,7 +16,7 @@ import com.blankj.utilcode.util.SizeUtils
  *@author: yzy.
  */
 abstract class BaseEpoxyModel<T : BaseEpoxyHolder> :
-    EpoxyModelWithHolder<T>() {
+        EpoxyModelWithHolder<T>() {
 
     @EpoxyAttribute
     var topMarginDp: Float? = null
@@ -91,9 +91,9 @@ abstract class BaseEpoxyModel<T : BaseEpoxyHolder> :
 
     private fun setMargin(view: View) {
         if (leftMarginDp == null
-            && topMarginDp == null
-            && rightMarginDp == null
-            && bottomMarginDp == null
+                && topMarginDp == null
+                && rightMarginDp == null
+                && bottomMarginDp == null
         ) {
             return
         }
@@ -120,10 +120,10 @@ abstract class BaseEpoxyModel<T : BaseEpoxyHolder> :
                 SizeUtils.dp2px(bottomMarginDp!!)
             }
             marginLayoutParams.setMargins(
-                left,
-                top,
-                right,
-                bottom
+                    left,
+                    top,
+                    right,
+                    bottom
             )
             view.layoutParams = marginLayoutParams
         }

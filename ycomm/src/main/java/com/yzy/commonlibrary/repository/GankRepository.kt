@@ -26,7 +26,7 @@ class GankRepository : BaseRemoteDataSource() {
         return service.banner(1.toString(), 20.toString()).compose(RxGlobalHandleUtil.globalHandle())
     }
 
-    fun article(page:Int): Observable<ArticleDataBean> {
+    fun article(page: Int): Observable<ArticleDataBean> {
         return service.article(page.toString()).compose(RxGlobalHandleUtil.globalHandle())
     }
 }

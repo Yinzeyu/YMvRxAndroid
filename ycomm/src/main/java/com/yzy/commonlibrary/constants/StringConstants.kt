@@ -16,11 +16,11 @@ interface StringConstants {
         companion object {
             const val UM_DEBUG_KEY = ""//友盟 测试key
             const val UM_DEBUG_MESSAGE_SECRET =
-                ""//友盟 测试MessageSecret
+                    ""//友盟 测试MessageSecret
 
             const val UM_RELEASE_KEY = ""//友盟 正式 key
             const val UM_RELEASE_MESSAGE_SECRET =
-                ""//友盟 正式 MessageSecret
+                    ""//友盟 正式 MessageSecret
 
 
             const val XM_RELEASE_KEY = ""//小米 正式 key

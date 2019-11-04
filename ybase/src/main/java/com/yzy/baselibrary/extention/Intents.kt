@@ -11,25 +11,25 @@ import android.os.Parcelable
 import java.io.Serializable
 
 inline fun <reified T : Activity> Context.startActivity(vararg params: Pair<String, Any?>) =
-    Internals.internalStartActivity(this, T::class.java, params)
+        Internals.internalStartActivity(this, T::class.java, params)
 
 inline fun <reified T : Activity> Activity.startActivityForResult(
-    requestCode: Int,
-    vararg params: Pair<String, Any?>
+        requestCode: Int,
+        vararg params: Pair<String, Any?>
 ) =
-    Internals.internalStartActivityForResult(this, T::class.java, requestCode, params)
+        Internals.internalStartActivityForResult(this, T::class.java, requestCode, params)
 
 
 inline fun <reified T : Service> Context.startService(vararg params: Pair<String, Any?>) =
-    Internals.internalStartService(this, T::class.java, params)
+        Internals.internalStartService(this, T::class.java, params)
 
 
 inline fun <reified T : Service> Context.stopService(vararg params: Pair<String, Any?>) =
-    Internals.internalStopService(this, T::class.java, params)
+        Internals.internalStopService(this, T::class.java, params)
 
 
 inline fun <reified T : Any> Context.intentFor(vararg params: Pair<String, Any?>): Intent =
-    Internals.createIntent(this, T::class.java, params)
+        Internals.createIntent(this, T::class.java, params)
 
 
 fun Intent.clearTask(): Intent = apply { addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK) }
@@ -46,7 +46,7 @@ fun Intent.newDocument(): Intent = apply {
 }
 
 fun Intent.excludeFromRecents(): Intent =
-    apply { addFlags(Intent.FLAG_ACTIVITY_EXCLUDE_FROM_RECENTS) }
+        apply { addFlags(Intent.FLAG_ACTIVITY_EXCLUDE_FROM_RECENTS) }
 
 fun Intent.multipleTask(): Intent = apply { addFlags(Intent.FLAG_ACTIVITY_MULTIPLE_TASK) }
 
@@ -63,9 +63,9 @@ fun Intent.singleTop(): Intent = apply { addFlags(Intent.FLAG_ACTIVITY_SINGLE_TO
 object Internals {
     @JvmStatic
     fun <T> createIntent(
-        ctx: Context,
-        clazz: Class<out T>,
-        params: Array<out Pair<String, Any?>>
+            ctx: Context,
+            clazz: Class<out T>,
+            params: Array<out Pair<String, Any?>>
     ): Intent {
         val intent = Intent(ctx, clazz)
         if (params.isNotEmpty()) fillIntentArguments(intent, params)
@@ -74,35 +74,35 @@ object Internals {
 
     @JvmStatic
     fun internalStartActivity(
-        ctx: Context,
-        activity: Class<out Activity>,
-        params: Array<out Pair<String, Any?>>
+            ctx: Context,
+            activity: Class<out Activity>,
+            params: Array<out Pair<String, Any?>>
     ) {
         ctx.startActivity(createIntent(ctx, activity, params))
     }
 
     @JvmStatic
     fun internalStartActivityForResult(
-        act: Activity,
-        activity: Class<out Activity>,
-        requestCode: Int,
-        params: Array<out Pair<String, Any?>>
+            act: Activity,
+            activity: Class<out Activity>,
+            requestCode: Int,
+            params: Array<out Pair<String, Any?>>
     ) {
         act.startActivityForResult(createIntent(act, activity, params), requestCode)
     }
 
     @JvmStatic
     fun internalStartService(
-        ctx: Context,
-        service: Class<out Service>,
-        params: Array<out Pair<String, Any?>>
+            ctx: Context,
+            service: Class<out Service>,
+            params: Array<out Pair<String, Any?>>
     ): ComponentName? = ctx.startService(createIntent(ctx, service, params))
 
     @JvmStatic
     fun internalStopService(
-        ctx: Context,
-        service: Class<out Service>,
-        params: Array<out Pair<String, Any?>>
+            ctx: Context,
+            service: Class<out Service>,
+            params: Array<out Pair<String, Any?>>
     ): Boolean = ctx.stopService(createIntent(ctx, service, params))
 
     @JvmStatic

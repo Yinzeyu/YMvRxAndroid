@@ -174,7 +174,7 @@ class YTN : Handler(Looper.getMainLooper()) {
             sendRemoveMsgDelay(toast)
         } catch (e: Exception) {
             if (e is WindowManager.BadTokenException &&
-                e.message != null && e.message?.contains("token null is not valid") == true
+                    e.message != null && e.message?.contains("token null is not valid") == true
             ) {
                 if (toast is ActivityToast) {
                     //如果ActivityToast也无法展示的话，暂时只能选择放弃治疗了，难受...
@@ -195,15 +195,15 @@ class YTN : Handler(Looper.getMainLooper()) {
                         }
                         toast.getContext()?.let {
                             ActivityToast(it)
-                                .setTimestamp(toast.getTimestamp())
-                                .setView(toastView)
-                                .setDuration(toast.getDuration())
-                                .setGravity(
-                                    toast.getGravity(),
-                                    toast.getXOffset(),
-                                    toast.getYOffset()
-                                )
-                                .show()
+                                    .setTimestamp(toast.getTimestamp())
+                                    .setView(toastView)
+                                    .setDuration(toast.getDuration())
+                                    .setGravity(
+                                            toast.getGravity(),
+                                            toast.getXOffset(),
+                                            toast.getYOffset()
+                                    )
+                                    .show()
                         }
                         return
                     }

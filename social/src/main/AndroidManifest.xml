@@ -1,59 +1,59 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.yzy.sociallib">
+          package="com.yzy.sociallib">
     <!-- 用于调用 JNI -->
-    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
     <application>
-    <!--支付宝支付-->
-    <activity
-        android:name="com.alipay.sdk.app.H5PayActivity"
-        android:configChanges="orientation|keyboardHidden|navigation|screenSize"
-        android:exported="false"
-        android:windowSoftInputMode="adjustResize|stateHidden"/>
-    <activity
-        android:name="com.alipay.sdk.app.H5AuthActivity"
-        android:configChanges="orientation|keyboardHidden|navigation"
-        android:exported="false"
-        android:windowSoftInputMode="adjustResize|stateHidden"/>
-    <activity
-        android:name="com.alipay.sdk.auth.AuthActivity"
-        android:configChanges="orientation|keyboardHidden|navigation"
-        android:exported="false"
-        android:screenOrientation="behind"/>
+        <!--支付宝支付-->
+        <activity
+                android:name="com.alipay.sdk.app.H5PayActivity"
+                android:configChanges="orientation|keyboardHidden|navigation|screenSize"
+                android:exported="false"
+                android:windowSoftInputMode="adjustResize|stateHidden"/>
+        <activity
+                android:name="com.alipay.sdk.app.H5AuthActivity"
+                android:configChanges="orientation|keyboardHidden|navigation"
+                android:exported="false"
+                android:windowSoftInputMode="adjustResize|stateHidden"/>
+        <activity
+                android:name="com.alipay.sdk.auth.AuthActivity"
+                android:configChanges="orientation|keyboardHidden|navigation"
+                android:exported="false"
+                android:screenOrientation="behind"/>
 
-    <!-- FIXED 解决 Android 9.0 以上版本适配 apache api 的问题 -->
-    <uses-library android:name="org.apache.http.legacy" android:required="false" />
-    <activity
-        android:name="com.tencent.connect.common.AssistActivity"
-        android:configChanges="orientation|keyboardHidden"
-        android:theme="@android:style/Theme.Translucent.NoTitleBar"
+        <!-- FIXED 解决 Android 9.0 以上版本适配 apache api 的问题 -->
+        <uses-library android:name="org.apache.http.legacy" android:required="false"/>
+        <activity
+                android:name="com.tencent.connect.common.AssistActivity"
+                android:configChanges="orientation|keyboardHidden"
+                android:theme="@android:style/Theme.Translucent.NoTitleBar"
         />
-    <!--Weixin-->
-    <activity
-        android:name="com.yzy.sociallib.handler.wx.WXCallbackActivity"
-        android:configChanges="orientation|keyboardHidden|navigation|screenSize"
-        android:exported="true"
-        android:launchMode="singleTop"
-        android:theme="@android:style/Theme.Translucent" />
+        <!--Weixin-->
+        <activity
+                android:name="com.yzy.sociallib.handler.wx.WXCallbackActivity"
+                android:configChanges="orientation|keyboardHidden|navigation|screenSize"
+                android:exported="true"
+                android:launchMode="singleTop"
+                android:theme="@android:style/Theme.Translucent"/>
 
-    <activity-alias
-        android:name="${applicationId}.wxapi.WXEntryActivity"
-        android:exported="true"
-        android:targetActivity="com.yzy.sociallib.handler.wx.WXCallbackActivity"
-        android:theme="@android:style/Theme.Translucent" />
+        <activity-alias
+                android:name="${applicationId}.wxapi.WXEntryActivity"
+                android:exported="true"
+                android:targetActivity="com.yzy.sociallib.handler.wx.WXCallbackActivity"
+                android:theme="@android:style/Theme.Translucent"/>
 
-    <!-- 微信支付 -->
-    <activity
-        android:name="com.yzy.sociallib.handler.wx.WXPayCallbackActivity"
-        android:configChanges="orientation|keyboardHidden|navigation|screenSize"
-        android:exported="true"
-        android:launchMode="singleTop"
-        android:theme="@android:style/Theme.Translucent" />
+        <!-- 微信支付 -->
+        <activity
+                android:name="com.yzy.sociallib.handler.wx.WXPayCallbackActivity"
+                android:configChanges="orientation|keyboardHidden|navigation|screenSize"
+                android:exported="true"
+                android:launchMode="singleTop"
+                android:theme="@android:style/Theme.Translucent"/>
 
-    <activity-alias
-        android:name="${applicationId}.wxapi.WXPayEntryActivity"
-        android:exported="true"
-        android:targetActivity="com.yzy.sociallib.handler.wx.WXPayCallbackActivity"
-        android:theme="@android:style/Theme.Translucent" />
-        
-  </application>
+        <activity-alias
+                android:name="${applicationId}.wxapi.WXPayEntryActivity"
+                android:exported="true"
+                android:targetActivity="com.yzy.sociallib.handler.wx.WXPayCallbackActivity"
+                android:theme="@android:style/Theme.Translucent"/>
+
+    </application>
 </manifest>

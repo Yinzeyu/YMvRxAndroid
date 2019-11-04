@@ -9,5 +9,5 @@ import com.yzy.sociallib.config.PlatformType
  */
 interface PlatformConfig {
     val name: PlatformType     // 平台类型
-    var appkey:String?          // 应用id
+    var appkey: String?          // 应用id
 }

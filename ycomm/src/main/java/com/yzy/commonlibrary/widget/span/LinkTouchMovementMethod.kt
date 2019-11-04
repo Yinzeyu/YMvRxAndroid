@@ -14,17 +14,17 @@ import android.widget.TextView
  */
 class LinkTouchMovementMethod constructor(var mPressedSpan: TouchableSpan?) : LinkMovementMethod() {
     override fun onTouchEvent(
-        textView: TextView,
-        spannable: Spannable,
-        event: MotionEvent
+            textView: TextView,
+            spannable: Spannable,
+            event: MotionEvent
     ): Boolean {
         if (event.action == MotionEvent.ACTION_DOWN) {
             mPressedSpan = getPressedSpan(textView, spannable, event)
             if (mPressedSpan != null) {
                 mPressedSpan?.mIsPressed = true
                 Selection.setSelection(
-                    spannable, spannable.getSpanStart(mPressedSpan),
-                    spannable.getSpanEnd(mPressedSpan)
+                        spannable, spannable.getSpanStart(mPressedSpan),
+                        spannable.getSpanEnd(mPressedSpan)
                 )
             }
         } else if (event.action == MotionEvent.ACTION_MOVE) {
@@ -46,9 +46,9 @@ class LinkTouchMovementMethod constructor(var mPressedSpan: TouchableSpan?) : Li
     }
 
     private fun getPressedSpan(
-        textView: TextView,
-        spannable: Spannable,
-        event: MotionEvent
+            textView: TextView,
+            spannable: Spannable,
+            event: MotionEvent
     ): TouchableSpan? {
 
         var x = event.x.toInt()

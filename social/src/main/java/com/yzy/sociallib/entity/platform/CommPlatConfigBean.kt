@@ -8,6 +8,6 @@ import com.yzy.sociallib.config.PlatformType
  *@author: yzy.
  */
 data class CommPlatConfigBean(
-    override val name: PlatformType, // 平台类型
-    override var appkey:String?         // 应用id
-): PlatformConfig
+        override val name: PlatformType, // 平台类型
+        override var appkey: String?         // 应用id
+) : PlatformConfig

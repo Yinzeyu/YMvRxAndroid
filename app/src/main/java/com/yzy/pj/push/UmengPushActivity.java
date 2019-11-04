@@ -24,20 +24,20 @@ import org.json.JSONObject;
 // 通知将由华为、小米、魅族系统托管弹出，点击通知栏将跳转到指定的Activity。
 //该Activity需继承自UmengNotifyClickActivity，同时实现父类的onMessage方法，对该方法的intent参数进一步解析即可，该方法异步调用，不阻塞主线程。示例如下
 public class UmengPushActivity extends UmengNotifyClickActivity {
-  @Override
-  public void onMessage(Intent intent) {
-    super.onMessage(intent);
-    //此方法必须调用，否则无法统计打开数
-    String body = intent.getStringExtra(AgooConstants.MESSAGE_BODY);
-    Log.e("UmengPushActivity", "onMessage: " + body);
-    UMessage msg;
-    try {
-      msg = new UMessage(new JSONObject(body));
-      //先判断APP是否存活
-      //OpenActivityHelper.openActivityByPushNotification(this,msg.custom);
-      //finish();
-    } catch (JSONException e) {
-      e.printStackTrace();
+    @Override
+    public void onMessage(Intent intent) {
+        super.onMessage(intent);
+        //此方法必须调用，否则无法统计打开数
+        String body = intent.getStringExtra(AgooConstants.MESSAGE_BODY);
+        Log.e("UmengPushActivity", "onMessage: " + body);
+        UMessage msg;
+        try {
+            msg = new UMessage(new JSONObject(body));
+            //先判断APP是否存活
+            //OpenActivityHelper.openActivityByPushNotification(this,msg.custom);
+            //finish();
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
     }
-  }
 }

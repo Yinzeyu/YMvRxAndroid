@@ -14,8 +14,8 @@ import retrofit2.Converter
  *@author: yzy.
  */
 class AbnormalResponseBodyConverter<T> constructor(
-    private val gson: Gson,
-    private val adapter: TypeAdapter<T>
+        private val gson: Gson,
+        private val adapter: TypeAdapter<T>
 ) : Converter<ResponseBody, T> {
     private val KEY_DATA = "data"
     private val KEY_CODE = "code"
@@ -43,10 +43,10 @@ class AbnormalResponseBodyConverter<T> constructor(
             resStr = resJsonOb.toString()
         }
         if (resStr.isNotEmpty()
-            && resStr.startsWith("{")
-            && resJsonOb.has(KEY_CODE)
-            && resJsonOb.getInt(KEY_CODE) == 200
-            && !resJsonOb.has(KEY_DATA)
+                && resStr.startsWith("{")
+                && resJsonOb.has(KEY_CODE)
+                && resJsonOb.getInt(KEY_CODE) == 200
+                && !resJsonOb.has(KEY_DATA)
         ) {
             try {
                 adapter.fromJson(EMPTY_DATA_OBJECT_CONVER)

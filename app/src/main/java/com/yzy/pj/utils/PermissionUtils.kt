@@ -15,53 +15,53 @@ import com.blankj.utilcode.util.LogUtils
 object PermissionUtils {
 
 
-  /**
-   * 是否有录音权限
-   */
-  fun hasRecordPermission(): Boolean {
-    LogUtils.d("Permission hasRecordPermission 判断是否有语音权限")
-    val minBufferSize = AudioRecord.getMinBufferSize(44100, AudioFormat.CHANNEL_IN_STEREO, AudioFormat.ENCODING_PCM_16BIT)
-    var audioRecord: AudioRecord? = AudioRecord(MediaRecorder.AudioSource.MIC, 44100,
-        AudioFormat.CHANNEL_IN_STEREO,
-        AudioFormat.ENCODING_PCM_16BIT, minBufferSize)
-    try {
-      // 开始录音
-      audioRecord?.startRecording()
-    } catch (e: Exception) {
-      //可能情况一
-      audioRecord?.release()
-      LogUtils.e("hasRecordPermission", e)
-    }
+    /**
+     * 是否有录音权限
+     */
+    fun hasRecordPermission(): Boolean {
+        LogUtils.d("Permission hasRecordPermission 判断是否有语音权限")
+        val minBufferSize = AudioRecord.getMinBufferSize(44100, AudioFormat.CHANNEL_IN_STEREO, AudioFormat.ENCODING_PCM_16BIT)
+        var audioRecord: AudioRecord? = AudioRecord(MediaRecorder.AudioSource.MIC, 44100,
+                AudioFormat.CHANNEL_IN_STEREO,
+                AudioFormat.ENCODING_PCM_16BIT, minBufferSize)
+        try {
+            // 开始录音
+            audioRecord?.startRecording()
+        } catch (e: Exception) {
+            //可能情况一
+            audioRecord?.release()
+            LogUtils.e("hasRecordPermission", e)
+        }
 
-    // 检测是否在录音中,6.0以下会返回此状态
-    if (audioRecord?.recordingState != AudioRecord.RECORDSTATE_RECORDING) {
-      //可能情况二
-      try {
-        audioRecord?.stop()
-        audioRecord?.release()
-      } catch (e: Exception) {
-        LogUtils.e("hasRecordPermission", e)
-      }
-      return false
-    }
-    val bufferSizeInBytes = 1024
-    val audioData = ByteArray(bufferSizeInBytes)
-    var readSize = 0
-    // 正在录音
-    readSize = audioRecord.read(audioData, 0, bufferSizeInBytes)
-    if (readSize == AudioRecord.ERROR_INVALID_OPERATION || readSize <= 0) {
-      LogUtils.e("hasRecordPermission readSize : $readSize")
-      return false
-    }
+        // 检测是否在录音中,6.0以下会返回此状态
+        if (audioRecord?.recordingState != AudioRecord.RECORDSTATE_RECORDING) {
+            //可能情况二
+            try {
+                audioRecord?.stop()
+                audioRecord?.release()
+            } catch (e: Exception) {
+                LogUtils.e("hasRecordPermission", e)
+            }
+            return false
+        }
+        val bufferSizeInBytes = 1024
+        val audioData = ByteArray(bufferSizeInBytes)
+        var readSize = 0
+        // 正在录音
+        readSize = audioRecord.read(audioData, 0, bufferSizeInBytes)
+        if (readSize == AudioRecord.ERROR_INVALID_OPERATION || readSize <= 0) {
+            LogUtils.e("hasRecordPermission readSize : $readSize")
+            return false
+        }
 
-    try {
-      audioRecord.stop()
-      audioRecord.release()
-    } catch (e: Exception) {
-      LogUtils.e("hasRecordPermission", e)
+        try {
+            audioRecord.stop()
+            audioRecord.release()
+        } catch (e: Exception) {
+            LogUtils.e("hasRecordPermission", e)
+        }
+        return true
     }
-    return true
-  }
 
 //  /**
 //   * 没有录音权限时的弹框提示

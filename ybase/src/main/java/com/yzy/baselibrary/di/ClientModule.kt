@@ -35,13 +35,13 @@ class ClientModule {
 
             bind<GsonBuilder>() with singleton {
                 GsonBuilder().serializeNulls()
-                    .enableComplexMapKeySerialization()
-                    .registerTypeAdapter(Double::class.java, JsonSerializer<Double> { src, _, _ ->
-                        if (src != null && src.equals(src.toLong())) {
-                            return@JsonSerializer JsonPrimitive(src.toLong())//解决科学计数法转换的问题
-                        }
-                        JsonPrimitive(src)
-                    })
+                        .enableComplexMapKeySerialization()
+                        .registerTypeAdapter(Double::class.java, JsonSerializer<Double> { src, _, _ ->
+                            if (src != null && src.equals(src.toLong())) {
+                                return@JsonSerializer JsonPrimitive(src.toLong())//解决科学计数法转换的问题
+                            }
+                            JsonPrimitive(src)
+                        })
             }
 
             bind<OkHttpClient.Builder>() with singleton { OkHttpClient.Builder() }
@@ -52,8 +52,8 @@ class ClientModule {
 
             bind<OkHttpClient>() with singleton {
                 val builder = instance<OkHttpClient.Builder>()
-                    .connectTimeout(TIME_OUT, TimeUnit.SECONDS)
-                    .readTimeout(TIME_OUT, TimeUnit.SECONDS)
+                        .connectTimeout(TIME_OUT, TimeUnit.SECONDS)
+                        .readTimeout(TIME_OUT, TimeUnit.SECONDS)
                 val interceptors = instance<List<Interceptor>>()
                 interceptors.forEach {
                     builder.addInterceptor(it)
@@ -66,8 +66,8 @@ class ClientModule {
                     //测试服忽略证书校验
                     SSLManager.createSSLSocketFactory()?.let {
                         builder.sslSocketFactory(
-                            it,
-                            SSLManager.TrustAllCerts()
+                                it,
+                                SSLManager.TrustAllCerts()
                         )
                     }
                     builder.hostnameVerifier(SSLManager.hostnameVerifier)
@@ -77,11 +77,11 @@ class ClientModule {
 
             bind<Retrofit>() with singleton {
                 instance<Retrofit.Builder>()
-                    .baseUrl(instance<HttpUrl>())
-                    .client(instance())
-                    .addCallAdapterFactory(RxJava2CallAdapterFactory.create())//使用rxjava
-                    .addConverterFactory(AbnormalConverterFactory.create())//使用自定义的解析
-                    .build()
+                        .baseUrl(instance<HttpUrl>())
+                        .client(instance())
+                        .addCallAdapterFactory(RxJava2CallAdapterFactory.create())//使用rxjava
+                        .addConverterFactory(AbnormalConverterFactory.create())//使用自定义的解析
+                        .build()
             }
         }
     }

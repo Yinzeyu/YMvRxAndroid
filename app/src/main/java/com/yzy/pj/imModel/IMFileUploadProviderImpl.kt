@@ -8,11 +8,11 @@ import com.yzy.pj.im.IMFileUploadProvider
  *@author: YangYang.
  */
 class IMFileUploadProviderImpl : IMFileUploadProvider {
-  override fun uploadFile(
-    filePath: String,
-    success: (filePath: String, url: String) -> Unit,
-    failed: (filePath: String?) -> Unit,
-    progress: (filePath: String, progress: Int) -> Unit) {
+    override fun uploadFile(
+            filePath: String,
+            success: (filePath: String, url: String) -> Unit,
+            failed: (filePath: String?) -> Unit,
+            progress: (filePath: String, progress: Int) -> Unit) {
 //    var isNeedCompression = true
 //    val type = if (filePath.toLowerCase().endsWith(".mp4")) {
 //      isNeedCompression = false
@@ -70,5 +70,5 @@ class IMFileUploadProviderImpl : IMFileUploadProvider {
 //          true
 //        )
 //    }
-  }
+    }
 }

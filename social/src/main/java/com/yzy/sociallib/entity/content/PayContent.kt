@@ -5,5 +5,5 @@ package com.yzy.sociallib.entity.content
  *@date 2019/7/15
  *@author: yzy.
  */
-open class PayContent: OperationContent {
+open class PayContent : OperationContent {
 }

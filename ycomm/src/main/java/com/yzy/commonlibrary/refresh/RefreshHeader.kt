@@ -20,8 +20,8 @@ import com.yzy.commonlibrary.R
 class RefreshHeader(context: Context) : RefreshHeader {
 
     private val rootView: View =
-        LayoutInflater.from(context)
-            .inflate(R.layout.layout_refresh_header, null)
+            LayoutInflater.from(context)
+                    .inflate(R.layout.layout_refresh_header, null)
 
     private var headerLav: LottieAnimationView? = null
     private var headerTv: TextView? = null
@@ -60,9 +60,9 @@ class RefreshHeader(context: Context) : RefreshHeader {
     }
 
     override fun onStateChanged(
-        refreshLayout: RefreshLayout,
-        oldState: RefreshState,
-        newState: RefreshState
+            refreshLayout: RefreshLayout,
+            oldState: RefreshState,
+            newState: RefreshState
     ) {
         when (newState) {
             RefreshState.None -> {
@@ -84,11 +84,11 @@ class RefreshHeader(context: Context) : RefreshHeader {
     }
 
     override fun onMoving(
-        isDragging: Boolean,
-        percent: Float,
-        offset: Int,
-        height: Int,
-        maxDragHeight: Int
+            isDragging: Boolean,
+            percent: Float,
+            offset: Int,
+            height: Int,
+            maxDragHeight: Int
     ) {
     }
 

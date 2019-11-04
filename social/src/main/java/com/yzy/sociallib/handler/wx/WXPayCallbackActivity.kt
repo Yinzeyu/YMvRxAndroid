@@ -17,47 +17,47 @@ import com.tencent.mm.opensdk.openapi.IWXAPIEventHandler
  */
 class WXPayCallbackActivity : Activity(), IWXAPIEventHandler {
 
-  private lateinit var mWXHandler: WXHandler
+    private lateinit var mWXHandler: WXHandler
 
-  override fun onCreate(savedInstanceState: Bundle?) {
-    super.onCreate(savedInstanceState)
-    requestWindowFeature(Window.FEATURE_NO_TITLE)
-    window.setFlags(
-        WindowManager.LayoutParams.FLAG_FULLSCREEN,
-        WindowManager.LayoutParams.FLAG_FULLSCREEN
-    )
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        requestWindowFeature(Window.FEATURE_NO_TITLE)
+        window.setFlags(
+                WindowManager.LayoutParams.FLAG_FULLSCREEN,
+                WindowManager.LayoutParams.FLAG_FULLSCREEN
+        )
 
-    initAndPerformIntent()
-  }
-
-  override fun onNewIntent(intent: Intent?) {
-    super.onNewIntent(intent)
-    initAndPerformIntent()
-  }
-
-  override fun onResp(resp: BaseResp?) {
-    if (resp != null) {
-      try {
-        mWXHandler.callbackWXEventHandler(resp)
-      } catch (var3: Exception) {
-      }
-
+        initAndPerformIntent()
     }
-    finish()
-    overridePendingTransition(0, 0)
-  }
 
-  override fun onReq(req: BaseReq?) {
-    this.finish()
-    overridePendingTransition(0, 0)
-  }
-
-  private fun initAndPerformIntent() {
-    PlatformManager.currentHandler?.let {
-      mWXHandler = it as WXHandler
-      mWXHandler.wxAPI?.handleIntent(intent, this)
+    override fun onNewIntent(intent: Intent?) {
+        super.onNewIntent(intent)
+        initAndPerformIntent()
     }
-  }
+
+    override fun onResp(resp: BaseResp?) {
+        if (resp != null) {
+            try {
+                mWXHandler.callbackWXEventHandler(resp)
+            } catch (var3: Exception) {
+            }
+
+        }
+        finish()
+        overridePendingTransition(0, 0)
+    }
+
+    override fun onReq(req: BaseReq?) {
+        this.finish()
+        overridePendingTransition(0, 0)
+    }
+
+    private fun initAndPerformIntent() {
+        PlatformManager.currentHandler?.let {
+            mWXHandler = it as WXHandler
+            mWXHandler.wxAPI?.handleIntent(intent, this)
+        }
+    }
 
 
 }

@@ -32,50 +32,50 @@ class DotsIndicator : LinearLayout {
     }
 
     constructor(
-        context: Context?,
-        attrs: AttributeSet
+            context: Context?,
+            attrs: AttributeSet
     ) : super(context, attrs) {
         layoutParams = LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT)
         gravity = Gravity.CENTER
 
         val ta = getContext().obtainStyledAttributes(
-            attrs,
-            R.styleable.DotsIndicator, 0, 0
+                attrs,
+                R.styleable.DotsIndicator, 0, 0
         )
         dotsCount = ta.getInt(R.styleable.DotsIndicator_dots_count, 3)
 
         selectedDotScaleFactor =
-            ta.getFloat(R.styleable.DotsIndicator_selected_dot_scale_factor, 1.4f)
+                ta.getFloat(R.styleable.DotsIndicator_selected_dot_scale_factor, 1.4f)
 
         selectedDotResource =
-            ta.getResourceId(R.styleable.DotsIndicator_selected_dot_resource, selectedDotResource)
+                ta.getResourceId(R.styleable.DotsIndicator_selected_dot_resource, selectedDotResource)
 
         unselectedDotResource = ta.getResourceId(
-            R.styleable.DotsIndicator_unselected_dot_resource,
-            unselectedDotResource
+                R.styleable.DotsIndicator_unselected_dot_resource,
+                unselectedDotResource
         )
 
         firstSelectedDotResource = ta.getResourceId(
-            R.styleable.DotsIndicator_first_selected_dot_resource,
-            firstSelectedDotResource
+                R.styleable.DotsIndicator_first_selected_dot_resource,
+                firstSelectedDotResource
         )
 
         firstUnselectedDotResource = ta.getResourceId(
-            R.styleable.DotsIndicator_first_unselected_dot_resource,
-            firstUnselectedDotResource
+                R.styleable.DotsIndicator_first_unselected_dot_resource,
+                firstUnselectedDotResource
         )
 
         dotSize =
-            ta.getDimensionPixelSize(R.styleable.DotsIndicator_dot_size, dotSize)
+                ta.getDimensionPixelSize(R.styleable.DotsIndicator_dot_size, dotSize)
 
         lastDotSize =
-            ta.getDimensionPixelSize(R.styleable.DotsIndicator_last_dot_size, lastDotSize)
+                ta.getDimensionPixelSize(R.styleable.DotsIndicator_last_dot_size, lastDotSize)
 
         marginsBetweenDots =
-            ta.getDimensionPixelSize(
-                R.styleable.DotsIndicator_margins_between_dots,
-                marginsBetweenDots
-            )
+                ta.getDimensionPixelSize(
+                        R.styleable.DotsIndicator_margins_between_dots,
+                        marginsBetweenDots
+                )
 
         initDots(dotsCount)
         ta.recycle()
@@ -95,11 +95,11 @@ class DotsIndicator : LinearLayout {
             dot.tag = i
             val margin = if (needSpecial) marginSpecial else marginNoSpecial
             val param =
-                if (i == dotsCount - 1 && needSpecial) {
-                    LayoutParams(lastDotSize, lastDotSize)
-                } else {
-                    LayoutParams(dotSize, dotSize)
-                }
+                    if (i == dotsCount - 1 && needSpecial) {
+                        LayoutParams(lastDotSize, lastDotSize)
+                    } else {
+                        LayoutParams(dotSize, dotSize)
+                    }
             if (orientation == HORIZONTAL) {
                 param.marginEnd = marginsBetweenDots / 2
                 param.marginStart = marginsBetweenDots / 2
@@ -189,10 +189,10 @@ class DotsIndicator : LinearLayout {
         decreaseAnimator.addListener(animationListener)
 
         newSelection.setImageResource(
-            if (newSelection.tag == dotsCount - 1 && needSpecial) firstSelectedDotResource else selectedDotResource
+                if (newSelection.tag == dotsCount - 1 && needSpecial) firstSelectedDotResource else selectedDotResource
         )
         selectedDot.setImageResource(
-            if (selection == dotsCount - 1 && needSpecial) firstUnselectedDotResource else unselectedDotResource
+                if (selection == dotsCount - 1 && needSpecial) firstUnselectedDotResource else unselectedDotResource
         )
         selection = newSelection.tag as Int
     }

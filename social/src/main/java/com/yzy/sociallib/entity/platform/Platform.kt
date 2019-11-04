@@ -8,5 +8,5 @@ import com.yzy.sociallib.config.OperationType
  *@date 2019/7/15
  *@author: yzy.
  */
-data class Platform (var platConfig: PlatformConfig,                   // 平台配置
-                     var availableOperationType: List<OperationType>)  // 平台操作
+data class Platform(var platConfig: PlatformConfig,                   // 平台配置
+                    var availableOperationType: List<OperationType>)  // 平台操作

@@ -17,6 +17,7 @@ abstract class CommonApplication : BaseApplication() {
         super.initKodein(builder)
         builder.import(databaseModule)
     }
+
     override fun initInMainThread() {
         initObjectDebug()
     }

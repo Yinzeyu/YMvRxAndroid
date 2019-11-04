@@ -15,20 +15,20 @@ import java.lang.reflect.Type
  */
 class AbnormalConverterFactory private constructor(private val gson: Gson) : Converter.Factory() {
 
-  companion object {
-    fun create(): AbnormalConverterFactory {
-      return AbnormalConverterFactory(Gson())
+    companion object {
+        fun create(): AbnormalConverterFactory {
+            return AbnormalConverterFactory(Gson())
+        }
     }
-  }
 
-  override fun responseBodyConverter(type: Type, annotations: Array<Annotation>, retrofit: Retrofit): Converter<ResponseBody, *> {
-    val adapter = gson.getAdapter(TypeToken.get(type))
-    return AbnormalResponseBodyConverter(gson, adapter)
-  }
+    override fun responseBodyConverter(type: Type, annotations: Array<Annotation>, retrofit: Retrofit): Converter<ResponseBody, *> {
+        val adapter = gson.getAdapter(TypeToken.get(type))
+        return AbnormalResponseBodyConverter(gson, adapter)
+    }
 
-  override fun requestBodyConverter(type: Type,
-                                    parameterAnnotations: Array<Annotation>, methodAnnotations: Array<Annotation>, retrofit: Retrofit): Converter<*, RequestBody> {
-    val adapter = gson.getAdapter(TypeToken.get(type))
-    return AbnormalRequestBodyConverter(gson, adapter)
-  }
+    override fun requestBodyConverter(type: Type,
+                                      parameterAnnotations: Array<Annotation>, methodAnnotations: Array<Annotation>, retrofit: Retrofit): Converter<*, RequestBody> {
+        val adapter = gson.getAdapter(TypeToken.get(type))
+        return AbnormalRequestBodyConverter(gson, adapter)
+    }
 }

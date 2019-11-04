@@ -10,38 +10,38 @@ import java.util.*
  *@author: yzy.
  */
 internal class HeaderManger {
-  private object Holder {
-    val instance = HeaderManger()
-  }
+    private object Holder {
+        val instance = HeaderManger()
+    }
 
-  companion object {
-    fun getInstance(): HeaderManger = Holder.instance
-  }
+    companion object {
+        fun getInstance(): HeaderManger = Holder.instance
+    }
 
-  //获取固定header
-  fun getStaticHeaders(): Map<String, String> {
-    val headers = HashMap<String, String>()
-    val map = HashMap<String, String>()
-    map["platform"] = "0"  //1：ios    0:Android
-    map["appVersion"] = AppUtils.getAppVersionName()
-    headers["Connection"] = "close"
-    headers["Accept"] = "*/*"
-    headers["Content-Type"] = "application/x-www-form-urlencoded;charset=utf-8"
-    headers["Charset"] = "UTF-8"
-    headers["aimy-divers"] = Gson().toJson(map)
-    return headers
-  }
+    //获取固定header
+    fun getStaticHeaders(): Map<String, String> {
+        val headers = HashMap<String, String>()
+        val map = HashMap<String, String>()
+        map["platform"] = "0"  //1：ios    0:Android
+        map["appVersion"] = AppUtils.getAppVersionName()
+        headers["Connection"] = "close"
+        headers["Accept"] = "*/*"
+        headers["Content-Type"] = "application/x-www-form-urlencoded;charset=utf-8"
+        headers["Charset"] = "UTF-8"
+        headers["aimy-divers"] = Gson().toJson(map)
+        return headers
+    }
 
-  //获取动态header
-  fun getDynamicHeaders(): Map<String, String> {
-    val headers = HashMap<String, String>()
+    //获取动态header
+    fun getDynamicHeaders(): Map<String, String> {
+        val headers = HashMap<String, String>()
 //    val token = UserManager.getInstance().getToken()
 //    if (token != null) {
 //      headers["Authorization"] = "bearer $token"
 //    } else {
 //      headers["Authorization"] = ""
 //    }
-    return headers
-  }
+        return headers
+    }
 
 }

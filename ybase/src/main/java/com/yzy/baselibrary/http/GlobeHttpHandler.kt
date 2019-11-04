@@ -11,20 +11,20 @@ import okhttp3.Response
  */
 interface GlobeHttpHandler {
 
-  companion object {
-    val EMPTY: GlobeHttpHandler = object : GlobeHttpHandler {
-      override fun onHttpResultResponse(httpResult: String, chain: Interceptor.Chain, response: Response): Response {
-        return response
-      }
+    companion object {
+        val EMPTY: GlobeHttpHandler = object : GlobeHttpHandler {
+            override fun onHttpResultResponse(httpResult: String, chain: Interceptor.Chain, response: Response): Response {
+                return response
+            }
 
-      override fun onHttpRequestBefore(chain: Interceptor.Chain, request: Request): Request {
-        return request
-      }
+            override fun onHttpRequestBefore(chain: Interceptor.Chain, request: Request): Request {
+                return request
+            }
+        }
     }
-  }
 
-  fun onHttpResultResponse(httpResult: String, chain: Interceptor.Chain, response: Response): Response
+    fun onHttpResultResponse(httpResult: String, chain: Interceptor.Chain, response: Response): Response
 
-  fun onHttpRequestBefore(chain: Interceptor.Chain, request: Request): Request
+    fun onHttpRequestBefore(chain: Interceptor.Chain, request: Request): Request
 
 }

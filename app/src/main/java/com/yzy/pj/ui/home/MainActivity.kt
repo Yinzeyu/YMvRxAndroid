@@ -37,21 +37,21 @@ class MainActivity : CommActivity() {
         //键盘监听
         addListerKeyboard(naHeight = {
             LogUtils.e(
-                "contentHeight" + String.format(
-                    "%s\n虚拟导航键高度:%d\n键盘高度:%d",
-                    defaultInfo,
-                    it,
-                    getHeightKeyboard()
-                )
+                    "contentHeight" + String.format(
+                            "%s\n虚拟导航键高度:%d\n键盘高度:%d",
+                            defaultInfo,
+                            it,
+                            getHeightKeyboard()
+                    )
             )
         }, keyboardHeight = {
             LogUtils.e(
-                "contentHeight" + String.format(
-                    "%s\n虚拟导航键高度:%d\n键盘高度:%d",
-                    defaultInfo,
-                    getHeightNavigationBar(),
-                    it
-                )
+                    "contentHeight" + String.format(
+                            "%s\n虚拟导航键高度:%d\n键盘高度:%d",
+                            defaultInfo,
+                            getHeightNavigationBar(),
+                            it
+                    )
             )
         })
 

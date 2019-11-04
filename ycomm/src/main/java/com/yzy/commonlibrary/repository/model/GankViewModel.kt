@@ -11,15 +11,15 @@ import com.yzy.commonlibrary.repository.bean.BannerBean
 import org.kodein.di.generic.instance
 
 data class ConversationDetailState(
-    /** 是否有更多数据 */
-    val banners: MutableList<BannerBean> = mutableListOf(),
-    val request: Async<Any> = Uninitialized
+        /** 是否有更多数据 */
+        val banners: MutableList<BannerBean> = mutableListOf(),
+        val request: Async<Any> = Uninitialized
 ) : MvRxState
 
 private var isLoadMore = false
 
 class GankViewModel(initialState: ConversationDetailState = ConversationDetailState()) :
-    MvRxViewModel<ConversationDetailState>(initialState) {
+        MvRxViewModel<ConversationDetailState>(initialState) {
     private val ganRepository: GankRepository by BaseApplication.getApp().kodein.instance()
 
     private fun getBanner() = withState { state ->
@@ -28,8 +28,8 @@ class GankViewModel(initialState: ConversationDetailState = ConversationDetailSt
         }
         ganRepository.banner().execute {
             copy(
-                banners = it() ?: mutableListOf(),
-                request = it
+                    banners = it() ?: mutableListOf(),
+                    request = it
             )
         }
     }

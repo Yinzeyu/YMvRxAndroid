@@ -63,9 +63,9 @@ abstract class BaseFragmentDialog : DialogFragment(), MvRxView {
 
     private var contentView: View? = null
     override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
+            inflater: LayoutInflater,
+            container: ViewGroup?,
+            savedInstanceState: Bundle?
     ): View? {
         setStyle()
         if (contentView == null) {
@@ -94,8 +94,8 @@ abstract class BaseFragmentDialog : DialogFragment(), MvRxView {
 
     // 黑暗 0.0F ~ 1.0F 透明
     protected open fun setBackgroundAlpha(
-        context: Context,
-        alpha: Float
+            context: Context,
+            alpha: Float
     ) {
         val act = context as? Activity ?: return
         val attributes = act.window.attributes

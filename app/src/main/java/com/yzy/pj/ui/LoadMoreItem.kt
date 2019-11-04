@@ -9,6 +9,7 @@ import com.yzy.baselibrary.base.BaseEpoxyHolder
 import com.yzy.baselibrary.base.BaseEpoxyModel
 import com.yzy.pj.R
 import kotlinx.android.synthetic.main.item_comm_loadmore.view.*
+
 /**
  *description: 加载更多的Item.
  *@date 2019/5/10 12:05.
@@ -44,18 +45,18 @@ abstract class LoadMoreItem : BaseEpoxyModel<BaseEpoxyHolder>() {
     }
 
     override fun onVisibilityChanged(
-        percentVisibleHeight: Float,
-        percentVisibleWidth: Float,
-        visibleHeight: Int,
-        visibleWidth: Int,
-        view: BaseEpoxyHolder
+            percentVisibleHeight: Float,
+            percentVisibleWidth: Float,
+            visibleHeight: Int,
+            visibleWidth: Int,
+            view: BaseEpoxyHolder
     ) {
         super.onVisibilityChanged(
-            percentVisibleHeight,
-            percentVisibleWidth,
-            visibleHeight,
-            visibleWidth,
-            view
+                percentVisibleHeight,
+                percentVisibleWidth,
+                visibleHeight,
+                visibleWidth,
+                view
         )
         if (percentVisibleHeight == 100F) {
             //加载更多完全显示出来

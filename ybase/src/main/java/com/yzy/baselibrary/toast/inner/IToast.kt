@@ -11,21 +11,21 @@ import com.yzy.baselibrary.toast.ToastDuration
  */
 interface IToast {
 
-  fun show()
+    fun show()
 
-  fun cancel()
+    fun cancel()
 
-  fun setView(mView: View): IToast
+    fun setView(mView: View): IToast
 
-  fun getView(): View
+    fun getView(): View
 
-  fun setDuration(@ToastDuration duration: Int): IToast
+    fun setDuration(@ToastDuration duration: Int): IToast
 
-  fun setGravity(gravity: Int): IToast
+    fun setGravity(gravity: Int): IToast
 
-  fun setGravity(gravity: Int, xOffset: Int, yOffset: Int): IToast
+    fun setGravity(gravity: Int, xOffset: Int, yOffset: Int): IToast
 
-  fun setAnimation(animation: Int): IToast
+    fun setAnimation(animation: Int): IToast
 
-  fun setPriority(mPriority: Int): IToast
+    fun setPriority(mPriority: Int): IToast
 }

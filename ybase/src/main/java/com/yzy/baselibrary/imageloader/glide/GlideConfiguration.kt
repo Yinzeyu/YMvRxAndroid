@@ -24,36 +24,36 @@ import java.io.InputStream
 @GlideModule
 class GlideConfiguration : AppGlideModule() {
 
-  override fun applyOptions(context: Context, builder: GlideBuilder) {
-    //配置磁盘缓存
-    val cacheDir = context.cacheDir.path + File.separator + ".image"
-    builder.setDiskCache(InternalCacheDiskCacheFactory(context, cacheDir, IMAGE_DISK_CACHE_MAX_SIZE))
+    override fun applyOptions(context: Context, builder: GlideBuilder) {
+        //配置磁盘缓存
+        val cacheDir = context.cacheDir.path + File.separator + ".image"
+        builder.setDiskCache(InternalCacheDiskCacheFactory(context, cacheDir, IMAGE_DISK_CACHE_MAX_SIZE))
 
-    val calculator = MemorySizeCalculator.Builder(context).build()
-    val defaultMemoryCacheSize = calculator.memoryCacheSize
-    val defaultBitmapPoolSize = calculator.bitmapPoolSize
+        val calculator = MemorySizeCalculator.Builder(context).build()
+        val defaultMemoryCacheSize = calculator.memoryCacheSize
+        val defaultBitmapPoolSize = calculator.bitmapPoolSize
 
-    val customMemoryCacheSize = (1.2 * defaultMemoryCacheSize).toInt()
-    val customBitmapPoolSize = (1.2 * defaultBitmapPoolSize).toInt()
+        val customMemoryCacheSize = (1.2 * defaultMemoryCacheSize).toInt()
+        val customBitmapPoolSize = (1.2 * defaultBitmapPoolSize).toInt()
 
-    builder.setMemoryCache(LruResourceCache(customMemoryCacheSize.toLong()))
-    builder.setBitmapPool(LruBitmapPool(customBitmapPoolSize.toLong()))
+        builder.setMemoryCache(LruResourceCache(customMemoryCacheSize.toLong()))
+        builder.setBitmapPool(LruBitmapPool(customBitmapPoolSize.toLong()))
 
-  }
+    }
 
-  override fun registerComponents(context: Context, glide: Glide, registry: Registry) {
-    //Glide默认使用HttpURLConnection做网络请求,在这切换成okhttp请求
-    registry.replace(
-      GlideUrl::class.java, InputStream::class.java,
-      OkHttpUrlLoader.Factory(GlideHttpClientManager.okHttpClient)
-    )
-  }
+    override fun registerComponents(context: Context, glide: Glide, registry: Registry) {
+        //Glide默认使用HttpURLConnection做网络请求,在这切换成okhttp请求
+        registry.replace(
+                GlideUrl::class.java, InputStream::class.java,
+                OkHttpUrlLoader.Factory(GlideHttpClientManager.okHttpClient)
+        )
+    }
 
-  override fun isManifestParsingEnabled(): Boolean {
-    return false
-  }
+    override fun isManifestParsingEnabled(): Boolean {
+        return false
+    }
 
-  companion object {
-    const val IMAGE_DISK_CACHE_MAX_SIZE = 200 * 1024 * 1024L//图片缓存文件最大值为200Mb
-  }
+    companion object {
+        const val IMAGE_DISK_CACHE_MAX_SIZE = 200 * 1024 * 1024L//图片缓存文件最大值为200Mb
+    }
 }

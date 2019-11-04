@@ -15,9 +15,9 @@ import java.io.IOException
  * @author: YangYang.
  */
 class ProgressResponseBody internal constructor(
-    private val url: String,
-    private val internalProgressListener: InternalProgressListener?,
-    private val responseBody: ResponseBody
+        private val url: String,
+        private val internalProgressListener: InternalProgressListener?,
+        private val responseBody: ResponseBody
 ) : ResponseBody() {
     private var bufferedSource: BufferedSource? = null
 
@@ -48,9 +48,9 @@ class ProgressResponseBody internal constructor(
                     lastTotalBytesRead = totalBytesRead
                     mainThreadHandler.post {
                         internalProgressListener?.onProgress(
-                            url,
-                            totalBytesRead,
-                            contentLength()
+                                url,
+                                totalBytesRead,
+                                contentLength()
                         )
                     }
                 }

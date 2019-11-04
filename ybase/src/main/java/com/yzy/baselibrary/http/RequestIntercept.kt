@@ -36,7 +36,7 @@ class RequestIntercept constructor(private val mHandler: GlobeHttpHandler?) : In
 
         //获取content的压缩类型
         val encoding = originalResponse
-            .headers["Content-Encoding"]
+                .headers["Content-Encoding"]
 
         val clone = buffer.clone()
         val bodyString: String
@@ -45,9 +45,9 @@ class RequestIntercept constructor(private val mHandler: GlobeHttpHandler?) : In
         if (encoding != null && encoding.equals("gzip", ignoreCase = true)) {//content使用gzip压缩
             bodyString = ZipHelper.decompressForGzip(clone.readByteArray())//解压
         } else if (encoding != null && encoding.equals(
-                "zlib",
-                ignoreCase = true
-            )
+                        "zlib",
+                        ignoreCase = true
+                )
         ) {//content使用zlib压缩
             bodyString = ZipHelper.decompressToStringForZlib(clone.readByteArray())//解压
         } else {//content没有被压缩
@@ -60,7 +60,7 @@ class RequestIntercept constructor(private val mHandler: GlobeHttpHandler?) : In
         }
 
         return mHandler?.onHttpResultResponse(bodyString, chain, originalResponse)
-            ?: originalResponse
+                ?: originalResponse
 
     }
 

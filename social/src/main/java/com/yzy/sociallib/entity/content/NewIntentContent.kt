@@ -7,5 +7,5 @@ import android.content.Intent
  *@date 2019/7/15
  *@author: yzy.
  */
-data class NewIntentContent(var intent: Intent?): OperationContent {
+data class NewIntentContent(var intent: Intent?) : OperationContent {
 }

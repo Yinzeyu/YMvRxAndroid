@@ -5,4 +5,4 @@ package com.yzy.sociallib.entity.content
  *@date 2019/7/15
  *@author: yzy.
  */
-open class AuthContent: OperationContent
+open class AuthContent : OperationContent

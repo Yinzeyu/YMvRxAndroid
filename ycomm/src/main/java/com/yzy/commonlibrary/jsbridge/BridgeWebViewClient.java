@@ -38,7 +38,7 @@ public class BridgeWebViewClient extends WebViewClient {
             webView.flushMessageQueue();
             return true;
         } else {
-            return this.onCustomShouldOverrideUrlLoading(url)?true:super.shouldOverrideUrlLoading(view, url);
+            return this.onCustomShouldOverrideUrlLoading(url) ? true : super.shouldOverrideUrlLoading(view, url);
         }
     }
 
@@ -60,9 +60,9 @@ public class BridgeWebViewClient extends WebViewClient {
                 webView.flushMessageQueue();
                 return true;
             } else {
-                return this.onCustomShouldOverrideUrlLoading(url)?true:super.shouldOverrideUrlLoading(view, request);
+                return this.onCustomShouldOverrideUrlLoading(url) ? true : super.shouldOverrideUrlLoading(view, request);
             }
-        }else {
+        } else {
             return super.shouldOverrideUrlLoading(view, request);
         }
     }
@@ -89,7 +89,7 @@ public class BridgeWebViewClient extends WebViewClient {
         }
 
         //
-        onCustomPageFinishd(view,url);
+        onCustomPageFinishd(view, url);
 
     }
 
@@ -99,11 +99,9 @@ public class BridgeWebViewClient extends WebViewClient {
     }
 
 
-    protected void onCustomPageFinishd(WebView view, String url){
+    protected void onCustomPageFinishd(WebView view, String url) {
 
     }
-
-
 
 
 }

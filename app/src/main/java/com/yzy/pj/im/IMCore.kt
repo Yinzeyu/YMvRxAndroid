@@ -59,14 +59,14 @@ internal object IMCore {
         override fun onError(errorCode: RongIMClient.ErrorCode?) {
             Log.e("ConnectCallback", "登录失败 code = ${errorCode?.value},message = ${errorCode?.message}")
             IMActionDispatcher.dispatcherAction(
-                IMActionEntity(
-                    IMConstant.LoginAction.ACTION_IM_LOGIN_ERROR,
-                    Bundle().apply {
-                        errorCode?.let {
-                            this.putInt(IMActionEntity.DATA_KEY_ERROR_CODE, it.value)
-                            this.putString(IMActionEntity.DATA_KEY_ERROR_MESSAGE, it.message)
-                        }
-                    })
+                    IMActionEntity(
+                            IMConstant.LoginAction.ACTION_IM_LOGIN_ERROR,
+                            Bundle().apply {
+                                errorCode?.let {
+                                    this.putInt(IMActionEntity.DATA_KEY_ERROR_CODE, it.value)
+                                    this.putString(IMActionEntity.DATA_KEY_ERROR_MESSAGE, it.message)
+                                }
+                            })
             )
         }
 
@@ -120,17 +120,17 @@ internal object IMCore {
      * 消息接收的回调
      */
     private val receiveMessageListener =
-        RongIMClient.OnReceiveMessageListener { message, _ ->
-            /**
-             * 接收到新消息的回调
-             * @param message 消息
-             * @param hasCount 剩余未拉取消息数目
-             */
-            message?.let {
-                IMMessageDispatcher.dispatcherMessage(it)
+            RongIMClient.OnReceiveMessageListener { message, _ ->
+                /**
+                 * 接收到新消息的回调
+                 * @param message 消息
+                 * @param hasCount 剩余未拉取消息数目
+                 */
+                message?.let {
+                    IMMessageDispatcher.dispatcherMessage(it)
+                }
+                false
             }
-            false
-        }
     private var sendMessageList: List<SendMessageBean> = emptyList()
     private var sendLoopDisposable: Disposable? = null
     /**
@@ -220,30 +220,30 @@ internal object IMCore {
      * @param progress 消息的发送进度的回调
      */
     fun sendMessage(
-        conversationType: Conversation.ConversationType,
-        targetId: String,
-        content: MessageContent,
-        pushContent: String? = null,
-        pushData: String? = null,
-        messageType: IMMessageType? = IMMessageType.Other,
-        success: ((message: Message?, type: IMMessageType) -> Unit)? = null,
-        error: ((message: Message?, type: IMMessageType, errorCode: Int?) -> Unit)? = null,
-        attached: ((message: Message?, type: IMMessageType) -> Unit)? = null,
-        canceled: ((message: Message?, type: IMMessageType) -> Unit)? = null,
-        progress: ((message: Message?, type: IMMessageType, progress: Int) -> Unit)? = null
+            conversationType: Conversation.ConversationType,
+            targetId: String,
+            content: MessageContent,
+            pushContent: String? = null,
+            pushData: String? = null,
+            messageType: IMMessageType? = IMMessageType.Other,
+            success: ((message: Message?, type: IMMessageType) -> Unit)? = null,
+            error: ((message: Message?, type: IMMessageType, errorCode: Int?) -> Unit)? = null,
+            attached: ((message: Message?, type: IMMessageType) -> Unit)? = null,
+            canceled: ((message: Message?, type: IMMessageType) -> Unit)? = null,
+            progress: ((message: Message?, type: IMMessageType, progress: Int) -> Unit)? = null
     ) {
         val bean = SendMessageBean(
-            conversationType,
-            targetId,
-            content,
-            pushContent,
-            pushData,
-            messageType,
-            success,
-            error,
-            attached,
-            canceled,
-            progress
+                conversationType,
+                targetId,
+                content,
+                pushContent,
+                pushData,
+                messageType,
+                success,
+                error,
+                attached,
+                canceled,
+                progress
         )
         sendMessage(bean)
     }
@@ -253,8 +253,8 @@ internal object IMCore {
      */
     fun sendMessage(bean: SendMessageBean) {
         if (bean.conversationType != null &&
-            bean.targetId?.isNotBlank() == true &&
-            bean.content != null
+                bean.targetId?.isNotBlank() == true &&
+                bean.content != null
         ) {
             sendMessageList = sendMessageList + bean
             loopSendMessage()
@@ -293,16 +293,16 @@ internal object IMCore {
                 imSendDefaultMessage(bean)
         }
         sendLoopDisposable = Observable.just(sendMessageList)
-            .delay(MESSAGE_SEND_INTERVAL, TimeUnit.MILLISECONDS)
-            .subscribeOn(Schedulers.io())
-            .unsubscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribe({
-                sendLoopDisposable?.dispose()
-                loopSendMessage()
-            }, {
-                Log.e("IMCore", "Send message loop error!")
-            })
+                .delay(MESSAGE_SEND_INTERVAL, TimeUnit.MILLISECONDS)
+                .subscribeOn(Schedulers.io())
+                .unsubscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe({
+                    sendLoopDisposable?.dispose()
+                    loopSendMessage()
+                }, {
+                    Log.e("IMCore", "Send message loop error!")
+                })
     }
 
     /**
@@ -311,45 +311,45 @@ internal object IMCore {
     private fun imSendImageMessage(bean: SendMessageBean) {
         val message = Message.obtain(bean.targetId, bean.conversationType, bean.content)
         RongIMClient.getInstance().sendImageMessage(
-            message,
-            bean.pushContent,
-            bean.pushData,
-            object : RongIMClient.SendImageMessageWithUploadListenerCallback() {
-                override fun onAttached(
-                    message: Message,
-                    uploadImageStatusListener: RongIMClient.UploadImageStatusListener
-                ) {
-                    val messageContent = message.content
-                    if (messageContent is ImageMessage) {
-                        messageContent.localPath.path?.let { filePath ->
-                            fileUploadProvider?.uploadFile(filePath,
-                                success = { _, url ->
-                                    uploadImageStatusListener.success(Uri.parse(url))
-                                },
-                                failed = {
-                                    uploadImageStatusListener.error()
-                                },
-                                progress = { _, progress ->
-                                    uploadImageStatusListener.update(progress)
-                                })
-                            bean.attached?.invoke(message, IMMessageType.Image)
+                message,
+                bean.pushContent,
+                bean.pushData,
+                object : RongIMClient.SendImageMessageWithUploadListenerCallback() {
+                    override fun onAttached(
+                            message: Message,
+                            uploadImageStatusListener: RongIMClient.UploadImageStatusListener
+                    ) {
+                        val messageContent = message.content
+                        if (messageContent is ImageMessage) {
+                            messageContent.localPath.path?.let { filePath ->
+                                fileUploadProvider?.uploadFile(filePath,
+                                        success = { _, url ->
+                                            uploadImageStatusListener.success(Uri.parse(url))
+                                        },
+                                        failed = {
+                                            uploadImageStatusListener.error()
+                                        },
+                                        progress = { _, progress ->
+                                            uploadImageStatusListener.update(progress)
+                                        })
+                                bean.attached?.invoke(message, IMMessageType.Image)
+                            }
                         }
                     }
-                }
 
-                override fun onSuccess(message: Message?) {
-                    bean.success?.invoke(message, IMMessageType.Image)
-                }
+                    override fun onSuccess(message: Message?) {
+                        bean.success?.invoke(message, IMMessageType.Image)
+                    }
 
-                override fun onProgress(message: Message?, progress: Int) {
-                    bean.progress?.invoke(message, IMMessageType.Image, progress)
-                }
+                    override fun onProgress(message: Message?, progress: Int) {
+                        bean.progress?.invoke(message, IMMessageType.Image, progress)
+                    }
 
-                override fun onError(message: Message?, errorCode: RongIMClient.ErrorCode?) {
-                    checkReLogin(errorCode)
-                    bean.error?.invoke(message, IMMessageType.Image, errorCode?.value)
+                    override fun onError(message: Message?, errorCode: RongIMClient.ErrorCode?) {
+                        checkReLogin(errorCode)
+                        bean.error?.invoke(message, IMMessageType.Image, errorCode?.value)
+                    }
                 }
-            }
         )
     }
 
@@ -359,32 +359,32 @@ internal object IMCore {
     private fun imSendVoiceMessage(bean: SendMessageBean) {
         val message = Message.obtain(bean.targetId, bean.conversationType, bean.content)
         RongIMClient.getInstance()
-            .sendMessage(
-                message,
-                bean.pushContent,
-                bean.pushData,
-                object : IRongCallback.ISendMediaMessageCallback {
-                    override fun onProgress(message: Message?, progress: Int) {
-                        bean.progress?.invoke(message, IMMessageType.Voice, progress)
-                    }
+                .sendMessage(
+                        message,
+                        bean.pushContent,
+                        bean.pushData,
+                        object : IRongCallback.ISendMediaMessageCallback {
+                            override fun onProgress(message: Message?, progress: Int) {
+                                bean.progress?.invoke(message, IMMessageType.Voice, progress)
+                            }
 
-                    override fun onCanceled(message: Message?) {
-                        bean.canceled?.invoke(message, IMMessageType.Voice)
-                    }
+                            override fun onCanceled(message: Message?) {
+                                bean.canceled?.invoke(message, IMMessageType.Voice)
+                            }
 
-                    override fun onAttached(message: Message?) {
-                        bean.attached?.invoke(message, IMMessageType.Voice)
-                    }
+                            override fun onAttached(message: Message?) {
+                                bean.attached?.invoke(message, IMMessageType.Voice)
+                            }
 
-                    override fun onSuccess(message: Message?) {
-                        bean.success?.invoke(message, IMMessageType.Voice)
-                    }
+                            override fun onSuccess(message: Message?) {
+                                bean.success?.invoke(message, IMMessageType.Voice)
+                            }
 
-                    override fun onError(message: Message?, errorCode: RongIMClient.ErrorCode?) {
-                        checkReLogin(errorCode)
-                        bean.error?.invoke(message, IMMessageType.Voice, errorCode?.value)
-                    }
-                })
+                            override fun onError(message: Message?, errorCode: RongIMClient.ErrorCode?) {
+                                checkReLogin(errorCode)
+                                bean.error?.invoke(message, IMMessageType.Voice, errorCode?.value)
+                            }
+                        })
     }
 
     /**
@@ -393,66 +393,66 @@ internal object IMCore {
     private fun imSendVideoMessage(bean: SendMessageBean) {
         val message = Message.obtain(bean.targetId, bean.conversationType, bean.content)
         RongIMClient.getInstance().sendMediaMessage(
-            message,
-            bean.pushContent,
-            bean.pushData,
-            object : IRongCallback.ISendMediaMessageCallbackWithUploader {
-                override fun onAttached(
-                    message: Message?,
-                    uploadMediaStatusListener: IRongCallback.MediaMessageUploader?
-                ) {
-                    val messageContent = message?.content
-                    if (messageContent is VideoMessage) {
-                        val coverPath = messageContent.coverLocalUri?.path
-                        coverPath?.let { coverLocal ->
-                            fileUploadProvider?.uploadFile(coverLocal,
-                                success = { _, url ->
-                                    messageContent.coverUrl = url
-                                    val videoPath = messageContent.videoLocalUri?.path
-                                    videoPath?.let { videoLocal ->
-                                        fileUploadProvider?.uploadFile(videoLocal,
-                                            success = { _, url ->
-                                                messageContent.videoUrl = url
-                                                uploadMediaStatusListener?.success(Uri.parse(url))
-                                            },
-                                            failed = {
-                                                uploadMediaStatusListener?.error()
-                                            },
-                                            progress = { _, progress ->
-                                                //视屏的整体进度占90%
-                                                uploadMediaStatusListener?.update((10 + progress * 0.9f).toInt())
-                                            })
-                                    }
-                                },
-                                failed = {
-                                    uploadMediaStatusListener?.error()
-                                },
-                                progress = { _, progress ->
-                                    //图片的整体进度占10%
-                                    uploadMediaStatusListener?.update((progress * 0.1f).toInt())
-                                })
-                            bean.attached?.invoke(message, IMMessageType.Video)
+                message,
+                bean.pushContent,
+                bean.pushData,
+                object : IRongCallback.ISendMediaMessageCallbackWithUploader {
+                    override fun onAttached(
+                            message: Message?,
+                            uploadMediaStatusListener: IRongCallback.MediaMessageUploader?
+                    ) {
+                        val messageContent = message?.content
+                        if (messageContent is VideoMessage) {
+                            val coverPath = messageContent.coverLocalUri?.path
+                            coverPath?.let { coverLocal ->
+                                fileUploadProvider?.uploadFile(coverLocal,
+                                        success = { _, url ->
+                                            messageContent.coverUrl = url
+                                            val videoPath = messageContent.videoLocalUri?.path
+                                            videoPath?.let { videoLocal ->
+                                                fileUploadProvider?.uploadFile(videoLocal,
+                                                        success = { _, url ->
+                                                            messageContent.videoUrl = url
+                                                            uploadMediaStatusListener?.success(Uri.parse(url))
+                                                        },
+                                                        failed = {
+                                                            uploadMediaStatusListener?.error()
+                                                        },
+                                                        progress = { _, progress ->
+                                                            //视屏的整体进度占90%
+                                                            uploadMediaStatusListener?.update((10 + progress * 0.9f).toInt())
+                                                        })
+                                            }
+                                        },
+                                        failed = {
+                                            uploadMediaStatusListener?.error()
+                                        },
+                                        progress = { _, progress ->
+                                            //图片的整体进度占10%
+                                            uploadMediaStatusListener?.update((progress * 0.1f).toInt())
+                                        })
+                                bean.attached?.invoke(message, IMMessageType.Video)
+                            }
                         }
                     }
-                }
 
-                override fun onCanceled(message: Message?) {
-                    bean.canceled?.invoke(message, IMMessageType.Video)
-                }
+                    override fun onCanceled(message: Message?) {
+                        bean.canceled?.invoke(message, IMMessageType.Video)
+                    }
 
-                override fun onSuccess(message: Message?) {
-                    bean.success?.invoke(message, IMMessageType.Video)
-                }
+                    override fun onSuccess(message: Message?) {
+                        bean.success?.invoke(message, IMMessageType.Video)
+                    }
 
-                override fun onProgress(message: Message?, progress: Int) {
-                    bean.progress?.invoke(message, IMMessageType.Video, progress)
-                }
+                    override fun onProgress(message: Message?, progress: Int) {
+                        bean.progress?.invoke(message, IMMessageType.Video, progress)
+                    }
 
-                override fun onError(message: Message?, errorCode: RongIMClient.ErrorCode?) {
-                    checkReLogin(errorCode)
-                    bean.error?.invoke(message, IMMessageType.Voice, errorCode?.value)
+                    override fun onError(message: Message?, errorCode: RongIMClient.ErrorCode?) {
+                        checkReLogin(errorCode)
+                        bean.error?.invoke(message, IMMessageType.Voice, errorCode?.value)
+                    }
                 }
-            }
         )
     }
 
@@ -462,24 +462,24 @@ internal object IMCore {
     private fun imSendDefaultMessage(bean: SendMessageBean) {
         val message = Message.obtain(bean.targetId, bean.conversationType, bean.content)
         RongIMClient.getInstance()
-            .sendMessage(
-                message,
-                bean.pushContent,
-                bean.pushData,
-                object : IRongCallback.ISendMessageCallback {
-                    override fun onAttached(message: Message?) {
-                        bean.attached?.invoke(message, IMMessageType.Other)
-                    }
+                .sendMessage(
+                        message,
+                        bean.pushContent,
+                        bean.pushData,
+                        object : IRongCallback.ISendMessageCallback {
+                            override fun onAttached(message: Message?) {
+                                bean.attached?.invoke(message, IMMessageType.Other)
+                            }
 
-                    override fun onSuccess(message: Message?) {
-                        bean.success?.invoke(message, IMMessageType.Other)
-                    }
+                            override fun onSuccess(message: Message?) {
+                                bean.success?.invoke(message, IMMessageType.Other)
+                            }
 
-                    override fun onError(message: Message?, errorCode: RongIMClient.ErrorCode?) {
-                        checkReLogin(errorCode)
-                        bean.error?.invoke(message, IMMessageType.Other, errorCode?.value)
-                    }
-                })
+                            override fun onError(message: Message?, errorCode: RongIMClient.ErrorCode?) {
+                                checkReLogin(errorCode)
+                                bean.error?.invoke(message, IMMessageType.Other, errorCode?.value)
+                            }
+                        })
     }
 
     /**
@@ -492,24 +492,24 @@ internal object IMCore {
      * @param error 消息插入失败的回调
      */
     fun insertSendMessage(
-        conversationType: Conversation.ConversationType,
-        targetId: String,
-        content: MessageContent,
-        sentStatus: Message.SentStatus? = Message.SentStatus.READ,
-        success: ((message: Message?) -> Unit)? = null,
-        error: ((errorCode: Int?) -> Unit)? = null
+            conversationType: Conversation.ConversationType,
+            targetId: String,
+            content: MessageContent,
+            sentStatus: Message.SentStatus? = Message.SentStatus.READ,
+            success: ((message: Message?) -> Unit)? = null,
+            error: ((errorCode: Int?) -> Unit)? = null
     ) {
         RongIMClient.getInstance().insertOutgoingMessage(conversationType, targetId,
-            sentStatus, content,
-            object : RongIMClient.ResultCallback<Message>() {
-                override fun onSuccess(message: Message?) {
-                    success?.invoke(message)
-                }
+                sentStatus, content,
+                object : RongIMClient.ResultCallback<Message>() {
+                    override fun onSuccess(message: Message?) {
+                        success?.invoke(message)
+                    }
 
-                override fun onError(errorCode: RongIMClient.ErrorCode?) {
-                    error?.invoke(errorCode?.value)
-                }
-            })
+                    override fun onError(errorCode: RongIMClient.ErrorCode?) {
+                        error?.invoke(errorCode?.value)
+                    }
+                })
     }
 
     /**
@@ -524,35 +524,35 @@ internal object IMCore {
      * @param error 消息插入失败的回调
      */
     fun insertReceiveMessage(
-        conversationType: Conversation.ConversationType,
-        targetId: String,
-        senderUserId: String,
-        sentTime: Long,
-        content: MessageContent,
-        receivedStatus: Message.ReceivedStatus? = Message.ReceivedStatus(1),
-        success: ((message: Message?) -> Unit)? = null,
-        error: ((errorCode: Int?) -> Unit)? = null
+            conversationType: Conversation.ConversationType,
+            targetId: String,
+            senderUserId: String,
+            sentTime: Long,
+            content: MessageContent,
+            receivedStatus: Message.ReceivedStatus? = Message.ReceivedStatus(1),
+            success: ((message: Message?) -> Unit)? = null,
+            error: ((errorCode: Int?) -> Unit)? = null
     ) {
         RongIMClient.getInstance().insertIncomingMessage(conversationType, targetId, senderUserId,
-            receivedStatus, content, sentTime,
-            object : RongIMClient.ResultCallback<Message>() {
-                override fun onSuccess(message: Message?) {
-                    success?.invoke(message)
-                }
+                receivedStatus, content, sentTime,
+                object : RongIMClient.ResultCallback<Message>() {
+                    override fun onSuccess(message: Message?) {
+                        success?.invoke(message)
+                    }
 
-                override fun onError(errorCode: RongIMClient.ErrorCode?) {
-                    error?.invoke(errorCode?.value)
-                }
-            })
+                    override fun onError(errorCode: RongIMClient.ErrorCode?) {
+                        error?.invoke(errorCode?.value)
+                    }
+                })
     }
 
     /**
      * 删除指定消息
      */
     fun deleteMessages(
-        messageList: List<Message>,
-        success: ((isSuccess: Boolean) -> Unit)? = null,
-        error: ((errorCode: Int?) -> Unit)? = null
+            messageList: List<Message>,
+            success: ((isSuccess: Boolean) -> Unit)? = null,
+            error: ((errorCode: Int?) -> Unit)? = null
     ) {
         val ids = mutableListOf<Int>()
         messageList.forEachIndexed { index, m ->
@@ -565,20 +565,20 @@ internal object IMCore {
      * 删除指定ID的消息
      */
     fun deleteMessagesByIds(
-        messageIds: List<Int>,
-        success: ((isSuccess: Boolean) -> Unit)? = null,
-        error: ((errorCode: Int?) -> Unit)? = null
+            messageIds: List<Int>,
+            success: ((isSuccess: Boolean) -> Unit)? = null,
+            error: ((errorCode: Int?) -> Unit)? = null
     ) {
         RongIMClient.getInstance()
-            .deleteMessages(messageIds.toIntArray(), object : RongIMClient.ResultCallback<Boolean>() {
-                override fun onSuccess(isSuccess: Boolean) {
-                    success?.invoke(isSuccess)
-                }
+                .deleteMessages(messageIds.toIntArray(), object : RongIMClient.ResultCallback<Boolean>() {
+                    override fun onSuccess(isSuccess: Boolean) {
+                        success?.invoke(isSuccess)
+                    }
 
-                override fun onError(errorCode: RongIMClient.ErrorCode?) {
-                    error?.invoke(errorCode?.value)
-                }
-            })
+                    override fun onError(errorCode: RongIMClient.ErrorCode?) {
+                        error?.invoke(errorCode?.value)
+                    }
+                })
     }
 
     //会话相关
@@ -586,8 +586,8 @@ internal object IMCore {
      * 获取所有会话的未读消息总数量
      */
     fun getTotalUnreadCount(
-        success: (count: Int) -> Unit,
-        error: ((errorCode: Int?) -> Unit)? = null
+            success: (count: Int) -> Unit,
+            error: ((errorCode: Int?) -> Unit)? = null
     ) {
         RongIMClient.getInstance().getUnreadCount(object : RongIMClient.ResultCallback<Int>() {
             override fun onSuccess(count: Int) {
@@ -604,82 +604,82 @@ internal object IMCore {
      * 获取指定会话类型的未读消息总数量
      */
     fun getUnreadCount(
-        conversationTypes: Array<Conversation.ConversationType>,
-        success: (count: Int) -> Unit,
-        error: ((errorCode: Int?) -> Unit)? = null
+            conversationTypes: Array<Conversation.ConversationType>,
+            success: (count: Int) -> Unit,
+            error: ((errorCode: Int?) -> Unit)? = null
     ) {
         RongIMClient.getInstance()
-            .getUnreadCount(conversationTypes, object : RongIMClient.ResultCallback<Int>() {
-                override fun onSuccess(count: Int) {
-                    success.invoke(count)
-                }
+                .getUnreadCount(conversationTypes, object : RongIMClient.ResultCallback<Int>() {
+                    override fun onSuccess(count: Int) {
+                        success.invoke(count)
+                    }
 
-                override fun onError(errorCode: RongIMClient.ErrorCode?) {
-                    error?.invoke(errorCode?.value)
-                }
-            })
+                    override fun onError(errorCode: RongIMClient.ErrorCode?) {
+                        error?.invoke(errorCode?.value)
+                    }
+                })
     }
 
     /**
      * 获取指定会话的未读消息数量
      */
     fun getConversationUnreadCount(
-        conversationType: Conversation.ConversationType,
-        targetId: String,
-        success: (count: Int) -> Unit,
-        error: ((errorCode: Int?) -> Unit)? = null
+            conversationType: Conversation.ConversationType,
+            targetId: String,
+            success: (count: Int) -> Unit,
+            error: ((errorCode: Int?) -> Unit)? = null
     ) {
         RongIMClient.getInstance().getUnreadCount(conversationType,
-            targetId,
-            object : RongIMClient.ResultCallback<Int>() {
-                override fun onSuccess(count: Int) {
-                    success.invoke(count)
-                }
+                targetId,
+                object : RongIMClient.ResultCallback<Int>() {
+                    override fun onSuccess(count: Int) {
+                        success.invoke(count)
+                    }
 
-                override fun onError(errorCode: RongIMClient.ErrorCode?) {
-                    error?.invoke(errorCode?.value)
-                }
-            })
+                    override fun onError(errorCode: RongIMClient.ErrorCode?) {
+                        error?.invoke(errorCode?.value)
+                    }
+                })
     }
 
     /**
      * 获取本地会话的列表
      */
     fun getConversationList(
-        success: (conversationList: List<Conversation>) -> Unit,
-        error: ((errorCode: Int?) -> Unit)? = null
+            success: (conversationList: List<Conversation>) -> Unit,
+            error: ((errorCode: Int?) -> Unit)? = null
     ) {
         RongIMClient.getInstance().getConversationList(
-            object : RongIMClient.ResultCallback<List<Conversation>>() {
-                override fun onSuccess(list: List<Conversation>?) {
-                    success.invoke(list ?: emptyList())
-                }
+                object : RongIMClient.ResultCallback<List<Conversation>>() {
+                    override fun onSuccess(list: List<Conversation>?) {
+                        success.invoke(list ?: emptyList())
+                    }
 
-                override fun onError(errorCode: RongIMClient.ErrorCode?) {
-                    error?.invoke(errorCode?.value)
-                }
-            })
+                    override fun onError(errorCode: RongIMClient.ErrorCode?) {
+                        error?.invoke(errorCode?.value)
+                    }
+                })
     }
 
     /**
      * 获取指定的本地会话
      */
     fun getConversation(
-        conversationType: Conversation.ConversationType,
-        targetId: String,
-        success: (conversation: Conversation?) -> Unit,
-        error: ((errorCode: Int?) -> Unit)? = null
+            conversationType: Conversation.ConversationType,
+            targetId: String,
+            success: (conversation: Conversation?) -> Unit,
+            error: ((errorCode: Int?) -> Unit)? = null
     ) {
         RongIMClient.getInstance().getConversation(conversationType, targetId,
-            object : RongIMClient.ResultCallback<Conversation>() {
-                override fun onSuccess(conversation: Conversation?) {
-                    success.invoke(conversation)
-                }
+                object : RongIMClient.ResultCallback<Conversation>() {
+                    override fun onSuccess(conversation: Conversation?) {
+                        success.invoke(conversation)
+                    }
 
-                override fun onError(errorCode: RongIMClient.ErrorCode?) {
-                    error?.invoke(errorCode?.value)
-                }
-            })
+                    override fun onError(errorCode: RongIMClient.ErrorCode?) {
+                        error?.invoke(errorCode?.value)
+                    }
+                })
     }
 
     /**
@@ -690,17 +690,17 @@ internal object IMCore {
      * @param error 异常回调
      */
     fun removeConversation(
-        conversation: Conversation,
-        isClearMessage: Boolean = false,
-        success: (isSuccess: Boolean) -> Unit,
-        error: ((errorCode: Int?) -> Unit)? = null
+            conversation: Conversation,
+            isClearMessage: Boolean = false,
+            success: (isSuccess: Boolean) -> Unit,
+            error: ((errorCode: Int?) -> Unit)? = null
     ) {
         removeConversation(
-            conversation.conversationType,
-            conversation.targetId,
-            isClearMessage,
-            success,
-            error
+                conversation.conversationType,
+                conversation.targetId,
+                isClearMessage,
+                success,
+                error
         )
     }
 
@@ -713,51 +713,51 @@ internal object IMCore {
      * @param error 异常回调
      */
     fun removeConversation(
-        conversationType: Conversation.ConversationType,
-        targetId: String,
-        isClearMessage: Boolean = false,
-        success: (isSuccess: Boolean) -> Unit,
-        error: ((errorCode: Int?) -> Unit)? = null
+            conversationType: Conversation.ConversationType,
+            targetId: String,
+            isClearMessage: Boolean = false,
+            success: (isSuccess: Boolean) -> Unit,
+            error: ((errorCode: Int?) -> Unit)? = null
     ) {
         RongIMClient.getInstance().removeConversation(conversationType, targetId,
-            object : RongIMClient.ResultCallback<Boolean>() {
-                override fun onSuccess(isSuccess: Boolean) {
-                    if (isClearMessage) {
-                        //同时清除消息记录
-                        RongIMClient.getInstance().clearMessages(conversationType, targetId,
-                            object : RongIMClient.ResultCallback<Boolean>() {
-                                override fun onSuccess(isSuccess: Boolean) {
-                                    success.invoke(isSuccess)
-                                }
+                object : RongIMClient.ResultCallback<Boolean>() {
+                    override fun onSuccess(isSuccess: Boolean) {
+                        if (isClearMessage) {
+                            //同时清除消息记录
+                            RongIMClient.getInstance().clearMessages(conversationType, targetId,
+                                    object : RongIMClient.ResultCallback<Boolean>() {
+                                        override fun onSuccess(isSuccess: Boolean) {
+                                            success.invoke(isSuccess)
+                                        }
 
-                                override fun onError(errorCode: RongIMClient.ErrorCode?) {
-                                    error?.invoke(errorCode?.value)
-                                }
-                            })
-                    } else {
-                        success.invoke(isSuccess)
+                                        override fun onError(errorCode: RongIMClient.ErrorCode?) {
+                                            error?.invoke(errorCode?.value)
+                                        }
+                                    })
+                        } else {
+                            success.invoke(isSuccess)
+                        }
                     }
-                }
 
-                override fun onError(errorCode: RongIMClient.ErrorCode?) {
-                    error?.invoke(errorCode?.value)
-                }
-            })
+                    override fun onError(errorCode: RongIMClient.ErrorCode?) {
+                        error?.invoke(errorCode?.value)
+                    }
+                })
     }
 
     /**
      * 清除指定会话的未读消息的状态
      */
     fun clearMessagesUnreadStatus(
-        conversation: Conversation,
-        success: (isSuccess: Boolean) -> Unit,
-        error: ((errorCode: Int?) -> Unit)? = null
+            conversation: Conversation,
+            success: (isSuccess: Boolean) -> Unit,
+            error: ((errorCode: Int?) -> Unit)? = null
     ) {
         clearMessagesUnreadStatus(
-            conversation.conversationType,
-            conversation.targetId,
-            success,
-            error
+                conversation.conversationType,
+                conversation.targetId,
+                success,
+                error
         )
     }
 
@@ -765,21 +765,21 @@ internal object IMCore {
      * 清除指定会话的未读消息的状态
      */
     fun clearMessagesUnreadStatus(
-        conversationType: Conversation.ConversationType,
-        targetId: String,
-        success: (isSuccess: Boolean) -> Unit,
-        error: ((errorCode: Int?) -> Unit)? = null
+            conversationType: Conversation.ConversationType,
+            targetId: String,
+            success: (isSuccess: Boolean) -> Unit,
+            error: ((errorCode: Int?) -> Unit)? = null
     ) {
         RongIMClient.getInstance().clearMessagesUnreadStatus(conversationType, targetId,
-            object : RongIMClient.ResultCallback<Boolean>() {
-                override fun onSuccess(isSuccess: Boolean) {
-                    success.invoke(isSuccess)
-                }
+                object : RongIMClient.ResultCallback<Boolean>() {
+                    override fun onSuccess(isSuccess: Boolean) {
+                        success.invoke(isSuccess)
+                    }
 
-                override fun onError(errorCode: RongIMClient.ErrorCode?) {
-                    error?.invoke(errorCode?.value)
-                }
-            })
+                    override fun onError(errorCode: RongIMClient.ErrorCode?) {
+                        error?.invoke(errorCode?.value)
+                    }
+                })
     }
 
     /**
@@ -791,19 +791,19 @@ internal object IMCore {
      * @param error
      */
     fun getHistoryMessages(
-        conversation: Conversation,
-        oldestMessageId: Int = -1,
-        count: Int = 20,
-        success: (messageList: List<Message>) -> Unit,
-        error: ((errorCode: Int?) -> Unit)? = null
+            conversation: Conversation,
+            oldestMessageId: Int = -1,
+            count: Int = 20,
+            success: (messageList: List<Message>) -> Unit,
+            error: ((errorCode: Int?) -> Unit)? = null
     ) {
         getHistoryMessages(
-            conversation.conversationType,
-            conversation.targetId,
-            oldestMessageId,
-            count,
-            success,
-            error
+                conversation.conversationType,
+                conversation.targetId,
+                oldestMessageId,
+                count,
+                success,
+                error
         )
     }
 
@@ -817,24 +817,24 @@ internal object IMCore {
      * @param error
      */
     fun getHistoryMessages(
-        conversationType: Conversation.ConversationType,
-        targetId: String,
-        oldestMessageId: Int = -1,
-        count: Int = 20,
-        success: (messageList: List<Message>) -> Unit,
-        error: ((errorCode: Int?) -> Unit)? = null
+            conversationType: Conversation.ConversationType,
+            targetId: String,
+            oldestMessageId: Int = -1,
+            count: Int = 20,
+            success: (messageList: List<Message>) -> Unit,
+            error: ((errorCode: Int?) -> Unit)? = null
     ) {
         RongIMClient.getInstance()
-            .getHistoryMessages(conversationType, targetId, oldestMessageId, count,
-                object : RongIMClient.ResultCallback<List<Message>>() {
-                    override fun onSuccess(messageList: List<Message>?) {
-                        success.invoke(messageList ?: emptyList())
-                    }
+                .getHistoryMessages(conversationType, targetId, oldestMessageId, count,
+                        object : RongIMClient.ResultCallback<List<Message>>() {
+                            override fun onSuccess(messageList: List<Message>?) {
+                                success.invoke(messageList ?: emptyList())
+                            }
 
-                    override fun onError(errorCode: RongIMClient.ErrorCode?) {
-                        error?.invoke(errorCode?.value)
-                    }
-                })
+                            override fun onError(errorCode: RongIMClient.ErrorCode?) {
+                                error?.invoke(errorCode?.value)
+                            }
+                        })
     }
 
 
@@ -848,21 +848,21 @@ internal object IMCore {
      * @param error
      */
     fun searchMessages(
-        conversation: Conversation,
-        keyword: String,
-        count: Int = 0,
-        beginTime: Long = 0,
-        success: (messageList: List<Message>) -> Unit,
-        error: ((errorCode: Int?) -> Unit)? = null
+            conversation: Conversation,
+            keyword: String,
+            count: Int = 0,
+            beginTime: Long = 0,
+            success: (messageList: List<Message>) -> Unit,
+            error: ((errorCode: Int?) -> Unit)? = null
     ) {
         searchMessages(
-            conversation.conversationType,
-            conversation.targetId,
-            keyword,
-            count,
-            beginTime,
-            success,
-            error
+                conversation.conversationType,
+                conversation.targetId,
+                keyword,
+                count,
+                beginTime,
+                success,
+                error
         )
     }
 
@@ -878,39 +878,69 @@ internal object IMCore {
      * @param error
      */
     fun searchMessages(
-        conversationType: Conversation.ConversationType,
-        targetId: String,
-        keyword: String,
-        count: Int = 0,
-        beginTime: Long = 0,
-        success: (messageList: List<Message>) -> Unit,
-        error: ((errorCode: Int?) -> Unit)? = null
+            conversationType: Conversation.ConversationType,
+            targetId: String,
+            keyword: String,
+            count: Int = 0,
+            beginTime: Long = 0,
+            success: (messageList: List<Message>) -> Unit,
+            error: ((errorCode: Int?) -> Unit)? = null
     ) {
         RongIMClient.getInstance()
-            .searchMessages(conversationType, targetId, keyword, count, beginTime,
-                object : RongIMClient.ResultCallback<List<Message>>() {
-                    override fun onSuccess(messageList: List<Message>?) {
-                        success.invoke(messageList ?: emptyList())
-                    }
+                .searchMessages(conversationType, targetId, keyword, count, beginTime,
+                        object : RongIMClient.ResultCallback<List<Message>>() {
+                            override fun onSuccess(messageList: List<Message>?) {
+                                success.invoke(messageList ?: emptyList())
+                            }
 
-                    override fun onError(errorCode: RongIMClient.ErrorCode?) {
-                        error?.invoke(errorCode?.value)
-                    }
-                })
+                            override fun onError(errorCode: RongIMClient.ErrorCode?) {
+                                error?.invoke(errorCode?.value)
+                            }
+                        })
     }
 
     /**
      * 获取会话是否处于通知的状态
      */
     fun getConversationNotificationStatus(
-        conversationType: Conversation.ConversationType,
-        targetId: String,
-        success: (isNotify: Boolean) -> Unit,
-        error: ((errorCode: Int?) -> Unit)? = null
+            conversationType: Conversation.ConversationType,
+            targetId: String,
+            success: (isNotify: Boolean) -> Unit,
+            error: ((errorCode: Int?) -> Unit)? = null
     ) {
         RongIMClient.getInstance()
-            .getConversationNotificationStatus(conversationType, targetId,
-                object : RongIMClient.ResultCallback<Conversation.ConversationNotificationStatus>() {
+                .getConversationNotificationStatus(conversationType, targetId,
+                        object : RongIMClient.ResultCallback<Conversation.ConversationNotificationStatus>() {
+                            override fun onSuccess(state: Conversation.ConversationNotificationStatus?) {
+                                if (state == Conversation.ConversationNotificationStatus.NOTIFY) {
+                                    success.invoke(true)
+                                } else {
+                                    success.invoke(false)
+                                }
+                            }
+
+                            override fun onError(errorCode: RongIMClient.ErrorCode?) {
+                                error?.invoke(errorCode?.value)
+                            }
+                        })
+    }
+
+    /**
+     * 设置会话是否通知
+     */
+    fun setConversationNotificationStatus(
+            conversationType: Conversation.ConversationType,
+            targetId: String,
+            isNotify: Boolean,
+            success: (isNotify: Boolean) -> Unit,
+            error: ((errorCode: Int?) -> Unit)? = null
+    ) {
+        RongIMClient.getInstance()
+                .setConversationNotificationStatus(conversationType, targetId, if (isNotify) {
+                    Conversation.ConversationNotificationStatus.NOTIFY
+                } else {
+                    Conversation.ConversationNotificationStatus.DO_NOT_DISTURB
+                }, object : RongIMClient.ResultCallback<Conversation.ConversationNotificationStatus>() {
                     override fun onSuccess(state: Conversation.ConversationNotificationStatus?) {
                         if (state == Conversation.ConversationNotificationStatus.NOTIFY) {
                             success.invoke(true)
@@ -926,74 +956,44 @@ internal object IMCore {
     }
 
     /**
-     * 设置会话是否通知
-     */
-    fun setConversationNotificationStatus(
-        conversationType: Conversation.ConversationType,
-        targetId: String,
-        isNotify: Boolean,
-        success: (isNotify: Boolean) -> Unit,
-        error: ((errorCode: Int?) -> Unit)? = null
-    ) {
-        RongIMClient.getInstance()
-            .setConversationNotificationStatus(conversationType, targetId, if (isNotify) {
-                Conversation.ConversationNotificationStatus.NOTIFY
-            } else {
-                Conversation.ConversationNotificationStatus.DO_NOT_DISTURB
-            }, object : RongIMClient.ResultCallback<Conversation.ConversationNotificationStatus>() {
-                override fun onSuccess(state: Conversation.ConversationNotificationStatus?) {
-                    if (state == Conversation.ConversationNotificationStatus.NOTIFY) {
-                        success.invoke(true)
-                    } else {
-                        success.invoke(false)
-                    }
-                }
-
-                override fun onError(errorCode: RongIMClient.ErrorCode?) {
-                    error?.invoke(errorCode?.value)
-                }
-            })
-    }
-
-    /**
      * 设置消息的接收状态
      */
     fun setMessageReceivedStatus(
-        messageId: Int,
-        receivedStatus: Message.ReceivedStatus,
-        success: (isSuccess: Boolean) -> Unit,
-        error: ((errorCode: Int?) -> Unit)? = null
+            messageId: Int,
+            receivedStatus: Message.ReceivedStatus,
+            success: (isSuccess: Boolean) -> Unit,
+            error: ((errorCode: Int?) -> Unit)? = null
     ) {
         RongIMClient.getInstance().setMessageReceivedStatus(messageId, receivedStatus,
-            object : RongIMClient.ResultCallback<Boolean>() {
-                override fun onSuccess(isSuccess: Boolean) {
-                    success.invoke(isSuccess)
-                }
+                object : RongIMClient.ResultCallback<Boolean>() {
+                    override fun onSuccess(isSuccess: Boolean) {
+                        success.invoke(isSuccess)
+                    }
 
-                override fun onError(errorCode: RongIMClient.ErrorCode?) {
-                    error?.invoke(errorCode?.value)
-                }
-            })
+                    override fun onError(errorCode: RongIMClient.ErrorCode?) {
+                        error?.invoke(errorCode?.value)
+                    }
+                })
     }
 
     /**
      * 设置消息的扩展信息
      */
     fun setMessageExtra(
-        messageId: Int,
-        value: String,
-        success: (isSuccess: Boolean) -> Unit,
-        error: ((errorCode: Int?) -> Unit)? = null
+            messageId: Int,
+            value: String,
+            success: (isSuccess: Boolean) -> Unit,
+            error: ((errorCode: Int?) -> Unit)? = null
     ) {
         RongIMClient.getInstance().setMessageExtra(messageId, value,
-            object : RongIMClient.ResultCallback<Boolean>() {
-                override fun onSuccess(isSuccess: Boolean) {
-                    success.invoke(isSuccess)
-                }
+                object : RongIMClient.ResultCallback<Boolean>() {
+                    override fun onSuccess(isSuccess: Boolean) {
+                        success.invoke(isSuccess)
+                    }
 
-                override fun onError(errorCode: RongIMClient.ErrorCode?) {
-                    error?.invoke(errorCode?.value)
-                }
-            })
+                    override fun onError(errorCode: RongIMClient.ErrorCode?) {
+                        error?.invoke(errorCode?.value)
+                    }
+                })
     }
 }

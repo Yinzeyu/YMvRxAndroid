@@ -28,6 +28,7 @@ object YToast {
     private var lastTime: Long = 0L
     //上一条toast需要展示的时长
     private var lastDuration: Int = 0
+
     fun make(mContext: Context?): IToast? {
         mContext?.let {
             if (NotificationManagerCompat.from(it).areNotificationsEnabled()) {

@@ -8,11 +8,11 @@ import java.lang.ref.WeakReference
  * @author: yzy.
  */
 class WeakRef<T : Any> constructor(any: T) {
-  private val weakRef = WeakReference(any)
+    private val weakRef = WeakReference(any)
 
-  operator fun invoke(): T? {
-    return weakRef.get()
-  }
+    operator fun invoke(): T? {
+        return weakRef.get()
+    }
 }
 
 //任何类型的弱引用扩展

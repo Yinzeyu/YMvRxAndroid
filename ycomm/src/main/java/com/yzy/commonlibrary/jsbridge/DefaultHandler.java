@@ -1,14 +1,14 @@
 package com.yzy.commonlibrary.jsbridge;
 
-public class DefaultHandler implements BridgeHandler{
+public class DefaultHandler implements BridgeHandler {
 
-	String TAG = "DefaultHandler";
-	
-	@Override
-	public void handler(String data, CallBackFunction function) {
-		if(function != null){
-			function.onCallBack("DefaultHandler response data");
-		}
-	}
+    String TAG = "DefaultHandler";
+
+    @Override
+    public void handler(String data, CallBackFunction function) {
+        if (function != null) {
+            function.onCallBack("DefaultHandler response data");
+        }
+    }
 
 }

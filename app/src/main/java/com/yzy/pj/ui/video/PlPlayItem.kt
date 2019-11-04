@@ -84,7 +84,7 @@ abstract class PlPlayItem : BaseEpoxyModel<BaseEpoxyHolder>() {
             it.tv_play_item_play_audio_time_left.text = TimeUtils.instance.getPlayTime(0)
             if (it.apsb_play_item_play_audio.max == 0L) {
                 it.tv_play_item_play_audio_time_right.text =
-                    TimeUtils.instance.getPlayTime(duration)
+                        TimeUtils.instance.getPlayTime(duration)
                 it.apsb_play_item_play_audio.max = duration
             }
         }
