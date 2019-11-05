@@ -79,11 +79,7 @@ android {
         }
 
     }
-    kapt {
-        arguments {
-            arg("XRouterApp", project.getName() + ",modulea,moduleb")
-        }
-    }
+
     sourceSets {
         main {
             jniLibs.srcDirs = ['libs']
@@ -91,6 +87,12 @@ android {
     }
 
 }
+kapt {
+    arguments {
+        arg("AROUTER_MODULE_NAME", project.getName())
+    }
+}
+
 configurations.all {
     resolutionStrategy {
         force 'androidx.lifecycle:lifecycle-runtime:2.1.0'
@@ -123,7 +125,8 @@ dependencies {
     annotationProcessor rootProject.ext.dependencies.arouter_compiler
     //web https://github.com/Justson/AgentWeb
     implementation 'com.just.agentweb:agentweb:4.1.2'
-//    kapt 'com.xuyefeng:xrouter-compiler:1.0.6'
+    implementation rootProject.ext.dependencies.arouter_api
+    annotationProcessor rootProject.ext.dependencies.arouter_compiler
 }
 //放在这省的忘
 //@SuppressLint("ParcelCreator")

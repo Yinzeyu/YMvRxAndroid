@@ -60,7 +60,7 @@ dependencies {
     kapt rootProject.ext.dependencies.epoxyProcessor
     api rootProject.ext.dependencies.mmkv
     api rootProject.ext.dependencies.lottie
-    api rootProject.ext.dependencies.arouter_api
+
 //    https://github.com/gyf-dev/ImmersionBar
     // 基础依赖包，必须要依赖
     api 'com.gyf.immersionbar:immersionbar:3.0.0'

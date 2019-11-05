@@ -1,4 +1,4 @@
-package com.example.component_user
+package com.yzy.example.component.user
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity

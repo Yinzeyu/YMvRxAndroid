@@ -1,5 +1,6 @@
 package com.yzy.example.app
 
+import com.alibaba.android.arouter.launcher.ARouter
 import com.scwang.smart.refresh.footer.ClassicsFooter
 import com.scwang.smart.refresh.layout.SmartRefreshLayout
 import com.yzy.baselibrary.di.GlobeConfigModule
@@ -12,6 +13,7 @@ import com.yzy.commonlibrary.repository.blackRepositoryModel
 import com.yzy.example.R
 import com.yzy.example.imModel.IMUtils
 import io.rong.imlib.RongIMClient
+import me.jessyan.autosize.utils.LogUtils
 import org.kodein.di.Kodein
 
 
@@ -31,6 +33,11 @@ class App : CommonApplication() {
 //        initBug()
         RongIMClient.init(this, "mgb7ka1nmdndg")
         IMUtils.init(this@App)
+        if (LogUtils.isDebug()) {
+            ARouter.openLog();
+            ARouter.openDebug();
+        }
+        ARouter.init(this);
     }
 
     override fun baseInitCreate() {

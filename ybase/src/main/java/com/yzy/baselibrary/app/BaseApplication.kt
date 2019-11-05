@@ -4,7 +4,6 @@ import android.annotation.SuppressLint
 import android.app.Application
 import android.content.Context
 import androidx.multidex.MultiDex
-import com.alibaba.android.arouter.launcher.ARouter
 import com.blankj.utilcode.util.LogUtils
 import com.blankj.utilcode.util.ProcessUtils
 import com.blankj.utilcode.util.Utils
@@ -17,7 +16,6 @@ import com.yzy.baselibrary.extention.applySchedulers
 import io.reactivex.Observable
 import io.reactivex.ObservableOnSubscribe
 import me.jessyan.autosize.AutoSizeConfig
-import me.jessyan.autosize.utils.LogUtils.isDebug
 import org.kodein.di.Kodein
 import org.kodein.di.KodeinAware
 import org.kodein.di.android.androidCoreModule
@@ -43,11 +41,6 @@ abstract class BaseApplication : Application(), KodeinAware {
         Utils.init(this)
         this.baseInitCreate()
         //MMKV初始化
-        if (isDebug()) {
-            ARouter.openLog();
-            ARouter.openDebug();
-        }
-        ARouter.init(this);
         MMKV.initialize(this)
         if (ProcessUtils.isMainProcess()) {
             initInMainProcess()

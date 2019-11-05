@@ -1,1 +1,1 @@
-include ':app', ':ybase', ':ycomm', ':social', ':push', ':component_user'
+include ':app', ':ybase', ':ycomm', ':social', ':push'
