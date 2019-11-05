@@ -79,6 +79,11 @@ android {
         }
 
     }
+    kapt {
+        arguments {
+            arg("XRouterApp", project.getName() + ",modulea,moduleb")
+        }
+    }
     sourceSets {
         main {
             jniLibs.srcDirs = ['libs']
@@ -112,6 +117,7 @@ dependencies {
     implementation 'me.devilsen:CZXing:0.9.5'
     //web https://github.com/Justson/AgentWeb
     implementation 'com.just.agentweb:agentweb:4.1.2'
+    kapt 'com.xuyefeng:xrouter-compiler:1.0.6'
 //    implementation 'cn.rongcloud.sdk:im_lib:2.9.18'
 }
 //放在这省的忘

@@ -209,7 +209,7 @@
                 android:textColor="@color/c_ccffffff"
                 android:textSize="10sp"/>
 
-        <com.yzy.pj.widget.AimyPlayerSeekBar
+        <com.yzy.example.widget.AimyPlayerSeekBar
                 android:id="@+id/apsb_play_item_play_audio"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -243,7 +243,7 @@
             app:shape_type="Circle"
             tools:src="@mipmap/ic_launcher"/>
 
-    <com.yzy.pj.widget.PlayFollowView
+    <com.yzy.example.widget.PlayFollowView
             android:id="@+id/pfv_play_item_play_audio"
             android:layout_width="20.5dp"
             android:layout_height="20.5dp"
@@ -282,7 +282,7 @@
                 android:src="@drawable/ic_1st_arrow"/>
     </FrameLayout>
 
-    <com.yzy.pj.widget.RollingTextView
+    <com.yzy.example.widget.RollingTextView
             android:id="@+id/rtv_play_item_play_audio_introduction"
             android:layout_width="0dp"
             android:layout_height="17dp"
@@ -410,7 +410,7 @@
     <!--        App:layout_constraintRight_toRightOf="@+id/iv_play_item_play_audio_cover"-->
     <!--        App:layout_constraintTop_toTopOf="@+id/iv_play_item_play_audio_cover" />-->
 
-    <com.yzy.pj.widget.AimyLoadingView
+    <com.yzy.example.widget.AimyLoadingView
             android:id="@+id/alv_play_item_loading"
             android:layout_width="64dp"
             android:layout_height="64dp"

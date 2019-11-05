@@ -39,6 +39,7 @@ abstract class BaseApplication : Application(), KodeinAware {
     override fun onCreate() {
         super.onCreate()
         Utils.init(this)
+//        XRouter.init(this, BuildConfig.DEBUG)
         this.baseInitCreate()
         //MMKV初始化
         MMKV.initialize(this)

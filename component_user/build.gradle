@@ -2,5 +2,7 @@ apply from: rootProject.file('config_component.gradle')
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-    implementation project(":ycomm")
+//    api project(":ycomm")
+//    api 'com.xuyefeng:xrouter-core:1.1.3'
+//    kapt 'com.xuyefeng:xrouter-compiler:1.0.6'
 }

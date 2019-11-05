@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
           xmlns:tools="http://schemas.android.com/tools"
-          package="com.yzy.pj">
+          package="com.yzy.example">
     <application
-            android:name=".app.App"
+            android:name="com.yzy.example.app.App"
             android:allowBackup="true"
             android:fullBackupContent="@xml/backup_descriptor"
             android:icon="${app_icon}"
@@ -17,7 +17,7 @@
             tools:replace="android:allowBackup"
             tools:targetApi="n">
         <activity
-                android:name=".SplashActivity"
+                android:name="com.yzy.example.SplashActivity"
                 android:launchMode="singleTop"
                 android:screenOrientation="portrait"
                 android:theme="@style/SplashTheme">
@@ -29,31 +29,31 @@
         </activity>
 
         <activity
-                android:name=".ui.home.MainActivity"
+                android:name="com.yzy.example.ui.home.MainActivity"
                 android:launchMode="singleTask"
                 android:screenOrientation="portrait"
                 android:theme="@style/AppTheme.NoActionBar"
                 android:windowSoftInputMode="adjustPan|stateHidden"/>
 
         <activity
-                android:name=".ui.video.TasteVideoActivity"
+                android:name="com.yzy.example.ui.video.TasteVideoActivity"
                 android:launchMode="singleTask"
                 android:windowSoftInputMode="adjustPan|stateHidden"/>
 
         <activity
-                android:name=".ui.elephant.ViewPager2Activity"
+                android:name="com.yzy.example.ui.elephant.ViewPager2Activity"
                 android:launchMode="singleTop"
                 android:windowSoftInputMode="adjustPan|stateHidden"/>
         <!--web-->
         <activity
-                android:name=".ui.web.WebActivity"
+                android:name="com.yzy.example.ui.web.WebActivity"
                 android:configChanges="screenLayout|orientation"
                 android:launchMode="singleTop"
                 android:screenOrientation="portrait"
                 android:windowSoftInputMode="adjustPan|stateHidden"/>
 
         <activity
-                android:name=".ui.home.GankActivity"
+                android:name="com.yzy.example.ui.home.GankActivity"
                 android:configChanges="screenLayout|orientation"
                 android:launchMode="singleTop"
                 android:screenOrientation="portrait"
@@ -61,7 +61,7 @@
 
 
         <activity
-                android:name=".ui.video.PLDroidActivity"
+                android:name="com.yzy.example.ui.video.PLDroidActivity"
                 android:configChanges="screenLayout|orientation"
                 android:launchMode="singleTop"
                 android:screenOrientation="portrait"
@@ -75,14 +75,14 @@
 
         <!--友盟push about-->
         <activity
-                android:name=".push.UmengPushActivity"
+                android:name="com.yzy.example.push.UmengPushActivity"
                 android:exported="true"
                 android:launchMode="singleTask"
                 android:screenOrientation="portrait"
                 android:theme="@android:style/Theme.Translucent"/>
 
         <!--魅族push应用定义消息receiver声明 -->
-        <receiver android:name=".MeiReceiver">
+        <receiver android:name="com.yzy.example.MeiReceiver">
             <intent-filter>
                 <!-- 接收push消息 -->
                 <action android:name="com.meizu.flyme.push.intent.MESSAGE"/>

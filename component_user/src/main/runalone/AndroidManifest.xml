@@ -11,7 +11,7 @@
         android:theme="@style/AppTheme"
         android:name="debug.ImApp"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".MainActivity">
+        <activity android:name=".HomeActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 

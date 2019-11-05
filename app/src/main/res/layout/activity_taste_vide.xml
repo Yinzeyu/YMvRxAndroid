@@ -5,7 +5,7 @@
                                                    xmlns:app="http://schemas.android.com/apk/res-auto"
                                                    android:orientation="vertical">
 
-    <com.yzy.pj.widget.RecorderView
+    <com.yzy.example.widget.RecorderView
             android:id="@+id/message_chat_recorder_view"
             android:layout_width="match_parent"
             android:layout_height="300dp"
@@ -14,5 +14,5 @@
             app:layout_constraintEnd_toEndOf="parent"
     >
 
-    </com.yzy.pj.widget.RecorderView>
+    </com.yzy.example.widget.RecorderView>
 </androidx.constraintlayout.widget.ConstraintLayout>
