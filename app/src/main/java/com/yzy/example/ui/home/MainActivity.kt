@@ -4,7 +4,6 @@ import android.content.Context
 import androidx.annotation.IntRange
 import com.blankj.utilcode.util.FragmentUtils
 import com.blankj.utilcode.util.LogUtils
-import com.blue.xrouter.XRouter
 import com.yzy.baselibrary.extention.*
 import com.yzy.commonlibrary.comm.CommActivity
 import com.yzy.commonlibrary.comm.CommFragment
@@ -84,7 +83,7 @@ class MainActivity : CommActivity() {
 
         flDoublePlay.click {
 //            PLDroidActivity.starPLDroidActivity(mContext)
-            XRouter.with(mContext).target("www.baidu.com").jump()
+//            XRouter.with(mContext).target("www.baidu.com").jump()
         }
     }
 

@@ -74,29 +74,29 @@
 
 
         <!--友盟push about-->
-        <activity
-                android:name="com.yzy.example.push.UmengPushActivity"
-                android:exported="true"
-                android:launchMode="singleTask"
-                android:screenOrientation="portrait"
-                android:theme="@android:style/Theme.Translucent"/>
+<!--        <activity-->
+<!--                android:name="com.yzy.example.push.UmengPushActivity"-->
+<!--                android:exported="true"-->
+<!--                android:launchMode="singleTask"-->
+<!--                android:screenOrientation="portrait"-->
+<!--                android:theme="@android:style/Theme.Translucent"/>-->
 
-        <!--魅族push应用定义消息receiver声明 -->
-        <receiver android:name="com.yzy.example.MeiReceiver">
-            <intent-filter>
-                <!-- 接收push消息 -->
-                <action android:name="com.meizu.flyme.push.intent.MESSAGE"/>
-                <!-- 接收register消息 -->
-                <action android:name="com.meizu.flyme.push.intent.REGISTER.FEEDBACK"/>
-                <!-- 接收unregister消息-->
-                <action android:name="com.meizu.flyme.push.intent.UNREGISTER.FEEDBACK"/>
-                <!-- 兼容低版本Flyme3推送服务配置 -->
-                <action android:name="com.meizu.c2dm.intent.REGISTRATION"/>
-                <action android:name="com.meizu.c2dm.intent.RECEIVE"/>
+<!--        &lt;!&ndash;魅族push应用定义消息receiver声明 &ndash;&gt;-->
+<!--        <receiver android:name="com.yzy.example.MeiReceiver">-->
+<!--            <intent-filter>-->
+<!--                &lt;!&ndash; 接收push消息 &ndash;&gt;-->
+<!--                <action android:name="com.meizu.flyme.push.intent.MESSAGE"/>-->
+<!--                &lt;!&ndash; 接收register消息 &ndash;&gt;-->
+<!--                <action android:name="com.meizu.flyme.push.intent.REGISTER.FEEDBACK"/>-->
+<!--                &lt;!&ndash; 接收unregister消息&ndash;&gt;-->
+<!--                <action android:name="com.meizu.flyme.push.intent.UNREGISTER.FEEDBACK"/>-->
+<!--                &lt;!&ndash; 兼容低版本Flyme3推送服务配置 &ndash;&gt;-->
+<!--                <action android:name="com.meizu.c2dm.intent.REGISTRATION"/>-->
+<!--                <action android:name="com.meizu.c2dm.intent.RECEIVE"/>-->
 
-                <category android:name="${applicationId}"/>
-            </intent-filter>
-        </receiver>
+<!--                <category android:name="${applicationId}"/>-->
+<!--            </intent-filter>-->
+<!--        </receiver>-->
 
         <!--        <meta-data-->
         <!--            android:name="com.vivo.push.api_key"-->

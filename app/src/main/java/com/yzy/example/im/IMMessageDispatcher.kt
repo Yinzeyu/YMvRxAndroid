@@ -1,5 +1,6 @@
 package com.yzy.example.im
 
+import android.annotation.SuppressLint
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
@@ -26,9 +27,10 @@ internal object IMMessageDispatcher {
     /**
      *分发消息
      */
+    @SuppressLint("CheckResult")
     fun dispatcherMessage(message: Message) {
         //需要切换到主线程
-        val disposable = Observable.just(message)
+        Observable.just(message)
                 .subscribeOn(Schedulers.io())
                 .unsubscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -54,7 +56,7 @@ internal object IMMessageDispatcher {
         if (objectName.isNullOrBlank()) {
             allMessageReceiveCallbackList.add(callback)
         } else {
-            objectName?.let {
+            objectName.let {
                 if (messageReceiveCallbackMap[it] == null) {
                     messageReceiveCallbackMap[it] = mutableListOf()
                 }
@@ -75,7 +77,7 @@ internal object IMMessageDispatcher {
         if (objectName.isNullOrBlank()) {
             allMessageReceiveCallbackList.remove(callback)
         } else {
-            objectName?.let {
+            objectName.let {
                 messageReceiveCallbackMap[it]?.remove(callback)
             }
         }

@@ -25,9 +25,20 @@ android {
 //        ndk {
 //            abiFilters 'armeabi-v7a' //, 'arm64-v8a'
 //        }
+        javaCompileOptions {
+            annotationProcessorOptions {
+                arguments = [AROUTER_MODULE_NAME: project.getName()]
+            }
+        }
         compileOptions {
             sourceCompatibility rootProject.ext.android.javaSourceCompatibility
             targetCompatibility rootProject.ext.android.javaTargetCompatibility
+        }
+
+        javaCompileOptions {
+            annotationProcessorOptions {
+                arguments = [AROUTER_MODULE_NAME: project.getName()]
+            }
         }
         resourcePrefix componentName + "_"
     }
@@ -81,7 +92,6 @@ android {
     dependencies {
         implementation rootProject.ext.dependencies.kotlin_jdk
         api project(":ycomm")
-//        api 'com.xuyefeng:xrouter-core:1.1.3'
-//        kapt 'com.xuyefeng:xrouter-compiler:1.0.6'
+        annotationProcessor rootProject.ext.dependencies.arouter_compiler
     }
 }

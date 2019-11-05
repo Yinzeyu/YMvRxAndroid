@@ -1,5 +1,4 @@
-apply from: rootProject.file('config_component.gradle')
-
+apply from: "../config_component.gradle"
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
 //    api project(":ycomm")

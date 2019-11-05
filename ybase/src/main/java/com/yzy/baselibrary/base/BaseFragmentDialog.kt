@@ -17,9 +17,7 @@ import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.LifecycleOwner
 import com.airbnb.mvrx.MvRxView
 import com.airbnb.mvrx.MvRxViewId
-import com.airbnb.mvrx.MvRxViewModelStore
 import com.yzy.baselibrary.extention.dp2px
-import com.yzy.baselibrary.extention.isDoubleClick
 
 /**
  *description: Dialog的基类.
@@ -44,13 +42,11 @@ abstract class BaseFragmentDialog : DialogFragment(), MvRxView {
     private var viewLoadedListener: ((View) -> Unit)? = null
     private var showListener: (() -> Unit)? = null
     private var disListener: (() -> Unit)? = null
-    override val mvrxViewModelStore by lazy { MvRxViewModelStore(viewModelStore) }
 
     private val mvrxViewIdProperty = MvRxViewId()
     final override val mvrxViewId: String by mvrxViewIdProperty
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        mvrxViewModelStore.restoreViewModels(this, savedInstanceState)
         mvrxViewIdProperty.restoreFrom(savedInstanceState)
         super.onCreate(savedInstanceState)
     }
@@ -63,9 +59,9 @@ abstract class BaseFragmentDialog : DialogFragment(), MvRxView {
 
     private var contentView: View? = null
     override fun onCreateView(
-            inflater: LayoutInflater,
-            container: ViewGroup?,
-            savedInstanceState: Bundle?
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
     ): View? {
         setStyle()
         if (contentView == null) {
@@ -94,8 +90,8 @@ abstract class BaseFragmentDialog : DialogFragment(), MvRxView {
 
     // 黑暗 0.0F ~ 1.0F 透明
     protected open fun setBackgroundAlpha(
-            context: Context,
-            alpha: Float
+        context: Context,
+        alpha: Float
     ) {
         val act = context as? Activity ?: return
         val attributes = act.window.attributes
@@ -188,7 +184,6 @@ abstract class BaseFragmentDialog : DialogFragment(), MvRxView {
 
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
-        mvrxViewModelStore.saveViewModels(outState)
         mvrxViewIdProperty.saveTo(outState)
     }
 

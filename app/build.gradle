@@ -109,16 +109,21 @@ configurations.all {
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation rootProject.ext.dependencies.kotlin_jdk
-    implementation project(":ycomm")
-    implementation project(":social")
-    implementation project(":push")
+    if (isRunAlone){
+        implementation project(":ycomm")
+    }else {
+        implementation project(":component_user")
+    }
+
+//    implementation project(":social")
+//    implementation project(":push")
     kapt rootProject.ext.dependencies.epoxyProcessor
     implementation 'androidx.viewpager2:viewpager2:1.0.0-rc01'
     implementation 'me.devilsen:CZXing:0.9.5'
+    annotationProcessor rootProject.ext.dependencies.arouter_compiler
     //web https://github.com/Justson/AgentWeb
     implementation 'com.just.agentweb:agentweb:4.1.2'
-    kapt 'com.xuyefeng:xrouter-compiler:1.0.6'
-//    implementation 'cn.rongcloud.sdk:im_lib:2.9.18'
+//    kapt 'com.xuyefeng:xrouter-compiler:1.0.6'
 }
 //放在这省的忘
 //@SuppressLint("ParcelCreator")

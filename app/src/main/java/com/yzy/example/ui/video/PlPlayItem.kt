@@ -75,7 +75,7 @@ abstract class PlPlayItem : BaseEpoxyModel<BaseEpoxyHolder>() {
     /**
      * 播放器准备的监听
      */
-    private val mPLOnPreparedListener = PLOnPreparedListener { preparedTime ->
+    private val mPLOnPreparedListener = PLOnPreparedListener { _ ->
         Log.e("CASE", "---------------------:mPLOnPreparedListener")
 
         //准备完成
@@ -105,30 +105,30 @@ abstract class PlPlayItem : BaseEpoxyModel<BaseEpoxyHolder>() {
 //            mOnPlayClick.preparePlayTimes(mVideoBean)
 //        }
     }
-    /**
-     * Seek完成
-     */
-    private val mPLOnSeekCompleteListener = PLOnSeekCompleteListener { this.setPlayStart() }
-    /**
-     * 视频宽高
-     */
-    private val mPLOnVideoSizeChangedListener = PLOnVideoSizeChangedListener { width, height -> }
-    /**
-     * 文件的缓冲进度(整个文件)
-     */
-    private val mPLOnBufferingUpdateListener = PLOnBufferingUpdateListener { percent -> }
+//    /**
+//     * Seek完成
+//     */
+//    private val mPLOnSeekCompleteListener = PLOnSeekCompleteListener { this.setPlayStart() }
+//    /**
+//     * 视频宽高
+//     */
+//    private val mPLOnVideoSizeChangedListener = PLOnVideoSizeChangedListener { _, _ -> }
+//    /**
+//     * 文件的缓冲进度(整个文件)
+//     */
+//    private val mPLOnBufferingUpdateListener = PLOnBufferingUpdateListener { _ -> }
 
     /**
      * 设置播放
      */
-    fun setPlayStart() {
+//    private fun setPlayStart() {
 //        if (mViewHolder != null && mVideoBean != null && isPrepared) {
 //            start()
 //            mViewHolder.mImageViewStartPause.setImageResource(R.drawable.pause_video_white)
 //            mViewHolder.mImageViewStartPause.setTag(null)
 //            addAudioFocusChangeListener()
 //        }
-    }
+//    }
 
     /**
      * 是否需要刷新画面或重置

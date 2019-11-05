@@ -1,7 +1,7 @@
 package com.yzy.baselibrary.base
 
 import android.os.Bundle
-import com.airbnb.mvrx.BaseMvRxActivity
+import androidx.appcompat.app.AppCompatActivity
 import com.airbnb.mvrx.MvRxView
 import com.airbnb.mvrx.MvRxViewId
 import com.gyf.immersionbar.ImmersionBar
@@ -12,7 +12,7 @@ import org.kodein.di.android.kodein
 import org.kodein.di.android.retainedSubKodein
 import org.kodein.di.generic.kcontext
 
-abstract class BaseActivity : BaseMvRxActivity(), MvRxView, KodeinAware {
+abstract class BaseActivity : AppCompatActivity(), MvRxView, KodeinAware {
     //MvRxView
     private val mvRxViewIdProperty = MvRxViewId()
     final override val mvrxViewId: String by mvRxViewIdProperty
@@ -28,6 +28,7 @@ abstract class BaseActivity : BaseMvRxActivity(), MvRxView, KodeinAware {
         initBeforeCreateView(savedInstanceState)
         super.onCreate(savedInstanceState)
         setContentView(layoutResId())
+        mvRxViewIdProperty.restoreFrom(savedInstanceState)
         kodeinTrigger.trigger()
         initView()
         initData()
