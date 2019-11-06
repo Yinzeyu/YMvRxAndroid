@@ -58,10 +58,15 @@
                 android:launchMode="singleTop"
                 android:screenOrientation="portrait"
                 android:windowSoftInputMode="adjustPan|stateHidden"/>
-
-
         <activity
                 android:name="com.yzy.example.ui.video.PLDroidActivity"
+                android:configChanges="screenLayout|orientation"
+                android:launchMode="singleTop"
+                android:screenOrientation="portrait"
+                android:windowSoftInputMode="adjustPan|stateHidden"/>
+
+        <activity
+                android:name=".component.user.HomeActivity"
                 android:configChanges="screenLayout|orientation"
                 android:launchMode="singleTop"
                 android:screenOrientation="portrait"

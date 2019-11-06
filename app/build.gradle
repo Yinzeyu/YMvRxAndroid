@@ -122,6 +122,7 @@ dependencies {
     kapt rootProject.ext.dependencies.epoxyProcessor
     implementation 'androidx.viewpager2:viewpager2:1.0.0-rc01'
     implementation 'me.devilsen:CZXing:0.9.5'
+//    implementation 'com.yzy:YSocialApi:3.0.3'
     annotationProcessor rootProject.ext.dependencies.arouter_compiler
     //web https://github.com/Justson/AgentWeb
     implementation 'com.just.agentweb:agentweb:4.1.2'
