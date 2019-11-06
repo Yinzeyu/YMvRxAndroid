@@ -8,7 +8,7 @@ import com.just.agentweb.LogUtils
 import com.yzy.example.R
 import com.yzy.example.constants.RouterConstants
 
-@Route(path = RouterConstants.User.PAGE_MAP_ACTIVITY)
+@Route(path ="/user/home")
 class HomeActivity : AppCompatActivity() {
     @Autowired(name = RouterConstants.User.KEY_MAP_LAT)
     @JvmField
@@ -16,7 +16,7 @@ class HomeActivity : AppCompatActivity() {
 
     @Autowired(name = RouterConstants.User.KEY_MAP_LAT)
     @JvmField
-    var name = 0.00
+    var name: String = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

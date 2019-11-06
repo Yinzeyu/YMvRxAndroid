@@ -10,7 +10,7 @@ class UserComponent {
             worksBean: String? = null//发布本地作品的传参
         ) {
             ARouter.getInstance()
-                .build(RouterConstants.User.PAGE_MAP_ACTIVITY)
+                .build("/user/home")
                 .withLong(RouterConstants.User.KEY_MAP_LAT, circleId)
                 .withString(RouterConstants.User.KEY_MAP_LNG, worksBean)
                 .navigation()

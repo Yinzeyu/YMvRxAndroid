@@ -10,10 +10,10 @@ import com.yzy.commonlibrary.constants.ApiConstants
 import com.yzy.commonlibrary.integration.HeaderHttpHandler
 import com.yzy.commonlibrary.refresh.RefreshHeader
 import com.yzy.commonlibrary.repository.blackRepositoryModel
+import com.yzy.example.BuildConfig
 import com.yzy.example.R
 import com.yzy.example.imModel.IMUtils
 import io.rong.imlib.RongIMClient
-import me.jessyan.autosize.utils.LogUtils
 import org.kodein.di.Kodein
 
 
@@ -33,18 +33,24 @@ class App : CommonApplication() {
 //        initBug()
         RongIMClient.init(this, "mgb7ka1nmdndg")
         IMUtils.init(this@App)
-        if (LogUtils.isDebug()) {
-            ARouter.openLog();
-            ARouter.openDebug();
-        }
-        ARouter.init(this);
+        initARouter()
     }
 
     override fun baseInitCreate() {
         super.baseInitCreate()
         initUM()
     }
-
+    /**
+     * 初始化ARouter
+     */
+    private fun initARouter() {
+        if (BuildConfig.DEBUG) {
+            ARouter.openLog()// 打印日志
+            ARouter.openDebug()// 开启调试模式(如果在InstantRun模式下运行，必须开启调试模式！线上版本需要关闭,否则有安全风险)
+            ARouter.printStackTrace()//打印日志的时候打印线程堆栈
+        }
+        ARouter.init(this)//初始化
+    }
     private fun initUM() {
 //        val umKey =
 //                if (BuildConfig.DEBUG) StringConstants.Push.UM_DEBUG_KEY else StringConstants.Push.UM_RELEASE_KEY

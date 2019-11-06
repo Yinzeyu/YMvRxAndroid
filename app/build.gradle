@@ -3,6 +3,7 @@ apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
 apply from: 'and_res_guard.gradle'
+apply plugin: 'com.alibaba.arouter'
 //打包时间
 static def releaseTime() {
     return new Date().format("yyyy-MM-dd", TimeZone.getTimeZone("UTC"))
@@ -123,11 +124,10 @@ dependencies {
     implementation 'androidx.viewpager2:viewpager2:1.0.0-rc01'
     implementation 'me.devilsen:CZXing:0.9.5'
 //    implementation 'com.yzy:YSocialApi:3.0.3'
-    annotationProcessor rootProject.ext.dependencies.arouter_compiler
     //web https://github.com/Justson/AgentWeb
     implementation 'com.just.agentweb:agentweb:4.1.2'
     implementation rootProject.ext.dependencies.arouter_api
-    annotationProcessor rootProject.ext.dependencies.arouter_compiler
+    kapt rootProject.ext.dependencies.arouter_compiler
 }
 //放在这省的忘
 //@SuppressLint("ParcelCreator")
