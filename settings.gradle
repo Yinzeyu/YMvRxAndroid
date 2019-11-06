@@ -1,1 +1,1 @@
-include ':app', ':ybase', ':ycomm', ':social', ':push'
+include ':app', ':ybase', ':ycomm', ':push'

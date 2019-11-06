@@ -8,6 +8,7 @@ import com.yzy.baselibrary.extention.*
 import com.yzy.commonlibrary.comm.CommActivity
 import com.yzy.commonlibrary.comm.CommFragment
 import com.yzy.example.R
+import com.yzy.example.component.user.UserComponent
 import com.yzy.example.ui.IndexFragment
 import com.yzy.example.ui.elephant.ViewPager2Activity
 import com.yzy.example.ui.initAddFriendDialog
@@ -84,6 +85,10 @@ class MainActivity : CommActivity() {
         flDoublePlay.click {
 //            PLDroidActivity.starPLDroidActivity(mContext)
 //            XRouter.with(mContext).target("www.baidu.com").jump()
+        }
+
+        flDoubleStar.click {
+           UserComponent.startDynamicPublish(1000000L,"张三")
         }
     }
 
