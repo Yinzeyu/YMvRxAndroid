@@ -27,8 +27,8 @@ interface RouterConstants {
             /**
              * 经纬度
              */
-            const val KEY_MAP_LAT = "mapLat"
-            const val KEY_MAP_LNG = "mapLng"
+            const val KEYMAPLAT = "mapLat"
+            const val KEYMAPLNG = "mapLng"
             /**
              * 地点名称
              */

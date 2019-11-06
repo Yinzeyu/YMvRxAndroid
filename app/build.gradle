@@ -1,9 +1,10 @@
 apply plugin: 'com.android.application'
+apply plugin: 'com.alibaba.arouter'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
 apply from: 'and_res_guard.gradle'
-apply plugin: 'com.alibaba.arouter'
+
 //打包时间
 static def releaseTime() {
     return new Date().format("yyyy-MM-dd", TimeZone.getTimeZone("UTC"))

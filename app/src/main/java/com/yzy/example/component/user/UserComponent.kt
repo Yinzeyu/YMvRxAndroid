@@ -11,8 +11,8 @@ class UserComponent {
         ) {
             ARouter.getInstance()
                 .build("/user/home")
-                .withLong(RouterConstants.User.KEY_MAP_LAT, circleId)
-                .withString(RouterConstants.User.KEY_MAP_LNG, worksBean)
+                .withLong(RouterConstants.User.KEYMAPLAT, circleId)
+                .withString(RouterConstants.User.KEYMAPLNG, worksBean)
                 .navigation()
         }
     }
