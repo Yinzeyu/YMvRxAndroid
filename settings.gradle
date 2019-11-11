@@ -1,1 +1,1 @@
-include ':app', ':ybase', ':ycomm', ':push'
+include ':app', ':ybase'

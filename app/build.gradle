@@ -3,7 +3,7 @@ apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
 apply from: 'and_res_guard.gradle'
-//apply plugin: 'com.alibaba.arouter'
+apply plugin: 'io.objectbox'
 
 //打包时间
 static def releaseTime() {
@@ -14,6 +14,7 @@ android {
     compileSdkVersion rootProject.ext.android.compileSdkVersion
     buildToolsVersion rootProject.ext.android.buildToolsVersion
     defaultConfig {
+        applicationId rootProject.ext.android.applicationId
         minSdkVersion rootProject.ext.android.minSdkVersion
         targetSdkVersion rootProject.ext.android.targetSdkVersion
         versionCode rootProject.ext.android.versionCode
@@ -21,15 +22,10 @@ android {
         flavorDimensions "default"
         multiDexEnabled true
         resConfigs "zh", "en"//保留中文和英文资源
-        javaCompileOptions {
-            annotationProcessorOptions {
-                arguments = [AROUTER_MODULE_NAME: project.getName(), AROUTER_GENERATE_DOC: "enable"]
-            }
+        ndk {
+            // 设置支持的so库架构，设置一个可以减小包的大小
+            abiFilters "armeabi-v7a" //, "arm64-v8a"
         }
-//        ndk {
-//            // 设置支持的so库架构，设置一个可以减小包的大小
-//            abiFilters "armeabi-v7a" //, "arm64-v8a"
-//        }
     }
     //使用Kotlin实验特性
     androidExtensions {
@@ -47,7 +43,6 @@ android {
     }
     productFlavors {
         pj {
-            applicationId rootProject.ext.android.applicationId
             manifestPlaceholders = [app_icon: "@mipmap/ic_launcher", app_roundIcon: "@mipmap/ic_launcher", app_name: "帅哥"]
         }
     }
@@ -90,46 +85,25 @@ android {
     sourceSets {
         main {
             jniLibs.srcDirs = ['libs']
+//            assets.srcDirs = ['src/main/assets', 'src/main/assets/']
         }
-    }
-
-}
-
-//kapt {
-//    arguments {
-//        arg("AROUTER_MODULE_NAME", project.getName())
-//    }
-//}
-
-configurations.all {
-    resolutionStrategy {
-        force 'androidx.lifecycle:lifecycle-runtime:2.1.0'
-        force 'androidx.lifecycle:lifecycle-viewmodel:2.1.0'
-        force 'androidx.lifecycle:lifecycle-livedata:2.1.0'
-        force 'androidx.lifecycle:lifecycle-livedata-core:2.1.0'
-        force 'androidx.lifecycle:lifecycle-common:2.1.0'
-        force 'androidx.arch.core:core-common:2.1.0'
-        force 'io.reactivex.rxjava2:rxjava:2.2.10'
-        force "org.jetbrains.kotlin:kotlin-stdlib:1.3.50"
-        force "org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.3.50"
-        force "org.jetbrains.kotlin:kotlin-stdlib-common:1.3.50"
-
     }
 }
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation rootProject.ext.dependencies.kotlin_jdk
-        implementation project(":ycomm")
-//    implementation project(":social")
-//    implementation project(":push")
     kapt rootProject.ext.dependencies.epoxyProcessor
+    implementation project(":ybase")
+    implementation rootProject.ext.dependencies.bugly
+    implementation rootProject.ext.dependencies.bugly_native
+    implementation rootProject.ext.dependencies.smart
+    implementation rootProject.ext.dependencies.smart_classics
+    implementation rootProject.ext.dependencies.objectBox_RxJava
+    implementation rootProject.ext.dependencies.objectBox_Kotlin
     implementation 'androidx.viewpager2:viewpager2:1.0.0-rc01'
     implementation 'me.devilsen:CZXing:0.9.5'
-//    implementation 'com.yzy:YSocialApi:3.0.3'
     //web https://github.com/Justson/AgentWeb
     implementation 'com.just.agentweb:agentweb:4.1.2'
-//    implementation rootProject.ext.dependencies.arouter_api
-//    kapt rootProject.ext.dependencies.arouter_compiler
 }
 //放在这省的忘
 //@SuppressLint("ParcelCreator")

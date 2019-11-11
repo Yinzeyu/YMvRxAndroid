@@ -4,7 +4,7 @@ import android.content.Context
 import androidx.viewpager2.widget.ViewPager2
 import com.gyf.immersionbar.ktx.immersionBar
 import com.yzy.baselibrary.extention.startActivity
-import com.yzy.commonlibrary.comm.CommActivity
+import com.yzy.example.comm.CommActivity
 import com.yzy.example.R
 import kotlinx.android.synthetic.main.activity_video_pldroid.*
 

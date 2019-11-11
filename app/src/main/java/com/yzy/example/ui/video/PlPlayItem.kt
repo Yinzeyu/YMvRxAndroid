@@ -9,7 +9,7 @@ import com.pili.pldroid.player.*
 import com.pili.pldroid.player.widget.PLVideoView
 import com.yzy.baselibrary.base.BaseEpoxyHolder
 import com.yzy.baselibrary.base.BaseEpoxyModel
-import com.yzy.commonlibrary.TimeUtils
+import com.yzy.example.utils.TimeUtils
 import com.yzy.example.R
 import com.yzy.example.widget.AimyPlayerSeekBar
 import kotlinx.android.synthetic.main.pl_item.view.*

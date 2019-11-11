@@ -7,7 +7,7 @@ import com.yzy.baselibrary.base.BaseEpoxyHolder
 import com.yzy.baselibrary.base.BaseEpoxyModel
 import com.yzy.baselibrary.extention.click
 import com.yzy.baselibrary.extention.pressEffectBgColor
-import com.yzy.commonlibrary.repository.bean.GankAndroidBean
+import com.yzy.example.repository.bean.GankAndroidBean
 import com.yzy.example.R
 import kotlinx.android.synthetic.main.item_gank_android.view.*
 

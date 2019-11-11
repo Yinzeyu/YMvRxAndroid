@@ -15,7 +15,7 @@ import android.view.animation.TranslateAnimation;
 import android.widget.TextView;
 import android.widget.ViewFlipper;
 
-import com.yzy.commonlibrary.widget.span.LinkTouchMovementMethod;
+import com.yzy.example.widget.span.LinkTouchMovementMethod;
 import com.yzy.example.R;
 
 import java.lang.ref.WeakReference;

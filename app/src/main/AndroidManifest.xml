@@ -1,172 +1,179 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-          xmlns:tools="http://schemas.android.com/tools"
-          package="com.yzy.example">
-    <application
-            android:name="com.yzy.example.app.App"
-            android:allowBackup="true"
-            android:fullBackupContent="@xml/backup_descriptor"
-            android:icon="${app_icon}"
-            android:label="${app_name}"
-            android:largeHeap="true"
-            android:roundIcon="${app_roundIcon}"
-            android:supportsRtl="true"
-            android:networkSecurityConfig="@xml/network_security_config"
-            android:theme="@style/AppTheme"
-            tools:ignore="GoogleAppIndexingWarning"
-            tools:replace="android:allowBackup"
-            tools:targetApi="n">
-        <activity
-                android:name="com.yzy.example.SplashActivity"
-                android:launchMode="singleTop"
-                android:screenOrientation="portrait"
-                android:theme="@style/SplashTheme">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
+    xmlns:tools="http://schemas.android.com/tools"
+    package="com.yzy.example">
+    <!--SD卡读写权限-->
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <!--网络访问权限-->
+    <uses-permission android:name="android.permission.INTERNET" />
+    <!--手机信息权限-->
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <!--网络状态判断权限-->
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <!--地理位置权限-->
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <!-- 这个权限用于获取wifi的获取权限，wifi信息会用来进行网络定位 -->
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
+    <!-- 用于提高GPS定位速度 -->
+    <uses-permission android:name="android.permission.ACCESS_LOCATION_EXTRA_COMMANDS" />
 
-                <category android:name="android.intent.category.LAUNCHER"/>
+    <!--相机权限-->
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.VIBRATE" />
+    <!-- 录音权限-->
+    <uses-permission android:name="android.permission.RECORD_AUDIO" />
+
+    <!-- 3.2.0版本增加 -->
+    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
+    <!-- 3.2.0版本增加 -->
+    <uses-permission android:name="android.permission.BLUETOOTH" />
+    <uses-permission android:name="android.permission.GET_TASKS" />
+    <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS" />
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+    <!--推送的权限-->
+    <uses-permission android:name="android.permission.BROADCAST_PACKAGE_ADDED" />
+    <uses-permission android:name="android.permission.BROADCAST_PACKAGE_CHANGED" />
+    <uses-permission android:name="android.permission.BROADCAST_PACKAGE_INSTALL" />
+    <uses-permission android:name="android.permission.BROADCAST_PACKAGE_REPLACED" />
+    <uses-permission android:name="android.permission.RESTART_PACKAGES" />
+    <uses-permission android:name="android.permission.CHANGE_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES" />
+    <!-- 消息通道保活 -->
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+
+    <application
+        android:name="com.yzy.example.app.App"
+        android:allowBackup="true"
+        android:fullBackupContent="@xml/backup_descriptor"
+        android:icon="${app_icon}"
+        android:label="${app_name}"
+        android:largeHeap="true"
+        android:networkSecurityConfig="@xml/network_security_config"
+        android:roundIcon="${app_roundIcon}"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme"
+        tools:ignore="GoogleAppIndexingWarning"
+        tools:replace="android:allowBackup"
+        tools:targetApi="n">
+        <activity
+            android:name="com.yzy.example.SplashActivity"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait"
+            android:theme="@style/SplashTheme">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
 
         <activity
-                android:name="com.yzy.example.ui.home.MainActivity"
-                android:launchMode="singleTask"
-                android:screenOrientation="portrait"
-                android:theme="@style/AppTheme.NoActionBar"
-                android:windowSoftInputMode="adjustPan|stateHidden"/>
+            android:name="com.yzy.example.ui.home.MainActivity"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:windowSoftInputMode="adjustPan|stateHidden" />
 
         <activity
-                android:name="com.yzy.example.ui.video.TasteVideoActivity"
-                android:launchMode="singleTask"
-                android:windowSoftInputMode="adjustPan|stateHidden"/>
+            android:name="com.yzy.example.ui.video.TasteVideoActivity"
+            android:launchMode="singleTask"
+            android:windowSoftInputMode="adjustPan|stateHidden" />
 
         <activity
-                android:name="com.yzy.example.ui.elephant.ViewPager2Activity"
-                android:launchMode="singleTop"
-                android:windowSoftInputMode="adjustPan|stateHidden"/>
+            android:name="com.yzy.example.ui.elephant.ViewPager2Activity"
+            android:launchMode="singleTop"
+            android:windowSoftInputMode="adjustPan|stateHidden" />
         <!--web-->
         <activity
-                android:name="com.yzy.example.ui.web.WebActivity"
-                android:configChanges="screenLayout|orientation"
-                android:launchMode="singleTop"
-                android:screenOrientation="portrait"
-                android:windowSoftInputMode="adjustPan|stateHidden"/>
+            android:name="com.yzy.example.ui.web.WebActivity"
+            android:configChanges="screenLayout|orientation"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan|stateHidden" />
 
         <activity
-                android:name="com.yzy.example.ui.home.GankActivity"
-                android:configChanges="screenLayout|orientation"
-                android:launchMode="singleTop"
-                android:screenOrientation="portrait"
-                android:windowSoftInputMode="adjustPan|stateHidden"/>
+            android:name="com.yzy.example.ui.home.GankActivity"
+            android:configChanges="screenLayout|orientation"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan|stateHidden" />
         <activity
-                android:name="com.yzy.example.ui.video.PLDroidActivity"
-                android:configChanges="screenLayout|orientation"
-                android:launchMode="singleTop"
-                android:screenOrientation="portrait"
-                android:windowSoftInputMode="adjustPan|stateHidden"/>
+            android:name="com.yzy.example.ui.video.PLDroidActivity"
+            android:configChanges="screenLayout|orientation"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan|stateHidden" />
 
         <activity
-                android:name=".component.user.HomeActivity"
-                android:configChanges="screenLayout|orientation"
-                android:launchMode="singleTop"
-                android:screenOrientation="portrait"
-                android:windowSoftInputMode="adjustPan|stateHidden"/>
+            android:name=".component.user.HomeActivity"
+            android:configChanges="screenLayout|orientation"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan|stateHidden" />
 
 
         <meta-data
-                android:name="android.max_aspect"
-                android:value="2.4"/>
+            android:name="android.max_aspect"
+            android:value="2.4" />
 
+        <!--设计稿的尺寸用于适配框架-->
+        <meta-data
+            android:name="design_width_in_dp"
+            android:value="360" />
+        <meta-data
+            android:name="design_height_in_dp"
+            android:value="640" />
 
-        <!--友盟push about-->
-<!--        <activity-->
-<!--                android:name="com.yzy.example.push.UmengPushActivity"-->
-<!--                android:exported="true"-->
-<!--                android:launchMode="singleTask"-->
-<!--                android:screenOrientation="portrait"-->
-<!--                android:theme="@android:style/Theme.Translucent"/>-->
-
-<!--        &lt;!&ndash;魅族push应用定义消息receiver声明 &ndash;&gt;-->
-<!--        <receiver android:name="com.yzy.example.MeiReceiver">-->
-<!--            <intent-filter>-->
-<!--                &lt;!&ndash; 接收push消息 &ndash;&gt;-->
-<!--                <action android:name="com.meizu.flyme.push.intent.MESSAGE"/>-->
-<!--                &lt;!&ndash; 接收register消息 &ndash;&gt;-->
-<!--                <action android:name="com.meizu.flyme.push.intent.REGISTER.FEEDBACK"/>-->
-<!--                &lt;!&ndash; 接收unregister消息&ndash;&gt;-->
-<!--                <action android:name="com.meizu.flyme.push.intent.UNREGISTER.FEEDBACK"/>-->
-<!--                &lt;!&ndash; 兼容低版本Flyme3推送服务配置 &ndash;&gt;-->
-<!--                <action android:name="com.meizu.c2dm.intent.REGISTRATION"/>-->
-<!--                <action android:name="com.meizu.c2dm.intent.RECEIVE"/>-->
-
-<!--                <category android:name="${applicationId}"/>-->
-<!--            </intent-filter>-->
-<!--        </receiver>-->
-
-        <!--        <meta-data-->
-        <!--            android:name="com.vivo.push.api_key"-->
-        <!--            android:value="xxxxxx" />-->
-        <!--        <meta-data-->
-        <!--            android:name="com.vivo.push.app_id"-->
-        <!--            android:value="xxxxxx" />-->
-
-        <!--        <meta-data-->
-        <!--            android:name="com.huawei.hms.client.appid"-->
-        <!--            android:value="appid=xxxxxx" />-->
-
-
-        <!--        <activity-->
-        <!--            android:name="com.tencent.tauth.AuthActivity"-->
-        <!--            android:launchMode="singleTask"-->
-        <!--            android:noHistory="true">-->
-        <!--            <intent-filter>-->
-        <!--                <action android:name="android.intent.action.VIEW" />-->
-
-        <!--                <category android:name="android.intent.category.DEFAULT" />-->
-        <!--                <category android:name="android.intent.category.BROWSABLE" />-->
-
-        <!--                &lt;!&ndash; TODO 修改scheme值&ndash;&gt;-->
-        <!--                &lt;!&ndash;<data android:scheme="tencent1106880993"/>&ndash;&gt;-->
-        <!--                <data android:scheme="tencent1111111" />-->
-        <!--            </intent-filter>-->
-        <!--        </activity>-->
+        <!-- 7.0的APP安装 -->
+        <provider
+            android:name="androidx.core.content.FileProvider"
+            android:authorities="${applicationId}.provider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/file_paths" />
+        </provider>
 
         <service
-                android:name="io.rong.imlib.ipc.RongService"
-                android:exported="true"
-                android:process=":ipc"/>
+            android:name="io.rong.imlib.ipc.RongService"
+            android:exported="true"
+            android:process=":ipc" />
 
         <receiver
-                android:name="io.rong.imlib.ConnectChangeReceiver"
-                android:exported="true"/>
+            android:name="io.rong.imlib.ConnectChangeReceiver"
+            android:exported="true" />
 
         <receiver
-                android:name="io.rong.imlib.HeartbeatReceiver"
-                android:process=":ipc"/>
+            android:name="io.rong.imlib.HeartbeatReceiver"
+            android:process=":ipc" />
         <!-- imlib config end -->
 
         <!--必选： SDK 核心功能-->
         <service
-                android:name="io.rong.push.rongpush.PushService"
-                android:exported="true"
-                android:permission="android.permission.BIND_JOB_SERVICE"
-                android:process="io.rong.push"/>
+            android:name="io.rong.push.rongpush.PushService"
+            android:exported="true"
+            android:permission="android.permission.BIND_JOB_SERVICE"
+            android:process="io.rong.push" />
 
         <!-- push 相关事件接收器 -->
         <receiver
-                android:name="io.rong.push.rongpush.PushReceiver"
-                android:process="io.rong.push">   <!-- 此处进程可以改名，名称需要和PushService所在进程统一 -->
+            android:name="io.rong.push.rongpush.PushReceiver"
+            android:process="io.rong.push">   <!-- 此处进程可以改名，名称需要和PushService所在进程统一 -->
             <!-- 心跳事件和网络切换事件监听,必须 -->
             <intent-filter>
-                <action android:name="io.rong.push.intent.action.HEART_BEAT"/>
-                <action android:name="android.net.conn.CONNECTIVITY_CHANGE"/>
+                <action android:name="io.rong.push.intent.action.HEART_BEAT" />
+                <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
             </intent-filter>
 
             <!-- 部分用户事件监听, 用来提高推送拉活率; 可移除 -->
             <intent-filter>
-                <action android:name="android.intent.action.USER_PRESENT"/>
-                <action android:name="android.intent.action.ACTION_POWER_CONNECTED"/>
-                <action android:name="android.intent.action.ACTION_POWER_DISCONNECTED"/>
+                <action android:name="android.intent.action.USER_PRESENT" />
+                <action android:name="android.intent.action.ACTION_POWER_CONNECTED" />
+                <action android:name="android.intent.action.ACTION_POWER_DISCONNECTED" />
             </intent-filter>
         </receiver>
     </application>

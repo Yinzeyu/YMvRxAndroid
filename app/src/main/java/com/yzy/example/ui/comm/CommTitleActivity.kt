@@ -5,7 +5,7 @@ import android.view.ViewGroup
 import com.yzy.baselibrary.extention.click
 import com.yzy.baselibrary.extention.mContext
 import com.yzy.baselibrary.extention.pressEffectAlpha
-import com.yzy.commonlibrary.comm.CommActivity
+import com.yzy.example.comm.CommActivity
 import com.yzy.example.R
 import kotlinx.android.synthetic.main.activity_comm_title.*
 import kotlinx.android.synthetic.main.layout_comm_title.*

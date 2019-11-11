@@ -92,8 +92,6 @@ ext {
             //https://github.com/scwang90/SmartRefreshLayout/
             smart                     : "com.scwang.smart:refresh-layout-kernel:2.0.0-alpha-1",
             smart_classics            : "com.scwang.smart:refresh-footer-classics:2.0.0-alpha-1",
-            "arouter_api"             : "com.alibaba:arouter-api:1.5.0",
-            "arouter_compiler"        : "com.alibaba:arouter-compiler:1.2.2"
             //https://github.com/trello/RxLifecycle
             // rxlifecycle3                  : "com.trello.rxlifecycle3:rxlifecycle:3.1.0",
             // rxlifecycle3_android          : "com.trello.rxlifecycle3:rxlifecycle-android:3.1.0",

@@ -11,9 +11,9 @@ import com.blankj.utilcode.util.NetworkUtils
 import com.yzy.baselibrary.base.MvRxEpoxyController
 import com.yzy.baselibrary.extention.mContext
 import com.yzy.baselibrary.extention.startActivity
-import com.yzy.commonlibrary.comm.CommActivity
-import com.yzy.commonlibrary.repository.model.HomeState
-import com.yzy.commonlibrary.repository.model.HomeViewModel
+import com.yzy.example.comm.CommActivity
+import com.yzy.example.repository.model.HomeState
+import com.yzy.example.repository.model.HomeViewModel
 import com.yzy.example.R
 import com.yzy.example.ui.item.*
 import com.yzy.example.ui.web.WebActivity

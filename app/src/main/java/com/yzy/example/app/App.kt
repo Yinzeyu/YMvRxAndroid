@@ -2,34 +2,46 @@ package com.yzy.example.app
 
 import com.scwang.smart.refresh.footer.ClassicsFooter
 import com.scwang.smart.refresh.layout.SmartRefreshLayout
+import com.yzy.baselibrary.app.BaseApplication
 import com.yzy.baselibrary.di.GlobeConfigModule
 import com.yzy.baselibrary.http.RequestIntercept
-import com.yzy.commonlibrary.CommonApplication
-import com.yzy.commonlibrary.constants.ApiConstants
-import com.yzy.commonlibrary.integration.HeaderHttpHandler
-import com.yzy.commonlibrary.refresh.RefreshHeader
-import com.yzy.commonlibrary.repository.blackRepositoryModel
+import com.yzy.example.BuildConfig
+import com.yzy.example.constants.ApiConstants
+import com.yzy.example.http.integration.HeaderHttpHandler
+import com.yzy.example.widget.RefreshHeader
+import com.yzy.example.repository.blackRepositoryModel
 import com.yzy.example.R
 import com.yzy.example.imModel.IMUtils
+import com.yzy.example.repository.db.MyObjectBox
+import io.objectbox.BoxStore
+import io.objectbox.android.AndroidObjectBrowser
 import io.rong.imlib.RongIMClient
 import org.kodein.di.Kodein
+import org.kodein.di.generic.bind
+import org.kodein.di.generic.instance
+import org.kodein.di.generic.singleton
 
 
-class App : CommonApplication() {
+class App : BaseApplication() {
+    //数据库
+    private val boxStore: BoxStore by kodein.instance()
+
     override fun initInChildThread() {
 
     }
 
     override fun initInMainThread() {
-        super.initInMainThread()
+        initObjectDebug()
         RongIMClient.init(this, "mgb7ka1nmdndg")
         IMUtils.init(this@App)
+
     }
 
     override fun baseInitCreate() {
         super.baseInitCreate()
         initUM()
     }
+
     private fun initUM() {
 //        val umKey =
 //                if (BuildConfig.DEBUG) StringConstants.Push.UM_DEBUG_KEY else StringConstants.Push.UM_RELEASE_KEY
@@ -55,30 +67,29 @@ class App : CommonApplication() {
     override fun initKodein(builder: Kodein.MainBuilder) {
         super.initKodein(builder)
         val build = GlobeConfigModule
-                .builder()
-                .baseUrl(ApiConstants.Address.BASE_URL)
-                .addInterceptor(RequestIntercept(HeaderHttpHandler()))
-                .build()
+            .builder()
+            .baseUrl(ApiConstants.Address.BASE_URL)
+            .addInterceptor(RequestIntercept(HeaderHttpHandler()))
+            .build()
         builder.import(build.globeConfigModule)
+        builder.import(databaseModule)
         builder.import(blackRepositoryModel)
     }
 
-//    private fun initBug() {
-    //初始化key
-//        CrashReport.initCrashReport(
-//            applicationContext,
-//            if (BuildConfig.DEBUG) "8e9eedd10f" else "2ae17bde1d",
-//            false
-//        )
-//    }
+    /**
+     * 数据库调试
+     */
+    private fun initObjectDebug() {
+        if (BuildConfig.DEBUG) {
+            AndroidObjectBrowser(boxStore).start(this)
+        }
+    }
 
-//    private fun initSocial() {
-//        Social.init(
-//            applicationContext,
-//            CommPlatConfigBean(PlatformType.WEIXIN, ""),  // 微信key
-//            CommPlatConfigBean(PlatformType.QQ, appkey = "") // qqkey
-//        )
-//    }
+    private val databaseModule = Kodein.Module("databaseModule") {
+        bind<BoxStore>() with singleton {
+            MyObjectBox.builder().androidContext(this@App).build();
+        }
+    }
 
     init {
         //设置全局的Header构建器
@@ -94,3 +105,4 @@ class App : CommonApplication() {
         }
     }
 }
+

@@ -3,7 +3,7 @@ package com.yzy.example
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.Observer
 import com.jeremyliao.liveeventbus.LiveEventBus
-import com.yzy.commonlibrary.comm.subscribeLifecycle
+import com.yzy.example.comm.subscribeLifecycle
 
 /**
  *description: 融云登录成功的全局.

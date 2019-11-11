@@ -10,9 +10,9 @@ import com.airbnb.mvrx.Fail
 import com.airbnb.mvrx.Loading
 import com.yzy.baselibrary.base.MvRxEpoxyController
 import com.yzy.baselibrary.extention.click
-import com.yzy.commonlibrary.comm.CommDialogFragment
-import com.yzy.commonlibrary.repository.model.ConversationDetailState
-import com.yzy.commonlibrary.repository.model.GankViewModel
+import com.yzy.example.comm.CommDialogFragment
+import com.yzy.example.repository.model.ConversationDetailState
+import com.yzy.example.repository.model.GankViewModel
 import com.yzy.example.R
 import kotlinx.android.synthetic.main.dialog_add_friend_layout.*
 

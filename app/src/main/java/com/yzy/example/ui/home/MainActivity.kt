@@ -5,8 +5,8 @@ import androidx.annotation.IntRange
 import com.blankj.utilcode.util.FragmentUtils
 import com.blankj.utilcode.util.LogUtils
 import com.yzy.baselibrary.extention.*
-import com.yzy.commonlibrary.comm.CommActivity
-import com.yzy.commonlibrary.comm.CommFragment
+import com.yzy.example.comm.CommActivity
+import com.yzy.example.comm.CommFragment
 import com.yzy.example.R
 import com.yzy.example.ui.IndexFragment
 import com.yzy.example.ui.elephant.ViewPager2Activity

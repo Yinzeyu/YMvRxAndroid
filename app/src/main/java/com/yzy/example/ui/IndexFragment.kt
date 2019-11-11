@@ -6,9 +6,9 @@ import com.airbnb.epoxy.EpoxyVisibilityTracker
 import com.airbnb.mvrx.Fail
 import com.airbnb.mvrx.Loading
 import com.yzy.baselibrary.base.MvRxEpoxyController
-import com.yzy.commonlibrary.comm.CommFragment
-import com.yzy.commonlibrary.repository.model.ConversationDetailState
-import com.yzy.commonlibrary.repository.model.GankViewModel
+import com.yzy.example.comm.CommFragment
+import com.yzy.example.repository.model.ConversationDetailState
+import com.yzy.example.repository.model.GankViewModel
 import com.yzy.example.R
 import kotlinx.android.synthetic.main.fragemnt_index.*
 
