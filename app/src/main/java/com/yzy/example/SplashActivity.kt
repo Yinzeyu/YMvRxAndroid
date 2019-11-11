@@ -17,7 +17,7 @@ import kotlinx.android.synthetic.main.activity_splash.*
 import java.util.concurrent.TimeUnit
 import kotlin.math.max
 
-
+//@Route(path = "/user/splash")
 class SplashActivity : BaseActivity() {
 
     override fun layoutResId(): Int = R.layout.activity_splash

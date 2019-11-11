@@ -18,7 +18,8 @@
 + lottie
 +七牛播放器
 ## Screenshots
-<div align:left;display:inline;>
+
+<div align:left;display:inline; xmlns:align="http://www.w3.org/1999/xhtml">
 <img width="200" height="360" src="/image/5kzlc-ahlcy.gif"/>
 <img width="200" height="360" src="/image/Screenshot_20191029-172227"/>
 <img width="200" height="360" src="/image/Screenshot_1571908550.png"/>

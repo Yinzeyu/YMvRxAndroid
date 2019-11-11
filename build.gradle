@@ -13,7 +13,6 @@ buildscript {
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
         classpath "io.objectbox:objectbox-gradle-plugin:$objectboxVersion"
         classpath 'com.tencent.mm:AndResGuard-gradle-plugin:1.2.17'
-        classpath "com.alibaba:arouter-register:1.0.2"
     }
 }
 

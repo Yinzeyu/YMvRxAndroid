@@ -1,6 +1,5 @@
 package com.yzy.example.app
 
-import com.alibaba.android.arouter.launcher.ARouter
 import com.scwang.smart.refresh.footer.ClassicsFooter
 import com.scwang.smart.refresh.layout.SmartRefreshLayout
 import com.yzy.baselibrary.di.GlobeConfigModule
@@ -10,7 +9,6 @@ import com.yzy.commonlibrary.constants.ApiConstants
 import com.yzy.commonlibrary.integration.HeaderHttpHandler
 import com.yzy.commonlibrary.refresh.RefreshHeader
 import com.yzy.commonlibrary.repository.blackRepositoryModel
-import com.yzy.example.BuildConfig
 import com.yzy.example.R
 import com.yzy.example.imModel.IMUtils
 import io.rong.imlib.RongIMClient
@@ -24,32 +22,13 @@ class App : CommonApplication() {
 
     override fun initInMainThread() {
         super.initInMainThread()
-//        PushModel.getPushModel().initMiPush(
-//                this,
-//                StringConstants.Push.XM_RELEASE_KEY,
-//                StringConstants.Push.XM_RELEASE_SECRET
-//        )
-//        PushModel.getPushModel().initHWPush(this)
-//        initBug()
         RongIMClient.init(this, "mgb7ka1nmdndg")
         IMUtils.init(this@App)
-        initARouter()
     }
 
     override fun baseInitCreate() {
         super.baseInitCreate()
         initUM()
-    }
-    /**
-     * 初始化ARouter
-     */
-    private fun initARouter() {
-        if (BuildConfig.DEBUG) {
-            ARouter.openLog()// 打印日志
-            ARouter.openDebug()// 开启调试模式(如果在InstantRun模式下运行，必须开启调试模式！线上版本需要关闭,否则有安全风险)
-            ARouter.printStackTrace()//打印日志的时候打印线程堆栈
-        }
-        ARouter.init(this)//初始化
     }
     private fun initUM() {
 //        val umKey =

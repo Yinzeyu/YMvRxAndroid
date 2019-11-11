@@ -8,14 +8,12 @@ import com.yzy.baselibrary.extention.*
 import com.yzy.commonlibrary.comm.CommActivity
 import com.yzy.commonlibrary.comm.CommFragment
 import com.yzy.example.R
-import com.yzy.example.component.user.UserComponent
 import com.yzy.example.ui.IndexFragment
 import com.yzy.example.ui.elephant.ViewPager2Activity
 import com.yzy.example.ui.initAddFriendDialog
 import com.yzy.example.ui.video.TasteVideoActivity
 import kotlinx.android.synthetic.main.activity_main.*
 import me.devilsen.czxing.Scanner
-
 class MainActivity : CommActivity() {
     companion object {
         fun starMainActivity(context: Context) {
@@ -87,9 +85,7 @@ class MainActivity : CommActivity() {
 //            XRouter.with(mContext).target("www.baidu.com").jump()
         }
 
-        flDoubleStar.click {
-           UserComponent.startDynamicPublish(1000000L,"张三")
-        }
+
     }
 
     //设置选中的fragment
