@@ -3,7 +3,7 @@ apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
 apply from: 'and_res_guard.gradle'
-apply plugin: 'io.objectbox'
+//apply plugin: 'io.objectbox'
 
 //打包时间
 static def releaseTime() {
@@ -98,8 +98,8 @@ dependencies {
     implementation rootProject.ext.dependencies.bugly_native
     implementation rootProject.ext.dependencies.smart
     implementation rootProject.ext.dependencies.smart_classics
-    implementation rootProject.ext.dependencies.objectBox_RxJava
-    implementation rootProject.ext.dependencies.objectBox_Kotlin
+//    implementation rootProject.ext.dependencies.objectBox_RxJava
+//    implementation rootProject.ext.dependencies.objectBox_Kotlin
     implementation 'androidx.viewpager2:viewpager2:1.0.0-rc01'
     implementation 'me.devilsen:CZXing:0.9.5'
     //web https://github.com/Justson/AgentWeb

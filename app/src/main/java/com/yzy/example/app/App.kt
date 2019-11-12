@@ -5,33 +5,26 @@ import com.scwang.smart.refresh.layout.SmartRefreshLayout
 import com.yzy.baselibrary.app.BaseApplication
 import com.yzy.baselibrary.di.GlobeConfigModule
 import com.yzy.baselibrary.http.RequestIntercept
-import com.yzy.example.BuildConfig
+import com.yzy.example.R
 import com.yzy.example.constants.ApiConstants
 import com.yzy.example.http.integration.HeaderHttpHandler
-import com.yzy.example.widget.RefreshHeader
-import com.yzy.example.repository.blackRepositoryModel
-import com.yzy.example.R
 import com.yzy.example.imModel.IMUtils
-import com.yzy.example.repository.db.MyObjectBox
-import io.objectbox.BoxStore
-import io.objectbox.android.AndroidObjectBrowser
+import com.yzy.example.repository.blackRepositoryModel
+import com.yzy.example.widget.RefreshHeader
 import io.rong.imlib.RongIMClient
 import org.kodein.di.Kodein
-import org.kodein.di.generic.bind
-import org.kodein.di.generic.instance
-import org.kodein.di.generic.singleton
 
 
 class App : BaseApplication() {
     //数据库
-    private val boxStore: BoxStore by kodein.instance()
+//    private val boxStore: BoxStore by kodein.instance()
 
     override fun initInChildThread() {
 
     }
 
     override fun initInMainThread() {
-        initObjectDebug()
+//        initObjectDebug()
         RongIMClient.init(this, "mgb7ka1nmdndg")
         IMUtils.init(this@App)
 
@@ -72,24 +65,24 @@ class App : BaseApplication() {
             .addInterceptor(RequestIntercept(HeaderHttpHandler()))
             .build()
         builder.import(build.globeConfigModule)
-        builder.import(databaseModule)
+//        builder.import(databaseModule)
         builder.import(blackRepositoryModel)
     }
 
     /**
      * 数据库调试
      */
-    private fun initObjectDebug() {
-        if (BuildConfig.DEBUG) {
-            AndroidObjectBrowser(boxStore).start(this)
-        }
-    }
-
-    private val databaseModule = Kodein.Module("databaseModule") {
-        bind<BoxStore>() with singleton {
-            MyObjectBox.builder().androidContext(this@App).build();
-        }
-    }
+//    private fun initObjectDebug() {
+//        if (BuildConfig.DEBUG) {
+//            AndroidObjectBrowser(boxStore).start(this)
+//        }
+//    }
+//
+//    private val databaseModule = Kodein.Module("databaseModule") {
+//        bind<BoxStore>() with singleton {
+//            MyObjectBox.builder().androidContext(this@App).build();
+//        }
+//    }
 
     init {
         //设置全局的Header构建器

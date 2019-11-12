@@ -2,8 +2,6 @@ package com.yzy.example.repository.db
 
 import android.annotation.SuppressLint
 import android.os.Parcelable
-import io.objectbox.annotation.Entity
-import io.objectbox.annotation.Id
 import kotlinx.android.parcel.Parcelize
 
 /**
@@ -14,9 +12,9 @@ import kotlinx.android.parcel.Parcelize
  */
 @SuppressLint("ParcelCreator")
 @Parcelize
-@Entity
+//@Entity
 data class UserBean(
-        @Id(assignable = true)
+//        @Id(assignable = true)
         var userId: Long, //用户id
         var avatarUrl: String?, //用户头像
         var userName: String?, //用户名
