@@ -1,6 +1,5 @@
 package com.yzy.baselibrary.http
 
-import com.yzy.baselibrary.utils.ZipHelper
 import okhttp3.Interceptor
 import okhttp3.Response
 import okio.Buffer
@@ -22,7 +21,6 @@ class RequestIntercept constructor(private val mHandler: GlobeHttpHandler?) : In
         mHandler?.let {
             request = it.onHttpRequestBefore(chain, request)
         }
-        val headerValues = request.headers("urlname")
         val requestBuffer = Buffer()
         request.body?.writeTo(requestBuffer)
 
@@ -36,20 +34,21 @@ class RequestIntercept constructor(private val mHandler: GlobeHttpHandler?) : In
 
         //获取content的压缩类型
         val encoding = originalResponse
-                .headers["Content-Encoding"]
+            .headers["Content-Encoding"]
 
         val clone = buffer.clone()
         val bodyString: String
 
         //解析response content
         if (encoding != null && encoding.equals("gzip", ignoreCase = true)) {//content使用gzip压缩
-            bodyString = ZipHelper.decompressForGzip(clone.readByteArray())//解压
+            bodyString = HttpZipHelper.decompressForGzip(clone.readByteArray()).toString()//解压
         } else if (encoding != null && encoding.equals(
-                        "zlib",
-                        ignoreCase = true
-                )
+                "zlib",
+                ignoreCase = true
+            )
         ) {//content使用zlib压缩
-            bodyString = ZipHelper.decompressToStringForZlib(clone.readByteArray())//解压
+            bodyString =
+                HttpZipHelper.decompressToStringForZlib(clone.readByteArray()).toString()//解压
         } else {//content没有被压缩
             var charset: Charset? = Charset.forName("UTF-8")
             val contentType = responseBody.contentType()
@@ -60,7 +59,7 @@ class RequestIntercept constructor(private val mHandler: GlobeHttpHandler?) : In
         }
 
         return mHandler?.onHttpResultResponse(bodyString, chain, originalResponse)
-                ?: originalResponse
+            ?: originalResponse
 
     }
 
