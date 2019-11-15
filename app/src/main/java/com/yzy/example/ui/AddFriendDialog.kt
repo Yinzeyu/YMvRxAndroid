@@ -72,7 +72,7 @@ class AddFriendDialog() :
                 dismissLoadingView()
                 epoxyController.data = state
                 if (state.request is Fail) {//请求失败
-                    Log.e("CASE", "失败原因:${(state.request as Fail<Any>).error.message ?: ""}")
+                    Log.e("CASE", "失败原因:${state.request.error.message ?: ""}")
                 }
             }
         }

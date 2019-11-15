@@ -46,7 +46,7 @@ object PermissionUtils {
         }
         val bufferSizeInBytes = 1024
         val audioData = ByteArray(bufferSizeInBytes)
-        var readSize = 0
+        val readSize: Int
         // 正在录音
         readSize = audioRecord.read(audioData, 0, bufferSizeInBytes)
         if (readSize == AudioRecord.ERROR_INVALID_OPERATION || readSize <= 0) {

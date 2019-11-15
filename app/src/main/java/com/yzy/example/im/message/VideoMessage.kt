@@ -13,11 +13,14 @@ abstract class VideoMessage : MediaMessageContent() {
     var videoLocalUri: Uri? = null
         set(value) {
             value?.let {
-                val file = File(it.path)
-                if (file.exists()) {
-                    localPath = Uri.fromFile(file)
-                    field = value
+                it.path?.let { path ->
+                    val file = File(path)
+                    if (file.exists()) {
+                        localPath = Uri.fromFile(file)
+                        field = value
+                    }
                 }
+
             }
         }
     var videoUrl: String? = null

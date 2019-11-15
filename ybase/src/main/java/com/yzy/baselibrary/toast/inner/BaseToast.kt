@@ -1,5 +1,6 @@
 package com.yzy.baselibrary.toast.inner
 
+import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Context
 import android.graphics.PixelFormat
@@ -8,6 +9,8 @@ import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.WindowManager
+import android.view.WindowManager.LayoutParams
+import android.view.WindowManager.LayoutParams.TYPE_APPLICATION_OVERLAY
 import com.yzy.baselibrary.R
 import com.yzy.baselibrary.toast.DURATION_SHORT
 import com.yzy.baselibrary.toast.ToastDuration
@@ -26,8 +29,8 @@ open class BaseToast(var mContext: Context) : IToast, Cloneable {
     private var gravity = Gravity.BOTTOM or Gravity.CENTER
     private var xOffset: Int = 0
     private var yOffset: Int = 0
-    private var width = WindowManager.LayoutParams.WRAP_CONTENT
-    private var height = WindowManager.LayoutParams.WRAP_CONTENT
+    private var width = LayoutParams.WRAP_CONTENT
+    private var height = LayoutParams.WRAP_CONTENT
     private var priority: Int = 0//优先级
     private var timestamp: Long = 0//时间戳
     @ToastDuration
@@ -35,23 +38,24 @@ open class BaseToast(var mContext: Context) : IToast, Cloneable {
     private var isShowing: Boolean = false//TN标记为正在展示
 
     /**
-     * @param mContext 建议使用Activity。如果使用AppContext则当通知权限被禁用且TYPE_TOAST被WindowManager.addView()抛出异常时，无法正常显示弹窗。
+     * 建议使用Activity。如果使用AppContext则当通知权限被禁用且TYPE_TOAST被WindowManager.addView()抛出异常时，无法正常显示弹窗。
      * 在API25+的部分手机上TYPE_TOAST被WindowManager.addView()时会抛出异常
      */
 
     init {
         val layoutInflater = mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
+        @SuppressLint("InflateParams")
         this.contentView = layoutInflater.inflate(R.layout.base_layout_toast, null)
     }
 
-    open fun getWMParams(): WindowManager.LayoutParams {
-        val lp = WindowManager.LayoutParams()
-        lp.flags = WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE
+    open fun getWMParams(): LayoutParams {
+        val lp = LayoutParams()
+        lp.flags = LayoutParams.FLAG_NOT_FOCUSABLE
         lp.format = PixelFormat.TRANSLUCENT
-        if (Build.VERSION.SDK_INT < 26) {
-            lp.type = WindowManager.LayoutParams.TYPE_TOAST
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            lp.type = TYPE_APPLICATION_OVERLAY
         } else {
-            lp.type = WindowManager.LayoutParams.TYPE_APPLICATION_OVERLAY
+            lp.type = LayoutParams.FIRST_SYSTEM_WINDOW + 5
         }
         lp.height = this.height
         lp.width = this.width
@@ -73,7 +77,7 @@ open class BaseToast(var mContext: Context) : IToast, Cloneable {
 
     /**
      * 取消Toast,会清除队列中所有Toast任务
-     * 因为TN中使用的是[this.clone]，外部没有Toast队列中单个任务的引用，所以外部无法单独取消一个Toast任务
+     * 因为TN中使用的是[clone]，外部没有Toast队列中单个任务的引用，所以外部无法单独取消一个Toast任务
      */
     override fun cancel() {
         YTN.instance().cancelAll()

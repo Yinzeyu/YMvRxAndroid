@@ -20,7 +20,7 @@ class UserLocalDataSource : LocalDataSource() {
     }
 
     //保存个人信息
-    fun saveUserBean(userBean: UserBean) {
+    fun saveUserBean() {
 //        clearUserBean()
 //        box(UserBean::class.java).put(userBean)
     }

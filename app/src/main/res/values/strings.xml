@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="app_name">demo</string>
     <string name="str_main_shake">摇一摇</string>
     <string name="str_main_task">任务</string>
     <string name="str_mai_my">我的</string>

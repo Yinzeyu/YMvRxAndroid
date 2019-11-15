@@ -1,6 +1,5 @@
 package com.yzy.example.app
 
-import com.scwang.smart.refresh.footer.ClassicsFooter
 import com.scwang.smart.refresh.layout.SmartRefreshLayout
 import com.yzy.baselibrary.app.BaseApplication
 import com.yzy.baselibrary.di.GlobeConfigModule
@@ -92,10 +91,10 @@ class App : BaseApplication() {
             RefreshHeader(context)
         }
         //设置全局的Footer构建器
-        SmartRefreshLayout.setDefaultRefreshFooterCreator { context, _ ->
-            //指定为经典Footer，默认是 BallPulseFooter
-            ClassicsFooter(context).setDrawableSize(20f)
-        }
+//        SmartRefreshLayout.setDefaultRefreshFooterCreator { context, _ ->
+//            //指定为经典Footer，默认是 BallPulseFooter
+//            ClassicsFooter(context).setDrawableSize(20f)
+//        }
     }
 }
 

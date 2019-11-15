@@ -36,7 +36,7 @@ class ViewPager2Activity : CommActivity() {
             //处理Banner'
             if (!state.banners.isNullOrEmpty()) {
                 bannerItem {
-                    id("home_banner_${state.banners.hashCode() + state.banners!!.size}")
+                    id("home_banner_${state.banners.hashCode() + state.banners.size}")
                     dataList(state.banners)
                 }
             }

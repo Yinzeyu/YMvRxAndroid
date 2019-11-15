@@ -14,7 +14,7 @@ open class BaseRemoteDataSource : IRemoteDataSource {
     protected var kodein: Kodein = BaseApplication.getApp().kodein
     private val stringRetrofitMap: MutableMap<String, Any> = mutableMapOf()
     private val retrofit: Retrofit by kodein.instance()
-
+    @Suppress("UNCHECKED_CAST")
     fun <T> getApi(retrofitClass: Class<T>): T {
         var result: Any?
         synchronized(stringRetrofitMap) {

@@ -28,7 +28,7 @@ class UserManager private constructor() {
     fun saveUser(userBean: UserBean) {
         userLocalDataSource.getUserBean() != null
         mUserBean = userBean
-        userLocalDataSource.saveUserBean(userBean)
+        userLocalDataSource.saveUserBean()
 //    if (!has) {
 //      MessageModule.initlogin(Utils.getApp())
 //      //初始化连麦

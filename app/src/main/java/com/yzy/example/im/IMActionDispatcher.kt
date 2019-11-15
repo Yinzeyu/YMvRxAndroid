@@ -1,5 +1,6 @@
 package com.yzy.example.im
 
+import android.annotation.SuppressLint
 import android.util.Log
 import com.yzy.example.im.entity.IMActionEntity
 import io.reactivex.Observable
@@ -14,23 +15,24 @@ import io.reactivex.schedulers.Schedulers
 internal object IMActionDispatcher {
 
     private val actionCallbackMap =
-            mutableMapOf<String, MutableList<(entity: IMActionEntity) -> Unit>>()
+        mutableMapOf<String, MutableList<(entity: IMActionEntity) -> Unit>>()
 
     /**
      *分发action
      */
+    @SuppressLint("CheckResult")
     fun dispatcherAction(action: IMActionEntity) {
         Log.i("imAction", "action:${action.action}")
         //需要切换到主线程
-        val disposable = Observable.just(action)
-                .subscribeOn(Schedulers.io())
-                .unsubscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe { actionEntity ->
-                    actionCallbackMap[actionEntity.action]?.forEach {
-                        it.invoke(action)
-                    }
+        Observable.just(action)
+            .subscribeOn(Schedulers.io())
+            .unsubscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe { actionEntity ->
+                actionCallbackMap[actionEntity.action]?.forEach {
+                    it.invoke(action)
                 }
+            }
     }
 
     /**
