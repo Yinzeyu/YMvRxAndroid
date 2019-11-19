@@ -1,6 +1,7 @@
 package com.yzy.example.ui.video
 
 import android.content.Context
+import android.media.AudioManager
 import android.media.MediaPlayer
 import android.net.Uri
 import com.yzy.baselibrary.base.BaseActivity
@@ -43,9 +44,19 @@ class TasteVideoActivity : BaseActivity() {
                 mActivity.toast("录音时间过短，无法发送")
                 return
             }
-            val play = MediaPlayer.create(mContext, path)
-            play.start()
+            MediaPlayer().apply {
+                try {
+                    setDataSource(path.path)
+                    setAudioStreamType(AudioManager.STREAM_MUSIC)
+                    prepareAsync()
+                    setOnPreparedListener {
+                        it.start()
+                    }
+                }catch (e:Exception){
+                    e.printStackTrace()
+                }
 
+            }
         }
     }
 

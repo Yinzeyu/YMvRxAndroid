@@ -91,6 +91,8 @@ ext {
             live_event_bus            : "com.jeremyliao:live-event-bus-x:1.5.7",
             //https://github.com/scwang90/SmartRefreshLayout/
             smart                     : "com.scwang.smart:refresh-layout-kernel:2.0.0-alpha-1",
+
+//            fragment_ktx              : "androidx.fragment:fragment-ktx:1.1.0",
             //smart_classics            : "com.scwang.smart:refresh-footer-classics:2.0.0-alpha-1",
             //https://github.com/trello/RxLifecycle
             // rxlifecycle3                  : "com.trello.rxlifecycle3:rxlifecycle:3.1.0",

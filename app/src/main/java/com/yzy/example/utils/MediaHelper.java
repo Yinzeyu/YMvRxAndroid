@@ -4,16 +4,14 @@ import android.annotation.TargetApi;
 import android.media.MediaRecorder;
 import android.media.MediaRecorder.OnErrorListener;
 import android.os.Build;
-import android.os.Environment;
 import android.util.Log;
-
+import com.blankj.utilcode.util.FileUtils;
+import com.blankj.utilcode.util.LogUtils;
+import com.blankj.utilcode.util.PathUtils;
 import java.io.File;
-import java.io.IOException;
 import java.util.concurrent.TimeUnit;
-
 import io.reactivex.Observable;
 import io.reactivex.disposables.Disposable;
-
 import static com.yzy.baselibrary.extention.RxSchedulersUtilsKt.applySchedulers;
 
 @TargetApi(Build.VERSION_CODES.GINGERBREAD_MR1)
@@ -43,18 +41,12 @@ public class MediaHelper {
 
 
     public void startRecorder() {
-        File dir = new File(Environment.getExternalStorageDirectory(), "VideoRecorder");
-        if (!dir.exists()) {
-            dir.mkdirs();
-        }
+        File dir = new File(PathUtils.getInternalAppFilesPath(), "VideoRecorder");
+        boolean dirSuccess = FileUtils.createOrExistsDir(dir);
+        LogUtils.e("startRecorder=" + dirSuccess);
         File soundFile = new File(dir, System.currentTimeMillis() + ".amr");
-        if (!soundFile.exists()) {
-            try {
-                soundFile.createNewFile();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
+        boolean fileSuccess = FileUtils.createOrExistsFile(soundFile);
+        LogUtils.e("startRecorder=" + fileSuccess);
         filePath = soundFile;
         mediaRecorder = new MediaRecorder();
         mediaRecorder.setOnErrorListener(new MediaRecorderOnErrorListener());

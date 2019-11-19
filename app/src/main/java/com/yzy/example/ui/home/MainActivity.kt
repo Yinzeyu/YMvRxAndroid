@@ -28,6 +28,8 @@ class MainActivity : CommActivity() {
 
     override fun layoutResId(): Int = R.layout.activity_main
     override fun initView() {
+
+
     }
 
     override fun initData() {
