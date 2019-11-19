@@ -8,7 +8,6 @@ import com.blankj.utilcode.util.LogUtils
 import com.blankj.utilcode.util.ProcessUtils
 import com.blankj.utilcode.util.Utils
 import com.jeremyliao.liveeventbus.LiveEventBus
-import com.tencent.mmkv.MMKV
 import com.yzy.baselibrary.BuildConfig
 import com.yzy.baselibrary.di.ClientModule
 import com.yzy.baselibrary.di.imageLoaderModule
