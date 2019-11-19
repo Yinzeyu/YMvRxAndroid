@@ -1,6 +1,6 @@
 package com.yzy.example.repository.local
 
-import com.yzy.baselibrary.repository.BaseLocalDataSource
+import com.yzy.example.comm.BaseLocalDataSource
 
 open class LocalDataSource : BaseLocalDataSource() {
 //    //数据库缓存

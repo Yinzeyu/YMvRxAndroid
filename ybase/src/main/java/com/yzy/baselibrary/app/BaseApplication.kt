@@ -40,8 +40,7 @@ abstract class BaseApplication : Application(), KodeinAware {
         super.onCreate()
         Utils.init(this)
         this.baseInitCreate()
-        //MMKV初始化
-        MMKV.initialize(this)
+
         if (ProcessUtils.isMainProcess()) {
             initInMainProcess()
         }

@@ -1,6 +1,7 @@
 package com.yzy.example.app
 
 import com.scwang.smart.refresh.layout.SmartRefreshLayout
+import com.tencent.mmkv.MMKV
 import com.yzy.baselibrary.app.BaseApplication
 import com.yzy.baselibrary.di.GlobeConfigModule
 import com.yzy.baselibrary.http.RequestIntercept
@@ -26,6 +27,8 @@ class App : BaseApplication() {
 //        initObjectDebug()
         RongIMClient.init(this, "mgb7ka1nmdndg")
         IMUtils.init(this@App)
+        //MMKV初始化
+        MMKV.initialize(this)
 
     }
 

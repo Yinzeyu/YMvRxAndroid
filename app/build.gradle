@@ -97,14 +97,15 @@ dependencies {
     implementation rootProject.ext.dependencies.bugly
     implementation rootProject.ext.dependencies.bugly_native
     implementation rootProject.ext.dependencies.smart
-//    implementation rootProject.ext.dependencies.smart_classics
+    implementation rootProject.ext.dependencies.viewpager2
+    implementation rootProject.ext.dependencies.lottie
+    implementation rootProject.ext.dependencies.rxpermission
+    implementation rootProject.ext.dependencies.mmkv
 //    implementation rootProject.ext.dependencies.objectBox_RxJava
 //    implementation rootProject.ext.dependencies.objectBox_Kotlin
-    implementation 'androidx.viewpager2:viewpager2:1.0.0-rc01'
     implementation 'me.devilsen:CZXing:0.9.8'
     //web https://github.com/Justson/AgentWeb
     implementation 'com.just.agentweb:agentweb:4.1.2'
-//    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
 }
 //放在这省的忘
 //@SuppressLint("ParcelCreator")

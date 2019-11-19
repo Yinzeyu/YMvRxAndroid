@@ -91,6 +91,7 @@ ext {
             live_event_bus            : "com.jeremyliao:live-event-bus-x:1.5.7",
             //https://github.com/scwang90/SmartRefreshLayout/
             smart                     : "com.scwang.smart:refresh-layout-kernel:2.0.0-alpha-1",
+            viewpager2                     : "androidx.viewpager2:viewpager2:1.0.0-rc01",
 
 //            fragment_ktx              : "androidx.fragment:fragment-ktx:1.1.0",
             //smart_classics            : "com.scwang.smart:refresh-footer-classics:2.0.0-alpha-1",

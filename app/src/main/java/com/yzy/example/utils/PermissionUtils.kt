@@ -21,7 +21,7 @@ object PermissionUtils {
     fun hasRecordPermission(): Boolean {
         LogUtils.d("Permission hasRecordPermission 判断是否有语音权限")
         val minBufferSize = AudioRecord.getMinBufferSize(44100, AudioFormat.CHANNEL_IN_STEREO, AudioFormat.ENCODING_PCM_16BIT)
-        var audioRecord: AudioRecord? = AudioRecord(MediaRecorder.AudioSource.MIC, 44100,
+        val audioRecord: AudioRecord? = AudioRecord(MediaRecorder.AudioSource.MIC, 44100,
                 AudioFormat.CHANNEL_IN_STEREO,
                 AudioFormat.ENCODING_PCM_16BIT, minBufferSize)
         try {

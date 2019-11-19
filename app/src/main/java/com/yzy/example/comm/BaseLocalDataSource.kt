@@ -1,7 +1,8 @@
-package com.yzy.baselibrary.repository
+package com.yzy.example.comm
 
 import com.tencent.mmkv.MMKV
 import com.yzy.baselibrary.app.BaseApplication
+import com.yzy.baselibrary.repository.ILocalDataSource
 import org.kodein.di.Kodein
 import org.kodein.di.generic.instance
 
@@ -10,7 +11,8 @@ import org.kodein.di.generic.instance
  *@date 2019/7/15
  *@author: yzy.
  */
-open class BaseLocalDataSource : ILocalDataSource {
+open class BaseLocalDataSource :
+    ILocalDataSource {
 
     protected var kodein: Kodein = BaseApplication.getApp().kodein
     //键值对缓存
