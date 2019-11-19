@@ -7,7 +7,6 @@ import androidx.multidex.MultiDex
 import com.blankj.utilcode.util.LogUtils
 import com.blankj.utilcode.util.ProcessUtils
 import com.blankj.utilcode.util.Utils
-import com.jeremyliao.liveeventbus.LiveEventBus
 import com.yzy.baselibrary.BuildConfig
 import com.yzy.baselibrary.di.ClientModule
 import com.yzy.baselibrary.di.imageLoaderModule
@@ -53,12 +52,6 @@ abstract class BaseApplication : Application(), KodeinAware {
             .setGlobalTag("BaseLib")
             .stackDeep = 3//log栈
         //主线程中的初始化(必要的放在这,不然APP打开会比较慢)
-        LiveEventBus
-            .config()
-            .supportBroadcast(this)
-            .lifecycleObserverAlwaysActive(true)
-            .autoClear(false)
-
         initInMainThread()
         //子线程中的初始化(为了防止APP打开太慢,将不必要的放在子线程中初始化)
         Observable.create(ObservableOnSubscribe<Boolean> { emitter ->

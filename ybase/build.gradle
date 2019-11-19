@@ -53,16 +53,14 @@ dependencies {
     api rootProject.ext.dependencies.multidex
     api rootProject.ext.dependencies.gson
     api rootProject.ext.dependencies.autosize
-    api rootProject.ext.dependencies.live_event_bus
     api rootProject.ext.dependencies.mvrx
     api rootProject.ext.dependencies.epoxy
     kapt rootProject.ext.dependencies.epoxyProcessor
-//    https://github.com/gyf-dev/ImmersionBar
+    //https://github.com/gyf-dev/ImmersionBar
     // 基础依赖包，必须要依赖
     api 'com.gyf.immersionbar:immersionbar:3.0.0'
     // fragment快速实现（可选）
     api 'com.gyf.immersionbar:immersionbar-components:3.0.0'
     // kotlin扩展（可选）
     api 'com.gyf.immersionbar:immersionbar-ktx:3.0.0'
-//    implementation 'com.shizhefei:LargeImageView:1.1.0'
 }

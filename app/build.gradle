@@ -101,6 +101,8 @@ dependencies {
     implementation rootProject.ext.dependencies.lottie
     implementation rootProject.ext.dependencies.rxpermission
     implementation rootProject.ext.dependencies.mmkv
+    implementation rootProject.ext.dependencies.live_event_bus
+//    implementation rootProject.ext.dependencies.fragment_ktx
 //    implementation rootProject.ext.dependencies.objectBox_RxJava
 //    implementation rootProject.ext.dependencies.objectBox_Kotlin
     implementation 'me.devilsen:CZXing:0.9.8'

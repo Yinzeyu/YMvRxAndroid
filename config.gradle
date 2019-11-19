@@ -92,27 +92,5 @@ ext {
             //https://github.com/scwang90/SmartRefreshLayout/
             smart                     : "com.scwang.smart:refresh-layout-kernel:2.0.0-alpha-1",
             viewpager2                     : "androidx.viewpager2:viewpager2:1.0.0-rc01",
-
-//            fragment_ktx              : "androidx.fragment:fragment-ktx:1.1.0",
-            //smart_classics            : "com.scwang.smart:refresh-footer-classics:2.0.0-alpha-1",
-            //https://github.com/trello/RxLifecycle
-            // rxlifecycle3                  : "com.trello.rxlifecycle3:rxlifecycle:3.1.0",
-            // rxlifecycle3_android          : "com.trello.rxlifecycle3:rxlifecycle-android:3.1.0",
-            // rxlifecycle3_android_lifecycle: "com.trello.rxlifecycle3:rxlifecycle-android-lifecycle:3.1.0",
-            // rxlifecycle3_components       : "com.trello.rxlifecycle3:rxlifecycle-components:3.1.0",
-            //rxlifecycle3_kotlin_lifecycle : "com.trello.rxlifecycle3:rxlifecycle-android-lifecycle-kotlin:3.1.0",
-            //            //https://github.com/ssseasonnn/RxDownload
-            //rxDownload                    : "zlc.season:rxdownload3:$rootProject.rxDownloadVersion",
-            //https://github.com/JakeWharton/RxBinding
-            //rxBinding                 : "com.jakewharton.rxbinding3:rxbinding:3.0.0",
-            //https://github.com/VictorAlbertos/RxCache
-            //rxCache                       : "com.github.VictorAlbertos.RxCache:runtime:$rootProject.rxCacheVersion",
-            //rxCache_gson                  : "com.github.VictorAlbertos.Jolyglot:gson:$rootProject.rxCacheGsonVersion",
-            //https://github.com/zjupure/GlideWebpDecoder
-            // glide_webp                    : "com.zlc.glide:webpdecoder:1.3.$rootProject.glideVersion",
-            //https://github.com/uber/AutoDispose
-            //autodispose               : "com.uber.autodispose:autodispose-android:1.4.0",
-            //autodispose_ktx           : "com.uber.autodispose:autodispose-android-ktx:1.4.0",
-            //autodispose_archs_ktx     : "com.uber.autodispose:autodispose-android-archcomponents-ktx:1.4.0",
     ]
 }

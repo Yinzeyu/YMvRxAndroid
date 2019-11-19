@@ -1,5 +1,6 @@
 package com.yzy.example.app
 
+import com.jeremyliao.liveeventbus.LiveEventBus
 import com.scwang.smart.refresh.layout.SmartRefreshLayout
 import com.tencent.mmkv.MMKV
 import com.yzy.baselibrary.app.BaseApplication
@@ -24,17 +25,31 @@ class App : BaseApplication() {
     }
 
     override fun initInMainThread() {
-//        initObjectDebug()
-        RongIMClient.init(this, "mgb7ka1nmdndg")
-        IMUtils.init(this@App)
-        //MMKV初始化
-        MMKV.initialize(this)
+        initIm()
+        initMMKV()
+        initLiveBus()
 
     }
 
     override fun baseInitCreate() {
-        super.baseInitCreate()
         initUM()
+    }
+
+    private fun initMMKV() {
+        MMKV.initialize(this)
+    }
+
+    private fun initLiveBus() {
+        LiveEventBus
+            .config()
+            .supportBroadcast(this)
+            .lifecycleObserverAlwaysActive(true)
+            .autoClear(false)
+    }
+
+    private fun initIm() {
+        RongIMClient.init(this, "mgb7ka1nmdndg")
+        IMUtils.init(this@App)
     }
 
     private fun initUM() {

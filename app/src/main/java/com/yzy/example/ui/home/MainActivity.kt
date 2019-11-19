@@ -14,10 +14,11 @@ import com.yzy.example.ui.initAddFriendDialog
 import com.yzy.example.ui.video.TasteVideoActivity
 import kotlinx.android.synthetic.main.activity_main.*
 import me.devilsen.czxing.Scanner
+
 class MainActivity : CommActivity() {
     companion object {
-        fun starMainActivity(context: Context) {
-            context.startActivity<MainActivity>()
+        fun starMainActivity(context: Context, url: String) {
+            context.startActivity<MainActivity>("url" to url)
         }
     }
 
@@ -37,21 +38,21 @@ class MainActivity : CommActivity() {
         //键盘监听
         addListerKeyboard(naHeight = {
             LogUtils.e(
-                    "contentHeight" + String.format(
-                            "%s\n虚拟导航键高度:%d\n键盘高度:%d",
-                            defaultInfo,
-                            it,
-                            getHeightKeyboard()
-                    )
+                "contentHeight" + String.format(
+                    "%s\n虚拟导航键高度:%d\n键盘高度:%d",
+                    defaultInfo,
+                    it,
+                    getHeightKeyboard()
+                )
             )
         }, keyboardHeight = {
             LogUtils.e(
-                    "contentHeight" + String.format(
-                            "%s\n虚拟导航键高度:%d\n键盘高度:%d",
-                            defaultInfo,
-                            getHeightNavigationBar(),
-                            it
-                    )
+                "contentHeight" + String.format(
+                    "%s\n虚拟导航键高度:%d\n键盘高度:%d",
+                    defaultInfo,
+                    getHeightNavigationBar(),
+                    it
+                )
             )
         })
 
@@ -83,7 +84,7 @@ class MainActivity : CommActivity() {
         }
 
         flDoublePlay.click {
-//            PLDroidActivity.starPLDroidActivity(mContext)
+            //            PLDroidActivity.starPLDroidActivity(mContext)
 //            XRouter.with(mContext).target("www.baidu.com").jump()
         }
 
