@@ -1,4 +1,4 @@
-package com.yzy.example.ui.comm
+package com.yzy.example.comm
 
 import android.view.View
 import android.view.ViewGroup

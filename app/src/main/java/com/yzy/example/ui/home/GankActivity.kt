@@ -12,7 +12,7 @@ import com.yzy.baselibrary.base.MvRxEpoxyController
 import com.yzy.baselibrary.extention.mContext
 import com.yzy.baselibrary.extention.startActivity
 import com.yzy.example.R
-import com.yzy.example.ui.comm.CommTitleActivity
+import com.yzy.example.comm.CommTitleActivity
 import com.yzy.example.ui.item.dividerItem
 import com.yzy.example.ui.item.errorEmptyItem
 import com.yzy.example.ui.item.gankAndroidItem

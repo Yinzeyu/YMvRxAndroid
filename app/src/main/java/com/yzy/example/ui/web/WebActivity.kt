@@ -12,7 +12,7 @@ import com.just.agentweb.DefaultWebClient
 import com.yzy.baselibrary.extention.getResColor
 import com.yzy.baselibrary.extention.mContext
 import com.yzy.example.R
-import com.yzy.example.ui.comm.CommTitleActivity
+import com.yzy.example.comm.CommTitleActivity
 import com.yzy.example.widget.LollipopFixedWebView
 import kotlinx.android.synthetic.main.activity_web.*
 
