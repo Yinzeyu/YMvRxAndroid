@@ -5,7 +5,6 @@ import android.content.Context
 import android.content.Intent
 import android.view.View
 import android.view.ViewGroup
-import android.webkit.WebSettings
 import android.webkit.WebView
 import com.just.agentweb.AgentWeb
 import com.just.agentweb.DefaultWebClient
@@ -66,8 +65,6 @@ class WebActivity : CommTitleActivity() {
             ws.displayZoomControls = false
             //扩大比例的缩放
             ws.useWideViewPort = true
-            //自适应屏幕
-            ws.layoutAlgorithm = WebSettings.LayoutAlgorithm.SINGLE_COLUMN
             ws.loadWithOverviewMode = true
         }
     }

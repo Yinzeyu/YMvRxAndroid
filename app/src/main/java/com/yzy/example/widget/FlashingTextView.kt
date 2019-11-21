@@ -1,6 +1,5 @@
 package com.yzy.example.widget
 
-import android.R
 import android.content.Context
 import android.graphics.*
 import android.util.AttributeSet
@@ -24,7 +23,7 @@ class FlashingTextView(context: Context?, attrs: AttributeSet?, defStyleAttr: In
 
     init {
         val paint1 = Paint()
-        paint1.color = resources.getColor(R.color.holo_blue_dark)
+        paint1.color = Color.parseColor("#ff0099cc")
         paint1.style = Paint.Style.FILL
 
     }
