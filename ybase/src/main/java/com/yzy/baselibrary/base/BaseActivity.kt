@@ -59,8 +59,8 @@ abstract class BaseActivity : AppCompatActivity(), MvRxView, KodeinAware {
         immersionBar {
             transparentStatusBar()
             statusBarDarkFont(true)
-            statusImmersionBar(this)
             fitsSystemWindows(true)
+            statusImmersionBar(this)
         }
     }
 
