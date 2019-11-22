@@ -9,9 +9,11 @@ buildscript {
         maven { url 'https://dl.bintray.com/kotlin/kotlin-eap' }
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:4.0.0-alpha03'
+        classpath 'com.android.tools.build:gradle:4.0.0-alpha04'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
         classpath "io.objectbox:objectbox-gradle-plugin:$objectboxVersion"
+        classpath 'com.jfrog.bintray.gradle:gradle-bintray-plugin:1.8.4'
+        classpath 'com.github.dcendents:android-maven-gradle-plugin:2.1'
     }
 }
 
@@ -24,6 +26,7 @@ allprojects {
         maven { url "https://dl.bintray.com/thelasterstar/maven/" }
         maven { url 'https://dl.bintray.com/umsdk/release' }
         maven { url 'https://dl.bintray.com/kotlin/kotlin-eap' }
+        maven { url 'https://dl.bintray.com/yuge/maven' }
     }
 }
 

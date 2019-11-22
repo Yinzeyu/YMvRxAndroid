@@ -93,7 +93,7 @@ dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation rootProject.ext.dependencies.kotlin_jdk
     kapt rootProject.ext.dependencies.epoxyProcessor
-    implementation project(":ybase")
+    implementation 'com.yzy:ybase:1.0.2'
     implementation rootProject.ext.dependencies.bugly
     implementation rootProject.ext.dependencies.bugly_native
     implementation rootProject.ext.dependencies.smart
