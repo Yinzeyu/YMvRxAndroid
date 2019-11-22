@@ -84,7 +84,7 @@ class SplashActivity : BaseActivity() {
                 //是否登录
 //                UserRepository.instance.isLogin() -> MainActivity.startActivity(mContext)
                 //没有其他需要，进入主页
-                else -> MainActivity.starMainActivity(mContext)
+                else -> MainActivity.starMainActivity(mContext,"")
             }
         }
         finish()

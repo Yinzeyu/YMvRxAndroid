@@ -1,12 +1,10 @@
 package com.yzy.example.ui.video
 
 import android.content.Context
-import android.media.AudioManager
 import android.media.MediaPlayer
 import android.net.Uri
 import com.yzy.baselibrary.base.BaseActivity
 import com.yzy.baselibrary.extention.mActivity
-import com.yzy.baselibrary.extention.mContext
 import com.yzy.baselibrary.extention.startActivity
 import com.yzy.baselibrary.extention.toast
 import com.yzy.example.R
@@ -47,7 +45,6 @@ class TasteVideoActivity : BaseActivity() {
             MediaPlayer().apply {
                 try {
                     setDataSource(path.path)
-                    setAudioStreamType(AudioManager.STREAM_MUSIC)
                     prepareAsync()
                     setOnPreparedListener {
                         it.start()
