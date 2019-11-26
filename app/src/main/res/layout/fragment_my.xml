@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/color_fff">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+
+        android:id="@+id/myTitleClBar"
+        android:layout_width="0dp"
+        android:layout_height="128dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <com.yzy.baselibrary.widget.RoundImageView
+            android:id="@+id/roundImageView"
+            android:layout_width="72dp"
+            android:layout_height="72dp"
+            android:layout_marginStart="15dp"
+            android:layout_marginBottom="22.5dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:radius="5dp"
+            app:shape_type="Round" />
+
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="21dp"
+            android:layout_marginTop="10.5dp"
+            android:text="王莎莎"
+            android:textColor="#3B3E43"
+            android:textSize="15sp"
+            app:layout_constraintStart_toEndOf="@+id/roundImageView"
+            app:layout_constraintTop_toTopOf="@+id/roundImageView" />
+
+        <!--        <com.reson.recipe.gj.widget.CommonShapeTextView-->
+        <!--            android:layout_width="wrap_content"-->
+        <!--            android:layout_height="21dp"-->
+        <!--            android:layout_marginStart="21dp"-->
+        <!--            android:layout_marginBottom="10.5dp"-->
+        <!--            android:paddingStart="11.5dp"-->
+        <!--            android:paddingEnd="11.5dp"-->
+        <!--            android:text="店员"-->
+        <!--            android:textColor="#9FA4AC"-->
+        <!--            android:textSize="14sp"-->
+        <!--            app:csb_cornerRadius="10.5dp"-->
+        <!--            app:csb_fillColor="@color/color_fff"-->
+        <!--            app:csb_strokeColor="#9FA4AC"-->
+        <!--            app:csb_strokeWidth="0.5dp"-->
+        <!--            app:layout_constraintBottom_toBottomOf="@+id/roundImageView"-->
+        <!--            app:layout_constraintStart_toEndOf="@+id/roundImageView" />-->
+
+        <TextView
+            android:id="@+id/tvSetting"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="12.5dp"
+            android:layout_marginBottom="52.5dp"
+            android:padding="5dp"
+            android:text="设置"
+            android:textColor="#3B3E43"
+            android:textSize="14sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="0dp"
+        android:layout_height="95.5dp"
+        android:layout_marginStart="5.5dp"
+        android:layout_marginEnd="9dp"
+        android:contentDescription="@null"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/myTitleClBar" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:layout_marginEnd="34.5dp"
+        android:text="代客下单"
+        android:textColor="#ffffffff"
+        android:textSize="17sp"
+        app:layout_constraintBottom_toBottomOf="@+id/imageView"
+        app:layout_constraintEnd_toEndOf="@+id/imageView"
+        app:layout_constraintTop_toBottomOf="@+id/myTitleClBar" />
+
+    <com.yzy.example.widget.RoundFrameLayout
+        android:id="@+id/rflInView"
+        android:layout_width="66dp"
+        android:layout_height="66dp"
+        app:layout_constraintBottom_toBottomOf="@+id/qrCodeViewBg"
+        app:layout_constraintEnd_toEndOf="@+id/qrCodeViewBg"
+        app:layout_constraintStart_toStartOf="@+id/qrCodeViewBg"
+        app:layout_constraintTop_toTopOf="@+id/qrCodeViewBg"
+        app:qmui_backgroundColor="#EEF3F6"
+        app:qmui_radius="10dp">
+
+        <com.yzy.baselibrary.widget.RoundImageView
+            android:id="@+id/riQrCenterImage"
+            android:layout_width="57dp"
+            android:layout_height="57dp"
+            android:layout_gravity="center"
+            app:radius="5dp"
+            app:shape_type="Round" />
+    </com.yzy.example.widget.RoundFrameLayout>
+
+    <View
+        android:id="@+id/qrCodeViewBg"
+        android:layout_width="230dp"
+        android:layout_height="230dp"
+        android:layout_marginTop="40dp"
+        android:background="#EEF3F6"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView" />
+
+    <ImageView
+        android:id="@+id/ivQrCode"
+        android:layout_width="212dp"
+        android:layout_height="212dp"
+        android:contentDescription="@null"
+        app:layout_constraintBottom_toBottomOf="@+id/qrCodeViewBg"
+        app:layout_constraintEnd_toEndOf="@+id/qrCodeViewBg"
+        app:layout_constraintStart_toStartOf="@+id/qrCodeViewBg"
+        app:layout_constraintTop_toTopOf="@+id/qrCodeViewBg" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="21dp"
+        android:text="扫描二维码 即可成为药店会员"
+        android:textColor="#ff9fa4ac"
+        android:textSize="14sp"
+        app:layout_constraintEnd_toEndOf="@+id/qrCodeViewBg"
+        app:layout_constraintStart_toStartOf="@+id/qrCodeViewBg"
+        app:layout_constraintTop_toBottomOf="@+id/qrCodeViewBg" />
+</androidx.constraintlayout.widget.ConstraintLayout>

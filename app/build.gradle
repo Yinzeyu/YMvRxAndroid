@@ -94,7 +94,10 @@ dependencies {
     implementation rootProject.ext.dependencies.kotlin_jdk
     kapt rootProject.ext.dependencies.epoxyProcessor
     implementation 'com.yzy:social:2.0.2'
-    implementation 'com.yzy:ybase:1.0.6'
+    implementation project(":ybase")
+    implementation'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.2.1'
+    implementation'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.0.0'
+//    implementation 'com.yzy:ybase:1.0.6'
     implementation rootProject.ext.dependencies.bugly
     implementation rootProject.ext.dependencies.bugly_native
     implementation rootProject.ext.dependencies.smart

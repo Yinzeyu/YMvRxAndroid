@@ -30,8 +30,46 @@
         <item name="android:windowDrawsSystemBarBackgrounds">true</item>
         <item name="android:statusBarColor">@android:color/transparent</item>
     </style>
+
     <style name="follow_style" parent="Widget.AppCompat.ProgressBar">
         <item name="android:indeterminateTint">@color/colorAccent</item>
         <item name="android:indeterminateTintMode">src_atop</item>
     </style>
+
+    <attr name="qmui_backgroundColor" format="color" />
+    <attr name="qmui_borderColor" format="color" />
+    <attr name="qmui_borderWidth" format="dimension" />
+    <!-- 圆角是否要自适应为 View 高度的一半 -->
+    <attr name="qmui_isRadiusAdjustBounds" format="boolean" />
+    <!-- 同时指定四个方向的圆角大小 -->
+    <attr name="qmui_radius" format="dimension" />
+    <!-- 指定左上方圆角的大小 -->
+    <attr name="qmui_radiusTopLeft" format="dimension" />
+    <!-- 指定右上方圆角的大小 -->
+    <attr name="qmui_radiusTopRight" format="dimension" />
+    <!-- 指定左下方圆角的大小 -->
+    <attr name="qmui_radiusBottomLeft" format="dimension" />
+    <!-- 指定右下方圆角的大小 -->
+    <attr name="qmui_radiusBottomRight" format="dimension" />
+    <!--**********************************************
+        *                  qmui btn                      *
+        **********************************************-->
+    <attr name="qmui_round_btn_text_size" format="dimension" />
+    <attr name="qmui_round_btn_border_width" format="dimension" />
+    <!-- android 5.0一下不能再selector中用?attr,必须要整个drawable由使用者提供 -->
+    <attr name="qmui_round_btn_bg_color" format="color" />
+    <attr name="qmui_round_btn_border_color" format="color" />
+    <attr name="qmui_round_btn_text_color" format="color" />
+
+    <declare-styleable name="QMUIRoundButton">
+        <attr name="qmui_backgroundColor" />
+        <attr name="qmui_borderColor" />
+        <attr name="qmui_borderWidth" />
+        <attr name="qmui_isRadiusAdjustBounds" />
+        <attr name="qmui_radius" />
+        <attr name="qmui_radiusTopLeft" />
+        <attr name="qmui_radiusTopRight" />
+        <attr name="qmui_radiusBottomLeft" />
+        <attr name="qmui_radiusBottomRight" />
+    </declare-styleable>
 </resources>

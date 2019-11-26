@@ -48,8 +48,8 @@ class App : BaseApplication() {
     }
 
     private fun initIm() {
-        RongIMClient.init(this, "mgb7ka1nmdndg")
-        IMUtils.init(this@App)
+//        RongIMClient.init(this, "mgb7ka1nmdndg")
+//        IMUtils.init(this@App)
     }
 
     private fun initUM() {

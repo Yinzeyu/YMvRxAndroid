@@ -9,6 +9,7 @@ import com.yzy.example.comm.CommActivity
 import com.yzy.example.comm.CommFragment
 import com.yzy.example.R
 import com.yzy.example.ui.IndexFragment
+import com.yzy.example.ui.MyFragment
 import com.yzy.example.ui.elephant.ViewPager2Activity
 import com.yzy.example.ui.initAddFriendDialog
 import com.yzy.example.ui.video.TasteVideoActivity
@@ -57,10 +58,12 @@ class MainActivity : CommActivity() {
         })
 
 
-        fragmentList = mutableListOf(IndexFragment.newInstance())
+        fragmentList = mutableListOf(IndexFragment.newInstance(), MyFragment.newInstance())
         //设置选中
         selectFragment(0)
-
+        flInfo.click {
+            selectFragment(1)
+        }
         flMainElephant.click {
             ViewPager2Activity.starElephantActivity(mContext)
         }

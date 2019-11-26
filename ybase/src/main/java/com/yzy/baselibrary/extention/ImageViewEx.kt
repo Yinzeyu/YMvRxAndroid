@@ -1,12 +1,11 @@
 package com.yzy.baselibrary.extention
 
+import android.graphics.Bitmap
 import android.net.Uri
 import android.view.ViewGroup
 import android.widget.ImageView
 import androidx.annotation.DrawableRes
-import com.bumptech.glide.load.resource.bitmap.BitmapTransitionOptions
 import com.yzy.baselibrary.app.BaseApplication
-import com.yzy.baselibrary.imageloader.CornerType
 import com.yzy.baselibrary.imageloader.ImageConfig
 import com.yzy.baselibrary.imageloader.ImageLoader
 import com.yzy.baselibrary.imageloader.glide.GlideApp
@@ -31,6 +30,24 @@ fun ImageView.load(url: String?, placeholderId: Int = 0) {
     }
 }
 
+fun ImageView.load(
+    url: String?,
+    placeholderId: Int = 0,
+    success: (bitmap: Bitmap?) -> Unit,
+    failed: () -> Unit
+) {
+    url?.let {
+        val config: ImageConfig = ImageConfig.builder()
+            .useCrossFade(false)
+            .url(it)
+            .errorSrc(placeholderId)//设置默认的占位图
+            .placeholder(placeholderId)//设置默认的加载错误图
+            .onSuccess(success)
+            .onFailed(failed)
+            .build()
+        load(config)
+    }
+}
 
 fun ImageView.load(url: String?, placeholderId: Int = 0, config: ImageConfig) {
     url?.let {
