@@ -1,12 +1,12 @@
 package com.yzy.baselibrary.http.converter
 
 import android.util.Log
+import com.blankj.utilcode.util.LogUtils
 import com.google.gson.Gson
 import com.google.gson.TypeAdapter
-import com.yzy.baselibrary.BuildConfig
 import okhttp3.ResponseBody
-import org.json.JSONObject
 import retrofit2.Converter
+
 
 /**
  *description: 返回值data为空或者data直接为常量的转换.
@@ -14,15 +14,9 @@ import retrofit2.Converter
  *@author: yzy.
  */
 class AbnormalResponseBodyConverter<T> constructor(
-        private val gson: Gson,
-        private val adapter: TypeAdapter<T>
+    private val gson: Gson,
+    private val adapter: TypeAdapter<T>
 ) : Converter<ResponseBody, T> {
-    private val KEY_DATA = "data"
-    private val KEY_CODE = "code"
-    private val DATA_LIST_COLVER = "{\"data\":[]}"
-    private val EMPTY_DATA_OBJECT_CONVER = "{\"data\":{}}"
-    private val EMPTY_DATA_LIST_ADD = "{\"data\":[],"
-    private val EMPTY_DATA_OBJECT_ADD = "{\"data\":{},"
     override fun convert(value: ResponseBody): T {
         if (value.contentLength() > Int.MAX_VALUE) {
             //超出String字符串的长度
@@ -31,40 +25,32 @@ class AbnormalResponseBodyConverter<T> constructor(
                 return adapter.read(jsonReader)
             }
         }
-
-        var resStr = String(value.bytes())
-
-        val resJsonOb = JSONObject(resStr)
-        /**
-         * 增加这个判断是防止有data 但是为null 的情况
-         */
-        if (resJsonOb.has(KEY_DATA) && resJsonOb.getString(KEY_DATA) == "null") {
-            resJsonOb.remove(KEY_DATA)
-            resStr = resJsonOb.toString()
-        }
-        if (resStr.isNotEmpty()
-                && resStr.startsWith("{")
-                && resJsonOb.has(KEY_CODE)
-                && resJsonOb.getInt(KEY_CODE) == 200
-                && !resJsonOb.has(KEY_DATA)
-        ) {
-            try {
-                adapter.fromJson(EMPTY_DATA_OBJECT_CONVER)
-                resStr = EMPTY_DATA_OBJECT_ADD + resStr.substring(1)
-            } catch (e: Exception) {
-                try {
-                    adapter.fromJson(DATA_LIST_COLVER)
-                    resStr = EMPTY_DATA_LIST_ADD + resStr.substring(1)
-                } catch (e: Exception) {
-                    e.printStackTrace()
-                    Log.e("..BodyConverter", "data is not list and object")
-                }
-            }
-        }
-        if (BuildConfig.DEBUG && !resStr.isEmpty()) {
+        val resStr = String(value.bytes())
+        if (resStr.isNotEmpty()) {
+            Log.e("response_star","┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━响应结果拦截开始━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━>>>")
             //默认debug打印不出来
-//      LogUtils.json(LogUtils.I, "服务器返回数据", resStr)
+            e("response",resStr)
+            Log.e("response_end","┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━响应结果拦截结束━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<<<")
         }
         return adapter.fromJson(resStr)
+    }
+
+    //规定每段显示的长度
+    private val MAXLENGTH = 2000
+
+    fun e(TAG: String, msg: String) {
+        val strLength = msg.length
+        var start = 0
+        var end = MAXLENGTH
+        for (i in 0..99) { //剩下的文本还是大于规定长度则继续重复截取并输出
+            if (strLength > end) {
+                Log.e(TAG + i, msg.substring(start, end))
+                start = end
+                end += MAXLENGTH
+            } else {
+                Log.e(TAG, msg.substring(start, strLength))
+                break
+            }
+        }
     }
 }

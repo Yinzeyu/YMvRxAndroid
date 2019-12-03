@@ -67,7 +67,7 @@ dependencies {
 apply plugin: 'com.github.dcendents.android-maven'
 apply plugin: 'com.jfrog.bintray'
 // 项目引用的版本号，比如compile 'com.yanzhenjie:andserver:1.0.1'中的1.0.1就是这里配置的。
-version = "1.1.0"
+version = "1.3.1"
 
 // 定义两个链接，下面会用到。
 def siteUrl = 'https://github.com/Yinzeyu/YMvRxAndroid'
