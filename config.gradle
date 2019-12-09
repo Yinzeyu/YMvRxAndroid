@@ -88,11 +88,11 @@ ext {
             epoxy                     : "com.airbnb.android:epoxy:3.8.0",
             epoxyProcessor            : "com.airbnb.android:epoxy-processor:3.8.0",
             //https://github.com/airbnb/lottie-android
-            lottie                    : "com.airbnb.android:lottie:3.2.2",
+            lottie                    : "com.airbnb.android:lottie:3.3.0",
             //https://github.com/JeremyLiao/LiveEventBus
             live_event_bus            : "com.jeremyliao:live-event-bus-x:1.5.7",
             //https://github.com/scwang90/SmartRefreshLayout/
             smart                     : "com.scwang.smart:refresh-layout-kernel:2.0.0-alpha-1",
-            viewpager2                : "androidx.viewpager2:viewpager2:1.0.0-rc01",
+            viewpager2                : "androidx.viewpager2:viewpager2:1.0.0",
     ]
 }
