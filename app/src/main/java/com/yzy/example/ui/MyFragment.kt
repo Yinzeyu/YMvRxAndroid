@@ -2,7 +2,6 @@ package com.yzy.example.ui
 
 import android.graphics.Color
 import android.view.View
-import androidx.annotation.UiThread
 import com.blankj.utilcode.util.BarUtils
 import com.blankj.utilcode.util.ImageUtils
 import com.blankj.utilcode.util.SizeUtils
@@ -39,7 +38,7 @@ class MyFragment : CommFragment() {
 
     private fun loadData() = GlobalScope.launch() {
         val view2Bitmap = ImageUtils.view2Bitmap(rflInView)
-        withContext(Dispatchers.IO) {
+        withContext(Dispatchers.Main) {
             val writer = BarcodeWriter()
             val bit = writer.write(
                 "11111",
