@@ -42,8 +42,8 @@ abstract class BaseApplication : Application(), KodeinAware {
 
         if (ProcessUtils.isMainProcess()) {
             initInMainProcess()
+            MvRxMocks.install(this)
         }
-        MvRxMocks.install(this)
     }
 
     //主进程中的初始化

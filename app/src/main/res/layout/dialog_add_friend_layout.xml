@@ -159,23 +159,6 @@
                 app:layout_constraintEnd_toEndOf="@+id/vMyPassword"
                 app:layout_constraintStart_toStartOf="@+id/vMyPassword"
                 app:layout_constraintTop_toTopOf="@+id/vMyPassword"/>
-
-        <TextView
-                android:id="@+id/tvAddFriend"
-                android:layout_width="88dp"
-                android:layout_height="42dp"
-                android:layout_marginBottom="27dp"
-                android:background="@drawable/icon_dialog_botton_btn"
-                android:gravity="center"
-                android:text="扫一扫"
-                android:textColor="#ffffffff"
-                android:textSize="15sp"
-                android:visibility="gone"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"/>
-
-
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 

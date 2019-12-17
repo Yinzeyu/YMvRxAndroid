@@ -1,162 +1,35 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@android:color/white"
-    tools:context=".ui.home.MainActivity">
-
+    android:orientation="vertical">
     <FrameLayout
         android:id="@+id/mainContainer"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginBottom="49.5dp"
-        android:background="#596DFF"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/mainNavigation"
+        android:layout_width="match_parent"
+        android:layout_height="0dp" />
+
+
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/mainNavigation"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        app:menu="@menu/menu_main"
+        app:itemBackground="@null"
+        app:itemIconTint="@color/main_navigation"
+        app:itemTextColor="@color/main_navigation"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <FrameLayout
-        android:id="@+id/flMainElephant"
-        android:layout_width="0dp"
-        android:layout_height="49.5dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_gravity="center_horizontal|bottom"
-            android:drawablePadding="4dp"
-            android:gravity="center"
-            android:paddingBottom="2dp"
-            android:text="ViewPager2"
-            android:textColor="@color/color_010101"
-            android:textSize="12sp" />
-
-    </FrameLayout>
-
-    <FrameLayout
-        android:id="@+id/flScanView"
-        android:layout_width="50dp"
-        android:layout_height="49.5dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/flMainElephant">
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_gravity="center_horizontal|bottom"
-            android:drawablePadding="4dp"
-            android:gravity="center"
-            android:paddingBottom="2dp"
-            android:text="扫码"
-            android:textColor="@color/color_010101"
-            android:textSize="12sp" />
-
-    </FrameLayout>
-
-    <FrameLayout
-        android:id="@+id/flPlay"
-        android:layout_width="50dp"
-        android:layout_height="49.5dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/flScanView">
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_gravity="center_horizontal|bottom"
-            android:drawablePadding="4dp"
-            android:gravity="center"
-            android:paddingBottom="2dp"
-            android:text="音频录制"
-            android:textColor="@color/color_010101"
-            android:textSize="12sp" />
-
-    </FrameLayout>
-
-    <FrameLayout
-        android:id="@+id/flShowDialog"
-        android:layout_width="50dp"
-        android:layout_height="49.5dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/flPlay">
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_gravity="center_horizontal|bottom"
-            android:drawablePadding="4dp"
-            android:gravity="center"
-            android:paddingBottom="2dp"
-            android:text="显示dialog"
-            android:textColor="@color/color_010101"
-            android:textSize="12sp" />
-
-    </FrameLayout>
-
-    <FrameLayout
-        android:id="@+id/flDoubleApi"
-        android:layout_width="50dp"
-        android:layout_height="49.5dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/flShowDialog">
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_gravity="center_horizontal|bottom"
-            android:drawablePadding="4dp"
-            android:gravity="center"
-            android:paddingBottom="2dp"
-            android:text="多api请求"
-            android:textColor="@color/color_010101"
-            android:textSize="12sp" />
-
-    </FrameLayout>
-
-    <FrameLayout
-        android:id="@+id/flDoublePlay"
-        android:layout_width="50dp"
-        android:layout_height="49.5dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/flDoubleApi">
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_gravity="center_horizontal|bottom"
-            android:drawablePadding="4dp"
-            android:gravity="center"
-            android:paddingBottom="2dp"
-            android:text="列表播放"
-            android:textColor="@color/color_010101"
-            android:textSize="12sp" />
-
-    </FrameLayout>
-    <FrameLayout
-        android:id="@+id/flInfo"
-        android:layout_width="50dp"
-        android:layout_height="49.5dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/flDoublePlay">
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_gravity="center_horizontal|bottom"
-            android:drawablePadding="4dp"
-            android:gravity="center"
-            android:paddingBottom="2dp"
-            android:text="个人主页"
-            android:textColor="@color/color_010101"
-            android:textSize="12sp" />
-
-    </FrameLayout>
-
-
-
+        app:layout_constraintStart_toStartOf="parent" />
+    <!--分割线-->
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="6dp"
+        android:scaleType="fitXY"
+        android:contentDescription="@null"
+        app:layout_constraintBottom_toTopOf="@id/mainNavigation"
+        android:src="@drawable/shadow_tab_top" />
 </androidx.constraintlayout.widget.ConstraintLayout>
