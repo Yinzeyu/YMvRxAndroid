@@ -2,6 +2,7 @@ apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
+apply from: 'and_res_guard.gradle'
 //apply from: 'and_res_guard.gradle'
 //apply plugin: 'io.objectbox'
 
@@ -22,10 +23,9 @@ android {
         flavorDimensions "default"
         multiDexEnabled true
         resConfigs "zh", "en"//保留中文和英文资源
-//        ndk {
-//            // 设置支持的so库架构，设置一个可以减小包的大小
-//            abiFilters "armeabi-v7a" //, "arm64-v8a"
-//        }
+        ndk {
+            abiFilters 'armeabi-v7a' //, 'arm64-v8a'
+        }
     }
     //使用Kotlin实验特性
     androidExtensions {
@@ -41,32 +41,38 @@ android {
         sourceCompatibility rootProject.ext.android.javaSourceCompatibility
         targetCompatibility rootProject.ext.android.javaTargetCompatibility
     }
-
-    buildTypes {
-        release {
-            // 不开启混淆
-            minifyEnabled false
-            // 移除无用的resource文件
-            shrinkResources false
-            // 开启ZipAlign优化
-            zipAlignEnabled true
-            //签名
-//            signingConfig signingConfigs.release
-            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
-        }
+    //配置不同版本的keystore
+    signingConfigs {
         debug {
-
-            // 不开启混淆
-            minifyEnabled false
-            // 不开启ZipAlign优化
+            storeFile file(STORE_FILE_ABASE)
+            storePassword STORE_PASSWORD_ABASE
+            keyAlias KEY_ALIAS_ABASE
+            keyPassword KEY_PASSWORD_ABASE
+        }
+        release {
+            storeFile file(STORE_FILE_ABASE)
+            storePassword STORE_PASSWORD_ABASE
+            keyAlias KEY_ALIAS_ABASE
+            keyPassword KEY_PASSWORD_ABASE
+        }
+    }
+    buildTypes {
+        debug {
+            debuggable true
             zipAlignEnabled false
-            // 不移除无用的resource文件
             shrinkResources false
-            //签名
-//            signingConfig signingConfigs.debug
+            minifyEnabled false
+            signingConfig signingConfigs.debug
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
-
+        release {
+            debuggable false
+            zipAlignEnabled true
+            shrinkResources true
+            minifyEnabled true
+            signingConfig signingConfigs.release
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
     }
 
     sourceSets {
