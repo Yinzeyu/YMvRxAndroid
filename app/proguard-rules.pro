@@ -98,7 +98,8 @@
 }
 #-------11.onXXEvent 混淆-------
 -keepclassmembers class * {
-    void *(*Event);
+    void *(**On*Event);
+    void *(**On*Listener);
 }
 #-------12.避免混淆枚举类-------
 -keepclassmembers enum * {
@@ -137,9 +138,9 @@
 #############################################
 #            项目中特殊处理部分               #
 #############################################
--keep com.yzy.example.repository.bean
--keep com.yzy.example.widget
--keep com.yzy.example.repository.service
+#-keep com.yzy.example.repository.bean
+#-keep com.yzy.example.widget
+#-keep com.yzy.example.repository.service
 
 
 #内部成员和方法不混淆
@@ -200,6 +201,7 @@
     rx.internal.util.atomic.LinkedQueueNode consumerNode;
 }
 -dontnote rx.internal.util.PlatformDependent
+-dontwarn java.util.concurrent.Flow*
 
 #--------------------------
 
@@ -248,6 +250,13 @@
 -keep public class com.tencent.bugly.**{*;}
 #--------------------------
 
+# Glide
+-keep public class * implements com.bumptech.glide.module.GlideModule
+-keep public enum com.bumptech.glide.load.resource.bitmap.ImageHeaderParser$** {
+  **[] $VALUES;
+  public *;
+}
+
 #协程
 #在安卓上，你可以使用协程解决两个常见问题：
  #简化耗时任务的代码，例如网络请求，磁盘读写，甚至大量 JSON 的解析
@@ -255,6 +264,52 @@
 -keepclassmembernames class kotlinx.** {
     volatile <fields>;
 }
+
+-keepattributes Signature
+
+#//RongCloud SDK
+-keep class io.rong.** {*;}
+-keep class cn.rongcloud.** {*;}
+-keep class * implements io.rong.imlib.model.MessageContent {*;}
+-dontwarn io.rong.push.**
+-dontnote com.xiaomi.**
+-dontnote com.google.android.gms.gcm.**
+-dontnote io.rong.**
+
+#//VoIP
+-keep class io.agora.rtc.** {*;}
+
+#//红包
+-keep class com.google.gson.** { *; }
+-keep class com.uuhelper.Application.** {*;}
+-keep class net.sourceforge.zbar.** { *; }
+-keep class com.google.android.gms.** { *; }
+-keep class com.alipay.** {*;}
+-keep class com.jrmf360.rylib.** {*;}
+
+-keep class io.rong.app.DemoNotificationReceiver {*;}
+# 微信支付
+-dontwarn com.tencent.mm.**
+-dontwarn com.tencent.wxop.stat.**
+-keep class com.tencent.mm.** {*;}
+-keep class com.tencent.wxop.stat.**{*;}
+
+# 新浪微博
+-keep class com.sina.weibo.sdk.* { *; }
+-keep class android.support.v4.* { *; }
+-keep class com.tencent.* { *; }
+-keep class com.baidu.* { *; }
+-keep class lombok.ast.ecj.* { *; }
+-dontwarn android.support.v4.**
+-dontwarn com.tencent.**s
+-dontwarn com.baidu.**
+
+#agentweb
+-keep class com.just.agentweb.** {
+    *;
+}
+-dontwarn com.just.agentweb.**
+-keepclassmembers class com.just.agentweb.sample.common.AndroidInterface{ *; }
 
 
 

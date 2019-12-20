@@ -88,7 +88,7 @@ ext {
             epoxy                     : "com.airbnb.android:epoxy:3.8.0",
             epoxyProcessor            : "com.airbnb.android:epoxy-processor:3.8.0",
             //https://github.com/airbnb/lottie-android
-            lottie                    : "com.airbnb.android:lottie:3.3.0",
+            lottie                    : "com.airbnb.android:lottie:3.3.1",
             //https://github.com/JeremyLiao/LiveEventBus
             live_event_bus            : "com.jeremyliao:live-event-bus-x:1.5.7",
             //https://github.com/scwang90/SmartRefreshLayout/

@@ -76,29 +76,9 @@ abstract class BaseFragmentDialog : DialogFragment(), MvRxView {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        val c = context
-        if (lowerBackground && c != null) setBackgroundAlpha(c, 0.3F)
         super.onViewCreated(view, savedInstanceState)
         initView(view)
     }
-
-    override fun onDestroyView() {
-        val c = context
-        if (lowerBackground && c != null) setBackgroundAlpha(c, 1F)
-        super.onDestroyView()
-    }
-
-    // 黑暗 0.0F ~ 1.0F 透明
-    protected open fun setBackgroundAlpha(
-        context: Context,
-        alpha: Float
-    ) {
-        val act = context as? Activity ?: return
-        val attributes = act.window.attributes
-        attributes.alpha = alpha
-        act.window.attributes = attributes
-    }
-
 
     //防止快速弹出多个
     private var showTime = 0L
