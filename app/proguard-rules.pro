@@ -136,11 +136,34 @@
     public void *(android.webkit.webView, jav.lang.String);
 }
 #############################################
+# These classes are used via kotlin reflection and the keep might not be required anymore once Proguard supports
+# Kotlin reflection directly.
+-keep class kotlin.reflect.jvm.internal.impl.builtins.BuiltInsLoaderImpl
+-keep class kotlin.reflect.jvm.internal.impl.serialization.deserialization.builtins.BuiltInsLoaderImpl
+-keep class kotlin.reflect.jvm.internal.impl.load.java.FieldOverridabilityCondition
+-keep class kotlin.reflect.jvm.internal.impl.load.java.ErasedOverridabilityCondition
+-keep class kotlin.reflect.jvm.internal.impl.load.java.JavaIncompatibilityRulesOverridabilityCondition
+
+# If Companion objects are instantiated via Kotlin reflection and they extend/implement a class that Proguard
+# would have removed or inlined we run into trouble as the inheritance is still in the Metadata annotation
+# read by Kotlin reflection.
+# FIXME Remove if Kotlin reflection is supported by Pro/Dexguard
+-if class **$Companion extends **
+-keep class <2>
+-if class **$Companion implements **
+-keep class <2>
+
+# https://medium.com/@AthorNZ/kotlin-metadata-jackson-and-proguard-f64f51e5ed32
+-keep class kotlin.Metadata { *; }
+
+# https://stackoverflow.com/questions/33547643/how-to-use-kotlin-with-proguard
+-dontwarn kotlin.**
+
 #            项目中特殊处理部分               #
 #############################################
-#-keep com.yzy.example.repository.bean
-#-keep com.yzy.example.widget
-#-keep com.yzy.example.repository.service
+-keep class com.yzy.example.widget.** { *; }
+-keep class com.yzy.example.http.** { *; }
+-keep class com.yzy.example.repository.** { *; }
 
 
 #内部成员和方法不混淆
@@ -217,25 +240,26 @@
 #--------------------------
 
 #----------- Mvrx ----------------
+# BaseMvRxViewModels loads the Companion class via reflection and thus we need to make sure we keep
+# the name of the Companion object.
 -keepclassmembers class ** extends com.airbnb.mvrx.BaseMvRxViewModel {
     ** Companion;
 }
--keepclassmembers class ** extends com.airbnb.mvrx.BaseMvRxViewModel {
-    public <init>(...);
-    public static *** create(...);
-    public static *** initialState(...);
-}
--keepclassmembers class ** implements com.airbnb.mvrx.MvRxViewModelFactory {
-     public <init>(...);
-     public *** create(...);
-     public *** initialState(...);
-}
--keepnames class * implements com.airbnb.mvrx.MvRxViewModelFactory
--keepclassmembers,includedescriptorclasses class ** implements com.airbnb.mvrx.MvRxState {
+
+# Members of the Kotlin data classes used as the state in MvRx are read via Kotlin reflection which cause trouble
+# with Proguard if they are not kept.
+# During reflection cache warming also the types are accessed via reflection. Need to keep them too.
+-keepclassmembers,includedescriptorclasses,allowobfuscation class ** implements com.airbnb.mvrx.MvRxState {
    *;
 }
+
+# The MvRxState object and the names classes that implement the MvRxState interfrace need to be
+# kept as they are accessed via reflection.
 -keepnames class com.airbnb.mvrx.MvRxState
 -keepnames class * implements com.airbnb.mvrx.MvRxState
+
+# MvRxViewModelFactory is referenced via reflection using the Companion class name.
+-keepnames class * implements com.airbnb.mvrx.MvRxViewModelFactory
 #--------------------------
 
 #----------- LiveEventBus ----------------
@@ -270,7 +294,8 @@
 #//RongCloud SDK
 -keep class io.rong.** {*;}
 -keep class cn.rongcloud.** {*;}
--keep class * implements io.rong.imlib.model.MessageContent {*;}
+-keep public class * implements io.rong.imlib.model.MessageContent{*;}
+#-keep class * implements io.rong.imlib.model.MessageContent {*;}
 -dontwarn io.rong.push.**
 -dontnote com.xiaomi.**
 -dontnote com.google.android.gms.gcm.**
@@ -288,6 +313,7 @@
 -keep class com.jrmf360.rylib.** {*;}
 
 -keep class io.rong.app.DemoNotificationReceiver {*;}
+
 # 微信支付
 -dontwarn com.tencent.mm.**
 -dontwarn com.tencent.wxop.stat.**
