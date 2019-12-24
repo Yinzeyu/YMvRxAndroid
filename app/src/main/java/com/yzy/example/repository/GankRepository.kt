@@ -2,7 +2,6 @@ package com.yzy.example.repository
 
 import com.yzy.baselibrary.di.RetrofitAPi
 import com.yzy.baselibrary.extention.applySchedulers
-import com.yzy.baselibrary.repository.BaseRemoteDataSource
 import com.yzy.example.http.RxGlobalHandleUtil
 import com.yzy.example.repository.bean.ArticleDataBean
 import com.yzy.example.repository.bean.BannerBean
@@ -10,11 +9,10 @@ import com.yzy.example.repository.bean.GankAndroidBean
 import com.yzy.example.repository.service.GankService
 import io.reactivex.Observable
 
-class GankRepository : BaseRemoteDataSource() {
+class GankRepository {
     private object SingletonHolder {
         val holder = GankRepository()
     }
-
     companion object {
         val instance = SingletonHolder.holder
     }

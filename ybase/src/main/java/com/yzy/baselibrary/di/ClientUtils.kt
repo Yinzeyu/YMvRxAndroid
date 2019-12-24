@@ -29,7 +29,6 @@ class RetrofitAPi private constructor() {
     companion object {
         val instance: RetrofitAPi by lazy(mode = LazyThreadSafetyMode.SYNCHRONIZED) { RetrofitAPi() }
     }
-
     private val stringRetrofitMap: MutableMap<String, Any> = mutableMapOf()
     lateinit var retrofit: Retrofit
     @Suppress("UNCHECKED_CAST")
