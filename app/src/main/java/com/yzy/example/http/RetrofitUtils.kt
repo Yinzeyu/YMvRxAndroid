@@ -1,7 +1,7 @@
 package com.yzy.example.http
 
 import android.content.Context
-import com.yzy.baselibrary.di.RetrofitConfig
+import com.yzy.baselibrary.http.RetrofitConfig
 import com.yzy.example.constants.ApiConstants
 
 object RetrofitUtils {

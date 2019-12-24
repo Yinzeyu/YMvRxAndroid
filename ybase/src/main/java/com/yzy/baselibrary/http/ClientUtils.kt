@@ -1,11 +1,11 @@
-package com.yzy.baselibrary.di
+package com.yzy.baselibrary.http
 
 import android.content.Context
 import com.google.gson.GsonBuilder
 import com.google.gson.JsonPrimitive
 import com.google.gson.JsonSerializer
-import com.yzy.baselibrary.di.ClientUtils.inItConfig
-import com.yzy.baselibrary.di.ClientUtils.inItGsonBuilder
+import com.yzy.baselibrary.http.ClientUtils.inItConfig
+import com.yzy.baselibrary.http.ClientUtils.inItGsonBuilder
 import com.yzy.baselibrary.http.ssl.SSLManager
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
@@ -40,7 +40,8 @@ object ClientUtils {
     fun inItConfig(config: InitRetrofitConfig) {
         config.context?.let {
             val initOkHttp = initOkHttp(config)
-            retrofit = initRetrofit(config, initOkHttp)
+            retrofit =
+                initRetrofit(config, initOkHttp)
         }
     }
 

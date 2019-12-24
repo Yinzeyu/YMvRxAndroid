@@ -1,7 +1,7 @@
 package com.yzy.example.repository
 
-import com.yzy.baselibrary.di.RetrofitAPi
 import com.yzy.baselibrary.extention.applySchedulers
+import com.yzy.baselibrary.http.RetrofitAPi
 import com.yzy.example.http.RxGlobalHandleUtil
 import com.yzy.example.repository.bean.ArticleDataBean
 import com.yzy.example.repository.bean.BannerBean

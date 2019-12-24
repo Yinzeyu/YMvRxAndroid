@@ -22,8 +22,7 @@ class NetUtils private constructor() {
     //无网络则吐司
     fun checkToast(): Boolean {
         if (!NetworkUtils.isConnected()) {
-            Utils.getApp()
-                    .toast(R.string.no_network)
+            Utils.getApp().toast(R.string.no_network)
             return false
         }
         return true

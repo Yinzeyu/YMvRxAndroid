@@ -49,9 +49,9 @@ ext {
             glide_okhttp              : "com.github.bumptech.glide:okhttp3-integration:4.10.0",
             glide_compiler            : "com.github.bumptech.glide:compiler:4.10.0",
             //https://github.com/Kodein-Framework/Kodein-DI
-            kodein                    : "org.kodein.di:kodein-di-generic-jvm:6.5.0",
-            kodein_android            : "org.kodein.di:kodein-di-framework-android-core:6.5.0",
-            kodein_androidx_support   : "org.kodein.di:kodein-di-framework-android-x:6.5.0",
+//            kodein                    : "org.kodein.di:kodein-di-generic-jvm:6.5.0",
+//            kodein_android            : "org.kodein.di:kodein-di-framework-android-core:6.5.0",
+//            kodein_androidx_support   : "org.kodein.di:kodein-di-framework-android-x:6.5.0",
             //https://github.com/tbruyelle/RxPermissions
             rxpermission              : "com.github.tbruyelle:rxpermissions:0.10.2",
             //https://github.com/square/okhttp

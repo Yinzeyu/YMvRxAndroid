@@ -38,9 +38,6 @@ dependencies {
     api rootProject.ext.dependencies.core_ktx
     api rootProject.ext.dependencies.constraintLayout
     api rootProject.ext.dependencies.utilcode
-//    api rootProject.ext.dependencies.kodein
-//    api rootProject.ext.dependencies.kodein_android
-//    api rootProject.ext.dependencies.kodein_androidx_support
     api rootProject.ext.dependencies.okhttp3
     api rootProject.ext.dependencies.okhttp3_log
     api rootProject.ext.dependencies.retrofit

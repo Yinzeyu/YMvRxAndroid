@@ -26,18 +26,18 @@ class GankViewModel(initialState: ConversationDetailState = ConversationDetailSt
         if (state.request is Loading) {
             return@withState
         }
-        ganRepository.banner().execute {
-            copy(
-                    banners = it() ?: mutableListOf(),
-                    request = it
-            )
-        }
+//        ganRepository.banner().execute {
+//            copy(
+//                    banners = it() ?: mutableListOf(),
+//                    request = it
+//            )
+//        }
     }
 
     //加载数据
     fun loadData() {
         isLoadMore = false
-        getBanner()
+//        getBanner()
     }
 
 

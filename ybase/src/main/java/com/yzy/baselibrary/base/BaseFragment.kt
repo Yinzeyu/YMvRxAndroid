@@ -23,18 +23,11 @@ abstract class BaseFragment : BaseMvRxFragment() {
     private var isFirst = true
     private var isInViewPager = false
     protected var rootView: FrameLayout? = null
-//    override val kodeinTrigger = KodeinTrigger()
-//    override val kodeinContext: KodeinContext<*> get() = kcontext(activity)
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
         mContext = context as Activity
     }
-
-//    override val kodein: Kodein = Kodein.lazy {
-//        extend(BaseApplication.getApp().kodein)
-//        initKd(this)
-//    }
     /**
      * 内容布局的ResId
      */
@@ -65,7 +58,6 @@ abstract class BaseFragment : BaseMvRxFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-//        kodeinTrigger.trigger()
         initView(view)
         isPrepared = true
         lazyLoad()
@@ -102,10 +94,6 @@ abstract class BaseFragment : BaseMvRxFragment() {
     //初始化前的处理
     protected open fun initBeforeCreateView(savedInstanceState: Bundle?) {}
 
-    /**
-     * 初始化kodein
-     */
-//    protected open fun initKd(builder: Kodein.MainBuilder) {}
 
     /**
      * 初始化View

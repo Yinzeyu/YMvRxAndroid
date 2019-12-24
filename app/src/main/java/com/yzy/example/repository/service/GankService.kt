@@ -1,11 +1,14 @@
 package com.yzy.example.repository.service
 
+import com.yzy.example.http.response.BaseResponse
+import com.yzy.example.repository.bean.ArticleDataBean
+import com.yzy.example.repository.bean.BannerBean
+import com.yzy.example.repository.bean.GankAndroidBean
+import com.yzy.example.repository.bean.GankBaseBean
 import io.reactivex.Observable
 import retrofit2.http.GET
-import retrofit2.http.Path
-import com.yzy.example.http.response.BaseResponse
-import com.yzy.example.repository.bean.*
 import retrofit2.http.Headers
+import retrofit2.http.Path
 import retrofit2.http.Query
 
 
@@ -22,13 +25,13 @@ interface GankService {
 
     @Headers("urlName:ganKUrl")
     @GET("api/data/Android/{pageSize}/{page}")
-    fun getAndroid(@Path("pageSize") pageSize: Int, @Path("page") page: Int): Observable<GankBaseBean<GankAndroidBean>>
+     fun getAndroid(@Path("pageSize") pageSize: Int, @Path("page") page: Int):Observable<GankBaseBean<MutableList<GankAndroidBean>>>
 
 
-
-    @Headers("urlName:ganKUrl")
-    @GET("api/data/Android/{pageSize}/{page}")
-    suspend fun getAndroidSuspend(@Path("pageSize") pageSize: Int, @Path("page") page: Int): GankBaseBean<GankAndroidBean>
+//
+//    @Headers("urlName:ganKUrl")
+//    @GET("api/data/Android/{pageSize}/{page}")
+//     fun getAndroidSuspend(@Path("pageSize") pageSize: Int, @Path("page") page: Int): GankBaseBean<GankAndroidBean>
 
 
     @GET("banner/json")

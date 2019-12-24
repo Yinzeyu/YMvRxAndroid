@@ -6,7 +6,8 @@ package com.yzy.example.repository.bean
  *@author: YangYang.
  */
 
-data class GankBaseBean<T>(
-        val error: Boolean,
-        val results: MutableList<T>
-)
+//data class GankBaseBean<T>(
+//        val error: Boolean,
+//        val results:T
+//)
+data class GankBaseBean<out T>(val error: Boolean, val errorMsg: String, val results: T)

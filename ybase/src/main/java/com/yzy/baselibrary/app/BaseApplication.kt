@@ -18,17 +18,11 @@ abstract class BaseApplication : Application() {
     //子进程中的初始化是否完成,有的必须要子进程中的初始化完成后才能调用
     var initFinishInChildThread = false
     var launcherTime = 0L
-//    final override val kodein: Kodein by Kodein.lazy {
-//        bind<Context>() with singleton { this@BaseApplication }
-//        import(androidCoreModule(this@BaseApplication))
-//        import(androidXModule(this@BaseApplication))
-//    }
 
     override fun onCreate() {
         super.onCreate()
         Utils.init(this)
         this.baseInitCreate()
-
         if (ProcessUtils.isMainProcess()) {
             initInMainProcess()
             MvRxMocks.install(this)
@@ -65,10 +59,6 @@ abstract class BaseApplication : Application() {
     //子线程中的初始化(只在主进程中调用)
     abstract fun initInChildThread()
 
-
-//    protected open fun initKodein(builder: Kodein.MainBuilder) {
-//
-//    }
 
 
     protected open fun baseInitCreate() {
