@@ -49,19 +49,19 @@ ext {
             glide_okhttp              : "com.github.bumptech.glide:okhttp3-integration:4.10.0",
             glide_compiler            : "com.github.bumptech.glide:compiler:4.10.0",
             //https://github.com/Kodein-Framework/Kodein-DI
-            kodein                    : "org.kodein.di:kodein-di-generic-jvm:6.4.1",
-            kodein_android            : "org.kodein.di:kodein-di-framework-android-core:6.4.1",
-            kodein_androidx_support   : "org.kodein.di:kodein-di-framework-android-x:6.4.1",
+            kodein                    : "org.kodein.di:kodein-di-generic-jvm:6.5.0",
+            kodein_android            : "org.kodein.di:kodein-di-framework-android-core:6.5.0",
+            kodein_androidx_support   : "org.kodein.di:kodein-di-framework-android-x:6.5.0",
             //https://github.com/tbruyelle/RxPermissions
             rxpermission              : "com.github.tbruyelle:rxpermissions:0.10.2",
             //https://github.com/square/okhttp
             okhttp3                   : "com.squareup.okhttp3:okhttp:4.2.2",
             okhttp3_log               : "com.squareup.okhttp3:logging-interceptor:4.2.2",
             //https://github.com/square/retrofit
-            retrofit                  : "com.squareup.retrofit2:retrofit:2.6.2",
-            retrofit_adapter_rxjava2  : "com.squareup.retrofit2:adapter-rxjava2:2.6.2",
-            retrofit_converter_gson   : "com.squareup.retrofit2:converter-gson:2.6.2",
-            retrofit_converter_scalars: "com.squareup.retrofit2:converter-scalars:2.6.2",
+            retrofit                  : "com.squareup.retrofit2:retrofit:2.7.0",
+            retrofit_adapter_rxjava2  : "com.squareup.retrofit2:adapter-rxjava2:2.7.0",
+            retrofit_converter_gson   : "com.squareup.retrofit2:converter-gson:2.7.0",
+            retrofit_converter_scalars: "com.squareup.retrofit2:converter-scalars:2.7.0",
             //https://github.com/JakeWharton/RxBinding
             rxBinding                 : "com.jakewharton.rxbinding3:rxbinding:3.1.0",
             //https://github.com/google/gson
@@ -71,22 +71,22 @@ ext {
             //https://github.com/Tencent/MMKV
             mmkv                      : "com.tencent:mmkv-static:1.0.23",
             //https://github.com/objectbox/objectbox-java
-            objectBox_RxJava          : "io.objectbox:objectbox-rxjava:2.4.1",
-            objectBox_Kotlin          : "io.objectbox:objectbox-kotlin:2.4.1",
+            objectBox_RxJava          : "io.objectbox:objectbox-rxjava:2.5.0",
+            objectBox_Kotlin          : "io.objectbox:objectbox-kotlin:2.5.0",
             //https://github.com/Blankj/AndroidUtilCode
-            utilcode                  : "com.blankj:utilcodex:1.25.9",
+            utilcode                  : "com.blankj:utilcodex:1.26.0",
             //https://github.com/JessYanCoding/AndroidAutoSize
             autosize                  : "me.jessyan:autosize:1.1.2",
             //https://github.com/square/leakcanary
-            leakcanary_debug          : "com.squareup.leakcanary:leakcanary-android:2.0-beta-3",
+            leakcanary_debug          : "com.squareup.leakcanary:leakcanary-android:2.0",
             //https://bugly.qq.com/docs/release-notes/release-android-ndk/?v=20181014122344
             bugly                     : "com.tencent.bugly:crashreport:3.1.0",
             bugly_native              : "com.tencent.bugly:nativecrashreport:3.7.1",
             //https://github.com/airbnb/MvRx
-            mvrx                      : "com.airbnb.android:mvrx:2.0.0-alpha1",
+            mvrx                      : "com.airbnb.android:mvrx:2.0.0-alpha2",
             //https://github.com/airbnb/epoxy
-            epoxy                     : "com.airbnb.android:epoxy:3.8.0",
-            epoxyProcessor            : "com.airbnb.android:epoxy-processor:3.8.0",
+            epoxy                     : "com.airbnb.android:epoxy:3.9.0",
+            epoxyProcessor            : "com.airbnb.android:epoxy-processor:3.9.0",
             //https://github.com/airbnb/lottie-android
             lottie                    : "com.airbnb.android:lottie:3.3.1",
             //https://github.com/JeremyLiao/LiveEventBus
