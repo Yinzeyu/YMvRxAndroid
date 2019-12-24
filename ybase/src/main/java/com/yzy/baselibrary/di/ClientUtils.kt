@@ -6,7 +6,6 @@ import com.google.gson.JsonPrimitive
 import com.google.gson.JsonSerializer
 import com.yzy.baselibrary.di.ClientUtils.inItConfig
 import com.yzy.baselibrary.di.ClientUtils.inItGsonBuilder
-import com.yzy.baselibrary.di.ClientUtils.retrofit
 import com.yzy.baselibrary.http.ssl.SSLManager
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
@@ -14,7 +13,7 @@ import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
-import java.util.ArrayList
+import java.util.*
 import java.util.concurrent.TimeUnit
 
 
@@ -93,7 +92,7 @@ class RetrofitAPi private constructor() {
         synchronized(stringRetrofitMap) {
             result = stringRetrofitMap[retrofitClass.name]
             if (result == null) {
-                result = retrofit.create(retrofitClass)
+                result = ClientUtils.retrofit.create(retrofitClass)
                 stringRetrofitMap[retrofitClass.name] = result as Any
             }
         }

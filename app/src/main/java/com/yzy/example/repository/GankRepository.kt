@@ -9,7 +9,7 @@ import com.yzy.example.repository.bean.GankAndroidBean
 import com.yzy.example.repository.service.GankService
 import io.reactivex.Observable
 
-class GankRepository {
+class GankRepository  {
     private object SingletonHolder {
         val holder = GankRepository()
     }
