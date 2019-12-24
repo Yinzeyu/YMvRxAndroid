@@ -55,7 +55,7 @@ captures/
 .idea/workspace.xml
 .idea/libraries
 # Keystore files
-*.jks
+
 dao/
 # bak
 *.bak

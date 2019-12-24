@@ -3,7 +3,7 @@ package com.yzy.example
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.Observer
 import com.jeremyliao.liveeventbus.LiveEventBus
-import com.yzy.example.comm.subscribeLifecycle
+import com.yzy.example.component.comm.subscribeLifecycle
 
 /**
  *description: 融云登录成功的全局.
@@ -27,13 +27,13 @@ object IMLoginGlobal {
         subscribeLifecycle(lifecycleOwner) {
             onStart = {
                 LiveEventBus
-                        .get(LIVEDATA_KEY_MESSAGE_IM_LOGIN, Boolean::class.java)
-                        .observeForever(observer)
+                    .get(LIVEDATA_KEY_MESSAGE_IM_LOGIN, Boolean::class.java)
+                    .observeForever(observer)
             }
             onDestroy = {
                 LiveEventBus
-                        .get(LIVEDATA_KEY_MESSAGE_IM_LOGIN, Boolean::class.java)
-                        .removeObserver(observer)
+                    .get(LIVEDATA_KEY_MESSAGE_IM_LOGIN, Boolean::class.java)
+                    .removeObserver(observer)
             }
         }
     }

@@ -1,22 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">demo</string>
-    <string name="str_main_shake">摇一摇</string>
-    <string name="str_main_task">任务</string>
-    <string name="str_mai_my">我的</string>
-    <string name="str_main_game">游乐园</string>
-    <string name="str_main_elephant">象园</string>
+    <string name="main_home">首页</string>
+    <string name="main_dyn">动态</string>
+    <string name="main_mine">我的</string>
+    <string name="exit_app">再按一次退出程序</string>
+    <string name="loadMore_tips">数据加载中…</string>
+    <string name="noMore_tips">没有更多了~</string>
     <string name="load_more_info">数据加载中</string>
     <string name="load_more_fail">加载失败，点击重试</string>
     <string name="net_error_retry">网络异常，点击屏幕重试</string>
     <string name="net_fail_retry">加载失败，点击屏幕重试</string>
     <string name="no_data">该模块暂时还没有数据哦</string>
     <string name="double_exit">再按一次退出</string>
-    <string name="i_want_sing">我想唱</string>
-    <string name="play_best">精选</string>
-    <string name="guide_play_follow">喜欢就关注呗</string>
-    <string name="play_00_00">00:00</string>
-    <string name="exit_app">再按一次退出程序</string>
-    <string name="loadMore_tips">数据加载中…</string>
-    <string name="noMore_tips">没有更多了~</string>
 </resources>

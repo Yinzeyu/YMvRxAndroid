@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.app.Application
 import android.content.Context
 import androidx.multidex.MultiDex
+import com.airbnb.mvrx.mock.MvRxMocks
 import com.blankj.utilcode.util.LogUtils
 import com.blankj.utilcode.util.ProcessUtils
 import com.blankj.utilcode.util.Utils
@@ -41,6 +42,7 @@ abstract class BaseApplication : Application(), KodeinAware {
 
         if (ProcessUtils.isMainProcess()) {
             initInMainProcess()
+            MvRxMocks.install(this)
         }
     }
 

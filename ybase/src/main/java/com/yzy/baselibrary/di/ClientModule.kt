@@ -3,7 +3,6 @@ package com.yzy.baselibrary.di
 import com.google.gson.GsonBuilder
 import com.google.gson.JsonPrimitive
 import com.google.gson.JsonSerializer
-import com.yzy.baselibrary.BuildConfig
 import com.yzy.baselibrary.http.converter.AbnormalConverterFactory
 import com.yzy.baselibrary.http.ssl.SSLManager
 import okhttp3.HttpUrl
@@ -58,7 +57,7 @@ class ClientModule {
                 interceptors.forEach {
                     builder.addInterceptor(it)
                 }
-                if (BuildConfig.DEBUG) {//log拦截
+//                if (BuildConfig.DEBUG) {//log拦截
                     val httpLoggingInterceptor = HttpLoggingInterceptor()
                     builder.addInterceptor(httpLoggingInterceptor.apply {
                         httpLoggingInterceptor.level = HttpLoggingInterceptor.Level.BODY
@@ -69,7 +68,7 @@ class ClientModule {
                                 it,
                                 SSLManager.TrustAllCerts()
                         )
-                    }
+//                    }
                     builder.hostnameVerifier(SSLManager.hostnameVerifier)
                 }
                 builder.build()

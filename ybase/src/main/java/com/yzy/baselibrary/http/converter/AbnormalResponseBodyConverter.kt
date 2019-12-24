@@ -1,7 +1,6 @@
 package com.yzy.baselibrary.http.converter
 
 import android.util.Log
-import com.blankj.utilcode.util.LogUtils
 import com.google.gson.Gson
 import com.google.gson.TypeAdapter
 import okhttp3.ResponseBody
@@ -16,7 +15,7 @@ import retrofit2.Converter
 class AbnormalResponseBodyConverter<T> constructor(
     private val gson: Gson,
     private val adapter: TypeAdapter<T>
-) : Converter<ResponseBody, T> {
+) : Converter<ResponseBody, T> { 
     override fun convert(value: ResponseBody): T {
         if (value.contentLength() > Int.MAX_VALUE) {
             //超出String字符串的长度
