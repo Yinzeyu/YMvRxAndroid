@@ -77,14 +77,14 @@ abstract class BaseFragmentDialog : DialogFragment(), MvRxView {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         val c = context
-        if (lowerBackground && c != null) setBackgroundAlpha(c, 0.3F)
+//        if (lowerBackground && c != null) setBackgroundAlpha(c, 0.3F)
         super.onViewCreated(view, savedInstanceState)
         initView(view)
     }
 
     override fun onDestroyView() {
         val c = context
-        if (lowerBackground && c != null) setBackgroundAlpha(c, 1F)
+//        if (lowerBackground && c != null) setBackgroundAlpha(c, 1F)
         super.onDestroyView()
     }
 
