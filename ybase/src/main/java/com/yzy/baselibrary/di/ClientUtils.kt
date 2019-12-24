@@ -6,6 +6,7 @@ import com.google.gson.JsonPrimitive
 import com.google.gson.JsonSerializer
 import com.yzy.baselibrary.di.ClientUtils.inItConfig
 import com.yzy.baselibrary.di.ClientUtils.inItGsonBuilder
+import com.yzy.baselibrary.di.ClientUtils.retrofit
 import com.yzy.baselibrary.http.ssl.SSLManager
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
@@ -24,28 +25,8 @@ fun RetrofitConfig(config: ClientUtils.InitRetrofitConfig.() -> Unit) {
     inItGsonBuilder()
 }
 
-//kotlin实现
-class RetrofitAPi private constructor() {
-    companion object {
-        val instance: RetrofitAPi by lazy(mode = LazyThreadSafetyMode.SYNCHRONIZED) { RetrofitAPi() }
-    }
-    private val stringRetrofitMap: MutableMap<String, Any> = mutableMapOf()
-    lateinit var retrofit: Retrofit
-    @Suppress("UNCHECKED_CAST")
-    fun <T> getApi(retrofitClass: Class<T>): T {
-        var result: Any?
-        synchronized(stringRetrofitMap) {
-            result = stringRetrofitMap[retrofitClass.name]
-            if (result == null) {
-                result = retrofit.create(retrofitClass)
-                stringRetrofitMap[retrofitClass.name] = result as Any
-            }
-        }
-        return result!! as T
-    }
-}
-
 object ClientUtils {
+    lateinit var retrofit: Retrofit
     fun inItGsonBuilder() {
         GsonBuilder().serializeNulls()
             .enableComplexMapKeySerialization()
@@ -60,8 +41,7 @@ object ClientUtils {
     fun inItConfig(config: InitRetrofitConfig) {
         config.context?.let {
             val initOkHttp = initOkHttp(config)
-            val initRetrofit = initRetrofit(config, initOkHttp)
-            RetrofitAPi.instance.retrofit = initRetrofit
+            retrofit = initRetrofit(config, initOkHttp)
         }
     }
 
@@ -100,6 +80,28 @@ object ClientUtils {
         val interceptors: ArrayList<Interceptor> = ArrayList()
     )
 }
+
+//kotlin实现
+class RetrofitAPi private constructor() {
+    companion object {
+        val instance: RetrofitAPi by lazy(mode = LazyThreadSafetyMode.SYNCHRONIZED) { RetrofitAPi() }
+    }
+    private val stringRetrofitMap: MutableMap<String, Any> = mutableMapOf()
+    @Suppress("UNCHECKED_CAST")
+    fun <T> getApi(retrofitClass: Class<T>): T {
+        var result: Any?
+        synchronized(stringRetrofitMap) {
+            result = stringRetrofitMap[retrofitClass.name]
+            if (result == null) {
+                result = retrofit.create(retrofitClass)
+                stringRetrofitMap[retrofitClass.name] = result as Any
+            }
+        }
+        return result!! as T
+    }
+}
+
+
 
 
 

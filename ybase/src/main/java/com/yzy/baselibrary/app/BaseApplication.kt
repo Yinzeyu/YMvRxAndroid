@@ -31,7 +31,7 @@ abstract class BaseApplication : Application(), KodeinAware {
         import(androidXModule(this@BaseApplication))
         import(imageLoaderModule)
 //        import(ClientModule.clientModule)
-        initKodein(this)
+//        initKodein(this)
     }
 
     override fun onCreate() {
@@ -76,9 +76,9 @@ abstract class BaseApplication : Application(), KodeinAware {
     abstract fun initInChildThread()
 
 
-    protected open fun initKodein(builder: Kodein.MainBuilder) {
-
-    }
+//    protected open fun initKodein(builder: Kodein.MainBuilder) {
+//
+//    }
 
 
     protected open fun baseInitCreate() {
