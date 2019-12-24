@@ -9,7 +9,6 @@ import com.blankj.utilcode.util.LogUtils
 import com.blankj.utilcode.util.ProcessUtils
 import com.blankj.utilcode.util.Utils
 import com.yzy.baselibrary.BuildConfig
-import com.yzy.baselibrary.di.ClientModule
 import com.yzy.baselibrary.di.imageLoaderModule
 import com.yzy.baselibrary.extention.applySchedulers
 import io.reactivex.Observable
@@ -31,7 +30,7 @@ abstract class BaseApplication : Application(), KodeinAware {
         import(androidCoreModule(this@BaseApplication))
         import(androidXModule(this@BaseApplication))
         import(imageLoaderModule)
-        import(ClientModule.clientModule)
+//        import(ClientModule.clientModule)
         initKodein(this)
     }
 

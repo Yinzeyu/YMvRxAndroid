@@ -4,15 +4,9 @@ import com.jeremyliao.liveeventbus.LiveEventBus
 import com.scwang.smart.refresh.layout.SmartRefreshLayout
 import com.tencent.mmkv.MMKV
 import com.yzy.baselibrary.app.BaseApplication
-import com.yzy.baselibrary.di.GlobeConfigModule
-import com.yzy.baselibrary.http.RequestIntercept
 import com.yzy.example.R
-import com.yzy.example.constants.ApiConstants
-import com.yzy.example.http.integration.HeaderHttpHandler
-import com.yzy.example.imModel.IMUtils
-import com.yzy.example.repository.blackRepositoryModel
+import com.yzy.example.http.RetrofitUtils
 import com.yzy.example.widget.RefreshHeader
-import io.rong.imlib.RongIMClient
 import org.kodein.di.Kodein
 
 
@@ -28,7 +22,7 @@ class App : BaseApplication() {
         initIm()
         initMMKV()
         initLiveBus()
-
+        RetrofitUtils.init(this)
     }
 
     override fun baseInitCreate() {
@@ -76,14 +70,14 @@ class App : BaseApplication() {
 
     override fun initKodein(builder: Kodein.MainBuilder) {
         super.initKodein(builder)
-        val build = GlobeConfigModule
-            .builder()
-            .baseUrl(ApiConstants.Address.BASE_URL)
-            .addInterceptor(RequestIntercept(HeaderHttpHandler()))
-            .build()
-        builder.import(build.globeConfigModule)
+//        val build = GlobeConfigModule
+//            .builder()
+//            .baseUrl(ApiConstants.Address.BASE_URL)
+//            .addInterceptor(RequestIntercept(HeaderHttpHandler()))
+//            .build()
+//        builder.import(build.globeConfigModule)
 //        builder.import(databaseModule)
-        builder.import(blackRepositoryModel)
+//        builder.import(blackRepositoryModel)
     }
 
     /**

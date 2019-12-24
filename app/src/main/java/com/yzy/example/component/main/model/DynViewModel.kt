@@ -23,7 +23,7 @@ class DynViewModel(
 ) : MvRxViewModel<DynState>(state) {
     private var page = 1
     private var pageSize = 20
-    private val ganRepository: GankRepository by BaseApplication.getApp().kodein.instance()
+    private val ganRepository: GankRepository by lazy { GankRepository() }
     //加载更多
     fun refreshData() {
         getAndroidList(true)

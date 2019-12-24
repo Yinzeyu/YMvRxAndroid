@@ -25,6 +25,12 @@ interface GankService {
     fun getAndroid(@Path("pageSize") pageSize: Int, @Path("page") page: Int): Observable<GankBaseBean<GankAndroidBean>>
 
 
+
+    @Headers("urlName:ganKUrl")
+    @GET("api/data/Android/{pageSize}/{page}")
+    suspend fun getAndroidSuspend(@Path("pageSize") pageSize: Int, @Path("page") page: Int): GankBaseBean<GankAndroidBean>
+
+
     @GET("banner/json")
     fun banner(
             @Query("page") page: String,

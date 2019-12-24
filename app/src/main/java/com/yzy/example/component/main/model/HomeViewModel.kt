@@ -16,17 +16,19 @@ import org.kodein.di.generic.instance
  * @date: 2019/9/30 16:36
  */
 data class HomeState(
-        val banners: MutableList<BannerBean>? = mutableListOf(),
-        val hasMore: Boolean = false,
-        val articles: MutableList<ArticleBean> = mutableListOf(),
-        val request: Async<Any> = Uninitialized
+    val banners: MutableList<BannerBean>? = mutableListOf(),
+    val hasMore: Boolean = false,
+    val articles: MutableList<ArticleBean> = mutableListOf(),
+    val request: Async<Any> = Uninitialized
 ) : MvRxState
 
 class HomeViewModel(
-        state: HomeState = HomeState()
+    state: HomeState = HomeState()
 ) : MvRxViewModel<HomeState>(state) {
     private var page = 0
-    private val ganRepository: GankRepository by BaseApplication.getApp().kodein.instance()
+    private val ganRepository: GankRepository by lazy {
+        GankRepository()
+    }
 
     //刷新数据
     fun refreshData() = withState { state ->
@@ -43,10 +45,10 @@ class HomeViewModel(
             val articleList = pair?.second?.datas ?: mutableListOf()
             val hasMore = pair?.second?.datas?.isNullOrEmpty() == false
             copy(
-                    banners = if (suc) bannerList else state.banners,
-                    hasMore = if (suc) hasMore else state.hasMore,
-                    articles = if (suc) articleList else state.articles,
-                    request = it
+                banners = if (suc) bannerList else state.banners,
+                hasMore = if (suc) hasMore else state.hasMore,
+                articles = if (suc) articleList else state.articles,
+                request = it
             )
         }
 
@@ -56,14 +58,14 @@ class HomeViewModel(
     fun loadMoreData() = withState { state ->
         if (state.request is Loading) return@withState
         ganRepository.article(page + 1)
-                .execute {
-                    val suc = it is Success
-                    if (suc) page += 1
-                    val articleList = it.invoke()?.datas ?: mutableListOf()
-                    copy(
-                            articles = if (suc) (state.articles + articleList).toMutableList() else state.articles,
-                            request = it
-                    )
-                }
+            .execute {
+                val suc = it is Success
+                if (suc) page += 1
+                val articleList = it.invoke()?.datas ?: mutableListOf()
+                copy(
+                    articles = if (suc) (state.articles + articleList).toMutableList() else state.articles,
+                    request = it
+                )
+            }
     }
 }

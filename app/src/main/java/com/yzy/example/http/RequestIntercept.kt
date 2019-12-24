@@ -1,33 +1,28 @@
-package com.yzy.example.http.integration
+package com.yzy.example.http
 
 import android.text.TextUtils
 import android.util.Log
-import com.yzy.baselibrary.http.GlobeHttpHandler
 import com.yzy.example.constants.ApiConstants
+import com.yzy.example.http.integration.HeaderManger
 import okhttp3.HttpUrl
 import okhttp3.HttpUrl.Companion.toHttpUrlOrNull
 import okhttp3.Interceptor
-import okhttp3.Request
 import okhttp3.Response
+import okio.Buffer
+import java.io.IOException
 
 /**
- * description :
+ *description: 描述.
  *@date 2019/7/15
  *@author: yzy.
  */
-open class HeaderHttpHandler : GlobeHttpHandler {
-    override fun onHttpResultResponse(
-            httpResult: String,
-            chain: Interceptor.Chain,
-            response: Response
-    ): Response {
-        return response
-    }
+class RequestIntercept constructor(
+    var listNoAddToken: MutableList<String>
+) : Interceptor {
 
-    //不需要添加token的接口
-    private var listNoAddToken = mutableListOf<String>()
-
-    override fun onHttpRequestBefore(chain: Interceptor.Chain, request: Request): Request {
+    @Throws(IOException::class)
+    override fun intercept(chain: Interceptor.Chain): Response {
+        var request = chain.request()
         val builder = request.newBuilder()
         val staticHeaders = HeaderManger.getInstance().getStaticHeaders()
         val dynamicHeaders = HeaderManger.getInstance().getDynamicHeaders()
@@ -62,18 +57,19 @@ open class HeaderHttpHandler : GlobeHttpHandler {
 
             //重建新的HttpUrl，修改需要修改的url部分
             val newFullUrl = request.url
-                    .newBuilder()
-                    .scheme("https")//更换网络协议
-                    .host(newBaseUrl?.host ?: request.url.host)//更换主机名
-                    .port(newBaseUrl?.port ?: request.url.port)//更换端口
-                    .build()
+                .newBuilder()
+                .scheme("https")//更换网络协议
+                .host(newBaseUrl?.host ?: request.url.host)//更换主机名
+                .port(newBaseUrl?.port ?: request.url.port)//更换端口
+                .build()
             //重建这个request，通过builder.url(newFullUrl).build()；
             // 然后返回一个response至此结束修改
             Log.e("Url", "intercept: $newFullUrl");
-            return builder.url(newFullUrl).build()
-
+            request = builder.url(newFullUrl).build()
         }
-        return builder.build()
+        request.body?.writeTo( Buffer())
+        return chain.proceed(request)
+
     }
 
 }
