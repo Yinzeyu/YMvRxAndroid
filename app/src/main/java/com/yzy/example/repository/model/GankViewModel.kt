@@ -4,11 +4,9 @@ import com.airbnb.mvrx.Async
 import com.airbnb.mvrx.Loading
 import com.airbnb.mvrx.MvRxState
 import com.airbnb.mvrx.Uninitialized
-import com.yzy.baselibrary.app.BaseApplication
 import com.yzy.baselibrary.base.MvRxViewModel
 import com.yzy.example.repository.GankRepository
 import com.yzy.example.repository.bean.BannerBean
-import org.kodein.di.generic.instance
 
 data class ConversationDetailState(
         /** 是否有更多数据 */

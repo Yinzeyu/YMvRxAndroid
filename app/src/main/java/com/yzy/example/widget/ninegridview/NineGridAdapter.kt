@@ -3,7 +3,7 @@ package com.yzy.example.widget.ninegridview
 import android.content.Context
 import android.widget.ImageView
 import com.blankj.utilcode.util.SizeUtils
-import com.yzy.baselibrary.extention.load
+import com.yzy.example.extention.load
 import com.yzy.example.repository.bean.PicBean
 
 /**

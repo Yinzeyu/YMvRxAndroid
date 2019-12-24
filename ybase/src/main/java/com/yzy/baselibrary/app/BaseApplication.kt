@@ -9,30 +9,20 @@ import com.blankj.utilcode.util.LogUtils
 import com.blankj.utilcode.util.ProcessUtils
 import com.blankj.utilcode.util.Utils
 import com.yzy.baselibrary.BuildConfig
-import com.yzy.baselibrary.di.imageLoaderModule
 import com.yzy.baselibrary.extention.applySchedulers
 import io.reactivex.Observable
 import io.reactivex.ObservableOnSubscribe
 import me.jessyan.autosize.AutoSizeConfig
-import org.kodein.di.Kodein
-import org.kodein.di.KodeinAware
-import org.kodein.di.android.androidCoreModule
-import org.kodein.di.android.x.androidXModule
-import org.kodein.di.generic.bind
-import org.kodein.di.generic.singleton
 
-abstract class BaseApplication : Application(), KodeinAware {
+abstract class BaseApplication : Application() {
     //子进程中的初始化是否完成,有的必须要子进程中的初始化完成后才能调用
     var initFinishInChildThread = false
     var launcherTime = 0L
-    final override val kodein: Kodein by Kodein.lazy {
-        bind<Context>() with singleton { this@BaseApplication }
-        import(androidCoreModule(this@BaseApplication))
-        import(androidXModule(this@BaseApplication))
-        import(imageLoaderModule)
-//        import(ClientModule.clientModule)
-//        initKodein(this)
-    }
+//    final override val kodein: Kodein by Kodein.lazy {
+//        bind<Context>() with singleton { this@BaseApplication }
+//        import(androidCoreModule(this@BaseApplication))
+//        import(androidXModule(this@BaseApplication))
+//    }
 
     override fun onCreate() {
         super.onCreate()

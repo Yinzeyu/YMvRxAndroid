@@ -1,11 +1,9 @@
 package com.yzy.example.component.main.model
 
 import com.airbnb.mvrx.*
-import com.yzy.baselibrary.app.BaseApplication
 import com.yzy.baselibrary.base.MvRxViewModel
 import com.yzy.example.repository.GankRepository
 import com.yzy.example.repository.bean.GankAndroidBean
-import org.kodein.di.generic.instance
 
 /**
  * Description:

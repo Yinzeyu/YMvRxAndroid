@@ -7,9 +7,9 @@ import com.airbnb.epoxy.EpoxyAttribute
 import com.airbnb.epoxy.EpoxyModelClass
 import com.yzy.baselibrary.base.BaseEpoxyHolder
 import com.yzy.baselibrary.base.BaseEpoxyModel
-import com.yzy.baselibrary.extention.load
 import com.yzy.example.R
 import com.yzy.example.component.web.WebActivity
+import com.yzy.example.extention.load
 import com.yzy.example.repository.bean.BannerBean
 import com.yzy.example.widget.discretescrollview.DSVOrientation
 import com.yzy.example.widget.discretescrollview.DiscreteBanner

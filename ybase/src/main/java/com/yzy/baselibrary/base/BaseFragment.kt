@@ -8,20 +8,14 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.FrameLayout
 import com.airbnb.mvrx.BaseMvRxFragment
-import com.yzy.baselibrary.app.BaseApplication
 import com.yzy.baselibrary.extention.removeParent
-import org.kodein.di.Kodein
-import org.kodein.di.KodeinAware
-import org.kodein.di.KodeinContext
-import org.kodein.di.KodeinTrigger
-import org.kodein.di.generic.kcontext
 
 /**
  *description: BaseFragment.
  *@date 2019/7/15
  *@author: yzy.
  */
-abstract class BaseFragment : BaseMvRxFragment(), KodeinAware {
+abstract class BaseFragment : BaseMvRxFragment() {
     //页面基础信息
     lateinit var mContext: Activity
     private var isFragmentVisible = true
@@ -29,18 +23,18 @@ abstract class BaseFragment : BaseMvRxFragment(), KodeinAware {
     private var isFirst = true
     private var isInViewPager = false
     protected var rootView: FrameLayout? = null
-    override val kodeinTrigger = KodeinTrigger()
-    override val kodeinContext: KodeinContext<*> get() = kcontext(activity)
+//    override val kodeinTrigger = KodeinTrigger()
+//    override val kodeinContext: KodeinContext<*> get() = kcontext(activity)
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
         mContext = context as Activity
     }
 
-    override val kodein: Kodein = Kodein.lazy {
-        extend(BaseApplication.getApp().kodein)
-        initKd(this)
-    }
+//    override val kodein: Kodein = Kodein.lazy {
+//        extend(BaseApplication.getApp().kodein)
+//        initKd(this)
+//    }
     /**
      * 内容布局的ResId
      */
@@ -71,7 +65,7 @@ abstract class BaseFragment : BaseMvRxFragment(), KodeinAware {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        kodeinTrigger.trigger()
+//        kodeinTrigger.trigger()
         initView(view)
         isPrepared = true
         lazyLoad()
@@ -111,7 +105,7 @@ abstract class BaseFragment : BaseMvRxFragment(), KodeinAware {
     /**
      * 初始化kodein
      */
-    protected open fun initKd(builder: Kodein.MainBuilder) {}
+//    protected open fun initKd(builder: Kodein.MainBuilder) {}
 
     /**
      * 初始化View

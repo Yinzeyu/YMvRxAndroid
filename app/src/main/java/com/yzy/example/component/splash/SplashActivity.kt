@@ -7,7 +7,7 @@ import com.blankj.utilcode.util.PermissionUtils
 import com.gyf.immersionbar.ktx.immersionBar
 import com.yzy.baselibrary.base.BaseActivity
 import com.yzy.baselibrary.extention.applyFollowableSchedulers
-import com.yzy.baselibrary.extention.load
+import com.yzy.example.extention.load
 import com.yzy.baselibrary.extention.mContext
 import com.yzy.baselibrary.extention.toast
 import com.yzy.example.R

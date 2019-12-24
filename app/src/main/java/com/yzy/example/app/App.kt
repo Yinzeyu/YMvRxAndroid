@@ -7,7 +7,6 @@ import com.yzy.baselibrary.app.BaseApplication
 import com.yzy.example.R
 import com.yzy.example.http.RetrofitUtils
 import com.yzy.example.widget.RefreshHeader
-import org.kodein.di.Kodein
 
 
 class App : BaseApplication() {

@@ -5,7 +5,7 @@ import com.airbnb.epoxy.EpoxyAttribute
 import com.airbnb.epoxy.EpoxyModelClass
 import com.yzy.baselibrary.base.BaseEpoxyHolder
 import com.yzy.baselibrary.base.BaseEpoxyModel
-import com.yzy.baselibrary.extention.load
+import com.yzy.example.extention.load
 import com.yzy.example.R
 import com.yzy.example.repository.bean.BannerBean
 import kotlinx.android.synthetic.main.main_item.view.*

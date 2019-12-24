@@ -7,20 +7,16 @@ import com.airbnb.mvrx.MvRxViewId
 import com.gyf.immersionbar.ImmersionBar
 import com.gyf.immersionbar.ktx.immersionBar
 import com.yzy.baselibrary.toast.YToast
-import org.kodein.di.*
-import org.kodein.di.android.kodein
-import org.kodein.di.android.retainedSubKodein
-import org.kodein.di.generic.kcontext
 
-abstract class BaseActivity : AppCompatActivity(), MvRxView, KodeinAware {
+abstract class BaseActivity : AppCompatActivity(), MvRxView{
     //MvRxView
     private val mvRxViewIdProperty = MvRxViewId()
     final override val mvrxViewId: String by mvRxViewIdProperty
-    override val kodeinTrigger = KodeinTrigger()
-    override val kodeinContext: KodeinContext<*> = kcontext(this)
-    override val kodein by retainedSubKodein(kodein(), copy = Copy.All) {
-        initKd(this)
-    }
+//    override val kodeinTrigger = KodeinTrigger()
+//    override val kodeinContext: KodeinContext<*> = kcontext(this)
+//    override val kodein by retainedSubKodein(kodein(), copy = Copy.All) {
+//        initKd(this)
+//    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         this.onCreateBefore()
@@ -29,7 +25,7 @@ abstract class BaseActivity : AppCompatActivity(), MvRxView, KodeinAware {
         super.onCreate(savedInstanceState)
         setContentView(layoutResId())
         mvRxViewIdProperty.restoreFrom(savedInstanceState)
-        kodeinTrigger.trigger()
+//        kodeinTrigger.trigger()
         initView()
         initData()
     }
@@ -75,8 +71,8 @@ abstract class BaseActivity : AppCompatActivity(), MvRxView, KodeinAware {
     /** 这里可以做一些setContentView之前的操作,如全屏、常亮、设置Navigation颜色、状态栏颜色等  */
     protected open fun onCreateBefore() {}
 
-    protected open fun initKd(builder: Kodein.MainBuilder) {
-    }
+//    protected open fun initKd(builder: Kodein.MainBuilder) {
+//    }
 
 
     override fun onDestroy() {
