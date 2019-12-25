@@ -71,8 +71,8 @@ ext {
             //https://github.com/Tencent/MMKV
             mmkv                      : "com.tencent:mmkv-static:1.0.23",
             //https://github.com/objectbox/objectbox-java
-            objectBox_RxJava          : "io.objectbox:objectbox-rxjava:2.5.0",
-            objectBox_Kotlin          : "io.objectbox:objectbox-kotlin:2.5.0",
+//            objectBox_RxJava          : "io.objectbox:objectbox-rxjava:2.5.0",
+//            objectBox_Kotlin          : "io.objectbox:objectbox-kotlin:2.5.0",
             //https://github.com/Blankj/AndroidUtilCode
             utilcode                  : "com.blankj:utilcodex:1.26.0",
             //https://github.com/JessYanCoding/AndroidAutoSize
