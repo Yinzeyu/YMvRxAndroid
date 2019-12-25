@@ -6,7 +6,6 @@ import com.google.gson.JsonPrimitive
 import com.google.gson.JsonSerializer
 import com.yzy.baselibrary.http.ClientUtils.inItConfig
 import com.yzy.baselibrary.http.ClientUtils.inItGsonBuilder
-import com.yzy.baselibrary.http.ssl.SSLManager
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor

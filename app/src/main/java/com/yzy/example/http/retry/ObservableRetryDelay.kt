@@ -1,6 +1,5 @@
-package com.yzy.baselibrary.http.retry
+package com.yzy.example.http.retry
 
-import com.yzy.baselibrary.http.retry.RetryConfig
 import io.reactivex.Observable
 import io.reactivex.ObservableSource
 import io.reactivex.functions.Function

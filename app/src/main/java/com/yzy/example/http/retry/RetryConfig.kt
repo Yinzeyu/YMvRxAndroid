@@ -1,4 +1,4 @@
-package com.yzy.baselibrary.http.retry
+package com.yzy.example.http.retry
 
 import io.reactivex.Single
 

@@ -1,6 +1,6 @@
 package com.yzy.example.http
 
-import com.yzy.baselibrary.http.retry.RetryConfig
+import com.yzy.example.http.retry.RetryConfig
 import com.blankj.utilcode.util.NetworkUtils
 import com.yzy.example.http.response.ApiException
 import io.reactivex.Observable

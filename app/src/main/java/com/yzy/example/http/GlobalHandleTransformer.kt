@@ -4,9 +4,9 @@ import com.yzy.baselibrary.extention.applyFollowableSchedulers
 import com.yzy.baselibrary.extention.applyMaybeSchedulers
 import com.yzy.baselibrary.extention.applySchedulers
 import com.yzy.baselibrary.extention.applySingleSchedulers
-import com.yzy.baselibrary.http.retry.FlowableRetryDelay
-import com.yzy.baselibrary.http.retry.ObservableRetryDelay
-import com.yzy.baselibrary.http.retry.RetryConfig
+import com.yzy.example.http.retry.FlowableRetryDelay
+import com.yzy.example.http.retry.ObservableRetryDelay
+import com.yzy.example.http.retry.RetryConfig
 import com.yzy.example.http.response.BaseResponse
 import io.reactivex.*
 import io.reactivex.android.schedulers.AndroidSchedulers

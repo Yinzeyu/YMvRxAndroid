@@ -1,7 +1,7 @@
 package com.yzy.baselibrary.imageloader.glide
 
 import android.text.TextUtils
-import com.yzy.baselibrary.http.ssl.SSLManager
+import com.yzy.baselibrary.http.SSLManager
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import okhttp3.Response
