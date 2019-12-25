@@ -4,8 +4,10 @@ import com.jeremyliao.liveeventbus.LiveEventBus
 import com.scwang.smart.refresh.layout.SmartRefreshLayout
 import com.tencent.mmkv.MMKV
 import com.yzy.baselibrary.app.BaseApplication
+import com.yzy.baselibrary.http.RetrofitConfig
 import com.yzy.example.R
-import com.yzy.example.http.RetrofitUtils
+import com.yzy.example.constants.ApiConstants
+import com.yzy.example.http.RequestIntercept
 import com.yzy.example.widget.RefreshHeader
 
 
@@ -18,7 +20,13 @@ class App : BaseApplication() {
     override fun initInMainThread() {
         initMMKV()
         initLiveBus()
-        RetrofitUtils.init(this)
+        RetrofitConfig {
+            context = this@App
+            baseUrl = ApiConstants.Address.BASE_URL
+            interceptors.add(
+                RequestIntercept(mutableListOf())
+            )
+        }
     }
 
     override fun baseInitCreate() {
