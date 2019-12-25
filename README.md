@@ -14,7 +14,6 @@
 **[ImmersionBar](https://github.com/gyf-dev/ImmersionBar)**|状态栏和虚拟导航栏、全面屏+刘海屏适配、键盘监听
 **[AndroidAutoSize](https://github.com/JessYanCoding/AndroidAutoSize)**|今日头条UI适配方案
 **[LiveEventBus](https://github.com/JeremyLiao/LiveEventBus)**|跨进程通信、跨APP通信、自动取消订阅
-**[kodein](https://www.jianshu.com/p/d854f6c49adb)**|依赖注入（官方翻译依赖检索也可以使用（Koin 替代））
 **[MMKV](https://github.com/Tencent/MMKV)**|替代SharedPreferences的更高效方案
 
 ## Screenshots
