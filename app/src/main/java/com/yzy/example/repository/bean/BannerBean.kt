@@ -1,10 +1,16 @@
 package com.yzy.example.repository.bean
 
+import android.annotation.SuppressLint
+import android.os.Parcelable
+import kotlinx.android.parcel.Parcelize
+
 /**
  * Description:
  * @author: caiyoufei
  * @date: 2019/10/13 17:46
  */
+@SuppressLint("ParcelCreator")
+@Parcelize
 data class BannerBean(
         var desc: String? = null,//"Android高级进阶直播课免费学习",
         var id: Long = 0,//23,
@@ -14,4 +20,4 @@ data class BannerBean(
         var title: String? = null,//"Android高级进阶直播课免费学习",
         var type: Int = 0,//0,
         var url: String? = null//"https://url.163.com/4bj"
-)
+) : Parcelable

@@ -3,20 +3,34 @@ package com.yzy.example.component.main.item
 import android.view.Gravity
 import android.view.View
 import android.widget.ImageView
+import androidx.recyclerview.widget.RecyclerView
+import androidx.viewpager2.widget.CompositePageTransformer
+import androidx.viewpager2.widget.MarginPageTransformer
+import androidx.viewpager2.widget.ViewPager2
+import androidx.viewpager2.widget.ViewPager2.ORIENTATION_VERTICAL
+import com.airbnb.epoxy.EpoxyAdapter
 import com.airbnb.epoxy.EpoxyAttribute
 import com.airbnb.epoxy.EpoxyModelClass
+import com.blankj.utilcode.util.SizeUtils
+import com.yzy.baselibrary.base.BaseActivity
 import com.yzy.baselibrary.base.BaseEpoxyHolder
 import com.yzy.baselibrary.base.BaseEpoxyModel
+import com.yzy.baselibrary.extention.click
+import com.yzy.baselibrary.extention.pressEffectBgColor
 import com.yzy.example.R
+import com.yzy.example.component.main.BannerPagerAdapter
 import com.yzy.example.component.web.WebActivity
 import com.yzy.example.extention.load
+import com.yzy.example.repository.bean.ArticleBean
 import com.yzy.example.repository.bean.BannerBean
+import com.yzy.example.widget.cycleviewpager2.transformer.ScaleInTransformer
 import com.yzy.example.widget.discretescrollview.DSVOrientation
 import com.yzy.example.widget.discretescrollview.DiscreteBanner
 import com.yzy.example.widget.discretescrollview.holder.DiscreteHolder
 import com.yzy.example.widget.discretescrollview.holder.DiscreteHolderCreator
 import kotlinx.android.synthetic.main.item_banner.view.*
 import kotlinx.android.synthetic.main.item_banner_child.view.*
+import kotlinx.android.synthetic.main.item_wan_article.view.*
 
 /**
  * Description:
@@ -37,42 +51,22 @@ abstract class BannerItem : BaseEpoxyModel<BaseEpoxyHolder>() {
             val tag = data.hashCode() + data.size
             if (itemView.tag == tag) return@let
             itemView.tag = tag
-            val banner = itemView.itemBanner as DiscreteBanner<BannerBean>
-//            val banner: DiscreteBanner<BannerBean> = itemView.findViewById(R.id.itemBanner)
-            banner.setOrientation(if (vertical) DSVOrientation.VERTICAL else DSVOrientation.HORIZONTAL)
-                    .setLooper(true)
-                    .setAutoPlay(true)
-                    .setOnItemClick { _, t ->
-                        WebActivity.startActivity(banner.context, t.url ?: "")
-                    }
-                    .also {
-                        if (!vertical) {
-                            it.setIndicatorGravity(Gravity.BOTTOM or Gravity.END)
-                            it.setIndicatorOffsetY(-it.defaultOffset / 2f)
-                            it.setIndicatorOffsetX(-it.defaultOffset)
-                        }
-                    }
-                    .setPages(object : DiscreteHolderCreator {
-                        override fun createHolder(view: View) =
-                            HomeBannerHolderView(view)
-                        override fun getLayoutId() = R.layout.item_banner_child
-                    }, data)
+            val itemBanner = itemView.itemBanner
+            val bannerAdapter = BannerPagerAdapter((itemView.context as BaseActivity), data)
+            val compositePageTransformer = CompositePageTransformer()
+            compositePageTransformer.addTransformer(ScaleInTransformer())
+            compositePageTransformer.addTransformer(MarginPageTransformer(SizeUtils.dp2px(10f)))
+            itemBanner.setPageTransformer(compositePageTransformer)
+            itemBanner.adapter = bannerAdapter
+            itemBanner.apply {
+                offscreenPageLimit = 1
+                val recyclerView = getChildAt(0) as RecyclerView
+                recyclerView.apply {
+                    val padding = SizeUtils.dp2px(20f)
+                    setPadding(padding, 0, padding, 0)
+                    clipToPadding = false
+                }
+            }
         }
-    }
-}
-
-
-class HomeBannerHolderView(view: View?) : DiscreteHolder<BannerBean>(view) {
-    private var imageView: ImageView? = null
-    override fun updateUI(
-            data: BannerBean,
-            position: Int,
-            count: Int
-    ) {
-        imageView?.load(data.imagePath)
-    }
-
-    override fun initView(view: View) {
-        this.imageView = view.itemBannerIV
     }
 }
