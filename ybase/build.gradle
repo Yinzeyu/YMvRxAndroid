@@ -46,7 +46,6 @@ dependencies {
     api rootProject.ext.dependencies.retrofit_converter_scalars
     api rootProject.ext.dependencies.glide
     api rootProject.ext.dependencies.glide_okhttp
-    kapt rootProject.ext.dependencies.glide_compiler
     api rootProject.ext.dependencies.multidex
     api rootProject.ext.dependencies.gson
     api rootProject.ext.dependencies.autosize

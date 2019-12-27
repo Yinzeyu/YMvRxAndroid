@@ -19,18 +19,9 @@ import com.yzy.baselibrary.extention.click
 import com.yzy.baselibrary.extention.pressEffectBgColor
 import com.yzy.example.R
 import com.yzy.example.component.main.BannerPagerAdapter
-import com.yzy.example.component.web.WebActivity
-import com.yzy.example.extention.load
-import com.yzy.example.repository.bean.ArticleBean
 import com.yzy.example.repository.bean.BannerBean
 import com.yzy.example.widget.cycleviewpager2.transformer.ScaleInTransformer
-import com.yzy.example.widget.discretescrollview.DSVOrientation
-import com.yzy.example.widget.discretescrollview.DiscreteBanner
-import com.yzy.example.widget.discretescrollview.holder.DiscreteHolder
-import com.yzy.example.widget.discretescrollview.holder.DiscreteHolderCreator
 import kotlinx.android.synthetic.main.item_banner.view.*
-import kotlinx.android.synthetic.main.item_banner_child.view.*
-import kotlinx.android.synthetic.main.item_wan_article.view.*
 
 /**
  * Description:

@@ -1,8 +1,8 @@
-package com.yzy.baselibrary.imageloader.glide.transformations
+package com.yzy.example.imageloader.transformations
 
 import android.content.Context
 import android.graphics.*
-import com.yzy.baselibrary.imageloader.CornerType
+import com.yzy.example.imageloader.CornerType
 import com.bumptech.glide.load.engine.bitmap_recycle.BitmapPool
 
 /**

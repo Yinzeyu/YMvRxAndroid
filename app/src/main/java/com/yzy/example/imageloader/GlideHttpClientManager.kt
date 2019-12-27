@@ -1,4 +1,4 @@
-package com.yzy.baselibrary.imageloader.glide
+package com.yzy.example.imageloader
 
 import android.text.TextUtils
 import com.yzy.baselibrary.http.SSLManager
@@ -16,17 +16,22 @@ import java.io.IOException
  *@author: yzy.
  */
 object GlideHttpClientManager {
-    private val listenersMap =
-            Collections.synchronizedMap(HashMap<String, OnImageProgressListener>())
-    private val LISTENER = object : ProgressResponseBody.InternalProgressListener {
+    private val listenersMap = Collections.synchronizedMap(HashMap<String, OnImageProgressListener>())
+    private val LISTENER = object :
+        ProgressResponseBody.InternalProgressListener {
         override fun onProgress(url: String, bytesRead: Long, totalBytes: Long) {
-            val onProgressListener = getProgressListener(url)
+            val onProgressListener =
+                getProgressListener(
+                    url
+                )
             if (onProgressListener != null) {
                 val percentage = (bytesRead * 1f / totalBytes * 100f).toInt()
                 val isComplete = percentage >= 100
                 onProgressListener.onProgress(url, isComplete, percentage, bytesRead, totalBytes)
                 if (isComplete) {
-                    removeListener(url)
+                    removeListener(
+                        url
+                    )
                 }
             }
         }
@@ -74,11 +79,11 @@ object GlideHttpClientManager {
             val response = chain.proceed(request)
             response.newBuilder()
                     .body(
-                            ProgressResponseBody(
-                                    request.url.toString(),
-                                    LISTENER,
-                                    response.body!!
-                            )
+                        ProgressResponseBody(
+                            request.url.toString(),
+                            LISTENER,
+                            response.body!!
+                        )
                     )
                     .build()
             return response

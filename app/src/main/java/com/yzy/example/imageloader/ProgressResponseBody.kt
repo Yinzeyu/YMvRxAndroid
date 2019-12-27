@@ -1,4 +1,4 @@
-package com.yzy.baselibrary.imageloader.glide
+package com.yzy.example.imageloader
 
 import android.os.Handler
 import android.os.Looper
@@ -15,9 +15,9 @@ import java.io.IOException
  * @author: YangYang.
  */
 class ProgressResponseBody internal constructor(
-        private val url: String,
-        private val internalProgressListener: InternalProgressListener?,
-        private val responseBody: ResponseBody
+    private val url: String,
+    private val internalProgressListener: InternalProgressListener?,
+    private val responseBody: ResponseBody
 ) : ResponseBody() {
     private var bufferedSource: BufferedSource? = null
 

@@ -1,25 +1,14 @@
-package com.yzy.baselibrary.imageloader.glide
+package com.yzy.example.imageloader
 
 import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.drawable.Drawable
 import com.bumptech.glide.Glide
-import com.bumptech.glide.disklrucache.DiskLruCache
-import com.yzy.baselibrary.imageloader.BaseImageLoaderStrategy
-import com.yzy.baselibrary.imageloader.DiskCacheStrategyType
-import com.yzy.baselibrary.imageloader.ImageConfig
-import com.yzy.baselibrary.imageloader.ImageLoadScaleType
-import com.yzy.baselibrary.imageloader.glide.transformations.BlurTransformation
-import com.yzy.baselibrary.imageloader.glide.transformations.RoundedCornersTransformation
+import com.yzy.example.imageloader.transformations.BlurTransformation
+import com.yzy.example.imageloader.transformations.RoundedCornersTransformation
 import com.bumptech.glide.load.engine.DiskCacheStrategy
-import com.bumptech.glide.load.engine.cache.DiskCache
-import com.bumptech.glide.load.engine.cache.SafeKeyGenerator
-import com.bumptech.glide.load.model.GlideUrl
 import com.bumptech.glide.load.resource.bitmap.BitmapTransitionOptions
 import com.bumptech.glide.request.target.CustomTarget
-import com.bumptech.glide.signature.EmptySignature
-import com.yzy.baselibrary.imageloader.cache.DataCacheKey
-import java.io.File
 
 /**
  *description: Glide实现的图片加载.
@@ -27,24 +16,6 @@ import java.io.File
  *@author: yzy.
  */
 class GlideImageLoaderStrategy : BaseImageLoaderStrategy {
-    override fun getCacheFile(context: Context, url: String): File? {
-        try {
-            val dataCacheKey = DataCacheKey(GlideUrl(url), EmptySignature.obtain())
-            val safeKeyGenerator = SafeKeyGenerator()
-            val safeKey = safeKeyGenerator.getSafeKey(dataCacheKey)
-            val file = File(context.cacheDir, DiskCache.Factory.DEFAULT_DISK_CACHE_DIR)
-            val diskLruCache =
-                DiskLruCache.open(file, 1, 1, DiskCache.Factory.DEFAULT_DISK_CACHE_SIZE.toLong())
-            val value = diskLruCache.get(safeKey)
-            if (value != null) {
-                return value.getFile(0)
-            }
-        } catch (e: Exception) {
-            e.printStackTrace()
-        }
-        return null
-    }
-
     override fun clearMemory(context: Context) {
         Glide.get(context.applicationContext).clearMemory()
     }
@@ -129,7 +100,8 @@ class GlideImageLoaderStrategy : BaseImageLoaderStrategy {
                 config.url?.let {
                     GlideHttpClientManager.addListener(
                         url = it,
-                        listener = object : OnImageProgressListener {
+                        listener = object :
+                            OnImageProgressListener {
                             override fun onProgress(
                                 url: String,
                                 isComplete: Boolean,

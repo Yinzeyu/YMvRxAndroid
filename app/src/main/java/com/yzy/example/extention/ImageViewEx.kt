@@ -3,9 +3,8 @@ package com.yzy.example.extention
 import android.graphics.Bitmap
 import android.widget.ImageView
 import com.yzy.baselibrary.app.BaseApplication
-import com.yzy.baselibrary.imageloader.ImageConfig
-import com.yzy.baselibrary.imageloader.ImageLoader
-import com.yzy.baselibrary.imageloader.glide.GlideImageLoaderStrategy
+import com.yzy.example.imageloader.ImageConfig
+import com.yzy.example.imageloader.GlideImageLoaderStrategy
 
 /**
  *description: ImageView的扩展.
@@ -15,12 +14,12 @@ import com.yzy.baselibrary.imageloader.glide.GlideImageLoaderStrategy
  */
 fun ImageView.load(url: String?, placeholderId: Int = 0) {
     url?.let {
-        val config: ImageConfig = ImageConfig.builder()
-                .useCrossFade(false)
-                .url(it)
-                .errorSrc(placeholderId)//设置默认的占位图
-                .placeholder(placeholderId)//设置默认的加载错误图
-                .build()
+        val config = ImageConfig(
+            useCrossFade = false,
+            url = it,
+            errorSrc = placeholderId,
+            placeholder = placeholderId
+        )
         load(config)
     }
 }
@@ -32,14 +31,14 @@ fun ImageView.load(
     failed: () -> Unit
 ) {
     url?.let {
-        val config: ImageConfig = ImageConfig.builder()
-            .useCrossFade(false)
-            .url(it)
-            .errorSrc(placeholderId)//设置默认的占位图
-            .placeholder(placeholderId)//设置默认的加载错误图
-            .onSuccess(success)
-            .onFailed(failed)
-            .build()
+        val config = ImageConfig(
+            useCrossFade = false,
+            url = it,
+            errorSrc = placeholderId,
+            placeholder = placeholderId,
+            success = success,
+            failed = failed
+        )
         load(config)
     }
 }
@@ -67,8 +66,8 @@ fun ImageView.load(config: ImageConfig) {
     }
 }
 
-val loader: ImageLoader by lazy {
-    ImageLoader(GlideImageLoaderStrategy())
+val loader: GlideImageLoaderStrategy by lazy {
+    GlideImageLoaderStrategy()
 }
 
 ///**

@@ -1,4 +1,4 @@
-package com.yzy.baselibrary.imageloader.glide
+package com.yzy.example.imageloader
 
 import android.content.Context
 import com.bumptech.glide.Glide
@@ -27,7 +27,9 @@ class GlideConfiguration : AppGlideModule() {
     override fun applyOptions(context: Context, builder: GlideBuilder) {
         //配置磁盘缓存
         val cacheDir = context.cacheDir.path + File.separator + ".image"
-        builder.setDiskCache(InternalCacheDiskCacheFactory(context, cacheDir, IMAGE_DISK_CACHE_MAX_SIZE))
+        builder.setDiskCache(InternalCacheDiskCacheFactory(context, cacheDir,
+            IMAGE_DISK_CACHE_MAX_SIZE
+        ))
 
         val calculator = MemorySizeCalculator.Builder(context).build()
         val defaultMemoryCacheSize = calculator.memoryCacheSize

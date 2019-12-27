@@ -1,4 +1,4 @@
-package com.yzy.baselibrary.imageloader.glide
+package com.yzy.example.imageloader
 
 /**
  * description: Glide加载图片的进度回调.
