@@ -50,6 +50,11 @@ fun View.pressEffectBgColor(
     )
 }
 
+//关闭按下效果
+fun View.pressEffectDisable() {
+    this.setOnTouchListener(null)
+}
+
 //设置按下效果为改变透明度
 fun View.pressEffectAlpha(pressAlpha: Float = 0.7f) {
     PressEffectHelper.alphaEffect(this, pressAlpha)

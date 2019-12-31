@@ -1,15 +1,23 @@
 package com.yzy.baselibrary.extention
 
+import android.annotation.SuppressLint
 import android.app.Activity
+import android.content.Context
 import android.content.res.Resources
 import android.graphics.Rect
+import android.os.Build
+import android.provider.Settings
 import android.util.DisplayMetrics
 import android.util.Log
 import android.view.ViewTreeObserver
+import android.view.WindowManager
+import androidx.annotation.NonNull
 import io.reactivex.Flowable
 import io.reactivex.disposables.Disposable
+import java.lang.reflect.Method
 import java.util.concurrent.TimeUnit
 import kotlin.math.max
+
 
 /**
  * description : 产生随机颜色,使用时需要创建Color对象再用，如Color().random()
@@ -35,86 +43,122 @@ fun Activity.getHeightKeyboard(): Int {
     //使用最外层布局填充，进行测算计算
     window.decorView.getWindowVisibleDisplayFrame(rect)
     val heightDiff = window.decorView.height - (rect.bottom - rect.top)
-    return max(0, heightDiff - mStatusBarHeight - getHeightNavigationBar())
+    return max(0, heightDiff - mStatusBarHeight - getBottomStatusHeight(mActivity))
 }
 
 /**添加键盘监听*/
 fun Activity.addListerKeyboard(
-        naHeight: ((naHeight: Int) -> Unit)? = null,
-        keyboardHeight: ((keyboardHeight: Int) -> Unit)? = null
+    naHeight: ((naHeight: Int) -> Unit)? = null,
+    keyboardHeight: ((keyboardHeight: Int) -> Unit)? = null
 ) {
     val onGlobalLayoutListener = ViewTreeObserver.OnGlobalLayoutListener {
         val realKeyboardHeight = getHeightKeyboard()
         if (realKeyboardHeight != lastSetSetKeyboardHeight && window.decorView.height > 0
-                && (realKeyboardHeight > 300 || realKeyboardHeight == 0)
+            && (realKeyboardHeight > 300 || realKeyboardHeight == 0)
         ) {
             lastSetSetKeyboardHeight = realKeyboardHeight
             disposable?.dispose()
             disposable = Flowable.timer(100, TimeUnit.MILLISECONDS)
-                    .onBackpressureLatest()
-                    .compose(applyFollowableSchedulers())
-                    .subscribe {
-                        val navigationHeight = getNavigationBarHeight(this)
-                        if (navigationHeight != tempNavigationBarHeight) {
-                            naHeight?.invoke(navigationHeight)
-                            Log.i(TAG, "虚拟导航键高度=$naHeight")
-                            tempNavigationBarHeight = navigationHeight
-                        }
-                        if (realKeyboardHeight != tempKeyboardHeight) {
-                            keyboardHeight?.invoke(realKeyboardHeight)
-                            Log.i(TAG, "键盘高度=$realKeyboardHeight")
-                            tempKeyboardHeight = realKeyboardHeight
-                            if (realKeyboardHeight > 100) {
-                                saveKeyboardHeight = realKeyboardHeight
-                            }
+                .onBackpressureLatest()
+                .compose(applyFollowableSchedulers())
+                .subscribe {
+                    val navigationHeight = getBottomStatusHeight(mActivity)
+                    if (navigationHeight != tempNavigationBarHeight) {
+                        naHeight?.invoke(navigationHeight)
+                        Log.i(TAG, "虚拟导航键高度=$naHeight")
+                        tempNavigationBarHeight = navigationHeight
+                    }
+                    if (realKeyboardHeight != tempKeyboardHeight) {
+                        keyboardHeight?.invoke(realKeyboardHeight)
+                        Log.i(TAG, "键盘高度=$realKeyboardHeight")
+                        tempKeyboardHeight = realKeyboardHeight
+                        if (realKeyboardHeight > 100) {
+                            saveKeyboardHeight = realKeyboardHeight
                         }
                     }
+                }
         }
     }
     window.decorView.viewTreeObserver.addOnGlobalLayoutListener(onGlobalLayoutListener)
-}
-
-/**获取虚拟导航高度(部分手机可能不准)*/
-fun Activity.getHeightNavigationBar(): Int {
-    return getNavigationBarHeight(this)
-}
-
-/**获取虚拟导航键高度*/
-fun getNavigationBarHeight(activity: Activity): Int {
-    return if (navigationBarIsShow(activity)) {
-        activity.resources.getDimensionPixelSize(
-                activity.resources.getIdentifier(
-                        "navigation_bar_height",
-                        "dimen",
-                        "android"
-                )
-        )
-    } else {
-        0
-    }
 }
 
 /**状态栏高度*/
 val Activity.mStatusBarHeight: Int
     get() {
         return Resources.getSystem()
-                .getDimensionPixelSize(resources.getIdentifier("status_bar_height", "dimen", "android"))
+            .getDimensionPixelSize(resources.getIdentifier("status_bar_height", "dimen", "android"))
     }
 
-/**判断虚拟导航键是否显示*/
-fun navigationBarIsShow(activity: Activity): Boolean {
-    //正常判断
-    val metrics = DisplayMetrics()
-    val realMetrics = DisplayMetrics()
-    activity.windowManager.defaultDisplay.getMetrics(metrics)
-    activity.windowManager.defaultDisplay.getRealMetrics(realMetrics)
-    return realMetrics.widthPixels - metrics.widthPixels > 0 || realMetrics.heightPixels - metrics.heightPixels > 0
+//获取底部导航的高度
+fun getBottomStatusHeight(context: Context): Int {
+    return if (checkNavigationBarShow(context)) {
+        val totalHeight = getDpi(context)
+        val contentHeight = getScreenHeight(context)
+        Log.e(TAG, "--显示虚拟导航了--")
+        totalHeight - contentHeight
+    } else {
+        Log.e(TAG, "--没有虚拟导航 或者虚拟导航隐藏--")
+        0
+    }
 }
 
-//fun <T> applyFlowableSchedulers(): FlowableTransformer<T, T> {
-//    return FlowableTransformer { followable ->
-//        followable.subscribeOn(Schedulers.io())
-//            .unsubscribeOn(Schedulers.io())
-//            .observeOn(AndroidSchedulers.mainThread())
-//    }
-//}
+//获取屏幕原始尺寸高度，包括虚拟功能键高度
+fun getDpi(context: Context): Int {
+    var dpi = 0
+    val windowManager =
+        context.getSystemService(Context.WINDOW_SERVICE) as WindowManager
+    val display = windowManager.defaultDisplay
+    val displayMetrics = DisplayMetrics()
+    val c: Class<*>
+    try {
+        c = Class.forName("android.view.Display")
+        val method: Method = c.getMethod("getRealMetrics", DisplayMetrics::class.java)
+        method.invoke(display, displayMetrics)
+        dpi = displayMetrics.heightPixels
+    } catch (e: Exception) {
+        e.printStackTrace()
+    }
+    return dpi
+}
+
+//获取屏幕高度 不包含虚拟按键=
+fun getScreenHeight(context: Context): Int {
+    val dm: DisplayMetrics = context.resources.displayMetrics
+    return dm.heightPixels
+}
+
+/**
+ * 判断虚拟导航栏是否显示
+ *
+ * * @param context 上下文对象
+ * @return true(显示虚拟导航栏)，false(不显示或不支持虚拟导航栏)
+ */
+@SuppressLint("ObsoleteSdkInt", "PrivateApi")
+fun checkNavigationBarShow(@NonNull context: Context): Boolean {
+    var hasNavigationBar = false
+    val rs = context.resources
+    val id = rs.getIdentifier("config_showNavigationBar", "bool", "android")
+    if (id > 0) {
+        hasNavigationBar = rs.getBoolean(id)
+    }
+    try {
+        val systemPropertiesClass = Class.forName("android.os.SystemProperties")
+        val m = systemPropertiesClass.getMethod("get", String::class.java)
+        val navBarOverride =
+            m.invoke(systemPropertiesClass, "qemu.hw.mainkeys") as String
+        //判断是否隐藏了底部虚拟导航
+        var navigationBarIsMin = 0
+        navigationBarIsMin = if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
+            Settings.System.getInt(context.contentResolver, "navigationbar_is_min", 0)
+        } else {
+            Settings.Global.getInt(context.contentResolver, "navigationbar_is_min", 0)
+        }
+        if ("1" == navBarOverride || 1 == navigationBarIsMin) {
+            hasNavigationBar = false
+        } else if ("0" == navBarOverride) {
+            hasNavigationBar = true
+        }
+    } catch (e: java.lang.Exception) {
+    }
+    return hasNavigationBar
+}

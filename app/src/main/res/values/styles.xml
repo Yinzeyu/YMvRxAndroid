@@ -72,4 +72,9 @@
         <attr name="qmui_radiusBottomLeft" />
         <attr name="qmui_radiusBottomRight" />
     </declare-styleable>
+    <style name="imui_line">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">1px</item>
+        <item name="android:background">@color/imui_line</item>
+    </style>
 </resources>

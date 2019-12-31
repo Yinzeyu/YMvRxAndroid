@@ -85,6 +85,12 @@
             android:launchMode="singleTop"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan|stateHidden"/>
+        <activity
+            android:name=".component.message.ChatActivity"
+            android:configChanges="screenLayout|orientation"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustResize|stateHidden"/>
 
         <meta-data
             android:name="android.max_aspect"

@@ -13,4 +13,15 @@
     <string name="net_fail_retry">加载失败，点击屏幕重试</string>
     <string name="no_data">该模块暂时还没有数据哦</string>
     <string name="double_exit">再按一次退出</string>
+    <string name="chat_title">聊天模拟</string>
+
+
+    <dimen name="imui_default_custom_keyboard_size">220dp</dimen>
+    <string name="imui_app_name">imui</string>
+    <string name="imui_please_to_talk">按住 说话</string>
+    <string name="imui_send">发送</string>
+    <string name="imui_voice_cancel">松开手指，取消发送</string>
+    <string name="imui_voice_rec">手指上滑，取消发送</string>
+    <string name="imui_voice_short">录音时间太短</string>
+
 </resources>

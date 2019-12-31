@@ -236,4 +236,15 @@
     <color name="white_20">#33FFFFFF</color>
     <color name="white_15">#26FFFFFF</color>
     <color name="white_10">#1AFFFFFF</color>
+
+
+    <color name="imui_c_7e7e7e">#7e7e7e</color>
+    <color name="imui_c_ebefef">#EBEFEF</color>
+    <color name="imui_c_f5f5f5">#F5F5F5</color>
+    <color name="imui_gray">#F3F3F3</color>
+    <color name="imui_line">#ebebeb</color>
+    <color name="imui_white">#fff</color>
+    <color name="c_fff3f3f3">#FFF3F3F3</color>
+
+    <color name="c_ff54d25d">#FF54D25D</color>
 </resources>

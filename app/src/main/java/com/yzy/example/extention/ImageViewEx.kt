@@ -5,6 +5,7 @@ import android.widget.ImageView
 import com.yzy.baselibrary.app.BaseApplication
 import com.yzy.example.imageloader.ImageConfig
 import com.yzy.example.imageloader.GlideImageLoaderStrategy
+import com.yzy.example.imageloader.ImageLoadScaleType
 
 /**
  *description: ImageView的扩展.
@@ -70,6 +71,17 @@ val loader: GlideImageLoaderStrategy by lazy {
     GlideImageLoaderStrategy()
 }
 
+/**
+ * 加载圆形
+ */
+fun ImageView.loadCircle(
+    url: String?
+) {
+    url?.let {
+        val config = ImageConfig(useCrossFade = true,url = it,imageLoadScaleType = ImageLoadScaleType.CircleCrop)
+        load(config)
+    }
+}
 ///**
 // * 加载uri图片,默认CenterCrop和CrossFade效果
 // */

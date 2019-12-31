@@ -55,15 +55,12 @@ dependencies {
     //https://github.com/gyf-dev/ImmersionBar
     // 基础依赖包，必须要依赖
     api 'com.gyf.immersionbar:immersionbar:3.0.0'
-    // fragment快速实现（可选）
-    api 'com.gyf.immersionbar:immersionbar-components:3.0.0'
     // kotlin扩展（可选）
     api 'com.gyf.immersionbar:immersionbar-ktx:3.0.0'
 }
 apply plugin: 'com.github.dcendents.android-maven'
 apply plugin: 'com.jfrog.bintray'
-// 项目引用的版本号，比如compile 'com.yanzhenjie:andserver:1.0.1'中的1.0.1就是这里配置的。
-version = "1.3.6"
+version = "2.0.1"
 
 // 定义两个链接，下面会用到。
 def siteUrl = 'https://github.com/Yinzeyu/YMvRxAndroid'
@@ -71,7 +68,6 @@ def siteUrl = 'https://github.com/Yinzeyu/YMvRxAndroid'
 def gitUrl = 'https://github.com/Yinzeyu/YMvRxAndroid.git'
 // Git仓库的url。
 
-// 唯一包名，比如compile 'com.yanzhenjie:andserver:1.0.1'中的com.yanzhenjie就是这里配置的。
 group = "com.yzy"
 install {
     repositories.mavenInstaller {

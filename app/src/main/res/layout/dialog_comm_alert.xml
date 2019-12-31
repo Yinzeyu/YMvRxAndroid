@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="255dp"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center_horizontal"
+    android:background="@drawable/shape_white_corner8"
+    android:gravity="center_horizontal"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/commAlertTitle"
+        android:layout_width="255dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="28dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="28dp"
+        android:gravity="center"
+        android:textColor="#FF4A4A4A"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        tools:text="标题"
+        tools:visibility="visible" />
+
+    <LinearLayout
+        android:id="@+id/commContentLl"
+        android:layout_width="255dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="28dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="28dp"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/commAlertContent"
+            android:layout_width="255dp"
+            android:layout_height="wrap_content"
+            android:lineSpacingMultiplier="1.4"
+            android:textColor="#FF4A4A4A"
+            android:textSize="14sp"
+            android:visibility="gone"
+            tools:text="内容"
+            tools:visibility="visible" />
+
+        <ViewStub
+            android:id="@+id/commApply"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout="@layout/layout_apply2_join_circle" />
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:layout_marginTop="16dp"
+        android:background="#FF666666" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="43.5dp"
+        android:gravity="center_horizontal"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/commAlertCancel"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="取消"
+            android:textColor="@color/c_ff333333"
+            android:textSize="15sp"
+            android:visibility="gone"
+            tools:visibility="visible" />
+
+        <View
+            android:id="@+id/commBtnLine"
+            android:layout_width="0.5dp"
+            android:layout_height="match_parent"
+            android:background="#FF666666"
+            android:visibility="gone"
+            tools:visibility="visible" />
+
+        <TextView
+            android:id="@+id/commAlertConfirm"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="确定"
+            android:textColor="@color/c_ff30d18b"
+            android:textSize="15sp"
+            tools:visibility="visible" />
+    </LinearLayout>
+
+</LinearLayout>

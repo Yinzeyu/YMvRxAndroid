@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    >
+
+  <ImageView
+      android:id="@+id/applyCover"
+      android:layout_width="20dp"
+      android:layout_height="20dp"
+      android:contentDescription="@null"
+      app:layout_constraintBottom_toBottomOf="parent"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintHorizontal_bias="0"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toTopOf="parent"
+      app:layout_constraintVertical_bias="0"
+      />
+
+  <TextView
+      android:id="@+id/applyName"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginStart="8.5dp"
+      android:textSize="12sp"
+      android:textColor="#FF4a4a4a"
+      android:textStyle="bold"
+      app:layout_constraintTop_toTopOf="@id/applyCover"
+      app:layout_constraintBottom_toBottomOf="@id/applyCover"
+      app:layout_constraintStart_toEndOf="@id/applyCover"
+      tools:text="周杰伦粉丝圈"
+      />
+
+  <EditText
+      android:id="@+id/applyEt"
+      android:layout_width="match_parent"
+      android:layout_height="55.5dp"
+      android:layout_marginTop="12dp"
+      android:padding="12dp"
+      android:gravity="start"
+      android:textColor="@color/c_ff333333"
+      android:textSize="12sp"
+      android:textColorHint="@color/c_ff999999"
+      android:hint="填写验证信息(0–20字)"
+      android:background="@drawable/shape_solid_fff3f3f3_8"
+      app:layout_constraintTop_toBottomOf="@id/applyCover"
+      />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
