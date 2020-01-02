@@ -85,8 +85,7 @@ fun Activity.addListerKeyboard(
 /**状态栏高度*/
 val Activity.mStatusBarHeight: Int
     get() {
-        return Resources.getSystem()
-            .getDimensionPixelSize(resources.getIdentifier("status_bar_height", "dimen", "android"))
+        return Resources.getSystem().getDimensionPixelSize(resources.getIdentifier("status_bar_height", "dimen", "android"))
     }
 
 //获取底部导航的高度

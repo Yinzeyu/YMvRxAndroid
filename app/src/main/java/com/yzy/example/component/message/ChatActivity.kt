@@ -18,6 +18,7 @@ import com.yzy.example.component.dialog.AlertDialogType
 import com.yzy.example.component.dialog.commAlertDialog
 import com.yzy.example.imModel.ConversationExtManager
 import com.yzy.example.imModel.ConversationInputPanel
+import com.yzy.example.imModel.KeyboardAwareLinearLayout
 import com.yzy.example.imModel.audio.MMAudioRecorderPanel
 import com.yzy.example.imModel.audio.OnRecordListener
 import com.yzy.example.imModel.audio.RecordState
@@ -47,20 +48,20 @@ class ChatActivity : CommTitleActivity() {
     }
 
     private fun initRootView() {
-//        rootLinearLayout.addOnKeyboardShownListener(object :
-//            KeyboardAwareLinearLayout.OnKeyboardShownListener {
-//            override fun onKeyboardShown() {
-//                inputPanel.onKeyboardShown()
-//                //滚动到最下边
-////        listMove2Bottom()
-//            }
-//        })
-//        rootLinearLayout.addOnKeyboardHiddenListener(object :
-//            KeyboardAwareLinearLayout.OnKeyboardHiddenListener {
-//            override fun onKeyboardHidden() {
-//                inputPanel.onKeyboardHidden()
-//            }
-//        })
+        rootLinearLayout.addOnKeyboardShownListener(object :
+            KeyboardAwareLinearLayout.OnKeyboardShownListener {
+            override fun onKeyboardShown() {
+                inputPanel.onKeyboardShown()
+                //滚动到最下边
+//        listMove2Bottom()
+            }
+        })
+        rootLinearLayout.addOnKeyboardHiddenListener(object :
+            KeyboardAwareLinearLayout.OnKeyboardHiddenListener {
+            override fun onKeyboardHidden() {
+                inputPanel.onKeyboardHidden()
+            }
+        })
     }
 
     private fun initInputPanel() {
@@ -69,7 +70,7 @@ class ChatActivity : CommTitleActivity() {
         inputPanel.icKeyboard = R.drawable.ic_big_keyboard
         inputPanel.icVoice = R.drawable.ic_big_voice
         inputPanel.audioRecorderPanel = MMAudioRecorderPanel(this)
-        inputPanel.attach(this)
+        inputPanel.attach(this,rootLinearLayout)
         inputPanel.inputPanelListener = object : ConversationInputPanel.OnInputPanelListener {
             override fun onInputPanelStateChange(isExpanded: Boolean) {
                 if (isExpanded) {
@@ -118,17 +119,18 @@ class ChatActivity : CommTitleActivity() {
             maxLines = 5
             minHeight = SizeUtils.dp2px(33f)
         }
+
         inputPanel.setEmotionLayoutStyle {
             icSend = R.drawable.ic_big_send_expression
             icSendActive = R.drawable.ic_big_send_expression_active
             icDelete = R.drawable.ic_big_delete_expression
             indicatorRes = R.drawable.im_selector_view_pager_indicator
         }
-        inputPanel.setInputLinearLayoutStyle {
-            layoutParams.apply {
-                height = SizeUtils.dp2px(49f)
-            }
-        }
+//        inputPanel.setInputLinearLayoutStyle {
+//            layoutParams.apply {
+//                height = SizeUtils.dp2px(49f)
+//            }
+//        }
         inputPanel.setSendButtonStyle {
             backgroundResource = R.drawable.shape_solid_30d18b_13h
             layoutParams.height = SizeUtils.dp2px(27f)

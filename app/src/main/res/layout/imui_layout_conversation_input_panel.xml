@@ -2,13 +2,12 @@
 <merge xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+    android:id="@+id/inputPanelFrameLayout"
     android:layout_height="wrap_content">
 
     <LinearLayout
-        android:id="@+id/inputPanelFrameLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:minHeight="50dp"
         android:orientation="vertical">
 
         <LinearLayout
@@ -51,6 +50,7 @@
                     android:inputType="textMultiLine"
                     android:maxLength="2000"
                     android:maxLines="5"
+                    android:hint="说点什么"
                     android:minHeight="33dp"
                     android:textSize="14sp"
                     android:visibility="visible" />
@@ -114,7 +114,10 @@
             android:layout_width="match_parent"
             android:layout_height="0.5dp"
             android:background="#ececec" />
-
+        <View
+            android:id="@+id/vBgView"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"/>
         <com.yzy.example.imModel.KeyboardHeightFrameLayout
             android:id="@+id/emotionContainerFrameLayout"
             android:layout_width="match_parent"

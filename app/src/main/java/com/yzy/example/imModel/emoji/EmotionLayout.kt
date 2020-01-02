@@ -111,14 +111,14 @@ class EmotionLayout @JvmOverloads constructor(
 
     private fun measureWidth(measureSpec: Int): Int {
         var result = 0
-        val specMode = View.MeasureSpec.getMode(measureSpec)
-        val specSize = View.MeasureSpec.getSize(measureSpec)
+        val specMode = MeasureSpec.getMode(measureSpec)
+        val specSize = MeasureSpec.getSize(measureSpec)
 
-        if (specMode == View.MeasureSpec.EXACTLY) {
+        if (specMode == MeasureSpec.EXACTLY) {
             result = specSize
         } else {
             result = SizeUtils.dp2px(200F)
-            if (specMode == View.MeasureSpec.AT_MOST) {
+            if (specMode == MeasureSpec.AT_MOST) {
                 result = Math.min(result, specSize)
             }
         }
@@ -127,14 +127,14 @@ class EmotionLayout @JvmOverloads constructor(
 
     private fun measureHeight(measureSpec: Int): Int {
         var result = 0
-        val specMode = View.MeasureSpec.getMode(measureSpec)
-        val specSize = View.MeasureSpec.getSize(measureSpec)
+        val specMode = MeasureSpec.getMode(measureSpec)
+        val specSize = MeasureSpec.getSize(measureSpec)
 
-        if (specMode == View.MeasureSpec.EXACTLY) {
+        if (specMode == MeasureSpec.EXACTLY) {
             result = specSize
         } else {
             result = SizeUtils.dp2px(200F)
-            if (specMode == View.MeasureSpec.AT_MOST) {
+            if (specMode == MeasureSpec.AT_MOST) {
                 result = Math.min(result, specSize)
             }
         }

@@ -90,7 +90,7 @@
             android:configChanges="screenLayout|orientation"
             android:launchMode="singleTop"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustResize|stateHidden"/>
+            android:windowSoftInputMode="adjustResize|stateAlwaysHidden"/>
 
         <meta-data
             android:name="android.max_aspect"

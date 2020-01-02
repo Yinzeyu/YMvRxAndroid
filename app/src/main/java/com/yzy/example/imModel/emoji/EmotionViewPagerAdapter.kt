@@ -53,7 +53,7 @@ class EmotionViewPagerAdapter(
             var index = position
             if (pagePosition > 0) {
                 val categoryStartPagePosition = categoryTabIndexToPagePosition(categoryIndex)
-                index += (pagePosition - categoryStartPagePosition) * EmotionConstants.STICKER_PER_PAGE
+                index += (pagePosition - categoryStartPagePosition) * STICKER_PER_PAGE
             }
             val category = StickerManager.getInstance().getStickerCategories()[categoryIndex - 1]
             val stickers = category.stickers
@@ -166,7 +166,7 @@ class EmotionViewPagerAdapter(
             for (i in 0 until categoryTabIndex - 1) {
                 position += Math.ceil(
                     (StickerManager.getInstance().getStickerCategories()[i].stickers?.size
-                        ?: 0).toDouble() / EmotionConstants.STICKER_PER_PAGE
+                        ?: 0).toDouble() / STICKER_PER_PAGE
                 ).toInt()
             }
         }
@@ -189,7 +189,7 @@ class EmotionViewPagerAdapter(
             for (i in 0 until StickerManager.getInstance().getStickerCategories().size) {
                 stickerPageCount += Math.ceil(
                     (StickerManager.getInstance().getStickerCategories()[i].stickers?.size
-                        ?: 0).toDouble() / EmotionConstants.STICKER_PER_PAGE
+                        ?: 0).toDouble() / STICKER_PER_PAGE
                 )
                     .toInt()
                 if (position < emojiPageCount + stickerPageCount) {
@@ -220,7 +220,7 @@ class EmotionViewPagerAdapter(
                 categoryPageIndex = position - emojiPageCount - stickerPageCount
                 stickerPageCount += Math.ceil(
                     (StickerManager.getInstance().getStickerCategories()[i].stickers?.size
-                        ?: 0).toDouble() / EmotionConstants.STICKER_PER_PAGE
+                        ?: 0).toDouble() / STICKER_PER_PAGE
                 )
                     .toInt()
                 if (position < emojiPageCount + stickerPageCount) {

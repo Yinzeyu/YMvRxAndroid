@@ -8,7 +8,9 @@ import com.yzy.baselibrary.http.RetrofitConfig
 import com.yzy.example.R
 import com.yzy.example.constants.ApiConstants
 import com.yzy.example.http.RequestIntercept
+import com.yzy.example.im.initSticker
 import com.yzy.example.widget.RefreshHeader
+import com.yzy.example.widget.file.AppFileDirManager
 
 
 class App : BaseApplication() {
@@ -27,6 +29,9 @@ class App : BaseApplication() {
                 RequestIntercept(mutableListOf())
             )
         }
+        //初始化存储文件的目录
+        AppFileDirManager.initAppFile(this@App)
+        initSticker(this)
     }
 
     override fun baseInitCreate() {
