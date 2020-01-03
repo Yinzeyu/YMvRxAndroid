@@ -3,6 +3,7 @@ package com.yzy.example.imModel
 import android.Manifest
 import android.content.Context
 import android.content.pm.PackageManager
+import android.graphics.Rect
 import android.text.Editable
 import android.text.TextUtils
 import android.text.TextWatcher
@@ -13,12 +14,19 @@ import android.widget.*
 import androidx.core.app.ActivityCompat
 import androidx.fragment.app.FragmentActivity
 import androidx.viewpager.widget.ViewPager
+import com.blankj.utilcode.util.KeyboardUtils
 import com.blankj.utilcode.util.SizeUtils
+import com.yzy.baselibrary.extention.addListerKeyboard
+import com.yzy.baselibrary.extention.getBottomStatusHeight
+import com.yzy.baselibrary.extention.gone
 import com.yzy.example.R
+import com.yzy.example.component.message.ChatActivity
 import com.yzy.example.imModel.audio.AudioRecorderPanel
 import com.yzy.example.imModel.audio.IAudioRecorderPanel
 import com.yzy.example.imModel.emoji.EmotionLayout
+import com.yzy.example.utils.MMkvUtils
 import kotlinx.android.synthetic.main.imui_layout_conversation_input_panel.view.*
+import kotlin.math.max
 
 
 /**
@@ -34,16 +42,15 @@ class ConversationInputPanel @JvmOverloads constructor(
 
 
     private val REQUEST_EXTERNAL_STORAGE = 1
-    private val PERMISSIONS_STORAGE =
-        arrayOf(
-            Manifest.permission.READ_EXTERNAL_STORAGE,
-            Manifest.permission.WRITE_EXTERNAL_STORAGE
-        )
+    private val PERMISSIONS_STORAGE = arrayOf(
+        Manifest.permission.READ_EXTERNAL_STORAGE,
+        Manifest.permission.WRITE_EXTERNAL_STORAGE
+    )
 
     /**
      * 父布局
      */
-    private var rootLinearLayout: InputAwareLayout? = null
+    private var rootLinearLayout: LinearLayout? = null
     /**
      * 输入的一些回调
      */
@@ -80,14 +87,26 @@ class ConversationInputPanel @JvmOverloads constructor(
      * 扩展按键的icon
      */
     var icExtension = R.mipmap.imui_ic_cheat_add
+    private var minKeyboardSize: Int = 0
+    private var defaultCustomKeyboardSize: Int = 0
+    private var statusBarHeight: Int = 0
 
+    init {
+        val statusBarRes = resources.getIdentifier("status_bar_height", "dimen", "android")
+        minKeyboardSize = SizeUtils.dp2px(50F)
+        defaultCustomKeyboardSize = SizeUtils.dp2px(220F)
+        statusBarHeight = if (statusBarRes > 0) resources.getDimensionPixelSize(statusBarRes) else 0
+    }
+
+    private var keyboardOpen = false
     /**
      * 将输入控件绑定到Activity和父布局中
      */
-    fun attach(activity: FragmentActivity, rootInputAwareLayout: InputAwareLayout) {
+    fun attach(activity: FragmentActivity, rootInputAwareLayout: LinearLayout) {
         this.activity = activity
         rootLinearLayout = rootInputAwareLayout
-        LayoutInflater.from(context).inflate(R.layout.imui_layout_conversation_input_panel, this, true)
+        LayoutInflater.from(context)
+            .inflate(R.layout.imui_layout_conversation_input_panel, this, true)
         initEditText()
         initEmotion()
         initAudioRecorderPanel()
@@ -95,60 +114,89 @@ class ConversationInputPanel @JvmOverloads constructor(
         emotionImageView.setImageResource(icEmotion)
         audioImageView.setImageResource(icVoice)
         extImageView.setImageResource(icExtension)
-        //菜单按键的点击事件
-        extImageView.setOnClickListener {
-            if (rootLinearLayout?.getCurrentInput() == extContainerContainerLayout) {
-                hideConversationExtension(true)
+        (activity as ChatActivity).addListerKeyboard { keyboardHeight: Int ->
+            if (keyboardOpen) {
+
             } else {
-                emotionImageView.setImageResource(icEmotion)
-                showConversationExtension()
-            }
-        }
-        //表情按键的点击事件
-        emotionImageView.setOnClickListener {
-            if (rootLinearLayout?.getCurrentInput() == emotionContainerFrameLayout) {
-                hideEmotionLayout(true)
-            } else {
-                hideAudioButton()
-                val permission =
-                    ActivityCompat.checkSelfPermission(
-                        activity,
-                        Manifest.permission.WRITE_EXTERNAL_STORAGE
-                    )
-                if (permission != PackageManager.PERMISSION_GRANTED) {
-                    // 没有文件读取全新
-                    ActivityCompat.requestPermissions(
-                        activity,
-                        PERMISSIONS_STORAGE,
-                        REQUEST_EXTERNAL_STORAGE
-                    )
+                if (keyboardHeight > 0) {
+                    emotionContainerFrameLayout.show(keyboardHeight)
                 } else {
-                    showEmotionLayout()
+                    emotionContainerFrameLayout.hide()
                 }
             }
         }
+
         //语音输入按键的点击事件
         audioImageView.setOnClickListener {
             if (audioButton.isShown) {
                 hideAudioButton()
                 editText.requestFocus()
-                rootLinearLayout?.showSoftKeyboard(editText)
+                KeyboardUtils.showSoftInput(editText)
             } else {
                 editText.clearFocus()
                 showAudioButton()
                 hideEmotionLayout(false)
                 hideConversationExtension(false)
+                KeyboardUtils.hideSoftInput(editText)
             }
         }
+
+//    }
+        //菜单按键的点击事件
+//        extImageView.setOnClickListener {
+//            if (rootLinearLayout?.getCurrentInput() == extContainerContainerLayout) {
+//                hideConversationExtension(true)
+//            } else {
+//                emotionImageView.setImageResource(icEmotion)
+//                showConversationExtension()
+//            }
+//        }
+//        //表情按键的点击事件
+//        emotionImageView.setOnClickListener {
+//            if (rootLinearLayout?.getCurrentInput() == emotionContainerFrameLayout) {
+//                hideEmotionLayout(true)
+//            } else {
+//                hideAudioButton()
+//                val permission =
+//                    ActivityCompat.checkSelfPermission(
+//                        activity,
+//                        Manifest.permission.WRITE_EXTERNAL_STORAGE
+//                    )
+//                if (permission != PackageManager.PERMISSION_GRANTED) {
+//                    // 没有文件读取全新
+//                    ActivityCompat.requestPermissions(
+//                        activity,
+//                        PERMISSIONS_STORAGE,
+//                        REQUEST_EXTERNAL_STORAGE
+//                    )
+//                } else {
+//                    showEmotionLayout()
+//                }
+//            }
+//        }
+//        //语音输入按键的点击事件
+//        audioImageView.setOnClickListener {
+//            if (audioButton.isShown) {
+//                hideAudioButton()
+//                editText.requestFocus()
+//                rootLinearLayout?.showSoftKeyboard(editText)
+//            } else {
+//                editText.clearFocus()
+//                showAudioButton()
+//                hideEmotionLayout(false)
+//                hideConversationExtension(false)
+//            }
+//        }
         //发送按键的点击事件
-        sendButton.setOnClickListener {
-            val content = editText.text
-            if (TextUtils.isEmpty(content)) {
-                return@setOnClickListener
-            }
-            inputPanelListener?.onSend(content)
-            editText.setText("")
-        }
+//    sendButton.setOnClickListener
+//    {
+//        val content = editText.text
+//        if (TextUtils.isEmpty(content)) {
+//            return@setOnClickListener
+//        }
+//        inputPanelListener?.onSend(content)
+//        editText.setText("")
+//    }
     }
 
     private fun initEditText() {
@@ -196,6 +244,48 @@ class ConversationInputPanel @JvmOverloads constructor(
                 editText.setText("")
             }
         }
+    }
+
+//    override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
+//        updateKeyboardState()
+//        super.onMeasure(widthMeasureSpec, heightMeasureSpec)
+//    }
+
+
+    private fun updateKeyboardState() {
+        val keyboardHeightPortrait = MMkvUtils.instance.getKeyboardHeightPortrait()
+
+        if (keyboardHeightPortrait != minKeyboardSize) {
+            val rect = Rect()
+            //使用最外层布局填充，进行测算计算
+            getWindowVisibleDisplayFrame(rect)
+            val heightDiff = rootView.height - (rect.bottom - rect.top)
+            val keyboardHeight =
+                max(0, heightDiff - statusBarHeight - getBottomStatusHeight(context))
+            MMkvUtils.instance.setKeyboardHeightPortrait(keyboardHeight)
+            onKeyboardOpen()
+        } else {
+            onKeyboardClose()
+        }
+//        val rect = Rect()
+//        //使用最外层布局填充，进行测算计算
+//        getWindowVisibleDisplayFrame(rect)
+//        val heightDiff = rootView.height - (rect.bottom - rect.top)
+//        val keyboardHeight = max(0, heightDiff - statusBarHeight - getBottomStatusHeight(context))
+//        if (keyboardHeight > minKeyboardSize) {
+//            setKeyboardPortraitHeight(keyboardHeight)
+//            if (!keyboardOpen) onKeyboardOpen()
+//        } else if (keyboardOpen) {
+//            onKeyboardClose()
+//        }
+    }
+
+    private fun onKeyboardOpen() {
+
+    }
+
+    private fun onKeyboardClose() {
+
     }
 
     /**
@@ -363,8 +453,10 @@ class ConversationInputPanel @JvmOverloads constructor(
         editText.visibility = View.GONE
         sendButton.visibility = View.GONE
         audioImageView.setImageResource(icKeyboard)
-        rootLinearLayout?.hideCurrentInput(editText)
-        rootLinearLayout?.hideAttachedInput(true)
+        editText.gone()
+
+//        rootLinearLayout?.hideCurrentInput(editText)
+//        rootLinearLayout?.hideAttachedInput(true)
     }
 
 
@@ -387,7 +479,7 @@ class ConversationInputPanel @JvmOverloads constructor(
      * 展开表情输入框
      */
     private fun showEmotionLayout() {
-        rootLinearLayout?.show(editText, emotionContainerFrameLayout)
+//        rootLinearLayout?.show(editText, emotionContainerFrameLayout)
         audioButton.visibility = View.GONE
         emotionImageView.setImageResource(icKeyboard)
         inputPanelListener?.onInputPanelStateChange(true)
@@ -398,10 +490,11 @@ class ConversationInputPanel @JvmOverloads constructor(
      */
     private fun hideEmotionLayout(isNeedShowKeyBoard: Boolean) {
         emotionImageView.setImageResource(icEmotion)
-        if (isNeedShowKeyBoard) {
-            rootLinearLayout?.showSoftKeyboard(editText)
-        }
-        inputPanelListener?.onInputPanelStateChange(false)
+        keyboardOpen = false
+//        if (isNeedShowKeyBoard) {
+//            rootLinearLayout?.showSoftKeyboard(editText)
+//        }
+//        inputPanelListener?.onInputPanelStateChange(false)
     }
 
 
@@ -409,7 +502,7 @@ class ConversationInputPanel @JvmOverloads constructor(
      * 展开扩展菜单
      */
     private fun showConversationExtension() {
-        rootLinearLayout?.show(editText, extContainerContainerLayout)
+//        rootLinearLayout?.show(editText, extContainerContainerLayout)
         if (audioButton.isShown) {
             hideAudioButton()
         }
@@ -420,8 +513,9 @@ class ConversationInputPanel @JvmOverloads constructor(
      * 收起扩展菜单
      */
     private fun hideConversationExtension(isNeedShowKeyBoard: Boolean) {
+        keyboardOpen = false
         if (isNeedShowKeyBoard) {
-            rootLinearLayout?.showSoftKeyboard(editText)
+//            rootLinearLayout?.showSoftKeyboard(editText)
         }
         inputPanelListener?.onInputPanelStateChange(false)
     }
@@ -432,8 +526,8 @@ class ConversationInputPanel @JvmOverloads constructor(
     fun collapse() {
         extension?.reset()
         emotionImageView.setImageResource(icEmotion)
-        rootLinearLayout?.hideAttachedInput(true)
-        rootLinearLayout?.hideCurrentInput(editText)
+//        rootLinearLayout?.hideAttachedInput(true)
+//        rootLinearLayout?.hideCurrentInput(editText)
     }
 
     private fun notifyTyping() {

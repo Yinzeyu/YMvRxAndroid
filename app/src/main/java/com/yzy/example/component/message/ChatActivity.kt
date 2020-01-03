@@ -48,20 +48,20 @@ class ChatActivity : CommTitleActivity() {
     }
 
     private fun initRootView() {
-        rootLinearLayout.addOnKeyboardShownListener(object :
-            KeyboardAwareLinearLayout.OnKeyboardShownListener {
-            override fun onKeyboardShown() {
-                inputPanel.onKeyboardShown()
-                //滚动到最下边
-//        listMove2Bottom()
-            }
-        })
-        rootLinearLayout.addOnKeyboardHiddenListener(object :
-            KeyboardAwareLinearLayout.OnKeyboardHiddenListener {
-            override fun onKeyboardHidden() {
-                inputPanel.onKeyboardHidden()
-            }
-        })
+//        rootLinearLayout.addOnKeyboardShownListener(object :
+//            KeyboardAwareLinearLayout.OnKeyboardShownListener {
+//            override fun onKeyboardShown() {
+//                inputPanel.onKeyboardShown()
+//                //滚动到最下边
+////        listMove2Bottom()
+//            }
+//        })
+//        rootLinearLayout.addOnKeyboardHiddenListener(object :
+//            KeyboardAwareLinearLayout.OnKeyboardHiddenListener {
+//            override fun onKeyboardHidden() {
+//                inputPanel.onKeyboardHidden()
+//            }
+//        })
     }
 
     private fun initInputPanel() {

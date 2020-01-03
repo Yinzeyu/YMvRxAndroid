@@ -9,20 +9,19 @@ class KeyboardHeightFrameLayout @JvmOverloads constructor(
     context: Context,
     attributeSet: AttributeSet? = null,
     defAttrStyle: Int = 0
-) : FrameLayout(context, attributeSet, defAttrStyle), InputAwareLayout.InputView {
+) : FrameLayout(context, attributeSet, defAttrStyle) {
 
-    override fun show(height: Int, immediate: Boolean) {
+    fun show(height: Int) {
         val layoutParams = layoutParams
         layoutParams.height = height
-        getChildAt(0).visibility = View.VISIBLE
         visibility = View.VISIBLE
     }
 
-    override fun hide(immediate: Boolean) {
+     fun hide() {
         visibility = View.GONE
     }
 
-    override fun isShowing(): Boolean {
+     fun isShowing(): Boolean {
         return visibility == View.VISIBLE
     }
 }
