@@ -14,7 +14,6 @@ import com.yzy.baselibrary.base.BaseActivity
 import com.yzy.example.R
 import com.yzy.example.utils.MediaHelper
 import com.yzy.example.utils.PermissionUtils
-import io.reactivex.disposables.Disposable
 import java.util.*
 import kotlin.math.abs
 import kotlin.math.pow
@@ -91,7 +90,7 @@ class RecorderView(context: Context, attrs: AttributeSet) : View(context, attrs)
     private var circleRadius = 0
     //文字上边间距
     private var textPaddingTop = 0
-    private var permissionDisposable: Disposable? = null
+//    private var permissionDisposable: Disposable? = null
 
     init {
         bitReNormal = BitmapFactory.decodeResource(resources, R.drawable.ic_record)
@@ -199,20 +198,20 @@ class RecorderView(context: Context, attrs: AttributeSet) : View(context, attrs)
 //      return audioPermissions
 //    }
         if (!PermissionUtils.hasRecordPermission()) {
-            permissionDisposable = RxPermissions(context as BaseActivity)
-                    .request(Manifest.permission.RECORD_AUDIO)
-                    .subscribe {
-                        if (it) {
-                            //这个返回true不准
-                            audioPermissions = if (PermissionUtils.hasRecordPermission()) {
-                                true
-                            } else {
-                                LogUtils.e("showAudioRecordPermissionDialog")
-//                PermissionUtils.showAudioRecordPermissionDialog(context as ChatActivity)
-                                false
-                            }
-                        }
-                    }
+//            permissionDisposable = RxPermissions(context as BaseActivity)
+//                    .request(Manifest.permission.RECORD_AUDIO)
+//                    .subscribe {
+//                        if (it) {
+//                            //这个返回true不准
+//                            audioPermissions = if (PermissionUtils.hasRecordPermission()) {
+//                                true
+//                            } else {
+//                                LogUtils.e("showAudioRecordPermissionDialog")
+////                PermissionUtils.showAudioRecordPermissionDialog(context as ChatActivity)
+//                                false
+//                            }
+//                        }
+//                    }
         } else {
             audioPermissions = true
         }

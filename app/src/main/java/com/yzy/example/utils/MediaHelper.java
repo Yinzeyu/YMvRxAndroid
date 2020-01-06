@@ -4,15 +4,10 @@ import android.annotation.TargetApi;
 import android.media.MediaRecorder;
 import android.media.MediaRecorder.OnErrorListener;
 import android.os.Build;
-import android.util.Log;
 import com.blankj.utilcode.util.FileUtils;
 import com.blankj.utilcode.util.LogUtils;
 import com.blankj.utilcode.util.PathUtils;
 import java.io.File;
-import java.util.concurrent.TimeUnit;
-import io.reactivex.Observable;
-import io.reactivex.disposables.Disposable;
-import static com.yzy.baselibrary.extention.RxSchedulersUtilsKt.applySchedulers;
 
 @TargetApi(Build.VERSION_CODES.GINGERBREAD_MR1)
 public class MediaHelper {
@@ -24,8 +19,6 @@ public class MediaHelper {
      */
     private int duration;
     private boolean canLoop;
-    private Disposable disposableMaxAmplitude;
-    private Disposable disposableDuration;
     private int BASE = 1;
     private File filePath;
 
@@ -99,45 +92,45 @@ public class MediaHelper {
      * 工作线程  每 0.1秒 迭代一次
      */
     private void startDuration() {
-        disposableDuration = Observable.interval(0, 100, TimeUnit.MILLISECONDS)
-                .compose(applySchedulers())
-                .subscribe(aLong -> {
-                    if (canLoop) {
-                        duration++;
-                    }
-                });
+//        disposableDuration = Observable.interval(0, 100, TimeUnit.MILLISECONDS)
+//                .compose(applySchedulers())
+//                .subscribe(aLong -> {
+//                    if (canLoop) {
+//                        duration++;
+//                    }
+//                });
     }
 
     private void stopDuration() {
-        if (disposableDuration != null && !disposableDuration.isDisposed()) {
-            disposableDuration.dispose();
-        }
+//        if (disposableDuration != null && !disposableDuration.isDisposed()) {
+//            disposableDuration.dispose();
+//        }
     }
 
     private void startMaxAmplitude() {
-        disposableMaxAmplitude = Observable.interval(0, 100, TimeUnit.MILLISECONDS)
-                .compose(applySchedulers())
-                .subscribe(aLong -> {
-                    if (mediaRecorder == null || !canLoop) {
-                        stopMaxAmplitude();
-                    }
-                    double ratio = (double) mediaRecorder.getMaxAmplitude() / BASE;
-                    // 分贝
-                    int db = 0;
-                    if (ratio > 1) {
-                        db = (int) (20 * Math.log10(ratio));
-                    }
-                    Log.i("xpf", "set getMaxAmplitude" + mediaRecorder.getMaxAmplitude());
-                    if (mOnMaxAmplitudeListener != null) {
-                        mOnMaxAmplitudeListener.onMaxAmplitude(db);
-                    }
-                });
+//        disposableMaxAmplitude = Observable.interval(0, 100, TimeUnit.MILLISECONDS)
+//                .compose(applySchedulers())
+//                .subscribe(aLong -> {
+//                    if (mediaRecorder == null || !canLoop) {
+//                        stopMaxAmplitude();
+//                    }
+//                    double ratio = (double) mediaRecorder.getMaxAmplitude() / BASE;
+//                    // 分贝
+//                    int db = 0;
+//                    if (ratio > 1) {
+//                        db = (int) (20 * Math.log10(ratio));
+//                    }
+//                    Log.i("xpf", "set getMaxAmplitude" + mediaRecorder.getMaxAmplitude());
+//                    if (mOnMaxAmplitudeListener != null) {
+//                        mOnMaxAmplitudeListener.onMaxAmplitude(db);
+//                    }
+//                });
     }
 
     private void stopMaxAmplitude() {
-        if (disposableMaxAmplitude != null && !disposableMaxAmplitude.isDisposed()) {
-            disposableMaxAmplitude.dispose();
-        }
+//        if (disposableMaxAmplitude != null && !disposableMaxAmplitude.isDisposed()) {
+//            disposableMaxAmplitude.dispose();
+//        }
     }
 
     /**

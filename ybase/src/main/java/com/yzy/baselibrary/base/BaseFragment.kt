@@ -7,15 +7,17 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.FrameLayout
-import com.airbnb.mvrx.BaseMvRxFragment
+import androidx.fragment.app.Fragment
 import com.yzy.baselibrary.extention.removeParent
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.MainScope
 
 /**
  *description: BaseFragment.
  *@date 2019/7/15
  *@author: yzy.
  */
-abstract class BaseFragment : BaseMvRxFragment() {
+abstract class BaseFragment : Fragment(), CoroutineScope by MainScope() {
     //页面基础信息
     lateinit var mContext: Activity
     private var isFragmentVisible = true
@@ -71,9 +73,6 @@ abstract class BaseFragment : BaseMvRxFragment() {
         isFragmentVisible = isVisibleToUser
         isInViewPager = true
         lazyLoad()
-    }
-
-    override fun invalidate() {
     }
 
     //懒加载

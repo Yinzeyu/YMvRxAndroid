@@ -1,16 +1,13 @@
 package com.yzy.example.component.message
 
-import android.Manifest
 import android.content.Context
 import android.content.Intent
 import android.graphics.Color
 import android.text.Editable
 import android.util.Log
 import android.view.View
-import com.blankj.utilcode.util.LogUtils
 import com.blankj.utilcode.util.PermissionUtils
 import com.blankj.utilcode.util.SizeUtils
-import com.tbruyelle.rxpermissions2.RxPermissions
 import com.yzy.baselibrary.extention.*
 import com.yzy.example.R
 import com.yzy.example.component.comm.CommTitleActivity
@@ -18,12 +15,10 @@ import com.yzy.example.component.dialog.AlertDialogType
 import com.yzy.example.component.dialog.commAlertDialog
 import com.yzy.example.imModel.ConversationExtManager
 import com.yzy.example.imModel.ConversationInputPanel
-import com.yzy.example.imModel.KeyboardAwareLinearLayout
 import com.yzy.example.imModel.audio.MMAudioRecorderPanel
 import com.yzy.example.imModel.audio.OnRecordListener
 import com.yzy.example.imModel.audio.RecordState
 import com.yzy.example.imModel.emoji.IEmotionExtClickListener
-import com.yzy.example.utils.AudioPermissionHelper
 import kotlinx.android.synthetic.main.activity_chat.*
 
 class ChatActivity : CommTitleActivity() {
@@ -139,23 +134,23 @@ class ChatActivity : CommTitleActivity() {
         setVoiceNormalStyle()
         inputPanel.audioRecorderPanel?.setRecordListener(object : OnRecordListener {
             override fun onNoPermission() {
-                val disposable = RxPermissions(this@ChatActivity)
-                    .request(
-                        Manifest.permission.RECORD_AUDIO
-                    )
-                    .subscribe({
-                        if (it) {
-                            //录音权限
-                            if (!AudioPermissionHelper.hasRecordPermission()) {
-                                showAudioRecordPermissionDialog()
-                            }
-                        } else {
-                            //没有录音权限
-                            showAudioRecordPermissionDialog()
-                        }
-                    }, {
-                        toast("录音限获取异常")
-                    })
+//                val disposable = RxPermissions(this@ChatActivity)
+//                    .request(
+//                        Manifest.permission.RECORD_AUDIO
+//                    )
+//                    .subscribe({
+//                        if (it) {
+//                            //录音权限
+//                            if (!AudioPermissionHelper.hasRecordPermission()) {
+//                                showAudioRecordPermissionDialog()
+//                            }
+//                        } else {
+//                            //没有录音权限
+//                            showAudioRecordPermissionDialog()
+//                        }
+//                    }, {
+//                        toast("录音限获取异常")
+//                    })
             }
 
             override fun onRecordFail(e: Exception) {

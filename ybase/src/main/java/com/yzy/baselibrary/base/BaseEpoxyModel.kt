@@ -15,8 +15,7 @@ import com.blankj.utilcode.util.SizeUtils
  *@date 2019/7/15
  *@author: yzy.
  */
-abstract class BaseEpoxyModel<T : BaseEpoxyHolder> :
-        EpoxyModelWithHolder<T>() {
+abstract class BaseEpoxyModel<T : BaseEpoxyHolder> : EpoxyModelWithHolder<T>() {
 
     @EpoxyAttribute
     var topMarginDp: Float? = null

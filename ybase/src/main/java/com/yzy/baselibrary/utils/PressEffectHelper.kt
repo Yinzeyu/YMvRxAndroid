@@ -7,13 +7,6 @@ import android.graphics.drawable.GradientDrawable
 import android.view.MotionEvent
 import android.view.View
 import com.blankj.utilcode.util.SizeUtils
-import com.yzy.baselibrary.extention.applySchedulers
-import io.reactivex.Observable
-import io.reactivex.ObservableTransformer
-import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.disposables.Disposable
-import io.reactivex.schedulers.Schedulers
-import java.util.concurrent.TimeUnit
 
 /**
  *description: 按下效果工具类.
@@ -28,7 +21,7 @@ class PressEffectHelper private constructor() {
         private var time: Long = 0
 
         private const val LONGPRESS_TIME = 600L
-        private var longPressDisposable: Disposable? = null
+//        private var longPressDisposable: Disposable? = null
         private var isLongClick = false
 
         /**
@@ -53,7 +46,7 @@ class PressEffectHelper private constructor() {
                         v.alpha = 1f
                         //为了解决列表按下滑动不执行按压效果，所以增加一点延时执行按压效果
                         v.postDelayed({ v.alpha = if (isDown) pressAlpha else 1.0f }, 150)
-                        longClick(view)
+//                        longClick(view)
                         return@setOnTouchListener true
                     }
                     MotionEvent.ACTION_MOVE ->
@@ -189,7 +182,7 @@ class PressEffectHelper private constructor() {
                         v.postDelayed({
                             v.background = if (isDown) pressDrawable else originalBgColor
                         }, 150)
-                        longClick(view)
+//                        longClick(view)
                         return@setOnTouchListener true
                     }
                     MotionEvent.ACTION_MOVE ->
@@ -241,23 +234,23 @@ class PressEffectHelper private constructor() {
             }
         }
 
-        private fun longClick(view: View) {
-            cancelLongClick()
-            longPressDisposable = Observable.just(view)
-                    .delay(LONGPRESS_TIME, TimeUnit.MILLISECONDS)
-                    .compose(applySchedulers())
-                    .subscribe({
-                        isLongClick = true
-                        view.performLongClick()
-                    }, {
-                    })
-        }
+//        private fun longClick(view: View) {
+//            cancelLongClick()
+//            longPressDisposable = Observable.just(view)
+//                    .delay(LONGPRESS_TIME, TimeUnit.MILLISECONDS)
+//                    .compose(applySchedulers())
+//                    .subscribe({
+//                        isLongClick = true
+//                        view.performLongClick()
+//                    }, {
+//                    })
+//        }
 
         private fun cancelLongClick() {
-            if (longPressDisposable != null && longPressDisposable?.isDisposed != true) {
-                longPressDisposable?.dispose()
-            }
-            longPressDisposable = null
+//            if (longPressDisposable != null && longPressDisposable?.isDisposed != true) {
+//                longPressDisposable?.dispose()
+//            }
+//            longPressDisposable = null
             isLongClick = false
         }
     }

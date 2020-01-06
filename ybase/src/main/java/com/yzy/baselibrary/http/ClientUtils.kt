@@ -10,7 +10,6 @@ import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
-import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
 import java.util.*
 import java.util.concurrent.TimeUnit
@@ -67,7 +66,7 @@ object ClientUtils {
         return Retrofit.Builder()
             .baseUrl(config.baseUrl)
             .client(okHttpClient)
-            .addCallAdapterFactory(RxJava2CallAdapterFactory.create())//使用rxjava
+//            .addCallAdapterFactory(RxJava2CallAdapterFactory.create())//使用rxjava
             .addConverterFactory(GsonConverterFactory.create())//使用自定义的解析
             .build()
     }

@@ -1,49 +1,30 @@
 package com.yzy.example.repository
 
-import com.yzy.baselibrary.extention.applySchedulers
 import com.yzy.baselibrary.http.RetrofitAPi
-import com.yzy.example.http.RxGlobalHandleUtil
 import com.yzy.example.repository.bean.ArticleDataBean
 import com.yzy.example.repository.bean.BannerBean
-import com.yzy.example.repository.bean.GankAndroidBean
+import com.yzy.example.repository.bean.DataResult
 import com.yzy.example.repository.service.GankService
-import io.reactivex.Observable
 
-class GankRepository  {
+class GankRepository : BaseRepository() {
     private object SingletonHolder {
         val holder = GankRepository()
     }
+
     companion object {
         val instance = SingletonHolder.holder
     }
 
     private val service: GankService = RetrofitAPi.instance.getApi(GankService::class.java)
-    /**
-     * 获取福利
-     */
-    fun androidList(pageSize: Int, page: Int): Observable<MutableList<GankAndroidBean>> {
-        return service.getAndroid(pageSize, page).compose(applySchedulers()).map(IsGankSuccessFunc())
+
+    private suspend fun requestSystemTypes(page: Int): DataResult<MutableList<BannerBean>> = executeResponse(service.banner(page.toString(),"20"))
+
+    suspend fun banner(page: Int): DataResult<MutableList<BannerBean>> {
+        return  safeApiCall(call = {   requestSystemTypes(page) }, errorMessage = "网络错误")
     }
+    private suspend fun requestBlogArticle(page: Int): DataResult<ArticleDataBean> = executeResponse(service.article(page .toString()))
 
-//
-//    fun androidList(pageSize: Int, page: Int): Observable<MutableList<GankAndroidBean>> {
-//        return  service.getAndroidSuspend(pageSize, page).a
-//    }
-
-
-    fun banner(): Observable<MutableList<BannerBean>> {
-        return service.banner(1.toString(), 20.toString()).compose(RxGlobalHandleUtil.globalHandle())
-    }
-
-    fun article(page: Int): Observable<ArticleDataBean> {
-        return service.article(page.toString()).compose(RxGlobalHandleUtil.globalHandle())
+    suspend fun article(page: Int): DataResult<ArticleDataBean> {
+        return  safeApiCall(call = {   requestBlogArticle(page) }, errorMessage = "网络错误")
     }
 }
-
-
-//const val TAG_KODEIN_MODULE_REPOSITORY_BLACK = "blackRepositoryModel"
-//val blackRepositoryModel = Kodein.Module(TAG_KODEIN_MODULE_REPOSITORY_BLACK) {
-//    bind<GankRepository>() with singleton {
-//        GankRepository()
-//    }
-//}

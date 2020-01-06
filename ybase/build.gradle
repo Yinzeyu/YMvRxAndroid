@@ -41,7 +41,7 @@ dependencies {
     api rootProject.ext.dependencies.okhttp3
     api rootProject.ext.dependencies.okhttp3_log
     api rootProject.ext.dependencies.retrofit
-    api rootProject.ext.dependencies.retrofit_adapter_rxjava2
+//    api rootProject.ext.dependencies.retrofit_adapter_rxjava2
     api rootProject.ext.dependencies.retrofit_converter_gson
     api rootProject.ext.dependencies.retrofit_converter_scalars
     api rootProject.ext.dependencies.glide
@@ -49,9 +49,13 @@ dependencies {
     api rootProject.ext.dependencies.multidex
     api rootProject.ext.dependencies.gson
     api rootProject.ext.dependencies.autosize
-    api rootProject.ext.dependencies.mvrx
+//    api rootProject.ext.dependencies.mvrx
     api rootProject.ext.dependencies.epoxy
     kapt rootProject.ext.dependencies.epoxyProcessor
+//    api rootProject.ext.dependencies.coroutines_core
+    api rootProject.ext.dependencies.coroutines_android
+    api "androidx.lifecycle:lifecycle-viewmodel-ktx:2.1.0"
+    api "androidx.lifecycle:lifecycle-livedata-ktx:2.1.0"
     //https://github.com/gyf-dev/ImmersionBar
     // 基础依赖包，必须要依赖
     api 'com.gyf.immersionbar:immersionbar:3.0.0'

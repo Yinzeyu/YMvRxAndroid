@@ -6,17 +6,12 @@ import com.blankj.utilcode.constant.PermissionConstants
 import com.blankj.utilcode.util.PermissionUtils
 import com.gyf.immersionbar.ktx.immersionBar
 import com.yzy.baselibrary.base.BaseActivity
-import com.yzy.baselibrary.extention.applyFollowableSchedulers
 import com.yzy.example.extention.load
 import com.yzy.baselibrary.extention.mContext
 import com.yzy.baselibrary.extention.toast
 import com.yzy.example.R
 import com.yzy.example.component.main.MainActivity
-import io.reactivex.Flowable
-import io.reactivex.disposables.Disposable
 import kotlinx.android.synthetic.main.activity_splash.*
-import java.util.concurrent.TimeUnit
-import kotlin.math.max
 
 //@Route(path = "/user/splash")
 class SplashActivity : BaseActivity() {
@@ -25,7 +20,7 @@ class SplashActivity : BaseActivity() {
     //倒计时3秒
     private val count = 3L
     //倒计时
-    private var disposable: Disposable? = null
+//    private var disposable: Disposable? = null
     //是否有SD卡读写权限
     private var hasSDPermission: Boolean? = null
     //倒计时是否结束
@@ -37,21 +32,21 @@ class SplashActivity : BaseActivity() {
 
     override fun initView() {
         iv_sp.load("https://up.enterdesk.com/edpic_source/66/6d/c7/666dc7648df7e11fcd92710185610927.jpg")
-        disposable?.dispose()
-        //页面无缝过渡后重置背景，不然会导致页面显示出现问题。主要解决由于window背景设置后的一些问题
-        window.setBackgroundDrawable(null)
-        //有尺寸了才开始计时
-        splashTime?.post {
-            disposable = Flowable.intervalRange(0, count + 1, 0, 1, TimeUnit.SECONDS)
-                    .compose(applyFollowableSchedulers())
-                    .doOnNext { splashTime.text = String.format("%d", max(1, count - it)) }
-                    .doOnComplete {
-                        Log.e("CASE", "倒计时结束")
-                        countDownFinish = true
-                        goNextPage()
-                    }
-                    .subscribe()
-        }
+//        disposable?.dispose()
+//        //页面无缝过渡后重置背景，不然会导致页面显示出现问题。主要解决由于window背景设置后的一些问题
+//        window.setBackgroundDrawable(null)
+//        //有尺寸了才开始计时
+//        splashTime?.post {
+//            disposable = Flowable.intervalRange(0, count + 1, 0, 1, TimeUnit.SECONDS)
+//                    .compose(applyFollowableSchedulers())
+//                    .doOnNext { splashTime.text = String.format("%d", max(1, count - it)) }
+//                    .doOnComplete {
+//                        Log.e("CASE", "倒计时结束")
+//                        countDownFinish = true
+//                        goNextPage()
+//                    }
+//                    .subscribe()
+//        }
     }
 
     override fun initData() {
@@ -92,7 +87,7 @@ class SplashActivity : BaseActivity() {
     }
 
     override fun finish() {
-        disposable?.dispose()
+//        disposable?.dispose()
         super.finish()
     }
 }

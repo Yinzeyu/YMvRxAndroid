@@ -2,12 +2,7 @@ package com.yzy.example.imModel.audio
 
 import android.content.Context
 import android.media.MediaRecorder
-import io.reactivex.Observable
-import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.disposables.Disposable
-import io.reactivex.schedulers.Schedulers
 import java.io.File
-import java.util.concurrent.TimeUnit
 
 class IMAudioRecordHelper {
 
@@ -42,7 +37,7 @@ class IMAudioRecordHelper {
     /**
      * 录音中的Disposable
      */
-    private var recordingDisposable: Disposable? = null
+//    private var recordingDisposable: Disposable? = null
 
     /**
      * 开始录音
@@ -54,11 +49,11 @@ class IMAudioRecordHelper {
         sampleRate: IMAudioSampleRate = IMAudioSampleRate.HZ_8000,
         listener: AudioRecordListener? = null
     ) {
-        if (recordingDisposable != null && recordingDisposable?.isDisposed != true) {
-            //录音中
-            listener?.onError(Exception("已经在录音中"))
-            return
-        }
+//        if (recordingDisposable != null && recordingDisposable?.isDisposed != true) {
+//            //录音中
+//            listener?.onError(Exception("已经在录音中"))
+//            return
+//        }
         val file = File(filePath)
         if (file.exists()) {
             file.delete()
@@ -109,29 +104,29 @@ class IMAudioRecordHelper {
     private fun recoding() {
         startTime = System.currentTimeMillis()
         recordListener?.onStart()
-        recordingDisposable = Observable.interval(0, 100, TimeUnit.MILLISECONDS)
-            .subscribeOn(Schedulers.io())
-            .unsubscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribe {
-                duration = System.currentTimeMillis() - startTime
-                recordListener?.onRecodeData(duration, mediaRecorder?.maxAmplitude ?: 0)
-                if (duration >= maxDuration) {
-                    //录音时长已经到了最大时长了
-                    stopRecord()
-                }
-            }
+//        recordingDisposable = Observable.interval(0, 100, TimeUnit.MILLISECONDS)
+//            .subscribeOn(Schedulers.io())
+//            .unsubscribeOn(Schedulers.io())
+//            .observeOn(AndroidSchedulers.mainThread())
+//            .subscribe {
+//                duration = System.currentTimeMillis() - startTime
+//                recordListener?.onRecodeData(duration, mediaRecorder?.maxAmplitude ?: 0)
+//                if (duration >= maxDuration) {
+//                    //录音时长已经到了最大时长了
+//                    stopRecord()
+//                }
+//            }
     }
 
     /**
      * 停止录音
      */
     fun stopRecord() {
-        recordingDisposable?.apply {
-            if (!isDisposed) {
-                dispose()
-            }
-        }
+//        recordingDisposable?.apply {
+//            if (!isDisposed) {
+//                dispose()
+//            }
+//        }
         //释放音频焦点
         audioFocusManager?.requestAudioFocus()
         try {
@@ -147,7 +142,7 @@ class IMAudioRecordHelper {
             filePath = null
             duration = 0
             startTime = 0
-            recordingDisposable = null
+//            recordingDisposable = null
         }
     }
 }

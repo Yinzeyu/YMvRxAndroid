@@ -14,17 +14,16 @@ import android.view.ViewGroup.LayoutParams.WRAP_CONTENT
 import android.view.WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.FragmentManager
-import androidx.lifecycle.LifecycleOwner
-import com.airbnb.mvrx.MvRxView
-import com.airbnb.mvrx.MvRxViewId
 import com.yzy.baselibrary.extention.dp2px
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.MainScope
 
 /**
  *description: Dialog的基类.
  *@date 2019/7/15
  *@author: yzy.
  */
-abstract class BaseFragmentDialog : DialogFragment(), MvRxView {
+abstract class BaseFragmentDialog : DialogFragment() , CoroutineScope by MainScope() {
 
     var mWidth = WRAP_CONTENT
     var mHeight = WRAP_CONTENT
@@ -42,14 +41,6 @@ abstract class BaseFragmentDialog : DialogFragment(), MvRxView {
     private var viewLoadedListener: ((View) -> Unit)? = null
     private var showListener: (() -> Unit)? = null
     private var disListener: (() -> Unit)? = null
-
-    private val mvrxViewIdProperty = MvRxViewId()
-    final override val mvrxViewId: String by mvrxViewIdProperty
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        mvrxViewIdProperty.restoreFrom(savedInstanceState)
-        super.onCreate(savedInstanceState)
-    }
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -157,22 +148,6 @@ abstract class BaseFragmentDialog : DialogFragment(), MvRxView {
         //设置动画
         mAnimation?.also { window.setWindowAnimations(it) }
         window.attributes = wlp
-    }
-
-    override val subscriptionLifecycleOwner: LifecycleOwner
-        get() = this.viewLifecycleOwnerLiveData.value ?: this
-
-    override fun onSaveInstanceState(outState: Bundle) {
-        super.onSaveInstanceState(outState)
-        mvrxViewIdProperty.saveTo(outState)
-    }
-
-    override fun onStart() {
-        super.onStart()
-        postInvalidate()
-    }
-
-    override fun invalidate() {
     }
 
     //XML布局

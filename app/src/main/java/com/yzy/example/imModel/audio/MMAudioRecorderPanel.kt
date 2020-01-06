@@ -13,7 +13,6 @@ import com.yzy.baselibrary.extention.visible
 import com.yzy.example.R
 import com.yzy.example.utils.AudioPermissionHelper
 import com.yzy.example.widget.file.AppFileDirManager
-import io.reactivex.disposables.Disposable
 import java.io.File
 import java.text.SimpleDateFormat
 import java.util.*
@@ -60,7 +59,7 @@ class MMAudioRecorderPanel(val context: Context) : IAudioRecorderPanel, View.OnT
     private var isStart = false
     private var startX = 0f
     private var startY = 0f
-    private var longPressDisposable: Disposable? = null
+//    private var longPressDisposable: Disposable? = null
 
 
     var durationFormat = SimpleDateFormat("m:ss", Locale.getDefault())
@@ -319,9 +318,9 @@ class MMAudioRecorderPanel(val context: Context) : IAudioRecorderPanel, View.OnT
                 val deltaX =
                     Math.sqrt(((event.x - startX) * (event.x - startX) + (event.y - startY) * (event.y - startY)).toDouble())
                 //移动超过20像素
-                if (deltaX > 20 && longPressDisposable != null && longPressDisposable?.isDisposed != true) {
-                    longPressDisposable?.dispose()
-                }
+//                if (deltaX > 20 && longPressDisposable != null && longPressDisposable?.isDisposed != true) {
+//                    longPressDisposable?.dispose()
+//                }
 //        if (isLongClick) {
                 isToCancel = isCancelled(v, event)
                 if (isToCancel) {
@@ -352,7 +351,7 @@ class MMAudioRecorderPanel(val context: Context) : IAudioRecorderPanel, View.OnT
             }
             else -> {
                 isLongClick = false
-                longPressDisposable?.dispose()
+//                longPressDisposable?.dispose()
             }
         }
         return true

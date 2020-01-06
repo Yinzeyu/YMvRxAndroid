@@ -2,31 +2,22 @@ package com.yzy.baselibrary.base
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import com.airbnb.mvrx.MvRxView
-import com.airbnb.mvrx.MvRxViewId
 import com.gyf.immersionbar.ImmersionBar
 import com.gyf.immersionbar.ktx.immersionBar
 import com.yzy.baselibrary.toast.YToast
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.MainScope
+import kotlinx.coroutines.cancel
 
-abstract class BaseActivity : AppCompatActivity(), MvRxView{
-    //MvRxView
-    private val mvRxViewIdProperty = MvRxViewId()
-    final override val mvrxViewId: String by mvRxViewIdProperty
-
+abstract class BaseActivity : AppCompatActivity(), CoroutineScope by MainScope(){
     override fun onCreate(savedInstanceState: Bundle?) {
         this.onCreateBefore()
         this.initStatus()
         initBeforeCreateView(savedInstanceState)
         super.onCreate(savedInstanceState)
         setContentView(layoutResId())
-        mvRxViewIdProperty.restoreFrom(savedInstanceState)
         initView()
         initData()
-    }
-
-    override fun onSaveInstanceState(outState: Bundle) {
-        super.onSaveInstanceState(outState)
-        mvRxViewIdProperty.saveTo(outState)
     }
 
     /**
@@ -55,12 +46,7 @@ abstract class BaseActivity : AppCompatActivity(), MvRxView{
     }
 
     protected open fun statusImmersionBar(immersionBar: ImmersionBar) {
-
     }
-
-    override fun invalidate() {
-    }
-
 
     /** 这里可以做一些setContentView之前的操作,如全屏、常亮、设置Navigation颜色、状态栏颜色等  */
     protected open fun onCreateBefore() {}
@@ -68,6 +54,7 @@ abstract class BaseActivity : AppCompatActivity(), MvRxView{
 
     override fun onDestroy() {
         super.onDestroy()
+        cancel()
         //移除所有Activity类型的Toast防止内存泄漏
         YToast.cancelActivityToast(this)
     }

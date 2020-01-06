@@ -12,10 +12,7 @@ import android.util.Log
 import android.view.ViewTreeObserver
 import android.view.WindowManager
 import androidx.annotation.NonNull
-import io.reactivex.Flowable
-import io.reactivex.disposables.Disposable
 import java.lang.reflect.Method
-import java.util.concurrent.TimeUnit
 import kotlin.math.max
 
 
@@ -35,7 +32,7 @@ private var tempNavigationBarHeight = 0
 //为了解决一直重复设置高度的问题
 private var lastSetSetKeyboardHeight = 0
 //防止键盘高度改变太快
-private var disposable: Disposable? = null
+//private var disposable: Disposable? = null
 
 /**获取当前键盘高度*/
 fun Activity.getHeightKeyboard(): Int {
@@ -57,26 +54,26 @@ fun Activity.addListerKeyboard(
             && (realKeyboardHeight > 300 || realKeyboardHeight == 0)
         ) {
             lastSetSetKeyboardHeight = realKeyboardHeight
-            disposable?.dispose()
-            disposable = Flowable.timer(100, TimeUnit.MILLISECONDS)
-                .onBackpressureLatest()
-                .compose(applyFollowableSchedulers())
-                .subscribe {
-                    val navigationHeight = getBottomStatusHeight(mActivity)
-                    if (navigationHeight != tempNavigationBarHeight) {
-                        naHeight?.invoke(navigationHeight)
-                        Log.i(TAG, "虚拟导航键高度=$naHeight")
-                        tempNavigationBarHeight = navigationHeight
-                    }
-                    if (realKeyboardHeight != tempKeyboardHeight) {
-                        keyboardHeight?.invoke(realKeyboardHeight)
-                        Log.i(TAG, "键盘高度=$realKeyboardHeight")
-                        tempKeyboardHeight = realKeyboardHeight
-                        if (realKeyboardHeight > 100) {
-                            saveKeyboardHeight = realKeyboardHeight
-                        }
-                    }
-                }
+//            disposable?.dispose()
+//            disposable = Flowable.timer(100, TimeUnit.MILLISECONDS)
+//                .onBackpressureLatest()
+//                .compose(applyFollowableSchedulers())
+//                .subscribe {
+//                    val navigationHeight = getBottomStatusHeight(mActivity)
+//                    if (navigationHeight != tempNavigationBarHeight) {
+//                        naHeight?.invoke(navigationHeight)
+//                        Log.i(TAG, "虚拟导航键高度=$naHeight")
+//                        tempNavigationBarHeight = navigationHeight
+//                    }
+//                    if (realKeyboardHeight != tempKeyboardHeight) {
+//                        keyboardHeight?.invoke(realKeyboardHeight)
+//                        Log.i(TAG, "键盘高度=$realKeyboardHeight")
+//                        tempKeyboardHeight = realKeyboardHeight
+//                        if (realKeyboardHeight > 100) {
+//                            saveKeyboardHeight = realKeyboardHeight
+//                        }
+//                    }
+//                }
         }
     }
     window.decorView.viewTreeObserver.addOnGlobalLayoutListener(onGlobalLayoutListener)

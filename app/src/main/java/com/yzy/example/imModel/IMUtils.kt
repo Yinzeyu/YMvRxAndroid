@@ -1,16 +1,6 @@
 package com.yzy.example.imModel
 
-import android.content.Context
-import com.blankj.utilcode.util.ActivityUtils
-import com.blankj.utilcode.util.GsonUtils
-import com.blankj.utilcode.util.LogUtils
-import com.yzy.baselibrary.app.BaseApplication
-import com.yzy.baselibrary.extention.toast
-import com.yzy.example.IMLoginGlobal
-import com.yzy.example.im.IM
-import com.yzy.example.im.IMConstant
-import com.yzy.example.im.IMInit
-import com.yzy.example.im.entity.IMActionEntity
+
 
 /**
  *description: Im的工具类.
@@ -18,68 +8,68 @@ import com.yzy.example.im.entity.IMActionEntity
  *@author: YangYang.
  */
 object IMUtils {
-
-    private var isIMLogin = false
-
-    fun init(app: Context) {
-        IMInit {
-            context = app
-            key = "mgb7ka1nmdndg"
-            tokenProvider = IMTokenProviderImpl()
-            fileUploadProvider = IMFileUploadProviderImpl()
-        }
-//    initSticker(App)
-//    registerIMMessage()
-//    registerIMMessageItem()
-        addIMListener()
-    }
-
-    /**
-     * IM是否登录了
-     */
-    fun isIMLogin(): Boolean {
-        return isIMLogin
-    }
-
-    /**
-     * 登录IM
-     */
-    fun login(success: (() -> Unit)? = null, failed: ((msg: String?) -> Unit)? = null) {
-        IM.addActionListener(IMConstant.LoginAction.ACTION_IM_LOGIN_SUCCESS) {
-            success?.invoke()
-            isIMLogin = true
-            IMLoginGlobal.setImLogin(true)
-            LogUtils.e("IM 融云登录成功")
-        }
-        IM.addActionListener(IMConstant.LoginAction.ACTION_IM_LOGIN_ERROR) {
-            LogUtils.e("IM 融云登录失败,msg:${IMActionEntity.getErrorMessage(it.data)}")
-            isIMLogin = false
-            IMLoginGlobal.setImLogin(false)
-            failed?.invoke(IMActionEntity.getErrorMessage(it.data))
-        }
-        IM.login()
-    }
-
-    /**
-     * 退出登录
-     */
-    fun logout() {
-        IM.logout()
-        isIMLogin = false
-    }
-
-    private fun addIMListener() {
-        IM.addActionListener(IMConstant.ConnectionAction.ACTION_IM_CONNECTION_KICKED_OFFLINE_BY_OTHER_CLIENT) {
-            //要增加清除数据和跳转到登录页面
-//      UserRepository.clearUserInfo()
-            logout()
-            BaseApplication.getApp().toast("您的账号已在其他设备登录")
-            ActivityUtils.finishAllActivities()
-//      LoginComponent.startLogin()
-            LogUtils.e("ConversationViewModel 用户在其他设备上登录，被挤下线")
-        }
-        IM.addMessageReceivedListener {
-            LogUtils.e("RongIm 收到新消息 messge=${GsonUtils.toJson(it)}")
+//
+//    private var isIMLogin = false
+//
+//    fun init(app: Context) {
+//        IMInit {
+//            context = app
+//            key = "mgb7ka1nmdndg"
+//            tokenProvider = IMTokenProviderImpl()
+//            fileUploadProvider = IMFileUploadProviderImpl()
+//        }
+////    initSticker(App)
+////    registerIMMessage()
+////    registerIMMessageItem()
+//        addIMListener()
+//    }
+//
+//    /**
+//     * IM是否登录了
+//     */
+//    fun isIMLogin(): Boolean {
+//        return isIMLogin
+//    }
+//
+//    /**
+//     * 登录IM
+//     */
+//    fun login(success: (() -> Unit)? = null, failed: ((msg: String?) -> Unit)? = null) {
+//        IM.addActionListener(IMConstant.LoginAction.ACTION_IM_LOGIN_SUCCESS) {
+//            success?.invoke()
+//            isIMLogin = true
+//            IMLoginGlobal.setImLogin(true)
+//            LogUtils.e("IM 融云登录成功")
+//        }
+//        IM.addActionListener(IMConstant.LoginAction.ACTION_IM_LOGIN_ERROR) {
+//            LogUtils.e("IM 融云登录失败,msg:${IMActionEntity.getErrorMessage(it.data)}")
+//            isIMLogin = false
+//            IMLoginGlobal.setImLogin(false)
+//            failed?.invoke(IMActionEntity.getErrorMessage(it.data))
+//        }
+//        IM.login()
+//    }
+//
+//    /**
+//     * 退出登录
+//     */
+//    fun logout() {
+//        IM.logout()
+//        isIMLogin = false
+//    }
+//
+//    private fun addIMListener() {
+//        IM.addActionListener(IMConstant.ConnectionAction.ACTION_IM_CONNECTION_KICKED_OFFLINE_BY_OTHER_CLIENT) {
+//            //要增加清除数据和跳转到登录页面
+////      UserRepository.clearUserInfo()
+//            logout()
+//            BaseApplication.getApp().toast("您的账号已在其他设备登录")
+//            ActivityUtils.finishAllActivities()
+////      LoginComponent.startLogin()
+//            LogUtils.e("ConversationViewModel 用户在其他设备上登录，被挤下线")
+//        }
+//        IM.addMessageReceivedListener {
+//            LogUtils.e("RongIm 收到新消息 messge=${GsonUtils.toJson(it)}")
             //收到新消息
 //      val imInfoRepository: IMInfoRepository by App.INSTANCE.kodein.instance()
 //      ConversationUpdateGlobal.setConversationUpdate(it.conversationType, it.targetId)
@@ -139,8 +129,8 @@ object IMUtils {
 //          }
 //        }
 //      }
-        }
-    }
+//        }
+//    }
 
 //  //初始化表情包相关
 //  private fun initSticker(context: Context) {
