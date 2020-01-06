@@ -41,26 +41,19 @@ dependencies {
     api rootProject.ext.dependencies.okhttp3
     api rootProject.ext.dependencies.okhttp3_log
     api rootProject.ext.dependencies.retrofit
-//    api rootProject.ext.dependencies.retrofit_adapter_rxjava2
     api rootProject.ext.dependencies.retrofit_converter_gson
-//    api rootProject.ext.dependencies.retrofit_converter_scalars
     api rootProject.ext.dependencies.glide
     api rootProject.ext.dependencies.glide_okhttp
     api rootProject.ext.dependencies.multidex
     api rootProject.ext.dependencies.gson
     api rootProject.ext.dependencies.autosize
-//    api rootProject.ext.dependencies.mvrx
     api rootProject.ext.dependencies.epoxy
     kapt rootProject.ext.dependencies.epoxyProcessor
-//    api rootProject.ext.dependencies.coroutines_core
     api rootProject.ext.dependencies.coroutines_android
-    api "androidx.lifecycle:lifecycle-viewmodel-ktx:2.1.0"
-    api "androidx.lifecycle:lifecycle-livedata-ktx:2.1.0"
-    //https://github.com/gyf-dev/ImmersionBar
-    // 基础依赖包，必须要依赖
-    api 'com.gyf.immersionbar:immersionbar:3.0.0'
-    // kotlin扩展（可选）
-    api 'com.gyf.immersionbar:immersionbar-ktx:3.0.0'
+    api rootProject.ext.dependencies.lifecycle_viewmodel_ktx
+    api rootProject.ext.dependencies.lifecycle_livedata_ktx
+    api rootProject.ext.dependencies.immersionbar
+    api rootProject.ext.dependencies.immersionbar_ktx
 }
 apply plugin: 'com.github.dcendents.android-maven'
 apply plugin: 'com.jfrog.bintray'

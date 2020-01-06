@@ -2,7 +2,6 @@ package com.yzy.example.app
 
 import com.jeremyliao.liveeventbus.LiveEventBus
 import com.scwang.smart.refresh.layout.SmartRefreshLayout
-import com.tencent.mmkv.MMKV
 import com.yzy.baselibrary.app.BaseApplication
 import com.yzy.baselibrary.http.RetrofitConfig
 import com.yzy.example.R
@@ -19,7 +18,6 @@ class App : BaseApplication() {
     }
 
     override fun initInMainThread() {
-        initMMKV()
         initLiveBus()
         RetrofitConfig {
             context = this@App
@@ -35,9 +33,7 @@ class App : BaseApplication() {
 
     override fun baseInitCreate() {
     }
-    private fun initMMKV() {
-        MMKV.initialize(this)
-    }
+
 
     private fun initLiveBus() {
         LiveEventBus

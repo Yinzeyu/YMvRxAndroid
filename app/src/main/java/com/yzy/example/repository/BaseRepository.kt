@@ -5,6 +5,7 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.coroutineScope
 import java.io.IOException
 import com.yzy.example.repository.bean.DataResult
+
 /**
  * Created by luyao
  * on 2019/4/10 9:41
@@ -15,17 +16,21 @@ open class BaseRepository {
         return call.invoke()
     }
 
-            suspend fun <T : Any> safeApiCall(call: suspend () -> DataResult<T>, errorMessage: String): DataResult<T> {
-                return try {
+    suspend fun <T : Any> safeApiCall(
+        call: suspend () -> DataResult<T>,
+        errorMessage: String
+    ): DataResult<T> {
+        return try {
             call()
         } catch (e: Exception) {
-            // An exception was thrown when calling the API so we're converting this to an IOException
             DataResult.Error(IOException(errorMessage, e))
         }
     }
 
-    suspend fun <T : Any> executeResponse(response: BaseResponse<T>, successBlock: (suspend CoroutineScope.() -> Unit)? = null,
-                                          errorBlock: (suspend CoroutineScope.() -> Unit)? = null): DataResult<T> {
+    suspend fun <T : Any> executeResponse(
+        response: BaseResponse<T>, successBlock: (suspend CoroutineScope.() -> Unit)? = null,
+        errorBlock: (suspend CoroutineScope.() -> Unit)? = null
+    ): DataResult<T> {
         return coroutineScope {
             if (response.code == -1) {
                 errorBlock?.let { it() }

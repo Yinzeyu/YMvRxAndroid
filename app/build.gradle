@@ -125,7 +125,7 @@ dependencies {
     implementation rootProject.ext.dependencies.viewpager2
     implementation rootProject.ext.dependencies.lottie
     implementation rootProject.ext.dependencies.rxpermission
-    implementation rootProject.ext.dependencies.mmkv
+//    implementation rootProject.ext.dependencies.mmkv
     implementation rootProject.ext.dependencies.live_event_bus
 //    implementation rootProject.ext.dependencies.fragment_ktx
 //    implementation rootProject.ext.dependencies.objectBox_RxJava

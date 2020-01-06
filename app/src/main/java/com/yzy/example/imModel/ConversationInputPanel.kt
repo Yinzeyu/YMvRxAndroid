@@ -24,7 +24,7 @@ import com.yzy.example.component.message.ChatActivity
 import com.yzy.example.imModel.audio.AudioRecorderPanel
 import com.yzy.example.imModel.audio.IAudioRecorderPanel
 import com.yzy.example.imModel.emoji.EmotionLayout
-import com.yzy.example.utils.MMkvUtils
+import com.yzy.example.utils.PreferencesHelper
 import kotlinx.android.synthetic.main.imui_layout_conversation_input_panel.view.*
 import kotlin.math.max
 
@@ -253,7 +253,7 @@ class ConversationInputPanel @JvmOverloads constructor(
 
 
     private fun updateKeyboardState() {
-        val keyboardHeightPortrait = MMkvUtils.instance.getKeyboardHeightPortrait()
+        val keyboardHeightPortrait =PreferencesHelper.getKeyboardHeightPortrait()
 
         if (keyboardHeightPortrait != minKeyboardSize) {
             val rect = Rect()
@@ -262,7 +262,7 @@ class ConversationInputPanel @JvmOverloads constructor(
             val heightDiff = rootView.height - (rect.bottom - rect.top)
             val keyboardHeight =
                 max(0, heightDiff - statusBarHeight - getBottomStatusHeight(context))
-            MMkvUtils.instance.setKeyboardHeightPortrait(keyboardHeight)
+            PreferencesHelper.setKeyboardHeightPortrait(keyboardHeight)
             onKeyboardOpen()
         } else {
             onKeyboardClose()
