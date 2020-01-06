@@ -66,7 +66,6 @@ object ClientUtils {
         return Retrofit.Builder()
             .baseUrl(config.baseUrl)
             .client(okHttpClient)
-//            .addCallAdapterFactory(RxJava2CallAdapterFactory.create())//使用rxjava
             .addConverterFactory(GsonConverterFactory.create())//使用自定义的解析
             .build()
     }

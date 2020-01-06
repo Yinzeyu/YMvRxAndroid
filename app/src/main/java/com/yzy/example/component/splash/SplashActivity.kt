@@ -1,6 +1,7 @@
 package com.yzy.example.component.splash
 
 
+import android.provider.Contacts
 import android.util.Log
 import com.blankj.utilcode.constant.PermissionConstants
 import com.blankj.utilcode.util.PermissionUtils
@@ -12,6 +13,9 @@ import com.yzy.baselibrary.extention.toast
 import com.yzy.example.R
 import com.yzy.example.component.main.MainActivity
 import kotlinx.android.synthetic.main.activity_splash.*
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 
 //@Route(path = "/user/splash")
 class SplashActivity : BaseActivity() {
@@ -31,42 +35,36 @@ class SplashActivity : BaseActivity() {
     }
 
     override fun initView() {
-        iv_sp.load("https://up.enterdesk.com/edpic_source/66/6d/c7/666dc7648df7e11fcd92710185610927.jpg")
-//        disposable?.dispose()
-//        //页面无缝过渡后重置背景，不然会导致页面显示出现问题。主要解决由于window背景设置后的一些问题
-//        window.setBackgroundDrawable(null)
-//        //有尺寸了才开始计时
-//        splashTime?.post {
-//            disposable = Flowable.intervalRange(0, count + 1, 0, 1, TimeUnit.SECONDS)
-//                    .compose(applyFollowableSchedulers())
-//                    .doOnNext { splashTime.text = String.format("%d", max(1, count - it)) }
-//                    .doOnComplete {
-//                        Log.e("CASE", "倒计时结束")
-//                        countDownFinish = true
-//                        goNextPage()
-//                    }
-//                    .subscribe()
-//        }
+        iv_sp.load("http://pic1.win4000.com/pic/7/0f/2cab03e09e.jpg")
+        launch(Dispatchers.Main) {
+            for (i in 10 downTo 1) {
+                splashTime.text = String.format("%d", i)
+                delay(1000)
+            }
+            countDownFinish = true
+            goNextPage()
+            splashTime.text = "0"
+        }
     }
 
     override fun initData() {
         PermissionUtils.permission(PermissionConstants.STORAGE)
-                .callback(object : PermissionUtils.SimpleCallback {
-                    //权限允许
-                    override fun onGranted() {
-                        Log.e("CASE", "有SD卡读写权限")
-                        hasSDPermission = true
-                        goNextPage()
-                    }
+            .callback(object : PermissionUtils.SimpleCallback {
+                //权限允许
+                override fun onGranted() {
+                    Log.e("CASE", "有SD卡读写权限")
+                    hasSDPermission = true
+                    goNextPage()
+                }
 
-                    //权限拒绝
-                    override fun onDenied() {
-                        mContext.toast("没有SD卡权限,不能使用APP")
-                        hasSDPermission = false
-                        goNextPage()
-                    }
-                })
-                .request()
+                //权限拒绝
+                override fun onDenied() {
+                    mContext.toast("没有SD卡权限,不能使用APP")
+                    hasSDPermission = false
+                    goNextPage()
+                }
+            })
+            .request()
     }
 
     //打开下个页面
