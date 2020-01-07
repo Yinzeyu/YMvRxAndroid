@@ -32,8 +32,6 @@ private var tempKeyboardHeight = 0
 private var tempNavigationBarHeight = 0
 //为了解决一直重复设置高度的问题
 private var lastSetSetKeyboardHeight = 0
-//防止键盘高度改变太快
-//private var disposable: Disposable? = null
 
 /**获取当前键盘高度*/
 fun Activity.getHeightKeyboard(): Int {

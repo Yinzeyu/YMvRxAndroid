@@ -2,6 +2,7 @@ package com.yzy.example.imModel.audio
 
 import android.content.Context
 import android.media.MediaRecorder
+import kotlinx.coroutines.*
 import java.io.File
 
 class IMAudioRecordHelper {
@@ -37,7 +38,7 @@ class IMAudioRecordHelper {
     /**
      * 录音中的Disposable
      */
-//    private var recordingDisposable: Disposable? = null
+   private val mainScope = MainScope()
 
     /**
      * 开始录音
@@ -49,7 +50,8 @@ class IMAudioRecordHelper {
         sampleRate: IMAudioSampleRate = IMAudioSampleRate.HZ_8000,
         listener: AudioRecordListener? = null
     ) {
-//        if (recordingDisposable != null && recordingDisposable?.isDisposed != true) {
+
+//        if (mainScope.isActive) {
 //            //录音中
 //            listener?.onError(Exception("已经在录音中"))
 //            return
@@ -104,29 +106,25 @@ class IMAudioRecordHelper {
     private fun recoding() {
         startTime = System.currentTimeMillis()
         recordListener?.onStart()
-//        recordingDisposable = Observable.interval(0, 100, TimeUnit.MILLISECONDS)
-//            .subscribeOn(Schedulers.io())
-//            .unsubscribeOn(Schedulers.io())
-//            .observeOn(AndroidSchedulers.mainThread())
-//            .subscribe {
-//                duration = System.currentTimeMillis() - startTime
-//                recordListener?.onRecodeData(duration, mediaRecorder?.maxAmplitude ?: 0)
-//                if (duration >= maxDuration) {
-//                    //录音时长已经到了最大时长了
-//                    stopRecord()
-//                }
-//            }
+        mainScope.launch {
+            repeat(100_000){
+                duration = System.currentTimeMillis() - startTime
+                recordListener?.onRecodeData(duration, mediaRecorder?.maxAmplitude ?: 0)
+                if (duration >= maxDuration) {
+                    //录音时长已经到了最大时长了
+                    stopRecord()
+                }
+                println("stopRecord$duration")
+                delay(100L)
+            }
+        }
     }
 
     /**
      * 停止录音
      */
     fun stopRecord() {
-//        recordingDisposable?.apply {
-//            if (!isDisposed) {
-//                dispose()
-//            }
-//        }
+        mainScope.cancel()
         //释放音频焦点
         audioFocusManager?.requestAudioFocus()
         try {
@@ -142,7 +140,6 @@ class IMAudioRecordHelper {
             filePath = null
             duration = 0
             startTime = 0
-//            recordingDisposable = null
         }
     }
 }
