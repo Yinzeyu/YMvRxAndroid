@@ -24,35 +24,4 @@ class NineGridAdapter(private val imageSize: Int = SizeUtils.dp2px(100f)) :
             }
         }
     }
-
-//    private val colorSt/roke = ColorUtils.getColor(R.color.white_F5F5F5)
-//    override fun onDisplayImage(
-//        context: Context?,
-//        imageView: ImageView?,
-//        pic: PicBean?
-//    ) {
-//        pic?.let {
-//            context?.let { c ->
-                //        if (imageView is SketchImageView) {
-//          val displayOptions = ActionBar.DisplayOptions()
-//          val holder = RandomPlaceholder.instance.getPlaceHolder(it.url)
-//          displayOptions.setLoadingImage(holder)
-//          displayOptions.setErrorImage(R.drawable.svg_placeholder_fail)
-//          //圆角
-//          val shaper = RoundRectImageShaper(SizeUtils.dp2px(5f).toFloat())
-////          shaper.setStroke(colorStroke, 1)
-//          displayOptions.shaper = shaper
-//          //图片尺寸
-//          val shapeSize = ShapeSize(imageSize, imageSize, ScaleType.CENTER_CROP)
-//          displayOptions.shapeSize = shapeSize
-//          imageView.setOptions(displayOptions)
-//          imageView.options.displayer = FadeInImageDisplayer()
-//          // DisplayHelper
-//          Sketch.with(c)
-//              .display(it.url, imageView)
-//              .commit()
-//        }
-//            }
-//        }
-//    }commit
 }

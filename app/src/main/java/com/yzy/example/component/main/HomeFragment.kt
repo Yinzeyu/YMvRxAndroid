@@ -4,15 +4,20 @@ import android.view.View
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.airbnb.epoxy.EpoxyVisibilityTracker
+import com.blankj.utilcode.util.LogUtils
+import com.blankj.utilcode.util.NetworkUtils
 import com.yzy.baselibrary.base.MvRxEpoxyController
 import com.yzy.example.R
 import com.yzy.example.component.comm.CommFragment
 import com.yzy.example.component.comm.item.dividerItem
+import com.yzy.example.component.comm.item.errorEmptyItem
 import com.yzy.example.component.comm.item.loadMoreItem
 import com.yzy.example.component.main.item.bannerItem
 import com.yzy.example.component.main.item.wanArticleItem
 import com.yzy.example.component.web.WebActivity
-import com.yzy.example.repository.HomeArticleModelFactory
+import com.yzy.example.http.response.ApiException
+import com.yzy.example.http.response.EmptyException
+import com.yzy.example.repository.ViewModelFactory
 import com.yzy.example.repository.bean.BannerAndArticleBean
 import com.yzy.example.repository.model.NewGankViewModel
 import kotlinx.android.synthetic.main.fragment_home.*
@@ -29,9 +34,10 @@ class HomeFragment : CommFragment() {
     private val mViewModel: NewGankViewModel by lazy {
         ViewModelProvider(
             requireActivity(),
-            HomeArticleModelFactory()
+            ViewModelFactory()
         ).get(NewGankViewModel::class.java)
     }
+
     override fun initView(root: View?) {
         homeEpoxyRecycler.setController(epoxyController)
         EpoxyVisibilityTracker().attach(homeEpoxyRecycler)
@@ -52,10 +58,7 @@ class HomeFragment : CommFragment() {
                     dismissLoadingView()
                     smRefresh.finishRefresh()
                     epoxyController.data = list
-                }
-                it?.showError?.let { message ->
-                    smRefresh.finishRefresh()
-                    dismissLoadingView()
+
                 }
             })
         }
@@ -94,7 +97,7 @@ class HomeFragment : CommFragment() {
             if (state.hasMore) {
                 loadMoreItem {
                     id("home_line_more")
-//                    fail(state.request is Fail)
+                    fail(false)
                     onLoadMore {
                         mViewModel.getBanner()
                     }
@@ -103,28 +106,28 @@ class HomeFragment : CommFragment() {
         } else {
             smRefresh.setEnableRefresh(false)
             //无数据
-//            when {
-//                state.request is Success -> errorEmptyItem {
-//                    id("home_suc_no_data")
-//                    imageResource(R.drawable.svg_no_data)
-//                    tipsText(mContext.getString(R.string.no_data))
-//                }
-//                //无网络或者请求失败
-//                state.request is Fail -> errorEmptyItem {
-//                    id("home_fail_no_data")
-//                    if (NetworkUtils.isConnected()) {
-//                        imageResource(R.drawable.svg_fail)
-//                        tipsText(mContext.getString(R.string.net_fail_retry))
-//                    } else {
-//                        imageResource(R.drawable.svg_no_network)
-//                        tipsText(mContext.getString(R.string.net_error_retry))
-//                    }
-//                    onRetryClick {
-//                        //                        homeViewModel.refreshData()
-//                    }
-//                }
-//                else -> LogUtils.i("初始化无数据空白")
-//            }
+            when (state.exception) {
+                is EmptyException -> errorEmptyItem {
+                    id("home_suc_no_data")
+                    imageResource(R.drawable.svg_no_data)
+                    tipsText(mContext.getString(R.string.no_data))
+                }
+                //无网络或者请求失败
+                is ApiException -> errorEmptyItem {
+                    id("home_fail_no_data")
+                    if (NetworkUtils.isConnected()) {
+                        imageResource(R.drawable.svg_fail)
+                        tipsText(mContext.getString(R.string.net_fail_retry))
+                    } else {
+                        imageResource(R.drawable.svg_no_network)
+                        tipsText(mContext.getString(R.string.net_error_retry))
+                    }
+                    onRetryClick {
+                        mViewModel.getBanner(true)
+                    }
+                }
+                else -> LogUtils.i("初始化无数据空白")
+            }
         }
     }
 }

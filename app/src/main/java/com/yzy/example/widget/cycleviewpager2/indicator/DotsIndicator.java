@@ -17,7 +17,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 
-import com.yzy.example.widget.cycleviewpager2.util.DisplayUtil;
+import com.blankj.utilcode.util.SizeUtils;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
@@ -28,8 +28,8 @@ import java.lang.annotation.RetentionPolicy;
 public class DotsIndicator extends View implements Indicator {
 
     private final Paint mPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
-    private float mRadius;
-    private float mDotsPadding;
+    private int mRadius;
+    private int mDotsPadding;
     @ColorInt
     private int mSelectedColor;
     @ColorInt
@@ -74,13 +74,13 @@ public class DotsIndicator extends View implements Indicator {
     }
 
     private void initialize(@NonNull Context context, @Nullable AttributeSet attrs) {
-        mRadius = DisplayUtil.dp2px(3);
-        mDotsPadding = DisplayUtil.dp2px(3);
+        mRadius = SizeUtils.dp2px(3);
+        mDotsPadding = SizeUtils.dp2px(3);
         mSelectedColor = Color.GRAY;
         mUnSelectedColor = Color.WHITE;
 
         mLeftMargin = mRightMargin = 0;
-        mBottomMargin = (int) DisplayUtil.dp2px(6);
+        mBottomMargin = (int) SizeUtils.dp2px(6);
     }
 
     @NonNull
@@ -120,21 +120,12 @@ public class DotsIndicator extends View implements Indicator {
         postInvalidate();
     }
 
-    @Override
-    public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-        //do nothing
-    }
 
-    @Override
-    public void onPageScrollStateChanged(int state) {
-        //do nothing
-    }
-
-    public void setRadius(float radius) {
+    public void setRadius(int radius) {
         this.mRadius = radius;
     }
 
-    public void setDotsPadding(float dotsPadding) {
+    public void setDotsPadding(int dotsPadding) {
         this.mDotsPadding = dotsPadding;
     }
 

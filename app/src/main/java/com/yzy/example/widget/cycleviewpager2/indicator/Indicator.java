@@ -15,8 +15,4 @@ public interface Indicator {
     void onChanged(int itemCount, int currentPosition);
 
     void onPageSelected(int position);
-
-    void onPageScrolled(int position, float positionOffset, int positionOffsetPixels);
-
-    void onPageScrollStateChanged(int state);
 }

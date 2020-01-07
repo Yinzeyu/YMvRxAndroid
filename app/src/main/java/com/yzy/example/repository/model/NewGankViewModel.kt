@@ -32,24 +32,21 @@ class NewGankViewModel : BaseViewModel() {
                 articleBean.addAll(article.data.datas ?: mutableListOf())
                 emitArticleUiState(
                     showLoading = false,
-                    showSuccess = BannerAndArticleBean(result.data, articleBean,
-                        hasMore=(article.data.datas ?: mutableListOf()).size == pageSize
-                    )
+                    showSuccess = BannerAndArticleBean(result.data, articleBean, hasMore=(article.data.datas ?: mutableListOf()).size == pageSize)
                 )
                 page++
             } else if (result is DataResult.Error){
-                emitArticleUiState(showLoading = false, showError = result.exception.message)
+                emitArticleUiState(
+                    showLoading = false,
+                    showSuccess = BannerAndArticleBean(exception = result.exception)
+                )
             }
 
         }
     }
 
-    private fun emitArticleUiState(
-        showLoading: Boolean = false,
-        showError: String? = null,
-        showSuccess: BannerAndArticleBean? = null
-    ) {
-        val uiModel = BaseUiModel(showLoading, showError, showSuccess)
+    private fun emitArticleUiState(showLoading: Boolean = false, showSuccess: BannerAndArticleBean? = null) {
+        val uiModel = BaseUiModel(showLoading ,showSuccess)
         _bannerAndArticleResult.update(uiModel)
     }
 }
