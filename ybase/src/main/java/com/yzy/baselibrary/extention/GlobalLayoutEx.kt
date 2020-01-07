@@ -12,6 +12,7 @@ import android.util.Log
 import android.view.ViewTreeObserver
 import android.view.WindowManager
 import androidx.annotation.NonNull
+import kotlinx.coroutines.*
 import java.lang.reflect.Method
 import kotlin.math.max
 
@@ -54,26 +55,21 @@ fun Activity.addListerKeyboard(
             && (realKeyboardHeight > 300 || realKeyboardHeight == 0)
         ) {
             lastSetSetKeyboardHeight = realKeyboardHeight
-//            disposable?.dispose()
-//            disposable = Flowable.timer(100, TimeUnit.MILLISECONDS)
-//                .onBackpressureLatest()
-//                .compose(applyFollowableSchedulers())
-//                .subscribe {
-//                    val navigationHeight = getBottomStatusHeight(mActivity)
-//                    if (navigationHeight != tempNavigationBarHeight) {
-//                        naHeight?.invoke(navigationHeight)
-//                        Log.i(TAG, "虚拟导航键高度=$naHeight")
-//                        tempNavigationBarHeight = navigationHeight
-//                    }
-//                    if (realKeyboardHeight != tempKeyboardHeight) {
-//                        keyboardHeight?.invoke(realKeyboardHeight)
-//                        Log.i(TAG, "键盘高度=$realKeyboardHeight")
-//                        tempKeyboardHeight = realKeyboardHeight
-//                        if (realKeyboardHeight > 100) {
-//                            saveKeyboardHeight = realKeyboardHeight
-//                        }
-//                    }
-//                }
+
+            val navigationHeight = getBottomStatusHeight(mActivity)
+            if (navigationHeight != tempNavigationBarHeight) {
+                naHeight?.invoke(navigationHeight)
+                Log.i(TAG, "虚拟导航键高度=$naHeight")
+                tempNavigationBarHeight = navigationHeight
+            }
+            if (realKeyboardHeight != tempKeyboardHeight) {
+                keyboardHeight?.invoke(realKeyboardHeight)
+                Log.i(TAG, "键盘高度=$realKeyboardHeight")
+                tempKeyboardHeight = realKeyboardHeight
+                if (realKeyboardHeight > 100) {
+                    saveKeyboardHeight = realKeyboardHeight
+                }
+            }
         }
     }
     window.decorView.viewTreeObserver.addOnGlobalLayoutListener(onGlobalLayoutListener)

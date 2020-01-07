@@ -1,7 +1,6 @@
 package com.yzy.example.component.splash
 
 
-import android.provider.Contacts
 import android.util.Log
 import com.blankj.utilcode.constant.PermissionConstants
 import com.blankj.utilcode.util.PermissionUtils

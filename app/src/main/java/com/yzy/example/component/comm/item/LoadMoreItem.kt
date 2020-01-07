@@ -3,6 +3,8 @@ package com.yzy.example.component.comm.item
 import android.view.View
 import android.widget.ProgressBar
 import android.widget.TextView
+import androidx.core.view.isInvisible
+import androidx.core.view.isVisible
 import com.airbnb.epoxy.EpoxyAttribute
 import com.airbnb.epoxy.EpoxyModelClass
 import com.blankj.utilcode.util.Utils

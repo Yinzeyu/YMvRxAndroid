@@ -2,12 +2,12 @@ package com.yzy.example.component.comm.item
 
 import android.view.View
 import androidx.annotation.DrawableRes
+import androidx.core.view.isVisible
 import com.airbnb.epoxy.EpoxyAttribute
 import com.airbnb.epoxy.EpoxyModelClass
 import com.yzy.baselibrary.base.BaseEpoxyHolder
 import com.yzy.baselibrary.base.BaseEpoxyModel
 import com.yzy.baselibrary.extention.click
-import com.yzy.baselibrary.extention.visibleGone
 import com.yzy.baselibrary.utils.NetUtils
 import com.yzy.example.R
 import kotlinx.android.synthetic.main.item_comm_error_empty.view.*
@@ -41,8 +41,8 @@ abstract class ErrorEmptyItem : BaseEpoxyModel<BaseEpoxyHolder>() {
         imageResource?.let { itemView.errorEmptyIv.setImageResource(it) }
         tipsColor?.let { itemView.errorEmptyTips.setTextColor(it) }
         tipsText?.let { itemView.errorEmptyTips.text = it }
-        itemView.errorEmptyIv.visibleGone(imageResource != null)
-        itemView.errorEmptyTips.visibleGone(!tipsText.isNullOrBlank())
+        itemView.errorEmptyIv.isVisible=imageResource != null
+        itemView.errorEmptyTips.isVisible=!tipsText.isNullOrBlank()
         itemView.errorEmptyRoot.click {
             if (NetUtils.instance.checkToast()) {
                 onRetryClick?.invoke()

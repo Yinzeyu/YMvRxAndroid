@@ -337,5 +337,10 @@
 -dontwarn com.just.agentweb.**
 -keepclassmembers class com.just.agentweb.sample.common.AndroidInterface{ *; }
 
+#协程
+-keepclassmembernames class kotlinx.** {
+    volatile <fields>;
+}
+
 
 

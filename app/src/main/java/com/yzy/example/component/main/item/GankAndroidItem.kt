@@ -3,13 +3,13 @@ package com.yzy.example.component.main.item
 import android.content.Context
 import android.view.View
 import android.widget.ImageView
+import androidx.core.view.isVisible
 import com.airbnb.epoxy.EpoxyAttribute
 import com.airbnb.epoxy.EpoxyModelClass
 import com.yzy.baselibrary.base.BaseEpoxyHolder
 import com.yzy.baselibrary.base.BaseEpoxyModel
 import com.yzy.baselibrary.extention.click
 import com.yzy.baselibrary.extention.pressEffectBgColor
-import com.yzy.baselibrary.extention.visibleGone
 import com.yzy.example.R
 import com.yzy.example.repository.bean.GankAndroidBean
 import com.yzy.example.repository.bean.PicBean
@@ -41,7 +41,7 @@ abstract class GankAndroidItem : BaseEpoxyModel<BaseEpoxyHolder>() {
             //内容
             itemView.itemGankAndroidDes.text = it.desc
             //图片
-      itemView.itemGankAndroidNine.visibleGone(!it.images.isNullOrEmpty())
+      itemView.itemGankAndroidNine.isVisible=!it.images.isNullOrEmpty()
             if (!it.images.isNullOrEmpty()) {
                 //多张图片，九宫格
                 val nieView: NineGridView<PicBean> = itemView.findViewById(R.id.itemGankAndroidNine)

@@ -2,7 +2,6 @@ package com.yzy.example.imModel
 
 import android.Manifest
 import android.content.Context
-import android.content.pm.PackageManager
 import android.graphics.Rect
 import android.text.Editable
 import android.text.TextUtils
@@ -11,7 +10,6 @@ import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.*
-import androidx.core.app.ActivityCompat
 import androidx.fragment.app.FragmentActivity
 import androidx.viewpager.widget.ViewPager
 import com.blankj.utilcode.util.KeyboardUtils
