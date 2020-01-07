@@ -13,9 +13,11 @@ import com.yzy.baselibrary.extention.visible
 import com.yzy.example.R
 import com.yzy.example.utils.AudioPermissionHelper
 import com.yzy.example.widget.file.AppFileDirManager
+import kotlinx.coroutines.*
 import java.io.File
 import java.text.SimpleDateFormat
 import java.util.*
+import kotlin.math.sqrt
 
 class MMAudioRecorderPanel(val context: Context) : IAudioRecorderPanel, View.OnTouchListener {
 
@@ -59,7 +61,7 @@ class MMAudioRecorderPanel(val context: Context) : IAudioRecorderPanel, View.OnT
     private var isStart = false
     private var startX = 0f
     private var startY = 0f
-//    private var longPressDisposable: Disposable? = null
+    private var mainScope: CoroutineScope? = null
 
 
     var durationFormat = SimpleDateFormat("m:ss", Locale.getDefault())
@@ -198,7 +200,11 @@ class MMAudioRecorderPanel(val context: Context) : IAudioRecorderPanel, View.OnT
             stateTextView = view.findViewById(R.id.rc_audio_state_text)
             durationTextView = view.findViewById(R.id.rc_audio_timer)
             recordingWindow =
-                PopupWindow(view, ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT)
+                PopupWindow(
+                    view,
+                    ViewGroup.LayoutParams.MATCH_PARENT,
+                    ViewGroup.LayoutParams.MATCH_PARENT
+                )
             recordingWindow?.isFocusable = true
             recordingWindow?.isOutsideTouchable = false
             recordingWindow?.isTouchable = false
@@ -293,20 +299,24 @@ class MMAudioRecorderPanel(val context: Context) : IAudioRecorderPanel, View.OnT
                 || event.rawY < location[1] - 40)
     }
 
+    private fun longPressDisposable() {
+        mainScope = MainScope()
+        mainScope?.launch {
+            delay(80L)
+            isLongClick = true
+            cancel()
+            mainScope=null
+        }
+    }
+
     override fun onTouch(v: View, event: MotionEvent): Boolean {
         when (event.action) {
             MotionEvent.ACTION_DOWN -> {
-//        isLongClick = false
+                isLongClick = false
                 isStart = true
                 startX = event.x
                 startY = event.y
-//        longPressDisposable = Observable.just(0)
-//          .delay(80, TimeUnit.MILLISECONDS)
-//          .compose(SchedulersUtil.applySchedulers())
-//          .subscribe {
-//            longPressDisposable?.dispose()
-//            isLongClick = true
-//          }
+                longPressDisposable()
                 if (AudioPermissionHelper.hasRecordPermission()) {
                     startRecord()
                     recordListener?.onRecordStateChanged(RecordState.START)
@@ -316,12 +326,13 @@ class MMAudioRecorderPanel(val context: Context) : IAudioRecorderPanel, View.OnT
             }
             MotionEvent.ACTION_MOVE -> {
                 val deltaX =
-                    Math.sqrt(((event.x - startX) * (event.x - startX) + (event.y - startY) * (event.y - startY)).toDouble())
+                    sqrt(((event.x - startX) * (event.x - startX) + (event.y - startY) * (event.y - startY)).toDouble())
                 //移动超过20像素
-//                if (deltaX > 20 && longPressDisposable != null && longPressDisposable?.isDisposed != true) {
-//                    longPressDisposable?.dispose()
-//                }
-//        if (isLongClick) {
+                if (deltaX > 20 && mainScope != null) {
+                    mainScope?.cancel()
+                    mainScope=null
+                }
+        if (isLongClick) {
                 isToCancel = isCancelled(v, event)
                 if (isToCancel) {
                     if (recordListener != null) {
@@ -331,27 +342,33 @@ class MMAudioRecorderPanel(val context: Context) : IAudioRecorderPanel, View.OnT
                 } else {
                     hideCancelTip()
                 }
-//        }
+        }
             }
             MotionEvent.ACTION_UP, MotionEvent.ACTION_CANCEL -> {
-                if (isToCancel) {
-                    cancelRecord()
-                } else if (isRecording) {
-                    stopRecord()
-                } else {
+                when {
+                    isToCancel -> {
+                        cancelRecord()
+                    }
+                    isRecording -> {
+                        stopRecord()
+                    }
+                    else -> {
+                        hideRecording()
+                    }
+                }
+                isLongClick = false
+                if (mainScope != null) {
+                    mainScope?.cancel()
+                    mainScope=null
                     hideRecording()
                 }
-//        isLongClick = false
-//        if (longPressDisposable?.isDisposed != true) {
-//          longPressDisposable?.dispose()
-//          hideRecording()
-//        }
                 recordListener?.onRecordStateChanged(RecordState.STOP)
                 isStart = false
             }
             else -> {
                 isLongClick = false
-//                longPressDisposable?.dispose()
+                mainScope?.cancel()
+                mainScope=null
             }
         }
         return true

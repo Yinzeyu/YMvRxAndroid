@@ -38,7 +38,7 @@ class IMAudioRecordHelper {
     /**
      * 录音中的Disposable
      */
-   private val mainScope = MainScope()
+    private var mainScope: CoroutineScope? = null
 
     /**
      * 开始录音
@@ -50,12 +50,10 @@ class IMAudioRecordHelper {
         sampleRate: IMAudioSampleRate = IMAudioSampleRate.HZ_8000,
         listener: AudioRecordListener? = null
     ) {
-
-//        if (mainScope.isActive) {
-//            //录音中
-//            listener?.onError(Exception("已经在录音中"))
-//            return
-//        }
+        if (mainScope != null) {
+            listener?.onError(Exception("已经在录音中"))
+            return
+        }
         val file = File(filePath)
         if (file.exists()) {
             file.delete()
@@ -106,8 +104,9 @@ class IMAudioRecordHelper {
     private fun recoding() {
         startTime = System.currentTimeMillis()
         recordListener?.onStart()
-        mainScope.launch {
-            repeat(100_000){
+        mainScope = MainScope()
+        mainScope?.launch {
+            repeat(100_000) {
                 duration = System.currentTimeMillis() - startTime
                 recordListener?.onRecodeData(duration, mediaRecorder?.maxAmplitude ?: 0)
                 if (duration >= maxDuration) {
@@ -124,7 +123,8 @@ class IMAudioRecordHelper {
      * 停止录音
      */
     fun stopRecord() {
-        mainScope.cancel()
+        mainScope?.cancel()
+        mainScope=null
         //释放音频焦点
         audioFocusManager?.requestAudioFocus()
         try {
