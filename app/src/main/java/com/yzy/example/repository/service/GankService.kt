@@ -6,6 +6,7 @@ import com.yzy.example.repository.bean.BannerBean
 import com.yzy.example.repository.bean.GankAndroidBean
 import com.yzy.example.repository.bean.GankBaseBean
 import retrofit2.http.GET
+import retrofit2.http.Headers
 import retrofit2.http.Path
 import retrofit2.http.Query
 
@@ -17,7 +18,8 @@ import retrofit2.http.Query
  */
 interface GankService {
 
-    @GET("banner/json")
+    @Headers("urlName:ganKUrl")
+   @GET("api/data/Android/{pageSize}/{page}")
     suspend fun getAndroidSuspend(
         @Path("pageSize") pageSize: Int,
         @Path("page") page: Int
