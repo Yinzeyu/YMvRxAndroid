@@ -3,6 +3,7 @@ package com.yzy.baselibrary.base
 import android.app.Activity
 import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,9 +13,14 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
+import androidx.navigation.ui.NavigationUI
+import com.yzy.baselibrary.R
+import com.yzy.baselibrary.extention.inflate
 import com.yzy.baselibrary.extention.removeParent
+import kotlinx.android.synthetic.main.base_fragment.view.*
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.MainScope
+import kotlinx.coroutines.cancel
 
 /**
  *description: BaseFragment.
@@ -35,23 +41,21 @@ abstract class BaseFragment : Fragment(), CoroutineScope by MainScope() {
      */
     protected abstract val contentLayout: Int
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         retainInstance = true
+        Log.e("fragment",this.javaClass.name)
         mNavController = NavHostFragment.findNavController(this)
         //第一次的时候加载xml
         if (contentLayout > 0 && rootView == null) {
-            val contentView = inflater.inflate(contentLayout, null)
-            if (contentView is FrameLayout) {
-                contentView.layoutParams = ViewGroup.LayoutParams(-1, -1)
-                rootView = contentView
-            } else {
-                rootView = FrameLayout(mContext)
-                rootView?.layoutParams = ViewGroup.LayoutParams(-1, -1)
-                rootView?.addView(contentView, ViewGroup.LayoutParams(-1, -1))
-            }
+                val contentView = inflater.inflate(contentLayout, null)
+                if (contentView is FrameLayout) {
+                    contentView.layoutParams = ViewGroup.LayoutParams(-1, -1)
+                    rootView = contentView
+                } else {
+                    rootView = FrameLayout(mContext)
+                    rootView?.layoutParams = ViewGroup.LayoutParams(-1, -1)
+                    rootView?.addView(contentView, ViewGroup.LayoutParams(-1, -1))
+                }
         } else {
             //防止重新create时还存在
             rootView?.removeParent()
@@ -64,7 +68,10 @@ abstract class BaseFragment : Fragment(), CoroutineScope by MainScope() {
         initView(view)
         initData()
     }
-
+    //是否需要默认填充状态栏,默认填充为白色view
+    protected open fun fillStatus(): Boolean {
+        return true
+    }
     /**
      * 初始化View
      */
@@ -77,4 +84,9 @@ abstract class BaseFragment : Fragment(), CoroutineScope by MainScope() {
 
     fun <T : ViewModel> getViewModel(clazz: Class<T>): T =
         ViewModelProvider(requireActivity(), ViewModelProvider.NewInstanceFactory()).get(clazz)
+
+    override fun onDestroyView() {
+        cancel()
+        super.onDestroyView()
+    }
 }

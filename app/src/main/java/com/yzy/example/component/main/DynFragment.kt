@@ -15,6 +15,7 @@ import com.yzy.example.component.comm.item.loadMoreItem
 import com.yzy.example.component.main.item.gankAndroidItem
 import com.yzy.example.component.main.model.DynViewModel
 import com.yzy.example.component.web.WebActivity
+import com.yzy.example.component.web.WebsiteDetailFragment
 import com.yzy.example.http.response.ApiException
 import com.yzy.example.http.response.EmptyException
 import com.yzy.example.repository.ViewModelFactory
@@ -29,7 +30,6 @@ class DynFragment: CommFragment(){
             return DynFragment()
         }
     }
-    private var isNeed = true
 
     private val mViewModel: DynViewModel by lazy {
         ViewModelProvider(
@@ -72,7 +72,11 @@ class DynFragment: CommFragment(){
                 gankAndroidItem {
                     id("dyn_${bean._id}")
                     dataBean(bean)
-                    onItemClick { data -> WebActivity.startActivity(mContext, data.url ?: "") }
+                    onItemClick { data ->   WebsiteDetailFragment.viewDetail(
+                        mNavController,
+                        R.id.action_mainFragment_to_websiteDetailFragment,
+                        data.url ?: ""
+                    ) }
                 }
                 //分割线
                 dividerItem {

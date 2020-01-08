@@ -15,6 +15,7 @@ import com.yzy.example.component.comm.item.loadMoreItem
 import com.yzy.example.component.main.item.bannerItem
 import com.yzy.example.component.main.item.wanArticleItem
 import com.yzy.example.component.web.WebActivity
+import com.yzy.example.component.web.WebsiteDetailFragment
 import com.yzy.example.http.response.ApiException
 import com.yzy.example.http.response.EmptyException
 import com.yzy.example.repository.ViewModelFactory
@@ -68,12 +69,12 @@ class HomeFragment : CommFragment() {
         //有数据
         if (!state.bannerBean.isNullOrEmpty() || !state.articleBean.isNullOrEmpty()) {
             //处理Banner'
-            if (!state.bannerBean.isNullOrEmpty()) {
-                bannerItem {
-                    id("home_banner_${state.bannerBean.hashCode() + state.bannerBean.size}")
-                    dataList(state.bannerBean)
-                }
-            }
+//            if (!state.bannerBean.isNullOrEmpty()) {
+//                bannerItem {
+//                    id("home_banner_${state.bannerBean.hashCode() + state.bannerBean.size}")
+//                    dataList(state.bannerBean)
+//                }
+//            }
             //处理文章列表
             if (!state.articleBean.isNullOrEmpty()) {
                 state.articleBean.forEachIndexed { _, articleBean ->
@@ -82,7 +83,13 @@ class HomeFragment : CommFragment() {
                         id(articleBean.id)
                         dataBean(articleBean)
                         onItemClick {
-                            it?.link?.let { url -> WebActivity.startActivity(mContext, url) }
+                            it?.link?.let { url ->
+                                WebsiteDetailFragment.viewDetail(
+                                    mNavController,
+                                    R.id.action_mainFragment_to_websiteDetailFragment,
+                                    url
+                                )
+                            }
                         }
                     }
                     //分割线

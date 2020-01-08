@@ -33,6 +33,12 @@ class CycleViewPager2Helper(
             cycleViewPager2.listSize=value
             field = value
         }
+
+    var offscreenPageLimit: Int = 1
+        set(value) {
+            cycleViewPager2.offscreenPageLimit=value
+            field = value
+        }
     fun addindicator(   indicator: Indicator) =
         cycleViewPager2.setIndicator(indicator)
 

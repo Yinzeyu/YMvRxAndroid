@@ -57,8 +57,6 @@ dependencies {
     api rootProject.ext.dependencies.lifecycle_viewmodel_ktx
     api rootProject.ext.dependencies.lifecycle_livedata_ktx
     api rootProject.ext.dependencies.lifecycle_extensions
-//    api rootProject.ext.dependencies.immersionbar
-//    api rootProject.ext.dependencies.immersionbar_ktx
 }
 apply plugin: 'com.github.dcendents.android-maven'
 apply plugin: 'com.jfrog.bintray'

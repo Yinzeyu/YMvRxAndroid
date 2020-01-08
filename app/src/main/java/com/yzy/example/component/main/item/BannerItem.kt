@@ -48,6 +48,7 @@ abstract class BannerItem : BaseEpoxyModel<BaseEpoxyHolder>() {
             cycleViewPager2Helper.adapter= BannerPagerAdapter((itemView.context as BaseActivity), data)
             cycleViewPager2Helper .addPageTransformer( CompositePageTransformer())
             cycleViewPager2Helper .listSize=data.size
+            cycleViewPager2Helper.offscreenPageLimit=data.size
             cycleViewPager2Helper.addindicator(dotsIndicator)
             cycleViewPager2Helper.autoTurningTime=3000L
 

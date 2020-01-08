@@ -16,7 +16,7 @@ import java.util.*
  * @description 解决 navigation 返回上个 fragment 导致 fragment 重新调用 onCreated 的问题
  */
 class CustomNavHostFragment : NavHostFragment() {
-    override fun createFragmentNavigator(): Navigator<out FragmentNavigator.Destination> {
+    public override fun createFragmentNavigator(): Navigator<out FragmentNavigator.Destination> {
         return CustomNavigator(
             requireContext(),
             childFragmentManager,
@@ -27,7 +27,7 @@ class CustomNavHostFragment : NavHostFragment() {
     //参考相关链接
     // https://stackoverflow.com/questions/50485988/is-there-a-way-to-keep-fragment-alive-when-using-bottomnavigationview-with-new-n/51684125
     // https://www.jianshu.com/p/ebd2f6d7a349
-    @Navigator.Name("fragment")
+    @Navigator.Name("tab_fragment")
     open class CustomNavigator(private var mContext: Context, private var mFragmentManager: FragmentManager, private var mContainerId: Int) :
         FragmentNavigator(mContext, mFragmentManager, mContainerId) {
 
@@ -43,9 +43,9 @@ class CustomNavHostFragment : NavHostFragment() {
                 @Suppress("UNCHECKED_CAST")
                 val mBackStack: ArrayDeque<Int> = mBackStackField.get(this) as ArrayDeque<Int>
 
-                val mIsPendingBackStackOperationField =
-                    FragmentNavigator::class.java.getDeclaredField("mIsPendingBackStackOperation")
-                mIsPendingBackStackOperationField.isAccessible = true
+//                val mIsPendingBackStackOperationField =
+//                    FragmentNavigator::class.java.getDeclaredField("mIsPendingBackStackOperation")
+//                mIsPendingBackStackOperationField.isAccessible = true
 
                 if (mFragmentManager.isStateSaved) {
                     //Log.i("TAG", "Ignoring navigate() call: FragmentManager has already" + " saved its state")
@@ -113,13 +113,13 @@ class CustomNavHostFragment : NavHostFragment() {
                                 FragmentManager.POP_BACK_STACK_INCLUSIVE
                             )
                             ft.addToBackStack(generateMyBackStackName(mBackStack.size, destId))
-                            mIsPendingBackStackOperationField.set(this, true)
+//                            mIsPendingBackStackOperationField.set(this, true)
                         }
                         false
                     }
                     else -> {
                         ft.addToBackStack(generateMyBackStackName(mBackStack.size + 1, destId))
-                        mIsPendingBackStackOperationField.set(this, true)
+//                        mIsPendingBackStackOperationField.set(this, true)
                         true
                     }
                 }
@@ -149,3 +149,4 @@ class CustomNavHostFragment : NavHostFragment() {
         }
     }
 }
+
