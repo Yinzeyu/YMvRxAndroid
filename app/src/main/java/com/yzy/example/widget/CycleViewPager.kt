@@ -126,6 +126,7 @@ class CycleViewPager @JvmOverloads constructor(
                 adapter.registerAdapterDataObserver(mAdapterDataObserver)
                 mViewPager2?.adapter = adapter
                 setCurrentItem(1, false)
+                mViewPager2?.offscreenPageLimit = listSize
                 initIndicator()
                 return
             }
@@ -183,11 +184,11 @@ class CycleViewPager @JvmOverloads constructor(
         }
 
 
-    var offscreenPageLimit: Int
-        get() = (mViewPager2?.offscreenPageLimit ?: 0)
-        set(value) {
-            mViewPager2?.offscreenPageLimit = value
-        }
+//    var offscreenPageLimit: Int
+//        get() = (mViewPager2?.offscreenPageLimit ?: 0)
+//        set(value) {
+//            mViewPager2?.offscreenPageLimit = value
+//        }
 
     var orientation: Int
         get() = (mViewPager2?.orientation ?: 0)

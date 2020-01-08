@@ -45,10 +45,9 @@ abstract class BannerItem : BaseEpoxyModel<BaseEpoxyHolder>() {
             dotsIndicator.setRightMargin(0)
             dotsIndicator.setDirection( DotsIndicator.Direction.CENTER)
             val cycleViewPager2Helper = CycleViewPager2Helper(itemBanner)
+            cycleViewPager2Helper .listSize=data.size
             cycleViewPager2Helper.adapter= BannerPagerAdapter((itemView.context as BaseActivity), data)
             cycleViewPager2Helper .addPageTransformer( CompositePageTransformer())
-            cycleViewPager2Helper .listSize=data.size
-            cycleViewPager2Helper.offscreenPageLimit=data.size
             cycleViewPager2Helper.addindicator(dotsIndicator)
             cycleViewPager2Helper.autoTurningTime=3000L
 

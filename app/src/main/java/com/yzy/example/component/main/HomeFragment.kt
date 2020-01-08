@@ -69,12 +69,12 @@ class HomeFragment : CommFragment() {
         //有数据
         if (!state.bannerBean.isNullOrEmpty() || !state.articleBean.isNullOrEmpty()) {
             //处理Banner'
-//            if (!state.bannerBean.isNullOrEmpty()) {
-//                bannerItem {
-//                    id("home_banner_${state.bannerBean.hashCode() + state.bannerBean.size}")
-//                    dataList(state.bannerBean)
-//                }
-//            }
+            if (!state.bannerBean.isNullOrEmpty()) {
+                bannerItem {
+                    id("home_banner_${state.bannerBean.hashCode() + state.bannerBean.size}")
+                    dataList(state.bannerBean)
+                }
+            }
             //处理文章列表
             if (!state.articleBean.isNullOrEmpty()) {
                 state.articleBean.forEachIndexed { _, articleBean ->
