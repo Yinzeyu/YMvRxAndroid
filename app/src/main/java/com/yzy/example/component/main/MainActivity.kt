@@ -1,17 +1,11 @@
 package com.yzy.example.component.main
 
 import android.content.Context
-import android.content.Intent
-import androidx.annotation.IntRange
 import com.blankj.utilcode.util.ActivityUtils
-import com.blankj.utilcode.util.FragmentUtils
-import com.gyf.immersionbar.ktx.immersionBar
 import com.yzy.baselibrary.extention.startActivity
 import com.yzy.baselibrary.extention.toast
 import com.yzy.example.R
 import com.yzy.example.component.comm.CommActivity
-import com.yzy.example.component.comm.CommFragment
-import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : CommActivity() {
 
@@ -21,11 +15,10 @@ class MainActivity : CommActivity() {
             context.startActivity<MainActivity>()
         }
     }
-    override fun initStatus() {
-        immersionBar { statusBarDarkFont(true) }
-    }
+    //不设置状态栏填充，即显示全屏
     override fun layoutResId(): Int = R.layout.activity_main
     override fun initView() {
+
     }
     override fun initData() {
         //关闭其他所有页面
