@@ -36,7 +36,7 @@ class SplashActivity : BaseActivity() {
     override fun initView() {
         iv_sp.load("http://pic1.win4000.com/pic/7/0f/2cab03e09e.jpg")
         launch(Dispatchers.Main) {
-            for (i in 10 downTo 1) {
+            for (i in 5 downTo 1) {
                 splashTime.text = String.format("%d", i)
                 delay(1000)
             }

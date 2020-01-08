@@ -23,5 +23,7 @@
     <string name="imui_voice_cancel">松开手指，取消发送</string>
     <string name="imui_voice_rec">手指上滑，取消发送</string>
     <string name="imui_voice_short">录音时间太短</string>
-
+    <string name="info_about">关于</string>
+    <string name="about_us">关于我们</string>
+    <string name="statement">一些说明</string>
 </resources>

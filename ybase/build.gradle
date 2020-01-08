@@ -37,6 +37,10 @@ dependencies {
     api rootProject.ext.dependencies.appcompat_v7
     api rootProject.ext.dependencies.core_ktx
     api rootProject.ext.dependencies.constraintLayout
+    api rootProject.ext.dependencies.navigation_fragment_ktx
+    api rootProject.ext.dependencies.navigation_ui_ktx
+    api rootProject.ext.dependencies.fragment
+    api rootProject.ext.dependencies.fragment_ktx
     api rootProject.ext.dependencies.utilcode
     api rootProject.ext.dependencies.okhttp3
     api rootProject.ext.dependencies.okhttp3_log
@@ -52,6 +56,7 @@ dependencies {
     api rootProject.ext.dependencies.coroutines_android
     api rootProject.ext.dependencies.lifecycle_viewmodel_ktx
     api rootProject.ext.dependencies.lifecycle_livedata_ktx
+    api rootProject.ext.dependencies.lifecycle_extensions
     api rootProject.ext.dependencies.immersionbar
     api rootProject.ext.dependencies.immersionbar_ktx
 }

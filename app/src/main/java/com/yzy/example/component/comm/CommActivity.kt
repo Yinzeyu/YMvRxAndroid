@@ -21,17 +21,10 @@ abstract class CommActivity : BaseActivity() {
     //lottie的加载动画
     lateinit var loadingView: LottieAnimationView
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        //清理奔溃前的fragment
-        for (fragment in supportFragmentManager.fragments) {
-            supportFragmentManager.beginTransaction()
-                    .remove(fragment)
-                    .commitAllowingStateLoss()
-        }
+    override fun onCreateBefore() {
+        super.onCreateBefore()
         initLottie()
-        super.onCreate(savedInstanceState)
     }
-
     //#################################镶嵌在页面中的loading->Start#################################//
     //初始化loading
     private fun initLottie() {

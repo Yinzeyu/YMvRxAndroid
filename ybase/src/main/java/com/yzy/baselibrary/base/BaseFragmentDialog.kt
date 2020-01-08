@@ -94,7 +94,7 @@ abstract class BaseFragmentDialog : DialogFragment() , CoroutineScope by MainSco
             val field = DialogFragment::class.java.getDeclaredField(fieldName)
             field.isAccessible = true
             field.set(this, value)
-        } catch (e: NoSuchFieldException) {
+        } catch (e: Exception) {
             e.printStackTrace()
         } catch (e: IllegalAccessException) {
             e.printStackTrace()

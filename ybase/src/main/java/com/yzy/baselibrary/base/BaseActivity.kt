@@ -2,6 +2,8 @@ package com.yzy.baselibrary.base
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
 import com.gyf.immersionbar.ImmersionBar
 import com.gyf.immersionbar.ktx.immersionBar
 import com.yzy.baselibrary.toast.YToast
@@ -13,36 +15,28 @@ abstract class BaseActivity : AppCompatActivity(), CoroutineScope by MainScope()
     override fun onCreate(savedInstanceState: Bundle?) {
         this.onCreateBefore()
         this.initStatus()
-        initBeforeCreateView(savedInstanceState)
         super.onCreate(savedInstanceState)
         setContentView(layoutResId())
         initView()
         initData()
     }
-
+    /** 获取 ViewModel */
+    fun <T : ViewModel> getViewModel(clazz: Class<T>): T = ViewModelProvider(this, ViewModelProvider.NewInstanceFactory()).get(clazz)
     /**
      * 页面内容布局resId
      */
     protected abstract fun layoutResId(): Int
-
-
     abstract fun initView()
     abstract fun initData()
-    /**
-     * 需要在onCreateView中调用的方法
-     */
-    protected open fun initBeforeCreateView(savedInstanceState: Bundle?) {
 
-    }
-
-    /** 适配状态栏  */
+//    /** 适配状态栏  */
     protected open fun initStatus() {
-        immersionBar {
-            transparentStatusBar()
-            statusBarDarkFont(true)
-            fitsSystemWindows(true)
-            statusImmersionBar(this)
-        }
+//        immersionBar {
+//            transparentStatusBar()
+//            statusBarDarkFont(true)
+//            fitsSystemWindows(true)
+//            statusImmersionBar(this)
+//        }
     }
 
     protected open fun statusImmersionBar(immersionBar: ImmersionBar) {

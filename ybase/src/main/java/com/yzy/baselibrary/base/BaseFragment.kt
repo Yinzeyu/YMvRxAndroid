@@ -8,6 +8,10 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.FrameLayout
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.NavController
+import androidx.navigation.fragment.NavHostFragment
 import com.yzy.baselibrary.extention.removeParent
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.MainScope
@@ -20,12 +24,8 @@ import kotlinx.coroutines.MainScope
 abstract class BaseFragment : Fragment(), CoroutineScope by MainScope() {
     //页面基础信息
     lateinit var mContext: Activity
-    private var isFragmentVisible = true
-    private var isPrepared = false
-    private var isFirst = true
-    private var isInViewPager = false
     protected var rootView: FrameLayout? = null
-
+    lateinit var mNavController: NavController
     override fun onAttach(context: Context) {
         super.onAttach(context)
         mContext = context as Activity
@@ -36,10 +36,11 @@ abstract class BaseFragment : Fragment(), CoroutineScope by MainScope() {
     protected abstract val contentLayout: Int
 
     override fun onCreateView(
-            inflater: LayoutInflater, container: ViewGroup?,
-            savedInstanceState: Bundle?
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
     ): View? {
-        initBeforeCreateView(savedInstanceState)
+        retainInstance = true
+        mNavController = NavHostFragment.findNavController(this)
         //第一次的时候加载xml
         if (contentLayout > 0 && rootView == null) {
             val contentView = inflater.inflate(contentLayout, null)
@@ -61,38 +62,8 @@ abstract class BaseFragment : Fragment(), CoroutineScope by MainScope() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initView(view)
-        isPrepared = true
-        lazyLoad()
-    }
-
-    /**
-     * 视图真正可见的时候才调用
-     */
-    override fun setUserVisibleHint(isVisibleToUser: Boolean) {
-        super.setUserVisibleHint(isVisibleToUser)
-        isFragmentVisible = isVisibleToUser
-        isInViewPager = true
-        lazyLoad()
-    }
-
-    //懒加载
-    private fun lazyLoad() {
-        if (!isInViewPager) {
-            isFirst = false
-            initData()
-            return
-        }
-        if (!isPrepared || !isFragmentVisible || !isFirst) {
-            return
-        }
-        isFirst = false
         initData()
     }
-
-
-    //初始化前的处理
-    protected open fun initBeforeCreateView(savedInstanceState: Bundle?) {}
-
 
     /**
      * 初始化View
@@ -103,4 +74,7 @@ abstract class BaseFragment : Fragment(), CoroutineScope by MainScope() {
      * 初始化数据
      */
     protected abstract fun initData()
+
+    fun <T : ViewModel> getViewModel(clazz: Class<T>): T =
+        ViewModelProvider(requireActivity(), ViewModelProvider.NewInstanceFactory()).get(clazz)
 }

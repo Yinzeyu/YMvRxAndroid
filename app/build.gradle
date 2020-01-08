@@ -114,23 +114,15 @@ dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation rootProject.ext.dependencies.kotlin_jdk
     kapt rootProject.ext.dependencies.epoxyProcessor
-//    implementation 'com.yzy:social:2.0.2'
     implementation project(":ybase")
     api 'cn.rongcloud.sdk:im_lib:2.9.18'
-//    implementation 'com.yzy:ybase:1.1.0'
     kapt rootProject.ext.dependencies.glide_compiler
     implementation rootProject.ext.dependencies.bugly
     implementation rootProject.ext.dependencies.bugly_native
     implementation rootProject.ext.dependencies.smart
     implementation rootProject.ext.dependencies.viewpager2
     implementation rootProject.ext.dependencies.lottie
-    implementation rootProject.ext.dependencies.rxpermission
-//    implementation rootProject.ext.dependencies.mmkv
     implementation rootProject.ext.dependencies.live_event_bus
-//    implementation rootProject.ext.dependencies.fragment_ktx
-//    implementation rootProject.ext.dependencies.objectBox_RxJava
-//    implementation rootProject.ext.dependencies.objectBox_Kotlin
-//    implementation 'me.devilsen:CZXing:0.9.8'
     //web https://github.com/Justson/AgentWeb
     implementation 'com.just.agentweb:agentweb:4.1.2'
 }

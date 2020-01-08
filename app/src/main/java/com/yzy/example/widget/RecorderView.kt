@@ -1,6 +1,5 @@
 package com.yzy.example.widget
 
-import android.Manifest
 import android.annotation.SuppressLint
 import android.content.Context
 import android.graphics.*
@@ -8,9 +7,6 @@ import android.net.Uri
 import android.util.AttributeSet
 import android.view.MotionEvent
 import android.view.View
-import com.blankj.utilcode.util.LogUtils
-import com.tbruyelle.rxpermissions2.RxPermissions
-import com.yzy.baselibrary.base.BaseActivity
 import com.yzy.example.R
 import com.yzy.example.utils.MediaHelper
 import com.yzy.example.utils.PermissionUtils
