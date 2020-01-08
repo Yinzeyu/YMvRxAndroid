@@ -12,5 +12,4 @@
         android:orientation="vertical"
         app:defaultNavHost="true"
         app:navGraph="@navigation/wan_navigation" />
-
 </FrameLayout>

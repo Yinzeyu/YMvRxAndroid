@@ -60,6 +60,7 @@ abstract class BaseFragment : Fragment(), CoroutineScope by MainScope() {
             //防止重新create时还存在
             rootView?.removeParent()
         }
+        rootView?.fitsSystemWindows = fillStatus()
         return rootView
     }
 
