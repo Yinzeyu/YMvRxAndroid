@@ -36,8 +36,7 @@ import android.widget.OverScroller;
  * It is made public in case you need to subclass something other than AppCompatImageView and still
  * gain the functionality that {@link PhotoView} offers
  */
-public class PhotoViewAttacher implements View.OnTouchListener,
-        View.OnLayoutChangeListener {
+public class PhotoViewAttacher implements View.OnTouchListener, View.OnLayoutChangeListener {
 
     private static float DEFAULT_MAX_SCALE = 3.0f;
     private static float DEFAULT_MID_SCALE = 1.75f;
@@ -342,8 +341,8 @@ public class PhotoViewAttacher implements View.OnTouchListener,
     @Override
     public boolean onTouch(View v, MotionEvent ev) {
         boolean handled = false;
-
-        if (mZoomEnabled && Util.hasDrawable((ImageView) v)) {
+        ImageView imageView =(ImageView) v;
+        if (mZoomEnabled && imageView.getDrawable() != null ) {
             switch (ev.getAction()) {
                 case MotionEvent.ACTION_DOWN:
                     ViewParent parent = v.getParent();
@@ -408,27 +407,35 @@ public class PhotoViewAttacher implements View.OnTouchListener,
     }
 
     public void setMinimumScale(float minimumScale) {
-        Util.checkZoomLevels(minimumScale, mMidScale, mMaxScale);
+        checkZoomLevels(minimumScale, mMidScale, mMaxScale);
         mMinScale = minimumScale;
     }
 
     public void setMediumScale(float mediumScale) {
-        Util.checkZoomLevels(mMinScale, mediumScale, mMaxScale);
+       checkZoomLevels(mMinScale, mediumScale, mMaxScale);
         mMidScale = mediumScale;
     }
 
     public void setMaximumScale(float maximumScale) {
-        Util.checkZoomLevels(mMinScale, mMidScale, maximumScale);
+        checkZoomLevels(mMinScale, mMidScale, maximumScale);
         mMaxScale = maximumScale;
     }
 
     public void setScaleLevels(float minimumScale, float mediumScale, float maximumScale) {
-        Util.checkZoomLevels(minimumScale, mediumScale, maximumScale);
+      checkZoomLevels(minimumScale, mediumScale, maximumScale);
         mMinScale = minimumScale;
         mMidScale = mediumScale;
         mMaxScale = maximumScale;
     }
-
+  private void checkZoomLevels(float minZoom, float midZoom,
+                         float maxZoom) {
+        if (minZoom >= midZoom) {
+            throw new IllegalArgumentException("Minimum zoom has to be less than Medium zoom. Call setMinimumZoom() with a more appropriate value");
+        } else if (midZoom >= maxZoom) {
+            throw new IllegalArgumentException(
+                    "Medium zoom has to be less than Maximum zoom. Call setMaximumZoom() with a more appropriate value");
+        }
+    }
     public void setOnLongClickListener(OnLongClickListener listener) {
         mLongClickListener = listener;
     }
@@ -494,7 +501,8 @@ public class PhotoViewAttacher implements View.OnTouchListener,
     }
 
     public void setScaleType(ScaleType scaleType) {
-        if (Util.isSupportedScaleType(scaleType) && scaleType != mScaleType) {
+        if (scaleType == ImageView.ScaleType.MATRIX) throw new IllegalStateException("Matrix scale type is not supported");
+        if (scaleType != mScaleType) {
             mScaleType = scaleType;
             update();
         }
@@ -777,7 +785,7 @@ public class PhotoViewAttacher implements View.OnTouchListener,
 
             // We haven't hit our target scale yet, so post ourselves again
             if (t < 1f) {
-                Compat.postOnAnimation(mImageView, this);
+                mImageView.postDelayed(this, 1000 / 60);
             }
         }
 
@@ -853,9 +861,7 @@ public class PhotoViewAttacher implements View.OnTouchListener,
 
                 mCurrentX = newX;
                 mCurrentY = newY;
-
-                // Post On animation
-                Compat.postOnAnimation(mImageView, this);
+                mImageView.postDelayed(this, 1000 / 60);
             }
         }
     }

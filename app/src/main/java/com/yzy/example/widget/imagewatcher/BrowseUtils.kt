@@ -3,12 +3,16 @@ package com.yzy.example.widget.imagewatcher
 import android.content.Context
 import android.view.View
 import android.widget.ImageView
+import androidx.fragment.app.FragmentActivity
 import com.yzy.example.R
+import com.yzy.example.widget.imagewatcher.listeners.OnClickListener
+import com.yzy.example.widget.imagewatcher.listeners.OnLongClickListener
+import com.yzy.example.widget.imagewatcher.listeners.OnPageChangeListener
 import com.yzy.example.widget.imagewatcher.model.ImageBrowserConfig
 
 /**
  * Description:
- * @author: caiyoufei
+ * @author: yzy
  * @date: 19-5-9 下午2:45
  */
 class BrowseUtils private constructor() {
@@ -22,8 +26,8 @@ class BrowseUtils private constructor() {
 
     fun showNineImage(
       context: Context,
-      transformType: ImageBrowserConfig.TransformType? = ImageBrowserConfig.TransformType.Transform_Default,
-      indicatorType: ImageBrowserConfig.IndicatorType? = ImageBrowserConfig.IndicatorType.Indicator_Circle,
+      transformType: ImageBrowserConfig.TransformType= ImageBrowserConfig.TransformType.Transform_Default,
+      indicatorType: ImageBrowserConfig.IndicatorType = ImageBrowserConfig.IndicatorType.Indicator_Circle,
       indicatorHide: Boolean? = false,
       customView: View? = null,
       showCustomProgressView: Int? = 0,
@@ -50,23 +54,24 @@ class BrowseUtils private constructor() {
             .setCustomProgressViewLayoutID(showCustomProgressView?:0)
             //当前位置
             .setCurrentPosition(position)
-            //图片引擎
-            .setImageEngine(GlideImageEngine())
             //图片集合
             .setImageList(sourceImageList)
             //方向设置
             .setScreenOrientationType(screenOrientationType)
-          //点击监听
-          .setOnClickListener { activity, view, pos, url ->
+            .setOnClickListener(object :OnClickListener{
+                override fun onClick(activity: FragmentActivity, view: ImageView, position: Int, url: String) {
+                }
+            })
+            .setOnLongClickListener(object :OnLongClickListener{
+                override fun onLongClick(activity: FragmentActivity, view: ImageView, position: Int, url: String) {
+                }
+            })
+            .setOnPageChangeListener(object :OnPageChangeListener{
+                override fun onPageSelected(position: Int) {
+                    pageChange?.invoke(position)
 
-          }
-          //长按监听
-          .setOnLongClickListener { activity, view, pos, url ->
-
-          }
-          .setOnPageChangeListener {
-            pageChange?.invoke(it)
-          }
+                }
+            })
             //全屏模式
             .setFullScreenMode(isFulScreenMode)
             //打开动画
