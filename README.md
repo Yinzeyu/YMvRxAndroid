@@ -29,6 +29,12 @@
 </div>
 
 ## 更新日志
+##  2019/1/9
+##### 增加图片显示库（后期改成kt的，在优化一下）
+##### 更新部分三方库
+##### 增加fragment使用FragmentContainerView 单一activity实现app应用
+##### 解决FragmentContainerView 返回之后fragment 重复创建问题
+##### 去掉MMKV因为用到地方不是很多，就有点浪费资源
 
 ##  2019/12/25
 ##### 去掉rxjava相关库

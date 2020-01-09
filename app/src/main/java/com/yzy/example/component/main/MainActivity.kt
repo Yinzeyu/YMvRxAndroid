@@ -10,7 +10,6 @@ import com.yzy.example.component.comm.CommActivity
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : CommActivity() {
-    var hasNineImgOrVideo = false
 
     companion object {
         fun starMainActivity(context: Context) {
