@@ -13,6 +13,7 @@ import com.yzy.baselibrary.extention.pressEffectBgColor
 import com.yzy.example.R
 import com.yzy.example.repository.bean.GankAndroidBean
 import com.yzy.example.repository.bean.PicBean
+import com.yzy.example.widget.imagewatcher.BrowseUtils
 import com.yzy.example.widget.ninegridview.ItemClickListener
 import com.yzy.example.widget.ninegridview.NineGridAdapter
 import com.yzy.example.widget.ninegridview.NineGridView
@@ -41,7 +42,7 @@ abstract class GankAndroidItem : BaseEpoxyModel<BaseEpoxyHolder>() {
             //内容
             itemView.itemGankAndroidDes.text = it.desc
             //图片
-      itemView.itemGankAndroidNine.isVisible=!it.images.isNullOrEmpty()
+            itemView.itemGankAndroidNine.isVisible = !it.images.isNullOrEmpty()
             if (!it.images.isNullOrEmpty()) {
                 //多张图片，九宫格
                 val nieView: NineGridView<PicBean> = itemView.findViewById(R.id.itemGankAndroidNine)
@@ -55,40 +56,24 @@ abstract class GankAndroidItem : BaseEpoxyModel<BaseEpoxyHolder>() {
         itemView.pressEffectBgColor()
     }
 
-  private fun setMultiImages(
-      picStr: MutableList<String?>,
-      picBeans: MutableList<PicBean>,
-      nineGridView: NineGridView<PicBean>
-  ) {
-    nineGridView.mAdapter=NineGridAdapter()
-    nineGridView.setImagesData(picBeans)
-    nineGridView.mItemClickListener =object :ItemClickListener<PicBean>{
-        override fun onItemClick(
-            context: Context,
-            imageView: ImageView,
-            index: Int,
-            list: List<PicBean>
-        ) {
-            val count = nineGridView.childCount
-            val views = mutableListOf<ImageView>()
-            for (i in 0 until count) {
-                views.add(nineGridView.getChildAt(i) as ImageView)
+    private fun setMultiImages(
+        picStr: MutableList<String?>,
+        picBeans: MutableList<PicBean>,
+        nineGridView: NineGridView<PicBean>
+    ) {
+        nineGridView.mAdapter = NineGridAdapter()
+        nineGridView.setImagesData(picBeans)
+        nineGridView.mItemClickListener = object : ItemClickListener<PicBean> {
+            override fun onItemClick(context: Context, imageView: ImageView, index: Int, list: List<PicBean>) {
+                val arrList=ArrayList<String>()
+                picStr.forEach {
+                    arrList.add(it?:"")
+                }
+                BrowseUtils.instance.showNineImage(context = context,position=index,imageView=imageView,sourceImageList=arrList)
             }
-        }
 
+        }
     }
-//
-//      { _, imageView, index, list ->
-//      val count = nineGridView.childCount
-//      val views = mutableListOf<ImageView>()
-//      for (i in 0 until count) {
-//        views.add(nineGridView.getChildAt(i) as ImageView)
-//      }
-//      //多图预览
-////      PreviewImgUtils.instance.instancestartPreview(nineGridView.context as Activity, list, views, index)
-//    }
-//  }
-}
 
 
 }

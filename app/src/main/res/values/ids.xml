@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <item name="image_orientation" type="id" />
+  <item name="state_origin" type="id" />
+  <item name="state_default" type="id" />
+  <item name="state_current" type="id" />
+  <item name="state_thumb" type="id" />
+  <item name="state_temp" type="id" />
+  <item name="state_exit" type="id" />
+  <item name="state_touch_drag" type="id" />
+  <item name="state_touch_scale" type="id" />
+  <item name="view_image_watcher" type="id" />
+  <item name="mn_ib_status_bar_view" type="id" />
+  <item name="mn_ib_navigation_bar_view" type="id" />
+  <item name="mn_ib_fits_layout_overlap" type="id" />
+  <item name="action_bar_container" type="id" />
+
+</resources>

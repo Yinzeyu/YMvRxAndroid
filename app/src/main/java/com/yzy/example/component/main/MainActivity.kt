@@ -10,7 +10,7 @@ import com.yzy.example.component.comm.CommActivity
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : CommActivity() {
-
+    var hasNineImgOrVideo = false
 
     companion object {
         fun starMainActivity(context: Context) {
@@ -33,20 +33,20 @@ class MainActivity : CommActivity() {
     private var touchTime = 0L
     private val waitTime = 2000L
     override fun onBackPressed() {
-        supportFragmentManager.fragments.first().childFragmentManager.fragments.last().let {
-            if (it is MainFragment) {
-                val currentTime = System.currentTimeMillis()
-                if (currentTime - touchTime >= waitTime) {
-                    //让Toast的显示时间和等待时间相同
-                    toast(R.string.double_exit)
-                    touchTime = currentTime
+            supportFragmentManager.fragments.first().childFragmentManager.fragments.last().let {
+                if (it is MainFragment) {
+                    val currentTime = System.currentTimeMillis()
+                    if (currentTime - touchTime >= waitTime) {
+                        //让Toast的显示时间和等待时间相同
+                        toast(R.string.double_exit)
+                        touchTime = currentTime
+                    } else {
+                        super.onBackPressed()
+                    }
+                    return
                 } else {
-                    super.onBackPressed()
+                    Navigation.findNavController(nav_fragment).navigateUp()
                 }
-                return
-            } else {
-                Navigation.findNavController(nav_fragment).navigateUp()
             }
         }
-    }
 }

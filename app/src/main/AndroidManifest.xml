@@ -92,9 +92,24 @@
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustResize|stateAlwaysHidden"/>
 
+        <activity
+            android:name=".widget.imagewatcher.MNImageBrowserActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:launchMode="singleTop"
+            android:screenOrientation="sensor"
+            android:theme="@style/ImageBrowserTheme" />
+
         <meta-data
             android:name="android.max_aspect"
             android:value="2.4" />
+        <!-- 适配华为(hua wei)刘海屏 -->
+        <meta-data
+            android:name="android.notch_support"
+            android:value="true" />
+        <!-- 适配小米(xiao mi)刘海屏 -->
+        <meta-data
+            android:name="notch.config"
+            android:value="portrait|landscape" />
 
         <!--设计稿的尺寸用于适配框架-->
         <meta-data

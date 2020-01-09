@@ -247,4 +247,6 @@
     <color name="c_fff3f3f3">#FFF3F3F3</color>
 
     <color name="c_ff54d25d">#FF54D25D</color>
+    <color name="mn_ib_black">#000000</color>
+    <color name="mn_ib_trans">#00000000</color>
 </resources>
