@@ -1,22 +1,14 @@
 package com.yzy.baselibrary.extention
 
 import android.app.Activity
-import android.content.ClipboardManager
 import android.content.Context
 import android.graphics.drawable.Drawable
-import android.net.ConnectivityManager
-import android.net.Uri
-import android.util.DisplayMetrics
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.WindowManager
-import android.view.inputmethod.InputMethodManager
 import android.widget.FrameLayout
 import android.widget.Toast
-import androidx.annotation.ColorRes
 import androidx.core.content.ContextCompat
-import com.yzy.baselibrary.BuildConfig
 import com.yzy.baselibrary.toast.YToast
 
 /**
@@ -25,9 +17,6 @@ import com.yzy.baselibrary.toast.YToast
  *@author: yzy.
  */
 
-fun Context.getVersionCode(): Int = BuildConfig.VERSION_CODE
-
-fun Context.getVersionName(): String = BuildConfig.VERSION_NAME
 
 fun Context.getResColor(resId: Int): Int = ContextCompat.getColor(this, resId)
 

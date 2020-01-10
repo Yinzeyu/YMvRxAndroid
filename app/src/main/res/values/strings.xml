@@ -26,4 +26,5 @@
     <string name="info_about">关于</string>
     <string name="about_us">关于我们</string>
     <string name="statement">一些说明</string>
+    <string name="chat_send">发送</string>
 </resources>

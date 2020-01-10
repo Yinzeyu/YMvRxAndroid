@@ -2,6 +2,8 @@ package com.yzy.example.app
 
 import com.jeremyliao.liveeventbus.LiveEventBus
 import com.scwang.smart.refresh.layout.SmartRefreshLayout
+import com.vanniktech.emoji.EmojiManager
+import com.vanniktech.emoji.ios.IosEmojiProvider
 import com.yzy.baselibrary.app.BaseApplication
 import com.yzy.baselibrary.http.RetrofitConfig
 import com.yzy.example.R
@@ -28,6 +30,8 @@ class App : BaseApplication() {
         }
         //初始化存储文件的目录
         AppFileDirManager.initAppFile(this@App)
+        //表情
+        EmojiManager.install(IosEmojiProvider())
 //        initSticker(this)
     }
 

@@ -13,11 +13,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
-import androidx.navigation.ui.NavigationUI
-import com.yzy.baselibrary.R
-import com.yzy.baselibrary.extention.inflate
 import com.yzy.baselibrary.extention.removeParent
-import kotlinx.android.synthetic.main.base_fragment.view.*
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.cancel
@@ -45,6 +41,7 @@ abstract class BaseFragment : Fragment(), CoroutineScope by MainScope() {
         retainInstance = true
         Log.e("fragment",this.javaClass.name)
         mNavController = NavHostFragment.findNavController(this)
+
         //第一次的时候加载xml
         if (contentLayout > 0 && rootView == null) {
                 val contentView = inflater.inflate(contentLayout, null)
@@ -57,10 +54,10 @@ abstract class BaseFragment : Fragment(), CoroutineScope by MainScope() {
                     rootView?.addView(contentView, ViewGroup.LayoutParams(-1, -1))
                 }
         } else {
+            Log.e("fragment_removeParent",this.javaClass.name)
             //防止重新create时还存在
             rootView?.removeParent()
         }
-        rootView?.fitsSystemWindows = fillStatus()
         return rootView
     }
 
@@ -68,10 +65,6 @@ abstract class BaseFragment : Fragment(), CoroutineScope by MainScope() {
         super.onViewCreated(view, savedInstanceState)
         initView(view)
         initData()
-    }
-    //是否需要默认填充状态栏,默认填充为白色view
-    protected open fun fillStatus(): Boolean {
-        return true
     }
     /**
      * 初始化View

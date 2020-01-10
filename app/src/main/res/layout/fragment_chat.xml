@@ -24,8 +24,64 @@
             android:scrollbars="none" />
 
     </LinearLayout>
-    <com.yzy.example.imModel.ConversationInputPanel
-        android:id="@+id/inputPanel"
+    <LinearLayout
+        android:id="@+id/chatInputLayout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:orientation="horizontal"
+        >
+
+        <ImageView
+            android:id="@+id/chatKeyEmoji"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_gravity="bottom"
+            android:contentDescription="@null"
+            android:padding="10dp"
+            android:src="@drawable/svg_emoji"
+            />
+
+        <com.vanniktech.emoji.EmojiEditText
+            android:id="@+id/chatEdit"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:layout_weight="1"
+            android:background="@drawable/shape_stroken1_corners8_gray"
+            android:gravity="center_vertical"
+            android:imeOptions="actionSend"
+            android:inputType="textCapSentences|textMultiLine"
+            android:lineSpacingMultiplier="1.2"
+            android:maxLines="5"
+            android:minHeight="30dp"
+            android:padding="5dp"
+            android:textColor="@color/black"
+            android:textSize="14sp"
+            tools:text="12"
+            />
+
+        <ImageView
+            android:id="@+id/chatSend"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_gravity="bottom"
+            android:contentDescription="@null"
+            android:padding="10dp"
+            android:src="@drawable/svg_send"
+            android:text="@string/chat_send"
+            />
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:background="@color/gray_CCCCCC"
+        />
+<!--    <com.yzy.example.imModel.ConversationInputPanel-->
+<!--        android:id="@+id/inputPanel"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content" />-->
 </LinearLayout>
