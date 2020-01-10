@@ -1,71 +1,57 @@
 package com.yzy.example.component.message
 
-import android.content.Context
-import android.content.Intent
 import android.graphics.Color
+import android.os.Bundle
 import android.text.Editable
 import android.util.Log
 import android.view.View
+import androidx.annotation.IdRes
+import androidx.navigation.NavController
 import com.blankj.utilcode.util.PermissionUtils
 import com.blankj.utilcode.util.SizeUtils
 import com.yzy.baselibrary.extention.*
 import com.yzy.example.R
-import com.yzy.example.component.comm.CommTitleActivity
+import com.yzy.example.component.comm.CommFragment
 import com.yzy.example.component.dialog.AlertDialogType
 import com.yzy.example.component.dialog.commAlertDialog
+import com.yzy.example.component.main.MainActivity
 import com.yzy.example.imModel.ConversationExtManager
 import com.yzy.example.imModel.ConversationInputPanel
 import com.yzy.example.imModel.audio.MMAudioRecorderPanel
 import com.yzy.example.imModel.audio.OnRecordListener
 import com.yzy.example.imModel.audio.RecordState
 import com.yzy.example.imModel.emoji.IEmotionExtClickListener
-import kotlinx.android.synthetic.main.activity_chat.*
+import kotlinx.android.synthetic.main.fragment_chat.*
 
-class ChatActivity : CommTitleActivity() {
+class ChatFragment: CommFragment() {
 
     companion object {
-        fun startActivity(context: Context) {
-            val intent = Intent(context, ChatActivity::class.java)
-            context.startActivity(intent)
+        fun startChatFragment(controller: NavController, @IdRes id: Int) {
+            controller.navigate(id, Bundle().apply { })
         }
     }
 
-    override fun layoutResContentId(): Int = R.layout.activity_chat
+    override val contentLayout: Int = R.layout.fragment_chat
+    override fun initView(root: View?) {
 
-    override fun initContentView() {
-        initRootView()
         initInputPanel()
         initEmotion()
         initExtension()
     }
 
+
+
     override fun initData() {
     }
 
-    private fun initRootView() {
-//        rootLinearLayout.addOnKeyboardShownListener(object :
-//            KeyboardAwareLinearLayout.OnKeyboardShownListener {
-//            override fun onKeyboardShown() {
-//                inputPanel.onKeyboardShown()
-//                //滚动到最下边
-////        listMove2Bottom()
-//            }
-//        })
-//        rootLinearLayout.addOnKeyboardHiddenListener(object :
-//            KeyboardAwareLinearLayout.OnKeyboardHiddenListener {
-//            override fun onKeyboardHidden() {
-//                inputPanel.onKeyboardHidden()
-//            }
-//        })
-    }
 
     private fun initInputPanel() {
         inputPanel.icEmotion = R.drawable.ic_big_expression
         inputPanel.icExtension = R.drawable.ic_big_dynamic_add_pic
         inputPanel.icKeyboard = R.drawable.ic_big_keyboard
         inputPanel.icVoice = R.drawable.ic_big_voice
-        inputPanel.audioRecorderPanel = MMAudioRecorderPanel(this)
-        inputPanel.attach(this,rootLinearLayout)
+        inputPanel.audioRecorderPanel = MMAudioRecorderPanel(mContext as MainActivity)
+        inputPanel.attach(mContext as MainActivity,rootLinearLayout)
         inputPanel.inputPanelListener = object : ConversationInputPanel.OnInputPanelListener {
             override fun onInputPanelStateChange(isExpanded: Boolean) {
                 if (isExpanded) {
@@ -108,8 +94,8 @@ class ChatActivity : CommTitleActivity() {
             )
             backgroundResource = R.drawable.shape_solid_f3f3f3_8
             hint = "说点什么..."
-            hintTextColor = getResColor(R.color.c_ff999999)
-            textColor = getResColor(R.color.c_ff333333)
+            hintTextColor = mContext.getResColor(R.color.c_ff999999)
+            textColor = mContext.getResColor(R.color.c_ff333333)
             textSize = 14f
             maxLines = 5
             minHeight = SizeUtils.dp2px(33f)
@@ -155,7 +141,7 @@ class ChatActivity : CommTitleActivity() {
 
             override fun onRecordFail(e: Exception) {
                 if (e is MMAudioRecorderPanel.TooShortException) {
-                    toast("说话时间太短！")
+                    mContext.toast("说话时间太短！")
                 }
                 setVoiceNormalStyle()
             }
@@ -197,7 +183,7 @@ class ChatActivity : CommTitleActivity() {
     private fun setVoiceRecodingStyle() {
         inputPanel.setAudioButtonStyle {
             text = "松开发送"
-            textColor = getResColor(R.color.c_ff999999)
+            textColor = mContext.getResColor(R.color.c_ff999999)
             backgroundResource = R.drawable.shape_solid_f3f3f3_8
         }
     }
@@ -205,7 +191,7 @@ class ChatActivity : CommTitleActivity() {
     private fun setVoiceNormalStyle() {
         inputPanel.setAudioButtonStyle {
             text = "按住说话"
-            textColor = getResColor(R.color.white)
+            textColor = mContext.getResColor(R.color.white)
             backgroundResource = R.drawable.shape_solid_54d25d_8
         }
     }
@@ -276,7 +262,7 @@ class ChatActivity : CommTitleActivity() {
     }
 
     fun showAudioRecordPermissionDialog() {
-        supportFragmentManager.let {
+        (mContext as MainActivity).supportFragmentManager.let {
             commAlertDialog(it) {
                 type = AlertDialogType.DOUBLE_BUTTON
                 title = "无法访问麦克风"

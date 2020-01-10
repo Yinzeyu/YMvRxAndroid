@@ -14,7 +14,6 @@ import com.yzy.example.component.comm.item.errorEmptyItem
 import com.yzy.example.component.comm.item.loadMoreItem
 import com.yzy.example.component.main.item.gankAndroidItem
 import com.yzy.example.component.main.model.DynViewModel
-import com.yzy.example.component.web.WebActivity
 import com.yzy.example.component.web.WebsiteDetailFragment
 import com.yzy.example.http.response.ApiException
 import com.yzy.example.http.response.EmptyException

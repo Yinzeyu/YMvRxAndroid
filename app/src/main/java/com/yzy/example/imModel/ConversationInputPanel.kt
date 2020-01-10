@@ -18,7 +18,6 @@ import com.yzy.baselibrary.extention.addListerKeyboard
 import com.yzy.baselibrary.extention.getBottomStatusHeight
 import com.yzy.baselibrary.extention.gone
 import com.yzy.example.R
-import com.yzy.example.component.message.ChatActivity
 import com.yzy.example.imModel.audio.AudioRecorderPanel
 import com.yzy.example.imModel.audio.IAudioRecorderPanel
 import com.yzy.example.imModel.emoji.EmotionLayout
@@ -112,7 +111,7 @@ class ConversationInputPanel @JvmOverloads constructor(
         emotionImageView.setImageResource(icEmotion)
         audioImageView.setImageResource(icVoice)
         extImageView.setImageResource(icExtension)
-        (activity as ChatActivity).addListerKeyboard { keyboardHeight: Int ->
+        activity.addListerKeyboard { keyboardHeight: Int ->
             if (keyboardOpen) {
 
             } else {

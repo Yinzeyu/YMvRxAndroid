@@ -14,7 +14,6 @@ import com.yzy.example.component.comm.item.errorEmptyItem
 import com.yzy.example.component.comm.item.loadMoreItem
 import com.yzy.example.component.main.item.bannerItem
 import com.yzy.example.component.main.item.wanArticleItem
-import com.yzy.example.component.web.WebActivity
 import com.yzy.example.component.web.WebsiteDetailFragment
 import com.yzy.example.http.response.ApiException
 import com.yzy.example.http.response.EmptyException

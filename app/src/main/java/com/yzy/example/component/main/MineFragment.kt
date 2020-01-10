@@ -1,7 +1,5 @@
 package com.yzy.example.component.main
 
-import android.app.Activity
-import android.content.Intent
 import android.view.Gravity
 import android.view.View
 import com.blankj.utilcode.util.ColorUtils
@@ -10,7 +8,7 @@ import com.yzy.baselibrary.base.MvRxEpoxyController
 import com.yzy.example.R
 import com.yzy.example.component.comm.CommFragment
 import com.yzy.example.component.comm.item.dividerItem
-import com.yzy.example.component.message.ChatActivity
+import com.yzy.example.component.message.ChatFragment
 import com.yzy.example.component.message.simpleTextItem
 import kotlinx.android.synthetic.main.fragment_mine.*
 
@@ -22,7 +20,7 @@ class MineFragment: CommFragment(){
         }
     }
     private val menuList = mutableListOf(
-        Pair(StringUtils.getString(R.string.chat_title), ChatActivity::class.java)
+        Pair(StringUtils.getString(R.string.chat_title), ChatFragment::class.java)
 //        Pair(StringUtils.getString(R.string.ffmpeg_title), RxFFmpegActivity::class.java),
 //        Pair(StringUtils.getString(R.string.update_app), CcUpdateService::class.java),
 //        Pair(StringUtils.getString(R.string.title_sticky), StickyActivity::class.java),
@@ -56,8 +54,8 @@ class MineFragment: CommFragment(){
                     gravity(Gravity.CENTER_VERTICAL)
                     onItemClick {
                         val second = pair.second.newInstance()
-                        if (second is Activity) {
-                            mContext.startActivity(Intent(mContext, pair.second))
+                        if (second is ChatFragment) {
+                            ChatFragment.startChatFragment(mNavController,R.id.action_mainFragment_to_chatFragment)
                         }
 
 //                        else if (second is CcUpdateService) {
