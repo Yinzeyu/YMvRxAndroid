@@ -20,16 +20,14 @@ import java.util.*
  */
 internal class RequestManagerRetriever private constructor() : Handler.Callback {
     private val mTag = ImmersionBar::class.java.name
-    private val mHandler: Handler
+    private val mHandler: Handler = Handler(Looper.getMainLooper(), this)
 
     private object Holder {
         val INSTANCE = RequestManagerRetriever()
     }
 
-    private val mPendingFragments: MutableMap<FragmentManager, RequestManagerFragment> =
-        HashMap()
-    private val mPendingSupportFragments: MutableMap<androidx.fragment.app.FragmentManager, SupportRequestManagerFragment> =
-        HashMap()
+    private val mPendingFragments: MutableMap<FragmentManager, RequestManagerFragment> = HashMap()
+    private val mPendingSupportFragments: MutableMap<androidx.fragment.app.FragmentManager, SupportRequestManagerFragment> = HashMap()
 
     operator fun get(activity: Activity): ImmersionBar? {
         checkNotNull(
@@ -37,12 +35,9 @@ internal class RequestManagerRetriever private constructor() : Handler.Callback 
             "activity is null"
         )
         return if (activity is FragmentActivity) {
-            getSupportFragment(
-                activity.supportFragmentManager,
-                mTag + activity.toString()
-            )!![activity]
+            getSupportFragment(activity.supportFragmentManager, mTag + activity.toString())?.get(activity)
         } else {
-            getFragment(activity.fragmentManager, mTag + activity.toString())!![activity]
+            getFragment(activity.fragmentManager, mTag + activity.toString())?.get(activity)
         }
     }
 
@@ -87,18 +82,10 @@ internal class RequestManagerRetriever private constructor() : Handler.Callback 
     }
 
     operator fun get(activity: Activity, dialog: Dialog): ImmersionBar? {
-        checkNotNull(
-            activity,
-            "activity is null"
-        )
-        checkNotNull(
-            dialog,
-            "dialog is null"
-        )
+        checkNotNull(activity, "activity is null")
+        checkNotNull(dialog, "dialog is null")
         return if (activity is FragmentActivity) {
-            getSupportFragment(
-                activity.supportFragmentManager,
-                mTag + dialog.toString()
+            getSupportFragment(activity.supportFragmentManager, mTag + dialog.toString()
             )!![activity, dialog]
         } else {
             getFragment(
@@ -224,8 +211,7 @@ internal class RequestManagerRetriever private constructor() : Handler.Callback 
     companion object {
         private const val ID_REMOVE_FRAGMENT_MANAGER = 1
         private const val ID_REMOVE_SUPPORT_FRAGMENT_MANAGER = 2
-        val instance: RequestManagerRetriever
-            get() = Holder.INSTANCE
+        val instance: RequestManagerRetriever=Holder.INSTANCE
 
         private fun <T> checkNotNull(arg: T?, message: String) {
             if (arg == null) {
@@ -234,7 +220,4 @@ internal class RequestManagerRetriever private constructor() : Handler.Callback 
         }
     }
 
-    init {
-        mHandler = Handler(Looper.getMainLooper(), this)
-    }
 }

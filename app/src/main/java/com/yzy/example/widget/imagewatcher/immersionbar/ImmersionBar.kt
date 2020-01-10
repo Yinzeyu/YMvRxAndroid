@@ -2994,8 +2994,7 @@ class ImmersionBar : ImmersionCallback {
             window.clearFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN)
         }
 
-        private val retriever: RequestManagerRetriever
-            private get() = RequestManagerRetriever.instance
+        private var retriever: RequestManagerRetriever= RequestManagerRetriever.instance
 
         private fun isEmpty(str: String?): Boolean {
             return str == null || str.trim { it <= ' ' }.isEmpty()

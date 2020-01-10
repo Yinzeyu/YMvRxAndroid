@@ -47,11 +47,15 @@ class MNImageBrowserActivity : BaseActivity() {
     }
 
     override fun initView() {
-        ImmersionBar.with(this).navigationBarColor(R.color.mn_ib_black).init()
-        //判断是否全屏模式，隐藏状态栏
-        if (imageBrowserConfig.isFullScreenMode) {
-            ImmersionBar.with(this@MNImageBrowserActivity).hideBar(BarHide.FLAG_HIDE_STATUS_BAR).init()
+        val with = ImmersionBar.with(this)
+        with?.let {
+            it.navigationBarColor(R.color.mn_ib_black).init()
+            //判断是否全屏模式，隐藏状态栏
+            if (imageBrowserConfig.isFullScreenMode) {
+                it.hideBar(BarHide.FLAG_HIDE_STATUS_BAR).init()
+            }
         }
+
         circleIndicator.gone()
         numberIndicator.gone()
         ll_custom_view.gone()
