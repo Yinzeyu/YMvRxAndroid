@@ -482,11 +482,12 @@ fun setMeiZuStatusBarDarkIcon(activity: Activity, darkIcon: Boolean) {
 @TargetApi(Build.VERSION_CODES.KITKAT)
 fun clearPreviousSetting(activity: Activity) {
     val decorView = activity.window.decorView as ViewGroup
-    val fakeStatusBarView: View = decorView.findViewById(FAKE_STATUS_BAR_VIEW_ID)
-    decorView.removeView(fakeStatusBarView)
-    val rootView =
-        (activity.findViewById<View>(R.id.content) as ViewGroup).getChildAt(0) as ViewGroup
-    rootView.setPadding(0, 0, 0, 0)
+    val fakeStatusBarView = decorView.findViewById<View>(FAKE_STATUS_BAR_VIEW_ID)
+    if (fakeStatusBarView != null) {
+        decorView.removeView(fakeStatusBarView)
+        val rootView = (activity.window.decorView.findViewById<View>(android.R.id.content) as ViewGroup).getChildAt(0) as ViewGroup
+        rootView.setPadding(0, 0, 0, 0)
+    }
 }
 
 /**
@@ -496,13 +497,18 @@ fun clearPreviousSetting(activity: Activity) {
  * @param statusBarAlpha 透明值
  */
 fun addTranslucentView(activity: Activity, @androidx.annotation.IntRange(from = 0, to = 255) statusBarAlpha: Int) {
-    val contentView =
-        activity.findViewById<View>(R.id.content) as ViewGroup
-    val fakeTranslucentView: View = contentView.findViewById(FAKE_TRANSLUCENT_VIEW_ID)
-    if (fakeTranslucentView.visibility == GONE) {
-        fakeTranslucentView.visibility = VISIBLE
+    val contentView = activity.window.decorView.findViewById<View>(android.R.id.content) as ViewGroup
+    val fakeTranslucentView = contentView.findViewById<View>(FAKE_TRANSLUCENT_VIEW_ID)
+    if (fakeTranslucentView != null) {
+        if (fakeTranslucentView.visibility == GONE) {
+            fakeTranslucentView.visibility = VISIBLE
+        }
+        fakeTranslucentView.setBackgroundColor(Color.argb(statusBarAlpha, 0, 0, 0))
+    } else {
+        contentView.addView(
+         createTranslucentStatusBarView(activity, statusBarAlpha)
+        )
     }
-    fakeTranslucentView.setBackgroundColor(Color.argb(statusBarAlpha, 0, 0, 0))
 }
 
 /**
@@ -538,7 +544,7 @@ fun createStatusBarView(activity: Activity, @ColorInt color: Int, alpha: Int): V
  * 设置根布局参数
  */
 fun setRootView(activity: Activity) {
-    val parent = activity.findViewById<View>(R.id.content) as ViewGroup
+    val parent = activity.window.decorView.findViewById<View>(android.R.id.content) as ViewGroup
     var i = 0
     val count = parent.childCount
     while (i < count) {
@@ -584,8 +590,7 @@ fun transparentStatusBar(activity: Activity) {
  */
 fun createTranslucentStatusBarView(activity: Activity, alpha: Int): View? { // 绘制一个和状态栏一样高的矩形
     val statusBarView = View(activity)
-    val params =
-        LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, activity.mStatusBarHeight)
+    val params = LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, activity.mStatusBarHeight)
     statusBarView.layoutParams = params
     statusBarView.setBackgroundColor(Color.argb(alpha, 0, 0, 0))
     statusBarView.id = FAKE_TRANSLUCENT_VIEW_ID

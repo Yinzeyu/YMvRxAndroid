@@ -15,7 +15,6 @@ abstract class BaseActivity : AppCompatActivity(), CoroutineScope by MainScope()
     //    private var mStatusView: View? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         this.onCreateBefore()
-        setLightMode(this)
         super.onCreate(savedInstanceState)
         setContentView(layoutResId())
         initView()

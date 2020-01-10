@@ -2,6 +2,7 @@ package com.yzy.example.widget.imagewatcher
 
 import android.annotation.SuppressLint
 import android.content.pm.ActivityInfo
+import android.graphics.Color
 import android.os.Build
 import android.view.View
 import android.view.ViewGroup
@@ -11,10 +12,7 @@ import androidx.core.view.isVisible
 import androidx.viewpager.widget.PagerAdapter
 import androidx.viewpager.widget.ViewPager
 import com.yzy.baselibrary.base.BaseActivity
-import com.yzy.baselibrary.extention.gone
-import com.yzy.baselibrary.extention.inflate
-import com.yzy.baselibrary.extention.mContext
-import com.yzy.baselibrary.extention.visible
+import com.yzy.baselibrary.extention.*
 import com.yzy.example.R
 import com.yzy.example.extention.load
 import com.yzy.example.widget.imagewatcher.listeners.OnClickListener
@@ -23,8 +21,6 @@ import com.yzy.example.widget.imagewatcher.listeners.OnPageChangeListener
 import com.yzy.example.widget.imagewatcher.model.ImageBrowserConfig
 import com.yzy.example.widget.imagewatcher.model.ImageBrowserConfig.*
 import com.yzy.example.widget.imagewatcher.transforms.*
-import com.yzy.example.widget.imagewatcher.immersionbar.BarHide
-import com.yzy.example.widget.imagewatcher.immersionbar.ImmersionBar
 import com.yzy.example.widget.imagewatcher.view.MNGestureView.OnSwipeListener
 import kotlinx.android.synthetic.main.activity_mnimage_browser.*
 import kotlinx.android.synthetic.main.mn_image_browser_item_show_image.view.*
@@ -47,19 +43,28 @@ class MNImageBrowserActivity : BaseActivity() {
     }
 
     override fun initView() {
-        val with = ImmersionBar.with(this)
-        with?.let {
-            it.navigationBarColor(R.color.mn_ib_black).init()
-            //判断是否全屏模式，隐藏状态栏
-            if (imageBrowserConfig.isFullScreenMode) {
-                it.hideBar(BarHide.FLAG_HIDE_STATUS_BAR).init()
-            }
+        transparentStatusBar(this)
+        window.navigationBarColor =Color.parseColor("#000000")
+        if (imageBrowserConfig.isFullScreenMode){
+            hideFakeStatusBarView(this)
         }
+//        ImmersionDelegate.getInstance(this)
+//        SupportRequestManagerFragment.getInstance(this)
+//        RequestManagerRetriever.getInstance()
+//
+//        val with = ImmersionBar.getInstance(this)
+//        with.let {
+//            it.navigationBarColor(R.color.mn_ib_black).init()
+//            //判断是否全屏模式，隐藏状态栏
+//            if (imageBrowserConfig.isFullScreenMode) {
+//                it.hideBar(BarHide.FLAG_HIDE_STATUS_BAR).init()
+//            }
+//        }
 
         circleIndicator.gone()
         numberIndicator.gone()
         ll_custom_view.gone()
-        initViewPager()
+
     }
 
     @SuppressLint("SetTextI18n")
@@ -78,11 +83,11 @@ class MNImageBrowserActivity : BaseActivity() {
             finishActivity()
             return
         }
-        if ((imageUrlList?.size?:0) <= 1) {
+        if ((imageUrlList?.size ?: 0) <= 1) {
             rl_indicator.gone()
         } else {
             rl_indicator.visible()
-                rl_indicator.isVisible=imageBrowserConfig.isIndicatorHide
+            rl_indicator.isVisible = imageBrowserConfig.isIndicatorHide
             if (indicatorType == IndicatorType.Indicator_Number) {
                 numberIndicator.visible()
                 numberIndicator.text = "${(currentPosition + 1)}/${imageUrlList?.size}"
@@ -100,18 +105,19 @@ class MNImageBrowserActivity : BaseActivity() {
         }
         //横竖屏梳理
         requestedOrientation = when (screenOrientationType) {
-                ScreenOrientationType.ScreenOrientation_Portrait -> { //设置横竖屏
-                    ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED
-                }
-                ScreenOrientationType.Screenorientation_Landscape -> { //设置横横屏
-                    ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED
-                }
-                else -> { //设置默认:由设备的物理方向传感器决定
-                    ActivityInfo.SCREEN_ORIENTATION_SENSOR
-                }
+            ScreenOrientationType.ScreenOrientation_Portrait -> { //设置横竖屏
+                ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED
             }
+            ScreenOrientationType.Screenorientation_Landscape -> { //设置横横屏
+                ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED
+            }
+            else -> { //设置默认:由设备的物理方向传感器决定
+                ActivityInfo.SCREEN_ORIENTATION_SENSOR
+            }
+        }
         //自定义ProgressView
         progressViewLayoutId = imageBrowserConfig.customProgressViewLayoutID
+        initViewPager()
     }
 
     //图片地址
@@ -141,12 +147,17 @@ class MNImageBrowserActivity : BaseActivity() {
         setViewPagerTransforms()
         circleIndicator.setViewPager(viewPagerBrowser)
         viewPagerBrowser.addOnPageChangeListener(object : ViewPager.OnPageChangeListener {
-            override fun onPageScrolled(position: Int, positionOffset: Float, positionOffsetPixels: Int) {}
+            override fun onPageScrolled(
+                position: Int,
+                positionOffset: Float,
+                positionOffsetPixels: Int
+            ) {
+            }
 
             @SuppressLint("SetTextI18n")
             override fun onPageSelected(position: Int) {
                 currentPosition = position
-                numberIndicator.text =  "${(currentPosition + 1)}/${imageUrlList?.size}"
+                numberIndicator.text = "${(currentPosition + 1)}/${imageUrlList?.size}"
                 onPageChangeListener?.onPageSelected(position)
             }
 
@@ -154,11 +165,11 @@ class MNImageBrowserActivity : BaseActivity() {
         })
         mnGestureView?.setOnGestureListener {
             //8.0去掉下拉缩小效果,8.0背景透明的Activity不能设置方向
-            if (Build.VERSION.SDK_INT == Build.VERSION_CODES.O)   return@setOnGestureListener false
+            if (Build.VERSION.SDK_INT == Build.VERSION_CODES.O) return@setOnGestureListener false
             //是否开启手势下拉效果
-            if (!imageBrowserConfig.isOpenPullDownGestureEffect)  return@setOnGestureListener false
+            if (!imageBrowserConfig.isOpenPullDownGestureEffect) return@setOnGestureListener false
 
-            if (( imageBrowserAdapter?.primaryItem?.imageView?.scale?.toDouble()?:0.0) != 1.0) {
+            if ((imageBrowserAdapter?.primaryItem?.imageView?.scale?.toDouble() ?: 0.0) != 1.0) {
                 return@setOnGestureListener false
             }
             true
@@ -182,11 +193,11 @@ class MNImageBrowserActivity : BaseActivity() {
             }
 
             override fun overSwipe() {
-                if ((imageUrlList?.size?:0) <= 1) {
+                if ((imageUrlList?.size ?: 0) <= 1) {
                     rl_indicator.gone()
                 } else {
                     rl_indicator.visible()
-                    rl_indicator.isVisible =!imageBrowserConfig.isIndicatorHide
+                    rl_indicator.isVisible = !imageBrowserConfig.isIndicatorHide
                 }
                 //自定义View
                 val customShadeView = imageBrowserConfig.customShadeView
@@ -202,25 +213,32 @@ class MNImageBrowserActivity : BaseActivity() {
     }
 
     private fun setViewPagerTransforms() {
-        if (transformType == TransformType.Transform_Default) {
-            viewPagerBrowser.setPageTransformer(true, DefaultTransformer())
-        } else if (transformType == TransformType.Transform_DepthPage) {
-            viewPagerBrowser.setPageTransformer(
+        when (transformType) {
+            TransformType.Transform_Default ->
+                viewPagerBrowser.setPageTransformer(true, DefaultTransformer())
+
+            TransformType.Transform_DepthPage ->
+                viewPagerBrowser.setPageTransformer(true, DepthPageTransformer())
+
+            TransformType.Transform_RotateDown ->
+                viewPagerBrowser.setPageTransformer(true, RotateDownTransformer())
+
+            TransformType.Transform_RotateUp ->
+                viewPagerBrowser.setPageTransformer(true, RotateUpTransformer())
+
+            TransformType.Transform_ZoomIn ->
+                viewPagerBrowser.setPageTransformer(true, ZoomInTransformer())
+
+            TransformType.Transform_ZoomOutSlide ->
+                viewPagerBrowser.setPageTransformer(true, ZoomOutSlideTransformer())
+
+            TransformType.Transform_ZoomOut -> viewPagerBrowser.setPageTransformer(
                 true,
-                DepthPageTransformer()
+                ZoomOutTransformer()
             )
-        } else if (transformType == TransformType.Transform_RotateDown) {
-            viewPagerBrowser.setPageTransformer(true, RotateDownTransformer())
-        } else if (transformType == TransformType.Transform_RotateUp) {
-            viewPagerBrowser.setPageTransformer(true, RotateUpTransformer())
-        } else if (transformType == TransformType.Transform_ZoomIn) {
-            viewPagerBrowser.setPageTransformer(true, ZoomInTransformer())
-        } else if (transformType == TransformType.Transform_ZoomOutSlide) {
-            viewPagerBrowser.setPageTransformer(true, ZoomOutSlideTransformer())
-        } else if (transformType == TransformType.Transform_ZoomOut) {
-            viewPagerBrowser.setPageTransformer(true, ZoomOutTransformer())
-        } else {
-            viewPagerBrowser.setPageTransformer(true, DefaultTransformer())
+            else ->
+                viewPagerBrowser.setPageTransformer(true, DefaultTransformer())
+
         }
     }
 
@@ -249,30 +267,43 @@ class MNImageBrowserActivity : BaseActivity() {
         }
 
         override fun getCount(): Int {
-            return imageUrlList!!.size
+            return imageUrlList?.size ?: 0
         }
 
-        override fun isViewFromObject(view: View, `object`: Any
+        override fun isViewFromObject(
+            view: View, `object`: Any
         ): Boolean {
             return view === `object`
         }
 
-        override fun destroyItem(container: ViewGroup, position: Int, `object`: Any
+        override fun destroyItem(
+            container: ViewGroup, position: Int, `object`: Any
         ) {
             container.removeView(`object` as View)
         }
 
         override fun instantiateItem(container: ViewGroup, position: Int): Any {
-            val inflate = mContext.inflate(R.layout.mn_image_browser_item_show_image, container, false)
-            val url = imageUrlList!![position]
+            val inflate =
+                mContext.inflate(R.layout.mn_image_browser_item_show_image, container, false)
+            val url = imageUrlList?.get(position) ?: ""
             inflate.rl_browser_root.setOnClickListener { finishBrowser() }
             inflate.imageView.setOnClickListener {
                 //单击事件
-            onClickListener?.onClick(this@MNImageBrowserActivity, inflate.imageView, position, url)
+                onClickListener?.onClick(
+                    this@MNImageBrowserActivity,
+                    inflate.imageView,
+                    position,
+                    url
+                )
                 finishBrowser()
             }
             inflate.imageView.setOnLongClickListener {
-                    onLongClickListener?.onLongClick(this@MNImageBrowserActivity, inflate.imageView, position, url)
+                onLongClickListener?.onLongClick(
+                    this@MNImageBrowserActivity,
+                    inflate.imageView,
+                    position,
+                    url
+                )
                 false
             }
             //ProgressView
@@ -288,9 +319,9 @@ class MNImageBrowserActivity : BaseActivity() {
             } else {
                 inflate.progress_view.gone()
             }
-            inflate.imageView.load(url,R.mipmap.ic_launcher,success = {
+            inflate.imageView.load(url, R.mipmap.ic_launcher, success = {
                 inflate.progress_view.gone()
-            },failed = {
+            }, failed = {
                 inflate.progress_view.gone()
             })
             //图片加载
@@ -301,9 +332,10 @@ class MNImageBrowserActivity : BaseActivity() {
     }
 
     //用来保存当前Activity
-    private var sActivityRef: WeakReference<MNImageBrowserActivity?>? = null
+    private var sActivityRef: WeakReference<MNImageBrowserActivity>? = null
     //相关配置信息
-    var imageBrowserConfig: ImageBrowserConfig=ImageBrowserConfig.instance
+    var imageBrowserConfig: ImageBrowserConfig = ImageBrowserConfig.instance
+
     /**
      * 关闭当前Activity
      */
@@ -314,21 +346,22 @@ class MNImageBrowserActivity : BaseActivity() {
      *
      * @return
      */
-    val viewPager: ViewPager? =  sActivityRef?.get()?.viewPagerBrowser
+    val viewPager: ViewPager? = sActivityRef?.get()?.viewPagerBrowser
 
     /**
      * 获取当前位置
      *
      * @return
      */
-    fun getCurrentPosition(): Int = sActivityRef?.get()?.currentPosition?:-1
+    fun getCurrentPosition(): Int = sActivityRef?.get()?.currentPosition ?: -1
 
     /**
      * 获取当前ImageView
      *
      * @return
      */
-    val currentImageView: ImageView?=sActivityRef?.get()?.imageBrowserAdapter?.primaryItem?.imageView
+    val currentImageView: ImageView? =
+        sActivityRef?.get()?.imageBrowserAdapter?.primaryItem?.imageView
 
     /**
      * 删除一张图片
@@ -339,16 +372,16 @@ class MNImageBrowserActivity : BaseActivity() {
     fun removeImage(position: Int) {
         val get = sActivityRef?.get()
 
-        val imageUrlList1 = get?.imageUrlList?: ArrayList()
-        if (imageUrlList1.size > 1){
+        val imageUrlList1 = get?.imageUrlList ?: ArrayList()
+        if (imageUrlList1.size > 1) {
             imageUrlList1.removeAt(position)
             get?.let {
                 //更新当前位置
-                if (it.currentPosition >= (it.imageList?.size?:0) && it.currentPosition >= 1) {
+                if (it.currentPosition >= (it.imageList?.size ?: 0) && it.currentPosition >= 1) {
                     it.currentPosition--
                 }
-                if (it.currentPosition >=(it.imageList?.size?:0)) {
-                    it.currentPosition = (it.imageList?.size?:0)- 1
+                if (it.currentPosition >= (it.imageList?.size ?: 0)) {
+                    it.currentPosition = (it.imageList?.size ?: 0) - 1
                 }
                 it.initViewPager()
                 it.imageBrowserAdapter?.notifyDataSetChanged()
@@ -371,5 +404,5 @@ class MNImageBrowserActivity : BaseActivity() {
      *
      * @return
      */
-    val imageList: ArrayList<String>?= sActivityRef?.get()?.imageUrlList
+    val imageList: ArrayList<String>? = sActivityRef?.get()?.imageUrlList
 }
