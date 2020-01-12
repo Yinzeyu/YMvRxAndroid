@@ -12,6 +12,7 @@ import com.yzy.baselibrary.extention.*
 import com.yzy.example.R
 import com.yzy.example.component.comm.CommTitleFragment
 import com.yzy.example.component.main.MainActivity
+import com.yzy.example.extention.options
 import com.yzy.example.imModel.audio.MMAudioRecorderPanel
 import com.yzy.example.imModel.audio.OnRecordListener
 import com.yzy.example.imModel.audio.RecordState
@@ -22,7 +23,7 @@ class ChatFragment : CommTitleFragment() {
 
     companion object {
         fun startChatFragment(controller: NavController, @IdRes id: Int) {
-            controller.navigate(id, Bundle().apply { })
+            controller.navigate(id, Bundle().apply { },options)
         }
     }
 

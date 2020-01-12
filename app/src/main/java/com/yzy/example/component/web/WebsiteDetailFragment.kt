@@ -4,7 +4,6 @@ import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.View
 import android.view.ViewGroup
-import android.webkit.WebView
 import androidx.annotation.IdRes
 import androidx.navigation.NavController
 import com.blankj.utilcode.util.BarUtils
@@ -13,6 +12,7 @@ import com.just.agentweb.DefaultWebClient
 import com.yzy.baselibrary.extention.getResColor
 import com.yzy.example.R
 import com.yzy.example.component.comm.CommFragment
+import com.yzy.example.extention.options
 import com.yzy.example.widget.LollipopFixedWebView
 import kotlinx.android.synthetic.main.fragment_wesite_detail.*
 
@@ -28,7 +28,7 @@ class WebsiteDetailFragment :CommFragment(){
     companion object {
         fun viewDetail(controller: NavController, @IdRes id: Int, url: String) {
             if (url.isBlank()) return
-            controller.navigate(id, Bundle().apply { putString("url", url) })
+            controller.navigate(id, Bundle().apply { putString("url", url) }, options)
         }
     }
     override val contentLayout: Int = R.layout.fragment_wesite_detail
