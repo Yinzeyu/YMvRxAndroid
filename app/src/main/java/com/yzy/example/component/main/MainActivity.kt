@@ -4,7 +4,6 @@ import android.content.Context
 import android.view.MotionEvent
 import androidx.navigation.Navigation
 import com.blankj.utilcode.util.ActivityUtils
-import com.yzy.baselibrary.extention.mStatusBarHeight
 import com.yzy.baselibrary.extention.setLightMode
 import com.yzy.baselibrary.extention.startActivity
 import com.yzy.baselibrary.extention.toast
@@ -25,7 +24,6 @@ class MainActivity : CommActivity() {
     override fun layoutResId(): Int = R.layout.activity_main
 
     override fun initView() {
-        mainRootView.setPadding(0, mStatusBarHeight, 0, 0)
         setLightMode(this)
 
     }

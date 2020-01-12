@@ -6,6 +6,7 @@ import android.view.View
 import android.view.WindowManager
 import androidx.annotation.IdRes
 import androidx.navigation.NavController
+import com.blankj.utilcode.util.BarUtils
 import com.blankj.utilcode.util.KeyboardUtils
 import com.blankj.utilcode.util.SizeUtils
 import com.yzy.baselibrary.extention.*
@@ -16,6 +17,7 @@ import com.yzy.example.extention.options
 import com.yzy.example.imModel.audio.MMAudioRecorderPanel
 import com.yzy.example.imModel.audio.OnRecordListener
 import com.yzy.example.imModel.audio.RecordState
+import kotlinx.android.synthetic.main.activity_comm_title.*
 import kotlinx.android.synthetic.main.fragment_chat.*
 import kotlinx.android.synthetic.main.layout_comm_title.*
 
@@ -30,6 +32,7 @@ class ChatFragment : CommTitleFragment() {
     override fun layoutResContentId(): Int = R.layout.fragment_chat
 
     override fun initContentView() {
+        flTitleBarView.layoutParams.height=BarUtils.getStatusBarHeight()+SizeUtils.dp2px(49f)
         mContext.window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
 //        mContext.window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_UNSPECIFIED)
         (mContext as MainActivity).registerMyTouchListener(myTouchListener)
