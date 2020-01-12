@@ -14,6 +14,7 @@ class KeyboardHeightFrameLayout @JvmOverloads constructor(
     fun show(height: Int) {
         val layoutParams = layoutParams
         layoutParams.height = height
+        setLayoutParams(layoutParams)
         visibility = View.VISIBLE
     }
 

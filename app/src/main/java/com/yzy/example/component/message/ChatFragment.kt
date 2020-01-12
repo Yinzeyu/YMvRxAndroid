@@ -3,15 +3,18 @@ package com.yzy.example.component.message
 import android.os.Bundle
 import android.view.MotionEvent
 import android.view.View
+import android.view.WindowManager
 import androidx.annotation.IdRes
 import androidx.navigation.NavController
 import com.blankj.utilcode.util.KeyboardUtils
-import com.vanniktech.emoji.EmojiPopup
-import com.yzy.baselibrary.extention.click
-import com.yzy.baselibrary.extention.mContentView
+import com.blankj.utilcode.util.SizeUtils
+import com.yzy.baselibrary.extention.*
 import com.yzy.example.R
 import com.yzy.example.component.comm.CommTitleFragment
 import com.yzy.example.component.main.MainActivity
+import com.yzy.example.imModel.audio.MMAudioRecorderPanel
+import com.yzy.example.imModel.audio.OnRecordListener
+import com.yzy.example.imModel.audio.RecordState
 import kotlinx.android.synthetic.main.fragment_chat.*
 import kotlinx.android.synthetic.main.layout_comm_title.*
 
@@ -26,47 +29,32 @@ class ChatFragment : CommTitleFragment() {
     override fun layoutResContentId(): Int = R.layout.fragment_chat
 
     override fun initContentView() {
+        mContext.window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
+//        mContext.window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_UNSPECIFIED)
         (mContext as MainActivity).registerMyTouchListener(myTouchListener)
     }
 
 
     override fun initData() {
-        initEmoji()
+        initInputPanel()
+//        initEmoji()
     }
 
-    //Emoji表情弹窗
-    private var emojiPopup: EmojiPopup? = null
 
-    //初始化emoji
-    private fun initEmoji() {
-        emojiPopup = EmojiPopup.Builder.fromRootView(mContext.mContentView)
-            .setOnEmojiPopupShownListener { chatKeyEmoji.setImageResource(R.drawable.svg_keyboard) }
-            .setOnEmojiPopupDismissListener { chatKeyEmoji.setImageResource(R.drawable.svg_emoji) }
-            .setOnSoftKeyboardOpenListener { keyHeight -> changeKeyHeight(keyHeight ) }
-            .setOnSoftKeyboardCloseListener { changeKeyHeight(0) }
-            .setKeyboardAnimationStyle(R.style.emoji_fade_animation_style)
-            .build(chatEdit)
-        chatKeyEmoji.click { emojiPopup?.toggle() }
-    }
 
-    private var keOpen = false
-    //监听键盘高度
-    private fun changeKeyHeight(height: Int) {
-        keOpen = height > 0
-//        chatRecycler.translationY = -height.toFloat()
-        chatInputLayout.translationY = -height.toFloat()
-    }
+
+
 
    private var myTouchListener = object : MainActivity.MyTouchListener {
         override fun onTouchEvent(event: MotionEvent?) {
             event?.let {
-                if (keOpen && (it.action and MotionEvent.ACTION_MASK) == MotionEvent.ACTION_DOWN) {
+                if (inputPanel.keOpen && (it.action and MotionEvent.ACTION_MASK) == MotionEvent.ACTION_DOWN) {
                     //点击哪些View需要关闭键盘同时响应点击
                     if (!isTouchViewOut(commTitleBack, it)) {//多个View通过||连接
                         KeyboardUtils.hideSoftInput(mContext)
                     }
                     //没有点击到对于View则关闭键盘
-                    else if (isTouchViewOut(chatInputLayout, it)) {//多个View通过&&连接
+                    else if (isTouchViewOut(inputPanel, it)) {//多个View通过&&连接
                         KeyboardUtils.hideSoftInput(mContext)
                         return
                     }
@@ -95,15 +83,101 @@ class ChatFragment : CommTitleFragment() {
         return !(event.x > left && event.x < right
                 && event.y > top && event.y < bottom)
     }
+    private fun initInputPanel() {
+        inputPanel.icEmotion = R.drawable.ic_big_expression
+        inputPanel.icExtension = R.drawable.ic_big_dynamic_add_pic
+        inputPanel.icKeyboard = R.drawable.ic_big_keyboard
+        inputPanel.icVoice = R.drawable.ic_big_voice
+        inputPanel.audioRecorderPanel = MMAudioRecorderPanel(mContext as MainActivity)
+        inputPanel.attach(mContext as MainActivity, mContext.mContentView,rootLinearLayout)
+        inputPanel.setSendButtonStyle {
+            backgroundResource = R.drawable.shape_solid_30d18b_13h
+            layoutParams.height = SizeUtils.dp2px(27f)
+            layoutParams.width = SizeUtils.dp2px(44f)
+        }
+        setVoiceNormalStyle()
+        inputPanel.audioRecorderPanel?.setRecordListener(object : OnRecordListener {
+            override fun onNoPermission() {
+//                val disposable = RxPermissions(this@ChatActivity)
+//                    .request(
+//                        Manifest.permission.RECORD_AUDIO
+//                    )
+//                    .subscribe({
+//                        if (it) {
+//                            //录音权限
+//                            if (!AudioPermissionHelper.hasRecordPermission()) {
+//                                showAudioRecordPermissionDialog()
+//                            }
+//                        } else {
+//                            //没有录音权限
+//                            showAudioRecordPermissionDialog()
+//                        }
+//                    }, {
+//                        toast("录音限获取异常")
+//                    })
+            }
+
+            override fun onRecordFail(e: Exception) {
+                if (e is MMAudioRecorderPanel.TooShortException) {
+                    mContext.toast("说话时间太短！")
+                }
+                setVoiceNormalStyle()
+            }
+
+            override fun onRecordStateChanged(state: RecordState) {
+                when (state) {
+                    RecordState.START -> {
+                        //开始录音
+                        setVoiceRecodingStyle()
+                    }
+                    RecordState.TO_CANCEL -> {
+                        //手指上滑了将要取消的状态
+                    }
+                    RecordState.TO_TIMEOUT -> {
+                        //剩余时间小于10s
+                    }
+                    RecordState.STOP -> {
+                        //录音结束
+                        setVoiceNormalStyle()
+                    }
+                    else -> {
+                    }
+                }
+            }
+
+            override fun onRecordSuccess(audioFile: String, duration: Long) {
+                setVoiceNormalStyle()
+                if (duration >= 1000) {
+//                    if (viewModel?.isTargetUserBanned() == true) {
+//                        toast("该账号封禁中，无法进行互动")
+//                    } else {
+//                        viewModel?.sendVoiceMessage(audioFile, duration)
+//                    }
+                }
+            }
+        })
+    }
+
+        private fun setVoiceRecodingStyle() {
+        inputPanel.setAudioButtonStyle {
+            text = "松开发送"
+            textColor = mContext.getResColor(R.color.c_ff999999)
+            backgroundResource = R.drawable.shape_solid_f3f3f3_8
+        }
+    }
+
+    private fun setVoiceNormalStyle() {
+        inputPanel.setAudioButtonStyle {
+            text = "按住说话"
+            textColor = mContext.getResColor(R.color.white)
+            backgroundResource = R.drawable.shape_solid_54d25d_8
+        }
+    }
+
+
 }
 
-//private fun initInputPanel() {
-//        inputPanel.icEmotion = R.drawable.ic_big_expression
-//        inputPanel.icExtension = R.drawable.ic_big_dynamic_add_pic
-//        inputPanel.icKeyboard = R.drawable.ic_big_keyboard
-//        inputPanel.icVoice = R.drawable.ic_big_voice
-//        inputPanel.audioRecorderPanel = MMAudioRecorderPanel(mContext as MainActivity)
-//        inputPanel.attach(mContext as MainActivity,rootLinearLayout)
+
 //        inputPanel.inputPanelListener = object : ConversationInputPanel.OnInputPanelListener {
 //            override fun onInputPanelStateChange(isExpanded: Boolean) {
 //                if (isExpanded) {
@@ -164,89 +238,9 @@ class ChatFragment : CommTitleFragment() {
 ////                height = SizeUtils.dp2px(49f)
 ////            }
 ////        }
-//        inputPanel.setSendButtonStyle {
-//            backgroundResource = R.drawable.shape_solid_30d18b_13h
-//            layoutParams.height = SizeUtils.dp2px(27f)
-//            layoutParams.width = SizeUtils.dp2px(44f)
-//        }
-//        setVoiceNormalStyle()
-//        inputPanel.audioRecorderPanel?.setRecordListener(object : OnRecordListener {
-//            override fun onNoPermission() {
-////                val disposable = RxPermissions(this@ChatActivity)
-////                    .request(
-////                        Manifest.permission.RECORD_AUDIO
-////                    )
-////                    .subscribe({
-////                        if (it) {
-////                            //录音权限
-////                            if (!AudioPermissionHelper.hasRecordPermission()) {
-////                                showAudioRecordPermissionDialog()
-////                            }
-////                        } else {
-////                            //没有录音权限
-////                            showAudioRecordPermissionDialog()
-////                        }
-////                    }, {
-////                        toast("录音限获取异常")
-////                    })
-//            }
-//
-//            override fun onRecordFail(e: Exception) {
-//                if (e is MMAudioRecorderPanel.TooShortException) {
-//                    mContext.toast("说话时间太短！")
-//                }
-//                setVoiceNormalStyle()
-//            }
-//
-//            override fun onRecordStateChanged(state: RecordState) {
-//                when (state) {
-//                    RecordState.START -> {
-//                        //开始录音
-//                        setVoiceRecodingStyle()
-//                    }
-//                    RecordState.TO_CANCEL -> {
-//                        //手指上滑了将要取消的状态
-//                    }
-//                    RecordState.TO_TIMEOUT -> {
-//                        //剩余时间小于10s
-//                    }
-//                    RecordState.STOP -> {
-//                        //录音结束
-//                        setVoiceNormalStyle()
-//                    }
-//                    else -> {
-//                    }
-//                }
-//            }
-//
-//            override fun onRecordSuccess(audioFile: String, duration: Long) {
-//                setVoiceNormalStyle()
-//                if (duration >= 1000) {
-////                    if (viewModel?.isTargetUserBanned() == true) {
-////                        toast("该账号封禁中，无法进行互动")
-////                    } else {
-////                        viewModel?.sendVoiceMessage(audioFile, duration)
-////                    }
-//                }
-//            }
-//        })
+
 //}
 
-//    private fun setVoiceRecodingStyle() {
-//        inputPanel.setAudioButtonStyle {
-//            text = "松开发送"
-//            textColor = mContext.getResColor(R.color.c_ff999999)
-//            backgroundResource = R.drawable.shape_solid_f3f3f3_8
-//        }
-//    }
-//
-//    private fun setVoiceNormalStyle() {
-//        inputPanel.setAudioButtonStyle {
-//            text = "按住说话"
-//            textColor = mContext.getResColor(R.color.white)
-//            backgroundResource = R.drawable.shape_solid_54d25d_8
-//        }
-//    }
 
 /**
  * 初始化表情

@@ -5,24 +5,26 @@ import android.content.Context
 import android.graphics.Rect
 import android.text.Editable
 import android.text.TextUtils
-import android.text.TextWatcher
 import android.util.AttributeSet
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewTreeObserver.OnGlobalLayoutListener
 import android.widget.*
 import androidx.fragment.app.FragmentActivity
-import androidx.viewpager.widget.ViewPager
+import com.blankj.utilcode.util.BarUtils
 import com.blankj.utilcode.util.KeyboardUtils
 import com.blankj.utilcode.util.SizeUtils
-import com.yzy.baselibrary.extention.addListerKeyboard
 import com.yzy.baselibrary.extention.getBottomStatusHeight
 import com.yzy.baselibrary.extention.gone
 import com.yzy.example.R
 import com.yzy.example.imModel.audio.AudioRecorderPanel
 import com.yzy.example.imModel.audio.IAudioRecorderPanel
-import com.yzy.example.imModel.emoji.EmotionLayout
-import com.yzy.example.utils.PreferencesHelper
 import kotlinx.android.synthetic.main.imui_layout_conversation_input_panel.view.*
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 import kotlin.math.max
 
 
@@ -35,8 +37,7 @@ class ConversationInputPanel @JvmOverloads constructor(
     context: Context,
     attributeSet: AttributeSet? = null,
     defAttrStyle: Int = 0
-) : FrameLayout(context, attributeSet, defAttrStyle), IEmotionSelectedListener {
-
+) : FrameLayout(context, attributeSet, defAttrStyle) {
 
     private val REQUEST_EXTERNAL_STORAGE = 1
     private val PERMISSIONS_STORAGE = arrayOf(
@@ -45,13 +46,10 @@ class ConversationInputPanel @JvmOverloads constructor(
     )
 
     /**
-     * 父布局
-     */
-    private var rootLinearLayout: LinearLayout? = null
-    /**
      * 输入的一些回调
      */
     var inputPanelListener: OnInputPanelListener? = null
+    var  mContentView: FrameLayout? = null
     /**
      * 记录打字中回调的时间
      */
@@ -86,42 +84,43 @@ class ConversationInputPanel @JvmOverloads constructor(
     var icExtension = R.mipmap.imui_ic_cheat_add
     private var minKeyboardSize: Int = 0
     private var defaultCustomKeyboardSize: Int = 0
-    private var statusBarHeight: Int = 0
 
     init {
-        val statusBarRes = resources.getIdentifier("status_bar_height", "dimen", "android")
+        LayoutInflater.from(context).inflate(R.layout.imui_layout_conversation_input_panel, this, true)
         minKeyboardSize = SizeUtils.dp2px(50F)
         defaultCustomKeyboardSize = SizeUtils.dp2px(220F)
-        statusBarHeight = if (statusBarRes > 0) resources.getDimensionPixelSize(statusBarRes) else 0
     }
 
     private var keyboardOpen = false
     /**
      * 将输入控件绑定到Activity和父布局中
      */
-    fun attach(activity: FragmentActivity, rootInputAwareLayout: LinearLayout) {
+    fun attach(activity: FragmentActivity, mContentView: FrameLayout,rootLinearLayout:LinearLayout) {
+        this.mContentView=mContentView
+        activity.window.setSoftInputMode(PopupWindow.INPUT_METHOD_NOT_NEEDED);
+        addOnGlobalLayout()
         this.activity = activity
-        rootLinearLayout = rootInputAwareLayout
-        LayoutInflater.from(context)
-            .inflate(R.layout.imui_layout_conversation_input_panel, this, true)
-        initEditText()
-        initEmotion()
-        initAudioRecorderPanel()
+        initAudioRecorderPanel(rootLinearLayout)
         extImageView.setImageResource(icExtension)
         emotionImageView.setImageResource(icEmotion)
         audioImageView.setImageResource(icVoice)
         extImageView.setImageResource(icExtension)
-        activity.addListerKeyboard { keyboardHeight: Int ->
-            if (keyboardOpen) {
+//        initEmoji(mContentView)
+//        initEditText()
+//        initEmotion()
+//
 
-            } else {
-                if (keyboardHeight > 0) {
-                    emotionContainerFrameLayout.show(keyboardHeight)
-                } else {
-                    emotionContainerFrameLayout.hide()
-                }
-            }
-        }
+//        activity.addListerKeyboard { keyboardHeight: Int ->
+//            if (keyboardOpen) {
+//
+//            } else {
+//                if (keyboardHeight > 0) {
+//                    emotionContainerFrameLayout.show(keyboardHeight)
+//                } else {
+//                    emotionContainerFrameLayout.hide()
+//                }
+//            }
+//        }
 
         //语音输入按键的点击事件
         audioImageView.setOnClickListener {
@@ -137,6 +136,32 @@ class ConversationInputPanel @JvmOverloads constructor(
                 KeyboardUtils.hideSoftInput(editText)
             }
         }
+    }
+
+    private fun addOnGlobalLayout(){
+        mContentView?.viewTreeObserver?.addOnGlobalLayoutListener(onGlobalLayoutListener)
+    }
+     private fun removeGlobalOnLayout(){
+        mContentView?.viewTreeObserver?.removeOnGlobalLayoutListener(onGlobalLayoutListener)
+    }
+
+  private  val onGlobalLayoutListener = OnGlobalLayoutListener {
+        updateKeyboardState()
+    }
+    //Emoji表情弹窗
+//    private var emojiPopup: EmojiPopup? = null
+
+    //初始化emoji
+//    private fun initEmoji(mContentView: FrameLayout) {
+//        emojiPopup = EmojiPopup.Builder.fromRootView(mContentView)
+////            .setOnEmojiPopupShownListener { chatKeyEmoji.setImageResource(R.drawable.svg_keyboard) }
+////            .setOnEmojiPopupDismissListener { chatKeyEmoji.setImageResource(R.drawable.svg_emoji) }
+//            .setOnSoftKeyboardOpenListener { keyHeight -> changeKeyHeight(keyHeight ) }
+//            .setOnSoftKeyboardCloseListener { changeKeyHeight(0) }
+//            .setKeyboardAnimationStyle(R.style.emoji_fade_animation_style)
+//            .build(editText)
+////        chatKeyEmoji.click { emojiPopup?.toggle() }
+//    }
 
 //    }
         //菜单按键的点击事件
@@ -194,53 +219,53 @@ class ConversationInputPanel @JvmOverloads constructor(
 //        inputPanelListener?.onSend(content)
 //        editText.setText("")
 //    }
-    }
+//    }
 
     private fun initEditText() {
-        editText.addTextChangedListener(object : TextWatcher {
-            override fun afterTextChanged(s: Editable?) {
-                if (editText.text.toString().trim { it <= ' ' }.isNotEmpty()) {
-                    if (activity?.currentFocus == editText) {
-                        notifyTyping()
-                    }
-                    sendButton.visibility = View.VISIBLE
-                    extImageView.visibility = View.GONE
-                    emotionLayout.setSendActive(true)
-                } else {
-                    sendButton.visibility = View.GONE
-                    extImageView.visibility = View.VISIBLE
-                    emotionLayout.setSendActive(false)
-                }
-            }
-
-            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
-            }
-
-            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                if (activity?.currentFocus == editText) {
-                    if (count == 1 && s?.get(start) == '@') {
-                        //输入@的情况下可能需要跳转到页面选择@的人
-                    }
-                }
-            }
-        })
+//        editText.addTextChangedListener(object : TextWatcher {
+//            override fun afterTextChanged(s: Editable?) {
+//                if (editText.text.toString().trim { it <= ' ' }.isNotEmpty()) {
+//                    if (activity?.currentFocus == editText) {
+//                        notifyTyping()
+//                    }
+//                    sendButton.visibility = View.VISIBLE
+//                    extImageView.visibility = View.GONE
+//                    emotionLayout.setSendActive(true)
+//                } else {
+//                    sendButton.visibility = View.GONE
+//                    extImageView.visibility = View.VISIBLE
+//                    emotionLayout.setSendActive(false)
+//                }
+//            }
+//
+//            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+//            }
+//
+//            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+//                if (activity?.currentFocus == editText) {
+//                    if (count == 1 && s?.get(start) == '@') {
+//                        //输入@的情况下可能需要跳转到页面选择@的人
+//                    }
+//                }
+//            }
+//        })
     }
 
     /**
      * 初始化表情管理
      */
     private fun initEmotion() {
-        emotionLayout.setEmotionSelectedListener(this)
-        emotionLayout.attachEditText(editText)
-        emotionLayout.setEmotionAddVisible(true)
-        emotionLayout.setEmotionSettingVisible(true)
-        emotionLayout.sendClick {
-            val content = editText.text
-            if (!TextUtils.isEmpty(content)) {
-                inputPanelListener?.onSend(content)
-                editText.setText("")
-            }
-        }
+//        emotionLayout.setEmotionSelectedListener(this)
+//        emotionLayout.attachEditText(editText)
+//        emotionLayout.setEmotionAddVisible(true)
+//        emotionLayout.setEmotionSettingVisible(true)
+//        emotionLayout.sendClick {
+//            val content = editText.text
+//            if (!TextUtils.isEmpty(content)) {
+//                inputPanelListener?.onSend(content)
+//                editText.setText("")
+//            }
+//        }
     }
 
 //    override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
@@ -250,93 +275,82 @@ class ConversationInputPanel @JvmOverloads constructor(
 
 
     private fun updateKeyboardState() {
-        val keyboardHeightPortrait =PreferencesHelper.getKeyboardHeightPortrait()
-
-        if (keyboardHeightPortrait != minKeyboardSize) {
-            val rect = Rect()
-            //使用最外层布局填充，进行测算计算
-            getWindowVisibleDisplayFrame(rect)
-            val heightDiff = rootView.height - (rect.bottom - rect.top)
-            val keyboardHeight =
-                max(0, heightDiff - statusBarHeight - getBottomStatusHeight(context))
-            PreferencesHelper.setKeyboardHeightPortrait(keyboardHeight)
-            onKeyboardOpen()
-        } else {
-            onKeyboardClose()
+        val rect = Rect()
+        //使用最外层布局填充，进行测算计算
+        getWindowVisibleDisplayFrame(rect)
+        val heightDiff = rootView.height - (rect.bottom - rect.top)
+        val keyboardHeight = max(0, heightDiff - BarUtils.getStatusBarHeight() - getBottomStatusHeight(context))
+        GlobalScope.launch(Dispatchers.Main) {
+            delay(100)
+          if (keyboardHeight != defaultCustomKeyboardSize){
+              defaultCustomKeyboardSize=keyboardHeight
+              Log.e("defaultboardSize",defaultCustomKeyboardSize.toString())
+              changeKeyHeight(defaultCustomKeyboardSize)
+          }
         }
-//        val rect = Rect()
-//        //使用最外层布局填充，进行测算计算
-//        getWindowVisibleDisplayFrame(rect)
-//        val heightDiff = rootView.height - (rect.bottom - rect.top)
-//        val keyboardHeight = max(0, heightDiff - statusBarHeight - getBottomStatusHeight(context))
-//        if (keyboardHeight > minKeyboardSize) {
-//            setKeyboardPortraitHeight(keyboardHeight)
-//            if (!keyboardOpen) onKeyboardOpen()
-//        } else if (keyboardOpen) {
-//            onKeyboardClose()
-//        }
+    }
+    var keOpen = false
+
+    private fun changeKeyHeight(height: Int) {
+        keOpen = height > 0
+        if (keOpen){
+            emotionContainerFrameLayout.show(height)
+        }else{
+            emotionContainerFrameLayout.hide()
+        }
     }
 
-    private fun onKeyboardOpen() {
-
-    }
-
-    private fun onKeyboardClose() {
-
-    }
 
     /**
      * 初始化按住录音控件
      */
-    private fun initAudioRecorderPanel() {
+    private fun initAudioRecorderPanel(rootLinearLayout:LinearLayout) {
         if (audioRecorderPanel == null) {
             audioRecorderPanel = AudioRecorderPanel(context)
         }
-        rootLinearLayout?.let {
-            audioRecorderPanel?.attach(it, audioButton)
-        }
+            audioRecorderPanel?.attach(rootLinearLayout, audioButton)
     }
 
     /**
      * 初始化菜单管理，要在attach和所有扩展初始化之后调用
      */
     fun initExtension() {
-        activity?.let { act ->
-            extension = ConversationExtension(act, this, conversationExtViewPager)
-        }
-        llConversationExtPageNumber.removeAllViews()
-        val page = ConversationExtManager.getInstance().getExtensionPage()
-        if (page == 1) {
-            //只有一页
-            llConversationExtPageNumber.visibility = View.GONE
-        } else {
-            llConversationExtPageNumber.visibility = View.VISIBLE
-            for (i in 0 until page) {
-                val ivCur = ImageView(context)
-                ivCur.setBackgroundResource(R.drawable.imui_selector_view_pager_indicator)
-                val params = LinearLayout.LayoutParams(SizeUtils.dp2px(8F), SizeUtils.dp2px(8F))
-                ivCur.layoutParams = params
-                params.leftMargin = SizeUtils.dp2px(3F)
-                params.rightMargin = SizeUtils.dp2px(3F)
-                llConversationExtPageNumber.addView(ivCur)
-            }
-            conversationExtViewPager.addOnPageChangeListener(object :
-                ViewPager.OnPageChangeListener {
-                override fun onPageScrollStateChanged(p0: Int) {
-                }
-
-                override fun onPageScrolled(p0: Int, p1: Float, p2: Int) {
-                }
-
-                override fun onPageSelected(p0: Int) {
-                    val count = llConversationExtPageNumber.childCount
-                    for (i in 0 until count) {
-                        llConversationExtPageNumber.getChildAt(p0).isSelected = i == p0
-                    }
-                }
-            })
-        }
-        extension?.init()
+//        activity?.let { act ->
+//            extension = ConversationExtension(act, this, conversationExtViewPager)
+//        }
+//        llConversationExtPageNumber.removeAllViews()
+//        val page = ConversationExtManager.getInstance().getExtensionPage()
+//        if (page == 1) {
+//            //只有一页
+//            llConversationExtPageNumber.visibility = View.GONE
+//        } else {
+//            llConversationExtPageNumber.visibility = View.VISIBLE
+//            for (i in 0 until page) {
+//                val ivCur = ImageView(context)
+//                ivCur.setBackgroundResource(R.drawable.imui_selector_view_pager_indicator)
+//                val params = LinearLayout.LayoutParams(SizeUtils.dp2px(8F), SizeUtils.dp2px(8F))
+//                ivCur.layoutParams = params
+//                params.leftMargin = SizeUtils.dp2px(3F)
+//                params.rightMargin = SizeUtils.dp2px(3F)
+//                llConversationExtPageNumber.addView(ivCur)
+//            }
+//            conversationExtViewPager.addOnPageChangeListener(object :
+//                ViewPager.OnPageChangeListener {
+//                override fun onPageScrollStateChanged(p0: Int) {
+//                }
+//
+//                override fun onPageScrolled(p0: Int, p1: Float, p2: Int) {
+//                }
+//
+//                override fun onPageSelected(p0: Int) {
+//                    val count = llConversationExtPageNumber.childCount
+//                    for (i in 0 until count) {
+//                        llConversationExtPageNumber.getChildAt(p0).isSelected = i == p0
+//                    }
+//                }
+//            })
+//        }
+//        extension?.init()
     }
 
     /**
@@ -384,9 +398,9 @@ class ConversationInputPanel @JvmOverloads constructor(
     /**
      * 设置表情输入控件的样式
      */
-    fun setEmotionLayoutStyle(style: EmotionLayout.() -> Unit) {
-        emotionLayout.apply(style)
-    }
+//    fun setEmotionLayoutStyle(style: EmotionLayout.() -> Unit) {
+//        emotionLayout.apply(style)
+//    }
 
     /**
      * 设置输入控件容器的样式
@@ -414,9 +428,9 @@ class ConversationInputPanel @JvmOverloads constructor(
     /**
      * 获取表情的控件，可以自定进行相关的设置
      */
-    fun getEmotionLayoutStyle(style: EmotionLayout.() -> Unit) {
-        emotionLayout.apply(style)
-    }
+//    fun getEmotionLayoutStyle(style: EmotionLayout.() -> Unit) {
+//        emotionLayout.apply(style)
+//    }
 
 
     fun onKeyboardShown() {
@@ -535,17 +549,17 @@ class ConversationInputPanel @JvmOverloads constructor(
         }
     }
 
-    override fun onEmojiSelected(key: String) {
-        inputPanelListener?.onEmojiInput(key)
-    }
-
-    override fun onStickerSelected(
-        categoryName: String,
-        stickerName: String,
-        stickerBitmapPath: String?
-    ) {
-        inputPanelListener?.onStickerInput(categoryName, stickerName, stickerBitmapPath)
-    }
+//    override fun onEmojiSelected(key: String) {
+//        inputPanelListener?.onEmojiInput(key)
+//    }
+//
+//    override fun onStickerSelected(
+//        categoryName: String,
+//        stickerName: String,
+//        stickerBitmapPath: String?
+//    ) {
+//        inputPanelListener?.onStickerInput(categoryName, stickerName, stickerBitmapPath)
+//    }
 
 
     companion object {
