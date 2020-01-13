@@ -5,12 +5,8 @@ import android.text.TextUtils
 import android.util.Log
 import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.ViewModel
-import com.tbruyelle.rxpermissions2.RxPermissions
 import com.yzy.baselibrary.base.BaseLiveData
-import com.yzy.baselibrary.base.BaseViewModel
 import com.yzy.example.repository.bean.AlbumBean
-import com.yzy.example.repository.bean.BaseDataBean
-import com.yzy.example.repository.bean.GankAndroidBean
 import com.yzy.example.utils.album.LoadConfig
 import com.yzy.example.utils.album.LocalMediaLoadListener
 import com.yzy.example.utils.album.MediaLoader
@@ -22,16 +18,9 @@ import kotlin.math.max
 
 /**
  * Description:
- * @author: caiyoufei
+ * @author: yzy
  * @date: 19-5-14 下午7:55
  */
-//data class PicSelState(
-//  val data: MutableList<LocalMediaFolder> = mutableListOf(),
-//  val selectIndex: Int = 0,
-//  var scroll2Top: Boolean = false,
-//  val request: Async<List<LocalMediaFolder>> = Uninitialized
-//) : MvRxState
-
 class PicSelectViewModel : ViewModel() {
     private val _bannerAndArticleResult: BaseLiveData<AlbumBean> = BaseLiveData()
     val uiState: BaseLiveData<AlbumBean> get() = _bannerAndArticleResult
@@ -246,9 +235,9 @@ class PicSelectViewModel : ViewModel() {
                             break
                         }
                     }
-                    val tempList: MutableList<LocalMediaFolder> = mutableListOf()
-                    tempList.addAll(it.data)
-                    _bannerAndArticleResult.update(AlbumBean(tempList, currentCheckDirIndex, false))
+//                    val tempList: MutableList<LocalMediaFolder> = mutableListOf()
+//                    tempList.addAll(it.data)
+//                    _bannerAndArticleResult.update(AlbumBean(tempList, currentCheckDirIndex, false))
                 }
             }
         }
