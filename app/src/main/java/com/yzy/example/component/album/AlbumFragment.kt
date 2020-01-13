@@ -233,6 +233,7 @@ class AlbumFragment : CommFragment() {
             mOnCameraListener: CameraUtils.OnCameraListener,
             callBack: (() -> Unit)? = null
         ) {
+            removeAllModels()
             if (albumBean.scroll2Top) {
                 needScroll2Top = true
                 albumBean.scroll2Top = false

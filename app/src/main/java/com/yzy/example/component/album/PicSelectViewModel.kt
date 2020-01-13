@@ -203,9 +203,7 @@ class PicSelectViewModel : ViewModel() {
                 if (images != null) {
                     for (media in images) {
                         if (TextUtils.equals(checkAfterMedia.path, media.path)) {
-                            folder.checkedNum = max(
-                                0, folder.checkedNum + if (checkAfterMedia.isChecked) 1 else -1
-                            )
+                            folder.checkedNum = max(0, folder.checkedNum + if (checkAfterMedia.isChecked) 1 else -1)
                             count++
                             break
                         }
