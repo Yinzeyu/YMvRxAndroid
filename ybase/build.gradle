@@ -142,7 +142,6 @@ bintray {
         repo = "maven"
         // 上传到maven库。（这里要特别注意，如果写了maven报404错误，请在bintray创建一个仓库，这里填改成你创建的仓库的名字，如何创建请看下图。）
         name = "YBase"
-        // 发布到Bintray上的项目名字，这里的名字不是compile 'com.yanzhenjie:andserver:1.0.1'中的andserver。
         userOrg = 'yuge' // Bintray的用户名，2016年11月更新。
         websiteUrl = siteUrl
         vcsUrl = gitUrl

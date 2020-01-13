@@ -11,13 +11,11 @@
         tools:layout="@layout/fragment_main">
         <action
             android:id="@+id/action_mainFragment_to_websiteDetailFragment"
-            app:destination="@id/websiteDetailFragment"
-            />
+            app:destination="@id/websiteDetailFragment" />
 
         <action
             android:id="@+id/action_mainFragment_to_chatFragment"
-            app:destination="@id/chatFragment"
-            />
+            app:destination="@id/chatFragment" />
     </tab_fragment>
 
     <tab_fragment
@@ -31,6 +29,15 @@
         android:id="@+id/chatFragment"
         android:name="com.yzy.example.component.message.ChatFragment"
         android:label="chatFragment"
-        tools:layout="@layout/fragment_chat"
-        />
+        tools:layout="@layout/fragment_chat">
+        <action
+            android:id="@+id/action_chatFragment_to_albumFragment"
+            app:destination="@id/albumFragment" />
+    </tab_fragment>
+
+    <tab_fragment
+        android:id="@+id/albumFragment"
+        android:name="com.yzy.example.component.album.AlbumFragment"
+        android:label="AlbumFragment"
+        tools:layout="@layout/fragment_album" />
 </navigation>

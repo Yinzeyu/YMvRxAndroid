@@ -86,13 +86,13 @@
                 android:layout_height="49dp">
 
                 <ImageView
-                    android:id="@+id/extImageView"
+                    android:id="@+id/extAlbumImageView"
                     android:layout_width="28dp"
                     android:layout_height="28dp"
                     android:layout_centerInParent="true"
                     android:contentDescription="@null"
                     android:scaleType="centerInside"
-                    android:src="@mipmap/imui_ic_cheat_add" />
+                    android:src="@drawable/ic_big_dynamic_add_pic" />
 
                 <Button
                     android:id="@+id/sendButton"

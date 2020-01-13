@@ -11,6 +11,7 @@ import com.blankj.utilcode.util.KeyboardUtils
 import com.blankj.utilcode.util.SizeUtils
 import com.yzy.baselibrary.extention.*
 import com.yzy.example.R
+import com.yzy.example.component.album.AlbumFragment
 import com.yzy.example.component.comm.CommTitleFragment
 import com.yzy.example.component.main.MainActivity
 import com.yzy.example.extention.options
@@ -33,7 +34,7 @@ class ChatFragment : CommTitleFragment() {
 
     override fun initContentView() {
         flTitleBarView.layoutParams.height=BarUtils.getStatusBarHeight()+SizeUtils.dp2px(49f)
-        mContext.window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
+        mContext.window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE)
 //        mContext.window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_UNSPECIFIED)
         (mContext as MainActivity).registerMyTouchListener(myTouchListener)
     }
@@ -89,11 +90,12 @@ class ChatFragment : CommTitleFragment() {
     }
     private fun initInputPanel() {
         inputPanel.icEmotion = R.drawable.ic_big_expression
-        inputPanel.icExtension = R.drawable.ic_big_dynamic_add_pic
         inputPanel.icKeyboard = R.drawable.ic_big_keyboard
         inputPanel.icVoice = R.drawable.ic_big_voice
         inputPanel.audioRecorderPanel = MMAudioRecorderPanel(mContext as MainActivity)
-        inputPanel.attach(mContext as MainActivity, mContext.mContentView,rootLinearLayout)
+        inputPanel.attach(mContext as MainActivity, mContext.mContentView,rootLinearLayout,selectAlbum = {
+            AlbumFragment.startAlbumFragment(mNavController,R.id.action_chatFragment_to_albumFragment)
+        })
         inputPanel.setSendButtonStyle {
             backgroundResource = R.drawable.shape_solid_30d18b_13h
             layoutParams.height = SizeUtils.dp2px(27f)

@@ -106,6 +106,35 @@ fun View.disable() {
     this.isEnabled = false
 }
 
+/**
+ * 如果回调不为空则设置点击事件,回调函数中需要返回数据
+ */
+fun <T> View.setClickNotNull(
+    t: T,
+    onClick: ((t: T) -> Unit)?
+) {
+    if (onClick == null) {
+        setOnClickListener(null)
+    } else {
+        click {
+            onClick?.invoke(t)
+        }
+    }
+}
+
+/**
+ * 如果回调不为空则设置点击事件
+ */
+fun View.setClickNotNull(onClick: (() -> Unit)?) {
+    if (onClick == null) {
+        setOnClickListener(null)
+    } else {
+        click {
+            onClick?.invoke()
+        }
+    }
+}
+
 
 //从父控件移除
 fun View.removeParent() {

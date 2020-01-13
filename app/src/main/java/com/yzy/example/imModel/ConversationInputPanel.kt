@@ -15,6 +15,7 @@ import androidx.fragment.app.FragmentActivity
 import com.blankj.utilcode.util.BarUtils
 import com.blankj.utilcode.util.KeyboardUtils
 import com.blankj.utilcode.util.SizeUtils
+import com.yzy.baselibrary.extention.click
 import com.yzy.baselibrary.extention.getBottomStatusHeight
 import com.yzy.baselibrary.extention.gone
 import com.yzy.example.R
@@ -81,7 +82,6 @@ class ConversationInputPanel @JvmOverloads constructor(
     /**
      * 扩展按键的icon
      */
-    var icExtension = R.mipmap.imui_ic_cheat_add
     private var minKeyboardSize: Int = 0
     private var defaultCustomKeyboardSize: Int = 0
 
@@ -95,16 +95,17 @@ class ConversationInputPanel @JvmOverloads constructor(
     /**
      * 将输入控件绑定到Activity和父布局中
      */
-    fun attach(activity: FragmentActivity, mContentView: FrameLayout,rootLinearLayout:LinearLayout) {
+    fun attach(activity: FragmentActivity, mContentView: FrameLayout,rootLinearLayout:LinearLayout,selectAlbum:()->Unit) {
         this.mContentView=mContentView
-        activity.window.setSoftInputMode(PopupWindow.INPUT_METHOD_NOT_NEEDED);
+        activity.window.setSoftInputMode(PopupWindow.INPUT_METHOD_NOT_NEEDED)
         addOnGlobalLayout()
         this.activity = activity
         initAudioRecorderPanel(rootLinearLayout)
-        extImageView.setImageResource(icExtension)
         emotionImageView.setImageResource(icEmotion)
         audioImageView.setImageResource(icVoice)
-        extImageView.setImageResource(icExtension)
+        extAlbumImageView.click {
+            selectAlbum.invoke()
+        }
 //        initEmoji(mContentView)
 //        initEditText()
 //        initEmotion()
@@ -147,6 +148,32 @@ class ConversationInputPanel @JvmOverloads constructor(
 
   private  val onGlobalLayoutListener = OnGlobalLayoutListener {
         updateKeyboardState()
+    }
+
+    private fun updateKeyboardState() {
+        val rect = Rect()
+        //使用最外层布局填充，进行测算计算
+        getWindowVisibleDisplayFrame(rect)
+        val heightDiff = rootView.height - (rect.bottom - rect.top)
+        val keyboardHeight = max(0, heightDiff - BarUtils.getStatusBarHeight() - getBottomStatusHeight(context))
+        GlobalScope.launch(Dispatchers.Main) {
+            delay(100)
+            if (keyboardHeight != defaultCustomKeyboardSize){
+                defaultCustomKeyboardSize=keyboardHeight
+                Log.e("defaultboardSize",defaultCustomKeyboardSize.toString())
+                changeKeyHeight(defaultCustomKeyboardSize)
+            }
+        }
+    }
+    var keOpen = false
+
+    private fun changeKeyHeight(height: Int) {
+        keOpen = height > 0
+        if (keOpen){
+            emotionContainerFrameLayout.show(height)
+        }else{
+            emotionContainerFrameLayout.hide()
+        }
     }
     //Emoji表情弹窗
 //    private var emojiPopup: EmojiPopup? = null
@@ -274,31 +301,7 @@ class ConversationInputPanel @JvmOverloads constructor(
 //    }
 
 
-    private fun updateKeyboardState() {
-        val rect = Rect()
-        //使用最外层布局填充，进行测算计算
-        getWindowVisibleDisplayFrame(rect)
-        val heightDiff = rootView.height - (rect.bottom - rect.top)
-        val keyboardHeight = max(0, heightDiff - BarUtils.getStatusBarHeight() - getBottomStatusHeight(context))
-        GlobalScope.launch(Dispatchers.Main) {
-            delay(100)
-          if (keyboardHeight != defaultCustomKeyboardSize){
-              defaultCustomKeyboardSize=keyboardHeight
-              Log.e("defaultboardSize",defaultCustomKeyboardSize.toString())
-              changeKeyHeight(defaultCustomKeyboardSize)
-          }
-        }
-    }
-    var keOpen = false
 
-    private fun changeKeyHeight(height: Int) {
-        keOpen = height > 0
-        if (keOpen){
-            emotionContainerFrameLayout.show(height)
-        }else{
-            emotionContainerFrameLayout.hide()
-        }
-    }
 
 
     /**
@@ -373,14 +376,6 @@ class ConversationInputPanel @JvmOverloads constructor(
     fun setEditTextStyle(style: EditText.() -> Unit) {
         editText.apply(style)
     }
-
-    /**
-     * 设置扩展菜单的样式
-     */
-    fun setExtensionButtonStyle(style: ImageView.() -> Unit) {
-        extImageView.apply(style)
-    }
-
     /**
      * 设置语音输入按键的样式
      */

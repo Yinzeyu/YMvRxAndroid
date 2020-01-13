@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <androidx.fragment.app.FragmentContainerView
+        <androidx.fragment.app.FragmentContainerView
         android:id="@+id/nav_fragment"
         android:name="com.yzy.baselibrary.base.CustomNavHostFragment"
         android:layout_width="match_parent"
