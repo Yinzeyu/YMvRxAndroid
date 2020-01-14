@@ -43,7 +43,7 @@
             android:layout_margin="20dp">
 
 
-            <com.yzy.example.widget.imagewatcher.view.CircleIndicator
+            <com.yzy.example.widget.imagewatcher.CircleIndicator
                 android:id="@+id/circleIndicator"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"

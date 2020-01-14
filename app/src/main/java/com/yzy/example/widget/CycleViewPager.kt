@@ -6,8 +6,6 @@ import android.view.ViewGroup
 import android.widget.FrameLayout
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.ViewPager2
-import com.yzy.example.component.main.BannerPagerAdapter
-import com.yzy.example.widget.cycleviewpager2.indicator.Indicator
 import java.lang.ref.WeakReference
 
 class CycleViewPager @JvmOverloads constructor(
@@ -15,12 +13,11 @@ class CycleViewPager @JvmOverloads constructor(
     attrs: AttributeSet? = null,
     defStyleAttr: Int = 0
 ) : FrameLayout(context, attrs, defStyleAttr) {
-    private var mViewPager2: ViewPager2? = null
+     var mViewPager2: ViewPager2? = null
     private var mAutoTurningRunnable: AutoTurningRunnable? = null
-    private var mIndicator: Indicator? = null
     private var isTurning = false
     private var canAutoTurning = false
-    private var autoTurningTime: Long = 0
+     var autoTurningTime: Long = 0
      var listSize: Int = 0
     private val INVALID_ITEM_POSITION = -1
 
@@ -52,7 +49,7 @@ class CycleViewPager @JvmOverloads constructor(
             if (isBeginPagerChange) {
                 mTempPosition = position
             }
-            val itemCount = (adapter?.itemCount ?: 0)
+            val itemCount = (mViewPager2?.adapter?.itemCount ?: 0)
             if (itemCount <= 1) {
                 if (isTurning) {
                     stopAutoTurning()
@@ -62,7 +59,6 @@ class CycleViewPager @JvmOverloads constructor(
                     startAutoTurning()
                 }
             }
-            mIndicator?.onChanged(listSize, itemCount % listSize)
         }
 
         override fun onPageScrollStateChanged(state: Int) {
@@ -82,7 +78,7 @@ class CycleViewPager @JvmOverloads constructor(
 
         private fun getFixCurrentItem(position: Int): Int {
             if (position == INVALID_ITEM_POSITION) return INVALID_ITEM_POSITION
-            val lastPosition = (adapter?.itemCount ?: 0) - 1
+            val lastPosition = (mViewPager2?.adapter?.itemCount ?: 0) - 1
             var fixPosition = INVALID_ITEM_POSITION
             if (position == 0) {
                 fixPosition = if (lastPosition == 0) 0 else lastPosition - 1
@@ -97,9 +93,6 @@ class CycleViewPager @JvmOverloads constructor(
 
     fun setCurrentItem(item: Int, smoothScroll: Boolean) {
         mViewPager2?.setCurrentItem(item, smoothScroll)
-        if (smoothScroll) {
-            mIndicator?.onPageSelected((adapter?.itemCount ?: 0) % listSize)
-        }
     }
 
     internal class AutoTurningRunnable(cycleViewPager: CycleViewPager) :
@@ -108,7 +101,7 @@ class CycleViewPager @JvmOverloads constructor(
         override fun run() {
             val cycleViewPager = reference.get()
             if (cycleViewPager != null && cycleViewPager.canAutoTurning && cycleViewPager.isTurning) {
-                val itemCount = (cycleViewPager.adapter?.itemCount ?: 0)
+                val itemCount = (cycleViewPager.mViewPager2?.adapter?.itemCount ?: 0)
                 if (itemCount == 0) return
                 val nextItem = (cycleViewPager.currentItem + 1) % itemCount
                 cycleViewPager.setCurrentItem(nextItem, true)
@@ -117,41 +110,10 @@ class CycleViewPager @JvmOverloads constructor(
         }
 
     }
-
-    var adapter: RecyclerView.Adapter<*>?
-        get() = mViewPager2?.adapter
-        set(adapter) {
-            if (adapter is BannerPagerAdapter) {
-                if (mViewPager2?.adapter === adapter) return
-                adapter.registerAdapterDataObserver(mAdapterDataObserver)
-                mViewPager2?.adapter = adapter
-                setCurrentItem(1, false)
-                mViewPager2?.offscreenPageLimit = listSize
-                initIndicator()
-                return
-            }
-
-        }
-
-    private val mAdapterDataObserver: RecyclerView.AdapterDataObserver =
-        object : RecyclerView.AdapterDataObserver() {
-            override fun onChanged() {
-
-            }
-        }
-
-    private fun initIndicator() {
-        mIndicator?.let {
-            addView(it.indicatorView)
-            it.onChanged(listSize,0)
-        }
-    }
-
-    private fun removeIndicatorView() {
-        mIndicator?.let {
-            removeView(it.indicatorView)
-        }
-
+    fun  setAdapter(adapter: RecyclerView.Adapter<*>?){
+        mViewPager2?.adapter = adapter
+        setCurrentItem(1, false)
+        mViewPager2?.offscreenPageLimit = listSize
     }
 
 
@@ -182,34 +144,6 @@ class CycleViewPager @JvmOverloads constructor(
         set(value) {
             mViewPager2?.currentItem = value
         }
-    var orientation: Int
-        get() = (mViewPager2?.orientation ?: 0)
-        set(value) {
-            mViewPager2?.orientation = value
-        }
-
-    fun setPageTransformer(transformer: ViewPager2.PageTransformer?) {
-        mViewPager2?.setPageTransformer(transformer)
-    }
-
-
-    fun addItemDecoration(decor: RecyclerView.ItemDecoration) {
-        mViewPager2?.addItemDecoration(decor)
-    }
-
-    fun setIndicator(indicator: Indicator?) {
-        if (mIndicator === indicator) return
-        removeIndicatorView()
-        mIndicator = indicator
-        initIndicator()
-    }
-    fun registerOnPageChangeCallback(callback: ViewPager2.OnPageChangeCallback) {
-        mViewPager2?.registerOnPageChangeCallback(callback)
-    }
-
-    fun unregisterOnPageChangeCallback(callback: ViewPager2.OnPageChangeCallback) {
-        mViewPager2?.unregisterOnPageChangeCallback(callback)
-    }
 
 }
 

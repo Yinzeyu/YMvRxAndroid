@@ -1,24 +1,24 @@
 package com.yzy.example.component.main.item
 
-import android.graphics.Color
+import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
+import android.widget.ImageView
+import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.CompositePageTransformer
 import com.airbnb.epoxy.EpoxyAttribute
 import com.airbnb.epoxy.EpoxyModelClass
-import com.blankj.utilcode.util.SizeUtils
-import com.yzy.baselibrary.base.BaseActivity
 import com.yzy.baselibrary.base.BaseEpoxyHolder
 import com.yzy.baselibrary.base.BaseEpoxyModel
 import com.yzy.example.R
-import com.yzy.example.component.main.BannerPagerAdapter
+import com.yzy.example.extention.load
 import com.yzy.example.repository.bean.BannerBean
-import com.yzy.example.widget.cycleviewpager2.CycleViewPager2Helper
-import com.yzy.example.widget.cycleviewpager2.indicator.DotsIndicator
 import kotlinx.android.synthetic.main.item_banner.view.*
+
 
 /**
  * Description:
- * @author: caiyoufei
+ * @author: YZY
  * @date: 2019/10/13 19:11
  */
 @EpoxyModelClass(layout = R.layout.item_banner)
@@ -35,22 +35,36 @@ abstract class BannerItem : BaseEpoxyModel<BaseEpoxyHolder>() {
             if (itemView.tag == tag) return@let
             itemView.tag = tag
             val itemBanner = itemView.itemBanner
-            val dotsIndicator = DotsIndicator(itemView.context)
-            dotsIndicator.setRadius(SizeUtils.dp2px(4f))
-            dotsIndicator.setSelectedColor(Color.RED)
-            dotsIndicator.setUnSelectedColor( Color.WHITE)
-            dotsIndicator.setDotsPadding(SizeUtils.dp2px(4f))
-            dotsIndicator.setLeftMargin(0)
-            dotsIndicator.setBottomMargin(SizeUtils.dp2px(5f))
-            dotsIndicator.setRightMargin(0)
-            dotsIndicator.setDirection( DotsIndicator.Direction.CENTER)
-            val cycleViewPager2Helper = CycleViewPager2Helper(itemBanner)
-            cycleViewPager2Helper .listSize=data.size
-            cycleViewPager2Helper.adapter= BannerPagerAdapter((itemView.context as BaseActivity), data)
-            cycleViewPager2Helper .addPageTransformer( CompositePageTransformer())
-            cycleViewPager2Helper.addindicator(dotsIndicator)
-            cycleViewPager2Helper.autoTurningTime=3000L
+            itemBanner .listSize=data.size
+           val bannerAdapter =ViewPagerAdapter(data)
+            itemBanner.setAdapter(bannerAdapter)
+            itemBanner.mViewPager2?.setPageTransformer( CompositePageTransformer())
+            itemBanner.setAutoTurning(3000L)
+        }
+    }
+    private class ViewPagerAdapter(var list: MutableList<BannerBean>) : RecyclerView.Adapter<ViewPagerAdapter.ViewPagerViewHolder>() {
+
+        internal inner class ViewPagerViewHolder(itemView: View) :
+            RecyclerView.ViewHolder(itemView) {
+            var mContainer: ImageView = itemView.findViewById(R.id.itemBannerIV)
+
+        }
+        override fun getItemCount(): Int {
+          return  if (list.size <= 1) 1 else Integer.MAX_VALUE
+        }
+
+        override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewPagerViewHolder {
+            return ViewPagerViewHolder(
+                LayoutInflater.from(parent.context).inflate(R.layout.item_banner_child, parent, false)
+            )
+        }
+
+        override fun onBindViewHolder(holder: ViewPagerViewHolder, position: Int) {
+            holder.mContainer.tag= list[position % list.size]
+           holder.mContainer.load( list[position % list.size].imagePath)
 
         }
     }
 }
+
+

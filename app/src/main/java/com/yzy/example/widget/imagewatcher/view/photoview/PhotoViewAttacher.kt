@@ -194,13 +194,10 @@ class PhotoViewAttacher(private val mImageView: ImageView) : OnTouchListener,
         }
 
     var scale: Float = sqrt(
-        getValue(mSuppMatrix, Matrix.MSCALE_X).toDouble().pow(2.0).toFloat() + Math.pow(
-            getValue(
-                mSuppMatrix,
-                Matrix.MSKEW_Y
-            ).toDouble(),
-            2.0
-        ) as Float
+        getValue(mSuppMatrix, Matrix.MSCALE_X).pow(2.0f) + getValue(
+            mSuppMatrix,
+            Matrix.MSKEW_Y
+        ).toDouble().pow(2.0).toFloat()
     )
         set(scale) {
             setScale(scale, false)

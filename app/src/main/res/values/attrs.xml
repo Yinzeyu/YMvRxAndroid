@@ -73,12 +73,14 @@
         <attr name="bvp_indicator_visibility" format="enum">
             <enum name="visible" value="0" />
             <enum name="invisible" value="4" />
-            <enum name="gone" value="8" />/>
+            <enum name="gone" value="8" />
         </attr>
 
     </declare-styleable>
-    <declare-styleable name="MNImageBrowserCircleIndicator">
-        <attr name="ci_width" format="dimension"/>
+
+
+    <declare-styleable name="CircleIndicator">
+        <attr name="ci_width" format="dimension" />
         <attr name="ci_height" format="dimension"/>
         <attr name="ci_margin" format="dimension"/>
         <attr name="ci_animator" format="reference"/>
@@ -129,8 +131,8 @@
             <!-- Push object to the end of its container, not changing its size. -->
             <flag name="end" value="0x00800005"/>
         </attr>
-
     </declare-styleable>
+
 
     <declare-styleable name="SwipeMenuLayout">
         <attr name="swipeEnable" format="boolean"/>

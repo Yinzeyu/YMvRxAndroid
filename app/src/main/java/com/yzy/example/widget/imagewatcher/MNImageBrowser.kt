@@ -4,7 +4,6 @@ import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.view.View
-import android.widget.ImageView
 import androidx.annotation.AnimRes
 import androidx.annotation.LayoutRes
 import androidx.core.app.ActivityCompat
@@ -156,10 +155,7 @@ class MNImageBrowser private constructor(private val context: Context) {
             MNImageBrowserActivity.instance.finishActivity()
         }
 
-        /**
-         * 获取当前ImageView
-         */
-        val currentImageView: ImageView?=MNImageBrowserActivity.instance.currentImageView
+
 
         /**
          * 获取当前位置
