@@ -1,6 +1,5 @@
 package com.yzy.example.component.album
 
-import android.Manifest
 import android.text.TextUtils
 import android.util.Log
 import androidx.fragment.app.FragmentActivity
@@ -220,10 +219,10 @@ class PicSelectViewModel : ViewModel() {
     private fun syncOtherDir(index: Int, media: LocalMedia) {
         //当前从全部操作的则遍历后面的文件夹，如果是后面的文件夹，则从开始遍历即可
         val start = if (index == 0) 1 else 0
-        _bannerAndArticleResult.value?.let {
+        _bannerAndArticleResult.value?.let {image->
             //遍历文件夹
-            for (i in start until it.data.size) {
-                val images = it.data[i].images
+            for (i in start until image.data.size) {
+                val images = image.data[i].images
                 images?.let { list ->
                     //遍历文件
                     for (it in list) {
@@ -233,9 +232,9 @@ class PicSelectViewModel : ViewModel() {
                             break
                         }
                     }
-//                    val tempList: MutableList<LocalMediaFolder> = mutableListOf()
-//                    tempList.addAll(it.data)
-//                    _bannerAndArticleResult.update(AlbumBean(tempList, currentCheckDirIndex, false))
+                    val tempList: MutableList<LocalMediaFolder> = mutableListOf()
+                    tempList.addAll(image.data)
+                    _bannerAndArticleResult.update(AlbumBean(tempList, currentCheckDirIndex, false))
                 }
             }
         }
@@ -253,11 +252,11 @@ class PicSelectViewModel : ViewModel() {
                 dirs[0].checkedNum += 1
                 val fileParent = File(path).parentFile
                 //获取父文件夹
-                val parentMediaDir = dirs.filter { TextUtils.equals(it.path, fileParent.path) }
+                val parentMediaDir = dirs.filter { TextUtils.equals(it.path, fileParent?.path) }
                 if (parentMediaDir.isNullOrEmpty()) {//如果不存在，则添加
                     val newFolder = LocalMediaFolder()
-                    newFolder.name = fileParent.name
-                    newFolder.path = fileParent.absolutePath
+                    newFolder.name = fileParent?.name
+                    newFolder.path = fileParent?.absolutePath
                     newFolder.firstImagePath = path
                     newFolder.images?.add(media)
                     newFolder.checkedNum = 1

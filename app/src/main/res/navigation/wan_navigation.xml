@@ -39,5 +39,15 @@
         android:id="@+id/albumFragment"
         android:name="com.yzy.example.component.album.AlbumFragment"
         android:label="AlbumFragment"
-        tools:layout="@layout/fragment_album" />
+        tools:layout="@layout/fragment_album" >
+        <action
+            android:id="@+id/action_albumFragment_to_picCutFragment"
+            app:destination="@id/picCutFragment" />
+    </tab_fragment>
+
+    <tab_fragment
+        android:id="@+id/picCutFragment"
+        android:name="com.yzy.example.component.album.PicCutFragment"
+        android:label="PicCutFragment"
+        tools:layout="@layout/fragment_pic_cut" />
 </navigation>

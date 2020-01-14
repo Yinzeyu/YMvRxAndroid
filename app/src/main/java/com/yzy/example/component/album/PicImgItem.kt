@@ -19,7 +19,7 @@ import kotlinx.android.synthetic.main.item_pic_select.view.*
 
 /**
  * Description: 图库选择的图片item
- * @author: caiyoufei
+ * @author: yzy
  * @date: 19-5-15 下午6:51
  */
 @EpoxyModelClass(layout = R.layout.item_pic_select)

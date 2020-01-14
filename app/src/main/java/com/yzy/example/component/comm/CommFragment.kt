@@ -5,8 +5,10 @@ import android.os.Bundle
 import android.view.*
 import android.widget.FrameLayout
 import com.airbnb.lottie.*
+import com.yzy.baselibrary.base.BaseActivity
 import com.yzy.baselibrary.base.BaseFragment
 import com.yzy.baselibrary.extention.removeParent
+import com.yzy.example.component.dialog.ActionDialog
 
 /**
  * Description:
@@ -88,4 +90,24 @@ abstract class CommFragment : BaseFragment() {
         return Color.WHITE
     }
     //#################################镶嵌在页面中的loading<-END#################################//
+    //#################################镶嵌在页面中的loading<-END#################################//
+
+    private var mActionDialog: ActionDialog? = null
+
+    fun showActionLoading(text: String? = null) {
+        if (mActionDialog == null) {
+            mActionDialog = ActionDialog.newInstance(true)
+        }
+        mActionDialog?.onDismiss {
+            mActionDialog = null
+        }
+        mActionDialog?.let {
+            if (!text.isNullOrBlank()) it.hintText = text
+            it.show((mContext as BaseActivity).supportFragmentManager)
+        }
+    }
+
+    fun dismissActionLoading() {
+        mActionDialog?.dismissAllowingStateLoss()
+    }
 }

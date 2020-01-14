@@ -7,7 +7,7 @@ import com.yzy.example.utils.album.entity.LocalMedia
 
 /**
  * Description: 确认选中的图片
- * @author: caiyoufei
+ * @author: yzy
  * @date: 19-5-14 下午8:23
  */
 internal object PicSelLiveData {

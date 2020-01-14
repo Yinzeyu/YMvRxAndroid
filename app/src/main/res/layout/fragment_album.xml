@@ -82,7 +82,8 @@
         <com.airbnb.epoxy.EpoxyRecyclerView
             android:id="@+id/picDirRecycler"
             android:layout_width="match_parent"
-            android:layout_height="280dp"
+            android:layout_height="wrap_content"
+            android:maxHeight="280dp"
             android:background="#F2F2F2"
             android:overScrollMode="never"
             android:visibility="invisible" />

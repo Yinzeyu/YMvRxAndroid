@@ -4,6 +4,9 @@ import android.animation.Animator
 import android.animation.AnimatorListenerAdapter
 import android.animation.ObjectAnimator
 import android.content.Context
+import android.content.Intent
+import android.graphics.BitmapFactory
+import android.net.Uri
 import android.os.Bundle
 import android.text.TextUtils
 import android.view.View
@@ -15,13 +18,11 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.airbnb.epoxy.EpoxyAdapter
 import com.blankj.utilcode.util.BarUtils
+import com.blankj.utilcode.util.LogUtils
 import com.blankj.utilcode.util.SizeUtils
 import com.blankj.utilcode.util.Utils.runOnUiThread
 import com.yzy.baselibrary.base.MvRxEpoxyController
-import com.yzy.baselibrary.extention.click
-import com.yzy.baselibrary.extention.pressEffectAlpha
-import com.yzy.baselibrary.extention.toast
-import com.yzy.baselibrary.extention.visible
+import com.yzy.baselibrary.extention.*
 import com.yzy.example.R
 import com.yzy.example.component.comm.CommFragment
 import com.yzy.example.component.comm.item.DividerItem_
@@ -31,10 +32,12 @@ import com.yzy.example.extention.options
 import com.yzy.example.repository.ViewModelFactory
 import com.yzy.example.repository.bean.AlbumBean
 import com.yzy.example.utils.CameraUtils
+import com.yzy.example.utils.album.MediaType
 import com.yzy.example.utils.album.entity.LocalMedia
 import com.yzy.example.utils.album.entity.LocalMediaFolder
 import com.yzy.example.widget.GridItemDecoration
 import kotlinx.android.synthetic.main.fragment_album.*
+import java.io.File
 import java.util.*
 
 class AlbumFragment : CommFragment() {
@@ -95,11 +98,11 @@ class AlbumFragment : CommFragment() {
             videoMinDur: Long = 3 * 1000,
             videoMaxDur: Long = 100 * 1000,
             maxPicSize: Int = 9,
-            isOnlyOne: Boolean = false,
+            isOnlyOne: Boolean = true,
             isOnlyPic: Boolean = false,
-            isNeedCut: Boolean = false,
+            isNeedCut: Boolean = true,
             needCutSquare: Boolean = true,
-            needCutLayerCircle: Boolean = false
+            needCutLayerCircle: Boolean = true
         ) {
             controller.navigate(id, Bundle().apply {
                 putBoolean("isMixing", isMixing)
@@ -133,15 +136,7 @@ class AlbumFragment : CommFragment() {
             maxdur = videoMaxDur,
             mixing = isMixing
         )
-        picSelOver.alpha = 0f
         picSelOver.click { if (isOpen) changeDirState() }
-        picSelTitleArrow.post {
-            picSelTitleArrow.pivotX = (picSelTitleArrow.width - picSelTitleArrow.paddingEnd) / 2f
-            picSelTitleArrow.pivotY = picSelTitleArrow.height / 2f
-            picDirRecycler.translationY = -picDirRecycler.height.toFloat()
-            picDirRecycler.visible()
-        }
-//        picDirRecycler.setController(epoxyControllerDir)
         dirAdapter = DirAdapter()
         picDirRecycler.adapter = dirAdapter
         picDirRecycler.layoutManager = LinearLayoutManager(mContext)
@@ -150,16 +145,18 @@ class AlbumFragment : CommFragment() {
         dec.setVerticalDivider(ContextCompat.getDrawable(mContext, R.drawable.divider_vertical))
         dec.setNeedDraw(true)
         picSelRecycler.addItemDecoration(dec)
-//        picSelRecycler.setController(epoxyControllerImg)
         imgAdapter = ImgAdapter()
         picSelRecycler.adapter = imgAdapter
         picSelRecycler.layoutManager = GridLayoutManager(mContext, 4)
-//        epoxyControllerImg.addModelBuildListener {
-//            if (needScroll2Top) {
-//                picSelRecycler.scrollToPosition(0)
-//                needScroll2Top = false
-//            }
-//        }
+        picSelOver.alpha = 0f
+        picSelTitleArrow.post {
+            picDirRecycler.post {
+                picSelTitleArrow.pivotX = (picSelTitleArrow.width - picSelTitleArrow.paddingEnd) / 2f
+                picSelTitleArrow.pivotY = picSelTitleArrow.height / 2f
+                picDirRecycler.translationY = -picDirRecycler.height.toFloat()
+                picDirRecycler.visible()
+            }
+        }
     }
 
     override fun initData() {
@@ -411,6 +408,68 @@ class AlbumFragment : CommFragment() {
         override fun onError() {
             mContext.toast("拍照出错")
         }
+    }
+    //需要裁切的图片信息
+    private var mCutMedia: LocalMedia? = null
+
+    override fun onFragmentResult(requestCode: Int, resultCode: Int, data: Intent?) {
+
+        if (CameraUtils.isFromCapture(requestCode)) {
+            CameraUtils.getTakePhotoFilePath(requestCode, resultCode)?.let {
+//                mContext.sendBroadcast(
+//                    Intent(
+//                        Intent.ACTION_MEDIA_SCANNER_SCAN_FILE,
+//                        Uri.fromFile(File(it))
+//                    )
+//                )
+                val options = BitmapFactory.Options()
+                options.inJustDecodeBounds = true
+                options.inSampleSize = 1
+                BitmapFactory.decodeFile(it, options)
+                val localMedia = LocalMedia(
+                    path = it,
+                    width = options.outWidth,
+                    height = options.outHeight,
+                    isChecked = !isOnlyOne,
+                    mimeType = MediaType.IMAGE.ordinal
+                )
+                if (isOnlyOne) {
+                    if (isNeedCut) {
+                        mCutMedia = localMedia
+                        PicCutFragment.startPicCutFragment(mNavController,R.id.action_albumFragment_to_picCutFragment, it,needCutSquare, needCutLayerCircle)
+//
+                    } else {
+                        val list: MutableList<LocalMedia> = mutableListOf()
+                        list.add(localMedia)
+                        PicSelLiveData.setSelectPicList(list)
+//                        mContext.onBackPressed()
+                    }
+                } else {
+                    mViewModel.andAddCameraMedia(localMedia)
+                }
+            }
+        } else {
+            LogUtils.e("图片裁切完成")
+            //图片裁切完成获取到的地址
+//            PicComponent.getCutResultUrl(requestCode, resultCode, data)
+//                ?.let { path ->
+//                    mCutMedia?.let { media ->
+//                        val list: MutableList<LocalMedia> = mutableListOf()
+//                        media.cutPath = path
+//                        list.add(media)
+//                        PicSelLiveData.setSelectPicList(list)
+//                        mContext.onBackPressed()
+//                    }
+//                }
+        }
+    }
+
+    override fun onActivityResult(
+        requestCode: Int,
+        resultCode: Int,
+        data: Intent?
+    ) {
+
     }
 
     private fun changeDirState() {

@@ -14,7 +14,7 @@ import kotlinx.android.synthetic.main.item_pic_dir.view.*
 
 /**
  * Description:图片选择的文件夹item
- * @author: caiyoufei
+ * @author: yzy
  * @date: 19-5-15 下午3:29
  */
 @EpoxyModelClass(layout = R.layout.item_pic_dir)

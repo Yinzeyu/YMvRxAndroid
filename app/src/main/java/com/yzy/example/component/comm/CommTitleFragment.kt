@@ -2,15 +2,17 @@ package com.yzy.example.component.comm
 
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.isVisible
 import com.yzy.baselibrary.extention.click
 import com.yzy.baselibrary.extention.pressEffectAlpha
+import com.yzy.baselibrary.extention.visible
 import com.yzy.example.R
 import kotlinx.android.synthetic.main.activity_comm_title.*
 import kotlinx.android.synthetic.main.layout_comm_title.*
 
 /**
  * Description:
- * @author: caiyoufei
+ * @author: yzy
  * @date: 2019/10/8 10:48
  */
 abstract class CommTitleFragment : CommFragment() {
@@ -18,6 +20,7 @@ abstract class CommTitleFragment : CommFragment() {
     override val contentLayout: Int= R.layout.activity_comm_title
     override fun initView(root: View?) {
         commTitleBack.pressEffectAlpha()
+        commonTitleRightTv.pressEffectAlpha()
         commTitleBack.click {  mContext.onBackPressed() }
         //添加子view
         if (commonRootView.childCount == 1) {
@@ -37,7 +40,21 @@ abstract class CommTitleFragment : CommFragment() {
     fun setTitleText(title: CharSequence) {
         commTitleText.text = title
     }
+    //设置右边文字
+    fun setTitleRightTv(txt: String) {
+        commonTitleRightTv.text = txt
+        commonTitleRightTv.visible()
+    }
+    //设置右边文字显示状态
+    fun setTitleRightTv(visible: Boolean) {
+        commonTitleRightTv.isVisible=visible
+        commonTitleRightTv.textSize
+    }
 
+    //右边点击事件
+    fun setTitleRightTv(onClick: (() -> Unit)?) {
+        commonTitleRightTv.click { onClick?.invoke() }
+    }
     //子xml
     abstract fun layoutResContentId(): Int
 

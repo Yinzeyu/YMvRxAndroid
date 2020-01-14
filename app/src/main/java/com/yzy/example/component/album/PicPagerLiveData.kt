@@ -8,7 +8,7 @@ import com.yzy.example.utils.album.entity.LocalMedia
 
 /**
  * Description: 大图列表展示的数据列表
- * @author: caiyoufei
+ * @author: yzy
  * @date: 19-5-17 下午7:21
  */
 internal object PicPagerLiveData {

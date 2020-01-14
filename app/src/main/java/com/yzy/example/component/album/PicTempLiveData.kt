@@ -7,7 +7,7 @@ import com.yzy.example.utils.album.entity.LocalMedia
 
 /**
  * Description: 临时选中的图片，还没有点击确认
- * @author: caiyoufei
+ * @author: yzy
  * @date: 19-5-18 下午4:05
  */
 internal object PicTempLiveData {

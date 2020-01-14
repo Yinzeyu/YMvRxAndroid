@@ -123,7 +123,8 @@ dependencies {
     implementation rootProject.ext.dependencies.viewpager2
     implementation rootProject.ext.dependencies.lottie
     implementation rootProject.ext.dependencies.live_event_bus
-    implementation rootProject.ext.dependencies.rxpermission
+//    implementation 'com.github.yalantis:ucrop:2.2.4'
+//    implementation rootProject.ext.dependencies.rxpermission
     //web https://github.com/Justson/AgentWeb
     implementation 'com.just.agentweb:agentweb:4.1.2'
     //表情 https://github.com/vanniktech/Emoji
