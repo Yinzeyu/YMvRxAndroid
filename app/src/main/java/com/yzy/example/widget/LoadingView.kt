@@ -20,7 +20,7 @@ import kotlin.math.abs
  * @author : yzy
  * @date : 2018/3/3  10:22 创建
  */
-class AimyLoadingView(
+class LoadingView(
     context: Context?,
     attrs: AttributeSet?,
     defStyleAttr: Int,

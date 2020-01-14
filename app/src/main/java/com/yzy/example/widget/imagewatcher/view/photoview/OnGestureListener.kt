@@ -12,16 +12,19 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- *******************************************************************************/
-package com.yzy.example.widget.imagewatcher.view.photoview;
+ */
+package com.yzy.example.widget.imagewatcher.view.photoview
 
-interface OnGestureListener {
+internal interface OnGestureListener {
+    fun onDrag(dx: Float, dy: Float)
+    fun onFling(
+        startX: Float, startY: Float, velocityX: Float,
+        velocityY: Float
+    )
 
-    void onDrag(float dx, float dy);
-
-    void onFling(float startX, float startY, float velocityX,
-                 float velocityY);
-
-    void onScale(float scaleFactor, float focusX, float focusY);
-
+    fun onScale(
+        scaleFactor: Float,
+        focusX: Float,
+        focusY: Float
+    )
 }
