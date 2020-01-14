@@ -1,6 +1,5 @@
 package com.yzy.example.component.album
 
-import android.content.Intent
 import android.graphics.Bitmap
 import android.net.Uri
 import android.os.Bundle
@@ -10,9 +9,11 @@ import androidx.annotation.IdRes
 import androidx.navigation.NavController
 import com.blankj.utilcode.util.BarUtils
 import com.blankj.utilcode.util.SizeUtils
+import com.yzy.baselibrary.base.BaseActivity
 import com.yzy.baselibrary.extention.toast
 import com.yzy.example.R
 import com.yzy.example.component.comm.CommTitleFragment
+import com.yzy.example.component.main.MainActivity
 import com.yzy.example.extention.options
 import com.yzy.example.utils.PathUtils
 import com.yzy.example.widget.crop.ucrop.view.SimpleTransformImageListener
@@ -28,7 +29,7 @@ import java.io.File
  */
 class PicCutFragment : CommTitleFragment() {
     //需要裁切的图片地址
-    var imageUrl: String = ""
+    private var imageUrl: String = ""
     //是否裁切为正方形,否则16:9
     var square: Boolean = false
     //是否显示圆形的蒙层，只有当square=tue才生效
@@ -58,8 +59,8 @@ class PicCutFragment : CommTitleFragment() {
     override fun initContentView() {
         flTitleBarView.layoutParams.height = SizeUtils.dp2px(44f) + BarUtils.getStatusBarHeight()
         imageUrl = arguments?.getString("imageUrl") ?: ""
-        square = arguments?.getBoolean("square") ?:false
-        layerCircle = arguments?.getBoolean("layerCircle") ?:false
+        square = arguments?.getBoolean("square") ?: false
+        layerCircle = arguments?.getBoolean("layerCircle") ?: false
 
         setTitleText("裁剪")
         setTitleRightTv("完成")
@@ -68,10 +69,9 @@ class PicCutFragment : CommTitleFragment() {
             picCutUcrop.cropAndSaveImage(Bitmap.CompressFormat.PNG, 90) { result ->
                 dismissActionLoading()
                 if (result != null && result.isSuccessful && result.uri != null) {
-                    val intent = Intent()
-                    intent.putExtra("key_pic_cut_result", result.uri.path)
-//          setResult(RESULT_OK, intent)
-//          finish()
+                    onBackPressed()
+                    result.uri.path?.let { onBackAlbum(it) }
+
                 } else {
                     Log.e("cut_image", "图片裁切失败：" + if (result == null) "" else result.error)
                     mContext.toast("图片裁切失败")
@@ -80,10 +80,20 @@ class PicCutFragment : CommTitleFragment() {
         }
     }
 
+    private fun onBackAlbum(path: String) {
+        try {
+            (mContext as BaseActivity).getFragmentLists().forEach {
+                if (it is AlbumFragment) {
+                    it.cutResultUrl(path)
+                }
+            }
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
+    }
+
+
     override fun initData() {
-//    imageUrl = intent.getStringExtra(RouterConstants.Pic.KEY_PIC_CUT_URL)
-//    square = intent.getBooleanExtra(RouterConstants.Pic.KEY_PIC_CUT_SQUARE, true)
-//    layerCircle = intent.getBooleanExtra(RouterConstants.Pic.KEY_PIC_CUT_LAYER_CIRCLE, false)
         //手势
         val mGestureCropImageView = picCutUcrop.cropImageView
         mGestureCropImageView.isScaleEnabled = true

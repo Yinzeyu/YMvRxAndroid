@@ -102,7 +102,7 @@ class AlbumFragment : CommFragment() {
             isOnlyPic: Boolean = false,
             isNeedCut: Boolean = true,
             needCutSquare: Boolean = true,
-            needCutLayerCircle: Boolean = true
+            needCutLayerCircle: Boolean = false
         ) {
             controller.navigate(id, Bundle().apply {
                 putBoolean("isMixing", isMixing)
@@ -151,7 +151,8 @@ class AlbumFragment : CommFragment() {
         picSelOver.alpha = 0f
         picSelTitleArrow.post {
             picDirRecycler.post {
-                picSelTitleArrow.pivotX = (picSelTitleArrow.width - picSelTitleArrow.paddingEnd) / 2f
+                picSelTitleArrow.pivotX =
+                    (picSelTitleArrow.width - picSelTitleArrow.paddingEnd) / 2f
                 picSelTitleArrow.pivotY = picSelTitleArrow.height / 2f
                 picDirRecycler.translationY = -picDirRecycler.height.toFloat()
                 picDirRecycler.visible()
@@ -182,7 +183,22 @@ class AlbumFragment : CommFragment() {
                     isOnlyOne,
                     isMixing,
                     isNeedCut,
-                    mOnCameraListener
+                    mOnCameraListener, callBack = {
+
+                    },
+                    cutCallBack = { mediaTemp ->
+                        mCutMedia = mediaTemp
+                        mediaTemp.path?.let { path ->
+                            PicCutFragment.startPicCutFragment(
+                                mNavController,
+                                R.id.action_albumFragment_to_picCutFragment,
+                                path,
+                                needCutSquare,
+                                needCutLayerCircle
+                            )
+                        }
+
+                    }
                 )
             }
         })
@@ -218,7 +234,6 @@ class AlbumFragment : CommFragment() {
     }
 
     class ImgAdapter : EpoxyAdapter() {
-        private var needScroll2Top = false
         fun setData(
             albumBean: AlbumBean,
             mContext: Context,
@@ -228,13 +243,10 @@ class AlbumFragment : CommFragment() {
             isMixing: Boolean,
             isNeedCut: Boolean,
             mOnCameraListener: CameraUtils.OnCameraListener,
-            callBack: (() -> Unit)? = null
+            callBack: (() -> Unit)? = null,
+            cutCallBack: ((media: LocalMedia) -> Unit)? = null
         ) {
             removeAllModels()
-            if (albumBean.scroll2Top) {
-                needScroll2Top = true
-                albumBean.scroll2Top = false
-            }
             if (albumBean.selectIndex == 0) {
                 //添加添加item
                 addModels(PicCameraItem_().apply {
@@ -287,15 +299,7 @@ class AlbumFragment : CommFragment() {
                                     }
                                 } else {//图片
                                     if (isOnlyOne && isNeedCut) {
-                                        mediaTemp.path?.let { path ->
-                                            //                                            mCutMedia = mediaTemp
-//                                            PicComponent.startPicCut(
-//                                                activity = mActivity,
-//                                                imgUrl = path,
-//                                                layerCircle = needCutLayerCircle,
-//                                                square = needCutSquare
-//                                            )
-                                        }
+                                        cutCallBack?.invoke(mediaTemp)
                                     } else if (isOnlyOne && !isNeedCut) {
                                         val list: MutableList<LocalMedia> = mutableListOf()
                                         list.add(mediaTemp)
@@ -361,10 +365,6 @@ class AlbumFragment : CommFragment() {
             }
         }
 
-        fun setNeedScroll2Top(needScroll2Top: Boolean) {
-            this.needScroll2Top = needScroll2Top
-        }
-
         private fun startAnim(
             oldHasChecked: Boolean,
             view: View
@@ -416,7 +416,7 @@ class AlbumFragment : CommFragment() {
 
         if (CameraUtils.isFromCapture(requestCode)) {
             CameraUtils.getTakePhotoFilePath(requestCode, resultCode)?.let {
-//                mContext.sendBroadcast(
+                //                mContext.sendBroadcast(
 //                    Intent(
 //                        Intent.ACTION_MEDIA_SCANNER_SCAN_FILE,
 //                        Uri.fromFile(File(it))
@@ -436,39 +436,35 @@ class AlbumFragment : CommFragment() {
                 if (isOnlyOne) {
                     if (isNeedCut) {
                         mCutMedia = localMedia
-                        PicCutFragment.startPicCutFragment(mNavController,R.id.action_albumFragment_to_picCutFragment, it,needCutSquare, needCutLayerCircle)
-//
+                        PicCutFragment.startPicCutFragment(
+                            mNavController,
+                            R.id.action_albumFragment_to_picCutFragment,
+                            it,
+                            needCutSquare,
+                            needCutLayerCircle
+                        )
                     } else {
                         val list: MutableList<LocalMedia> = mutableListOf()
                         list.add(localMedia)
                         PicSelLiveData.setSelectPicList(list)
-//                        mContext.onBackPressed()
+                        mContext.onBackPressed()
                     }
                 } else {
                     mViewModel.andAddCameraMedia(localMedia)
                 }
             }
-        } else {
-            LogUtils.e("图片裁切完成")
-            //图片裁切完成获取到的地址
-//            PicComponent.getCutResultUrl(requestCode, resultCode, data)
-//                ?.let { path ->
-//                    mCutMedia?.let { media ->
-//                        val list: MutableList<LocalMedia> = mutableListOf()
-//                        media.cutPath = path
-//                        list.add(media)
-//                        PicSelLiveData.setSelectPicList(list)
-//                        mContext.onBackPressed()
-//                    }
-//                }
         }
     }
 
-    override fun onActivityResult(
-        requestCode: Int,
-        resultCode: Int,
-        data: Intent?
-    ) {
+    fun cutResultUrl(path: String) {
+        val list: MutableList<LocalMedia> = mutableListOf()
+        mCutMedia?.let { media ->
+            media.cutPath = path
+            list.add(media)
+            PicSelLiveData.setSelectPicList(list)
+            mContext.onBackPressed()
+
+        }
 
     }
 

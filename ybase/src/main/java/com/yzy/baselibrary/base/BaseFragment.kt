@@ -94,4 +94,7 @@ abstract class BaseFragment : Fragment(), CoroutineScope by MainScope() {
         cancel()
         super.onDestroyView()
     }
+     open fun onBackPressed(){
+         (mContext as BaseActivity).onBackPressed()
+     }
 }

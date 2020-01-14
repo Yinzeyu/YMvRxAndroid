@@ -182,14 +182,6 @@ class CycleViewPager @JvmOverloads constructor(
         set(value) {
             mViewPager2?.currentItem = value
         }
-
-
-//    var offscreenPageLimit: Int
-//        get() = (mViewPager2?.offscreenPageLimit ?: 0)
-//        set(value) {
-//            mViewPager2?.offscreenPageLimit = value
-//        }
-
     var orientation: Int
         get() = (mViewPager2?.orientation ?: 0)
         set(value) {

@@ -12,7 +12,7 @@ import androidx.navigation.fragment.NavHostFragment
 import java.util.*
 
 /**
- * @author kuky.
+ * @author yzy
  * @description 解决 navigation 返回上个 fragment 导致 fragment 重新调用 onCreated 的问题
  */
 class CustomNavHostFragment : NavHostFragment() {

@@ -10,7 +10,7 @@
         android:padding="3dp"
 >
 
-    <com.yzy.example.widget.FlashingTextView
+    <TextView
             android:id="@+id/dialogActionHint"
             android:layout_width="match_parent"
             android:layout_height="0dp"

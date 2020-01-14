@@ -2,6 +2,7 @@ package com.yzy.baselibrary.base
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.yzy.baselibrary.extention.setLightMode
@@ -44,4 +45,8 @@ abstract class BaseActivity : AppCompatActivity(), CoroutineScope by MainScope()
     /** 获取 ViewModel */
     fun <T : ViewModel> getViewModel(clazz: Class<T>): T =
         ViewModelProvider(this, ViewModelProvider.NewInstanceFactory()).get(clazz)
+
+    fun getFragmentListLast(): Fragment = supportFragmentManager.fragments.first().childFragmentManager.fragments.last()
+
+    fun getFragmentLists(): List<Fragment> = supportFragmentManager.fragments.first().childFragmentManager.fragments
 }

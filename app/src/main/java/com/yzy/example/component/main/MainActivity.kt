@@ -3,7 +3,6 @@ package com.yzy.example.component.main
 import android.content.Context
 import android.content.Intent
 import android.view.MotionEvent
-import androidx.navigation.Navigation
 import com.blankj.utilcode.util.ActivityUtils
 import com.yzy.baselibrary.base.BaseFragment
 import com.yzy.baselibrary.extention.setLightMode
@@ -11,7 +10,6 @@ import com.yzy.baselibrary.extention.startActivity
 import com.yzy.baselibrary.extention.toast
 import com.yzy.example.R
 import com.yzy.example.component.comm.CommActivity
-import kotlinx.android.synthetic.main.activity_main.*
 
 
 class MainActivity : CommActivity() {
@@ -71,12 +69,12 @@ class MainActivity : CommActivity() {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         try {
-            supportFragmentManager.fragments.first().childFragmentManager.fragments.last().let {
+            getFragmentListLast().let {
                 if (it is BaseFragment) {
                     it.onFragmentResult(requestCode, resultCode, data)
                 }
             }
-        }catch (e:Exception){
+        } catch (e: Exception) {
             e.printStackTrace()
         }
     }
@@ -85,7 +83,7 @@ class MainActivity : CommActivity() {
     private var touchTime = 0L
     private val waitTime = 2000L
     override fun onBackPressed() {
-        supportFragmentManager.fragments.first().childFragmentManager.fragments.last().let {
+        getFragmentListLast().let {
             if (it is MainFragment) {
                 val currentTime = System.currentTimeMillis()
                 if (currentTime - touchTime >= waitTime) {
@@ -98,7 +96,6 @@ class MainActivity : CommActivity() {
                 return
             } else {
                 super.onBackPressed()
-//                Navigation.findNavController(nav_fragment).navigateUp()
             }
         }
     }
