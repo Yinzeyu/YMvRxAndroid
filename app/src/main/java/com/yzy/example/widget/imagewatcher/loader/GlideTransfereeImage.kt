@@ -22,6 +22,8 @@ class GlideTransfereeImage private constructor(private val context: Context) :
             }
         }, failed = {
             sourceCallback?.onDelivered(0)
+        },progress = { _, _, percentage, _, totalBytes ->
+            sourceCallback?.onProgress((percentage * 100 / totalBytes).toInt())
         })
     }
 

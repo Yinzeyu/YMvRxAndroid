@@ -54,26 +54,28 @@ class RemoteThumbState extends TransferState {
         final TransferConfig config = transfer.getTransConfig();
         final TransferImage targetImage = transfer.transAdapter.getImageItem(position);
         final ImageLoader imageLoader = config.getImageLoader();
+        loadSourceImage(targetImage.getDrawable(), position, targetImage);
 
-        if (config.isJustLoadHitImage()) {
-            // 如果用户设置了 JustLoadHitImage 属性，说明在 prepareTransfer 中已经
-            // 对 TransferImage 裁剪且设置了占位图， 所以这里直接加载原图即可
-            loadSourceImage(targetImage.getDrawable(), position, targetImage);
-        } else {
-            String thumbUrl = config.getThumbnailImageList().get(position);
 
-//            if (imageLoader.isLoaded(thumbUrl)) {
-                imageLoader.loadImageAsync(thumbUrl,targetImage, drawable -> {
-                    if (drawable == null)
-                        drawable = config.getMissDrawable(transfer.getContext());
-
-                    loadSourceImage(drawable, position, targetImage);
-                });
-//            } else {
-//                loadSourceImage(config.getMissDrawable(transfer.getContext()),
-//                        position, targetImage);
-//            }
-        }
+//        if (config.isJustLoadHitImage()) {
+//            // 如果用户设置了 JustLoadHitImage 属性，说明在 prepareTransfer 中已经
+//            // 对 TransferImage 裁剪且设置了占位图， 所以这里直接加载原图即可
+//
+//        } else {
+//            String thumbUrl = config.getThumbnailImageList().get(position);
+//
+////            if (imageLoader.isLoaded(thumbUrl)) {
+//                imageLoader.loadImageAsync(thumbUrl,targetImage, drawable -> {
+//                    if (drawable == null)
+//
+//
+//                    loadSourceImage(drawable, position, targetImage);
+//                });
+////            } else {
+////                loadSourceImage(config.getMissDrawable(transfer.getContext()),
+////                        position, targetImage);
+////            }
+//        }
     }
 
     private void loadSourceImage(Drawable drawable, final int position, final TransferImage targetImage) {
@@ -83,7 +85,6 @@ class RemoteThumbState extends TransferState {
         final IProgressIndicator progressIndicator = config.getProgressIndicator();
         progressIndicator.attach(position, transfer.transAdapter.getParentItem(position));
         imageLoader.showImage(sourceUrl, targetImage, drawable, new ImageLoader.SourceCallback() {
-
 
             @Override
             public void onProgress(int progress) {

@@ -1,6 +1,7 @@
 package com.yzy.example.widget.imagewatcher.transfer;
 
 import android.graphics.Bitmap;
+import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.view.View;
 import android.widget.FrameLayout;
@@ -10,6 +11,7 @@ import androidx.annotation.NonNull;
 
 
 import com.yzy.example.widget.imagewatcher.loader.ImageLoader;
+import com.yzy.example.widget.imagewatcher.style.IProgressIndicator;
 import com.yzy.example.widget.imagewatcher.view.image.TransferImage;
 
 
@@ -90,9 +92,12 @@ abstract class TransferState {
      * @param in         true : 从缩略图到高清图动画, false : 从高清图到缩略图动画
      */
     void transformThumbnail(String imageUrl, final TransferImage transImage, final boolean in) {
-        if (this instanceof RemoteThumbState) { // RemoteThumbState
+        loadThumbnail(imageUrl, transImage, in);
+
+
+//        if (this instanceof RemoteThumbState) { // RemoteThumbState
 //            if (imageLoader.isLoaded(imageUrl)) { // 缩略图已加载过
-                loadThumbnail(imageUrl, transImage, in);
+
 //            } else { // 缩略图 未加载过，则使用用户配置的缺省占位图
 //                transImage.setImageDrawable(config.getMissDrawable(transfer.getContext()));
 //                if (in)
@@ -101,9 +106,9 @@ abstract class TransferState {
 //                    transImage.transformOut();
 //            }
 
-        } else { // LocalThumbState
-            loadThumbnail(imageUrl, transImage, in);
-        }
+//        } else { // LocalThumbState
+//            loadThumbnail(imageUrl, transImage, in);
+//        }
     }
 
     /**
@@ -153,7 +158,32 @@ abstract class TransferState {
                 transImage.transformOut();
         });
     }
-
+//    private void loadSourceImage(String imageUrl, final boolean in ,final TransferImage transImage) {
+//        final TransferConfig config = transfer.getTransConfig();
+//        final ImageLoader imageLoader = config.getImageLoader();
+//        imageLoader.showImage(sourceUrl, transImage, drawable, new ImageLoader.SourceCallback() {
+//            @Override
+//            public void onProgress(int progress) {
+//            }
+//
+//            @Override
+//            public void onDelivered(int status) {
+//                progressIndicator.onFinish(position); // onFinish 只是说明下载完毕，并没更新图像
+//                switch (status) {
+//                    case ImageLoader.STATUS_DISPLAY_SUCCESS:
+//                        // 启用 TransferImage 的手势缩放功能
+//                        targetImage.enable();
+//                        // 绑定点击关闭 Transferee
+//                        transfer.bindOnOperationListener(targetImage, sourceUrl, position);
+//
+//                        break;
+//                    case ImageLoader.STATUS_DISPLAY_FAILED:  // 加载失败，显示加载错误的占位图
+//                        targetImage.setImageDrawable(config.getErrorDrawable(transfer.getContext()));
+//                        break;
+//                }
+//            }
+//        });
+//    }
     /**
      * 当用户使用 justLoadHitImage 属
      * 性时，需要使用 prepareTransfer 方法提前让 ViewPager 对应

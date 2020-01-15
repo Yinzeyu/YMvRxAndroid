@@ -44,6 +44,27 @@ fun ImageView.load(
     }
 }
 
+fun ImageView.load(
+    url: String?,
+    placeholderId: Int = 0,
+    success: (bitmap: Bitmap?) -> Unit,
+    failed: () -> Unit,
+    progress: ((url: String, isComplete: Boolean, percentage: Int, bytesRead: Long, totalBytes: Long) -> Unit)? = null
+) {
+    url?.let {
+        val config = ImageConfig(
+            useCrossFade = false,
+            url = it,
+            errorSrc = placeholderId,
+            placeholder = placeholderId,
+            success = success,
+            failed = failed,
+            progress = progress
+        )
+        load(config)
+    }
+}
+
 fun ImageView.load(url: String?, placeholderId: Int = 0, config: ImageConfig) {
     url?.let {
         config.context = BaseApplication.getApp()
@@ -78,7 +99,11 @@ fun ImageView.loadCircle(
     url: String?
 ) {
     url?.let {
-        val config = ImageConfig(useCrossFade = true,url = it,imageLoadScaleType = ImageLoadScaleType.CircleCrop)
+        val config = ImageConfig(
+            useCrossFade = true,
+            url = it,
+            imageLoadScaleType = ImageLoadScaleType.CircleCrop
+        )
         load(config)
     }
 }
