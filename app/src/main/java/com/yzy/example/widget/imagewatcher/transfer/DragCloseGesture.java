@@ -139,7 +139,7 @@ class DragCloseGesture {
 
 
         int x = location[0];
-        int y = Build.VERSION.SDK_INT > Build.VERSION_CODES.KITKAT ? location[1] : location[1] - getStatusBarHeight();
+        int y = location[1];
         int width = originImage.getWidth();
         int height = originImage.getHeight();
 
@@ -163,18 +163,6 @@ class DragCloseGesture {
         transferLayout.addView(transImage, 1);
     }
 
-    private int getStatusBarHeight() {
-        try {
-            Class<?> c = Class.forName("com.android.internal.R$dimen");
-            Object object = c.newInstance();
-            Field field = c.getField("status_bar_height");
-            int x = (Integer) field.get(object);
-            return transferLayout.getContext().getResources().getDimensionPixelSize(x);
-        } catch (Exception e) {
-            return 0;
-        }
-    }
-
     private void startFlingAndRollbackAnimation() {
         ViewPager transViewPager = transferLayout.transViewPager;
         ValueAnimator bgColor = ObjectAnimator.ofFloat(null, "alpha", transferLayout.alpha, 255.f);
@@ -182,13 +170,9 @@ class DragCloseGesture {
         ObjectAnimator scaleY = ObjectAnimator.ofFloat(transViewPager, "scaleY", transViewPager.getScaleX(), 1.0f);
         ObjectAnimator transX = ObjectAnimator.ofFloat(transViewPager, "translationX", transViewPager.getTranslationX(), 0);
         ObjectAnimator transY = ObjectAnimator.ofFloat(transViewPager, "translationY", transViewPager.getTranslationY(), 0);
-
-        bgColor.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
-            @Override
-            public void onAnimationUpdate(ValueAnimator animation) {
-                float value = Float.parseFloat(animation.getAnimatedValue().toString());
-                transferLayout.setBackgroundColor(transferLayout.getBackgroundColorByAlpha(value));
-            }
+        bgColor.addUpdateListener(animation -> {
+            float value = Float.parseFloat(animation.getAnimatedValue().toString());
+            transferLayout.setBackgroundColor(transferLayout.getBackgroundColorByAlpha(value));
         });
 
         AnimatorSet animatorSet = new AnimatorSet();

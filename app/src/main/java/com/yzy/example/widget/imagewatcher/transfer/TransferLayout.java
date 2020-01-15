@@ -283,11 +283,11 @@ class TransferLayout extends FrameLayout {
         } else {
             String url = transConfig.getSourceImageList().get(position);
 
-            if (transConfig.getImageLoader().isLoaded(url)) {
-                transferState = new LocalThumbState(this);
-            } else {
+//            if (transConfig.getImageLoader().isLoaded(url)) {
+//                transferState = new LocalThumbState(this);
+//            } else {
                 transferState = new EmptyThumbState(this);
-            }
+//            }
         }
 
         return transferState;
@@ -301,21 +301,13 @@ class TransferLayout extends FrameLayout {
      */
     void bindOnOperationListener(final ImageView imageView, final String imageUri, final int pos) {
         // bind click dismiss listener
-        imageView.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                dismiss(pos);
-            }
-        });
+        imageView.setOnClickListener(v -> dismiss(pos));
 
         // bind long click listener
         if (transConfig.getLongClickListener() != null)
-            imageView.setOnLongClickListener(new OnLongClickListener() {
-                @Override
-                public boolean onLongClick(View v) {
-                    transConfig.getLongClickListener().onLongClick(imageView, imageUri, pos);
-                    return false;
-                }
+            imageView.setOnLongClickListener(v -> {
+                transConfig.getLongClickListener().onLongClick(imageView, imageUri, pos);
+                return false;
             });
     }
 
@@ -358,17 +350,14 @@ class TransferLayout extends FrameLayout {
         PropertyValuesHolder scaleXHolder = PropertyValuesHolder.ofFloat("scaleX", 1.f, 1.2f);
         valueAnimator.setValues(alphaHolder, scaleXHolder);
 
-        valueAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
-            @Override
-            public void onAnimationUpdate(ValueAnimator animation) {
-                float alpha = (Float) animation.getAnimatedValue("alpha");
-                float scale = (Float) animation.getAnimatedValue("scaleX");
+        valueAnimator.addUpdateListener(animation -> {
+            float alpha = (Float) animation.getAnimatedValue("alpha");
+            float scale = (Float) animation.getAnimatedValue("scaleX");
 
-                setBackgroundColor(getBackgroundColorByAlpha(alpha));
-                transImage.setAlpha(alpha / 255.f);
-                transImage.setScaleX(scale);
-                transImage.setScaleY(scale);
-            }
+            setBackgroundColor(getBackgroundColorByAlpha(alpha));
+            transImage.setAlpha(alpha / 255.f);
+            transImage.setScaleX(scale);
+            transImage.setScaleY(scale);
         });
         valueAnimator.addListener(new AnimatorListenerAdapter() {
             @Override

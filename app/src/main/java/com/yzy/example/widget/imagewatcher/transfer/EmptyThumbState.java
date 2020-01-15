@@ -60,23 +60,11 @@ class EmptyThumbState extends TransferState {
         final IProgressIndicator progressIndicator = config.getProgressIndicator();
         progressIndicator.attach(position, adapter.getParentItem(position));
 
-        config.getImageLoader().showImage(imgUrl, targetImage,
-                placeHolder, new ImageLoader.SourceCallback() {
-
-                    @Override
-                    public void onStart() {
-                        progressIndicator.onStart(position);
-                    }
-
+        config.getImageLoader().showImage(imgUrl, targetImage, placeHolder, new ImageLoader.SourceCallback() {
                     @Override
                     public void onProgress(int progress) {
                         progressIndicator.onProgress(position, progress);
                     }
-
-                    @Override
-                    public void onFinish() {
-                    }
-
                     @Override
                     public void onDelivered(int status) {
                         progressIndicator.onFinish(position); // onFinish 只是说明下载完毕，并没更新图像

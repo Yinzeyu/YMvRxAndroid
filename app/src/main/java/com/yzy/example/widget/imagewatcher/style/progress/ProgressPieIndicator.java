@@ -9,7 +9,7 @@ import android.view.ViewGroup;
 import android.widget.FrameLayout;
 
 
-import com.filippudak.ProgressPieView.ProgressPieView;
+import com.yzy.example.widget.imagewatcher.ProgressPieView;
 import com.yzy.example.widget.imagewatcher.style.IProgressIndicator;
 
 import java.util.Locale;

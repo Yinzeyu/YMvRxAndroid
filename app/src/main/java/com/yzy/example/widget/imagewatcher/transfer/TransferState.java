@@ -12,12 +12,8 @@ import androidx.annotation.NonNull;
 import com.yzy.example.widget.imagewatcher.loader.ImageLoader;
 import com.yzy.example.widget.imagewatcher.view.image.TransferImage;
 
-import java.io.File;
-import java.io.IOException;
-import java.lang.reflect.Field;
 
 
-import pl.droidsonroids.gif.GifDrawable;
 
 import static android.view.ViewGroup.LayoutParams.MATCH_PARENT;
 import static android.widget.ImageView.ScaleType.FIT_CENTER;
@@ -49,27 +45,7 @@ abstract class TransferState {
      * @return
      */
     int getTransImageLocalY(int oldY) {
-        if (Build.VERSION.SDK_INT > Build.VERSION_CODES.KITKAT) {
-            return oldY;
-        }
-        return oldY - getStatusBarHeight();
-    }
-
-    /**
-     * 获取状态栏高度
-     *
-     * @return 状态栏高度
-     */
-    int getStatusBarHeight() {
-        try {
-            Class<?> c = Class.forName("com.android.internal.R$dimen");
-            Object object = c.newInstance();
-            Field field = c.getField("status_bar_height");
-            int x = (Integer) field.get(object);
-            return transfer.getContext().getResources().getDimensionPixelSize(x);
-        } catch (Exception e) {
-            return 0;
-        }
+        return oldY;
     }
 
     /**
@@ -114,21 +90,16 @@ abstract class TransferState {
      * @param in         true : 从缩略图到高清图动画, false : 从高清图到缩略图动画
      */
     void transformThumbnail(String imageUrl, final TransferImage transImage, final boolean in) {
-        final TransferConfig config = transfer.getTransConfig();
-
-        ImageLoader imageLoader = config.getImageLoader();
-
         if (this instanceof RemoteThumbState) { // RemoteThumbState
-
-            if (imageLoader.isLoaded(imageUrl)) { // 缩略图已加载过
+//            if (imageLoader.isLoaded(imageUrl)) { // 缩略图已加载过
                 loadThumbnail(imageUrl, transImage, in);
-            } else { // 缩略图 未加载过，则使用用户配置的缺省占位图
-                transImage.setImageDrawable(config.getMissDrawable(transfer.getContext()));
-                if (in)
-                    transImage.transformIn();
-                else
-                    transImage.transformOut();
-            }
+//            } else { // 缩略图 未加载过，则使用用户配置的缺省占位图
+//                transImage.setImageDrawable(config.getMissDrawable(transfer.getContext()));
+//                if (in)
+//                    transImage.transformIn();
+//                else
+//                    transImage.transformOut();
+//            }
 
         } else { // LocalThumbState
             loadThumbnail(imageUrl, transImage, in);
@@ -146,13 +117,13 @@ abstract class TransferState {
     void startPreview(TransferImage targetImage, String imgUrl, TransferConfig config, int position) {
         // 启用 TransferImage 的手势缩放功能
         targetImage.enable();
-        if (imgUrl.endsWith("gif")) {
-            File cache = config.getImageLoader().getCache(imgUrl);
-            try {
-                targetImage.setImageDrawable(new GifDrawable(cache.getPath()));
-            } catch (IOException ignored) {
-            }
-        }
+//        if (imgUrl.endsWith("gif")) {
+//            File cache = config.getImageLoader().getCache(imgUrl);
+//            try {
+//                targetImage.setImageDrawable(new GifDrawable(cache.getPath()));
+//            } catch (IOException ignored) {
+//            }
+//        }
         // 绑定点击关闭 Transferee
         transfer.bindOnOperationListener(targetImage, imgUrl, position);
     }
@@ -167,16 +138,20 @@ abstract class TransferState {
     private void loadThumbnail(String imageUrl, final TransferImage transImage, final boolean in) {
         final TransferConfig config = transfer.getTransConfig();
         ImageLoader imageLoader = config.getImageLoader();
-        Bitmap drawable = imageLoader.loadImageSync(imageUrl);
-        if (drawable == null)
-            transImage.setImageDrawable(config.getMissDrawable(transfer.getContext()));
-        else
-            transImage.setImageBitmap(drawable);
+        imageLoader.loadImageAsync(imageUrl, transImage, drawable -> {
+            if (drawable == null)
+                drawable = config.getMissDrawable(transfer.getContext());
 
-        if (in)
-            transImage.transformIn();
-        else
-            transImage.transformOut();
+            if (drawable == null)
+                transImage.setImageDrawable(config.getMissDrawable(transfer.getContext()));
+            else
+                transImage.setImageDrawable(drawable);
+
+            if (in)
+                transImage.transformIn();
+            else
+                transImage.transformOut();
+        });
     }
 
     /**

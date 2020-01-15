@@ -6,7 +6,6 @@ import android.widget.ImageView;
 
 import androidx.annotation.UiThread;
 
-import java.io.File;
 
 /**
  * 图片加载器接口，实现 ImageLoader 可扩展自己的图片加载器
@@ -44,39 +43,12 @@ public interface ImageLoader {
      * @param imageUrl 图片地址
      * @param callback 片加载完成的回调
      */
-    void loadImageAsync(String imageUrl, final ThumbnailCallback callback);
-
-    /**
-     * 同步加载图片，返回 Drawable
-     * @param imageUrl
-     * @return
-     */
-    Bitmap loadImageSync(String imageUrl);
-
-    /**
-     * 检查本地磁盘缓存中是否已经存在此路径所关联的图片
-     *
-     * @param url 图片路径
-     * @return 缓存文件
-     */
-    boolean isLoaded(String url);
-
-    File getCache(String url);
-
-    /**
-     * 清除 ImageLoader 缓存
-     */
-    void clearCache();
+    void loadImageAsync(String imageUrl, ImageView imageView, final ThumbnailCallback callback);
 
     interface SourceCallback {
         @UiThread
-        void onStart();
-
-        @UiThread
         void onProgress(int progress);
 
-        @UiThread
-        void onFinish();
 
         @UiThread
         void onDelivered(int status);

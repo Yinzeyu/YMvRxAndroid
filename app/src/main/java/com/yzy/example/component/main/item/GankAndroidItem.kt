@@ -13,8 +13,9 @@ import com.yzy.baselibrary.extention.pressEffectBgColor
 import com.yzy.example.R
 import com.yzy.example.repository.bean.GankAndroidBean
 import com.yzy.example.repository.bean.PicBean
+import com.yzy.example.widget.imagewatcher.loader.GlideTransfereeImage
 import com.yzy.example.widget.imagewatcher.style.index.NumberIndexIndicator
-import com.yzy.example.widget.imagewatcher.style.progress.ProgressBarIndicator
+import com.yzy.example.widget.imagewatcher.style.progress.ProgressPieIndicator
 import com.yzy.example.widget.imagewatcher.transfer.TransferConfig
 import com.yzy.example.widget.imagewatcher.transfer.Transferee
 import com.yzy.example.widget.ninegridview.ItemClickListener
@@ -73,9 +74,10 @@ abstract class GankAndroidItem : BaseEpoxyModel<BaseEpoxyHolder>() {
                     arrList.add(it?:"")
                 }
               val config = TransferConfig.build()
-                    .setProgressIndicator(ProgressBarIndicator())
+                    .setProgressIndicator(ProgressPieIndicator())
                     .setIndexIndicator(NumberIndexIndicator())
                     .setJustLoadHitImage(true)
+                  .setImageLoader(GlideTransfereeImage.with(imageView.context))
                   .setNowThumbnailIndex(index)
                     .bindImageView(imageView,arrList)
                 Transferee.getDefault(imageView.context).apply(config,nineGridView.imageList).show()

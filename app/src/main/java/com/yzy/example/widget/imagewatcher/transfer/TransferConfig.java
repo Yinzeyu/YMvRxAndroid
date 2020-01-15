@@ -48,8 +48,8 @@ public final class TransferConfig {
     private @IdRes
     int imageId;
     private ImageView imageView;
-    private AbsListView listView;
-    private RecyclerView recyclerView;
+//    private AbsListView listView;
+//    private RecyclerView recyclerView;
 
     private Transferee.OnTransfereeLongClickListener longClickListener;
 
@@ -238,21 +238,21 @@ public final class TransferConfig {
         this.imageView = imageView;
     }
 
-    public AbsListView getListView() {
-        return listView;
-    }
-
-    public void setListView(AbsListView listView) {
-        this.listView = listView;
-    }
-
-    public RecyclerView getRecyclerView() {
-        return recyclerView;
-    }
-
-    public void setRecyclerView(RecyclerView recyclerView) {
-        this.recyclerView = recyclerView;
-    }
+//    public AbsListView getListView() {
+//        return listView;
+//    }
+//
+//    public void setListView(AbsListView listView) {
+//        this.listView = listView;
+//    }
+//
+//    public RecyclerView getRecyclerView() {
+//        return recyclerView;
+//    }
+//
+//    public void setRecyclerView(RecyclerView recyclerView) {
+//        this.recyclerView = recyclerView;
+//    }
 
     public static class Builder {
         private int nowThumbnailIndex;
@@ -276,8 +276,8 @@ public final class TransferConfig {
 
         private @IdRes int imageId;
         private ImageView imageView;
-        private AbsListView listView;
-        private RecyclerView recyclerView;
+//        private AbsListView listView;
+//        private RecyclerView recyclerView;
 
         private Transferee.OnTransfereeLongClickListener longClickListener;
 
@@ -416,17 +416,17 @@ public final class TransferConfig {
             return this;
         }
 
-        public TransferConfig bindListView(AbsListView listView, int imageId) {
-            this.listView = listView;
-            this.imageId = imageId;
-            return create();
-        }
-
-        public TransferConfig bindRecyclerView(RecyclerView recyclerView, int imageId) {
-            this.recyclerView = recyclerView;
-            this.imageId = imageId;
-            return create();
-        }
+//        public TransferConfig bindListView(AbsListView listView, int imageId) {
+//            this.listView = listView;
+//            this.imageId = imageId;
+//            return create();
+//        }
+//
+//        public TransferConfig bindRecyclerView(RecyclerView recyclerView, int imageId) {
+//            this.recyclerView = recyclerView;
+//            this.imageId = imageId;
+//            return create();
+//        }
 
         public TransferConfig bindImageView(ImageView imageView, List<String> sourceImageList) {
             this.imageView = imageView;
@@ -481,8 +481,8 @@ public final class TransferConfig {
 
             config.setImageId(imageId);
             config.setImageView(imageView);
-            config.setListView(listView);
-            config.setRecyclerView(recyclerView);
+//            config.setListView(listView);
+//            config.setRecyclerView(recyclerView);
 
             config.setLongClickListener(longClickListener);
 

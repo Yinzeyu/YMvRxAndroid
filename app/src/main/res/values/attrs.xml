@@ -2,30 +2,30 @@
 <resources>
     <!-- QMUIRadiusImageView -->
     <declare-styleable name="QMUIRadiusImageView">
-        <attr name="qmui_border_width" format="dimension"/>
-        <attr name="qmui_border_color" format="color"/>
-        <attr name="qmui_selected_mask_color" format="color"/>
-        <attr name="qmui_selected_border_color" format="color"/>
-        <attr name="qmui_selected_border_width" format="dimension"/>
-        <attr name="qmui_corner_radius" format="dimension"/>
-        <attr name="qmui_is_oval" format="boolean"/>
-        <attr name="qmui_is_circle" format="boolean"/>
-        <attr name="qmui_is_touch_select_mode_enabled" format="boolean"/>
+        <attr name="qmui_border_width" format="dimension" />
+        <attr name="qmui_border_color" format="color" />
+        <attr name="qmui_selected_mask_color" format="color" />
+        <attr name="qmui_selected_border_color" format="color" />
+        <attr name="qmui_selected_border_width" format="dimension" />
+        <attr name="qmui_corner_radius" format="dimension" />
+        <attr name="qmui_is_oval" format="boolean" />
+        <attr name="qmui_is_circle" format="boolean" />
+        <attr name="qmui_is_touch_select_mode_enabled" format="boolean" />
     </declare-styleable>
     <!--九宫格控件-->
     <declare-styleable name="NineGridView">
-        <attr name="singleImgSize" format="dimension"/>
-        <attr name="imgGap" format="dimension"/>
-        <attr name="maxSize" format="integer"/>
+        <attr name="singleImgSize" format="dimension" />
+        <attr name="imgGap" format="dimension" />
+        <attr name="maxSize" format="integer" />
         <attr name="showStyle" format="enum">
-            <enum name="grid" value="0"/>
-            <enum name="fill" value="1"/>
+            <enum name="grid" value="0" />
+            <enum name="fill" value="1" />
         </attr>
     </declare-styleable>
 
 
     <declare-styleable name="ClearEditText">
-        <attr name="rightDrawable" format="reference"/>
+        <attr name="rightDrawable" format="reference" />
     </declare-styleable>
 
     <declare-styleable name="BannerViewPager">
@@ -81,93 +81,117 @@
 
     <declare-styleable name="CircleIndicator">
         <attr name="ci_width" format="dimension" />
-        <attr name="ci_height" format="dimension"/>
-        <attr name="ci_margin" format="dimension"/>
-        <attr name="ci_animator" format="reference"/>
-        <attr name="ci_animator_reverse" format="reference"/>
-        <attr name="ci_drawable" format="reference"/>
-        <attr name="ci_drawable_unselected" format="reference"/>
+        <attr name="ci_height" format="dimension" />
+        <attr name="ci_margin" format="dimension" />
+        <attr name="ci_animator" format="reference" />
+        <attr name="ci_animator_reverse" format="reference" />
+        <attr name="ci_drawable" format="reference" />
+        <attr name="ci_drawable_unselected" format="reference" />
 
         <attr name="ci_orientation" format="enum">
             <!-- Defines an horizontal widget. -->
-            <enum name="horizontal" value="0"/>
+            <enum name="horizontal" value="0" />
             <!-- Defines a vertical widget. -->
-            <enum name="vertical" value="1"/>
+            <enum name="vertical" value="1" />
         </attr>
 
         <attr name="ci_gravity">
             <!-- Push object to the top of its container, not changing its size. -->
-            <flag name="top" value="0x30"/>
+            <flag name="top" value="0x30" />
             <!-- Push object to the bottom of its container, not changing its size. -->
-            <flag name="bottom" value="0x50"/>
+            <flag name="bottom" value="0x50" />
             <!-- Push object to the left of its container, not changing its size. -->
-            <flag name="left" value="0x03"/>
+            <flag name="left" value="0x03" />
             <!-- Push object to the right of its container, not changing its size. -->
-            <flag name="right" value="0x05"/>
+            <flag name="right" value="0x05" />
             <!-- Place object in the vertical center of its container, not changing its size. -->
-            <flag name="center_vertical" value="0x10"/>
+            <flag name="center_vertical" value="0x10" />
             <!-- Grow the vertical size of the object if needed so it completely fills its container. -->
-            <flag name="fill_vertical" value="0x70"/>
+            <flag name="fill_vertical" value="0x70" />
             <!-- Place object in the horizontal center of its container, not changing its size. -->
-            <flag name="center_horizontal" value="0x01"/>
+            <flag name="center_horizontal" value="0x01" />
             <!-- Grow the horizontal size of the object if needed so it completely fills its container. -->
-            <flag name="fill_horizontal" value="0x07"/>
+            <flag name="fill_horizontal" value="0x07" />
             <!-- Place the object in the center of its container in both the vertical and horizontal axis, not changing its size. -->
-            <flag name="center" value="0x11"/>
+            <flag name="center" value="0x11" />
             <!-- Grow the horizontal and vertical size of the object if needed so it completely fills its container. -->
-            <flag name="fill" value="0x77"/>
+            <flag name="fill" value="0x77" />
             <!-- Additional option that can be set to have the top and/or bottom edges of
             the child clipped to its container's bounds.
             The clip will be based on the vertical gravity: a top gravity will clip the bottom
             edge, a bottom gravity will clip the top edge, and neither will clip both edges. -->
-            <flag name="clip_vertical" value="0x80"/>
+            <flag name="clip_vertical" value="0x80" />
             <!-- Additional option that can be set to have the left and/or right edges of
             the child clipped to its container's bounds.
             The clip will be based on the horizontal gravity: a left gravity will clip the right
             edge, a right gravity will clip the left edge, and neither will clip both edges. -->
-            <flag name="clip_horizontal" value="0x08"/>
+            <flag name="clip_horizontal" value="0x08" />
             <!-- Push object to the beginning of its container, not changing its size. -->
-            <flag name="start" value="0x00800003"/>
+            <flag name="start" value="0x00800003" />
             <!-- Push object to the end of its container, not changing its size. -->
-            <flag name="end" value="0x00800005"/>
+            <flag name="end" value="0x00800005" />
         </attr>
     </declare-styleable>
 
 
     <declare-styleable name="SwipeMenuLayout">
-        <attr name="swipeEnable" format="boolean"/>
-        <attr name="ios" format="boolean"/>
-        <attr name="leftSwipe" format="boolean"/>
+        <attr name="swipeEnable" format="boolean" />
+        <attr name="ios" format="boolean" />
+        <attr name="leftSwipe" format="boolean" />
     </declare-styleable>
     <declare-styleable name="ucrop_UCropView">
 
         <!--Crop image view-->
-        <attr name="ucrop_aspect_ratio_x" format="float"/>
-        <attr name="ucrop_aspect_ratio_y" format="float"/>
+        <attr name="ucrop_aspect_ratio_x" format="float" />
+        <attr name="ucrop_aspect_ratio_y" format="float" />
 
         <!--Overlay view-->
-        <attr name="ucrop_show_oval_crop_frame" format="boolean"/>
-        <attr name="ucrop_circle_dimmed_layer" format="boolean"/>
-        <attr name="ucrop_dimmed_color" format="color"/>
+        <attr name="ucrop_show_oval_crop_frame" format="boolean" />
+        <attr name="ucrop_circle_dimmed_layer" format="boolean" />
+        <attr name="ucrop_dimmed_color" format="color" />
 
-        <attr name="ucrop_grid_stroke_size" format="dimension"/>
-        <attr name="ucrop_grid_color" format="color"/>
-        <attr name="ucrop_grid_row_count" format="integer"/>
-        <attr name="ucrop_grid_column_count" format="integer"/>
-        <attr name="ucrop_show_grid" format="boolean"/>
+        <attr name="ucrop_grid_stroke_size" format="dimension" />
+        <attr name="ucrop_grid_color" format="color" />
+        <attr name="ucrop_grid_row_count" format="integer" />
+        <attr name="ucrop_grid_column_count" format="integer" />
+        <attr name="ucrop_show_grid" format="boolean" />
 
-        <attr name="ucrop_frame_stroke_size" format="dimension"/>
-        <attr name="ucrop_frame_color" format="color"/>
-        <attr name="ucrop_show_frame" format="boolean"/>
+        <attr name="ucrop_frame_stroke_size" format="dimension" />
+        <attr name="ucrop_frame_color" format="color" />
+        <attr name="ucrop_show_frame" format="boolean" />
 
     </declare-styleable>
 
     <declare-styleable name="ucrop_AspectRatioTextView">
 
-        <attr name="ucrop_artv_ratio_title" format="string"/>
+        <attr name="ucrop_artv_ratio_title" format="string" />
 
-        <attr name="ucrop_artv_ratio_x" format="float"/>
-        <attr name="ucrop_artv_ratio_y" format="float"/>
+        <attr name="ucrop_artv_ratio_x" format="float" />
+        <attr name="ucrop_artv_ratio_y" format="float" />
 
+    </declare-styleable>
+
+
+    <declare-styleable name="ProgressPieView">
+        <attr name="android:text" />
+        <attr name="android:textSize" />
+        <attr name="android:textColor" />
+        <attr name="ppvProgress" format="integer" />
+        <attr name="ppvMax" format="integer" />
+        <attr name="ppvStartAngle" format="integer" />
+        <attr name="ppvInverted" format="boolean" />
+        <attr name="ppvCounterclockwise" format="boolean" />
+        <attr name="ppvStrokeWidth" format="dimension" />
+        <attr name="ppvBackgroundColor" format="reference|color" />
+        <attr name="ppvProgressColor" format="reference|color" />
+        <attr name="ppvStrokeColor" format="reference|color" />
+        <attr name="ppvShowStroke" format="boolean" />
+        <attr name="ppvShowText" format="boolean" />
+        <attr name="ppvTypeface" format="string" />
+        <attr name="ppvImage" format="reference" />
+        <attr name="ppvProgressFillType" format="enum">
+            <enum name="radial" value="0" />
+            <enum name="center" value="1" />
+        </attr>
     </declare-styleable>
 </resources>

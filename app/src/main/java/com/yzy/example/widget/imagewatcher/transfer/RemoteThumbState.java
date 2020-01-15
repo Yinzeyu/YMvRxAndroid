@@ -30,12 +30,11 @@ class RemoteThumbState extends TransferState {
         ImageLoader imageLoader = config.getImageLoader();
         String imgUrl = config.getThumbnailImageList().get(position);
 
-        if (imageLoader.isLoaded(imgUrl)) {
-            imageLoader.showImage(imgUrl, transImage,
-                    config.getMissDrawable(transfer.getContext()), null);
-        } else {
-            transImage.setImageDrawable(config.getMissDrawable(transfer.getContext()));
-        }
+//        if (imageLoader.isLoaded(imgUrl)) {
+            imageLoader.showImage(imgUrl, transImage, config.getMissDrawable(transfer.getContext()), null);
+//        } else {
+//            transImage.setImageDrawable(config.getMissDrawable(transfer.getContext()));
+//        }
     }
 
     @Override
@@ -63,17 +62,17 @@ class RemoteThumbState extends TransferState {
         } else {
             String thumbUrl = config.getThumbnailImageList().get(position);
 
-            if (imageLoader.isLoaded(thumbUrl)) {
-                imageLoader.loadImageAsync(thumbUrl, drawable -> {
+//            if (imageLoader.isLoaded(thumbUrl)) {
+                imageLoader.loadImageAsync(thumbUrl,targetImage, drawable -> {
                     if (drawable == null)
                         drawable = config.getMissDrawable(transfer.getContext());
 
                     loadSourceImage(drawable, position, targetImage);
                 });
-            } else {
-                loadSourceImage(config.getMissDrawable(transfer.getContext()),
-                        position, targetImage);
-            }
+//            } else {
+//                loadSourceImage(config.getMissDrawable(transfer.getContext()),
+//                        position, targetImage);
+//            }
         }
     }
 
@@ -85,18 +84,10 @@ class RemoteThumbState extends TransferState {
         progressIndicator.attach(position, transfer.transAdapter.getParentItem(position));
         imageLoader.showImage(sourceUrl, targetImage, drawable, new ImageLoader.SourceCallback() {
 
-            @Override
-            public void onStart() {
-                progressIndicator.onStart(position);
-            }
 
             @Override
             public void onProgress(int progress) {
                 progressIndicator.onProgress(position, progress);
-            }
-
-            @Override
-            public void onFinish() {
             }
 
             @Override

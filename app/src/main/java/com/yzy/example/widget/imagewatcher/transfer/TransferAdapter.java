@@ -13,6 +13,8 @@ import androidx.viewpager.widget.PagerAdapter;
 
 import com.yzy.example.widget.imagewatcher.view.image.TransferImage;
 
+import org.jetbrains.annotations.NotNull;
+
 import static android.view.ViewGroup.LayoutParams.MATCH_PARENT;
 
 /**
@@ -88,8 +90,9 @@ class TransferAdapter extends PagerAdapter {
         this.onInstantListener = listener;
     }
 
+    @NotNull
     @Override
-    public Object instantiateItem(ViewGroup container, int position) {
+    public Object instantiateItem(@NotNull ViewGroup container, int position) {
         // ViewPager instantiateItem 顺序：按 position 递减 OffscreenPageLimit，
         // 再从 positon 递增 OffscreenPageLimit 的次序创建页面
         FrameLayout parentLayout = containLayoutArray.get(position);

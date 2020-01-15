@@ -258,7 +258,6 @@ class CommonShapeTextView @JvmOverloads constructor(
         if (mActiveEnable) {
             isClickable = true
         }
-        changeTintContextWrapperToActivity()
     }
 
     override fun onDraw(canvas: Canvas) {
@@ -276,44 +275,6 @@ class CommonShapeTextView @JvmOverloads constructor(
         super.onDraw(canvas)
     }
 
-    /**
-     * 从support23.3.0开始View中的getContext方法返回的是TintContextWrapper而不再是Activity
-     * 如果使用xml注册onClick属性，就会通过反射到Activity中去找对应的方法
-     * 5.0以下系统会反射到TintContextWrapper中去找对应的方法，程序直接crash
-     * 所以这里需要针对5.0以下系统单独处理View中的getContext返回值
-     */
-    private fun changeTintContextWrapperToActivity() {
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
-            getActivity()?.let {
-                var clazz: Class<*>? = this::class.java
-                while (clazz != null) {
-                    try {
-                        val field = clazz.getDeclaredField("mContext")
-                        field.isAccessible = true
-                        field.set(this, it)
-                        break
-                    } catch (e: Exception) {
-                        e.printStackTrace()
-                    }
-                    clazz = clazz.superclass
-                }
-            }
-        }
-    }
-
-    /**
-     * 从context中得到真正的activity
-     */
-    private fun getActivity(): Activity? {
-        var context = context
-        while (context is ContextWrapper) {
-            if (context is Activity) {
-                return context
-            }
-            context = context.baseContext
-        }
-        return null
-    }
 
     /**
      * 根据圆角位置获取圆角半径
