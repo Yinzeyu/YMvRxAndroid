@@ -6,7 +6,7 @@
         android:id="@+id/itemBanner"
         android:layout_width="match_parent"
         android:layout_height="200dp" />
-    <com.yzy.example.widget.imagewatcher.CircleIndicator
+    <com.yzy.example.widget.CircleIndicator
         android:id="@+id/circleIndicator"
         android:layout_width="match_parent"
         android:layout_gravity="bottom"

@@ -78,12 +78,12 @@
             android:theme="@style/AppTheme.NoActionBar"
             android:windowSoftInputMode="adjustPan|stateHidden"/>
 
-        <activity
-            android:name=".widget.imagewatcher.MNImageBrowserActivity"
-            android:configChanges="orientation|keyboardHidden|screenSize"
-            android:launchMode="singleTop"
-            android:screenOrientation="sensor"
-            android:theme="@style/ImageBrowserTheme" />
+<!--        <activity-->
+<!--            android:name=".widget.imagewatcher.MNImageBrowserActivity"-->
+<!--            android:configChanges="orientation|keyboardHidden|screenSize"-->
+<!--            android:launchMode="singleTop"-->
+<!--            android:screenOrientation="sensor"-->
+<!--            android:theme="@style/ImageBrowserTheme" />-->
 
         <meta-data
             android:name="android.max_aspect"

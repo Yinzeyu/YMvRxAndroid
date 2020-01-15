@@ -13,7 +13,10 @@ import com.yzy.baselibrary.extention.pressEffectBgColor
 import com.yzy.example.R
 import com.yzy.example.repository.bean.GankAndroidBean
 import com.yzy.example.repository.bean.PicBean
-import com.yzy.example.widget.imagewatcher.BrowseUtils
+import com.yzy.example.widget.imagewatcher.style.index.NumberIndexIndicator
+import com.yzy.example.widget.imagewatcher.style.progress.ProgressBarIndicator
+import com.yzy.example.widget.imagewatcher.transfer.TransferConfig
+import com.yzy.example.widget.imagewatcher.transfer.Transferee
 import com.yzy.example.widget.ninegridview.ItemClickListener
 import com.yzy.example.widget.ninegridview.NineGridAdapter
 import com.yzy.example.widget.ninegridview.NineGridView
@@ -69,7 +72,13 @@ abstract class GankAndroidItem : BaseEpoxyModel<BaseEpoxyHolder>() {
                 picStr.forEach {
                     arrList.add(it?:"")
                 }
-                BrowseUtils.instance.showNineImage(context = context,position=index,imageView=imageView,sourceImageList=arrList)
+              val config = TransferConfig.build()
+                    .setProgressIndicator(ProgressBarIndicator())
+                    .setIndexIndicator(NumberIndexIndicator())
+                    .setJustLoadHitImage(true)
+                  .setNowThumbnailIndex(index)
+                    .bindImageView(imageView,arrList)
+                Transferee.getDefault(imageView.context).apply(config,nineGridView.imageList).show()
             }
 
         }

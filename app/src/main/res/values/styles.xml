@@ -125,9 +125,4 @@
         </attr>
     </declare-styleable>
 
-    <style name="ImageBrowserTheme" parent="@style/Theme.AppCompat.Light.NoActionBar">
-        <item name="android:windowBackground">@android:color/transparent</item>
-        <item name="android:windowNoTitle">true</item>
-        <item name="android:windowIsTranslucent">true</item>
-    </style>
 </resources>

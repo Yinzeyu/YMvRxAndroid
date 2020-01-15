@@ -17,9 +17,13 @@ import com.yzy.example.component.main.model.DynViewModel
 import com.yzy.example.component.web.WebsiteDetailFragment
 import com.yzy.example.http.response.ApiException
 import com.yzy.example.http.response.EmptyException
+import com.yzy.example.imageloader.ImageConfig
 import com.yzy.example.repository.ViewModelFactory
 import com.yzy.example.repository.bean.BaseDataBean
 import com.yzy.example.repository.bean.GankAndroidBean
+import com.yzy.example.widget.imagewatcher.style.index.NumberIndexIndicator
+import com.yzy.example.widget.imagewatcher.style.progress.ProgressBarIndicator
+import com.yzy.example.widget.imagewatcher.transfer.TransferConfig
 import kotlinx.android.synthetic.main.fragment_dyn.*
 
 class DynFragment: CommFragment(){
@@ -46,6 +50,7 @@ class DynFragment: CommFragment(){
         smDynRefresh.setOnRefreshListener {
             mViewModel.getAndroidSuspend(true)
         }
+
     }
 
     override fun initData() {
