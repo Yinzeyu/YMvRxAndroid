@@ -36,15 +36,6 @@ public interface ImageLoader {
      * @param sourceCallback 图片加载过程的回调
      */
     void showImage(String imageUrl, ImageView imageView, Drawable placeholder, final SourceCallback sourceCallback);
-
-    /**
-     * 异步加载图片
-     *
-     * @param imageUrl 图片地址
-     * @param callback 片加载完成的回调
-     */
-    void loadImageAsync(String imageUrl, ImageView imageView, final ThumbnailCallback callback);
-
     interface SourceCallback {
         @UiThread
         void onProgress(int progress);
@@ -52,10 +43,5 @@ public interface ImageLoader {
 
         @UiThread
         void onDelivered(int status);
-    }
-
-    interface ThumbnailCallback {
-        @UiThread
-        void onFinish(Drawable drawable);
     }
 }

@@ -84,32 +84,6 @@ abstract class TransferState {
         return transImage;
     }
 
-    /**
-     * 加载 imageUrl 所关联的图片到 TransferImage 并启动 TransferImage 中的过渡动画
-     *
-     * @param imageUrl   当前缩略图路径
-     * @param transImage {@link #createTransferImage(ImageView)} 方法创建的 TransferImage
-     * @param in         true : 从缩略图到高清图动画, false : 从高清图到缩略图动画
-     */
-    void transformThumbnail(String imageUrl, final TransferImage transImage, final boolean in) {
-        loadThumbnail(imageUrl, transImage, in);
-
-
-//        if (this instanceof RemoteThumbState) { // RemoteThumbState
-//            if (imageLoader.isLoaded(imageUrl)) { // 缩略图已加载过
-
-//            } else { // 缩略图 未加载过，则使用用户配置的缺省占位图
-//                transImage.setImageDrawable(config.getMissDrawable(transfer.getContext()));
-//                if (in)
-//                    transImage.transformIn();
-//                else
-//                    transImage.transformOut();
-//            }
-
-//        } else { // LocalThumbState
-//            loadThumbnail(imageUrl, transImage, in);
-//        }
-    }
 
     /**
      * 图片加载完毕，开启预览
@@ -122,68 +96,8 @@ abstract class TransferState {
     void startPreview(TransferImage targetImage, String imgUrl, TransferConfig config, int position) {
         // 启用 TransferImage 的手势缩放功能
         targetImage.enable();
-//        if (imgUrl.endsWith("gif")) {
-//            File cache = config.getImageLoader().getCache(imgUrl);
-//            try {
-//                targetImage.setImageDrawable(new GifDrawable(cache.getPath()));
-//            } catch (IOException ignored) {
-//            }
-//        }
-        // 绑定点击关闭 Transferee
         transfer.bindOnOperationListener(targetImage, imgUrl, position);
     }
-
-    /**
-     * 加载 imageUrl 所关联的图片到 TransferImage 中
-     *
-     * @param imageUrl   图片路径
-     * @param transImage
-     * @param in         true: 表示从缩略图到 Transferee, false: 从 Transferee 到缩略图
-     */
-    private void loadThumbnail(String imageUrl, final TransferImage transImage, final boolean in) {
-        final TransferConfig config = transfer.getTransConfig();
-        ImageLoader imageLoader = config.getImageLoader();
-        imageLoader.loadImageAsync(imageUrl, transImage, drawable -> {
-            if (drawable == null)
-                drawable = config.getMissDrawable(transfer.getContext());
-
-            if (drawable == null)
-                transImage.setImageDrawable(config.getMissDrawable(transfer.getContext()));
-            else
-                transImage.setImageDrawable(drawable);
-
-            if (in)
-                transImage.transformIn();
-            else
-                transImage.transformOut();
-        });
-    }
-//    private void loadSourceImage(String imageUrl, final boolean in ,final TransferImage transImage) {
-//        final TransferConfig config = transfer.getTransConfig();
-//        final ImageLoader imageLoader = config.getImageLoader();
-//        imageLoader.showImage(sourceUrl, transImage, drawable, new ImageLoader.SourceCallback() {
-//            @Override
-//            public void onProgress(int progress) {
-//            }
-//
-//            @Override
-//            public void onDelivered(int status) {
-//                progressIndicator.onFinish(position); // onFinish 只是说明下载完毕，并没更新图像
-//                switch (status) {
-//                    case ImageLoader.STATUS_DISPLAY_SUCCESS:
-//                        // 启用 TransferImage 的手势缩放功能
-//                        targetImage.enable();
-//                        // 绑定点击关闭 Transferee
-//                        transfer.bindOnOperationListener(targetImage, sourceUrl, position);
-//
-//                        break;
-//                    case ImageLoader.STATUS_DISPLAY_FAILED:  // 加载失败，显示加载错误的占位图
-//                        targetImage.setImageDrawable(config.getErrorDrawable(transfer.getContext()));
-//                        break;
-//                }
-//            }
-//        });
-//    }
     /**
      * 当用户使用 justLoadHitImage 属
      * 性时，需要使用 prepareTransfer 方法提前让 ViewPager 对应

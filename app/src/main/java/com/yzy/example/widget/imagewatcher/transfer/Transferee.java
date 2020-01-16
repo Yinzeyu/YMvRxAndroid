@@ -228,16 +228,16 @@ public class Transferee implements DialogInterface.OnShowListener,
 //        return transConfig.getImageLoader().getCache(imageUri);
 //    }
 
-    /**
-     * 清除 transferee 缓存
-     */
-    public void clear() {
-        if (transConfig == null || transConfig.getImageLoader() == null) {
-//            UniversalImageLoader.with(context.getApplicationContext()).clearCache();
-        } else {
-//            transConfig.getImageLoader().clearCache();
-        }
-    }
+//    /**
+//     * 清除 transferee 缓存
+//     */
+//    public void clear() {
+//        if (transConfig == null || transConfig.getImageLoader() == null) {
+////            UniversalImageLoader.with(context.getApplicationContext()).clearCache();
+//        } else {
+////            transConfig.getImageLoader().clearCache();
+//        }
+//    }
 
     @Override
     public void onShow(DialogInterface dialog) {

@@ -41,9 +41,12 @@ class RemoteThumbState extends TransferState {
     public TransferImage createTransferIn(final int position) {
         TransferConfig config = transfer.getTransConfig();
 
-        TransferImage transImage = createTransferImage(
-                config.getOriginImageList().get(position));
-        transformThumbnail(config.getThumbnailImageList().get(position), transImage, true);
+        TransferImage transImage = createTransferImage(config.getOriginImageList().get(position));
+        loadSourceImage(transImage.getDrawable(),position,transImage);
+//        if (position <= originImageList.size() - 1 && originImageList.get(position) != null) {
+//            transImage = createTransferImage(originImageList.get(position));
+//
+//        transformThumbnail(config.getThumbnailImageList().get(position), transImage, true);
         transfer.addView(transImage, 1);
 
         return transImage;
@@ -51,9 +54,7 @@ class RemoteThumbState extends TransferState {
 
     @Override
     public void transferLoad(final int position) {
-        final TransferConfig config = transfer.getTransConfig();
         final TransferImage targetImage = transfer.transAdapter.getImageItem(position);
-        final ImageLoader imageLoader = config.getImageLoader();
         loadSourceImage(targetImage.getDrawable(), position, targetImage);
 
 
@@ -115,10 +116,11 @@ class RemoteThumbState extends TransferState {
 
         TransferConfig config = transfer.getTransConfig();
         List<ImageView> originImageList = config.getOriginImageList();
-
+        final TransferImage targetImage = transfer.transAdapter.getImageItem(position);
         if (position <= originImageList.size() - 1 && originImageList.get(position) != null) {
             transImage = createTransferImage(originImageList.get(position));
-            transformThumbnail(config.getThumbnailImageList().get(position), transImage, false);
+            loadSourceImage(targetImage.getDrawable(),position,targetImage);
+//            transformThumbnail(config.getThumbnailImageList().get(position), transImage, false);
 
             transfer.addView(transImage, 1);
         }
