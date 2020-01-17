@@ -57,12 +57,16 @@ class SwipeMenuLayout @JvmOverloads constructor(
         for (i in 0 until count) {
             val attr = ta.getIndex(i)
             //如果引用成AndroidLib 资源都不是常量，无法使用switch case
-            if (attr == R.styleable.SwipeMenuLayout_swipeEnable) {
-                isSwipeEnable = ta.getBoolean(attr, true)
-            } else if (attr == R.styleable.SwipeMenuLayout_ios) {
-                isIos = ta.getBoolean(attr, true)
-            } else if (attr == R.styleable.SwipeMenuLayout_leftSwipe) {
-                isLeftSwipe = ta.getBoolean(attr, true)
+            when (attr) {
+                R.styleable.SwipeMenuLayout_swipeEnable -> {
+                    isSwipeEnable = ta.getBoolean(attr, true)
+                }
+                R.styleable.SwipeMenuLayout_ios -> {
+                    isIos = ta.getBoolean(attr, true)
+                }
+                R.styleable.SwipeMenuLayout_leftSwipe -> {
+                    isLeftSwipe = ta.getBoolean(attr, true)
+                }
             }
         }
         ta.recycle()

@@ -6,7 +6,6 @@ import android.animation.ObjectAnimator
 import android.content.Context
 import android.content.Intent
 import android.graphics.BitmapFactory
-import android.net.Uri
 import android.os.Bundle
 import android.text.TextUtils
 import android.view.View
@@ -18,15 +17,11 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.airbnb.epoxy.EpoxyAdapter
 import com.blankj.utilcode.util.BarUtils
-import com.blankj.utilcode.util.LogUtils
 import com.blankj.utilcode.util.SizeUtils
-import com.blankj.utilcode.util.Utils.runOnUiThread
-import com.yzy.baselibrary.base.MvRxEpoxyController
 import com.yzy.baselibrary.extention.*
 import com.yzy.example.R
 import com.yzy.example.component.comm.CommFragment
 import com.yzy.example.component.comm.item.DividerItem_
-import com.yzy.example.component.comm.item.dividerItem
 import com.yzy.example.component.main.MainActivity
 import com.yzy.example.extention.options
 import com.yzy.example.repository.ViewModelFactory
@@ -37,7 +32,6 @@ import com.yzy.example.utils.album.entity.LocalMedia
 import com.yzy.example.utils.album.entity.LocalMediaFolder
 import com.yzy.example.widget.GridItemDecoration
 import kotlinx.android.synthetic.main.fragment_album.*
-import java.io.File
 import java.util.*
 
 class AlbumFragment : CommFragment() {

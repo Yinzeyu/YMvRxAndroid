@@ -16,6 +16,10 @@
         <action
             android:id="@+id/action_mainFragment_to_chatFragment"
             app:destination="@id/chatFragment" />
+
+        <action
+            android:id="@+id/action_mainFragment_to_cameraFragment"
+            app:destination="@id/cameraFragment" />
     </tab_fragment>
 
     <tab_fragment
@@ -50,4 +54,10 @@
         android:name="com.yzy.example.component.album.PicCutFragment"
         android:label="PicCutFragment"
         tools:layout="@layout/fragment_pic_cut" />
+
+    <tab_fragment
+        android:id="@+id/cameraFragment"
+        android:name="com.yzy.example.component.camera.CameraFragment"
+        android:label="CameraFragment"
+        tools:layout="@layout/fragment_camera_layout" />
 </navigation>

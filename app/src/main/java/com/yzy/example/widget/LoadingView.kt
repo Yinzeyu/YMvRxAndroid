@@ -54,7 +54,7 @@ class LoadingView(
             width = w.toFloat()
             height = h.toFloat()
             if (width < maxRadius) {
-                maxRadius = width.toFloat()
+                maxRadius = width
                 minRadius = maxRadius * 4f / 23
                 radiusCircle1 = maxRadius
                 radiusCircle2 = minRadius

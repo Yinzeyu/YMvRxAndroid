@@ -6,6 +6,7 @@ import com.blankj.utilcode.util.ColorUtils
 import com.blankj.utilcode.util.StringUtils
 import com.yzy.baselibrary.base.MvRxEpoxyController
 import com.yzy.example.R
+import com.yzy.example.component.camera.CameraFragment
 import com.yzy.example.component.comm.CommFragment
 import com.yzy.example.component.comm.item.dividerItem
 import com.yzy.example.component.message.ChatFragment
@@ -20,7 +21,8 @@ class MineFragment: CommFragment(){
         }
     }
     private val menuList = mutableListOf(
-        Pair(StringUtils.getString(R.string.chat_title), ChatFragment::class.java)
+        Pair(StringUtils.getString(R.string.chat_title), ChatFragment::class.java),
+        Pair("拍摄界面", CameraFragment::class.java)
 //        Pair(StringUtils.getString(R.string.ffmpeg_title), RxFFmpegActivity::class.java),
 //        Pair(StringUtils.getString(R.string.update_app), CcUpdateService::class.java),
 //        Pair(StringUtils.getString(R.string.title_sticky), StickyActivity::class.java),
@@ -56,6 +58,8 @@ class MineFragment: CommFragment(){
                         val second = pair.second.newInstance()
                         if (second is ChatFragment) {
                             ChatFragment.startChatFragment(mNavController,R.id.action_mainFragment_to_chatFragment)
+                        } else if (second is CameraFragment) {
+                            CameraFragment.startCameraFragment(mNavController,R.id.action_mainFragment_to_cameraFragment)
                         }
 
 //                        else if (second is CcUpdateService) {
