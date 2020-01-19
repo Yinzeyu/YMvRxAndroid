@@ -29,6 +29,8 @@ import androidx.core.view.isVisible
 import androidx.navigation.NavController
 import com.blankj.utilcode.util.FileUtils
 import com.blankj.utilcode.util.LogUtils
+import com.example.android.camera2basic.CompareSizesByArea
+import com.example.android.camera2basic.ImageSaver
 import com.yzy.baselibrary.extention.click
 import com.yzy.example.R
 import com.yzy.example.component.comm.CommFragment
@@ -58,7 +60,7 @@ class CameraFragment : CommFragment() {
 
     private var picSavePath: String? = null //图片保存路径
     private var videoSavePath: String? = null //视频保存路径
-   private var isCameraFront = false //当前是否是前置摄像头
+    private var isCameraFront = false //当前是否是前置摄像头
 
     private var isLightOn = false //当前闪光灯是否开启
 
@@ -75,7 +77,7 @@ class CameraFragment : CommFragment() {
     private var mCameraHandler: Handler? = null
     private var mMediaRecorder: MediaRecorder? = null
 
-
+    private var imageReader: ImageReader? = null
     private lateinit var previewSize: Size
     /**
      * A [Semaphore] to prevent the app from exiting before closing the camera.
@@ -306,6 +308,7 @@ class CameraFragment : CommFragment() {
                 rotatedWidth,
                 rotatedHeight
             )
+            setupImageReader()
             configureTransform(width, height)
             manager.openCamera(mCameraId.toString(), mStateCallback, null)
 
@@ -467,14 +470,13 @@ class CameraFragment : CommFragment() {
     /**
      * 使用Camera2录制和所拍的照片都会在这里
      */
-    private fun getCamera2Path(): String {
-        val filename = "${System.currentTimeMillis()}.mp4"
+    private fun getCamera2Path(filePath:String): String {
         val picturePath = Environment.getExternalStorageDirectory().absolutePath + "/CameraV2/"
         val file = File(picturePath)
         if (!file.exists()) {
             file.mkdirs()
         }
-        return picturePath + filename
+        return picturePath + filePath
     }
 
     /**
@@ -538,7 +540,8 @@ class CameraFragment : CommFragment() {
 
     @Throws(IOException::class)
     private fun setUpMediaRecorder() {
-        videoSavePath = getCamera2Path()
+        val filename = "${System.currentTimeMillis()}.mp4"
+        videoSavePath = getCamera2Path(filename)
         mMediaRecorder = MediaRecorder().apply {
             setAudioSource(MediaRecorder.AudioSource.MIC)
             setVideoSource(MediaRecorder.VideoSource.SURFACE)
@@ -559,6 +562,41 @@ class CameraFragment : CommFragment() {
             reset()
         }
         startPreview()
+    }
+
+    //配置ImageReader
+    @SuppressLint("SimpleDateFormat")
+    private fun setupImageReader() { //2代表ImageReader中最多可以获取两帧图像流
+        mImageReader =
+            ImageReader.newInstance(previewSize.width, previewSize.height, ImageFormat.JPEG, 2)
+        mImageReader?.setOnImageAvailableListener({ reader ->
+            val mImage = reader.acquireNextImage()
+            val buffer = mImage.planes[0].buffer
+            val data = ByteArray(buffer.remaining())
+            buffer[data]
+            val filename = "IMG_" +  SimpleDateFormat("yyyyMMdd_HHmmss").format(Date()) + ".jpg"
+            videoSavePath = getCamera2Path(filename)
+            var fos: FileOutputStream? = null
+            try {
+                fos = FileOutputStream(picSavePath)
+                fos.write(data, 0, data.size)
+                val msg = Message()
+//                msg.what = CAPTURE_OK
+                msg.obj = picSavePath
+                mCameraHandler?.sendMessage(msg)
+            } catch (e: IOException) {
+                e.printStackTrace()
+            } finally {
+                if (fos != null) {
+                    try {
+                        fos.close()
+                    } catch (e: IOException) {
+                        e.printStackTrace()
+                    }
+                }
+            }
+            mImage.close()
+        }, mCameraHandler)
     }
 
 }
