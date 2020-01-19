@@ -25,10 +25,10 @@
         android:paddingLeft="38dp"
         android:paddingRight="38dp">
 
-        <com.yzy.example.widget.VideoControlView
+        <com.yzy.example.widget.ControlView
             android:id="@+id/ivTakePhoto"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
+            android:layout_width="75dp"
+            android:layout_height="75dp"
             app:minTime="10"
             app:maxTime="60"
             app:excircleRadius="1dp"

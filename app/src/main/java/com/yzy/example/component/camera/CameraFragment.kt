@@ -1,61 +1,64 @@
 package com.yzy.example.component.camera
 
 import android.Manifest
+import android.annotation.SuppressLint
 import android.content.Context
 import android.content.pm.PackageManager
-import android.graphics.ImageFormat
-import android.graphics.SurfaceTexture
+import android.content.res.Configuration
+import android.graphics.*
 import android.hardware.camera2.*
+import android.hardware.camera2.CameraCaptureSession.CaptureCallback
+import android.hardware.camera2.CameraCharacteristics.SCALER_STREAM_CONFIGURATION_MAP
+import android.hardware.camera2.CameraCharacteristics.SENSOR_ORIENTATION
+import android.media.CamcorderProfile
 import android.media.ImageReader
+import android.media.MediaRecorder
 import android.os.*
+import android.text.TextUtils
+import android.util.Log
 import android.util.Size
 import android.util.SparseIntArray
+import android.view.MotionEvent
 import android.view.Surface
+import android.view.TextureView
 import android.view.TextureView.SurfaceTextureListener
 import android.view.View
 import androidx.annotation.IdRes
 import androidx.core.app.ActivityCompat
 import androidx.core.view.isVisible
 import androidx.navigation.NavController
+import com.blankj.utilcode.util.FileUtils
+import com.blankj.utilcode.util.LogUtils
 import com.yzy.baselibrary.extention.click
 import com.yzy.example.R
 import com.yzy.example.component.comm.CommFragment
 import com.yzy.example.extention.options
-import com.yzy.example.widget.VideoControlView
+import com.yzy.example.widget.ControlView
+import kotlinx.android.synthetic.main.activity_splash.*
 import kotlinx.android.synthetic.main.fragment_camera_layout.*
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 import java.io.File
 import java.io.FileOutputStream
 import java.io.IOException
 import java.text.SimpleDateFormat
 import java.util.*
+import java.util.concurrent.Semaphore
+import java.util.concurrent.TimeUnit
+import kotlin.math.max
+import kotlin.math.sqrt
 
 class CameraFragment : CommFragment() {
     //拍照方向
     private val ORIENTATION = SparseIntArray()
     /*** 打开摄像头的ID[CameraDevice]. */
     private var mCameraId = CameraCharacteristics.LENS_FACING_FRONT
-    private var mSurfaceWidth = 0
-    private var mSurfaceHeight = 0
-    /*** 用于运行不应阻塞UI的任务的附加线程。 */
-    private var mBackgroundThread: HandlerThread? = null
-    private var mPreviewSize: Size? = null
-    /***判断是否支持闪关灯 */
-    private var mFlashSupported = false
-    private val CAPTURE_OK = 0 //拍照完成回调
     private var mImageReader: ImageReader? = null
 
-    var PATH_SAVE_VIDEO: String = getCamera2Path() //小视频存放地址，不设置的话默认在根目录的Camera2文件夹
-
-    var PATH_SAVE_PIC: String = getCamera2Path() //图片保存地址，不设置的话默认在根目录的Camera2文件夹
     private var picSavePath: String? = null //图片保存路径
-    private val videoSavePath: String? = null //视频保存路径
-
-    var ACTIVITY_AFTER_CAPTURE: Class<*>? = null
-    //拍照完成后需要跳转的Activity,一般这个activity做处理照片或者视频用
-    var INTENT_PATH_SAVE_VIDEO = "INTENT_PATH_SAVE_VIDEO" //Intent跳转可用
-
-    var INTENT_PATH_SAVE_PIC = "INTENT_PATH_SAVE_PIC" //Intent跳转可用
-    private var isCameraFront = false //当前是否是前置摄像头
+    private var videoSavePath: String? = null //视频保存路径
+   private var isCameraFront = false //当前是否是前置摄像头
 
     private var isLightOn = false //当前闪光灯是否开启
 
@@ -66,25 +69,52 @@ class CameraFragment : CommFragment() {
     }
 
     /*** 相机管理类 */
-    var mCameraManager: CameraManager? = null
     override val contentLayout: Int = R.layout.fragment_camera_layout
     /*** 指定摄像头ID对应的Camera实体对象 */
     var mCameraDevice: CameraDevice? = null
     private var mCameraHandler: Handler? = null
+    private var mMediaRecorder: MediaRecorder? = null
+
+
+    private lateinit var previewSize: Size
+    /**
+     * A [Semaphore] to prevent the app from exiting before closing the camera.
+     */
+    private val cameraOpenCloseLock = Semaphore(1)
+
+
     override fun initView(root: View?) {
         ORIENTATION.append(Surface.ROTATION_0, 90)
         ORIENTATION.append(Surface.ROTATION_90, 0)
         ORIENTATION.append(Surface.ROTATION_180, 270)
         ORIENTATION.append(Surface.ROTATION_270, 180)
-        mCameraManager = mContext.getSystemService(Context.CAMERA_SERVICE) as CameraManager?
-        if (textureView.isAvailable) {
-            openCamera(textureView.width, textureView.height, mCameraId)
-        } else {
-            textureView.surfaceTextureListener = textureListener
-        }
-        startBackgroundThread()
+        //MediaRecorder用于录像所需
+        initTextTureView()
     }
 
+    private var isOnShow: Boolean = false
+    override fun onResume() {
+        super.onResume()
+        startBackgroundThread()
+        if (isOnShow) {
+            initTextTureView()
+        }
+        isOnShow = true
+    }
+
+    private fun initTextTureView() {
+        if (textureView.isAvailable) {
+            openCamera(textureView.width, textureView.height)
+        } else {
+            textureView.surfaceTextureListener = surfaceTextureListener
+        }
+    }
+
+    override fun onPause() {
+        closeCamera()
+        stopBackgroundThread()
+        super.onPause()
+    }
 
     override fun initData() {
         //每次开启预览默认闪光灯没开启
@@ -99,18 +129,28 @@ class CameraFragment : CommFragment() {
         ivSwitchCamera.click {
             switchCamera()
         }
-        ivTakePhoto.setOnRecordListener(object : VideoControlView.OnRecordListener() {
-            override fun onShortClick() {
+        ivTakePhoto.onRecordClickListener = object : ControlView.OnRecordClickListener {
+
+            override fun onNoMinRecord(currentTime: Int) {
+            }
+
+            override fun onRecordFinished() {
+                launch(Dispatchers.Main) {
+                    stopRecordingVideo()
+                }
 
             }
 
-            override fun OnRecordStartClick() {
+            override fun onRecordStart() {
+                launch(Dispatchers.Main) {
+                    startRecordingVideo()
+                }
             }
 
-            override fun OnFinish(resultCode: Int) {
+            override fun onClick() {
 
             }
-        })
+        }
     }
 
     /**
@@ -122,12 +162,12 @@ class CameraFragment : CommFragment() {
             isCameraFront = false
             //后置摄像头
             mCameraId = CameraCharacteristics.LENS_FACING_FRONT
-            openCamera(mSurfaceWidth, mSurfaceHeight, mCameraId)
+            openCamera(textureView.width, textureView.height)
         } else {
             //前置摄像头
             mCameraId = CameraCharacteristics.LENS_FACING_BACK
             isCameraFront = true
-            openCamera(mSurfaceWidth, mSurfaceHeight, mCameraId)
+            openCamera(textureView.width, textureView.height)
         }
         ivLightOn.isVisible = !isCameraFront
     }
@@ -137,18 +177,27 @@ class CameraFragment : CommFragment() {
      * 关闭正在使用的相机
      */
     private fun closeCamera() { // 关闭捕获会话
-        mCaptureSession?.let {
-            it.close()
-            mCaptureSession = null
+
+        cameraOpenCloseLock.acquire()
+        try {
+            mCaptureSession?.let {
+                it.close()
+                mCaptureSession = null
+            }
+            mCameraDevice?.let {
+                it.close()
+                mCameraDevice = null
+            }
+            mImageReader?.let {
+                it.close()
+                mImageReader = null
+            }
+        } catch (e: InterruptedException) {
+            throw RuntimeException("Interrupted while trying to lock camera closing.", e)
+        } finally {
+            cameraOpenCloseLock.release()
         }
-        mCameraDevice?.let {
-            it.close()
-            mCameraDevice = null
-        }
-        mImageReader?.let {
-            it.close()
-            mImageReader = null
-        }
+
 
     }
 
@@ -181,31 +230,43 @@ class CameraFragment : CommFragment() {
     /**
      * TextureView 生命周期响应
      */
-    private val textureListener: SurfaceTextureListener = object : SurfaceTextureListener {
-        //创建
-        override fun onSurfaceTextureAvailable(
-            surface: SurfaceTexture,
-            width: Int,
-            height: Int
-        ) { //当TextureView创建完成，打开指定摄像头相机
-            openCamera(width, height, mCameraId)
+    private val surfaceTextureListener = object : TextureView.SurfaceTextureListener {
+
+        override fun onSurfaceTextureAvailable(texture: SurfaceTexture, width: Int, height: Int) {
+            openCamera(width, height)
         }
 
-        //尺寸改变
-        override fun onSurfaceTextureSizeChanged(
-            surface: SurfaceTexture,
-            width: Int,
-            height: Int
-        ) {
+        override fun onSurfaceTextureSizeChanged(texture: SurfaceTexture, width: Int, height: Int) {
+            configureTransform(width, height)
         }
 
-        //销毁
-        override fun onSurfaceTextureDestroyed(surface: SurfaceTexture): Boolean {
-            return false
-        }
+        override fun onSurfaceTextureDestroyed(surfaceTexture: SurfaceTexture) = true
 
-        //更新
-        override fun onSurfaceTextureUpdated(surface: SurfaceTexture) {}
+        override fun onSurfaceTextureUpdated(surfaceTexture: SurfaceTexture) = Unit
+    }
+
+    private fun configureTransform(viewWidth: Int, viewHeight: Int) {
+        activity ?: return
+        val rotation = mContext.windowManager.defaultDisplay.rotation
+        val matrix = Matrix()
+        val viewRect = RectF(0f, 0f, viewWidth.toFloat(), viewHeight.toFloat())
+        val bufferRect = RectF(0f, 0f, previewSize.height.toFloat(), previewSize.width.toFloat())
+        val centerX = viewRect.centerX()
+        val centerY = viewRect.centerY()
+
+        if (Surface.ROTATION_90 == rotation || Surface.ROTATION_270 == rotation) {
+            bufferRect.offset(centerX - bufferRect.centerX(), centerY - bufferRect.centerY())
+            matrix.setRectToRect(viewRect, bufferRect, Matrix.ScaleToFit.FILL)
+            val scale = max(
+                viewHeight.toFloat() / previewSize.height,
+                viewWidth.toFloat() / previewSize.width
+            )
+            with(matrix) {
+                postScale(scale, scale, centerX, centerY)
+                postRotate((90 * (rotation - 2)).toFloat(), centerX, centerY)
+            }
+        }
+        textureView.setTransform(matrix)
     }
 
     /**
@@ -215,104 +276,44 @@ class CameraFragment : CommFragment() {
      * @param height
      * @param cameraId
      */
-    private fun openCamera(width: Int, height: Int, cameraId: Int) {
+    private fun openCamera(width: Int, height: Int) {
         if (ActivityCompat.checkSelfPermission(
                 mContext,
                 Manifest.permission.CAMERA
             ) != PackageManager.PERMISSION_GRANTED
-        ) { // TODO: Consider calling
+        ) {
             return
         }
+        val manager = mContext.getSystemService(Context.CAMERA_SERVICE) as CameraManager
         try {
-            mSurfaceWidth = width
-            mSurfaceHeight = height
-            mCameraManager?.let {
-                val characteristics: CameraCharacteristics =
-                    it.getCameraCharacteristics(mCameraId.toString() + "")
-                val map = characteristics.get(CameraCharacteristics.SCALER_STREAM_CONFIGURATION_MAP)
-                // 获取设备方向
-                val rotation: Int = mContext.windowManager.defaultDisplay.rotation
-                val totalRotation: Int =
-                    this.sensorToDeviceRotation(characteristics, rotation)
-                val swapRotation = totalRotation == 90 || totalRotation == 270
-                var rotatedWidth: Int = mSurfaceWidth
-                var rotatedHeight: Int = mSurfaceHeight
-                if (swapRotation) {
-                    rotatedWidth = mSurfaceHeight
-                    rotatedHeight = mSurfaceWidth
-                }
-                // 获取最佳的预览尺寸
-                map?.let { configMap ->
-                    mPreviewSize = getPreferredPreviewSize(
-                        configMap.getOutputSizes(
-                            SurfaceTexture::class.java
-                        ), rotatedWidth, rotatedHeight
-                    )
-                }
-
-                setupImageReader()
-                //检查是否支持闪光灯
-                val available = characteristics.get(CameraCharacteristics.FLASH_INFO_AVAILABLE)
-                mFlashSupported = available ?: false
-                it.openCamera(mCameraId.toString() + "", mStateCallback, null)
+            if (!cameraOpenCloseLock.tryAcquire(2500, TimeUnit.MILLISECONDS)) {
+                throw RuntimeException("Time out waiting to lock camera opening.")
             }
+            val characteristics = manager.getCameraCharacteristics(mCameraId.toString())
+            val map = characteristics.get(SCALER_STREAM_CONFIGURATION_MAP)
+                ?: throw RuntimeException("Cannot get available preview/video sizes")
+            val rotation: Int = mContext.windowManager.defaultDisplay.rotation
+            val totalRotation: Int = this.sensorToDeviceRotation(characteristics, rotation)
+            val swapRotation = totalRotation == 90 || totalRotation == 270
+            var rotatedWidth: Int = width
+            var rotatedHeight: Int = height
+            if (swapRotation) {
+                rotatedWidth = height
+                rotatedHeight = width
+            }
+            previewSize = getPreferredPreviewSize(
+                map.getOutputSizes(SurfaceTexture::class.java),
+                rotatedWidth,
+                rotatedHeight
+            )
+            configureTransform(width, height)
+            manager.openCamera(mCameraId.toString(), mStateCallback, null)
 
         } catch (e: CameraAccessException) {
             e.printStackTrace()
         }
     }
 
-    //配置ImageReader
-    private fun setupImageReader() { //2代表ImageReader中最多可以获取两帧图像流
-        mPreviewSize?.let {
-            mImageReader = ImageReader.newInstance(it.width, it.height, ImageFormat.JPEG, 2)
-        }
-        mImageReader?.setOnImageAvailableListener({ reader ->
-            val mImage = reader.acquireNextImage()
-            val buffer = mImage.planes[0].buffer
-            val data = ByteArray(buffer.remaining())
-            buffer[data]
-            val timeStamp = SimpleDateFormat("yyyyMMdd_HHmmss").format(Date())
-            createSavePath(PATH_SAVE_PIC) //判断有没有这个文件夹，没有的话需要创建
-            picSavePath = PATH_SAVE_PIC + "IMG_" + timeStamp + ".jpg"
-            var fos: FileOutputStream? = null
-            try {
-                fos = FileOutputStream(picSavePath)
-                fos.write(data, 0, data.size)
-                val msg = Message()
-                msg.what = CAPTURE_OK
-                msg.obj = picSavePath
-                mCameraHandler?.sendMessage(msg)
-            } catch (e: IOException) {
-                e.printStackTrace()
-            } finally {
-                if (fos != null) {
-                    try {
-                        fos.close()
-                    } catch (e: IOException) {
-                        e.printStackTrace()
-                    }
-                }
-            }
-            mImage.close()
-        }, mCameraHandler)
-        mCameraHandler = object : Handler() {
-            override fun handleMessage(msg: Message) {
-                super.handleMessage(msg)
-                when (msg.what) {
-                    CAPTURE_OK ->  //这里拍照保存完成，可以进行相关的操作，例如再次压缩等(由于封装，这里我先跳转掉完成页面)
-                        if (ACTIVITY_AFTER_CAPTURE != null) {
-//                            val intent = Intent(
-//                                this@Camera2RecordActivity,
-//                                Camera2Config.ACTIVITY_AFTER_CAPTURE
-//                            )
-//                            intent.putExtra(Camera2Config.INTENT_PATH_SAVE_PIC, picSavePath)
-//                            startActivity(intent)
-                        }
-                }
-            }
-        }
-    }
 
     //handler
     private var mCameraThread: HandlerThread? = null
@@ -320,17 +321,7 @@ class CameraFragment : CommFragment() {
     /**
      * 初试化拍照线程
      */
-    fun startBackgroundThread() {
-//        mCameraThread = HandlerThread("CameraThread")
-//        mCameraThread.start()
-//        mCameraHandler = Handler(mCameraThread.getLooper())
-//        mTextureView.setSurfaceTextureListener(this)
-//
-//        mBackgroundThread = HandlerThread("Camera Background")
-//        mBackgroundThread?.let {
-//            it.start()
-//            mCameraHandler = Handler(it.looper)
-//        }
+    private fun startBackgroundThread() {
         mCameraThread = HandlerThread("CameraThread")
         mCameraThread?.let {
             it.start()
@@ -350,7 +341,7 @@ class CameraFragment : CommFragment() {
         characteristics: CameraCharacteristics,
         deviceOrientation: Int
     ): Int {
-        val sensorOrientation = characteristics.get(CameraCharacteristics.SENSOR_ORIENTATION)!!
+        val sensorOrientation = characteristics.get(SENSOR_ORIENTATION)!!
         val orientation: Int = ORIENTATION.get(deviceOrientation)
         return (sensorOrientation + orientation + 360) % 360
     }
@@ -367,7 +358,7 @@ class CameraFragment : CommFragment() {
         sizes: Array<Size>,
         width: Int,
         height: Int
-    ): Size? {
+    ): Size {
         val collectorSizes: MutableList<Size> =
             ArrayList()
         for (option in sizes) {
@@ -391,15 +382,19 @@ class CameraFragment : CommFragment() {
     /*** [CameraDevice.StateCallback]打开指定摄像头回调[CameraDevice] */
     private val mStateCallback: CameraDevice.StateCallback = object : CameraDevice.StateCallback() {
         override fun onOpened(cameraDevice: CameraDevice) {
+            cameraOpenCloseLock.release()
             mCameraDevice = cameraDevice
-            createCameraPreview()
+            startPreview()
+            configureTransform(textureView.width, textureView.height)
         }
 
         override fun onDisconnected(cameraDevice: CameraDevice) {
+            cameraOpenCloseLock.release()
             cameraDevice.close()
         }
 
         override fun onError(cameraDevice: CameraDevice, error: Int) {
+            cameraOpenCloseLock.release()
             cameraDevice.close()
         }
     }
@@ -409,83 +404,161 @@ class CameraFragment : CommFragment() {
     private var mCaptureSession: CameraCaptureSession? = null
 
     /**
-     * 创建预览对话
+     * Start the camera preview.
      */
-    private fun createCameraPreview() {
-        try { // 获取texture实例
-            val surfaceTexture: SurfaceTexture = textureView.surfaceTexture
-            //我们将默认缓冲区的大小配置为我们想要的相机预览的大小。
-            surfaceTexture.setDefaultBufferSize(mPreviewSize!!.width, mPreviewSize!!.height)
-            // 用来开始预览的输出surface
-            val surface = Surface(surfaceTexture)
-            //创建预览请求构建器
+    private fun startPreview() {
+        if (mCameraDevice == null || !textureView.isAvailable) return
+
+        try {
+            closePreviewSession()
+            val texture = textureView.surfaceTexture
+            texture.setDefaultBufferSize(previewSize.width, previewSize.height)
             mPreviewRequestBuilder =
-                mCameraDevice?.createCaptureRequest(CameraDevice.TEMPLATE_PREVIEW)
-            //将TextureView的Surface作为相机的预览显示输出
-            mPreviewRequestBuilder?.addTarget(surface)
-            //在这里，我们为相机预览创建一个CameraCaptureSession。
+                mCameraDevice!!.createCaptureRequest(CameraDevice.TEMPLATE_PREVIEW)
+
+            val previewSurface = Surface(texture)
+            mPreviewRequestBuilder?.addTarget(previewSurface)
+
             mCameraDevice?.createCaptureSession(
-                listOf(surface, mImageReader!!.surface),
+                listOf(previewSurface),
                 object : CameraCaptureSession.StateCallback() {
-                    override fun onConfigured(cameraCaptureSession: CameraCaptureSession) { // 相机关闭时, 直接返回
-                        if (null == mCameraDevice) {
-                            return
-                        }
-                        //会话准备就绪后，我们开始显示预览。
-// 会话可行时, 将构建的会话赋给field
-                        mCaptureSession = cameraCaptureSession
-                        //相机预览应该连续自动对焦。
-                        mPreviewRequestBuilder?.set(
-                            CaptureRequest.CONTROL_AF_MODE,
-                            CaptureRequest.CONTROL_AF_MODE_CONTINUOUS_PICTURE
-                        )
-
-                        // 构建上述的请求
-                        mPreviewRequest = mPreviewRequestBuilder?.build()
-                        // 重复进行上面构建的请求, 用于显示预览
-                        try {
-                            mPreviewRequest?.let {
-                                mCaptureSession?.setRepeatingRequest(it, null, mCameraHandler)
-                            }
-
-                        } catch (e: CameraAccessException) {
-                            e.printStackTrace()
-                        }
+                    override fun onConfigured(session: CameraCaptureSession) {
+                        mCaptureSession = session
+                        updatePreview()
                     }
 
-                    override fun onConfigureFailed(cameraCaptureSession: CameraCaptureSession) {
-//                        showToast("预览失败了")
+                    override fun onConfigureFailed(session: CameraCaptureSession) {
                     }
-                },
-                null
+                }, mCameraHandler
             )
         } catch (e: CameraAccessException) {
-            e.printStackTrace()
+            Log.e(javaClass.name, e.toString())
+        }
+
+    }
+
+    /**
+     * Update the camera preview. [startPreview] needs to be called in advance.
+     */
+    private fun updatePreview() {
+        if (mCameraDevice == null) return
+
+        try {
+            setUpCaptureRequestBuilder(mPreviewRequestBuilder)
+            HandlerThread("CameraPreview").start()
+            mPreviewRequestBuilder?.let {
+                mCaptureSession?.setRepeatingRequest(it.build(), null, mCameraHandler)
+            }
+        } catch (e: CameraAccessException) {
+            Log.e(javaClass.name, e.toString())
         }
     }
 
-    /***预览请求, 由上面的构建器构建出来 */
-    private var mPreviewRequest: CaptureRequest? = null
+    private fun setUpCaptureRequestBuilder(builder: CaptureRequest.Builder?) {
+        builder?.set(CaptureRequest.CONTROL_MODE, CameraMetadata.CONTROL_MODE_AUTO)
+    }
+
+    private fun closePreviewSession() {
+        mCaptureSession?.close()
+        mCaptureSession = null
+    }
+
 
     /**
      * 使用Camera2录制和所拍的照片都会在这里
      */
     private fun getCamera2Path(): String {
+        val filename = "${System.currentTimeMillis()}.mp4"
         val picturePath = Environment.getExternalStorageDirectory().absolutePath + "/CameraV2/"
         val file = File(picturePath)
         if (!file.exists()) {
             file.mkdirs()
         }
-        return picturePath
+        return picturePath + filename
     }
 
     /**
-     * 判断传入的地址是否已经有这个文件夹，没有的话需要创建
+     * Stops the background thread and its [Handler].
      */
-    fun createSavePath(path: String?) {
-        val file = File(path)
-        if (!file.exists()) {
-            file.mkdirs()
+    private fun stopBackgroundThread() {
+        mCameraThread?.quitSafely()
+        try {
+            mCameraThread?.join()
+            mCameraThread = null
+            mCameraHandler = null
+        } catch (e: InterruptedException) {
         }
     }
+
+    private fun startRecordingVideo() {
+        if (mCameraDevice == null || !textureView.isAvailable) return
+
+        try {
+            closePreviewSession()
+            setUpMediaRecorder()
+            val texture = textureView.surfaceTexture.apply {
+                setDefaultBufferSize(previewSize.width, previewSize.height)
+            }
+
+            val previewSurface = Surface(texture)
+            val recorderSurface = mMediaRecorder!!.surface
+            val surfaces = ArrayList<Surface>().apply {
+                add(previewSurface)
+                add(recorderSurface)
+            }
+            mPreviewRequestBuilder =
+                mCameraDevice!!.createCaptureRequest(CameraDevice.TEMPLATE_RECORD).apply {
+                    addTarget(previewSurface)
+                    addTarget(recorderSurface)
+                }
+            mCameraDevice?.createCaptureSession(
+                surfaces,
+                object : CameraCaptureSession.StateCallback() {
+
+                    override fun onConfigured(cameraCaptureSession: CameraCaptureSession) {
+                        mCaptureSession = cameraCaptureSession
+                        updatePreview()
+                        activity?.runOnUiThread {
+                            mMediaRecorder?.start()
+                        }
+                    }
+
+                    override fun onConfigureFailed(cameraCaptureSession: CameraCaptureSession) {
+
+                    }
+                }, mCameraHandler
+            )
+        } catch (e: CameraAccessException) {
+            Log.e(javaClass.name, e.toString())
+        } catch (e: IOException) {
+            Log.e(javaClass.name, e.toString())
+        }
+    }
+
+
+    @Throws(IOException::class)
+    private fun setUpMediaRecorder() {
+        videoSavePath = getCamera2Path()
+        mMediaRecorder = MediaRecorder().apply {
+            setAudioSource(MediaRecorder.AudioSource.MIC)
+            setVideoSource(MediaRecorder.VideoSource.SURFACE)
+            setOutputFormat(MediaRecorder.OutputFormat.MPEG_4)
+            setOutputFile(videoSavePath)
+            setVideoEncodingBitRate(10000000)
+            setVideoFrameRate(30)
+            setVideoSize(previewSize.width, previewSize.height)
+            setVideoEncoder(MediaRecorder.VideoEncoder.H264)
+            setAudioEncoder(MediaRecorder.AudioEncoder.AAC)
+            prepare()
+        }
+    }
+
+    private fun stopRecordingVideo() {
+        mMediaRecorder?.apply {
+            stop()
+            reset()
+        }
+        startPreview()
+    }
+
 }
