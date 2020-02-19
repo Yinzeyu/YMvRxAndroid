@@ -1,55 +1,41 @@
 package com.yzy.example.component.camera
 
 import android.Manifest
-import android.annotation.SuppressLint
 import android.content.Context
 import android.content.pm.PackageManager
-import android.content.res.Configuration
-import android.graphics.*
+import android.graphics.Matrix
+import android.graphics.RectF
+import android.graphics.SurfaceTexture
 import android.hardware.camera2.*
-import android.hardware.camera2.CameraCaptureSession.CaptureCallback
 import android.hardware.camera2.CameraCharacteristics.SCALER_STREAM_CONFIGURATION_MAP
 import android.hardware.camera2.CameraCharacteristics.SENSOR_ORIENTATION
-import android.media.CamcorderProfile
 import android.media.ImageReader
 import android.media.MediaRecorder
 import android.os.*
-import android.text.TextUtils
 import android.util.Log
 import android.util.Size
 import android.util.SparseIntArray
-import android.view.MotionEvent
 import android.view.Surface
 import android.view.TextureView
-import android.view.TextureView.SurfaceTextureListener
 import android.view.View
 import androidx.annotation.IdRes
 import androidx.core.app.ActivityCompat
 import androidx.core.view.isVisible
 import androidx.navigation.NavController
-import com.blankj.utilcode.util.FileUtils
-import com.blankj.utilcode.util.LogUtils
-import com.example.android.camera2basic.CompareSizesByArea
-import com.example.android.camera2basic.ImageSaver
 import com.yzy.baselibrary.extention.click
 import com.yzy.example.R
 import com.yzy.example.component.comm.CommFragment
 import com.yzy.example.extention.options
 import com.yzy.example.widget.ControlView
-import kotlinx.android.synthetic.main.activity_splash.*
 import kotlinx.android.synthetic.main.fragment_camera_layout.*
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import java.io.File
-import java.io.FileOutputStream
 import java.io.IOException
-import java.text.SimpleDateFormat
 import java.util.*
 import java.util.concurrent.Semaphore
 import java.util.concurrent.TimeUnit
 import kotlin.math.max
-import kotlin.math.sqrt
 
 class CameraFragment : CommFragment() {
     //拍照方向
@@ -61,7 +47,6 @@ class CameraFragment : CommFragment() {
     private var picSavePath: String? = null //图片保存路径
     private var videoSavePath: String? = null //视频保存路径
     private var isCameraFront = false //当前是否是前置摄像头
-
     private var isLightOn = false //当前闪光灯是否开启
 
     companion object {
@@ -77,7 +62,8 @@ class CameraFragment : CommFragment() {
     private var mCameraHandler: Handler? = null
     private var mMediaRecorder: MediaRecorder? = null
 
-    private var imageReader: ImageReader? = null
+    private val CAPTURE_OK = 0 //拍照完成回调
+
     private lateinit var previewSize: Size
     /**
      * A [Semaphore] to prevent the app from exiting before closing the camera.
@@ -308,7 +294,6 @@ class CameraFragment : CommFragment() {
                 rotatedWidth,
                 rotatedHeight
             )
-            setupImageReader()
             configureTransform(width, height)
             manager.openCamera(mCameraId.toString(), mStateCallback, null)
 
@@ -423,8 +408,7 @@ class CameraFragment : CommFragment() {
             mPreviewRequestBuilder?.addTarget(previewSurface)
 
             mCameraDevice?.createCaptureSession(
-                listOf(previewSurface),
-                object : CameraCaptureSession.StateCallback() {
+                listOf(previewSurface), object : CameraCaptureSession.StateCallback() {
                     override fun onConfigured(session: CameraCaptureSession) {
                         mCaptureSession = session
                         updatePreview()
@@ -470,7 +454,7 @@ class CameraFragment : CommFragment() {
     /**
      * 使用Camera2录制和所拍的照片都会在这里
      */
-    private fun getCamera2Path(filePath:String): String {
+    private fun getCamera2Path(filePath: String): String {
         val picturePath = Environment.getExternalStorageDirectory().absolutePath + "/CameraV2/"
         val file = File(picturePath)
         if (!file.exists()) {
@@ -563,40 +547,22 @@ class CameraFragment : CommFragment() {
         }
         startPreview()
     }
+    /**
+     * 拍照
+     */
+    fun takePic() {
+        if (mCameraDevice == null || !textureView.isAvailable ) return
 
-    //配置ImageReader
-    @SuppressLint("SimpleDateFormat")
-    private fun setupImageReader() { //2代表ImageReader中最多可以获取两帧图像流
-        mImageReader =
-            ImageReader.newInstance(previewSize.width, previewSize.height, ImageFormat.JPEG, 2)
-        mImageReader?.setOnImageAvailableListener({ reader ->
-            val mImage = reader.acquireNextImage()
-            val buffer = mImage.planes[0].buffer
-            val data = ByteArray(buffer.remaining())
-            buffer[data]
-            val filename = "IMG_" +  SimpleDateFormat("yyyyMMdd_HHmmss").format(Date()) + ".jpg"
-            videoSavePath = getCamera2Path(filename)
-            var fos: FileOutputStream? = null
-            try {
-                fos = FileOutputStream(picSavePath)
-                fos.write(data, 0, data.size)
-                val msg = Message()
-//                msg.what = CAPTURE_OK
-                msg.obj = picSavePath
-                mCameraHandler?.sendMessage(msg)
-            } catch (e: IOException) {
-                e.printStackTrace()
-            } finally {
-                if (fos != null) {
-                    try {
-                        fos.close()
-                    } catch (e: IOException) {
-                        e.printStackTrace()
-                    }
-                }
-            }
-            mImage.close()
-        }, mCameraHandler)
+        mCameraDevice?.apply {
+
+            val captureRequestBuilder = createCaptureRequest(CameraDevice.TEMPLATE_STILL_CAPTURE)
+            mImageReader?.let {      captureRequestBuilder.addTarget(it.surface)}
+
+            val rotation: Int = mContext.windowManager.defaultDisplay.rotation
+            captureRequestBuilder.set(CaptureRequest.CONTROL_AF_MODE, CaptureRequest.CONTROL_AF_MODE_CONTINUOUS_PICTURE) // 自动对焦
+            captureRequestBuilder.set(CaptureRequest.CONTROL_AE_MODE, CaptureRequest.CONTROL_AE_MODE_ON_AUTO_FLASH)     // 闪光灯
+            captureRequestBuilder.set(CaptureRequest.JPEG_ORIENTATION, rotation)      //根据摄像头方向对保存的照片进行旋转，使其为"自然方向"
+            mCaptureSession?.capture(captureRequestBuilder.build(), null, mCameraHandler)
+        }
     }
-
 }
