@@ -63,7 +63,7 @@ ext {
             retrofit_converter_gson: "com.squareup.retrofit2:converter-gson:2.7.1",
 //            retrofit_converter_scalars: "com.squareup.retrofit2:converter-scalars:2.7.0",
             //https://github.com/JakeWharton/RxBinding
-            rxBinding              : "com.jakewharton.rxbinding3:rxbinding:3.1.0",
+//            rxBinding              : "com.jakewharton.rxbinding3:rxbinding:3.1.0-rc04",
             //https://github.com/google/gson
             gson                   : "com.google.code.gson:gson:2.8.6",
             //multidex
