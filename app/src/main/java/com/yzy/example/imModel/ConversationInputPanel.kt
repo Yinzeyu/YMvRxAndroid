@@ -18,8 +18,6 @@ import com.yzy.baselibrary.extention.click
 import com.yzy.baselibrary.extention.getBottomStatusHeight
 import com.yzy.baselibrary.extention.gone
 import com.yzy.example.R
-import com.yzy.example.imModel.audio.AudioRecorderPanel
-import com.yzy.example.imModel.audio.IAudioRecorderPanel
 import kotlinx.android.synthetic.main.imui_layout_conversation_input_panel.view.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
@@ -49,10 +47,6 @@ class ConversationInputPanel @JvmOverloads constructor(
     private var lastTypingTime: Long = 0
     private var activity: FragmentActivity? = null
 
-    /**
-     * 按住录音工具类
-     */
-    var audioRecorderPanel: IAudioRecorderPanel? = null
     /**
      * 键盘按键的icon
      */
@@ -85,7 +79,6 @@ class ConversationInputPanel @JvmOverloads constructor(
         activity.window.setSoftInputMode(PopupWindow.INPUT_METHOD_NOT_NEEDED)
         addOnGlobalLayout()
         this.activity = activity
-        initAudioRecorderPanel(rootLinearLayout)
         emotionImageView.setImageResource(icEmotion)
         audioImageView.setImageResource(icVoice)
         extAlbumImageView.click {
@@ -143,16 +136,6 @@ class ConversationInputPanel @JvmOverloads constructor(
     }
 
     /**
-     * 初始化按住录音控件
-     */
-    private fun initAudioRecorderPanel(rootLinearLayout:LinearLayout) {
-        if (audioRecorderPanel == null) {
-            audioRecorderPanel = AudioRecorderPanel(context)
-        }
-            audioRecorderPanel?.attach(rootLinearLayout, audioButton)
-    }
-
-    /**
      * 设置发送按钮的样式
      */
     fun setSendButtonStyle(style: Button.() -> Unit) {
@@ -199,15 +182,6 @@ class ConversationInputPanel @JvmOverloads constructor(
      */
     fun setLineStyle(style: View.() -> Unit) {
         line.apply(style)
-    }
-
-    /**
-     * 如果使用默认的按住录音工具类，则可以进行一些配置
-     */
-    fun setDefaultAudioRecorderPanel(style: AudioRecorderPanel.() -> Unit) {
-        if (audioRecorderPanel is AudioRecorderPanel) {
-            (audioRecorderPanel as AudioRecorderPanel).apply(style)
-        }
     }
 
     /**

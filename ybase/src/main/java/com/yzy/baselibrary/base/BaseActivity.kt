@@ -43,8 +43,7 @@ abstract class BaseActivity : AppCompatActivity(), CoroutineScope by MainScope()
     }
 
     /** 获取 ViewModel */
-    fun <T : ViewModel> getViewModel(clazz: Class<T>): T =
-        ViewModelProvider(this, ViewModelProvider.NewInstanceFactory()).get(clazz)
+    fun <T : ViewModel> getViewModel(clazz: Class<T>): T = ViewModelProvider(this, ViewModelProvider.NewInstanceFactory()).get(clazz)
 
     fun getFragmentListLast(): Fragment = supportFragmentManager.fragments.first().childFragmentManager.fragments.last()
 

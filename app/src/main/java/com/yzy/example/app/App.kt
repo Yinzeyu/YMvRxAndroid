@@ -12,11 +12,6 @@ import com.yzy.example.widget.file.AppFileDirManager
 
 
 class App : BaseApplication() {
-
-    override fun initInChildThread() {
-
-    }
-
     override fun initInMainThread() {
         initLiveBus()
         RetrofitConfig {

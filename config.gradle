@@ -24,7 +24,7 @@ ext {
             applicationId          : "com.yzy.example",
             compileSdkVersion      : 29,
             minSdkVersion          : 21,
-            buildToolsVersion      : "29.0.2",
+            buildToolsVersion      : "29.0.3",
             targetSdkVersion       : 29,
             versionName            : version_Name,
             versionCode            : version_Code,
@@ -59,7 +59,6 @@ ext {
             okhttp3_log            : "com.squareup.okhttp3:logging-interceptor:4.4.0",
             //https://github.com/square/retrofit
             retrofit               : "com.squareup.retrofit2:retrofit:2.7.1",
-//            retrofit_adapter_rxjava2  : "com.squareup.retrofit2:adapter-rxjava2:2.7.0",
             retrofit_converter_gson: "com.squareup.retrofit2:converter-gson:2.7.1",
 //            retrofit_converter_scalars: "com.squareup.retrofit2:converter-scalars:2.7.0",
             //https://github.com/JakeWharton/RxBinding
@@ -73,7 +72,7 @@ ext {
             //https://github.com/Blankj/AndroidUtilCode
             utilcode               : "com.blankj:utilcodex:1.26.0",
             //https://github.com/JessYanCoding/AndroidAutoSize
-            autosize               : "me.jessyan:autosize:1.1.2",
+            autosize               : "me.jessyan:autosize:1.2.0",
             //https://github.com/square/leakcanary
             leakcanary_debug       : "com.squareup.leakcanary:leakcanary-android:2.0",
             //https://bugly.qq.com/docs/release-notes/release-android-ndk/?v=20181014122344
