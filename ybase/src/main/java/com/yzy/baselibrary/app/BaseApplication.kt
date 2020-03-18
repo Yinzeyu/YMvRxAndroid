@@ -9,6 +9,11 @@ import com.blankj.utilcode.util.ProcessUtils
 import com.blankj.utilcode.util.Utils
 import com.yzy.baselibrary.BuildConfig
 import me.jessyan.autosize.AutoSizeConfig
+import org.koin.android.ext.koin.androidContext
+import org.koin.android.ext.koin.androidFileProperties
+import org.koin.android.ext.koin.androidLogger
+import org.koin.core.context.startKoin
+import java.util.logging.Level
 
 abstract class BaseApplication : Application() {
     var launcherTime = 0L
@@ -16,10 +21,10 @@ abstract class BaseApplication : Application() {
     override fun onCreate() {
         super.onCreate()
         startKoin {
-            androidLogger(Level.DEBUG)
-            androidContext(this@MvRxWanAndroidApplication)
+            androidLogger(org.koin.core.logger.Level.DEBUG)
+            androidContext(this@BaseApplication)
             androidFileProperties()
-            modules(appModule)
+//            modules(appModule)
         }
         Utils.init(this)
         this.baseInitCreate()
@@ -48,6 +53,10 @@ abstract class BaseApplication : Application() {
 
     companion object {
         fun getApp(): BaseApplication {
+            return Utils.getApp() as BaseApplication
+        }
+
+        fun instance(): BaseApplication {
             return Utils.getApp() as BaseApplication
         }
     }
