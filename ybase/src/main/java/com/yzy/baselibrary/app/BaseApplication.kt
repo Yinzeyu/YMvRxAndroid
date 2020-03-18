@@ -15,6 +15,12 @@ abstract class BaseApplication : Application() {
 
     override fun onCreate() {
         super.onCreate()
+        startKoin {
+            androidLogger(Level.DEBUG)
+            androidContext(this@MvRxWanAndroidApplication)
+            androidFileProperties()
+            modules(appModule)
+        }
         Utils.init(this)
         this.baseInitCreate()
         if (ProcessUtils.isMainProcess()) {
