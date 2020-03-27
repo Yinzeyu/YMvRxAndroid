@@ -95,9 +95,6 @@ ext {
             lifecycle_extensions   : "androidx.lifecycle:lifecycle-extensions:2.2.0",
             lifecycle_viewmodel_ktx: "androidx.lifecycle:lifecycle-viewmodel-ktx:2.2.0",
             lifecycle_livedata_ktx : "androidx.lifecycle:lifecycle-livedata-ktx:2.2.0"
-//            //https://github.com/gyf-dev/ImmersionBar
-//            immersionbar           : "com.gyf.immersionbar:immersionbar:3.0.0",
-//            immersionbar_ktx       : "com.gyf.immersionbar:immersionbar-ktx:3.0.0",
 
     ]
 }
