@@ -61,11 +61,11 @@ dependencies {
     api rootProject.ext.dependencies.lifecycle_livedata_ktx
     api rootProject.ext.dependencies.lifecycle_extensions
 
-    // Koin
-    def koin_version = "2.1.4"
-    implementation "org.koin:koin-android:$koin_version"
-    implementation "org.koin:koin-androidx-scope:$koin_version"
-    implementation "org.koin:koin-androidx-viewmodel:$koin_version"
+//    // Koin
+//    def koin_version = "2.1.4"
+//    implementation "org.koin:koin-android:$koin_version"
+//    implementation "org.koin:koin-androidx-scope:$koin_version"
+//    implementation "org.koin:koin-androidx-viewmodel:$koin_version"
 
 
 }

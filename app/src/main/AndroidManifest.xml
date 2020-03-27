@@ -78,6 +78,8 @@
             android:theme="@style/AppTheme.NoActionBar"
             android:windowSoftInputMode="adjustPan|stateHidden"/>
 
+
+
 <!--        <activity-->
 <!--            android:name=".widget.imagewatcher.MNImageBrowserActivity"-->
 <!--            android:configChanges="orientation|keyboardHidden|screenSize"-->

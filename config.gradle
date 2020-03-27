@@ -44,8 +44,8 @@ ext {
             constraintLayout       : "androidx.constraintlayout:constraintlayout:1.1.3",
             navigation_fragment_ktx: "androidx.navigation:navigation-fragment-ktx:2.2.1",
             navigation_ui_ktx      : "androidx.navigation:navigation-ui-ktx:2.2.1",
-            fragment               : "androidx.fragment:fragment:1.2.1",
-            fragment_ktx           : "androidx.fragment:fragment-ktx:1.2.1",
+            fragment               : "androidx.fragment:fragment:1.2.3",
+            fragment_ktx           : "androidx.fragment:fragment-ktx:1.2.3",
             //kotlin
             kotlin_jdk             : "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version",
             //https://github.com/bumptech/glide
@@ -55,11 +55,11 @@ ext {
             //https://github.com/tbruyelle/RxPermissions
             rxpermission           : "com.github.tbruyelle:rxpermissions:0.10.2",
             //https://github.com/square/okhttp
-            okhttp3                : "com.squareup.okhttp3:okhttp:4.4.0",
-            okhttp3_log            : "com.squareup.okhttp3:logging-interceptor:4.4.0",
+            okhttp3                : "com.squareup.okhttp3:okhttp:4.4.1",
+            okhttp3_log            : "com.squareup.okhttp3:logging-interceptor:4.4.1",
             //https://github.com/square/retrofit
-            retrofit               : "com.squareup.retrofit2:retrofit:2.7.1",
-            retrofit_converter_gson: "com.squareup.retrofit2:converter-gson:2.7.1",
+            retrofit               : "com.squareup.retrofit2:retrofit:2.8.1",
+            retrofit_converter_gson: "com.squareup.retrofit2:converter-gson:2.8.1",
 //            retrofit_converter_scalars: "com.squareup.retrofit2:converter-scalars:2.7.0",
             //https://github.com/JakeWharton/RxBinding
 //            rxBinding              : "com.jakewharton.rxbinding3:rxbinding:3.1.0-rc04",
@@ -68,11 +68,11 @@ ext {
             //multidex
             multidex               : "androidx.multidex:multidex:2.0.1",
             //https://github.com/Tencent/MMKV
-            mmkv                   : "com.tencent:mmkv-static:1.0.23",
+            mmkv                   : "com.tencent:mmkv-static:1.1.0",
             //https://github.com/Blankj/AndroidUtilCode
             utilcode               : "com.blankj:utilcodex:1.26.0",
             //https://github.com/JessYanCoding/AndroidAutoSize
-            autosize               : "me.jessyan:autosize:1.2.0",
+            autosize               : "me.jessyan:autosize:1.2.1",
             //https://github.com/square/leakcanary
             leakcanary_debug       : "com.squareup.leakcanary:leakcanary-android:2.0",
             //https://bugly.qq.com/docs/release-notes/release-android-ndk/?v=20181014122344
@@ -84,14 +84,14 @@ ext {
             epoxy                  : "com.airbnb.android:epoxy:3.9.0",
             epoxyProcessor         : "com.airbnb.android:epoxy-processor:3.9.0",
             //https://github.com/airbnb/lottie-android
-            lottie                 : "com.airbnb.android:lottie:3.3.1",
+            lottie                 : "com.airbnb.android:lottie:3.4.0",
             //https://github.com/JeremyLiao/LiveEventBus
             live_event_bus         : "com.jeremyliao:live-event-bus-x:1.5.7",
             //https://github.com/scwang90/SmartRefreshLayout/
-            smart                  : "com.scwang.smart:refresh-layout-kernel:2.0.0-alpha-1",
+            smart                  : "com.scwang.smart:refresh-layout-kernel:2.0.0",
             viewpager2             : "androidx.viewpager2:viewpager2:1.0.0",
 //            coroutines_core           : "org.jetbrains.kotlinx:kotlinx-coroutines-core:1.3.3",
-            coroutines_android     : "org.jetbrains.kotlinx:kotlinx-coroutines-android:1.3.3",
+            coroutines_android     : "org.jetbrains.kotlinx:kotlinx-coroutines-android:1.3.5-native-mt",
             lifecycle_extensions   : "androidx.lifecycle:lifecycle-extensions:2.2.0",
             lifecycle_viewmodel_ktx: "androidx.lifecycle:lifecycle-viewmodel-ktx:2.2.0",
             lifecycle_livedata_ktx : "androidx.lifecycle:lifecycle-livedata-ktx:2.2.0"

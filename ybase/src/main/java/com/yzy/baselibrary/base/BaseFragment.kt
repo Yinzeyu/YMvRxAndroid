@@ -33,7 +33,6 @@ abstract class BaseFragment : Fragment(), CoroutineScope by MainScope() {
         super.onAttach(context)
         mContext = context as Activity
     }
-
     /**
      * 内容布局的ResId
      */

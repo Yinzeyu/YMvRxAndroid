@@ -4,8 +4,10 @@ import android.graphics.Color
 import android.os.Bundle
 import android.view.Gravity
 import android.widget.FrameLayout
+import androidx.databinding.ViewDataBinding
 import com.airbnb.lottie.*
 import com.yzy.baselibrary.base.BaseActivity
+import com.yzy.baselibrary.base.BaseViewModel
 import com.yzy.baselibrary.extention.mContentView
 import com.yzy.baselibrary.extention.mContext
 import com.yzy.baselibrary.extention.mScreenWidth
