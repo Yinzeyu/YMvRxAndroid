@@ -20,8 +20,8 @@ abstract class BaseActivity : AppCompatActivity(), CoroutineScope by MainScope()
         this.onCreateBefore()
         super.onCreate(savedInstanceState)
         setContentView(layoutResId())
-        translucent(this)
-        setStatusBarLightMode(this);
+//        translucent(this)
+//        setStatusBarLightMode(this);
         initView()
         initData()
     }

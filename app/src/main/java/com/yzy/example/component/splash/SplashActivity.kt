@@ -29,7 +29,7 @@ class SplashActivity : BaseActivity() {
     private var hasFinish = false
     //不设置状态栏填充，即显示全屏
     override fun initView() {
-        setDarkMode(this)
+//        setDarkMode(this)
         hasFinish = checkReOpenHome()
         if (hasFinish) return
         iv_sp.load("http://pic1.win4000.com/pic/7/0f/2cab03e09e.jpg")
