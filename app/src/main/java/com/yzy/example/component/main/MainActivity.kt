@@ -25,7 +25,7 @@ class MainActivity : CommActivity() {
     override fun layoutResId(): Int = R.layout.activity_main
 
     override fun initView() {
-        setLightMode(this)
+//        setLightMode(this)
     }
 
     override fun initData() {

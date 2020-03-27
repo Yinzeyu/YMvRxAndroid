@@ -8,6 +8,8 @@ import androidx.lifecycle.ViewModelProvider
 import com.yzy.baselibrary.extention.setLightMode
 import com.yzy.baselibrary.toast.YToast
 import com.yzy.baselibrary.utils.CleanLeakUtils
+import com.yzy.baselibrary.utils.setStatusBarLightMode
+import com.yzy.baselibrary.utils.translucent
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.cancel
@@ -18,6 +20,8 @@ abstract class BaseActivity : AppCompatActivity(), CoroutineScope by MainScope()
         this.onCreateBefore()
         super.onCreate(savedInstanceState)
         setContentView(layoutResId())
+        translucent(this)
+        setStatusBarLightMode(this);
         initView()
         initData()
     }
