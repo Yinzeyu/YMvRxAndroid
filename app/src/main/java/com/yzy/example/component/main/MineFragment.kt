@@ -20,6 +20,7 @@ class MineFragment: CommFragment(){
             return MineFragment()
         }
     }
+    override fun fillStatus(): Boolean =false
     private val menuList = mutableListOf(
         Pair(StringUtils.getString(R.string.chat_title), ChatFragment::class.java),
         Pair("拍摄界面", CameraFragment::class.java)

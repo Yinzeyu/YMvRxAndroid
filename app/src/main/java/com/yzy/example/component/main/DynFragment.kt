@@ -22,13 +22,15 @@ import com.yzy.example.repository.bean.BaseDataBean
 import com.yzy.example.repository.bean.GankAndroidBean
 import kotlinx.android.synthetic.main.fragment_dyn.*
 
-class DynFragment: CommFragment(){
+class DynFragment : CommFragment() {
 
     companion object {
         fun newInstance(): DynFragment {
             return DynFragment()
         }
     }
+
+    override fun fillStatus(): Boolean = false
 
     private val mViewModel: DynViewModel by lazy {
         ViewModelProvider(
@@ -37,6 +39,7 @@ class DynFragment: CommFragment(){
         ).get(DynViewModel::class.java)
     }
     override val contentLayout: Int = R.layout.fragment_dyn
+
 
     override fun initView(root: View?) {
         dynEpoxyRecycler.setController(epoxyController)
@@ -64,61 +67,65 @@ class DynFragment: CommFragment(){
             })
         }
     }
-    private val epoxyController = MvRxEpoxyController<BaseDataBean<MutableList<GankAndroidBean>>> { state ->
-        //有数据
-        if (!state.bean.isNullOrEmpty()) {
-            state.bean.forEachIndexed { _, bean ->
-                //数据
-                gankAndroidItem {
-                    id("dyn_${bean._id}")
-                    dataBean(bean)
-                    onItemClick { data ->   WebsiteDetailFragment.viewDetail(
-                        mNavController,
-                        R.id.action_mainFragment_to_websiteDetailFragment,
-                        data.url ?: ""
-                    ) }
-                }
-                //分割线
-                dividerItem {
-                    id("dyn_line_${bean._id}")
-                }
-            }
-            //有数据支持下拉刷新
-            smDynRefresh.setEnableRefresh(false)
-            //根据返回信息判断是否可以加载更多
-            if (state.hasMore) {
-                loadMoreItem {
-                    id("dyn_line_more")
-                    fail(false)
-                    onLoadMore {
-                        mViewModel.getAndroidSuspend(false)
+
+    private val epoxyController =
+        MvRxEpoxyController<BaseDataBean<MutableList<GankAndroidBean>>> { state ->
+            //有数据
+            if (!state.bean.isNullOrEmpty()) {
+                state.bean.forEachIndexed { _, bean ->
+                    //数据
+                    gankAndroidItem {
+                        id("dyn_${bean._id}")
+                        dataBean(bean)
+                        onItemClick { data ->
+                            WebsiteDetailFragment.viewDetail(
+                                mNavController,
+                                R.id.action_mainFragment_to_websiteDetailFragment,
+                                data.url ?: ""
+                            )
+                        }
+                    }
+                    //分割线
+                    dividerItem {
+                        id("dyn_line_${bean._id}")
                     }
                 }
-            }
-        } else {
-            //无数据
-            when (state.exception) {
-                is EmptyException -> errorEmptyItem {
-                    id("home_suc_no_data")
-                    imageResource(R.drawable.svg_no_data)
-                    tipsText(mContext.getString(R.string.no_data))
-                }
-                //无网络或者请求失败
-                is ApiException -> errorEmptyItem {
-                    id("home_fail_no_data")
-                    if (NetworkUtils.isConnected()) {
-                        imageResource(R.drawable.svg_fail)
-                        tipsText(mContext.getString(R.string.net_fail_retry))
-                    } else {
-                        imageResource(R.drawable.svg_no_network)
-                        tipsText(mContext.getString(R.string.net_error_retry))
-                    }
-                    onRetryClick {
-                        mViewModel.getAndroidSuspend(true)
+                //有数据支持下拉刷新
+                smDynRefresh.setEnableRefresh(false)
+                //根据返回信息判断是否可以加载更多
+                if (state.hasMore) {
+                    loadMoreItem {
+                        id("dyn_line_more")
+                        fail(false)
+                        onLoadMore {
+                            mViewModel.getAndroidSuspend(false)
+                        }
                     }
                 }
-                else -> LogUtils.i("初始化无数据空白")
+            } else {
+                //无数据
+                when (state.exception) {
+                    is EmptyException -> errorEmptyItem {
+                        id("home_suc_no_data")
+                        imageResource(R.drawable.svg_no_data)
+                        tipsText(mContext.getString(R.string.no_data))
+                    }
+                    //无网络或者请求失败
+                    is ApiException -> errorEmptyItem {
+                        id("home_fail_no_data")
+                        if (NetworkUtils.isConnected()) {
+                            imageResource(R.drawable.svg_fail)
+                            tipsText(mContext.getString(R.string.net_fail_retry))
+                        } else {
+                            imageResource(R.drawable.svg_no_network)
+                            tipsText(mContext.getString(R.string.net_error_retry))
+                        }
+                        onRetryClick {
+                            mViewModel.getAndroidSuspend(true)
+                        }
+                    }
+                    else -> LogUtils.i("初始化无数据空白")
+                }
             }
         }
-    }
 }

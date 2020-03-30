@@ -7,9 +7,10 @@ import android.util.Log
 import com.blankj.utilcode.constant.PermissionConstants
 import com.blankj.utilcode.util.PermissionUtils
 import com.yzy.baselibrary.base.BaseActivity
+import com.yzy.baselibrary.extention.StatusBarHelper
+import com.yzy.baselibrary.extention.StatusBarHelper.translucent
 import com.yzy.example.extention.load
 import com.yzy.baselibrary.extention.mContext
-import com.yzy.baselibrary.extention.setDarkMode
 import com.yzy.baselibrary.extention.toast
 import com.yzy.example.R
 import com.yzy.example.component.main.MainActivity
@@ -29,7 +30,7 @@ class SplashActivity : BaseActivity() {
     private var hasFinish = false
     //不设置状态栏填充，即显示全屏
     override fun initView() {
-//        setDarkMode(this)
+        translucent(this)
         hasFinish = checkReOpenHome()
         if (hasFinish) return
         iv_sp.load("http://pic1.win4000.com/pic/7/0f/2cab03e09e.jpg")

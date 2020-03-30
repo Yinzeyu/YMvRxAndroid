@@ -5,23 +5,20 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.yzy.baselibrary.extention.setLightMode
+import com.yzy.baselibrary.extention.StatusBarHelper
+import com.yzy.baselibrary.extention.StatusBarHelper.translucent
 import com.yzy.baselibrary.toast.YToast
 import com.yzy.baselibrary.utils.CleanLeakUtils
-import com.yzy.baselibrary.utils.setStatusBarLightMode
-import com.yzy.baselibrary.utils.translucent
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.cancel
 
 abstract class BaseActivity : AppCompatActivity(), CoroutineScope by MainScope() {
-    //    private var mStatusView: View? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         this.onCreateBefore()
         super.onCreate(savedInstanceState)
         setContentView(layoutResId())
-//        translucent(this)
-//        setStatusBarLightMode(this);
+        translucent(this)
         initView()
         initData()
     }
@@ -33,6 +30,8 @@ abstract class BaseActivity : AppCompatActivity(), CoroutineScope by MainScope()
 
     abstract fun initView()
     abstract fun initData()
+
+
 
     /** 这里可以做一些setContentView之前的操作,如全屏、常亮、设置Navigation颜色、状态栏颜色等  */
     protected open fun onCreateBefore() {}
@@ -47,9 +46,12 @@ abstract class BaseActivity : AppCompatActivity(), CoroutineScope by MainScope()
     }
 
     /** 获取 ViewModel */
-    fun <T : ViewModel> getViewModel(clazz: Class<T>): T = ViewModelProvider(this, ViewModelProvider.NewInstanceFactory()).get(clazz)
+    fun <T : ViewModel> getViewModel(clazz: Class<T>): T =
+        ViewModelProvider(this, ViewModelProvider.NewInstanceFactory()).get(clazz)
 
-        fun getFragmentListLast(): Fragment = supportFragmentManager.fragments.first().childFragmentManager.fragments.last()
+    fun getFragmentListLast(): Fragment =
+        supportFragmentManager.fragments.first().childFragmentManager.fragments.last()
 
-    fun getFragmentLists(): List<Fragment> = supportFragmentManager.fragments.first().childFragmentManager.fragments
+    fun getFragmentLists(): List<Fragment> =
+        supportFragmentManager.fragments.first().childFragmentManager.fragments
 }

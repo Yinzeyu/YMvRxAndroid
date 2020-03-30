@@ -22,9 +22,9 @@ abstract class CommFragment : BaseFragment() {
     lateinit var loadingView: LottieAnimationView
 
     override fun onCreateView(
-            inflater: LayoutInflater,
-            container: ViewGroup?,
-            savedInstanceState: Bundle?
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
     ): View? {
         loadingView = LottieAnimationView(mContext)
         loadingView.setAnimation("loading.json")
@@ -45,10 +45,10 @@ abstract class CommFragment : BaseFragment() {
 
     //显示loadingView
     private fun startShowLoadingView(
-            transY: Float = getLoadingViewTransY(),
-            height: Int = getLoadingViewHeight(),
-            gravity: Int = getLoadingViewGravity(),
-            bgColor: Int = getLoadingViewBgColor()
+        transY: Float = getLoadingViewTransY(),
+        height: Int = getLoadingViewHeight(),
+        gravity: Int = getLoadingViewGravity(),
+        bgColor: Int = getLoadingViewBgColor()
     ) {
         val parent = rootView
         if (loadingView.parent == null && parent != null) {
@@ -67,6 +67,7 @@ abstract class CommFragment : BaseFragment() {
             loadingView.pauseAnimation()
             loadingView.cancelAnimation()
             loadingView.removeParent()
+//            rootView?.removeAllViews()
         }
     }
 

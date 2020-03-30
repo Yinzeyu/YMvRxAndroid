@@ -118,7 +118,7 @@ fun <T> View.setClickNotNull(
         setOnClickListener(null)
     } else {
         click {
-            onClick?.invoke(t)
+            onClick.invoke(t)
         }
     }
 }
@@ -131,7 +131,7 @@ fun View.setClickNotNull(onClick: (() -> Unit)?) {
         setOnClickListener(null)
     } else {
         click {
-            onClick?.invoke()
+            onClick.invoke()
         }
     }
 }

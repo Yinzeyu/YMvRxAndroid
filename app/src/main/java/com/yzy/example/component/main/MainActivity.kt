@@ -5,8 +5,6 @@ import android.content.Intent
 import android.view.MotionEvent
 import com.blankj.utilcode.util.ActivityUtils
 import com.yzy.baselibrary.base.BaseFragment
-import com.yzy.baselibrary.extention.mContext
-import com.yzy.baselibrary.extention.setLightMode
 import com.yzy.baselibrary.extention.startActivity
 import com.yzy.baselibrary.extention.toast
 import com.yzy.example.R
@@ -25,7 +23,7 @@ class MainActivity : CommActivity() {
     override fun layoutResId(): Int = R.layout.activity_main
 
     override fun initView() {
-//        setLightMode(this)
+
     }
 
     override fun initData() {

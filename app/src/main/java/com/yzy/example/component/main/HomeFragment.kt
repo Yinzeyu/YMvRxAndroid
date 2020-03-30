@@ -7,6 +7,7 @@ import com.airbnb.epoxy.EpoxyVisibilityTracker
 import com.blankj.utilcode.util.LogUtils
 import com.blankj.utilcode.util.NetworkUtils
 import com.yzy.baselibrary.base.MvRxEpoxyController
+import com.yzy.baselibrary.extention.StatusBarHelper.setStatusBarLightMode
 import com.yzy.example.R
 import com.yzy.example.component.comm.CommFragment
 import com.yzy.example.component.comm.item.dividerItem
@@ -29,6 +30,8 @@ class HomeFragment : CommFragment() {
             return HomeFragment()
         }
     }
+
+    override fun fillStatus(): Boolean =false
 
     override val contentLayout: Int = R.layout.fragment_home
     private val mViewModel: NewGankViewModel by lazy {
