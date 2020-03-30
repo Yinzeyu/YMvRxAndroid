@@ -1,6 +1,7 @@
 package com.yzy.example.component.web
 
 import android.annotation.SuppressLint
+import android.graphics.Color
 import android.os.Bundle
 import android.view.View
 import android.view.ViewGroup
@@ -32,9 +33,8 @@ class WebsiteDetailFragment :CommFragment(){
         }
     }
     override val contentLayout: Int = R.layout.fragment_wesite_detail
-
+    override fun statusColor(): Int =Color.parseColor("#008577")
     override fun initView(root: View?) {
-        barTranslucentView.layoutParams.height =BarUtils.getStatusBarHeight()
         webRootView.removeAllViews()
         initAgentBuilder()
     }

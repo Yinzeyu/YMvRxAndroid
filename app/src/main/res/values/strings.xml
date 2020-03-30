@@ -27,4 +27,12 @@
     <string name="about_us">关于我们</string>
     <string name="statement">一些说明</string>
     <string name="chat_send">发送</string>
+    <string name="name">Name</string>
+    <string name="email">Email</string>
+    <string name="password">Password</string>
+    <string name="sign_up">sign up</string>
+    <string name="select_an_avatar">Select an Avatar</string>
+    <string name="done">Done</string>
+    <string name="title_register">Register</string>
+    <string name="title_registered">Registered</string>
 </resources>

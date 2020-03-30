@@ -3,16 +3,6 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-
-    <View
-        android:id="@+id/barTranslucentView"
-        android:layout_width="match_parent"
-        android:layout_height="15dp"
-        android:background="@color/colorPrimary"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
     <TextView
         android:id="@+id/detailTitle"
         android:layout_width="0dp"
@@ -26,7 +16,7 @@
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/barTranslucentView" />
+       app:layout_constraintTop_toTopOf="parent" />
 
 
     <FrameLayout

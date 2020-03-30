@@ -15,7 +15,6 @@
  */
 package com.yzy.baselibrary.extention
 
-import android.annotation.SuppressLint
 import android.annotation.TargetApi
 import android.app.Activity
 import android.content.Context
@@ -70,8 +69,7 @@ object StatusBarHelper {
     }
 
     private fun supportTranslucent(): Boolean {
-        return (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT // Essential Phone 在 Android 8 之前沉浸式做得不全，系统不从状态栏顶部开始布局却会下发 WindowInsets
-                && !(isEssentialPhone && Build.VERSION.SDK_INT < 26))
+        return (!(isEssentialPhone && Build.VERSION.SDK_INT < 26))
     }
 
     /**
@@ -175,19 +173,17 @@ object StatusBarHelper {
         if (mStatuBarType != STATUSBAR_TYPE_DEFAULT) {
             return setStatusBarLightMode(activity, mStatuBarType)
         }
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-            if (isMIUICustomStatusBarLightModeImpl && MIUISetStatusBarLightMode(activity.window, true)
-            ) {
-                mStatuBarType = STATUSBAR_TYPE_MIUI
-                return true
-            } else if (FlymeSetStatusBarLightMode(activity.window, true)) {
-                mStatuBarType = STATUSBAR_TYPE_FLYME
-                return true
-            } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                Android6SetStatusBarLightMode(activity.window, true)
-                mStatuBarType = STATUSBAR_TYPE_ANDROID6
-                return true
-            }
+        if (isMIUICustomStatusBarLightModeImpl && MIUISetStatusBarLightMode(activity.window, true)
+        ) {
+            mStatuBarType = STATUSBAR_TYPE_MIUI
+            return true
+        } else if (FlymeSetStatusBarLightMode(activity.window, true)) {
+            mStatuBarType = STATUSBAR_TYPE_FLYME
+            return true
+        } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            Android6SetStatusBarLightMode(activity.window, true)
+            mStatuBarType = STATUSBAR_TYPE_ANDROID6
+            return true
         }
         return false
     }
@@ -290,7 +286,6 @@ object StatusBarHelper {
      * @param light  是否把状态栏字体及图标颜色设置为深色
      * @return boolean 成功执行返回 true
      */
-    @SuppressLint("PrivateApi")
     fun MIUISetStatusBarLightMode(
         window: Window?,
         light: Boolean

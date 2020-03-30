@@ -20,6 +20,10 @@
         <action
             android:id="@+id/action_mainFragment_to_cameraFragment"
             app:destination="@id/cameraFragment" />
+
+        <action
+            android:id="@+id/action_match_to_in_game_nav_graph"
+            app:destination="@id/form" />
     </tab_fragment>
 
     <tab_fragment
@@ -43,7 +47,7 @@
         android:id="@+id/albumFragment"
         android:name="com.yzy.example.component.album.AlbumFragment"
         android:label="AlbumFragment"
-        tools:layout="@layout/fragment_album" >
+        tools:layout="@layout/fragment_album">
         <action
             android:id="@+id/action_albumFragment_to_picCutFragment"
             app:destination="@id/picCutFragment" />
@@ -60,4 +64,13 @@
         android:name="com.yzy.example.component.camera.CameraFragment"
         android:label="CameraFragment"
         tools:layout="@layout/fragment_camera_layout" />
+
+<!--    <tab_fragment-->
+<!--        android:id="@+id/fragment_match"-->
+<!--        android:name="com.yzy.example.Register"-->
+<!--        android:label="fragment_match"-->
+<!--        tools:layout="@layout/fragment_register"-->
+<!--        >-->
+<!--    </tab_fragment>-->
+    <include app:graph="@navigation/form" />
 </navigation>

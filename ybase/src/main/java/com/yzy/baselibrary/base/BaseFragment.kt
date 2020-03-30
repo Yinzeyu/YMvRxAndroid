@@ -59,7 +59,7 @@ abstract class BaseFragment : Fragment(), CoroutineScope by MainScope() {
         if (contentLayout > 0) {
             rootView?.addView(noteView)
         } else {
-            rootView?.removeParent()
+            rootView?.removeParent( )
         }
        val baseStatusView = contentView.findViewById<View>(R.id.baseStatusView)
         baseStatusView?.let {

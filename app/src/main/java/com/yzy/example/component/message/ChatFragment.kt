@@ -30,9 +30,8 @@ class ChatFragment : CommTitleFragment() {
     override fun layoutResContentId(): Int = R.layout.fragment_chat
 
     override fun initContentView() {
-        flTitleBarView.layoutParams.height=BarUtils.getStatusBarHeight()+SizeUtils.dp2px(49f)
+//        flTitleBarView.layoutParams.height=BarUtils.getStatusBarHeight()+SizeUtils.dp2px(49f)
         mContext.window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE)
-//        (mContext as MainActivity).registerMyTouchListener(myTouchListener)
     }
 
 
