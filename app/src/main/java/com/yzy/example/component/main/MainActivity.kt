@@ -45,7 +45,6 @@ class MainActivity : CommActivity() {
     fun registerMyTouchListener(listener: MyTouchListener) {
         myTouchListeners.add(listener)
     }
-
     /**
      * 提供给Fragment通过getActivity()方法来取消注册自己的触摸事件的方法
      * @param listener

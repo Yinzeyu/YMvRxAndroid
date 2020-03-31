@@ -2,7 +2,7 @@ apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
-
+apply plugin: "androidx.navigation.safeargs.kotlin"
 //打包时间
 static def releaseTime() {
     return new Date().format("yyyy-MM-dd", TimeZone.getTimeZone("UTC"))
@@ -126,6 +126,8 @@ dependencies {
     //web https://github.com/Justson/AgentWeb
     implementation 'com.just.agentweb:agentweb:4.1.3'
     implementation 'com.github.CymChad:BaseRecyclerViewAdapterHelper:3.0.1'
+    // Dynamic Feature Module Support
+//    implementation "androidx.navigation:navigation-dynamic-features-fragment:2.3.0-alpha04"
 }
 //放在这省的忘
 //@SuppressLint("ParcelCreator")

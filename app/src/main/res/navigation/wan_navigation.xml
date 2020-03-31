@@ -26,6 +26,9 @@
             app:destination="@id/form" />
     </tab_fragment>
 
+    <include app:graph="@navigation/form" />
+
+
     <tab_fragment
         android:id="@+id/websiteDetailFragment"
         android:name="com.yzy.example.component.web.WebsiteDetailFragment"
@@ -72,5 +75,5 @@
 <!--        tools:layout="@layout/fragment_register"-->
 <!--        >-->
 <!--    </tab_fragment>-->
-    <include app:graph="@navigation/form" />
+
 </navigation>

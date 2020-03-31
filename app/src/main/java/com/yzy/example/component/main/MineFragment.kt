@@ -3,8 +3,6 @@ package com.yzy.example.component.main
 import android.os.Bundle
 import android.view.Gravity
 import android.view.View
-import androidx.navigation.Navigation
-import androidx.navigation.fragment.findNavController
 import com.blankj.utilcode.util.ColorUtils
 import com.blankj.utilcode.util.StringUtils
 import com.yzy.baselibrary.base.MvRxEpoxyController
@@ -67,14 +65,8 @@ class MineFragment: CommFragment(){
                         } else if (second is CameraFragment) {
                             CameraFragment.startCameraFragment(mNavController,R.id.action_mainFragment_to_cameraFragment)
                         } else if (second is Any) {
-//                            Navigation.findNavController(mContext,R.id.nav_fragment).navigate(R.id.action_register_to_registered)
-                            mNavController.navigate(R.id.action_match_to_in_game_nav_graph,
-                                Bundle(), options)
+                            mNavController.navigate(R.id.action_match_to_in_game_nav_graph, Bundle(), options)
                         }
-
-//                        else if (second is CcUpdateService) {
-//                            CcUpdateService.startIntent(apkUrk, showNotification = true)
-//                        }
                     }
                 }
                 //分割线
