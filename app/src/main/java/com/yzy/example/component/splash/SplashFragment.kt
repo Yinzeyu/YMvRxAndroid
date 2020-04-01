@@ -2,37 +2,34 @@ package com.yzy.example.component.splash
 
 
 import android.Manifest
-import android.content.Intent
 import android.util.Log
+import android.view.View
 import com.blankj.utilcode.constant.PermissionConstants
 import com.blankj.utilcode.util.PermissionUtils
-import com.yzy.baselibrary.base.BaseActivity
-import com.yzy.baselibrary.extention.StatusBarHelper
-import com.yzy.baselibrary.extention.StatusBarHelper.translucent
+import com.yzy.baselibrary.base.BaseFragment
 import com.yzy.example.extention.load
-import com.yzy.baselibrary.extention.mContext
 import com.yzy.baselibrary.extention.toast
 import com.yzy.example.R
 import com.yzy.example.component.main.MainActivity
-import kotlinx.android.synthetic.main.activity_splash.*
+import kotlinx.android.synthetic.main.fragment_splash.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
-class SplashActivity : BaseActivity() {
+class SplashFragment : BaseFragment() {
 
-    override fun layoutResId(): Int = R.layout.activity_splash
     //是否有SD卡读写权限
     private var hasSDPermission: Boolean? = null
     //倒计时是否结束
     private var countDownFinish: Boolean? = null
     //是否需要关闭页面
-    private var hasFinish = false
-    //不设置状态栏填充，即显示全屏
-    override fun initView() {
-        translucent(this)
-        hasFinish = checkReOpenHome()
-        if (hasFinish) return
+//    private var hasFinish = false
+
+    override val contentLayout: Int = R.layout.fragment_splash
+    override fun fillStatus(): Boolean =false
+    override fun initView(root: View?) {
+//        hasFinish = checkReOpenHome()
+//        if (hasFinish) return
         iv_sp.load("http://pic1.win4000.com/pic/7/0f/2cab03e09e.jpg")
         launch(Dispatchers.Main) {
             for (i in 5 downTo 1) {
@@ -46,7 +43,7 @@ class SplashActivity : BaseActivity() {
     }
 
     override fun initData() {
-        if (hasFinish) return
+//        if (hasFinish) return
         if (PermissionUtils.isGranted(
                 Manifest.permission.WRITE_EXTERNAL_STORAGE,
                 Manifest.permission.READ_EXTERNAL_STORAGE
@@ -89,19 +86,20 @@ class SplashActivity : BaseActivity() {
                 else -> MainActivity.starMainActivity(mContext)
             }
         }
-        finish()
+        mNavController.navigate(R.id.action_splashFragment_to_mainFragment)
+
     }
 
     //https://www.cnblogs.com/xqz0618/p/thistaskroot.html
-    private fun checkReOpenHome(): Boolean {
-        // 避免从桌面启动程序后，会重新实例化入口类的activity
-        if (!this.isTaskRoot && intent != null // 判断当前activity是不是所在任务栈的根
-            && intent.hasCategory(Intent.CATEGORY_LAUNCHER)
-            && Intent.ACTION_MAIN == intent.action
-        ) {
-            finish()
-            return true
-        }
-        return false
-    }
+//    private fun checkReOpenHome(): Boolean {
+//        // 避免从桌面启动程序后，会重新实例化入口类的activity
+//        if (!this.isTaskRoot && intent != null // 判断当前activity是不是所在任务栈的根
+//            && intent.hasCategory(Intent.CATEGORY_LAUNCHER)
+//            && Intent.ACTION_MAIN == intent.action
+//        ) {
+//            finish()
+//            return true
+//        }
+//        return false
+//    }
 }

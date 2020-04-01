@@ -3,7 +3,18 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/wan_navigation"
-    app:startDestination="@id/mainFragment">
+    app:startDestination="@id/splashFragment">
+    <tab_fragment
+        android:id="@+id/splashFragment"
+        android:name="com.yzy.example.component.splash.SplashFragment"
+        android:label="splashFragment"
+        tools:layout="@layout/fragment_splash">
+        <action
+            android:id="@+id/action_splashFragment_to_mainFragment"
+            app:destination="@id/mainFragment"
+            app:popUpTo="@id/splashFragment"
+            app:popUpToInclusive="true" />
+    </tab_fragment>
     <tab_fragment
         android:id="@+id/mainFragment"
         android:name="com.yzy.example.component.main.MainFragment"
@@ -68,12 +79,12 @@
         android:label="CameraFragment"
         tools:layout="@layout/fragment_camera_layout" />
 
-<!--    <tab_fragment-->
-<!--        android:id="@+id/fragment_match"-->
-<!--        android:name="com.yzy.example.Register"-->
-<!--        android:label="fragment_match"-->
-<!--        tools:layout="@layout/fragment_register"-->
-<!--        >-->
-<!--    </tab_fragment>-->
+    <!--    <tab_fragment-->
+    <!--        android:id="@+id/fragment_match"-->
+    <!--        android:name="com.yzy.example.Register"-->
+    <!--        android:label="fragment_match"-->
+    <!--        tools:layout="@layout/fragment_register"-->
+    <!--        >-->
+    <!--    </tab_fragment>-->
 
 </navigation>

@@ -46,11 +46,10 @@ class CustomNavHostFragment : NavHostFragment() {
 //                val mIsPendingBackStackOperationField =
 //                    FragmentNavigator::class.java.getDeclaredField("mIsPendingBackStackOperation")
 //                mIsPendingBackStackOperationField.isAccessible = true
-
-                if (mFragmentManager.isStateSaved) {
+//                if (mFragmentManager.isStateSaved) {
                     //Log.i("TAG", "Ignoring navigate() call: FragmentManager has already" + " saved its state")
-                    return null
-                }
+//                    return null
+//                }
                 var className = destination.className
                 if (className[0] == '.') {
                     className = mContext.packageName + className
@@ -131,7 +130,7 @@ class CustomNavHostFragment : NavHostFragment() {
                     }
                 }
                 ft.setReorderingAllowed(true)
-                ft.commit()
+                ft.commitAllowingStateLoss()
                 // The commit succeeded, update our view of the world
                 return if (isAdded) {
                     mBackStack.add(destId)
