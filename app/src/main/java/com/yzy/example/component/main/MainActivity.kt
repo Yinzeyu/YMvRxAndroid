@@ -23,7 +23,11 @@ class MainActivity : CommActivity() {
     override fun layoutResId(): Int = R.layout.activity_main
 
     override fun initView() {
-
+//        val navController = Navigation.findNavController(this, R.id.nav_fragment)
+//        val navHostFragment = supportFragmentManager.findFragmentById(R.id.nav_fragment) as NavHostFragment?
+//        val navigator = KeepStateNavigator(this, navHostFragment!!.childFragmentManager, R.id.nav_fragment)
+//        navController.navigatorProvider.addNavigator(navigator)
+//        navController.setGraph(R.navigation.wan_navigation)
     }
 
     override fun initData() {

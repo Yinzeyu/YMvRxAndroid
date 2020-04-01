@@ -9,6 +9,7 @@ import androidx.navigation.NavOptions
 import androidx.navigation.Navigator
 import androidx.navigation.fragment.FragmentNavigator
 import androidx.navigation.fragment.NavHostFragment
+import com.blankj.utilcode.util.LogUtils
 import java.util.*
 
 /**
@@ -50,6 +51,7 @@ class CustomNavHostFragment : NavHostFragment() {
                     //Log.i("TAG", "Ignoring navigate() call: FragmentManager has already" + " saved its state")
 //                    return null
 //                }
+                val stateSaved = mFragmentManager.isStateSaved
                 var className = destination.className
                 if (className[0] == '.') {
                     className = mContext.packageName + className
@@ -112,13 +114,11 @@ class CustomNavHostFragment : NavHostFragment() {
                                 FragmentManager.POP_BACK_STACK_INCLUSIVE
                             )
                             ft.addToBackStack(generateMyBackStackName(mBackStack.size, destId))
-//                            mIsPendingBackStackOperationField.set(this, true)
                         }
                         false
                     }
                     else -> {
                         ft.addToBackStack(generateMyBackStackName(mBackStack.size + 1, destId))
-//                        mIsPendingBackStackOperationField.set(this, true)
                         true
                     }
                 }
@@ -130,7 +130,12 @@ class CustomNavHostFragment : NavHostFragment() {
                     }
                 }
                 ft.setReorderingAllowed(true)
-                ft.commitAllowingStateLoss()
+                LogUtils.e("isStateSaved == "+mFragmentManager.isStateSaved)
+                if (stateSaved){
+                    ft.commitAllowingStateLoss()
+                }else{
+                    ft.commit()
+                }
                 // The commit succeeded, update our view of the world
                 return if (isAdded) {
                     mBackStack.add(destId)

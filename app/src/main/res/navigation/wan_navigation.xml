@@ -13,7 +13,8 @@
             android:id="@+id/action_splashFragment_to_mainFragment"
             app:destination="@id/mainFragment"
             app:popUpTo="@id/splashFragment"
-            app:popUpToInclusive="true" />
+            app:popUpToInclusive="true"
+            />
     </tab_fragment>
     <tab_fragment
         android:id="@+id/mainFragment"
