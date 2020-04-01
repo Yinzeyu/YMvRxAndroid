@@ -17,7 +17,10 @@
 package com.yzy.example
 
 import android.view.View
+import androidx.navigation.Navigation
 import com.yzy.baselibrary.base.BaseFragment
+import com.yzy.baselibrary.extention.click
+import kotlinx.android.synthetic.main.fragment_registered.*
 
 /**
  * Shows "Done".
@@ -26,6 +29,10 @@ class Registered : BaseFragment() {
     override val contentLayout: Int = R.layout.fragment_registered
 
     override fun initView(root: View?) {
+        ttttt.click {
+            Navigation.findNavController(root!!).popBackStack(R.id.register,true)
+        }
+
     }
 
     override fun initData() {

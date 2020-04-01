@@ -13,6 +13,7 @@ import com.yzy.example.component.comm.item.dividerItem
 import com.yzy.example.component.message.ChatFragment
 import com.yzy.example.component.message.simpleTextItem
 import com.yzy.example.extention.options
+import com.yzy.example.extention.startNavigate
 import kotlinx.android.synthetic.main.fragment_mine.*
 
 class MineFragment: CommFragment(){
@@ -61,11 +62,11 @@ class MineFragment: CommFragment(){
                     onItemClick {
                         val second = pair.second.newInstance()
                         if (second is ChatFragment) {
-                            ChatFragment.startChatFragment(mNavController,R.id.action_mainFragment_to_chatFragment)
+                            startNavigate(view, MainFragmentDirections.actionMainFragmentToChatFragment())
                         } else if (second is CameraFragment) {
-                            CameraFragment.startCameraFragment(mNavController,R.id.action_mainFragment_to_cameraFragment)
+                            startNavigate(view, MainFragmentDirections.actionMainFragmentToCameraFragment())
                         } else if (second is Any) {
-                            mNavController.navigate(R.id.action_match_to_in_game_nav_graph, Bundle(), options)
+                            startNavigate(view, MainFragmentDirections.actionMatchToInGameNavGraph())
                         }
                     }
                 }

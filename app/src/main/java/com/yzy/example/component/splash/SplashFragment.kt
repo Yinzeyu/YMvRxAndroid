@@ -11,6 +11,7 @@ import com.yzy.example.extention.load
 import com.yzy.baselibrary.extention.toast
 import com.yzy.example.R
 import com.yzy.example.component.main.MainActivity
+import com.yzy.example.extention.startNavigate
 import kotlinx.android.synthetic.main.fragment_splash.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
@@ -20,13 +21,14 @@ class SplashFragment : BaseFragment() {
 
     //是否有SD卡读写权限
     private var hasSDPermission: Boolean? = null
+
     //倒计时是否结束
     private var countDownFinish: Boolean? = null
     //是否需要关闭页面
 //    private var hasFinish = false
 
     override val contentLayout: Int = R.layout.fragment_splash
-    override fun fillStatus(): Boolean =false
+    override fun fillStatus(): Boolean = false
     override fun initView(root: View?) {
 //        hasFinish = checkReOpenHome()
 //        if (hasFinish) return
@@ -56,7 +58,10 @@ class SplashFragment : BaseFragment() {
                 .callback(object : PermissionUtils.SimpleCallback {
                     //权限允许
                     override fun onGranted() {
-                        Log.e("CASE", "有SD卡读写权限:${PermissionUtils.isGranted(PermissionConstants.STORAGE)}")
+                        Log.e(
+                            "CASE",
+                            "有SD卡读写权限:${PermissionUtils.isGranted(PermissionConstants.STORAGE)}"
+                        )
                         hasSDPermission = true
                         goNextPage()
                     }
@@ -86,8 +91,7 @@ class SplashFragment : BaseFragment() {
                 else -> MainActivity.starMainActivity(mContext)
             }
         }
-        mNavController.navigate(R.id.action_splashFragment_to_mainFragment)
-
+        startNavigate(rootView, R.id.action_splashFragment_to_mainFragment)
     }
 
     //https://www.cnblogs.com/xqz0618/p/thistaskroot.html

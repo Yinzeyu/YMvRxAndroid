@@ -13,8 +13,7 @@
             android:id="@+id/action_splashFragment_to_mainFragment"
             app:destination="@id/mainFragment"
             app:popUpTo="@id/splashFragment"
-            app:popUpToInclusive="true"
-            />
+            app:popUpToInclusive="true" />
     </tab_fragment>
     <tab_fragment
         android:id="@+id/mainFragment"
@@ -45,7 +44,12 @@
         android:id="@+id/websiteDetailFragment"
         android:name="com.yzy.example.component.web.WebsiteDetailFragment"
         android:label="WebsiteDetailFragment"
-        tools:layout="@layout/fragment_wesite_detail" />
+        tools:layout="@layout/fragment_wesite_detail">
+        <argument
+            android:name="url"
+            android:defaultValue="value"
+            app:argType="string" />
+    </tab_fragment>
 
 
     <tab_fragment
@@ -72,7 +76,21 @@
         android:id="@+id/picCutFragment"
         android:name="com.yzy.example.component.album.PicCutFragment"
         android:label="PicCutFragment"
-        tools:layout="@layout/fragment_pic_cut" />
+        tools:layout="@layout/fragment_pic_cut">
+        <argument
+            android:name="imageUrl"
+            android:defaultValue="value"
+            app:argType="string" />
+
+        <argument
+            android:name="square"
+            android:defaultValue="false"
+            app:argType="boolean" />
+        <argument
+            android:name="layerCircle"
+            android:defaultValue="false"
+            app:argType="boolean" />
+    </tab_fragment>
 
     <tab_fragment
         android:id="@+id/cameraFragment"

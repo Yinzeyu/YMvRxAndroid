@@ -15,6 +15,7 @@ import com.yzy.example.component.comm.item.loadMoreItem
 import com.yzy.example.component.main.item.gankAndroidItem
 import com.yzy.example.component.main.model.DynViewModel
 import com.yzy.example.component.web.WebsiteDetailFragment
+import com.yzy.example.extention.startNavigate
 import com.yzy.example.http.response.ApiException
 import com.yzy.example.http.response.EmptyException
 import com.yzy.example.repository.ViewModelFactory
@@ -78,11 +79,7 @@ class DynFragment : CommFragment() {
                         id("dyn_${bean._id}")
                         dataBean(bean)
                         onItemClick { data ->
-                            WebsiteDetailFragment.viewDetail(
-                                mNavController,
-                                R.id.action_mainFragment_to_websiteDetailFragment,
-                                data.url ?: ""
-                            )
+                            startNavigate(view, MainFragmentDirections.actionMainFragmentToWebsiteDetailFragment(data.url ?: ""))
                         }
                     }
                     //分割线

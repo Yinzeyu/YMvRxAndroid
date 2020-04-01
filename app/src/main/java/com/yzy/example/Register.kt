@@ -17,8 +17,11 @@
 package com.yzy.example
 
 import android.view.View
+import androidx.navigation.Navigation
 import androidx.navigation.fragment.findNavController
 import com.yzy.baselibrary.base.BaseFragment
+import com.yzy.example.component.main.MainFragmentDirections
+import com.yzy.example.extention.startNavigate
 import kotlinx.android.synthetic.main.fragment_register.*
 
 
@@ -30,7 +33,8 @@ class Register : BaseFragment() {
 
     override fun initView(root: View?) {
         signup_btn.setOnClickListener {
-            findNavController().navigate(R.id.action_register_to_registered)
+            startNavigate(view, RegisterDirections.actionRegisterToRegistered())
+
         }
     }
 

@@ -8,6 +8,7 @@ import com.yzy.baselibrary.extention.click
 import com.yzy.example.R
 import com.yzy.example.component.web.WebsiteDetailFragment
 import com.yzy.example.extention.load
+import com.yzy.example.extention.startNavigate
 import com.yzy.example.repository.bean.BannerBean
 import kotlinx.android.synthetic.main.item_banner_child.*
 
@@ -21,11 +22,7 @@ class BannerFragment(  var data: BannerBean,override val contentLayout: Int = R.
     override fun initView(root: View?) {
         itemBannerIV.load(data.imagePath)
         itemBannerIV.click {
-            WebsiteDetailFragment.viewDetail(
-                mNavController,
-                R.id.action_mainFragment_to_websiteDetailFragment,
-                data.url ?: ""
-            )
+            startNavigate(view, MainFragmentDirections.actionMainFragmentToWebsiteDetailFragment(data.url ?: ""))
 //            WebActivity.startActivity(mContext, data.url ?: "")
         }
     }

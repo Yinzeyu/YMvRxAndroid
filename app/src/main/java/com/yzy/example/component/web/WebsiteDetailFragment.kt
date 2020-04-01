@@ -7,33 +7,29 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.annotation.IdRes
 import androidx.navigation.NavController
+import androidx.navigation.fragment.navArgs
 import com.blankj.utilcode.util.BarUtils
 import com.just.agentweb.AgentWeb
 import com.just.agentweb.DefaultWebClient
 import com.yzy.baselibrary.extention.getResColor
 import com.yzy.example.R
+import com.yzy.example.component.album.AlbumFragmentDirections
 import com.yzy.example.component.comm.CommFragment
+import com.yzy.example.component.main.MainFragmentDirections
 import com.yzy.example.extention.options
+import com.yzy.example.extention.startNavigate
 import com.yzy.example.widget.LollipopFixedWebView
 import kotlinx.android.synthetic.main.fragment_wesite_detail.*
 
-class WebsiteDetailFragment :CommFragment(){
+class WebsiteDetailFragment : CommFragment() {
 
-    private val url: String by lazy {
-        arguments?.getString("url") ?: ""
-    }
+    private val url: WebsiteDetailFragmentArgs by navArgs()
     //AgentWeb相关
     private var agentWeb: AgentWeb? = null
     private var agentBuilder: AgentWeb.CommonBuilder? = null
 
-    companion object {
-        fun viewDetail(controller: NavController, @IdRes id: Int, url: String) {
-            if (url.isBlank()) return
-            controller.navigate(id, Bundle().apply { putString("url", url) }, options)
-        }
-    }
     override val contentLayout: Int = R.layout.fragment_wesite_detail
-    override fun statusColor(): Int =Color.parseColor("#008577")
+    override fun statusColor(): Int = Color.parseColor("#008577")
     override fun initView(root: View?) {
         webRootView.removeAllViews()
         initAgentBuilder()
@@ -41,7 +37,7 @@ class WebsiteDetailFragment :CommFragment(){
 
     @SuppressLint("SetJavaScriptEnabled")
     override fun initData() {
-        agentWeb = agentBuilder?.createAgentWeb()?.ready()?.go(url)//创建web并打开
+        agentWeb = agentBuilder?.createAgentWeb()?.ready()?.go(url.url)//创建web并打开
         //设置适配
         val web = agentWeb?.webCreator?.webView
         web?.settings?.let { ws ->
@@ -58,6 +54,7 @@ class WebsiteDetailFragment :CommFragment(){
             ws.loadWithOverviewMode = true
         }
     }
+
     //初始化web
     private fun initAgentBuilder() {
         //为了解决安卓5.x的bug

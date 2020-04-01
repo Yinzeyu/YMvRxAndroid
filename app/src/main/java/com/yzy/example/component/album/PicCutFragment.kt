@@ -7,6 +7,7 @@ import android.util.Log
 import android.view.View
 import androidx.annotation.IdRes
 import androidx.navigation.NavController
+import androidx.navigation.fragment.navArgs
 import com.blankj.utilcode.util.BarUtils
 import com.blankj.utilcode.util.SizeUtils
 import com.yzy.baselibrary.base.BaseActivity
@@ -15,6 +16,7 @@ import com.yzy.example.R
 import com.yzy.example.component.comm.CommTitleFragment
 import com.yzy.example.component.main.MainActivity
 import com.yzy.example.extention.options
+import com.yzy.example.extention.startNavigate
 import com.yzy.example.utils.PathUtils
 import com.yzy.example.widget.crop.ucrop.view.SimpleTransformImageListener
 import kotlinx.android.synthetic.main.activity_comm_title.*
@@ -30,25 +32,26 @@ import java.io.File
 class PicCutFragment : CommTitleFragment() {
     //需要裁切的图片地址
     private var imageUrl: String = ""
+
     //是否裁切为正方形,否则16:9
     var square: Boolean = false
+
     //是否显示圆形的蒙层，只有当square=tue才生效
     var layerCircle: Boolean = false
+    val args: PicCutFragmentArgs by navArgs()
 
     companion object {
         fun startPicCutFragment(
-            controller: NavController, @IdRes id: Int,
+            view: View?,
             imageUrl: String,
             square: Boolean,
             layerCircle: Boolean
-
         ) {
-            controller.navigate(id, Bundle().apply {
-                putString("imageUrl", imageUrl)
-                putBoolean("square", square)
-                putBoolean("layerCircle", layerCircle)
-
-            }, options)
+            startNavigate(view, AlbumFragmentDirections.actionAlbumFragmentToPicCutFragment(
+                imageUrl,
+                square,
+                layerCircle
+            ))
         }
     }
 
@@ -58,9 +61,9 @@ class PicCutFragment : CommTitleFragment() {
 
     override fun initContentView() {
         flTitleBarView.layoutParams.height = SizeUtils.dp2px(44f) + BarUtils.getStatusBarHeight()
-        imageUrl = arguments?.getString("imageUrl") ?: ""
-        square = arguments?.getBoolean("square") ?: false
-        layerCircle = arguments?.getBoolean("layerCircle") ?: false
+        imageUrl = args.imageUrl
+        square = args.square
+        layerCircle = args.layerCircle
 
         setTitleText("裁剪")
         setTitleRightTv("完成")

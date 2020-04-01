@@ -16,6 +16,7 @@ import com.yzy.example.component.comm.item.loadMoreItem
 import com.yzy.example.component.main.item.bannerItem
 import com.yzy.example.component.main.item.wanArticleItem
 import com.yzy.example.component.web.WebsiteDetailFragment
+import com.yzy.example.extention.startNavigate
 import com.yzy.example.http.response.ApiException
 import com.yzy.example.http.response.EmptyException
 import com.yzy.example.repository.ViewModelFactory
@@ -86,11 +87,7 @@ class HomeFragment : CommFragment() {
                         dataBean(articleBean)
                         onItemClick {
                             it?.link?.let { url ->
-                                WebsiteDetailFragment.viewDetail(
-                                    mNavController,
-                                    R.id.action_mainFragment_to_websiteDetailFragment,
-                                    url
-                                )
+                                startNavigate(view, MainFragmentDirections.actionMainFragmentToWebsiteDetailFragment(url))
                             }
                         }
                     }

@@ -24,6 +24,7 @@ import com.yzy.example.component.comm.CommFragment
 import com.yzy.example.component.comm.item.DividerItem_
 import com.yzy.example.component.main.MainActivity
 import com.yzy.example.extention.options
+import com.yzy.example.extention.startNavigate
 import com.yzy.example.repository.ViewModelFactory
 import com.yzy.example.repository.bean.AlbumBean
 import com.yzy.example.utils.CameraUtils
@@ -43,6 +44,7 @@ class AlbumFragment : CommFragment() {
     private val videoMaxDur: Long by lazy {
         arguments?.getLong("videoMaxDur") ?: (100 * 1000).toLong()
     }
+
     //最多图片选择数量
     private val maxPicSize: Int by lazy {
         arguments?.getInt("maxPicSize") ?: 9
@@ -52,6 +54,7 @@ class AlbumFragment : CommFragment() {
     private val isMixing: Boolean by lazy {
         arguments?.getBoolean("isMixing") ?: false
     }
+
     //是否只选择一张图
     private val isOnlyPic: Boolean by lazy {
         arguments?.getBoolean("isOnlyPic") ?: false
@@ -60,14 +63,17 @@ class AlbumFragment : CommFragment() {
     private val isOnlyOne: Boolean by lazy {
         arguments?.getBoolean("isOnlyOne") ?: false
     }
+
     //是否需要裁切
     private val isNeedCut: Boolean by lazy {
         arguments?.getBoolean("isNeedCut") ?: false
     }
+
     //是否裁切为正方形,否则16:9
     private val needCutSquare: Boolean by lazy {
         arguments?.getBoolean("needCutSquare") ?: false
     }
+
     //是否显示圆形的蒙层，只有当square=tue才生效
     private val needCutLayerCircle: Boolean by lazy {
         arguments?.getBoolean("needCutLayerCircle") ?: false
@@ -183,9 +189,19 @@ class AlbumFragment : CommFragment() {
                     cutCallBack = { mediaTemp ->
                         mCutMedia = mediaTemp
                         mediaTemp.path?.let { path ->
+//                            startNavigate(rootView, R.id.action_albumFragment_to_picCutFragment)
+
+//                            startNavigate(
+//                                rootView,
+//                                AlbumFragmentDirections.actionAlbumFragmentToPicCutFragment(
+//                                    path,
+//                                    needCutSquare,
+//                                    needCutLayerCircle
+//                                )
+//                            )
+
                             PicCutFragment.startPicCutFragment(
-                                mNavController,
-                                R.id.action_albumFragment_to_picCutFragment,
+                              rootView,
                                 path,
                                 needCutSquare,
                                 needCutLayerCircle
@@ -403,6 +419,7 @@ class AlbumFragment : CommFragment() {
             mContext.toast("拍照出错")
         }
     }
+
     //需要裁切的图片信息
     private var mCutMedia: LocalMedia? = null
 
@@ -431,8 +448,7 @@ class AlbumFragment : CommFragment() {
                     if (isNeedCut) {
                         mCutMedia = localMedia
                         PicCutFragment.startPicCutFragment(
-                            mNavController,
-                            R.id.action_albumFragment_to_picCutFragment,
+                            rootView,
                             it,
                             needCutSquare,
                             needCutLayerCircle

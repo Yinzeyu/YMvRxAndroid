@@ -34,7 +34,6 @@ abstract class BaseFragment : Fragment(), CoroutineScope by MainScope() {
     lateinit var mContext: Activity
     protected var rootView: FrameLayout? = null
     private var noteView: View? = null
-    lateinit var mNavController: NavController
     override fun onAttach(context: Context) {
         super.onAttach(context)
         mContext = context as Activity
@@ -52,7 +51,6 @@ abstract class BaseFragment : Fragment(), CoroutineScope by MainScope() {
     ): View? {
         retainInstance = true
         Log.e("fragment", this.javaClass.name)
-        mNavController = NavHostFragment.findNavController(this)
         val contentView = inflater.inflate(R.layout.base_fragment, null)
         noteView = mContext.inflate(contentLayout)
         rootView = contentView.findViewById(R.id.contentView)

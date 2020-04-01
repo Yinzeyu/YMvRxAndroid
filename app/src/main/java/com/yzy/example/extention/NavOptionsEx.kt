@@ -1,7 +1,15 @@
 package com.yzy.example.extention
 
+import android.os.Bundle
+import android.view.View
+import androidx.annotation.IdRes
+import androidx.annotation.Nullable
+import androidx.navigation.NavDirections
+import androidx.navigation.NavOptions
+import androidx.navigation.Navigation
 import androidx.navigation.navOptions
 import com.yzy.example.R
+
 //当前属于弹出栈
 //app:popUpToInclusive="true/false"
 //弹出栈是否包含目标
@@ -25,4 +33,16 @@ val options = navOptions {
 
 //    launchSingleTop = true
 //    popUpTo = R.id.categoryFragment
+}
+
+fun startNavigate(view: View?, @IdRes resId: Int, args: Bundle? = null) {
+    view?.let {
+        Navigation.findNavController(it).navigate(resId, args)
+    }
+}
+
+fun startNavigate(view: View?,  navDirections: NavDirections) {
+    view?.let {
+        Navigation.findNavController(it).navigate(navDirections)
+    }
 }
