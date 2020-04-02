@@ -35,6 +35,11 @@
         <action
             android:id="@+id/action_match_to_in_game_nav_graph"
             app:destination="@id/form" />
+
+        <action
+            android:id="@+id/action_mainFragment_to_fFmpegFragment"
+            app:destination="@id/fFmpegFragment" />
+
     </tab_fragment>
 
     <include app:graph="@navigation/form" />
@@ -97,6 +102,27 @@
         android:name="com.yzy.example.component.camera.CameraFragment"
         android:label="CameraFragment"
         tools:layout="@layout/fragment_camera_layout" />
+
+    <tab_fragment
+        android:id="@+id/fFmpegFragment"
+        android:name="com.yzy.example.component.ffmpeg.FFmpegFragment"
+        android:label="FFmpegFragment"
+        tools:layout="@layout/activity_rxffmpeg" >
+        <action
+            android:id="@+id/action_fFmpegFragment_to_videoDetailFragment"
+            app:destination="@id/videoDetailFragment" />
+    </tab_fragment>
+
+
+    <tab_fragment
+        android:id="@+id/videoDetailFragment"
+        android:name="com.yzy.example.component.ffmpeg.VideoDetailFragment"
+        android:label="VideoDetailFragment"
+        tools:layout="@layout/activity_video_detail" >
+        <argument android:name="video_url"
+            android:defaultValue="value"
+            app:argType="string"/>
+    </tab_fragment>
 
     <!--    <tab_fragment-->
     <!--        android:id="@+id/fragment_match"-->

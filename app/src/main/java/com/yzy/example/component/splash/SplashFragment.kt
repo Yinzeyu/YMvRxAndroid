@@ -24,8 +24,6 @@ class SplashFragment : BaseFragment() {
 
     //倒计时是否结束
     private var countDownFinish: Boolean? = null
-    //是否需要关闭页面
-//    private var hasFinish = false
 
     override val contentLayout: Int = R.layout.fragment_splash
     override fun fillStatus(): Boolean = false

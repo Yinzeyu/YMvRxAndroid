@@ -3,6 +3,7 @@ package com.yzy.example.extention
 import android.graphics.Bitmap
 import android.widget.ImageView
 import com.yzy.baselibrary.app.BaseApplication
+import com.yzy.example.R
 import com.yzy.example.imageloader.ImageConfig
 import com.yzy.example.imageloader.GlideImageLoaderStrategy
 import com.yzy.example.imageloader.ImageLoadScaleType
@@ -371,3 +372,4 @@ fun ImageView.loadCircle(
 //    }
 //    layoutParams = params
 //}
+//加载正方形图片

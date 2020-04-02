@@ -337,7 +337,11 @@
 -dontwarn com.just.agentweb.**
 -keepclassmembers class com.just.agentweb.sample.common.AndroidInterface{ *; }
 
+
 #协程
+#在安卓上，你可以使用协程解决两个常见问题：
+ #简化耗时任务的代码，例如网络请求，磁盘读写，甚至大量 JSON 的解析
+ #提供准确的主线程安全，在不会让代码更加臃肿的情况下保证不阻塞主线程
 -keepclassmembernames class kotlinx.** {
     volatile <fields>;
 }
@@ -348,3 +352,48 @@
 
 
 
+#----------- Rxcache ----------------
+-dontwarn io.rx_cache.internal.**
+-keepclassmembers enum io.rx_cache.Source { *; }
+#--------------------------
+
+#----------- LiveEventBus ----------------
+-dontwarn com.jeremyliao.liveeventbus.**
+-keep class com.jeremyliao.liveeventbus.** { *; }
+-keep class androidx.lifecycle.** { *; }
+-keep class androidx.arch.core.** { *; }
+#--------------------------
+
+#----------- RxFFmpeg ----------------
+-dontwarn io.microshow.rxffmpeg.**
+-keep class io.microshow.rxffmpeg.**{*;}
+#--------------------------
+
+#----------- DKPlayer ----------------
+-keep class com.dueeeke.videoplayer.** { *; }
+-dontwarn com.dueeeke.videoplayer.**
+
+# IjkPlayer
+-keep class tv.danmaku.ijk.** { *; }
+-dontwarn tv.danmaku.ijk.**
+
+# ExoPlayer
+-keep class com.google.android.exoplayer2.** { *; }
+-dontwarn com.google.android.exoplayer2.**
+#--------------------------
+
+#PictureSelector 2.0
+-keep class com.luck.picture.lib.** { *; }
+-dontwarn com.yalantis.ucrop**
+-keep class com.yalantis.ucrop** { *; }
+-keep interface com.yalantis.ucrop** { *; }
+
+#FFmpegMediaMetadataRetriever
+-keep class wseemann.media** { *; }
+
+#SpEditTool
+-keep class com.sunhapper.x.spedit.**{*;}
+
+
+#RxHttp https://github.com/liujingxing/okhttp-RxHttp
+-keep class rxhttp.**{*;}

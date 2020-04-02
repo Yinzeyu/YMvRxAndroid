@@ -18,6 +18,6 @@ abstract class AtMeMessageItem : BaseEpoxyModel<BaseEpoxyHolder>() {
 
     override fun onBind(itemView: View) {
         super.onBind(itemView)
-        itemView.iv_item_bg.load(messageBean.imagePath, 0)
+//        itemView.iv_item_bg.load(messageBean.imagePath, 0)
     }
 }

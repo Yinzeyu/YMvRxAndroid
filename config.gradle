@@ -23,7 +23,7 @@ ext {
     android = [
             applicationId          : "com.yzy.example",
             compileSdkVersion      : 29,
-            minSdkVersion          : 21,
+            minSdkVersion          : 23,
             buildToolsVersion      : "29.0.3",
             targetSdkVersion       : 29,
             versionName            : version_Name,
@@ -41,7 +41,8 @@ ext {
             core_ktx               : "androidx.core:core-ktx:1.2.0",
             recycleview            : "androidx.recyclerview:recyclerview:1.0.0",
             cardview               : "androidx.cardview:cardview:1.0.0",
-            constraintLayout       : "androidx.constraintlayout:constraintlayout:1.1.3",
+//            constraintLayout       : "androidx.constraintlayout:constraintlayout:1.1.3",
+            constraintLayout       : "androidx.constraintlayout:constraintlayout:2.0.0-beta4",
             navigation_fragment_ktx: "androidx.navigation:navigation-fragment-ktx:2.2.1",
             navigation_ui_ktx      : "androidx.navigation:navigation-ui-ktx:2.2.1",
             fragment               : "androidx.fragment:fragment:1.2.3",

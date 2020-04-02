@@ -1,6 +1,5 @@
 package com.yzy.example.component.main
 
-import android.os.Bundle
 import android.view.Gravity
 import android.view.View
 import com.blankj.utilcode.util.ColorUtils
@@ -10,9 +9,9 @@ import com.yzy.example.R
 import com.yzy.example.component.camera.CameraFragment
 import com.yzy.example.component.comm.CommFragment
 import com.yzy.example.component.comm.item.dividerItem
+import com.yzy.example.component.ffmpeg.FFmpegFragment
 import com.yzy.example.component.message.ChatFragment
 import com.yzy.example.component.message.simpleTextItem
-import com.yzy.example.extention.options
 import com.yzy.example.extention.startNavigate
 import kotlinx.android.synthetic.main.fragment_mine.*
 
@@ -27,6 +26,7 @@ class MineFragment: CommFragment(){
     private val menuList = mutableListOf(
         Pair(StringUtils.getString(R.string.chat_title), ChatFragment::class.java),
         Pair("拍摄界面", CameraFragment::class.java),
+        Pair(StringUtils.getString(R.string.ffmpeg_title), FFmpegFragment::class.java),
         Pair("跳转到其他lib", Any::class.java)
 //        Pair(StringUtils.getString(R.string.ffmpeg_title), RxFFmpegActivity::class.java),
 //        Pair(StringUtils.getString(R.string.update_app), CcUpdateService::class.java),
@@ -61,12 +61,20 @@ class MineFragment: CommFragment(){
                     gravity(Gravity.CENTER_VERTICAL)
                     onItemClick {
                         val second = pair.second.newInstance()
-                        if (second is ChatFragment) {
-                            startNavigate(view, MainFragmentDirections.actionMainFragmentToChatFragment())
-                        } else if (second is CameraFragment) {
-                            startNavigate(view, MainFragmentDirections.actionMainFragmentToCameraFragment())
-                        } else if (second is Any) {
-                            startNavigate(view, MainFragmentDirections.actionMatchToInGameNavGraph())
+                        when (second) {
+                            is ChatFragment -> {
+                                startNavigate(view, MainFragmentDirections.actionMainFragmentToChatFragment())
+                            }
+                            is CameraFragment -> {
+                                startNavigate(view, MainFragmentDirections.actionMainFragmentToCameraFragment())
+                            }
+
+                            is FFmpegFragment -> {
+                                startNavigate(view, MainFragmentDirections.actionMainFragmentToFFmpegFragment())
+                            }
+                            else-> {
+                                startNavigate(view, MainFragmentDirections.actionMatchToInGameNavGraph())
+                            }
                         }
                     }
                 }

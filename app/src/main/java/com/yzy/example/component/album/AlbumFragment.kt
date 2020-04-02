@@ -189,17 +189,6 @@ class AlbumFragment : CommFragment() {
                     cutCallBack = { mediaTemp ->
                         mCutMedia = mediaTemp
                         mediaTemp.path?.let { path ->
-//                            startNavigate(rootView, R.id.action_albumFragment_to_picCutFragment)
-
-//                            startNavigate(
-//                                rootView,
-//                                AlbumFragmentDirections.actionAlbumFragmentToPicCutFragment(
-//                                    path,
-//                                    needCutSquare,
-//                                    needCutLayerCircle
-//                                )
-//                            )
-
                             PicCutFragment.startPicCutFragment(
                               rootView,
                                 path,

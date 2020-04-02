@@ -9,7 +9,6 @@ import com.yzy.baselibrary.extention.click
 import com.yzy.baselibrary.extention.pressEffectAlpha
 import com.yzy.baselibrary.extention.visible
 import com.yzy.example.R
-import com.yzy.example.extention.loadCircle
 import com.yzy.example.utils.AimyInputHelper
 import kotlinx.android.synthetic.main.dialog_comm_alert.view.*
 import kotlinx.android.synthetic.main.layout_apply2_join_circle.view.*
@@ -102,7 +101,7 @@ class CommAlertDialog : BaseFragmentDialog() {
       view.applyName.text = it
     }
     edit2SomebodyCover?.let {
-      view.applyCover.loadCircle(it)
+//      view.applyCover.loadCircle(it)
     }
     edit2SomebodyCallback?.let {edT->
       AimyInputHelper.wrapCommLimit(view.applyEt, 40, 0) { hasInputLength, _ ->

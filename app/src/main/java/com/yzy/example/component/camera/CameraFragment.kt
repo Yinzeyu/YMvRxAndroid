@@ -38,8 +38,11 @@ import java.util.concurrent.TimeUnit
 import kotlin.math.max
 
 class CameraFragment : CommFragment() {
+    override fun fillStatus(): Boolean = false
+
     //拍照方向
     private val ORIENTATION = SparseIntArray()
+
     /*** 打开摄像头的ID[CameraDevice]. */
     private var mCameraId = CameraCharacteristics.LENS_FACING_FRONT
     private var mImageReader: ImageReader? = null
@@ -49,14 +52,9 @@ class CameraFragment : CommFragment() {
     private var isCameraFront = false //当前是否是前置摄像头
     private var isLightOn = false //当前闪光灯是否开启
 
-    companion object {
-        fun startCameraFragment(controller: NavController, @IdRes id: Int) {
-            controller.navigate(id, Bundle().apply { }, options)
-        }
-    }
-
     /*** 相机管理类 */
     override val contentLayout: Int = R.layout.fragment_camera_layout
+
     /*** 指定摄像头ID对应的Camera实体对象 */
     var mCameraDevice: CameraDevice? = null
     private var mCameraHandler: Handler? = null
@@ -65,6 +63,7 @@ class CameraFragment : CommFragment() {
     private val CAPTURE_OK = 0 //拍照完成回调
 
     private lateinit var previewSize: Size
+
     /**
      * A [Semaphore] to prevent the app from exiting before closing the camera.
      */
@@ -386,8 +385,10 @@ class CameraFragment : CommFragment() {
             cameraDevice.close()
         }
     }
+
     /*** [CaptureRequest.Builder]用于相机预览请求的构造器 */
     private var mPreviewRequestBuilder: CaptureRequest.Builder? = null
+
     /*** 用于相机预览的{@Link CameraCaptureSession}。 */
     private var mCaptureSession: CameraCaptureSession? = null
 
@@ -547,21 +548,31 @@ class CameraFragment : CommFragment() {
         }
         startPreview()
     }
+
     /**
      * 拍照
      */
     fun takePic() {
-        if (mCameraDevice == null || !textureView.isAvailable ) return
+        if (mCameraDevice == null || !textureView.isAvailable) return
 
         mCameraDevice?.apply {
 
             val captureRequestBuilder = createCaptureRequest(CameraDevice.TEMPLATE_STILL_CAPTURE)
-            mImageReader?.let {      captureRequestBuilder.addTarget(it.surface)}
+            mImageReader?.let { captureRequestBuilder.addTarget(it.surface) }
 
             val rotation: Int = mContext.windowManager.defaultDisplay.rotation
-            captureRequestBuilder.set(CaptureRequest.CONTROL_AF_MODE, CaptureRequest.CONTROL_AF_MODE_CONTINUOUS_PICTURE) // 自动对焦
-            captureRequestBuilder.set(CaptureRequest.CONTROL_AE_MODE, CaptureRequest.CONTROL_AE_MODE_ON_AUTO_FLASH)     // 闪光灯
-            captureRequestBuilder.set(CaptureRequest.JPEG_ORIENTATION, rotation)      //根据摄像头方向对保存的照片进行旋转，使其为"自然方向"
+            captureRequestBuilder.set(
+                CaptureRequest.CONTROL_AF_MODE,
+                CaptureRequest.CONTROL_AF_MODE_CONTINUOUS_PICTURE
+            ) // 自动对焦
+            captureRequestBuilder.set(
+                CaptureRequest.CONTROL_AE_MODE,
+                CaptureRequest.CONTROL_AE_MODE_ON_AUTO_FLASH
+            )     // 闪光灯
+            captureRequestBuilder.set(
+                CaptureRequest.JPEG_ORIENTATION,
+                rotation
+            )      //根据摄像头方向对保存的照片进行旋转，使其为"自然方向"
             mCaptureSession?.capture(captureRequestBuilder.build(), null, mCameraHandler)
         }
     }
