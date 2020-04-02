@@ -1,6 +1,5 @@
 package com.yzy.example.component.playlist.adapter
 
-import android.media.Image
 import android.view.*
 import android.widget.FrameLayout
 import android.widget.ImageView
@@ -15,7 +14,7 @@ import kotlinx.android.synthetic.main.item_play_pager_parent.view.*
 
 /**
  * Description:
- * @author: caiyoufei
+ * @author: yzy
  * @date: 2019/12/13 11:56
  */
 class PlayPagerAdapter(list: List<VideoBean>) : PagerAdapter() {

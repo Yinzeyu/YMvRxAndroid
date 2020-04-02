@@ -1,12 +1,10 @@
 package com.yzy.example.component.playlist
 
-import android.content.Context
-import android.content.Intent
 import android.view.View
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.viewpager.widget.ViewPager
-import cc.abase.demo.component.playlist.view.PagerController
+import com.yzy.example.component.playlist.view.PagerController
 import com.dueeeke.videoplayer.player.VideoView
 import com.yzy.baselibrary.base.BaseFragment
 import com.yzy.baselibrary.extention.click

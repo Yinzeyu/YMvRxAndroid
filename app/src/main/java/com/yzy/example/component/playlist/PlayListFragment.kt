@@ -1,8 +1,6 @@
 package com.yzy.example.component.playlist
 
 import android.annotation.SuppressLint
-import android.content.Context
-import android.content.Intent
 import android.content.pm.ActivityInfo
 import android.view.View
 import androidx.lifecycle.Observer

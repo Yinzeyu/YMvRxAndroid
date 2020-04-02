@@ -1,4 +1,4 @@
-package cc.abase.demo.component.playlist.view
+package com.yzy.example.component.playlist.view
 
 import android.content.Context
 import android.util.AttributeSet
