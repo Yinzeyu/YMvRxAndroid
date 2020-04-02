@@ -20,11 +20,13 @@
 
 <div align:left;display:inline; xmlns:align="http://www.w3.org/1999/xhtml">
 <img width="200" height="360" src="/image/5kzlc-ahlcy.gif"/>
-<img width="200" height="360" src="/image/Screenshot_20191029-172227"/>
-<img width="200" height="360" src="/image/Screenshot_1571908550.png"/>
-<img width="200" height="360" src="/image/Screenshot_20191029-172234.png"/>
-<img width="200" height="360" src="/image/Screenshot_1571908583.png"/>
-<img width="200" height="360" src="/image/Screenshot_1571908590.png"/>
+<img width="200" height="360" src="/image/41746fb31b2f35ab163758701c50cb0.jpg"/>
+<img width="200" height="360" src="/image/748c85e9d8b8067950386266786bdad5.gif"/>
+<img width="200" height="360" src="/image/41576023150c0c75b97a84d54a9f95f.jpg"/>
+<img width="200" height="360" src="/image/vertical_banner.gif"/>
+<img width="200" height="360" src="/image/video_cover_compress.gif"/>
+<img width="200" height="360" src="/image/video_list_play.gif"/>
+<img width="200" height="360" src="/image/play_pager.gif"/>
 
 </div>
 
