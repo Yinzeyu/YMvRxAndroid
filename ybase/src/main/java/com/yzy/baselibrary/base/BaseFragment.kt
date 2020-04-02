@@ -13,8 +13,6 @@ import android.widget.FrameLayout
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.NavController
-import androidx.navigation.fragment.NavHostFragment
 import com.yzy.baselibrary.R
 import com.yzy.baselibrary.extention.StatusBarHelper
 import com.yzy.baselibrary.extention.backgroundColor
@@ -61,7 +59,7 @@ abstract class BaseFragment : Fragment(), CoroutineScope by MainScope() {
         }
        val baseStatusView = contentView.findViewById<View>(R.id.baseStatusView)
         baseStatusView?.let {
-            it.layoutParams.height =  if (fillStatus()) StatusBarHelper.getStatusbarHeight(mContext) else 0
+            it.layoutParams.height =  if (fillStatus()) StatusBarHelper.getStatusBarHeight(mContext) else 0
             it.backgroundColor =statusColor()
         }
         if (isBack()) {

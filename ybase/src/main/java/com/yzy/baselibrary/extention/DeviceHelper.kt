@@ -32,7 +32,7 @@ import java.util.*
 import java.util.regex.Pattern
 
 /**
- * @author cginechen
+ * @author yzy
  * @date 2016-08-11
  */
 object DeviceHelper {
@@ -48,6 +48,7 @@ object DeviceHelper {
     private var sFlymeVersionName: String? = null
     private var sIsTabletChecked = false
     private var sIsTabletValue = false
+    @SuppressLint("ConstantLocale")
     private val BRAND = Build.BRAND.toLowerCase(Locale.getDefault())
     private fun _isTablet(context: Context): Boolean {
         return context.resources

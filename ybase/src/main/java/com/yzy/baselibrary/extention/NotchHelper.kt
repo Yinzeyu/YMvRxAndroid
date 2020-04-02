@@ -315,7 +315,7 @@ object NotchHelper {
             rect.bottom = 0
         } else if (isOppo) {
             // TODO OPPO 设置-显示-应用全屏显示-凹形区域显示控制
-            rect.top = StatusBarHelper.getStatusbarHeight(context)
+            rect.top = StatusBarHelper.getStatusBarHeight(context)
             rect.bottom = 0
         } else if (isHuawei) {
             val notchSize = getNotchSizeInHuawei(context)
@@ -334,7 +334,7 @@ object NotchHelper {
             rect.left = getNotchHeightInVivo(context)
             rect.right = 0
         } else if (isOppo) {
-            rect.left = StatusBarHelper.getStatusbarHeight(context)
+            rect.left = StatusBarHelper.getStatusBarHeight(context)
             rect.right = 0
         } else if (isHuawei) {
             if (sHuaweiIsNotchSetToShow!!) {
@@ -357,7 +357,7 @@ object NotchHelper {
             rect.bottom = getNotchHeightInVivo(context)
         } else if (isOppo) {
             rect.top = 0
-            rect.bottom = StatusBarHelper.getStatusbarHeight(context)
+            rect.bottom = StatusBarHelper.getStatusBarHeight(context)
         } else if (isHuawei) {
             val notchSize = getNotchSizeInHuawei(context)
             rect.top = 0
@@ -375,7 +375,7 @@ object NotchHelper {
             rect.right = getNotchHeightInVivo(context)
             rect.left = 0
         } else if (isOppo) {
-            rect.right = StatusBarHelper.getStatusbarHeight(context)
+            rect.right = StatusBarHelper.getStatusBarHeight(context)
             rect.left = 0
         } else if (isHuawei) {
             if (sHuaweiIsNotchSetToShow!!) {

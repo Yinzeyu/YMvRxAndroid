@@ -37,12 +37,7 @@ fun Intent.clearTask(): Intent = apply { addFlags(Intent.FLAG_ACTIVITY_CLEAR_TAS
 fun Intent.clearTop(): Intent = apply { addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP) }
 
 fun Intent.newDocument(): Intent = apply {
-    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-        addFlags(Intent.FLAG_ACTIVITY_NEW_DOCUMENT)
-    } else {
-        @Suppress("DEPRECATION")
-        addFlags(Intent.FLAG_ACTIVITY_CLEAR_WHEN_TASK_RESET)
-    }
+    addFlags(Intent.FLAG_ACTIVITY_NEW_DOCUMENT)
 }
 
 fun Intent.excludeFromRecents(): Intent =

@@ -211,7 +211,7 @@ object DisplayHelper {
             ) {
                 // https://arstechnica.com/gadgets/2017/09/essential-phone-review-impressive-for-a-new-company-but-not-competitive/
                 // 这里说挖孔屏是状态栏高度的两倍， 但横屏好像小了一点点
-                result -= 2 * StatusBarHelper.getStatusbarHeight(context)
+                result -= 2 * StatusBarHelper.getStatusBarHeight(context)
             }
             return result
         }
@@ -262,7 +262,7 @@ object DisplayHelper {
             ) {
                 // https://arstechnica.com/gadgets/2017/09/essential-phone-review-impressive-for-a-new-company-but-not-competitive/
                 // 这里说挖孔屏是状态栏高度的两倍
-                result -= 2 * StatusBarHelper.getStatusbarHeight(context)
+                result -= 2 * StatusBarHelper.getStatusBarHeight(context)
             }
             return result
         }

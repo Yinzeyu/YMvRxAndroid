@@ -15,6 +15,7 @@
  */
 package com.yzy.baselibrary.extention
 
+import android.annotation.SuppressLint
 import android.annotation.TargetApi
 import android.app.Activity
 import android.content.Context
@@ -27,8 +28,6 @@ import androidx.annotation.ColorInt
 import androidx.annotation.IntDef
 import androidx.core.view.ViewCompat
 import com.yzy.baselibrary.extention.DeviceHelper.isEssentialPhone
-import com.yzy.baselibrary.extention.DeviceHelper.isFlymeLowerThan8
-import com.yzy.baselibrary.extention.DeviceHelper.isMIUI
 import com.yzy.baselibrary.extention.DeviceHelper.isMIUIV5
 import com.yzy.baselibrary.extention.DeviceHelper.isMIUIV6
 import com.yzy.baselibrary.extention.DeviceHelper.isMIUIV7
@@ -42,23 +41,23 @@ import com.yzy.baselibrary.extention.NotchHelper.isNotchOfficialSupport
 import java.lang.reflect.Field
 
 /**
- * @author cginechen
+ * @author yzy
  * @date 2016-03-27
  */
 object StatusBarHelper {
-    private const val STATUSBAR_TYPE_DEFAULT = 0
-    private const val STATUSBAR_TYPE_MIUI = 1
-    private const val STATUSBAR_TYPE_FLYME = 2
-    private const val STATUSBAR_TYPE_ANDROID6 = 3 // Android 6.0
+    private const val STATUS_BAR_TYPE_DEFAULT = 0
+    private const val STATUS_BAR_TYPE_MI = 1
+    private const val STATUS_BAR_TYPE_FL = 2
+    private const val STATUS_BAR_TYPE_ANDROID6 = 3 // Android 6.0
     private const val STATUS_BAR_DEFAULT_HEIGHT_DP = 25 // 大部分状态栏都是25dp
 
     // 在某些机子上存在不同的density值，所以增加两个虚拟值
-    var sVirtualDensity = -1f
-    var sVirtualDensityDpi = -1f
-    private var sStatusbarHeight = -1
+    private var sVirtualDensity = -1f
+    private var sVirtualDensityDpi = -1f
+    private var mStatusBarHeight = -1
 
     @StatusBarType
-    private var mStatuBarType = STATUSBAR_TYPE_DEFAULT
+    private var mStatusBarType = STATUS_BAR_TYPE_DEFAULT
     private var sTransparentValue: Int? = null
     fun translucent(activity: Activity) {
         translucent(activity.window)
@@ -95,33 +94,24 @@ object StatusBarHelper {
 
         // 小米和魅族4.4 以上版本支持沉浸式
         // 小米 Android 6.0 ，开发版 7.7.13 及以后版本设置黑色字体又需要 clear FLAG_TRANSLUCENT_STATUS, 因此还原为官方模式
-        if (isFlymeLowerThan8 || isMIUI && Build.VERSION.SDK_INT < Build.VERSION_CODES.M) {
-            window.setFlags(
-                WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS,
-                WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS
-            )
-            return
-        }
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            window.decorView.systemUiVisibility = (View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
-                    or View.SYSTEM_UI_FLAG_LAYOUT_STABLE)
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && supportTransclentStatusBar6()) {
-                // android 6以后可以改状态栏字体颜色，因此可以自行设置为透明
-                // ZUK Z1是个另类，自家应用可以实现字体颜色变色，但没开放接口
-                window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS)
-                window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
-                window.statusBarColor = Color.TRANSPARENT
-            } else {
-                // android 5不能修改状态栏字体颜色，因此直接用FLAG_TRANSLUCENT_STATUS，nexus表现为半透明
-                // 魅族和小米的表现如何？
-                // update: 部分手机运用FLAG_TRANSLUCENT_STATUS时背景不是半透明而是没有背景了。。。。。
+        window.decorView.systemUiVisibility = (View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+                or View.SYSTEM_UI_FLAG_LAYOUT_STABLE)
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && supportTransplantStatusBar6()) {
+            // android 6以后可以改状态栏字体颜色，因此可以自行设置为透明
+            // ZUK Z1是个另类，自家应用可以实现字体颜色变色，但没开放接口
+            window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS)
+            window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
+            window.statusBarColor = Color.TRANSPARENT
+        } else {
+            // android 5不能修改状态栏字体颜色，因此直接用FLAG_TRANSLUCENT_STATUS，nexus表现为半透明
+            // 魅族和小米的表现如何？
+            // update: 部分手机运用FLAG_TRANSLUCENT_STATUS时背景不是半透明而是没有背景了。。。。。
 //                window.addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
 
-                // 采取setStatusBarColor的方式，部分机型不支持，那就纯黑了，保证状态栏图标可见
-                window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS)
-                window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
-                window.statusBarColor = colorOn5x
-            }
+            // 采取setStatusBarColor的方式，部分机型不支持，那就纯黑了，保证状态栏图标可见
+            window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS)
+            window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
+            window.statusBarColor = colorOn5x
         }
     }
 
@@ -170,19 +160,19 @@ object StatusBarHelper {
         if (isZTKC2016) {
             return false
         }
-        if (mStatuBarType != STATUSBAR_TYPE_DEFAULT) {
-            return setStatusBarLightMode(activity, mStatuBarType)
+        if (mStatusBarType != STATUS_BAR_TYPE_DEFAULT) {
+            return setStatusBarLightMode(activity, mStatusBarType)
         }
-        if (isMIUICustomStatusBarLightModeImpl && MIUISetStatusBarLightMode(activity.window, true)
+        if (isMIUICustomStatusBarLightModeImpl && setMISetStatusBarLightMode(activity.window, true)
         ) {
-            mStatuBarType = STATUSBAR_TYPE_MIUI
+            mStatusBarType = STATUS_BAR_TYPE_MI
             return true
-        } else if (FlymeSetStatusBarLightMode(activity.window, true)) {
-            mStatuBarType = STATUSBAR_TYPE_FLYME
+        } else if (setFlSetStatusBarLightMode(activity.window, true)) {
+            mStatusBarType = STATUS_BAR_TYPE_FL
             return true
         } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            Android6SetStatusBarLightMode(activity.window, true)
-            mStatuBarType = STATUSBAR_TYPE_ANDROID6
+            setAndroid6SetStatusBarLightMode(activity.window, true)
+            mStatusBarType = STATUS_BAR_TYPE_ANDROID6
             return true
         }
         return false
@@ -200,14 +190,14 @@ object StatusBarHelper {
         @StatusBarType type: Int
     ): Boolean {
         return when (type) {
-            STATUSBAR_TYPE_MIUI -> {
-                MIUISetStatusBarLightMode(activity.window, true)
+            STATUS_BAR_TYPE_MI -> {
+                setMISetStatusBarLightMode(activity.window, true)
             }
-            STATUSBAR_TYPE_FLYME -> {
-                FlymeSetStatusBarLightMode(activity.window, true)
+            STATUS_BAR_TYPE_FL -> {
+                setFlSetStatusBarLightMode(activity.window, true)
             }
-            STATUSBAR_TYPE_ANDROID6 -> {
-                Android6SetStatusBarLightMode(activity.window, true)
+            STATUS_BAR_TYPE_ANDROID6 -> {
+                setAndroid6SetStatusBarLightMode(activity.window, true)
             }
             else -> false
         }
@@ -219,18 +209,22 @@ object StatusBarHelper {
      */
     fun setStatusBarDarkMode(activity: Activity?): Boolean {
         if (activity == null) return false
-        if (mStatuBarType == STATUSBAR_TYPE_DEFAULT) {
+        if (mStatusBarType == STATUS_BAR_TYPE_DEFAULT) {
             // 默认状态，不需要处理
             return true
         }
-        if (mStatuBarType == STATUSBAR_TYPE_MIUI) {
-            return MIUISetStatusBarLightMode(activity.window, false)
-        } else if (mStatuBarType == STATUSBAR_TYPE_FLYME) {
-            return FlymeSetStatusBarLightMode(activity.window, false)
-        } else if (mStatuBarType == STATUSBAR_TYPE_ANDROID6) {
-            return Android6SetStatusBarLightMode(activity.window, false)
+        return when (mStatusBarType) {
+            STATUS_BAR_TYPE_MI -> {
+                setMISetStatusBarLightMode(activity.window, false)
+            }
+            STATUS_BAR_TYPE_FL -> {
+                setFlSetStatusBarLightMode(activity.window, false)
+            }
+            STATUS_BAR_TYPE_ANDROID6 -> {
+                setAndroid6SetStatusBarLightMode(activity.window, false)
+            }
+            else -> true
         }
-        return true
     }
 
     @TargetApi(23)
@@ -245,7 +239,7 @@ object StatusBarHelper {
         return out
     }
 
-    fun retainSystemUiFlag(window: Window, out: Int, type: Int): Int {
+    private fun retainSystemUiFlag(window: Window, out: Int, type: Int): Int {
         @Suppress("NAME_SHADOWING") var out = out
         val now = window.decorView.systemUiVisibility
         if (now and type == type) {
@@ -262,7 +256,7 @@ object StatusBarHelper {
      * @return boolean 成功执行返回true
      */
     @TargetApi(23)
-    private fun Android6SetStatusBarLightMode(
+    private fun setAndroid6SetStatusBarLightMode(
         window: Window,
         light: Boolean
     ): Boolean {
@@ -274,7 +268,7 @@ object StatusBarHelper {
         if (isMIUIV9) {
             // MIUI 9 低于 6.0 版本依旧只能回退到以前的方案
             // https://github.com/Tencent/QMUI_Android/issues/160
-            MIUISetStatusBarLightMode(window, light)
+            setMISetStatusBarLightMode(window, light)
         }
         return true
     }
@@ -286,7 +280,8 @@ object StatusBarHelper {
      * @param light  是否把状态栏字体及图标颜色设置为深色
      * @return boolean 成功执行返回 true
      */
-    fun MIUISetStatusBarLightMode(
+    @SuppressLint("PrivateApi")
+    fun setMISetStatusBarLightMode(
         window: Window?,
         light: Boolean
     ): Boolean {
@@ -321,11 +316,7 @@ object StatusBarHelper {
      * 更改状态栏图标、文字颜色的方案是否是MIUI自家的， MIUI9 && Android 6 之后用回Android原生实现
      * 见小米开发文档说明：https://dev.mi.com/console/doc/detail?pId=1159
      */
-    private val isMIUICustomStatusBarLightModeImpl: Boolean
-        private get() = if (isMIUIV9 && Build.VERSION.SDK_INT < Build.VERSION_CODES.M) {
-            true
-        } else isMIUIV5 || isMIUIV6 ||
-                isMIUIV7 || isMIUIV8
+    private val isMIUICustomStatusBarLightModeImpl: Boolean = isMIUIV5 || isMIUIV6 || isMIUIV7 || isMIUIV8
 
     /**
      * 设置状态栏图标为深色和魅族特定的文字风格
@@ -335,14 +326,14 @@ object StatusBarHelper {
      * @param light  是否把状态栏字体及图标颜色设置为深色
      * @return boolean 成功执行返回true
      */
-    fun FlymeSetStatusBarLightMode(
+    private fun setFlSetStatusBarLightMode(
         window: Window?,
         light: Boolean
     ): Boolean {
         var result = false
         if (window != null) {
             // flyme 在 6.2.0.0A 支持了 Android 官方的实现方案，旧的方案失效
-            Android6SetStatusBarLightMode(window, light)
+            setAndroid6SetStatusBarLightMode(window, light)
             try {
                 val lp = window.attributes
                 val darkFlag = WindowManager.LayoutParams::class.java
@@ -391,25 +382,24 @@ object StatusBarHelper {
         if (sTransparentValue != null) {
             return sTransparentValue
         }
-        val systemSharedLibraryNames = context.packageManager
-            .systemSharedLibraryNames
+        val systemSharedLibraryNames = context.packageManager.systemSharedLibraryNames
         var fieldName: String? = null
-        for (lib in systemSharedLibraryNames) {
-            if ("touchwiz" == lib) {
-                fieldName = "SYSTEM_UI_FLAG_TRANSPARENT_BACKGROUND"
-            } else if (lib.startsWith("com.sonyericsson.navigationbar")) {
-                fieldName = "SYSTEM_UI_FLAG_TRANSPARENT"
+        systemSharedLibraryNames?.let {
+            for (lib in it) {
+                if ("touchwiz" == lib) {
+                    fieldName = "SYSTEM_UI_FLAG_TRANSPARENT_BACKGROUND"
+                } else if (lib.startsWith("com.sonyericsson.navigationbar")) {
+                    fieldName = "SYSTEM_UI_FLAG_TRANSPARENT"
+                }
             }
         }
-        if (fieldName != null) {
+        fieldName?.let {
             try {
                 val field =
-                    View::class.java.getField(fieldName)
-                if (field != null) {
-                    val type = field.type
-                    if (type == Int::class.javaPrimitiveType) {
-                        sTransparentValue = field.getInt(null)
-                    }
+                    View::class.java.getField(it)
+                val type = field.type
+                if (type == Int::class.javaPrimitiveType) {
+                    sTransparentValue = field.getInt(null)
                 }
             } catch (ignored: Exception) {
             }
@@ -420,20 +410,21 @@ object StatusBarHelper {
     /**
      * 检测 Android 6.0 是否可以启用 window.setStatusBarColor(Color.TRANSPARENT)。
      */
-    fun supportTransclentStatusBar6(): Boolean {
+    private fun supportTransplantStatusBar6(): Boolean {
         return !(isZUKZ1() || isZTKC2016)
     }
 
     /**
      * 获取状态栏的高度。
      */
-    fun getStatusbarHeight(context: Context): Int {
-        if (sStatusbarHeight == -1) {
+    fun getStatusBarHeight(context: Context): Int {
+        if (mStatusBarHeight == -1) {
             initStatusBarHeight(context)
         }
-        return sStatusbarHeight
+        return mStatusBarHeight
     }
 
+    @SuppressLint("PrivateApi")
     private fun initStatusBarHeight(context: Context) {
         val clazz: Class<*>
         var obj: Any? = null
@@ -456,24 +447,23 @@ object StatusBarHelper {
         }
         if (field != null && obj != null) {
             try {
-                val id = field[obj].toString().toInt()
-                sStatusbarHeight =
-                    context.resources.getDimensionPixelSize(id)
+                val id = field[obj]?.toString()?.toInt()?:0
+                mStatusBarHeight = context.resources.getDimensionPixelSize(id)
             } catch (t: Throwable) {
                 t.printStackTrace()
             }
         }
         if (isTablet(context)
-            && sStatusbarHeight > dp2px(
+            && mStatusBarHeight > dp2px(
                 context,
                 STATUS_BAR_DEFAULT_HEIGHT_DP
             )
         ) {
             //状态栏高度大于25dp的平板，状态栏通常在下方
-            sStatusbarHeight = 0
+            mStatusBarHeight = 0
         } else {
-            if (sStatusbarHeight <= 0) {
-                sStatusbarHeight = if (sVirtualDensity == -1f) {
+            if (mStatusBarHeight <= 0) {
+                mStatusBarHeight = if (sVirtualDensity == -1f) {
                     dp2px(
                         context,
                         STATUS_BAR_DEFAULT_HEIGHT_DP
@@ -494,10 +484,10 @@ object StatusBarHelper {
     }
 
     @IntDef(
-        STATUSBAR_TYPE_DEFAULT,
-        STATUSBAR_TYPE_MIUI,
-        STATUSBAR_TYPE_FLYME,
-        STATUSBAR_TYPE_ANDROID6
+        STATUS_BAR_TYPE_DEFAULT,
+        STATUS_BAR_TYPE_MI,
+        STATUS_BAR_TYPE_FL,
+        STATUS_BAR_TYPE_ANDROID6
     )
     @kotlin.annotation.Retention(AnnotationRetention.SOURCE)
     private annotation class StatusBarType
