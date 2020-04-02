@@ -6,7 +6,7 @@ import com.dueeeke.videoplayer.controller.BaseVideoController
 
 /**
  * Description:
- * @author: caiyoufei
+ * @author: yzy
  * @date: 2019/12/13 13:24
  */
 class PagerController(
