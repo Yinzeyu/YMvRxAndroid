@@ -26,6 +26,18 @@ fun ImageView.load(url: String?, placeholderId: Int = 0) {
     }
 }
 
+fun ImageView.load(url: String?, placeholderId: Int = 0, errorRes: Int = 0) {
+    url?.let {
+        val config = ImageConfig(
+            useCrossFade = false,
+            url = it,
+            errorSrc = placeholderId,
+            placeholder = errorRes
+        )
+        load(config)
+    }
+}
+
 fun ImageView.load(
     url: String?,
     placeholderId: Int = 0,

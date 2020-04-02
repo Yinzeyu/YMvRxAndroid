@@ -20,6 +20,7 @@ import com.yzy.baselibrary.extention.click
 import com.yzy.baselibrary.extention.gone
 import com.yzy.baselibrary.extention.visible
 import com.yzy.example.R
+import com.yzy.example.component.comm.CommTitleFragment
 import com.yzy.example.component.main.MainFragmentDirections
 import com.yzy.example.constants.UiConstants
 import com.yzy.example.extention.load
@@ -37,7 +38,7 @@ import java.io.File
  * @author: caiyoufei
  * @date: 2019/10/28 15:06
  */
-class FFmpegFragment : BaseFragment() {
+class FFmpegFragment : CommTitleFragment() {
     private val INTENT_SEL_VIDEO = 0x0101
     private val INTENT_SEL_VIDEO2 = 0x0201
 
@@ -53,13 +54,13 @@ class FFmpegFragment : BaseFragment() {
     //每次设置资源后的第一次播放
     private var isFirstPlay = true
 
-
     //压缩后的视频地址
     private var compressVideoPath: String? = null
+    override fun layoutResContentId(): Int = R.layout.activity_rxffmpeg
 
-    override fun initView(root: View?) {
+    override fun initContentView() {
 
-//    setTitleText(getString(R.string.ffmpeg_title))
+        setTitleText(getString(R.string.ffmpeg_title))
         ffmpegCompress.alpha = UiConstants.disable_alpha
         ffmpegCompress.isEnabled = false
         ffmpegSel.click {
@@ -151,7 +152,6 @@ class FFmpegFragment : BaseFragment() {
         ffmpegPlayer.setLifecycleOwner(this)
     }
 
-    override val contentLayout: Int = R.layout.activity_rxffmpeg
 
     override fun initData() {
         //高斯模糊测试代码

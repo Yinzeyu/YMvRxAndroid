@@ -6,6 +6,7 @@ import android.graphics.drawable.Drawable
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.WindowManager
 import android.widget.FrameLayout
 import android.widget.Toast
 import androidx.core.content.ContextCompat
@@ -65,4 +66,7 @@ val Activity.mContentView: FrameLayout
     get() {
         return this.findViewById(android.R.id.content)
     }
-
+//常亮
+fun Activity.extKeepScreenOn() {
+    window?.addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
+}
