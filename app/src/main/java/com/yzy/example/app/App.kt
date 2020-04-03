@@ -22,15 +22,13 @@ class App : BaseApplication() {
         RetrofitConfig {
             context = this@App
             baseUrl = ApiConstants.Address.BASE_URL
-            interceptors.add(
-                RequestIntercept(mutableListOf())
-            )
+            interceptors.add(RequestIntercept())
         }
         //初始化存储文件的目录
         AppFileDirManager.initAppFile(this@App)
         //Sketch配置视频封面加载
 //        val configuration: Configuration = Sketch.with(this).configuration
-//        configuration.uriModelManager.add(
+////        configuration.uriModelManager.add(
 //            VideoThumbnailUriModel()
 //        )
         //RxFFmpeg

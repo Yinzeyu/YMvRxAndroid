@@ -32,16 +32,22 @@ internal class HeaderManger {
         return headers
     }
 
-    //获取动态header
-    fun getDynamicHeaders(): Map<String, String> {
-        val headers = HashMap<String, String>()
-//    val token = UserManager.getInstance().getToken()
-//    if (token != null) {
-//      headers["Authorization"] = "bearer $token"
-//    } else {
-//      headers["Authorization"] = ""
-//    }
-        return headers
+    private var baseUrl: String? = null
+
+    /**
+     * 动态获取需要更改的Url
+     */
+    fun getDynamicBaseUrl(): String? {
+        return baseUrl
+    }
+    /**
+     * 动态设置需要更改的Url
+     * 1.在请求之前设置此Url
+     * 2.使用完之后记得设置为null
+     */
+    fun setDynamicBaseUrl(url: String?): String? {
+        baseUrl =url
+        return baseUrl
     }
 
 }
