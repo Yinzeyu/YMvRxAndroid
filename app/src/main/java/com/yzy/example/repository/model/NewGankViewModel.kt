@@ -67,7 +67,7 @@ class NewGankViewModel : BaseViewModel() {
         success: BannerAndArticleBean? = null
     ) {
         val uiModel = BaseUiModel(showLoading =showLoading, success = success)
-        _bannerAndArticleResult.update(uiModel)
+        _bannerAndArticleResult.value=uiModel
     }
 }
 
