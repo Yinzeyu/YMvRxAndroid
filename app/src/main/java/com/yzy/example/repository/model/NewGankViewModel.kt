@@ -5,6 +5,7 @@ import com.yzy.baselibrary.base.BaseLiveData
 import com.yzy.baselibrary.base.BaseViewModel
 import com.yzy.baselibrary.http.ExceptionHandle
 import com.yzy.baselibrary.http.ResponseThrowable
+import com.yzy.baselibrary.http.event.SingleLiveEvent
 import com.yzy.example.repository.GankRepository
 import com.yzy.example.repository.bean.ArticleBean
 import com.yzy.example.repository.bean.BannerAndArticleBean
@@ -18,8 +19,8 @@ class NewGankViewModel : BaseViewModel() {
     private var pageSize = 20
     private val ganRepository: GankRepository by lazy { GankRepository() }
     private var articleBean: MutableList<ArticleBean> = mutableListOf()
-    private val _bannerAndArticleResult: BaseLiveData<BaseUiModel<BannerAndArticleBean>> = BaseLiveData()
-    val uiState: BaseLiveData<BaseUiModel<BannerAndArticleBean>> get() = _bannerAndArticleResult
+    private val _bannerAndArticleResult: SingleLiveEvent<BaseUiModel<BannerAndArticleBean>> = SingleLiveEvent()
+    val uiState: SingleLiveEvent<BaseUiModel<BannerAndArticleBean>> get() = _bannerAndArticleResult
     @ExperimentalCoroutinesApi
     @FlowPreview
      fun getBanner(isRefresh: Boolean = false) {

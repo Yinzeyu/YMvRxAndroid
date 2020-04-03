@@ -15,6 +15,7 @@
  */
 package com.yzy.baselibrary.http.event
 
+import android.os.Looper
 import android.util.Log
 
 import androidx.annotation.MainThread
@@ -64,6 +65,13 @@ class SingleLiveEvent<T> : MutableLiveData<T>() {
         super.setValue(t)
     }
 
+    open fun update(value: T?) {
+        if (Looper.myLooper() == Looper.getMainLooper()) {
+            super.setValue(value)
+        } else {
+            postValue(value)
+        }
+    }
     /**
      * Used for cases where T is Void, to make calls cleaner.
      */
