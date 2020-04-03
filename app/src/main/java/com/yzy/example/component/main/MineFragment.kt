@@ -33,15 +33,6 @@ class MineFragment : CommFragment() {
         Pair("跳转到其他lib", Any::class.java),
         Pair(StringUtils.getString(R.string.title_play_list), PlayListFragment::class.java),
         Pair(StringUtils.getString(R.string.title_play_pager), PlayPagerFragment::class.java)
-//        Pair(StringUtils.getString(R.string.ffmpeg_title), RxFFmpegActivity::class.java),
-//        Pair(StringUtils.getString(R.string.update_app), CcUpdateService::class.java),
-//        Pair(StringUtils.getString(R.string.title_sticky), StickyActivity::class.java),
-//        Pair(StringUtils.getString(R.string.title_drag), DragActivity::class.java),
-//        Pair(StringUtils.getString(R.string.title_spedit), SpeditActivity::class.java),
-//        Pair(StringUtils.getString(R.string.coordinator_refresh), CoordinatorActivity::class.java),
-//        Pair(StringUtils.getString(R.string.epoxy_expandable), EpoxyExpandActivity::class.java),
-//        Pair(StringUtils.getString(R.string.title_play_list), PlayListActivity::class.java),
-//        Pair(StringUtils.getString(R.string.title_play_pager), PlayPagerActivity::class.java)
     )
 
     override val contentLayout: Int = R.layout.fragment_mine
@@ -67,8 +58,7 @@ class MineFragment : CommFragment() {
                     textColor(typeColor)
                     gravity(Gravity.CENTER_VERTICAL)
                     onItemClick {
-                        val second = pair.second.newInstance()
-                        when (second) {
+                        when (pair.second.newInstance()) {
                             is ChatFragment -> {
                                 startNavigate(
                                     view,

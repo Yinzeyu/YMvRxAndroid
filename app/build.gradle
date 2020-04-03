@@ -144,7 +144,9 @@ dependencies {
     //图片选择 https://github.com/LuckSiege/PictureSelector
     api 'com.github.LuckSiege.PictureSelector:picture_library:v2.5.1'
     //封面加载 https://github.com/wseemann/FFmpegMediaMetadataRetriever
-    api 'com.github.wseemann:FFmpegMediaMetadataRetriever-armeabi-v7a:1.0.15'
+
+    implementation 'com.github.wseemann:FFmpegMediaMetadataRetriever-native-armeabi-v7a:1.0.15'
+//    api 'com.github.wseemann:FFmpegMediaMetadataRetriever-armeabi-v7a:1.0.15'
     // Dynamic Feature Module Support
 //    implementation "androidx.navigation:navigation-dynamic-features-fragment:2.3.0-alpha04"
 }

@@ -1,5 +1,6 @@
 package com.yzy.example.repository.service
 
+import com.yzy.example.constants.ApiConstants
 import com.yzy.example.http.response.BaseResponse
 import com.yzy.example.repository.bean.ArticleDataBean
 import com.yzy.example.repository.bean.BannerBean
@@ -18,8 +19,8 @@ import retrofit2.http.Query
  */
 interface GankService {
 
-    @Headers("urlName:ganKUrl")
-   @GET("api/data/Android/{pageSize}/{page}")
+    @Headers("urlName:Domain${ApiConstants.Address.GANK_URL}")
+    @GET("api/data/Android/{pageSize}/{page}")
     suspend fun getAndroidSuspend(
         @Path("pageSize") pageSize: Int,
         @Path("page") page: Int

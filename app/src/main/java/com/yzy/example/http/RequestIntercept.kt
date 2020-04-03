@@ -51,10 +51,11 @@ class RequestIntercept constructor(
             //匹配获得新的BaseUrl
             val headerValue = headerValues[0]
             var newBaseUrl: HttpUrl? = null
-            if ("ganKUrl" == headerValue) {
-                newBaseUrl = ApiConstants.Address.GANK_URL.toHttpUrlOrNull()
+            val headerUrlValue = "Domain"
+            if (headerValue.contains(headerUrlValue)) {
+                val split =  headerValue.substring(headerUrlValue.length)
+                newBaseUrl =split.toHttpUrlOrNull()
             }
-
             //重建新的HttpUrl，修改需要修改的url部分
             val newFullUrl = request.url
                 .newBuilder()
@@ -67,7 +68,7 @@ class RequestIntercept constructor(
             Log.e("Url", "intercept: $newFullUrl");
             request = builder.url(newFullUrl).build()
         }
-        request.body?.writeTo( Buffer())
+        request.body?.writeTo(Buffer())
         return chain.proceed(request)
 
     }

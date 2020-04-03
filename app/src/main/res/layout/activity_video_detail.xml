@@ -10,9 +10,10 @@
         android:id="@+id/videoDetailVideoView"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        app:layout_constraintDimensionRatio="16:9"
+        app:layout_constraintDimensionRatio="1:1"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
     <!--返回按钮-->
     <ImageView
@@ -25,13 +26,13 @@
         android:src="@drawable/dkplayer_ic_action_arrow_back"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@id/videoDetailVideoView" />
-    <!--评论列表等-->
-    <com.airbnb.epoxy.EpoxyRecyclerView
-        android:id="@+id/videoDetailRecycler"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/videoDetailVideoView" />
+<!--    &lt;!&ndash;评论列表等&ndash;&gt;-->
+<!--    <com.airbnb.epoxy.EpoxyRecyclerView-->
+<!--        android:id="@+id/videoDetailRecycler"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="0dp"-->
+<!--        app:layout_constraintBottom_toBottomOf="parent"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toBottomOf="@+id/videoDetailVideoView" />-->
 </androidx.constraintlayout.widget.ConstraintLayout>
