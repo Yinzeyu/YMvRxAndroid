@@ -37,12 +37,4 @@ class DynViewModel : BaseViewModel() {
         val uiModel = BaseUiModel(showLoading = showLoading, success = success)
         _bannerAndArticleResult.update(uiModel)
     }
-
-//    private fun emitArticleUiState(
-//        showLoading: Boolean = false,
-//        showSuccess: BaseDataBean<MutableList<GankAndroidBean>>? = null
-//    ) {
-//        val uiModel = BaseUiModel(showLoading, showSuccess)
-//        _bannerAndArticleResult.update(uiModel)
-//    }
 }

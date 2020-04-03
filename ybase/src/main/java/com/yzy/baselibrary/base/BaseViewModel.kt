@@ -1,9 +1,7 @@
 package com.yzy.baselibrary.base
 
-import android.net.ParseException
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.yzy.baselibrary.http.ERROR
 import com.yzy.baselibrary.http.ExceptionHandle
 import com.yzy.baselibrary.http.ResponseThrowable
 import kotlinx.coroutines.*

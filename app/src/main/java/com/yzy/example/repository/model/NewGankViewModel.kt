@@ -18,17 +18,13 @@ class NewGankViewModel : BaseViewModel() {
     private var pageSize = 20
     private val ganRepository: GankRepository by lazy { GankRepository() }
     private var articleBean: MutableList<ArticleBean> = mutableListOf()
-    private val _bannerAndArticleResult: BaseLiveData<BaseUiModel<BannerAndArticleBean>> =
-        BaseLiveData()
+    private val _bannerAndArticleResult: BaseLiveData<BaseUiModel<BannerAndArticleBean>> = BaseLiveData()
     val uiState: BaseLiveData<BaseUiModel<BannerAndArticleBean>> get() = _bannerAndArticleResult
-
-
-
     @ExperimentalCoroutinesApi
     @FlowPreview
      fun getBanner(isRefresh: Boolean = false) {
-        if (isRefresh) page = 0
         if (isRefresh) {
+            page = 0
             articleBean.clear()
         }
         var bannerBean: MutableList<BannerBean> = mutableListOf()
@@ -63,33 +59,7 @@ class NewGankViewModel : BaseViewModel() {
                     page++
                 }
         }
-
-//        viewModelScope.launch(Dispatchers.Main) {
-//            emitArticleUiState(showLoading = articleBean.size <= 0)
-//
-//            val result = withContext(Dispatchers.IO) { ganRepository.banner(1) }
-//            val article = withContext(Dispatchers.IO) { ganRepository.article(page) }
-//            if (result is DataResult.Success && article is DataResult.Success) {
-//                if (isRefresh) {
-//                    articleBean.clear()
-//                }
-//                articleBean.addAll(article.data.datas ?: mutableListOf())
-//                emitArticleUiState(
-//                    showLoading = false,
-//
-//                    )
-//                )
-//                page++
-//            } else if (result is DataResult.Error) {
-//                emitArticleUiState(
-//                    showLoading = false,
-//                    showSuccess = BannerAndArticleBean(exception = result.exception)
-//                )
-//            }
-//
-//        }
     }
-
     private fun emitArticleUiState(
         showLoading: Boolean = false,
         isRefresh: Boolean = false,

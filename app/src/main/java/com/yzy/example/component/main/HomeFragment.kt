@@ -58,7 +58,7 @@ class HomeFragment : CommFragment() {
 
     override fun initData() {
         mViewModel.run {
-            uiState.observe(this@HomeFragment, Observer {
+            uiState.observeForever {
                 val showLoading = it?.showLoading ?: false
                 if (showLoading) {
                     showLoadingView()
@@ -71,7 +71,7 @@ class HomeFragment : CommFragment() {
                     smRefresh.finishRefresh()
                     epoxyController.data = list
                 }
-            })
+            }
         }
     }
 
