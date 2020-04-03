@@ -4,10 +4,12 @@ import android.content.Context
 import com.google.gson.GsonBuilder
 import com.google.gson.JsonPrimitive
 import com.google.gson.JsonSerializer
+import com.yzy.baselibrary.BuildConfig
 import com.yzy.baselibrary.http.ClientUtils.inItConfig
 import com.yzy.baselibrary.http.ClientUtils.inItGsonBuilder
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
+import okhttp3.internal.platform.Platform
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
@@ -51,9 +53,13 @@ object ClientUtils {
         config.interceptors.forEach {
             builder.addInterceptor(it)
         }
-        builder.addInterceptor(HttpLoggingInterceptor().apply {
-            level = HttpLoggingInterceptor.Level.BODY
-        })//log
+        builder.addNetworkInterceptor(LoggingInterceptor().apply {
+            isDebug = BuildConfig.DEBUG
+            level = HttpLoggingInterceptor.Level.BASIC
+            type = Platform.INFO
+            requestTag = "Request"
+            requestTag = "Response"
+        })
         //测试服忽略证书校验
         SSLManager.createSSLSocketFactory()?.let {
             builder.sslSocketFactory(it, SSLManager.TrustAllCerts())
@@ -83,7 +89,9 @@ class RetrofitAPi private constructor() {
     companion object {
         val instance: RetrofitAPi by lazy(mode = LazyThreadSafetyMode.SYNCHRONIZED) { RetrofitAPi() }
     }
+
     private val stringRetrofitMap: MutableMap<String, Any> = mutableMapOf()
+
     @Suppress("UNCHECKED_CAST")
     fun <T> getApi(retrofitClass: Class<T>): T {
         var result: Any?
