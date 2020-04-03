@@ -3,15 +3,10 @@ package com.yzy.example.component.playlist.viewmoel
 import androidx.lifecycle.viewModelScope
 import com.yzy.baselibrary.base.BaseLiveData
 import com.yzy.baselibrary.base.BaseViewModel
-import com.yzy.example.repository.GankRepository
-import com.yzy.example.repository.bean.ArticleBean
-import com.yzy.example.repository.bean.BannerAndArticleBean
-import com.yzy.example.repository.bean.DataResult
 import com.yzy.example.repository.bean.VideoBean
 import com.yzy.example.utils.VideoRandomUtils
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 
 
 class PlayListViewModel : BaseViewModel() {

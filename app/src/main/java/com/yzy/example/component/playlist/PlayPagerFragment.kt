@@ -94,7 +94,7 @@ class PlayPagerFragment : BaseFragment() {
         mViewModel.getVideoList(true)
         mViewModel.run {
             uiState.observe(this@PlayPagerFragment, Observer {
-                it?.showSuccess?.let { list ->
+                it?.success?.let { list ->
                     mVideoList = list
                     if (mPlayPagerAdapter == null) {
                         initAdapter(list)

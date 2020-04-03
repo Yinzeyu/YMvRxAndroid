@@ -1,52 +1,101 @@
 package com.yzy.example.repository.model
 
-import androidx.lifecycle.viewModelScope
+import com.blankj.utilcode.util.LogUtils
 import com.yzy.baselibrary.base.BaseLiveData
 import com.yzy.baselibrary.base.BaseViewModel
+import com.yzy.baselibrary.http.ExceptionHandle
+import com.yzy.baselibrary.http.ResponseThrowable
 import com.yzy.example.repository.GankRepository
 import com.yzy.example.repository.bean.ArticleBean
 import com.yzy.example.repository.bean.BannerAndArticleBean
-import com.yzy.example.repository.bean.DataResult
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
+import com.yzy.example.repository.bean.BannerBean
+import kotlinx.coroutines.*
+import kotlinx.coroutines.flow.*
 
 
 class NewGankViewModel : BaseViewModel() {
     private var page = 0
     private var pageSize = 20
     private val ganRepository: GankRepository by lazy { GankRepository() }
-   private var articleBean: MutableList<ArticleBean> = mutableListOf()
-    private val _bannerAndArticleResult: BaseLiveData<BaseUiModel<BannerAndArticleBean>> = BaseLiveData()
+    private var articleBean: MutableList<ArticleBean> = mutableListOf()
+    private val _bannerAndArticleResult: BaseLiveData<BaseUiModel<BannerAndArticleBean>> =
+        BaseLiveData()
     val uiState: BaseLiveData<BaseUiModel<BannerAndArticleBean>> get() = _bannerAndArticleResult
-    fun getBanner( isRefresh: Boolean = false) {
-        viewModelScope.launch(Dispatchers.Main) {
-            emitArticleUiState(showLoading = articleBean.size <= 0)
-            if (isRefresh) page = 0
-            val result = withContext(Dispatchers.IO) { ganRepository.banner(1) }
-            val article = withContext(Dispatchers.IO) { ganRepository.article(page) }
-            if (result is DataResult.Success && article is DataResult.Success){
-                if (isRefresh){
-                    articleBean.clear()
-                }
-                articleBean.addAll(article.data.datas ?: mutableListOf())
-                emitArticleUiState(
-                    showLoading = false,
-                    showSuccess = BannerAndArticleBean(result.data, articleBean, hasMore=(article.data.datas ?: mutableListOf()).size == pageSize)
-                )
-                page++
-            } else if (result is DataResult.Error){
-                emitArticleUiState(
-                    showLoading = false,
-                    showSuccess = BannerAndArticleBean(exception = result.exception)
-                )
-            }
 
+
+
+    @ExperimentalCoroutinesApi
+    @FlowPreview
+     fun getBanner(isRefresh: Boolean = false) {
+        if (isRefresh) page = 0
+        if (isRefresh) {
+            articleBean.clear()
         }
+        var bannerBean: MutableList<BannerBean> = mutableListOf()
+        launchUI {
+            launchFlow { ganRepository.banner(1) }
+                .flatMapConcat {
+                    return@flatMapConcat if (it.isSuccess()) {
+                        bannerBean = it.data
+                        launchFlow { ganRepository.article(page) }
+                    } else throw ResponseThrowable(it.code(), it.msg())
+                }
+                .onStart { emitArticleUiState(showLoading = articleBean.size <= 0) }
+                .flowOn(Dispatchers.IO)
+                .onCompletion { emitArticleUiState(showLoading = false) }
+                .catch {
+                    // 错误处理
+                    val err = ExceptionHandle.handleException(it)
+                    LogUtils.d("${err.code}: ${err.errMsg}")
+                }
+                .collect {
+                    articleBean.addAll(it.data.datas ?: mutableListOf())
+                    val bannerAndArticleBean = BannerAndArticleBean(
+                        bannerBean,
+                        articleBean,
+                        hasMore = (it.data.datas ?: mutableListOf()).size == pageSize
+                    )
+                    emitArticleUiState(
+                        showLoading = false,
+                        isRefresh = false,
+                        success = bannerAndArticleBean
+                    )
+                    page++
+                }
+        }
+
+//        viewModelScope.launch(Dispatchers.Main) {
+//            emitArticleUiState(showLoading = articleBean.size <= 0)
+//
+//            val result = withContext(Dispatchers.IO) { ganRepository.banner(1) }
+//            val article = withContext(Dispatchers.IO) { ganRepository.article(page) }
+//            if (result is DataResult.Success && article is DataResult.Success) {
+//                if (isRefresh) {
+//                    articleBean.clear()
+//                }
+//                articleBean.addAll(article.data.datas ?: mutableListOf())
+//                emitArticleUiState(
+//                    showLoading = false,
+//
+//                    )
+//                )
+//                page++
+//            } else if (result is DataResult.Error) {
+//                emitArticleUiState(
+//                    showLoading = false,
+//                    showSuccess = BannerAndArticleBean(exception = result.exception)
+//                )
+//            }
+//
+//        }
     }
 
-    private fun emitArticleUiState(showLoading: Boolean = false, showSuccess: BannerAndArticleBean? = null) {
-        val uiModel = BaseUiModel(showLoading ,showSuccess)
+    private fun emitArticleUiState(
+        showLoading: Boolean = false,
+        isRefresh: Boolean = false,
+        success: BannerAndArticleBean? = null
+    ) {
+        val uiModel = BaseUiModel(showLoading =showLoading, success = success)
         _bannerAndArticleResult.update(uiModel)
     }
 }

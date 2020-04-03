@@ -22,6 +22,7 @@ import com.yzy.example.repository.ViewModelFactory
 import com.yzy.example.repository.bean.BaseDataBean
 import com.yzy.example.repository.bean.GankAndroidBean
 import kotlinx.android.synthetic.main.fragment_dyn.*
+import kotlinx.android.synthetic.main.fragment_home.*
 
 class DynFragment : CommFragment() {
 
@@ -56,15 +57,19 @@ class DynFragment : CommFragment() {
     override fun initData() {
         mViewModel.run {
             uiState.observe(this@DynFragment, Observer {
-                if (it?.loading != false) {
+                val showLoading = it?.showLoading ?: false
+                if (showLoading) {
                     showLoadingView()
+                } else {
+                    dismissLoadingView()
                 }
-                it?.showSuccess?.let { list ->
+
+                it?.success?.let { list ->
                     dismissLoadingView()
                     smDynRefresh.finishRefresh()
                     epoxyController.data = list
-
                 }
+
             })
         }
     }

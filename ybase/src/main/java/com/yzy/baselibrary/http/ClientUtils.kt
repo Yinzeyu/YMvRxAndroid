@@ -7,6 +7,7 @@ import com.google.gson.JsonSerializer
 import com.yzy.baselibrary.BuildConfig
 import com.yzy.baselibrary.http.ClientUtils.inItConfig
 import com.yzy.baselibrary.http.ClientUtils.inItGsonBuilder
+import okhttp3.ConnectionPool
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import okhttp3.internal.platform.Platform
@@ -50,6 +51,7 @@ object ClientUtils {
             .connectTimeout(config.TIME_OUT, TimeUnit.SECONDS)
             .writeTimeout(config.TIME_OUT, TimeUnit.SECONDS)
             .readTimeout(config.TIME_OUT, TimeUnit.SECONDS)
+            .connectionPool(ConnectionPool(8, 15, TimeUnit.SECONDS))
         config.interceptors.forEach {
             builder.addInterceptor(it)
         }

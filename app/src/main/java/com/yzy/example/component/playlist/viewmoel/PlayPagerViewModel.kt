@@ -7,6 +7,7 @@ import com.yzy.example.repository.bean.VideoBean
 import com.yzy.example.utils.VideoRandomUtils
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+
 class PlayPagerViewModel : BaseViewModel() {
     private var articleBean: MutableList<VideoBean> = mutableListOf()
     private val _bannerAndArticleResult: BaseLiveData<BaseUiModel<MutableList<VideoBean>>> =

@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.airbnb.epoxy.EpoxyVisibilityTracker
 import com.blankj.utilcode.util.LogUtils
 import com.blankj.utilcode.util.NetworkUtils
+import com.yzy.baselibrary.base.BaseViewModel
 import com.yzy.baselibrary.base.MvRxEpoxyController
 import com.yzy.baselibrary.extention.StatusBarHelper.setStatusBarLightMode
 import com.yzy.example.R
@@ -15,7 +16,6 @@ import com.yzy.example.component.comm.item.errorEmptyItem
 import com.yzy.example.component.comm.item.loadMoreItem
 import com.yzy.example.component.main.item.bannerItem
 import com.yzy.example.component.main.item.wanArticleItem
-import com.yzy.example.component.web.WebsiteDetailFragment
 import com.yzy.example.extention.startNavigate
 import com.yzy.example.http.response.ApiException
 import com.yzy.example.http.response.EmptyException
@@ -23,6 +23,8 @@ import com.yzy.example.repository.ViewModelFactory
 import com.yzy.example.repository.bean.BannerAndArticleBean
 import com.yzy.example.repository.model.NewGankViewModel
 import kotlinx.android.synthetic.main.fragment_home.*
+import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.FlowPreview
 
 class HomeFragment : CommFragment() {
 
@@ -32,7 +34,7 @@ class HomeFragment : CommFragment() {
         }
     }
 
-    override fun fillStatus(): Boolean =false
+    override fun fillStatus(): Boolean = false
 
     override val contentLayout: Int = R.layout.fragment_home
     private val mViewModel: NewGankViewModel by lazy {
@@ -42,6 +44,8 @@ class HomeFragment : CommFragment() {
         ).get(NewGankViewModel::class.java)
     }
 
+    @FlowPreview
+    @ExperimentalCoroutinesApi
     override fun initView(root: View?) {
         homeEpoxyRecycler.setController(epoxyController)
         EpoxyVisibilityTracker().attach(homeEpoxyRecycler)
@@ -55,14 +59,17 @@ class HomeFragment : CommFragment() {
     override fun initData() {
         mViewModel.run {
             uiState.observe(this@HomeFragment, Observer {
-                if (it?.loading != false) {
+                val showLoading = it?.showLoading ?: false
+                if (showLoading) {
                     showLoadingView()
+                } else {
+                    dismissLoadingView()
                 }
-                it?.showSuccess?.let { list ->
+
+                it?.success?.let { list ->
                     dismissLoadingView()
                     smRefresh.finishRefresh()
                     epoxyController.data = list
-
                 }
             })
         }
@@ -87,7 +94,12 @@ class HomeFragment : CommFragment() {
                         dataBean(articleBean)
                         onItemClick {
                             it?.link?.let { url ->
-                                startNavigate(view, MainFragmentDirections.actionMainFragmentToWebsiteDetailFragment(url))
+                                startNavigate(
+                                    view,
+                                    MainFragmentDirections.actionMainFragmentToWebsiteDetailFragment(
+                                        url
+                                    )
+                                )
                             }
                         }
                     }
