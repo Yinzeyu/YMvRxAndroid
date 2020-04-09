@@ -79,46 +79,15 @@ data class ArticleBean(
             }
             return field
         }
+    var showInfo: String? = null
+        get() {
+            if (field == null) {
+                field = when {
+                    title.isNullOrBlank() -> desc?.trim() ?: ""
+                    desc.isNullOrBlank() -> title?.trim() ?: ""
+                    else -> String.format("%s\n%s", title?.trim() ?: "", desc?.trim() ?: "")
+                }
+            }
+            return field
+        }
 }
-
-
-//{
-//
-//    var showType: String? = null
-//        get() {
-//            if (field == null) {
-//                field = if (!chapterName.isNullOrBlank() && !superChapterName.isNullOrBlank()) {
-//                    String.format("%s  -  %s", superChapterName?.trim() ?: "", chapterName?.trim() ?: "")
-//                } else if (chapterName.isNullOrBlank()) {
-//                    superChapterName?.trim() ?: ""
-//                } else if (superChapterName.isNullOrBlank()) {
-//                    chapterName?.trim() ?: ""
-//                } else {
-//                    "未知"
-//                }
-//            }
-//            return field
-//        }
-//
-
-//
-//    var showInfo: String? = null
-//        get() {
-//            if (field == null) {
-//                field = when {
-//                    title.isNullOrBlank() -> desc?.trim() ?: ""
-//                    desc.isNullOrBlank() -> title?.trim() ?: ""
-//                    else -> String.format("%s\n%s", title?.trim() ?: "", desc?.trim() ?: "")
-//                }
-//            }
-//            return field
-//        }
-//
-//    var showTime: String? = null
-//        get() {
-//            if (field.isNullOrBlank() && publishTime > 0) {
-//                field = TimeUtils.millis2String(publishTime)
-//            }
-//            return field
-//        }
-//}

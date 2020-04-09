@@ -13,7 +13,6 @@ import com.yzy.example.constants.ApiConstants
 import com.yzy.example.http.RequestIntercept
 import com.yzy.example.widget.RefreshHeader
 import com.yzy.example.widget.file.AppFileDirManager
-import io.microshow.rxffmpeg.RxFFmpegInvoke
 
 
 class App : BaseApplication() {
@@ -32,16 +31,16 @@ class App : BaseApplication() {
 //            VideoThumbnailUriModel()
 //        )
         //RxFFmpeg
-        RxFFmpegInvoke.getInstance()
-            .setDebug(true)
-        //视频播放全局配置
-        VideoViewManager.setConfig(
-            VideoViewConfig.newBuilder()
-                //使用ExoPlayer解码
-                .setPlayerFactory(ExoMediaPlayerFactory.create())
-                .setScreenScaleType(VideoView.SCREEN_SCALE_DEFAULT)
-                .build()
-        )
+//        RxFFmpegInvoke.getInstance()
+//            .setDebug(true)
+//        //视频播放全局配置
+//        VideoViewManager.setConfig(
+//            VideoViewConfig.newBuilder()
+//                //使用ExoPlayer解码
+//                .setPlayerFactory(ExoMediaPlayerFactory.create())
+//                .setScreenScaleType(VideoView.SCREEN_SCALE_DEFAULT)
+//                .build()
+//        )
     }
 
     override fun baseInitCreate() {

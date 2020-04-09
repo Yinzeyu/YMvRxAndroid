@@ -25,8 +25,6 @@ import com.yzy.example.component.comm.CommFragment
 import com.yzy.example.component.comm.item.DividerItem_
 import com.yzy.example.component.main.MainActivity
 import com.yzy.example.extention.options
-import com.yzy.example.extention.startNavigate
-import com.yzy.example.repository.ViewModelFactory
 import com.yzy.example.repository.bean.AlbumBean
 import com.yzy.example.utils.CameraUtils
 import com.yzy.example.utils.album.MediaType
@@ -85,12 +83,7 @@ class AlbumFragment: CommFragment<PicSelectViewModel, ViewDataBinding> () {
     private var animOver: ObjectAnimator? = null
     private var dirAdapter: DirAdapter? = null
     private var imgAdapter: ImgAdapter? = null
-    private val mViewModel: PicSelectViewModel by lazy {
-        ViewModelProvider(
-            requireActivity(),
-            ViewModelFactory()
-        ).get(PicSelectViewModel::class.java)
-    }
+
 
     companion object {
         fun startAlbumFragment(
@@ -130,7 +123,7 @@ class AlbumFragment: CommFragment<PicSelectViewModel, ViewDataBinding> () {
         picSelTitleTxt.click { changeDirState() }
         picSelTitleArrow.click { changeDirState() }
         picSelTitleConfirm.visibility = if (isOnlyOne) View.GONE else View.VISIBLE
-        mViewModel.loadAllDirs(
+        viewModel.loadAllDirs(
             activity = (mContext as MainActivity),
             onlyImg = isOnlyPic,
             mindur = videoMinDur,
@@ -162,13 +155,13 @@ class AlbumFragment: CommFragment<PicSelectViewModel, ViewDataBinding> () {
     }
 
     override fun initData() {
-        mViewModel.uiState.observe(this, androidx.lifecycle.Observer {
+        viewModel.uiState.observe(this, androidx.lifecycle.Observer {
             it?.let {
                 if (it.data.size > it.selectIndex) {
                     picSelTitleTxt.text = it.data[it.selectIndex].name
                 }
                 //选中数量
-                if (mViewModel.getSelectMedias().size > 0) {
+                if (viewModel.getSelectMedias().size > 0) {
                     picSelTitleConfirm.isEnabled = true
                     picSelTitleConfirm.alpha = 1f
                 } else {
@@ -180,7 +173,7 @@ class AlbumFragment: CommFragment<PicSelectViewModel, ViewDataBinding> () {
                     it,
                     mContext,
                     maxPicSize,
-                    mViewModel,
+                    viewModel,
                     isOnlyOne,
                     isMixing,
                     isNeedCut,
@@ -203,7 +196,7 @@ class AlbumFragment: CommFragment<PicSelectViewModel, ViewDataBinding> () {
             }
         })
         dirAdapter?.selectClick = {
-            mViewModel.loadPicsInDir(it)
+            viewModel.loadPicsInDir(it)
             changeDirState()
         }
     }
@@ -450,7 +443,7 @@ class AlbumFragment: CommFragment<PicSelectViewModel, ViewDataBinding> () {
                         mContext.onBackPressed()
                     }
                 } else {
-                    mViewModel.andAddCameraMedia(localMedia)
+                    viewModel.andAddCameraMedia(localMedia)
                 }
             }
         }

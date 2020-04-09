@@ -3,12 +3,10 @@ package com.yzy.example.component.main
 import android.view.View
 import androidx.databinding.ViewDataBinding
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
 import com.airbnb.epoxy.EpoxyVisibilityTracker
 import com.blankj.utilcode.util.LogUtils
 import com.blankj.utilcode.util.NetworkUtils
 import com.yzy.baselibrary.base.MvRxEpoxyController
-import com.yzy.baselibrary.base.NoViewModel
 import com.yzy.example.R
 import com.yzy.example.component.comm.CommFragment
 import com.yzy.example.component.comm.item.dividerItem
@@ -16,15 +14,12 @@ import com.yzy.example.component.comm.item.errorEmptyItem
 import com.yzy.example.component.comm.item.loadMoreItem
 import com.yzy.example.component.main.item.gankAndroidItem
 import com.yzy.example.component.main.model.DynViewModel
-import com.yzy.example.component.web.WebsiteDetailFragment
 import com.yzy.example.extention.startNavigate
 import com.yzy.example.http.response.ApiException
 import com.yzy.example.http.response.EmptyException
-import com.yzy.example.repository.ViewModelFactory
 import com.yzy.example.repository.bean.BaseDataBean
 import com.yzy.example.repository.bean.GankAndroidBean
 import kotlinx.android.synthetic.main.fragment_dyn.*
-import kotlinx.android.synthetic.main.fragment_home.*
 
 class DynFragment : CommFragment<DynViewModel, ViewDataBinding>() {
 

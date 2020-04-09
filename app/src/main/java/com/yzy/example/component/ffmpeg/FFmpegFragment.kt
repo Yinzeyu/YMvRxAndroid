@@ -10,10 +10,8 @@ import android.view.View
 import androidx.databinding.ViewDataBinding
 import com.blankj.utilcode.util.FileUtils
 import com.blankj.utilcode.util.LogUtils
-import com.dueeeke.videocontroller.component.CompleteView
-import com.dueeeke.videocontroller.component.ErrorView
-import com.dueeeke.videocontroller.component.PrepareView
-import com.dueeeke.videocontroller.component.TitleView
+import com.dueeeke.videocontroller.StandardVideoController
+import com.dueeeke.videocontroller.component.*
 import com.luck.picture.lib.PictureSelector
 import com.luck.picture.lib.config.PictureMimeType
 import com.yzy.baselibrary.base.BaseFragment
@@ -27,10 +25,7 @@ import com.yzy.example.component.main.MainFragmentDirections
 import com.yzy.example.constants.UiConstants
 import com.yzy.example.extention.load
 import com.yzy.example.extention.startNavigate
-import com.yzy.example.utils.VideoUtils
 import com.yzy.example.widget.engine.GlideEngine
-import com.yzy.example.widget.video.controller.StandardVideoController
-import com.yzy.example.widget.video.controller.VodControlView
 import kotlinx.android.synthetic.main.activity_rxffmpeg.*
 import kotlinx.android.synthetic.main.dkplayer_layout_prepare_view.view.thumb
 import java.io.File
@@ -66,9 +61,9 @@ class FFmpegFragment : CommTitleFragment<NoViewModel,ViewDataBinding>() {
         ffmpegCompress.alpha = UiConstants.disable_alpha
         ffmpegCompress.isEnabled = false
         ffmpegSel.click {
-            ffmpegPlayer.release()
+//            ffmpegPlayer.release()
             controller?.thumb?.setImageDrawable(null)
-            ffmpegPlayer.gone()
+//            ffmpegPlayer.gone()
             PictureSelector.create(mContext)
                 .openGallery(PictureMimeType.ofVideo())
                 .maxSelectNum(1)
@@ -89,22 +84,22 @@ class FFmpegFragment : CommTitleFragment<NoViewModel,ViewDataBinding>() {
                 ffmpegSel.isEnabled = false
                 ffmpegCompress.alpha = UiConstants.disable_alpha
                 ffmpegCompress.isEnabled = false
-                VideoUtils.instance.startCompressed(File(path),
-                    result = { suc, info ->
-                        ffmpegSel.alpha = 1f
-                        ffmpegSel.isEnabled = true
-                        ffmpegCompress.alpha = 1f
-                        ffmpegCompress.isEnabled = true
-                        if (suc) {
-                            compressVideoPath = info
-                            ffmpegPlay.text = "播放本地压缩视频"
-                            ffmpegResult.append("\n压缩成功:$info")
-                            ffmpegResult.append("\n压缩后视频大小:${FileUtils.getSize(info)}")
-                        } else {
-                            ffmpegResult.append("\n$info")
-                        }
-                    },
-                    pro = { p -> ffmpegResult.append("\n压缩进度:${p}%") })
+//                VideoUtils.instance.startCompressed(File(path),
+//                    result = { suc, info ->
+//                        ffmpegSel.alpha = 1f
+//                        ffmpegSel.isEnabled = true
+//                        ffmpegCompress.alpha = 1f
+//                        ffmpegCompress.isEnabled = true
+//                        if (suc) {
+//                            compressVideoPath = info
+//                            ffmpegPlay.text = "播放本地压缩视频"
+//                            ffmpegResult.append("\n压缩成功:$info")
+//                            ffmpegResult.append("\n压缩后视频大小:${FileUtils.getSize(info)}")
+//                        } else {
+//                            ffmpegResult.append("\n$info")
+//                        }
+//                    },
+//                    pro = { p -> ffmpegResult.append("\n压缩进度:${p}%") })
             }
         }
         ffmpegPlay.click {
@@ -116,42 +111,42 @@ class FFmpegFragment : CommTitleFragment<NoViewModel,ViewDataBinding>() {
         //控制器
         controller = StandardVideoController(mContext)
         prepareView = PrepareView(mContext)
-        controller?.let {
-            it.addControlComponent(prepareView)//播放前预览封面
-            it.addControlComponent(CompleteView(mContext)) //自动完成播放界面
-            it.addControlComponent(ErrorView(mContext)) //错误界面
-            val titleView = TitleView(mContext) //标题栏
-            it.addControlComponent(titleView)
-            val vodControlView = VodControlView(mContext) //点播控制条
-            //是否显示底部进度条,默认显示
-            vodControlView.showBottomProgress(true)
-            vodControlView.setVerticalFullListener(object :
-                VodControlView.VerticalFullListener {
-                override fun isVerticalVideo(): Boolean {
-                    val videoSize = ffmpegPlayer.videoSize
-                    return if (videoSize != null) {
-                        videoSize[0] < videoSize[1]//纵向视频
-                    } else {
-                        false
-                    }
-                }
-
-                override fun isStopOutFull(): Boolean {
-                    return ffmpegPlayer.isFullScreen
-                }
-            })
-            it.addControlComponent(vodControlView)
-        }
+//        controller?.let {
+//            it.addControlComponent(prepareView)//播放前预览封面
+//            it.addControlComponent(CompleteView(mContext)) //自动完成播放界面
+//            it.addControlComponent(ErrorView(mContext)) //错误界面
+//            val titleView = TitleView(mContext) //标题栏
+//            it.addControlComponent(titleView)
+//            val vodControlView = VodControlView(mContext) //点播控制条
+//            //是否显示底部进度条,默认显示
+//            vodControlView.showBottomProgress(true)
+//            vodControlView.setVerticalFullListener(object :
+//                VodControlView.VerticalFullListener {
+//                override fun isVerticalVideo(): Boolean {
+//                    val videoSize = ffmpegPlayer.videoSize
+//                    return if (videoSize != null) {
+//                        videoSize[0] < videoSize[1]//纵向视频
+//                    } else {
+//                        false
+//                    }
+//                }
+//
+//                override fun isStopOutFull(): Boolean {
+//                    return ffmpegPlayer.isFullScreen
+//                }
+//            })
+//            it.addControlComponent(vodControlView)
+//        }
         controller?.setEnableOrientation(true)
-        ffmpegPlayer.setVideoSizeChangeListener { videoWidth, videoHeight ->
-            //全屏时跟随屏幕旋转
-            controller?.setEnableOrientation(videoWidth > videoHeight)
-        }
-        //设置控制器
-        ffmpegPlayer.setVideoController(controller)
-        ffmpegPlayer.setLooping(false)
-        //内部处理生命周期
-        ffmpegPlayer.setLifecycleOwner(this)
+//        ffmpegPlayer.setVideoSizeChangeListener { videoWidth, videoHeight ->
+//            //全屏时跟随屏幕旋转
+//            controller?.setEnableOrientation(videoWidth > videoHeight)
+//        }
+//        //设置控制器
+//        ffmpegPlayer.setVideoController(controller)
+//        ffmpegPlayer.setLooping(false)
+//        //内部处理生命周期
+//        ffmpegPlayer.setLifecycleOwner(this)
     }
 
 
@@ -183,25 +178,25 @@ class FFmpegFragment : CommTitleFragment<NoViewModel,ViewDataBinding>() {
                 videoView.layoutParams?.height = (width * 1f / size.first * size.second).toInt()
                 videoView.layoutParams?.width = width
             }
-            videoView.setUrl(videoPath)
+//            videoView.setUrl(videoPath)
             videoView.visible()
             videoView.requestLayout()
             isFirstPlay = true
             controller?.thumb?.load(coverPath)
-            controller?.thumb?.click {
-                when {
-                    isFirstPlay -> {
-                        videoView.start()
-                        isFirstPlay = false
-                    }
-                    videoView.isPlaying -> {
-                        videoView.pause()
-                    }
-                    else -> {
-                        videoView.resume()
-                    }
-                }
-            }
+//            controller?.thumb?.click {
+//                when {
+//                    isFirstPlay -> {
+//                        videoView.start()
+//                        isFirstPlay = false
+//                    }
+//                    videoView.isPlaying -> {
+//                        videoView.pause()
+//                    }
+//                    else -> {
+//                        videoView.resume()
+//                    }
+//                }
+//            }
         }
     }
 
@@ -212,13 +207,13 @@ class FFmpegFragment : CommTitleFragment<NoViewModel,ViewDataBinding>() {
         ffmpegResult.append("\n原视频大小:${FileUtils.getSize(videoPath)}")
         ffmpegCompress.alpha = 1f
         ffmpegCompress.isEnabled = true
-        VideoUtils.instance.getFirstFrame(File(videoPath)) { suc, info ->
-            if (suc) {
-                initPlayer(videoPath, info)
-            } else {
-                ffmpegResult.append("\n封面获取失败:$info")
-            }
-        }
+//        VideoUtils.instance.getFirstFrame(File(videoPath)) { suc, info ->
+//            if (suc) {
+//                initPlayer(videoPath, info)
+//            } else {
+//                ffmpegResult.append("\n封面获取失败:$info")
+//            }
+//        }
     }
 
     //获取视频宽高
@@ -308,6 +303,6 @@ class FFmpegFragment : CommTitleFragment<NoViewModel,ViewDataBinding>() {
     }
 
     override fun onBackPressed() {
-        if (ffmpegPlayer?.onBackPressed() == false) super.onBackPressed()
+//        if (ffmpegPlayer?.onBackPressed() == false) super.onBackPressed()
     }
 }

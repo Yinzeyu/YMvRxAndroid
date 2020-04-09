@@ -13,8 +13,10 @@ import android.widget.FrameLayout
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.Navigation
 import com.yzy.baselibrary.R
 import com.yzy.baselibrary.extention.StatusBarHelper
 import com.yzy.baselibrary.extention.backgroundColor
@@ -84,12 +86,31 @@ abstract class BaseFragment <VM : BaseViewModel, DB : ViewDataBinding>: Fragment
         } else {
             StatusBarHelper.setStatusBarDarkMode(mContext)
         }
+        onVisible()
         createViewModel()
         lifecycle.addObserver(viewModel)
         initView(view)
         initData()
     }
+    override fun onResume() {
+        super.onResume()
+        onVisible()
+    }
 
+    /**
+     * 是否需要懒加载
+     */
+    private fun onVisible() {
+        if (lifecycle.currentState == Lifecycle.State.STARTED && isFirst) {
+            lazyLoadData()
+            isFirst = false
+        }
+    }
+
+    /**
+     * 懒加载
+     */
+    open fun lazyLoadData() {}
     /**
      * 创建 ViewModel
      */
@@ -134,6 +155,7 @@ abstract class BaseFragment <VM : BaseViewModel, DB : ViewDataBinding>: Fragment
         cancel()
         super.onDestroyView()
     }
+
 
     open fun onBackPressed() {
         (mContext as BaseActivity<*,*>).onBackPressed()

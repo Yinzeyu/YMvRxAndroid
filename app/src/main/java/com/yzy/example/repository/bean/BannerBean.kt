@@ -2,7 +2,6 @@ package com.yzy.example.repository.bean
 
 import android.annotation.SuppressLint
 import android.os.Parcelable
-import com.stx.xhb.androidx.entity.SimpleBannerInfo
 import kotlinx.android.parcel.Parcelize
 
 /**
@@ -30,11 +29,7 @@ data class BannerBean(
         val title: String,
         val type: Int,
         val url: String
-) : SimpleBannerInfo(),Parcelable {
-        override fun getXBannerUrl(): Any {
-                return imagePath
-        }
-}
+): Parcelable
 //data class BannerBean(
 //        var desc: String? = null,//"Android高级进阶直播课免费学习",
 //        var id: Long = 0,//23,

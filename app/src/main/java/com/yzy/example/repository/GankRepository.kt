@@ -13,9 +13,7 @@ class GankRepository : BaseRepository() {
     companion object {
         val instance = SingletonHolder.holder
     }
-
-    private val service: GankService = RetrofitAPi.instance.getApi(GankService::class.java)
-
+    private val service: GankService =mAPi.getApi(GankService::class.java)
 
     suspend fun getAndroidSuspend(
         pageSize: Int,

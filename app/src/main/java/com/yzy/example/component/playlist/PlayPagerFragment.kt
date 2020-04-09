@@ -3,7 +3,6 @@ package com.yzy.example.component.playlist
 import android.view.View
 import androidx.databinding.ViewDataBinding
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
 import androidx.viewpager.widget.ViewPager
 import com.yzy.example.component.playlist.view.PagerController
 import com.dueeeke.videoplayer.player.VideoView
@@ -14,7 +13,6 @@ import com.yzy.baselibrary.extention.removeParent
 import com.yzy.example.R
 import com.yzy.example.component.playlist.adapter.PlayPagerAdapter
 import com.yzy.example.component.playlist.viewmoel.PlayPagerViewModel
-import com.yzy.example.repository.ViewModelFactory
 import com.yzy.example.repository.bean.VideoBean
 import com.yzy.example.widget.video.controller.VodControlView
 import com.yzy.example.widget.video.view.ExoVideoView

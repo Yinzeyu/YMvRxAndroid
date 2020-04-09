@@ -81,10 +81,11 @@ class CustomNavHostFragment : NavHostFragment() {
 
                 var frag = mFragmentManager.findFragmentByTag(tag)
                 if (frag == null) {
-                    frag = instantiateFragment(
-                        mContext, mFragmentManager,
-                        className, args
-                    )
+                    frag=    mFragmentManager.fragmentFactory.instantiate(mContext.classLoader, className)
+//                    frag = instantiateFragment(
+//                        mContext, mFragmentManager,
+//                        className, args
+//                    )
                     frag.arguments = args
                     ft.add(mContainerId, frag, tag)
                 } else {

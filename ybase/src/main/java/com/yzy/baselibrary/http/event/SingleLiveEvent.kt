@@ -37,7 +37,7 @@ import java.util.concurrent.atomic.AtomicBoolean
  *
  * Note that only one observer is going to be notified of changes.
  */
-class SingleLiveEvent<T> : MutableLiveData<T>() {
+open class SingleLiveEvent<T> : MutableLiveData<T>() {
 
     private val mPending = AtomicBoolean(false)
 
@@ -63,14 +63,6 @@ class SingleLiveEvent<T> : MutableLiveData<T>() {
     override fun setValue(t: T?) {
         mPending.set(true)
         super.setValue(t)
-    }
-
-    open fun update(value: T?) {
-        if (Looper.myLooper() == Looper.getMainLooper()) {
-            super.setValue(value)
-        } else {
-            postValue(value)
-        }
     }
     /**
      * Used for cases where T is Void, to make calls cleaner.

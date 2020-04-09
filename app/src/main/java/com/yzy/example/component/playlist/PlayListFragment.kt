@@ -5,25 +5,21 @@ import android.content.pm.ActivityInfo
 import android.view.View
 import androidx.databinding.ViewDataBinding
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.RecyclerView
 import com.yzy.example.component.playlist.viewmoel.PlayListViewModel
 import com.blankj.utilcode.util.StringUtils
 import com.dueeeke.videocontroller.component.*
 import com.dueeeke.videoplayer.player.VideoView
 import com.yzy.baselibrary.base.MvRxEpoxyController
-import com.yzy.baselibrary.base.NoViewModel
 import com.yzy.baselibrary.extention.extKeepScreenOn
 import com.yzy.baselibrary.extention.removeParent
 import com.yzy.baselibrary.extention.toast
 import com.yzy.example.R
 import com.yzy.example.component.comm.CommTitleFragment
-import com.yzy.example.repository.ViewModelFactory
 import com.yzy.example.repository.bean.VideoBean
 import com.yzy.example.widget.video.controller.StandardVideoController
 import com.yzy.example.widget.video.view.ExoVideoView
 import kotlinx.android.synthetic.main.activity_play_list.*
-import kotlinx.android.synthetic.main.fragment_dyn.*
 import kotlinx.android.synthetic.main.item_list_video.view.itemVideoContainer
 import kotlinx.android.synthetic.main.item_list_video.view.itemVideoPrepareView
 
