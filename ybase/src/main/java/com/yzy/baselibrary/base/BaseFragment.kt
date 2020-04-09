@@ -60,27 +60,28 @@ abstract class BaseFragment <VM : BaseViewModel, DB : ViewDataBinding>: Fragment
         savedInstanceState: Bundle?
     ): View? {
         retainInstance = true
+        var view = inflater.inflate(R.layout.base_fragment, container, false)
+        rootView=view.contentView
         noteView = mContext.inflate(contentLayout)
-        val cls = (javaClass.genericSuperclass as ParameterizedType).actualTypeArguments[1] as Class<*>
-        if (ViewDataBinding::class.java != cls && ViewDataBinding::class.java.isAssignableFrom(cls)) {
-            mBinding = DataBindingUtil.inflate(inflater,R.layout.base_fragment, container, false)
-            return mBinding?.root
-        }
-        return inflater.inflate(R.layout.base_fragment, container, false)
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        rootView = view.contentView
         if (contentLayout > 0) {
             rootView?.addView(noteView)
         } else {
             rootView?.removeParent( )
         }
-         view.baseStatusView?.let {
-         it.layoutParams.height =  if (fillStatus()) StatusBarHelper.getStatusBarHeight(mContext) else 0
-         it.backgroundColor =statusColor()
+        view.baseStatusView?.let {
+            it.layoutParams.height =  if (fillStatus()) StatusBarHelper.getStatusBarHeight(mContext) else 0
+            it.backgroundColor =statusColor()
         }
+        val cls = (javaClass.genericSuperclass as ParameterizedType).actualTypeArguments[1] as Class<*>
+        if (ViewDataBinding::class.java != cls && ViewDataBinding::class.java.isAssignableFrom(cls)) {
+            mBinding = DataBindingUtil.bind(view)
+            view= mBinding?.root
+        }
+        return view
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         if (isBack()) {
             StatusBarHelper.setStatusBarLightMode(mContext)
         } else {

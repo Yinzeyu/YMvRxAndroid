@@ -1,30 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="#f3f3f3"
-    android:orientation="vertical">
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <com.scwang.smart.refresh.layout.SmartRefreshLayout
-        android:id="@+id/smRefresh"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rv_home"
+        android:layout_height="match_parent"
+        android:background="#f3f3f3"
+        android:orientation="vertical">
+
+        <com.scwang.smart.refresh.layout.SmartRefreshLayout
+            android:id="@+id/smRefresh"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:overScrollMode="never"
-            android:scrollbars="none"
-            android:background="@color/white"/>
-<!--        <com.airbnb.epoxy.EpoxyRecyclerView-->
-<!--            android:id="@+id/homeEpoxyRecycler"-->
-<!--            android:visibility="gone"-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="match_parent"-->
-<!--            android:overScrollMode="never"-->
-<!--            android:scrollbars="none"-->
-<!--            android:background="@color/white"/>-->
-</com.scwang.smart.refresh.layout.SmartRefreshLayout>
+            android:layout_height="match_parent">
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv_home"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:overScrollMode="never"
+                android:scrollbars="none"
+                android:background="@color/white"/>
+        </com.scwang.smart.refresh.layout.SmartRefreshLayout>
 
 
-</LinearLayout>
+    </LinearLayout>
+</layout>
