@@ -9,14 +9,21 @@
         android:id="@+id/smRefresh"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-
-        <com.airbnb.epoxy.EpoxyRecyclerView
-            android:id="@+id/homeEpoxyRecycler"
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_home"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:overScrollMode="never"
             android:scrollbars="none"
             android:background="@color/white"/>
+<!--        <com.airbnb.epoxy.EpoxyRecyclerView-->
+<!--            android:id="@+id/homeEpoxyRecycler"-->
+<!--            android:visibility="gone"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="match_parent"-->
+<!--            android:overScrollMode="never"-->
+<!--            android:scrollbars="none"-->
+<!--            android:background="@color/white"/>-->
 </com.scwang.smart.refresh.layout.SmartRefreshLayout>
 
 

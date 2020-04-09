@@ -1,5 +1,6 @@
 package com.yzy.example.repository.model
 
+import androidx.lifecycle.viewModelScope
 import com.blankj.utilcode.util.LogUtils
 import com.yzy.baselibrary.base.BaseLiveData
 import com.yzy.baselibrary.base.BaseViewModel
@@ -19,8 +20,8 @@ class NewGankViewModel : BaseViewModel() {
     private var pageSize = 20
     private val ganRepository: GankRepository by lazy { GankRepository() }
     private var articleBean: MutableList<ArticleBean> = mutableListOf()
-    private val _bannerAndArticleResult: SingleLiveEvent<BaseUiModel<BannerAndArticleBean>> = SingleLiveEvent()
-    val uiState: SingleLiveEvent<BaseUiModel<BannerAndArticleBean>> get() = _bannerAndArticleResult
+    private val _bannerAndArticleResult: BaseLiveData<BaseUiModel<BannerAndArticleBean>> = BaseLiveData()
+    val uiState: BaseLiveData<BaseUiModel<BannerAndArticleBean>> get() = _bannerAndArticleResult
     @ExperimentalCoroutinesApi
     @FlowPreview
      fun getBanner(isRefresh: Boolean = false) {
@@ -67,7 +68,11 @@ class NewGankViewModel : BaseViewModel() {
         success: BannerAndArticleBean? = null
     ) {
         val uiModel = BaseUiModel(showLoading =showLoading, success = success)
-        _bannerAndArticleResult.value=uiModel
+        viewModelScope.launch {
+            withContext(Dispatchers.Main) {
+                _bannerAndArticleResult.value=uiModel
+            }
+        }
     }
 }
 

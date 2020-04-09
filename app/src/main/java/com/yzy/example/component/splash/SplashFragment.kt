@@ -4,9 +4,11 @@ package com.yzy.example.component.splash
 import android.Manifest
 import android.util.Log
 import android.view.View
+import androidx.databinding.ViewDataBinding
 import com.blankj.utilcode.constant.PermissionConstants
 import com.blankj.utilcode.util.PermissionUtils
 import com.yzy.baselibrary.base.BaseFragment
+import com.yzy.baselibrary.base.NoViewModel
 import com.yzy.example.extention.load
 import com.yzy.baselibrary.extention.toast
 import com.yzy.example.R
@@ -17,7 +19,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
-class SplashFragment : BaseFragment() {
+class SplashFragment : BaseFragment<NoViewModel,ViewDataBinding>() {
 
     //是否有SD卡读写权限
     private var hasSDPermission: Boolean? = null

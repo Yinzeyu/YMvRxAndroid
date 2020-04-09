@@ -10,6 +10,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.FrameLayout
+import androidx.databinding.DataBindingUtil
+import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
@@ -18,16 +20,24 @@ import com.yzy.baselibrary.extention.StatusBarHelper
 import com.yzy.baselibrary.extention.backgroundColor
 import com.yzy.baselibrary.extention.inflate
 import com.yzy.baselibrary.extention.removeParent
+import kotlinx.android.synthetic.main.base_fragment.view.*
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.cancel
+import java.lang.reflect.ParameterizedType
 
 /**
  *description: BaseFragment.
  *@date 2019/7/15
  *@author: yzy.
  */
-abstract class BaseFragment : Fragment(), CoroutineScope by MainScope() {
+abstract class BaseFragment <VM : BaseViewModel, DB : ViewDataBinding>: Fragment(), CoroutineScope by MainScope() {
+     lateinit var viewModel: VM
+    private var mBinding: DB? = null
+    //是否第一次加载
+    private var isFirst: Boolean = true
+
+
     //页面基础信息
     lateinit var mContext: Activity
     protected var rootView: FrameLayout? = null
@@ -48,34 +58,50 @@ abstract class BaseFragment : Fragment(), CoroutineScope by MainScope() {
         savedInstanceState: Bundle?
     ): View? {
         retainInstance = true
-        Log.e("fragment", this.javaClass.name)
-        val contentView = inflater.inflate(R.layout.base_fragment, null)
         noteView = mContext.inflate(contentLayout)
-        rootView = contentView.findViewById(R.id.contentView)
+        val cls = (javaClass.genericSuperclass as ParameterizedType).actualTypeArguments[1] as Class<*>
+        if (ViewDataBinding::class.java != cls && ViewDataBinding::class.java.isAssignableFrom(cls)) {
+            mBinding = DataBindingUtil.inflate(inflater,R.layout.base_fragment, container, false)
+            return mBinding?.root
+        }
+        return inflater.inflate(R.layout.base_fragment, container, false)
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        rootView = view.contentView
         if (contentLayout > 0) {
             rootView?.addView(noteView)
         } else {
             rootView?.removeParent( )
         }
-       val baseStatusView = contentView.findViewById<View>(R.id.baseStatusView)
-        baseStatusView?.let {
-            it.layoutParams.height =  if (fillStatus()) StatusBarHelper.getStatusBarHeight(mContext) else 0
-            it.backgroundColor =statusColor()
+         view.baseStatusView?.let {
+         it.layoutParams.height =  if (fillStatus()) StatusBarHelper.getStatusBarHeight(mContext) else 0
+         it.backgroundColor =statusColor()
         }
         if (isBack()) {
             StatusBarHelper.setStatusBarLightMode(mContext)
         } else {
             StatusBarHelper.setStatusBarDarkMode(mContext)
         }
-        return contentView
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
+        createViewModel()
+        lifecycle.addObserver(viewModel)
         initView(view)
         initData()
     }
 
+    /**
+     * 创建 ViewModel
+     */
+    @Suppress("UNCHECKED_CAST")
+    private fun createViewModel() {
+        val type = javaClass.genericSuperclass
+        if (type is ParameterizedType) {
+            val tp = type.actualTypeArguments[0]
+            val tClass = tp as? Class<VM> ?: BaseViewModel::class.java
+            viewModel = ViewModelProvider(this, ViewModelFactory()).get(tClass) as VM
+        }
+    }
     /**
      * 初始化View
      */
@@ -110,6 +136,6 @@ abstract class BaseFragment : Fragment(), CoroutineScope by MainScope() {
     }
 
     open fun onBackPressed() {
-        (mContext as BaseActivity).onBackPressed()
+        (mContext as BaseActivity<*,*>).onBackPressed()
     }
 }

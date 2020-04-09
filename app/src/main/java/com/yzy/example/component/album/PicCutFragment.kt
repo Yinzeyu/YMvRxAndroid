@@ -6,11 +6,13 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import androidx.annotation.IdRes
+import androidx.databinding.ViewDataBinding
 import androidx.navigation.NavController
 import androidx.navigation.fragment.navArgs
 import com.blankj.utilcode.util.BarUtils
 import com.blankj.utilcode.util.SizeUtils
 import com.yzy.baselibrary.base.BaseActivity
+import com.yzy.baselibrary.base.NoViewModel
 import com.yzy.baselibrary.extention.toast
 import com.yzy.example.R
 import com.yzy.example.component.comm.CommTitleFragment
@@ -29,7 +31,7 @@ import java.io.File
  * @author: yzy
  * @date: 19-5-24 下午2:08
  */
-class PicCutFragment : CommTitleFragment() {
+class PicCutFragment : CommTitleFragment<NoViewModel,ViewDataBinding>() {
     //需要裁切的图片地址
     private var imageUrl: String = ""
 
@@ -85,7 +87,7 @@ class PicCutFragment : CommTitleFragment() {
 
     private fun onBackAlbum(path: String) {
         try {
-            (mContext as BaseActivity).getFragmentLists().forEach {
+            (mContext as BaseActivity<*,*>).getFragmentLists().forEach {
                 if (it is AlbumFragment) {
                     it.cutResultUrl(path)
                 }

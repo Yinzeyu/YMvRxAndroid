@@ -4,9 +4,11 @@ import android.graphics.Color
 import android.os.Bundle
 import android.view.*
 import android.widget.FrameLayout
+import androidx.databinding.ViewDataBinding
 import com.airbnb.lottie.*
 import com.yzy.baselibrary.base.BaseActivity
 import com.yzy.baselibrary.base.BaseFragment
+import com.yzy.baselibrary.base.BaseViewModel
 import com.yzy.baselibrary.extention.removeParent
 import com.yzy.example.component.dialog.ActionDialog
 
@@ -15,7 +17,7 @@ import com.yzy.example.component.dialog.ActionDialog
  * @author: caiyoufei
  * @date: 2019/10/8 10:47
  */
-abstract class CommFragment : BaseFragment() {
+abstract class CommFragment <VM : BaseViewModel, DB : ViewDataBinding>: BaseFragment<VM,DB>() {
 
 
     //lottie的加载动画
@@ -104,7 +106,7 @@ abstract class CommFragment : BaseFragment() {
         }
         mActionDialog?.let {
             if (!text.isNullOrBlank()) it.hintText = text
-            it.show((mContext as BaseActivity).supportFragmentManager)
+            it.show((mContext as BaseActivity<*,*>).supportFragmentManager)
         }
     }
 

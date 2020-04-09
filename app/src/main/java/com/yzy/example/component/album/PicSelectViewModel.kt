@@ -5,6 +5,7 @@ import android.util.Log
 import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.ViewModel
 import com.yzy.baselibrary.base.BaseLiveData
+import com.yzy.baselibrary.base.BaseViewModel
 import com.yzy.example.repository.bean.AlbumBean
 import com.yzy.example.utils.album.LoadConfig
 import com.yzy.example.utils.album.LocalMediaLoadListener
@@ -20,7 +21,7 @@ import kotlin.math.max
  * @author: yzy
  * @date: 19-5-14 下午7:55
  */
-class PicSelectViewModel : ViewModel() {
+class PicSelectViewModel : BaseViewModel() {
     private val _bannerAndArticleResult: BaseLiveData<AlbumBean> = BaseLiveData()
     val uiState: BaseLiveData<AlbumBean> get() = _bannerAndArticleResult
     //用于确定选择后的数据同步

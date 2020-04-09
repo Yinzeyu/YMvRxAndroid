@@ -17,9 +17,11 @@
 package com.yzy.example
 
 import android.view.View
+import androidx.databinding.ViewDataBinding
 import androidx.navigation.Navigation
 import androidx.navigation.fragment.findNavController
 import com.yzy.baselibrary.base.BaseFragment
+import com.yzy.baselibrary.base.NoViewModel
 import com.yzy.example.component.main.MainFragmentDirections
 import com.yzy.example.extention.startNavigate
 import kotlinx.android.synthetic.main.fragment_register.*
@@ -28,7 +30,7 @@ import kotlinx.android.synthetic.main.fragment_register.*
 /**
  * Shows a register form to showcase UI state persistence. It has a button that goes to [Registered]
  */
-class Register : BaseFragment() {
+class Register : BaseFragment<NoViewModel,ViewDataBinding>() {
     override val contentLayout: Int = R.layout.fragment_register
 
     override fun initView(root: View?) {

@@ -3,6 +3,7 @@ package com.yzy.example.component.playlist
 import android.annotation.SuppressLint
 import android.content.pm.ActivityInfo
 import android.view.View
+import androidx.databinding.ViewDataBinding
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.RecyclerView
@@ -11,6 +12,7 @@ import com.blankj.utilcode.util.StringUtils
 import com.dueeeke.videocontroller.component.*
 import com.dueeeke.videoplayer.player.VideoView
 import com.yzy.baselibrary.base.MvRxEpoxyController
+import com.yzy.baselibrary.base.NoViewModel
 import com.yzy.baselibrary.extention.extKeepScreenOn
 import com.yzy.baselibrary.extention.removeParent
 import com.yzy.baselibrary.extention.toast
@@ -25,7 +27,7 @@ import kotlinx.android.synthetic.main.fragment_dyn.*
 import kotlinx.android.synthetic.main.item_list_video.view.itemVideoContainer
 import kotlinx.android.synthetic.main.item_list_video.view.itemVideoPrepareView
 
-class PlayListFragment : CommTitleFragment() {
+class PlayListFragment : CommTitleFragment<PlayListViewModel, ViewDataBinding>() {
 
     private var mVideoView: VideoView<*>? = null
     private var mController: StandardVideoController? = null
@@ -42,13 +44,13 @@ class PlayListFragment : CommTitleFragment() {
     //数据
     private var mVideoList: MutableList<VideoBean> = mutableListOf()
 
-    //数据层
-    private val mViewModel: PlayListViewModel by lazy {
-        ViewModelProvider(
-            requireActivity(),
-            ViewModelFactory()
-        ).get(PlayListViewModel::class.java)
-    }
+//    //数据层
+//    private val mViewModel: PlayListViewModel by lazy {
+//        ViewModelProvider(
+//            requireActivity(),
+//            ViewModelFactory()
+//        ).get(PlayListViewModel::class.java)
+//    }
 
     override fun layoutResContentId() = R.layout.activity_play_list
 
@@ -97,12 +99,12 @@ class PlayListFragment : CommTitleFragment() {
             override fun onChildViewAttachedToWindow(view: View) {
             }
         })
-        mViewModel.getVideoList()
+        viewModel.getVideoList()
     }
 
     override fun initData() {
 
-        mViewModel.run {
+        viewModel.run {
             uiState.observe(this@PlayListFragment, Observer {
                 val showLoading = it?.showLoading ?: false
                 if (showLoading) {

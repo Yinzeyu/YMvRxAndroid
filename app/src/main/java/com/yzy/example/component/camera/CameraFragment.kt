@@ -21,7 +21,9 @@ import android.view.View
 import androidx.annotation.IdRes
 import androidx.core.app.ActivityCompat
 import androidx.core.view.isVisible
+import androidx.databinding.ViewDataBinding
 import androidx.navigation.NavController
+import com.yzy.baselibrary.base.NoViewModel
 import com.yzy.baselibrary.extention.click
 import com.yzy.example.R
 import com.yzy.example.component.comm.CommFragment
@@ -37,7 +39,7 @@ import java.util.concurrent.Semaphore
 import java.util.concurrent.TimeUnit
 import kotlin.math.max
 
-class CameraFragment : CommFragment() {
+class CameraFragment : CommFragment<NoViewModel,ViewDataBinding>() {
     override fun fillStatus(): Boolean = false
 
     //拍照方向
@@ -135,7 +137,6 @@ class CameraFragment : CommFragment() {
             }
 
             override fun onClick() {
-
             }
         }
     }
@@ -554,7 +555,6 @@ class CameraFragment : CommFragment() {
      */
     fun takePic() {
         if (mCameraDevice == null || !textureView.isAvailable) return
-
         mCameraDevice?.apply {
 
             val captureRequestBuilder = createCaptureRequest(CameraDevice.TEMPLATE_STILL_CAPTURE)

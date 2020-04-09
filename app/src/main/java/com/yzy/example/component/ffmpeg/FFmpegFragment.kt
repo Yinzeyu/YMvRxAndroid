@@ -7,6 +7,7 @@ import android.media.MediaMetadataRetriever
 import android.provider.MediaStore
 import android.text.method.ScrollingMovementMethod
 import android.view.View
+import androidx.databinding.ViewDataBinding
 import com.blankj.utilcode.util.FileUtils
 import com.blankj.utilcode.util.LogUtils
 import com.dueeeke.videocontroller.component.CompleteView
@@ -16,6 +17,7 @@ import com.dueeeke.videocontroller.component.TitleView
 import com.luck.picture.lib.PictureSelector
 import com.luck.picture.lib.config.PictureMimeType
 import com.yzy.baselibrary.base.BaseFragment
+import com.yzy.baselibrary.base.NoViewModel
 import com.yzy.baselibrary.extention.click
 import com.yzy.baselibrary.extention.gone
 import com.yzy.baselibrary.extention.visible
@@ -38,7 +40,7 @@ import java.io.File
  * @author: caiyoufei
  * @date: 2019/10/28 15:06
  */
-class FFmpegFragment : CommTitleFragment() {
+class FFmpegFragment : CommTitleFragment<NoViewModel,ViewDataBinding>() {
     private val INTENT_SEL_VIDEO = 0x0101
     private val INTENT_SEL_VIDEO2 = 0x0201
 

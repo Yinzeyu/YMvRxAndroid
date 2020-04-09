@@ -34,9 +34,9 @@ android {
     kotlinOptions {
         jvmTarget = "1.8"
     }
-//    dataBinding {
-//        enabled = true
-//    }
+    dataBinding {
+        enabled = true
+    }
     compileOptions {
         sourceCompatibility rootProject.ext.android.javaSourceCompatibility
         targetCompatibility rootProject.ext.android.javaTargetCompatibility
@@ -146,6 +146,7 @@ dependencies {
     //封面加载 https://github.com/wseemann/FFmpegMediaMetadataRetriever
 
     implementation 'com.github.wseemann:FFmpegMediaMetadataRetriever-native-armeabi-v7a:1.0.15'
+    implementation 'com.github.xiaohaibin:XBanner:androidx_v1.0.2'
 //    api 'com.github.wseemann:FFmpegMediaMetadataRetriever-armeabi-v7a:1.0.15'
     // Dynamic Feature Module Support
 //    implementation "androidx.navigation:navigation-dynamic-features-fragment:2.3.0-alpha04"

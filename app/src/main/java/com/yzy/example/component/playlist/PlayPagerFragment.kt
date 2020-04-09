@@ -1,6 +1,7 @@
 package com.yzy.example.component.playlist
 
 import android.view.View
+import androidx.databinding.ViewDataBinding
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.viewpager.widget.ViewPager
@@ -19,7 +20,7 @@ import com.yzy.example.widget.video.controller.VodControlView
 import com.yzy.example.widget.video.view.ExoVideoView
 import kotlinx.android.synthetic.main.activity_play_pager.*
 
-class PlayPagerFragment : BaseFragment() {
+class PlayPagerFragment : BaseFragment<PlayPagerViewModel,ViewDataBinding>() {
 
 
     //当前播放位置
@@ -40,13 +41,13 @@ class PlayPagerFragment : BaseFragment() {
     //是否可以加载更多
     var hasMore: Boolean = true
 
-    //数据层
-    private val mViewModel: PlayPagerViewModel by lazy {
-        ViewModelProvider(
-            requireActivity(),
-            ViewModelFactory()
-        ).get(PlayPagerViewModel::class.java)
-    }
+//    //数据层
+//    private val mViewModel: PlayPagerViewModel by lazy {
+//        ViewModelProvider(
+//            requireActivity(),
+//            ViewModelFactory()
+//        ).get(PlayPagerViewModel::class.java)
+//    }
 
     override fun fillStatus() = false
 
@@ -91,8 +92,8 @@ class PlayPagerFragment : BaseFragment() {
 
 
     override fun initData() {
-        mViewModel.getVideoList(true)
-        mViewModel.run {
+        viewModel.getVideoList(true)
+        viewModel.run {
             uiState.observe(this@PlayPagerFragment, Observer {
                 it?.success?.let { list ->
                     mVideoList = list
@@ -172,7 +173,7 @@ class PlayPagerFragment : BaseFragment() {
     //开始播放
     private fun startPlay(position: Int) {
         //预加载更多
-        if (position >= mVideoList.size - 5) mViewModel.getVideoList(false)
+        if (position >= mVideoList.size - 5) viewModel.getVideoList(false)
         //遍历加载信息和播放
         val count: Int = playPagerViewPager.childCount
         var findCount = 0//由于复用id是混乱的，所以需要保证3个都找到才跳出循环(为了节约性能)

@@ -130,7 +130,6 @@ class CustomNavHostFragment : NavHostFragment() {
                     }
                 }
                 ft.setReorderingAllowed(true)
-                LogUtils.e("isStateSaved == "+mFragmentManager.isStateSaved)
                 if (stateSaved){
                     ft.commitAllowingStateLoss()
                 }else{

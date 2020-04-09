@@ -2,6 +2,7 @@ package com.yzy.example.component.ffmpeg
 
 import android.graphics.Color
 import android.view.View
+import androidx.databinding.ViewDataBinding
 import androidx.navigation.fragment.navArgs
 import com.blankj.utilcode.util.BarUtils
 import com.blankj.utilcode.util.LogUtils
@@ -10,6 +11,7 @@ import com.dueeeke.videocontroller.component.ErrorView
 import com.dueeeke.videocontroller.component.PrepareView
 import com.dueeeke.videocontroller.component.TitleView
 import com.yzy.baselibrary.base.BaseFragment
+import com.yzy.baselibrary.base.NoViewModel
 import com.yzy.baselibrary.extention.StatusBarHelper
 import com.yzy.baselibrary.extention.click
 import com.yzy.baselibrary.extention.pressEffectAlpha
@@ -23,7 +25,7 @@ import kotlinx.android.synthetic.main.activity_video_detail.*
 import kotlinx.android.synthetic.main.dkplayer_layout_prepare_view.view.thumb
 import java.io.File
 
-class VideoDetailFragment : BaseFragment() {
+class VideoDetailFragment : BaseFragment<NoViewModel, ViewDataBinding>() {
     val args: VideoDetailFragmentArgs by navArgs()
 
     //控制器

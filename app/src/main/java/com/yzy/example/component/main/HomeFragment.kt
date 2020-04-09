@@ -1,33 +1,24 @@
 package com.yzy.example.component.main
 
 import android.view.View
+import android.view.ViewGroup
+import android.view.ViewGroup.LayoutParams.MATCH_PARENT
+import androidx.databinding.ViewDataBinding
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
-import com.airbnb.epoxy.EpoxyVisibilityTracker
-import com.blankj.utilcode.util.LogUtils
-import com.blankj.utilcode.util.NetworkUtils
-import com.yzy.baselibrary.base.BaseViewModel
-import com.yzy.baselibrary.base.MvRxEpoxyController
-import com.yzy.baselibrary.extention.StatusBarHelper.setStatusBarLightMode
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.blankj.utilcode.util.SizeUtils
+import com.stx.xhb.androidx.XBanner
 import com.yzy.example.R
 import com.yzy.example.component.comm.CommFragment
-import com.yzy.example.component.comm.item.dividerItem
-import com.yzy.example.component.comm.item.errorEmptyItem
-import com.yzy.example.component.comm.item.loadMoreItem
-import com.yzy.example.component.main.item.bannerItem
-import com.yzy.example.component.main.item.wanArticleItem
-import com.yzy.example.extention.startNavigate
-import com.yzy.example.http.response.ApiException
-import com.yzy.example.http.response.EmptyException
-import com.yzy.example.repository.ViewModelFactory
-import com.yzy.example.repository.bean.BannerAndArticleBean
+import com.yzy.example.component.main.item.HomeListAdapter
 import com.yzy.example.repository.model.NewGankViewModel
 import kotlinx.android.synthetic.main.fragment_home.*
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.FlowPreview
 
-class HomeFragment : CommFragment() {
-
+class HomeFragment : CommFragment<NewGankViewModel,ViewDataBinding>() {
+    private val mAdapter by lazy { HomeListAdapter() }
+    private lateinit var banner: XBanner
     companion object {
         fun newInstance(): HomeFragment {
             return HomeFragment()
@@ -37,27 +28,38 @@ class HomeFragment : CommFragment() {
     override fun fillStatus(): Boolean = false
 
     override val contentLayout: Int = R.layout.fragment_home
-    private val mViewModel: NewGankViewModel by lazy {
-        ViewModelProvider(
-            requireActivity(),
-            ViewModelFactory()
-        ).get(NewGankViewModel::class.java)
-    }
-
     @FlowPreview
     @ExperimentalCoroutinesApi
     override fun initView(root: View?) {
-        homeEpoxyRecycler.setController(epoxyController)
-        EpoxyVisibilityTracker().attach(homeEpoxyRecycler)
-
         smRefresh.setOnRefreshListener {
-            mViewModel.getBanner(true)
+            viewModel.getBanner(true)
         }
-        mViewModel.getBanner(true)
+        viewModel.getBanner(true)
     }
 
     override fun initData() {
-        mViewModel.run {
+
+        with(rv_home) {
+            layoutManager = LinearLayoutManager(context)
+            adapter = mAdapter
+            //banner
+            banner = XBanner(context)
+            banner.minimumWidth = MATCH_PARENT
+            banner.layoutParams = ViewGroup.LayoutParams(MATCH_PARENT, SizeUtils.dp2px(120f))
+            banner.loadImage(GlideImageLoader())
+        }
+
+        mAdapter.apply {
+            addHeaderView(banner)
+//            setOnLoadMoreListener(this@HomeFragment::loadMore, rv_home)
+            setOnItemClickListener { adapter, _, position ->
+//                val item = adapter.data[position] as ArticlesBean
+//                val intent = Intent(context, DetailActivity::class.java)
+//                intent.putExtra("url", item.link)
+//                startActivity(intent)
+            }
+        }
+        viewModel.run {
             uiState.observe(this@HomeFragment, Observer{
                 val showLoading = it?.showLoading ?: false
                 if (showLoading) {
@@ -69,83 +71,11 @@ class HomeFragment : CommFragment() {
                 it?.success?.let { list ->
                     dismissLoadingView()
                     smRefresh.finishRefresh()
-                    epoxyController.data = list
+                    banner.setBannerData(list.bannerBean)
+                    mAdapter.setList(list.articleBean)
+
                 }
             })
-        }
-    }
-
-    private val epoxyController = MvRxEpoxyController<BannerAndArticleBean> { state ->
-        //有数据
-        if (!state.bannerBean.isNullOrEmpty() || !state.articleBean.isNullOrEmpty()) {
-            //处理Banner'
-            if (!state.bannerBean.isNullOrEmpty()) {
-                bannerItem {
-                    id("home_banner_${state.bannerBean.hashCode() + state.bannerBean.size}")
-                    dataList(state.bannerBean)
-                }
-            }
-            //处理文章列表
-            if (!state.articleBean.isNullOrEmpty()) {
-                state.articleBean.forEachIndexed { _, articleBean ->
-                    //文章
-                    wanArticleItem {
-                        id(articleBean.id)
-                        dataBean(articleBean)
-                        onItemClick {
-                            it?.link?.let { url ->
-                                startNavigate(
-                                    view,
-                                    MainFragmentDirections.actionMainFragmentToWebsiteDetailFragment(
-                                        url
-                                    )
-                                )
-                            }
-                        }
-                    }
-                    //分割线
-                    dividerItem {
-                        id("home_line_banner")
-                    }
-                }
-            }
-            //有数据支持下拉刷新
-            smRefresh.setEnableRefresh(true)
-            //根据返回信息判断是否可以加载更多
-            if (state.hasMore) {
-                loadMoreItem {
-                    id("home_line_more")
-                    fail(false)
-                    onLoadMore {
-                        mViewModel.getBanner()
-                    }
-                }
-            }
-        } else {
-            smRefresh.setEnableRefresh(false)
-            //无数据
-            when (state.exception) {
-                is EmptyException -> errorEmptyItem {
-                    id("home_suc_no_data")
-                    imageResource(R.drawable.svg_no_data)
-                    tipsText(mContext.getString(R.string.no_data))
-                }
-                //无网络或者请求失败
-                is ApiException -> errorEmptyItem {
-                    id("home_fail_no_data")
-                    if (NetworkUtils.isConnected()) {
-                        imageResource(R.drawable.svg_fail)
-                        tipsText(mContext.getString(R.string.net_fail_retry))
-                    } else {
-                        imageResource(R.drawable.svg_no_network)
-                        tipsText(mContext.getString(R.string.net_error_retry))
-                    }
-                    onRetryClick {
-                        mViewModel.getBanner(true)
-                    }
-                }
-                else -> LogUtils.i("初始化无数据空白")
-            }
         }
     }
 }

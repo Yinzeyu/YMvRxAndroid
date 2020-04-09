@@ -3,15 +3,17 @@ package com.yzy.example.component.main
 import android.content.Context
 import android.content.Intent
 import android.view.MotionEvent
+import androidx.databinding.ViewDataBinding
 import com.blankj.utilcode.util.ActivityUtils
 import com.yzy.baselibrary.base.BaseFragment
+import com.yzy.baselibrary.base.NoViewModel
 import com.yzy.baselibrary.extention.startActivity
 import com.yzy.baselibrary.extention.toast
 import com.yzy.example.R
 import com.yzy.example.component.comm.CommActivity
 
 
-class MainActivity : CommActivity() {
+class MainActivity : CommActivity<NoViewModel, ViewDataBinding>() {
 
     companion object {
         fun starMainActivity(context: Context) {
@@ -71,7 +73,7 @@ class MainActivity : CommActivity() {
         super.onActivityResult(requestCode, resultCode, data)
         try {
             getFragmentListLast().let {
-                if (it is BaseFragment) {
+                if (it is BaseFragment<*,*>) {
                     it.onFragmentResult(requestCode, resultCode, data)
                 }
             }

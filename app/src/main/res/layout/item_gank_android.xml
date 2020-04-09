@@ -1,73 +1,61 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                                                   xmlns:tools="http://schemas.android.com/tools"
-                                                   xmlns:app="http://schemas.android.com/apk/res-auto"
-                                                   android:orientation="vertical"
-                                                   android:layout_width="match_parent"
-                                                   android:padding="12dp"
-                                                   android:layout_height="wrap_content">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="12dp">
 
     <TextView
-            android:id="@+id/itemGankAndroidUser"
-            android:layout_width="wrap_content"
-            tools:text="这是用户名"
-            android:singleLine="true"
-            android:textColor="@color/colorAccent"
-            app:layout_constrainedWidth="true"
-            app:layout_constraintHorizontal_bias="0"
-            app:layout_constraintHorizontal_chainStyle="packed"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toStartOf="@id/itemGankAndroidTime"
-            android:layout_height="wrap_content"/>
+        android:id="@+id/itemGankAndroidUser"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:singleLine="true"
+
+        android:textColor="@color/colorAccent"
+        app:layout_constrainedWidth="true"
+        app:layout_constraintEnd_toStartOf="@id/itemGankAndroidTime"
+        app:layout_constraintHorizontal_bias="0"
+        app:layout_constraintHorizontal_chainStyle="packed"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="这是用户名" />
 
     <TextView
-            android:layout_marginStart="10dp"
-            android:id="@+id/itemGankAndroidTime"
-            android:layout_width="wrap_content"
-            tools:text="2019年10月3日18:10:37"
-            android:textColor="@color/colorPrimary"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintStart_toEndOf="@id/itemGankAndroidUser"
-            app:layout_constraintEnd_toEndOf="parent"
-            android:layout_height="wrap_content"/>
+        android:id="@+id/itemGankAndroidTime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:textColor="@color/colorPrimary"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/itemGankAndroidUser"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="2019年10月3日18:10:37" />
 
     <TextView
-            android:id="@+id/itemGankAndroidDes"
-            android:layout_marginTop="10dp"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/itemGankAndroidUser"
-            app:layout_constraintStart_toStartOf="parent"
-            android:textColor="@color/black"
-            android:textSize="14sp"
-            tools:text="这是消息内容,这是消息内容,这是消息内容,这是消息内容,这是消息内容,这是消息内容,这是消息内容,这是消息内容,这是消息内容,这是消息内容"/>
+        android:id="@+id/itemGankAndroidDes"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:textColor="@color/black"
+        android:textSize="14sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/itemGankAndroidUser"
+        tools:text="这是消息内容,这是消息内容,这是消息内容,这是消息内容,这是消息内容,这是消息内容,这是消息内容,这是消息内容,这是消息内容,这是消息内容" />
 
     <com.yzy.example.widget.ninegridview.NineGridView
         android:id="@+id/itemGankAndroidNine"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/itemGankAndroidDes"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
         android:visibility="gone"
         app:imgGap="5dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/itemGankAndroidDes"
         app:maxSize="9"
         app:showStyle="grid"
         tools:visibility="visible" />
-    <!--  <cc.ab.base.widget.ninegridview.NineGridView-->
-    <!--      android:id="@+id/itemGankAndroidNine"-->
-    <!--      App:layout_constraintStart_toStartOf="parent"-->
-    <!--      App:layout_constraintEnd_toEndOf="parent"-->
-    <!--      App:layout_constraintTop_toBottomOf="@id/itemGankAndroidDes"-->
-    <!--      android:layout_width="match_parent"-->
-    <!--      android:layout_height="wrap_content"-->
-    <!--      android:layout_marginTop="10dp"-->
-    <!--      android:visibility="gone"-->
-    <!--      App:imgGap="5dp"-->
-    <!--      App:maxSize="9"-->
-    <!--      App:showStyle="grid"-->
-    <!--      tools:visibility="visible" />-->
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -256,25 +256,26 @@ class VideoUtils private constructor() {
 
   //网络视频封面获取
   fun getNetVideoFistFrame(videoUrl: String, call: (bit: Bitmap?) -> Unit) {
-    val ob = io.reactivex.Observable.just(videoUrl)
-      .flatMap {
-        val retriever = MediaMetadataRetriever()
-        retriever.setDataSource(it, HashMap())
-        val bitmap = retriever.frameAtTime
-        retriever.release()
-        io.reactivex.Observable.just(
-          if (bitmap.width > ScreenUtils.getScreenWidth()) {
-            val width = ScreenUtils.getScreenWidth()
-            val height = ScreenUtils.getScreenWidth() * 1f / bitmap.width * bitmap.height
-            ImageUtils.compressBySampleSize(bitmap, width, height.toInt())
-          } else {
-            bitmap
-          }
-        )
-      }
-      .compose(RxUtils.instance.rx2SchedulerHelperO())
-      .subscribe({ bit ->
-        call.invoke(bit)
-      }, { call.invoke(null) })
+    call.invoke(null)
+//    val ob = io.reactivex.Observable.just(videoUrl)
+//      .flatMap {
+//        val retriever = MediaMetadataRetriever()
+//        retriever.setDataSource(it, HashMap())
+//        val bitmap = retriever.frameAtTime
+//        retriever.release()
+//        io.reactivex.Observable.just(
+//          if (bitmap.width > ScreenUtils.getScreenWidth()) {
+//            val width = ScreenUtils.getScreenWidth()
+//            val height = ScreenUtils.getScreenWidth() * 1f / bitmap.width * bitmap.height
+//            ImageUtils.compressBySampleSize(bitmap, width, height.toInt())
+//          } else {
+//            bitmap
+//          }
+//        )
+//      }
+//      .compose(RxUtils.instance.rx2SchedulerHelperO())
+//      .subscribe({ bit ->
+//        call.invoke(bit)
+//      }, { })
   }
 }

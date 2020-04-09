@@ -6,11 +6,13 @@ import android.os.Bundle
 import android.view.View
 import android.view.ViewGroup
 import androidx.annotation.IdRes
+import androidx.databinding.ViewDataBinding
 import androidx.navigation.NavController
 import androidx.navigation.fragment.navArgs
 import com.blankj.utilcode.util.BarUtils
 import com.just.agentweb.AgentWeb
 import com.just.agentweb.DefaultWebClient
+import com.yzy.baselibrary.base.NoViewModel
 import com.yzy.baselibrary.extention.getResColor
 import com.yzy.example.R
 import com.yzy.example.component.album.AlbumFragmentDirections
@@ -21,7 +23,7 @@ import com.yzy.example.extention.startNavigate
 import com.yzy.example.widget.LollipopFixedWebView
 import kotlinx.android.synthetic.main.fragment_wesite_detail.*
 
-class WebsiteDetailFragment : CommFragment() {
+class WebsiteDetailFragment : CommFragment<NoViewModel,ViewDataBinding>() {
 
     private val url: WebsiteDetailFragmentArgs by navArgs()
     //AgentWeb相关

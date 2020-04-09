@@ -1,21 +1,24 @@
 package com.yzy.example.component.main
 
 import android.view.View
+import androidx.databinding.ViewDataBinding
+import androidx.fragment.app.Fragment
 import com.blankj.utilcode.util.FragmentUtils
+import com.yzy.baselibrary.base.NoViewModel
 import com.yzy.example.R
 import com.yzy.example.component.comm.CommFragment
 import kotlinx.android.synthetic.main.fragment_main.*
 
-class MainFragment : CommFragment() {
+class MainFragment : CommFragment<NoViewModel,ViewDataBinding>() {
     override val contentLayout: Int = R.layout.fragment_main
     //页面
-    private lateinit var homeFragment: CommFragment
-    private lateinit var dynFragment: CommFragment
-    private lateinit var mineFragment: CommFragment
+    private lateinit var homeFragment: Fragment
+    private lateinit var dynFragment: Fragment
+    private lateinit var mineFragment: Fragment
     //当前页面
-    private var currentFragment: CommFragment? = null
+    private var currentFragment: Fragment? = null
     //子列表合集，方便外部调用选中那个
-    private var fragmentList = mutableListOf<CommFragment>()
+    private var fragmentList = mutableListOf<Fragment>()
 
     override fun initView(root: View?) {
         //初始化

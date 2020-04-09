@@ -11,6 +11,7 @@ import android.text.TextUtils
 import android.view.View
 import androidx.annotation.IdRes
 import androidx.core.content.ContextCompat
+import androidx.databinding.ViewDataBinding
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
 import androidx.recyclerview.widget.GridLayoutManager
@@ -35,7 +36,7 @@ import com.yzy.example.widget.GridItemDecoration
 import kotlinx.android.synthetic.main.fragment_album.*
 import java.util.*
 
-class AlbumFragment : CommFragment() {
+class AlbumFragment: CommFragment<PicSelectViewModel, ViewDataBinding> () {
 
     private val videoMinDur: Long by lazy {
         arguments?.getLong("videoMinDur") ?: (3 * 1000).toLong()

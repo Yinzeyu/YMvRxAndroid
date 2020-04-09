@@ -8,8 +8,7 @@ import com.yzy.baselibrary.base.IBaseResponse1
  *@author: YangYang.
  */
 
-data class GankBaseBean< T>(val error: Boolean, val results: T):
-    IBaseResponse1<T> {
+data class GankBaseBean< T>(val error: Boolean, val results: T): IBaseResponse1<T> {
 
     override fun data() = results
 

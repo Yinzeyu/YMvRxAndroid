@@ -5,10 +5,12 @@ import android.view.MotionEvent
 import android.view.View
 import android.view.WindowManager
 import androidx.annotation.IdRes
+import androidx.databinding.ViewDataBinding
 import androidx.navigation.NavController
 import com.blankj.utilcode.util.BarUtils
 import com.blankj.utilcode.util.KeyboardUtils
 import com.blankj.utilcode.util.SizeUtils
+import com.yzy.baselibrary.base.NoViewModel
 import com.yzy.baselibrary.extention.*
 import com.yzy.example.R
 import com.yzy.example.component.album.AlbumFragment
@@ -19,7 +21,7 @@ import kotlinx.android.synthetic.main.activity_comm_title.*
 import kotlinx.android.synthetic.main.fragment_chat.*
 import kotlinx.android.synthetic.main.layout_comm_title.*
 
-class ChatFragment : CommTitleFragment() {
+class ChatFragment : CommTitleFragment<NoViewModel,ViewDataBinding>() {
 
     companion object {
         fun startChatFragment(controller: NavController, @IdRes id: Int) {

@@ -1,12 +1,14 @@
 package com.yzy.example.component.main
 
 import android.view.View
+import androidx.databinding.ViewDataBinding
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.airbnb.epoxy.EpoxyVisibilityTracker
 import com.blankj.utilcode.util.LogUtils
 import com.blankj.utilcode.util.NetworkUtils
 import com.yzy.baselibrary.base.MvRxEpoxyController
+import com.yzy.baselibrary.base.NoViewModel
 import com.yzy.example.R
 import com.yzy.example.component.comm.CommFragment
 import com.yzy.example.component.comm.item.dividerItem
@@ -24,7 +26,7 @@ import com.yzy.example.repository.bean.GankAndroidBean
 import kotlinx.android.synthetic.main.fragment_dyn.*
 import kotlinx.android.synthetic.main.fragment_home.*
 
-class DynFragment : CommFragment() {
+class DynFragment : CommFragment<DynViewModel, ViewDataBinding>() {
 
     companion object {
         fun newInstance(): DynFragment {
@@ -34,12 +36,12 @@ class DynFragment : CommFragment() {
 
     override fun fillStatus(): Boolean = false
 
-    private val mViewModel: DynViewModel by lazy {
-        ViewModelProvider(
-            requireActivity(),
-            ViewModelFactory()
-        ).get(DynViewModel::class.java)
-    }
+//    private val viewModel: DynViewModel by lazy {
+//        ViewModelProvider(
+//            requireActivity(),
+//            ViewModelFactory()
+//        ).get(DynViewModel::class.java)
+//    }
     override val contentLayout: Int = R.layout.fragment_dyn
 
 
@@ -47,15 +49,15 @@ class DynFragment : CommFragment() {
         dynEpoxyRecycler.setController(epoxyController)
         //把加载更多全部显示出来开始回调加载更多
         EpoxyVisibilityTracker().attach(dynEpoxyRecycler)
-        mViewModel.getAndroidSuspend(true)
+        viewModel.getAndroidSuspend(true)
         smDynRefresh.setOnRefreshListener {
-            mViewModel.getAndroidSuspend(true)
+            viewModel.getAndroidSuspend(true)
         }
 
     }
 
     override fun initData() {
-        mViewModel.run {
+        viewModel.run {
             uiState.observe(this@DynFragment, Observer {
                 val showLoading = it?.showLoading ?: false
                 if (showLoading) {
@@ -100,7 +102,7 @@ class DynFragment : CommFragment() {
                         id("dyn_line_more")
                         fail(false)
                         onLoadMore {
-                            mViewModel.getAndroidSuspend(false)
+                            viewModel.getAndroidSuspend(false)
                         }
                     }
                 }
@@ -123,7 +125,7 @@ class DynFragment : CommFragment() {
                             tipsText(mContext.getString(R.string.net_error_retry))
                         }
                         onRetryClick {
-                            mViewModel.getAndroidSuspend(true)
+                            viewModel.getAndroidSuspend(true)
                         }
                     }
                     else -> LogUtils.i("初始化无数据空白")

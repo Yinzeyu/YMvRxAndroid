@@ -2,11 +2,13 @@ package com.yzy.example.component.main
 
 import android.view.Gravity
 import android.view.View
+import androidx.databinding.ViewDataBinding
 import com.yzy.example.component.playlist.PlayListFragment
 import com.yzy.example.component.playlist.PlayPagerFragment
 import com.blankj.utilcode.util.ColorUtils
 import com.blankj.utilcode.util.StringUtils
 import com.yzy.baselibrary.base.MvRxEpoxyController
+import com.yzy.baselibrary.base.NoViewModel
 import com.yzy.example.R
 import com.yzy.example.component.camera.CameraFragment
 import com.yzy.example.component.comm.CommFragment
@@ -17,7 +19,7 @@ import com.yzy.example.component.message.simpleTextItem
 import com.yzy.example.extention.startNavigate
 import kotlinx.android.synthetic.main.fragment_mine.*
 
-class MineFragment : CommFragment() {
+class MineFragment : CommFragment<NoViewModel,ViewDataBinding>() {
 
     companion object {
         fun newInstance(): MineFragment {
