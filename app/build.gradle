@@ -113,7 +113,7 @@ android.applicationVariants.all { variant ->
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation rootProject.ext.dependencies.kotlin_jdk
-    kapt rootProject.ext.dependencies.epoxyProcessor
+//    kapt rootProject.ext.dependencies.epoxyProcessor
     implementation project(":ybase")
     api 'cn.rongcloud.sdk:im_lib:2.9.18'
     kapt rootProject.ext.dependencies.glide_compiler

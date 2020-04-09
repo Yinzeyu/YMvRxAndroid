@@ -43,7 +43,6 @@ abstract class BaseFragment <VM : BaseViewModel, DB : ViewDataBinding>: Fragment
     //页面基础信息
     lateinit var mContext: Activity
     protected var rootView: FrameLayout? = null
-    private var noteView: View? = null
     override fun onAttach(context: Context) {
         super.onAttach(context)
         mContext = context as Activity
@@ -62,9 +61,8 @@ abstract class BaseFragment <VM : BaseViewModel, DB : ViewDataBinding>: Fragment
         retainInstance = true
         var view = inflater.inflate(R.layout.base_fragment, container, false)
         rootView=view.contentView
-        noteView = mContext.inflate(contentLayout)
         if (contentLayout > 0) {
-            rootView?.addView(noteView)
+            rootView?.addView(mContext.inflate(contentLayout,container,false))
         } else {
             rootView?.removeParent( )
         }

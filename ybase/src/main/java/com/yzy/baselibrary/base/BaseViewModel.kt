@@ -151,12 +151,17 @@ open class BaseViewModel : AndroidViewModel(Utils.getApp()), LifecycleObserver {
     fun <T> launchOnlyresult1(
         block: suspend CoroutineScope.() -> IBaseResponse1<T>,
         success: (T) -> Unit,
+        error: suspend CoroutineScope.(ResponseThrowable) -> Unit = {
+            defUI.errorEvent.postValue(ThrowableBean(it.code,it.errMsg))
+        },
         complete: () -> Unit = {}) {
         launchUI {
             handleException1({
                 withContext(Dispatchers.IO) { block() } },
                 { res ->
                     executeResponse1(res) { success(it) }
+                } ,{
+                    error(it)
                 },
                 {
                     complete()
@@ -186,13 +191,14 @@ open class BaseViewModel : AndroidViewModel(Utils.getApp()), LifecycleObserver {
     private suspend fun <T> handleException1(
         block: suspend CoroutineScope.() -> IBaseResponse1<T>,
         success: suspend CoroutineScope.(IBaseResponse1<T>) -> Unit,
+        error: suspend CoroutineScope.(ResponseThrowable) -> Unit,
         complete: suspend CoroutineScope.() -> Unit
     ) {
         coroutineScope {
             try {
                 success(block())
             } catch (e: Throwable) {
-                error(e)
+                error(ExceptionHandle.handleException(e))
             } finally {
                 complete()
             }

@@ -1,22 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="#f3f3f3"
-    android:orientation="vertical">
+<layout  xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <com.scwang.smart.refresh.layout.SmartRefreshLayout
-        android:id="@+id/smDynRefresh"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="#f3f3f3"
+        android:orientation="vertical">
 
-        <com.airbnb.epoxy.EpoxyRecyclerView
-            android:id="@+id/dynEpoxyRecycler"
+        <com.scwang.smart.refresh.layout.SmartRefreshLayout
+            android:id="@+id/smDynRefresh"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@color/white"
-            android:overScrollMode="never"
-            android:scrollbars="none" />
-    </com.scwang.smart.refresh.layout.SmartRefreshLayout>
+            android:layout_height="match_parent">
 
-</LinearLayout>
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/dynEpoxyRecycler"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/white"
+                android:overScrollMode="never"
+                android:scrollbars="none" />
+        </com.scwang.smart.refresh.layout.SmartRefreshLayout>
+
+    </LinearLayout>
+
+
+
+</layout>

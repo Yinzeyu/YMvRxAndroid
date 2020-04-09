@@ -10,10 +10,8 @@ import com.yzy.example.component.playlist.viewmoel.PlayListViewModel
 import com.blankj.utilcode.util.StringUtils
 import com.dueeeke.videocontroller.component.*
 import com.dueeeke.videoplayer.player.VideoView
-import com.yzy.baselibrary.base.MvRxEpoxyController
 import com.yzy.baselibrary.extention.extKeepScreenOn
 import com.yzy.baselibrary.extention.removeParent
-import com.yzy.baselibrary.extention.toast
 import com.yzy.example.R
 import com.yzy.example.component.comm.CommTitleFragment
 import com.yzy.example.repository.bean.VideoBean
@@ -80,7 +78,7 @@ class PlayListFragment : CommTitleFragment<PlayListViewModel, ViewDataBinding>()
         mController?.setEnableOrientation(true)
         mVideoView?.setVideoController(mController)
         //列表相关
-        playListRecycler.setController(epoxyController)
+//        playListRecycler.setController(epoxyController)
         playListRecycler.addOnChildAttachStateChangeListener(object :
             RecyclerView.OnChildAttachStateChangeListener {
             override fun onChildViewDetachedFromWindow(view: View) {
@@ -111,34 +109,34 @@ class PlayListFragment : CommTitleFragment<PlayListViewModel, ViewDataBinding>()
 
                 it?.success?.let { list ->
                     dismissLoadingView()
-                    epoxyController.data = list
+//                    epoxyController.data = list
                 }
             })
         }
     }
 
     //epoxy
-    private val epoxyController = MvRxEpoxyController<MutableList<VideoBean>> { state ->
-        //记录数据，方便点击的时候计算位置，因为没有添加分割线，所以不需要处理播放位置
-        mVideoList = state
-        //添加视频item
-        state.forEachIndexed { index, videoBean ->
-            videoListItem {
-                id("play_list_${videoBean.id}")
-                videoBean(videoBean)
-                onItemClick { mContext.toast(videoBean.title ?: "") }
-                onContainerClick { startPlay(mVideoList.indexOf(it)) }
-            }
-        }
-        //添加没有更多的item
-//    if (!state.hasMore) {
-//      loadMoreItem {
-//        id("play_list_more")
-//        fail(true)
-//        tipsText(StringUtils.getString(R.string.no_more_data))
-//      }
+//    private val epoxyController = MvRxEpoxyController<MutableList<VideoBean>> { state ->
+//        //记录数据，方便点击的时候计算位置，因为没有添加分割线，所以不需要处理播放位置
+//        mVideoList = state
+//        //添加视频item
+//        state.forEachIndexed { index, videoBean ->
+//            videoListItem {
+//                id("play_list_${videoBean.id}")
+//                videoBean(videoBean)
+//                onItemClick { mContext.toast(videoBean.title ?: "") }
+//                onContainerClick { startPlay(mVideoList.indexOf(it)) }
+//            }
+//        }
+//        //添加没有更多的item
+////    if (!state.hasMore) {
+////      loadMoreItem {
+////        id("play_list_more")
+////        fail(true)
+////        tipsText(StringUtils.getString(R.string.no_more_data))
+////      }
+////    }
 //    }
-    }
 
     override fun onPause() {
         super.onPause()

@@ -54,8 +54,8 @@ dependencies {
     api rootProject.ext.dependencies.multidex
     api rootProject.ext.dependencies.gson
     api rootProject.ext.dependencies.autosize
-    api rootProject.ext.dependencies.epoxy
-    kapt rootProject.ext.dependencies.epoxyProcessor
+//    api rootProject.ext.dependencies.epoxy
+//    kapt rootProject.ext.dependencies.epoxyProcessor
     api rootProject.ext.dependencies.coroutines_android
     api rootProject.ext.dependencies.lifecycle_viewmodel_ktx
     api rootProject.ext.dependencies.lifecycle_livedata_ktx

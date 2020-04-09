@@ -16,13 +16,11 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.airbnb.epoxy.EpoxyAdapter
 import com.blankj.utilcode.util.BarUtils
 import com.blankj.utilcode.util.SizeUtils
 import com.yzy.baselibrary.extention.*
 import com.yzy.example.R
 import com.yzy.example.component.comm.CommFragment
-import com.yzy.example.component.comm.item.DividerItem_
 import com.yzy.example.component.main.MainActivity
 import com.yzy.example.extention.options
 import com.yzy.example.repository.bean.AlbumBean
@@ -81,8 +79,8 @@ class AlbumFragment: CommFragment<PicSelectViewModel, ViewDataBinding> () {
     private var animRecycler: ObjectAnimator? = null
     private var animArrow: ObjectAnimator? = null
     private var animOver: ObjectAnimator? = null
-    private var dirAdapter: DirAdapter? = null
-    private var imgAdapter: ImgAdapter? = null
+//    private var dirAdapter: DirAdapter? = null
+//    private var imgAdapter: ImgAdapter? = null
 
 
     companion object {
@@ -131,17 +129,17 @@ class AlbumFragment: CommFragment<PicSelectViewModel, ViewDataBinding> () {
             mixing = isMixing
         )
         picSelOver.click { if (isOpen) changeDirState() }
-        dirAdapter = DirAdapter()
-        picDirRecycler.adapter = dirAdapter
-        picDirRecycler.layoutManager = LinearLayoutManager(mContext)
+//        dirAdapter = DirAdapter()
+//        picDirRecycler.adapter = dirAdapter
+//        picDirRecycler.layoutManager = LinearLayoutManager(mContext)
         val dec = GridItemDecoration(mContext)
         dec.setHorizontalDivider(ContextCompat.getDrawable(mContext, R.drawable.divider_horizontal))
         dec.setVerticalDivider(ContextCompat.getDrawable(mContext, R.drawable.divider_vertical))
         dec.setNeedDraw(true)
         picSelRecycler.addItemDecoration(dec)
-        imgAdapter = ImgAdapter()
-        picSelRecycler.adapter = imgAdapter
-        picSelRecycler.layoutManager = GridLayoutManager(mContext, 4)
+//        imgAdapter = ImgAdapter()
+//        picSelRecycler.adapter = imgAdapter
+//        picSelRecycler.layoutManager = GridLayoutManager(mContext, 4)
         picSelOver.alpha = 0f
         picSelTitleArrow.post {
             picDirRecycler.post {
@@ -168,227 +166,227 @@ class AlbumFragment: CommFragment<PicSelectViewModel, ViewDataBinding> () {
                     picSelTitleConfirm.isEnabled = false
                     picSelTitleConfirm.alpha = 0.2f
                 }
-                dirAdapter?.setData(it.data, it.selectIndex)
-                imgAdapter?.setData(
-                    it,
-                    mContext,
-                    maxPicSize,
-                    viewModel,
-                    isOnlyOne,
-                    isMixing,
-                    isNeedCut,
-                    mOnCameraListener, callBack = {
-
-                    },
-                    cutCallBack = { mediaTemp ->
-                        mCutMedia = mediaTemp
-                        mediaTemp.path?.let { path ->
-                            PicCutFragment.startPicCutFragment(
-                              rootView,
-                                path,
-                                needCutSquare,
-                                needCutLayerCircle
-                            )
-                        }
-
-                    }
-                )
+//                dirAdapter?.setData(it.data, it.selectIndex)
+//                imgAdapter?.setData(
+//                    it,
+//                    mContext,
+//                    maxPicSize,
+//                    viewModel,
+//                    isOnlyOne,
+//                    isMixing,
+//                    isNeedCut,
+//                    mOnCameraListener, callBack = {
+//
+//                    },
+//                    cutCallBack = { mediaTemp ->
+//                        mCutMedia = mediaTemp
+//                        mediaTemp.path?.let { path ->
+//                            PicCutFragment.startPicCutFragment(
+//                              rootView,
+//                                path,
+//                                needCutSquare,
+//                                needCutLayerCircle
+//                            )
+//                        }
+//
+//                    }
+//                )
             }
         })
-        dirAdapter?.selectClick = {
-            viewModel.loadPicsInDir(it)
-            changeDirState()
-        }
+//        dirAdapter?.selectClick = {
+//            viewModel.loadPicsInDir(it)
+//            changeDirState()
+//        }
     }
 
-    class DirAdapter : EpoxyAdapter() {
-        var selectClick: ((String) -> Unit)? = null
-        fun setData(data: MutableList<LocalMediaFolder>, selectIndex: Int) {
-            removeAllModels()
-            //文件夹遍历
-            data.forEachIndexed { index, dir ->
-                dir.isChecked = index == selectIndex
-                addModels(PicDirItem_().apply {
-                    id(dir.path + "_dir_" + (dir.checkedNum))
-                    mediaDir(dir)
-                    onItemClick {
-                        selectClick?.invoke(dir.path ?: "")
+//    class DirAdapter : EpoxyAdapter() {
+//        var selectClick: ((String) -> Unit)? = null
+//        fun setData(data: MutableList<LocalMediaFolder>, selectIndex: Int) {
+//            removeAllModels()
+//            //文件夹遍历
+////            data.forEachIndexed { index, dir ->
+////                dir.isChecked = index == selectIndex
+////                addModels(PicDirItem_().apply {
+////                    id(dir.path + "_dir_" + (dir.checkedNum))
+////                    mediaDir(dir)
+////                    onItemClick {
+////                        selectClick?.invoke(dir.path ?: "")
+////
+////                    }
+////                })
+////                addModels(DividerItem_().apply {
+////                    id(dir.path + "_dir_line")
+////                    leftMarginDp(16f)
+////                    rightMarginDp(16f)
+////                })
+////            }
+//
+//        }
+//    }
 
-                    }
-                })
-                addModels(DividerItem_().apply {
-                    id(dir.path + "_dir_line")
-                    leftMarginDp(16f)
-                    rightMarginDp(16f)
-                })
-            }
-
-        }
-    }
-
-    class ImgAdapter : EpoxyAdapter() {
-        fun setData(
-            albumBean: AlbumBean,
-            mContext: Context,
-            maxPicSize: Int,
-            mViewModel: PicSelectViewModel,
-            isOnlyOne: Boolean,
-            isMixing: Boolean,
-            isNeedCut: Boolean,
-            mOnCameraListener: CameraUtils.OnCameraListener,
-            callBack: (() -> Unit)? = null,
-            cutCallBack: ((media: LocalMedia) -> Unit)? = null
-        ) {
-            removeAllModels()
-            if (albumBean.selectIndex == 0) {
-                //添加添加item
-                addModels(PicCameraItem_().apply {
-                    id("0_itemCamera")
-                    onItemClick {
-                        if (mViewModel.getSelectMedias().size >= maxPicSize) {
-                            mContext.toast("最多只能选择${maxPicSize}张")
-                        } else {
-                            if (CameraUtils.mCameraListener != mOnCameraListener) {
-                                CameraUtils.mCameraListener = mOnCameraListener
-                            }
-                            CameraUtils.requestPermissionCamera(mContext as MainActivity, false)
-                        }
-                    }
-                }.spanSizeOverride { _, _, _ -> 1 })
-
-            }
-            //防止手机没有图片
-            if (albumBean.data.size > albumBean.selectIndex) {
-                //文件遍历
-                albumBean.data[albumBean.selectIndex].images?.let { imgs ->
-                    imgs.forEachIndexed { index, media ->
-                        addModels(PicImgItem_().apply {
-                            id(albumBean.selectIndex.toString() + media.path)
-                            onlySelOne(isOnlyOne)
-                            mixing(isMixing)
-                            localMedia(media)
-                            checkedIndex(
-                                if (imgs[index].isChecked) {
-                                    mViewModel.getSelectMedias().indexOfFirst {
-                                        TextUtils.equals(
-                                            imgs[index].path,
-                                            it.path
-                                        )
-                                    } + 1
-                                } else 0)
-                            onItemClick { mediaTemp ->
-                                if (mediaTemp.isVideo) {//视频
-                                    if (isNeedCut) {
-                                        mContext.toast("进入视频裁切页面")
-                                    } else {
-                                        if (mViewModel.getSelectMedias().size > 0 && !isMixing) {
-                                            mContext.toast("照片和视频不能同时选择")
-                                            return@onItemClick
-                                        }
-                                        val list: ArrayList<LocalMedia> = arrayListOf()
-                                        list.add(mediaTemp)
-                                        PicTempLiveData.setSelectPicList(mViewModel.getSelectMedias())
-//                                        PicComponent.startPicSee(list, maxPicSize, isMixing)
-                                    }
-                                } else {//图片
-                                    if (isOnlyOne && isNeedCut) {
-                                        cutCallBack?.invoke(mediaTemp)
-                                    } else if (isOnlyOne && !isNeedCut) {
-                                        val list: MutableList<LocalMedia> = mutableListOf()
-                                        list.add(mediaTemp)
-                                        PicSelLiveData.setSelectPicList(list)
-                                        callBack?.invoke()
-                                    } else {
-                                        PicTempLiveData.setSelectPicList(mViewModel.getSelectMedias())
-                                        PicPagerLiveData.setPagerListData(index, imgs)
-//                                        PicComponent.startPicSee(null, maxPicSize, isMixing)
-                                    }
-                                }
-                            }
-                            onClickCheck { _, view ->
-                                val mediaTemp = imgs[index]
-                                //选择的是视频
-                                if (mediaTemp.isVideo) {
-                                    if (mViewModel.getSelectMedias().size > 0 && !isMixing) {
-                                        mContext.toast("照片和视频不能同时选择")
-                                    } else if (!isNeedCut) {
-                                        if (mViewModel.getSelectMedias().size >= maxPicSize && !mediaTemp.isChecked) {
-                                            mContext.toast("最多只能选择${maxPicSize}个")
-                                        } else if (isMixing) {
-                                            startAnim(mediaTemp.isChecked, view)
-                                            val newMedia =
-                                                mediaTemp.copy(isChecked = !mediaTemp.isChecked)
-                                            Collections.replaceAll(imgs, mediaTemp, newMedia)
-                                            mViewModel.changeMediaChecked(
-                                                albumBean.selectIndex,
-                                                newMedia
-                                            )
-                                            notifyDataSetChanged()
-                                        } else {
-                                            val list: MutableList<LocalMedia> = mutableListOf()
-                                            list.add(mediaTemp)
-                                            PicSelLiveData.setSelectPicList(list)
-                                            callBack?.invoke()
-                                        }
-                                    } else {
-                                        //TODO
-                                        mContext.toast("进入视频裁切页面")
-                                        return@onClickCheck
-                                    }
-                                } else {
-                                    if (mViewModel.getSelectMedias().size >= maxPicSize && !mediaTemp.isChecked) {
-                                        mContext.toast("最多只能选择$maxPicSize${if (isMixing) "个" else "张"}")
-                                    } else {
-                                        startAnim(mediaTemp.isChecked, view)
-                                        val newMedia =
-                                            mediaTemp.copy(isChecked = !mediaTemp.isChecked)
-                                        imgs[index] = newMedia
-                                        mViewModel.changeMediaChecked(
-                                            albumBean.selectIndex,
-                                            newMedia
-                                        )
-                                        notifyDataSetChanged()
-                                    }
-                                }
-                            }
-                        }.spanSizeOverride { _, _, _ -> 1 })
-
-                    }
-                }
-            }
-        }
-
-        private fun startAnim(
-            oldHasChecked: Boolean,
-            view: View
-        ) {
-            val iv: View? = view.findViewById(R.id.itemPicCheckIv)
-            val tv: View? = view.findViewById(R.id.itemPicCheckTv)
-            if (iv != null && tv != null) {
-                if (oldHasChecked) {
-                    iv.clearAnimation()
-                    tv.clearAnimation()
-                    iv.scaleX = 1f
-                    iv.scaleY = 1f
-                    tv.scaleX = 1f
-                    tv.scaleY = 1f
-                } else {
-                    iv.scaleX = 0.8f
-                    iv.scaleY = 0.8f
-                    tv.scaleX = 0.8f
-                    tv.scaleY = 0.8f
-                    iv.animate()
-                        .scaleX(1f)
-                        .scaleY(1f)
-                        .start()
-                    tv.animate()
-                        .scaleX(1f)
-                        .scaleY(1f)
-                        .start()
-                }
-            }
-        }
-    }
+//    class ImgAdapter : EpoxyAdapter() {
+//        fun setData(
+//            albumBean: AlbumBean,
+//            mContext: Context,
+//            maxPicSize: Int,
+//            mViewModel: PicSelectViewModel,
+//            isOnlyOne: Boolean,
+//            isMixing: Boolean,
+//            isNeedCut: Boolean,
+//            mOnCameraListener: CameraUtils.OnCameraListener,
+//            callBack: (() -> Unit)? = null,
+//            cutCallBack: ((media: LocalMedia) -> Unit)? = null
+//        ) {
+//            removeAllModels()
+//            if (albumBean.selectIndex == 0) {
+//                //添加添加item
+//                addModels(PicCameraItem_().apply {
+//                    id("0_itemCamera")
+//                    onItemClick {
+//                        if (mViewModel.getSelectMedias().size >= maxPicSize) {
+//                            mContext.toast("最多只能选择${maxPicSize}张")
+//                        } else {
+//                            if (CameraUtils.mCameraListener != mOnCameraListener) {
+//                                CameraUtils.mCameraListener = mOnCameraListener
+//                            }
+//                            CameraUtils.requestPermissionCamera(mContext as MainActivity, false)
+//                        }
+//                    }
+//                }.spanSizeOverride { _, _, _ -> 1 })
+//
+//            }
+//            //防止手机没有图片
+//            if (albumBean.data.size > albumBean.selectIndex) {
+//                //文件遍历
+//                albumBean.data[albumBean.selectIndex].images?.let { imgs ->
+//                    imgs.forEachIndexed { index, media ->
+////                        addModels(PicImgItem_().apply {
+////                            id(albumBean.selectIndex.toString() + media.path)
+////                            onlySelOne(isOnlyOne)
+////                            mixing(isMixing)
+////                            localMedia(media)
+////                            checkedIndex(
+////                                if (imgs[index].isChecked) {
+////                                    mViewModel.getSelectMedias().indexOfFirst {
+////                                        TextUtils.equals(
+////                                            imgs[index].path,
+////                                            it.path
+////                                        )
+////                                    } + 1
+////                                } else 0)
+////                            onItemClick { mediaTemp ->
+////                                if (mediaTemp.isVideo) {//视频
+////                                    if (isNeedCut) {
+////                                        mContext.toast("进入视频裁切页面")
+////                                    } else {
+////                                        if (mViewModel.getSelectMedias().size > 0 && !isMixing) {
+////                                            mContext.toast("照片和视频不能同时选择")
+////                                            return@onItemClick
+////                                        }
+////                                        val list: ArrayList<LocalMedia> = arrayListOf()
+////                                        list.add(mediaTemp)
+////                                        PicTempLiveData.setSelectPicList(mViewModel.getSelectMedias())
+//////                                        PicComponent.startPicSee(list, maxPicSize, isMixing)
+////                                    }
+////                                } else {//图片
+////                                    if (isOnlyOne && isNeedCut) {
+////                                        cutCallBack?.invoke(mediaTemp)
+////                                    } else if (isOnlyOne && !isNeedCut) {
+////                                        val list: MutableList<LocalMedia> = mutableListOf()
+////                                        list.add(mediaTemp)
+////                                        PicSelLiveData.setSelectPicList(list)
+////                                        callBack?.invoke()
+////                                    } else {
+////                                        PicTempLiveData.setSelectPicList(mViewModel.getSelectMedias())
+////                                        PicPagerLiveData.setPagerListData(index, imgs)
+//////                                        PicComponent.startPicSee(null, maxPicSize, isMixing)
+////                                    }
+////                                }
+////                            }
+////                            onClickCheck { _, view ->
+////                                val mediaTemp = imgs[index]
+////                                //选择的是视频
+////                                if (mediaTemp.isVideo) {
+////                                    if (mViewModel.getSelectMedias().size > 0 && !isMixing) {
+////                                        mContext.toast("照片和视频不能同时选择")
+////                                    } else if (!isNeedCut) {
+////                                        if (mViewModel.getSelectMedias().size >= maxPicSize && !mediaTemp.isChecked) {
+////                                            mContext.toast("最多只能选择${maxPicSize}个")
+////                                        } else if (isMixing) {
+////                                            startAnim(mediaTemp.isChecked, view)
+////                                            val newMedia =
+////                                                mediaTemp.copy(isChecked = !mediaTemp.isChecked)
+////                                            Collections.replaceAll(imgs, mediaTemp, newMedia)
+////                                            mViewModel.changeMediaChecked(
+////                                                albumBean.selectIndex,
+////                                                newMedia
+////                                            )
+////                                            notifyDataSetChanged()
+////                                        } else {
+////                                            val list: MutableList<LocalMedia> = mutableListOf()
+////                                            list.add(mediaTemp)
+////                                            PicSelLiveData.setSelectPicList(list)
+////                                            callBack?.invoke()
+////                                        }
+////                                    } else {
+////                                        //TODO
+////                                        mContext.toast("进入视频裁切页面")
+////                                        return@onClickCheck
+////                                    }
+////                                } else {
+////                                    if (mViewModel.getSelectMedias().size >= maxPicSize && !mediaTemp.isChecked) {
+////                                        mContext.toast("最多只能选择$maxPicSize${if (isMixing) "个" else "张"}")
+////                                    } else {
+////                                        startAnim(mediaTemp.isChecked, view)
+////                                        val newMedia =
+////                                            mediaTemp.copy(isChecked = !mediaTemp.isChecked)
+////                                        imgs[index] = newMedia
+////                                        mViewModel.changeMediaChecked(
+////                                            albumBean.selectIndex,
+////                                            newMedia
+////                                        )
+////                                        notifyDataSetChanged()
+////                                    }
+////                                }
+////                            }
+////                        }.spanSizeOverride { _, _, _ -> 1 })
+//
+//                    }
+//                }
+//            }
+//        }
+//
+//        private fun startAnim(
+//            oldHasChecked: Boolean,
+//            view: View
+//        ) {
+//            val iv: View? = view.findViewById(R.id.itemPicCheckIv)
+//            val tv: View? = view.findViewById(R.id.itemPicCheckTv)
+//            if (iv != null && tv != null) {
+//                if (oldHasChecked) {
+//                    iv.clearAnimation()
+//                    tv.clearAnimation()
+//                    iv.scaleX = 1f
+//                    iv.scaleY = 1f
+//                    tv.scaleX = 1f
+//                    tv.scaleY = 1f
+//                } else {
+//                    iv.scaleX = 0.8f
+//                    iv.scaleY = 0.8f
+//                    tv.scaleX = 0.8f
+//                    tv.scaleY = 0.8f
+//                    iv.animate()
+//                        .scaleX(1f)
+//                        .scaleY(1f)
+//                        .start()
+//                    tv.animate()
+//                        .scaleX(1f)
+//                        .scaleY(1f)
+//                        .start()
+//                }
+//            }
+//        }
+//    }
 
     private val mOnCameraListener = object : CameraUtils.OnCameraListener {
         override fun onSuccess() {

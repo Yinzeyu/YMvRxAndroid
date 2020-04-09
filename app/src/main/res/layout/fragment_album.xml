@@ -66,7 +66,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
         <!--图片列表-->
-        <com.airbnb.epoxy.EpoxyRecyclerView
+        <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/picSelRecycler"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -79,7 +79,7 @@
             android:background="@color/black_60"
             android:visibility="gone" />
         <!--文件夹列表-->
-        <com.airbnb.epoxy.EpoxyRecyclerView
+        <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/picDirRecycler"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
