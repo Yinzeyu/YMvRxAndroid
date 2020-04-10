@@ -2,8 +2,6 @@ package com.yzy.example.utils.permisstions
 
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
-import com.yzy.example.utils.permisstions.InlinePermissionResult
-import com.yzy.example.utils.permisstions.InlineRequestPermissionException
 import com.yzy.example.utils.permisstions.callbacks.FailCallback
 import com.yzy.example.utils.permisstions.callbacks.SuccessCallback
 import kotlin.coroutines.resume
