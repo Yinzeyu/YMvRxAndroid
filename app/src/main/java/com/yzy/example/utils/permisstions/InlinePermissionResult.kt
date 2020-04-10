@@ -63,7 +63,7 @@ class InlinePermissionResult {
         return this
     }
     fun onFail(callback: FailCallback): InlinePermissionResult {
-        callback?.let {
+        callback.let {
             failCallbacks.add(it)
         }
         return this

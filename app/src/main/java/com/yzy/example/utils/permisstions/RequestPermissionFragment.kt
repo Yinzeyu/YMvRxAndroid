@@ -3,7 +3,7 @@ package com.yzy.example.utils.permisstions
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 
-class RequestPermissionFragment : Fragment{
+class RequestPermissionFragment : Fragment() {
     private lateinit var permissions:Array<String>
     private var listener: RequestPermissionsListener? = null
     companion object{
@@ -18,7 +18,7 @@ class RequestPermissionFragment : Fragment{
         }
     }
 
-    constructor(){
+    init {
         retainInstance = true
     }
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -38,9 +38,7 @@ class RequestPermissionFragment : Fragment{
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
         if (requestCode== REQUEST_CODE){
-            listener?.let {
-                it.onRequestPermissions(requestCode,permissions, grantResults)
-            }
+            listener?.onRequestPermissions(requestCode,permissions, grantResults)
             removeFragment()
         }
     }
@@ -49,7 +47,7 @@ class RequestPermissionFragment : Fragment{
         return this
     }
     private fun removeFragment(){
-        fragmentManager?.beginTransaction()?.remove(this)?.commitAllowingStateLoss()
+        parentFragmentManager.beginTransaction().remove(this).commitAllowingStateLoss()
     }
     interface RequestPermissionsListener{
         fun onRequestPermissions(requestCode: Int, permissions: Array<out String>, grantResults: IntArray)

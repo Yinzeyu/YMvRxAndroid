@@ -59,12 +59,6 @@ class NewGankViewModel : BaseViewModel() {
                         hasMore = (it.data.datas ?: mutableListOf()).size == pageSize
                     )
                     uiState.value=bannerAndArticleBean
-
-//                    emitArticleUiState(
-//                        showLoading = false,
-//                        isRefresh = false,
-//                        success = bannerAndArticleBean
-//                    )
                     page++
                 }
         }
