@@ -3,15 +3,15 @@
 # YMvRxAndroid(采用AndroidX)
 ##### 准备实践框架
 整体架构采用
-Retrofit+okHttp+Gson+coroutines +LiveData +ViewModel 网络请求模块
-使用 navigation +fragment 实现单activity  多Fragment 
+##### Retrofit+okHttp+Gson+coroutines +LiveData +ViewModel 网络请求模块
+##### 使用 navigation +fragment 实现单activity  多Fragment 
+##### 使用 LiveEventBus 做消息事件
 使用了[干货集中营开源API](http://gank.io/api)和[玩Android开源API](https://www.wanandroid.com/blog/show/2)
 
 三方库|描述
 :-:|:-:
 **[lottie-android](https://github.com/airbnb/lottie-android)**|AE动画库
 **[utilcode](https://github.com/Blankj/AndroidUtilCode/blob/master/lib/utilcode/README-CN.md)**|超强工具合集
-**[RxAndroid](https://github.com/ReactiveX/RxAndroid)**|Android线程切换+Rxjava
 **[AndroidAutoSize](https://github.com/JessYanCoding/AndroidAutoSize)**|今日头条UI适配方案
 **[LiveEventBus](https://github.com/JeremyLiao/LiveEventBus)**|跨进程通信、跨APP通信、自动取消订阅
 
