@@ -75,11 +75,7 @@ abstract class BaseActivity<VM : BaseViewModel, DB : ViewDataBinding>  : AppComp
         CleanLeakUtils.instance.fixInputMethodManagerLeak(this)
         super.onDestroy()
     }
-
-    /** 获取 ViewModel */
-    fun <T : ViewModel> getViewModel(clazz: Class<T>): T =
-        ViewModelProvider(this, ViewModelProvider.NewInstanceFactory()).get(clazz)
-
+    
     fun getFragmentListLast(): Fragment =
         supportFragmentManager.fragments.first().childFragmentManager.fragments.last()
 

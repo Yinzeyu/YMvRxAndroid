@@ -36,6 +36,7 @@ class CustomNavHostFragment : NavHostFragment() {
             destination: Destination, args: Bundle?,
             navOptions: NavOptions?, navigatorExtras: Navigator.Extras?
         ): NavDestination? {
+
             try {
                 // 反射获取mBackStack mIsPendingBackStackOperation
                 val mBackStackField = FragmentNavigator::class.java.getDeclaredField("mBackStack")
@@ -51,7 +52,10 @@ class CustomNavHostFragment : NavHostFragment() {
                     //Log.i("TAG", "Ignoring navigate() call: FragmentManager has already" + " saved its state")
 //                    return null
 //                }
-                val stateSaved = mFragmentManager.isStateSaved
+                if (mFragmentManager.isStateSaved){
+                    NavigateManager.instance.setDestination(destination)
+                    return null
+                }
                 var className = destination.className
                 if (className[0] == '.') {
                     className = mContext.packageName + className
@@ -87,7 +91,6 @@ class CustomNavHostFragment : NavHostFragment() {
                 } else {
                     ft.show(frag)
                 }
-
                 ft.setPrimaryNavigationFragment(frag)
 
                 @IdRes val destId = destination.id
@@ -127,20 +130,26 @@ class CustomNavHostFragment : NavHostFragment() {
                     }
                 }
                 ft.setReorderingAllowed(true)
-                if (stateSaved){
-                    ft.commitAllowingStateLoss()
-                }else{
-                    ft.commit()
-                }
-                // The commit succeeded, update our view of the world
+//                if (stateSaved){
+//                    ft.commitAllowingStateLoss()
+//                }else{
+                    ft.commitNow()
+//                }
                 return if (isAdded) {
                     mBackStack.add(destId)
                     destination
                 } else {
                     null
                 }
+                // The commit succeeded, update our view of the world
+
             } catch (e: Throwable) {
-                return super.navigate(destination, args, navOptions, navigatorExtras)
+                var primaryNavigationFragment = mFragmentManager.primaryNavigationFragment as? BaseFragment<*,*>
+                LogUtils.e("destination"+destination)
+                    NavigateManager.instance.setDestination(destination)
+                primaryNavigationFragment?.setVis()
+                LogUtils.e("destination"+e.message)
+                return null
             }
         }
 

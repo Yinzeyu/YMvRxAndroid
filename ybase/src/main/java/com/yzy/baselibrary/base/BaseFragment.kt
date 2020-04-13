@@ -17,6 +17,7 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.Navigation
+import com.blankj.utilcode.util.LogUtils
 import com.yzy.baselibrary.R
 import com.yzy.baselibrary.extention.StatusBarHelper
 import com.yzy.baselibrary.extention.backgroundColor
@@ -33,9 +34,11 @@ import java.lang.reflect.ParameterizedType
  *@date 2019/7/15
  *@author: yzy.
  */
-abstract class BaseFragment <VM : BaseViewModel, DB : ViewDataBinding>: Fragment(), CoroutineScope by MainScope() {
-     lateinit var viewModel: VM
+abstract class BaseFragment<VM : BaseViewModel, DB : ViewDataBinding> : Fragment(),
+    CoroutineScope by MainScope() {
+    lateinit var viewModel: VM
     private var mBinding: DB? = null
+
     //是否第一次加载
     private var isFirst: Boolean = true
 
@@ -60,20 +63,23 @@ abstract class BaseFragment <VM : BaseViewModel, DB : ViewDataBinding>: Fragment
     ): View? {
         retainInstance = true
         var view = inflater.inflate(R.layout.base_fragment, container, false)
-        rootView=view.contentView
+        rootView = view.contentView
         if (contentLayout > 0) {
-            rootView?.addView(mContext.inflate(contentLayout,container,false))
+            rootView?.addView(mContext.inflate(contentLayout, container, false))
         } else {
-            rootView?.removeParent( )
+            rootView?.removeParent()
         }
         view.baseStatusView?.let {
-            it.layoutParams.height =  if (fillStatus()) StatusBarHelper.getStatusBarHeight(mContext) else 0
-            it.backgroundColor =statusColor()
+            it.layoutParams.height =
+                if (fillStatus()) StatusBarHelper.getStatusBarHeight(mContext) else 0
+            it.backgroundColor = statusColor()
         }
-        val cls = (javaClass.genericSuperclass as ParameterizedType).actualTypeArguments[1] as Class<*>
+        val cls =
+            (javaClass.genericSuperclass as ParameterizedType).actualTypeArguments[1] as Class<*>
         if (ViewDataBinding::class.java != cls && ViewDataBinding::class.java.isAssignableFrom(cls)) {
             mBinding = DataBindingUtil.bind(view)
-            view= mBinding?.root
+            mBinding?.lifecycleOwner = this
+            view = mBinding?.root
         }
         return view
     }
@@ -91,11 +97,38 @@ abstract class BaseFragment <VM : BaseViewModel, DB : ViewDataBinding>: Fragment
         initView(view)
         initData()
     }
+
+    private var isShow: Boolean = false
     override fun onResume() {
         super.onResume()
         onVisible()
+        if (isShow) {
+            if (NavigateManager.instance.getDestination() != null) {
+                NavigateManager.instance.getDestination()?.let {
+                    rootView?.let { it1 ->
+                        Navigation.findNavController(it1).navigate(
+                            it.id
+                        )
+                    }
+                    NavigateManager.instance.setDestination(null)
+                    isShow = false
+                }
+            }
+        }
     }
 
+
+//    override fun onSaveInstanceState(outState: Bundle) {
+//
+//        if (this.isAdded){
+//            LogUtils.e("mFragment",this.javaClass.name)
+//            parentFragmentManager.putFragment(outState, "mFragment", this);
+//        }
+//        super.onSaveInstanceState(outState)
+//    }
+    fun  setVis(){
+    isShow=true
+}
     /**
      * 是否需要懒加载
      */
@@ -110,6 +143,7 @@ abstract class BaseFragment <VM : BaseViewModel, DB : ViewDataBinding>: Fragment
      * 懒加载
      */
     open fun lazyLoadData() {}
+
     /**
      * 创建 ViewModel
      */
@@ -122,6 +156,7 @@ abstract class BaseFragment <VM : BaseViewModel, DB : ViewDataBinding>: Fragment
             viewModel = ViewModelProvider(this, ViewModelFactory()).get(tClass) as VM
         }
     }
+
     /**
      * 初始化View
      */
@@ -140,9 +175,11 @@ abstract class BaseFragment <VM : BaseViewModel, DB : ViewDataBinding>: Fragment
     protected open fun fillStatus(): Boolean {
         return true
     }
+
     protected open fun statusColor(): Int {
         return Color.TRANSPARENT
     }
+
     protected open fun isBack(): Boolean {
         return true
     }
@@ -157,6 +194,6 @@ abstract class BaseFragment <VM : BaseViewModel, DB : ViewDataBinding>: Fragment
 
 
     open fun onBackPressed() {
-        (mContext as BaseActivity<*,*>).onBackPressed()
+        (mContext as BaseActivity<*, *>).onBackPressed()
     }
 }

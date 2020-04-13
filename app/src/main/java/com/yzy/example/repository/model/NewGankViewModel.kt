@@ -23,6 +23,7 @@ class NewGankViewModel : BaseViewModel() {
     private val ganRepository: GankRepository by lazy { GankRepository() }
     private var articleBean: MutableList<ArticleBean> = mutableListOf()
 
+//    private  var repository  =repository(GankRepository::class.java)
 
     var uiState = MutableLiveData<BannerAndArticleBean>()
     @ExperimentalCoroutinesApi

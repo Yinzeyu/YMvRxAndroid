@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-  android:id="@+id/mainRootView"
+    android:id="@+id/mainRootView"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-        <androidx.fragment.app.FragmentContainerView
+    <androidx.fragment.app.FragmentContainerView
         android:id="@+id/nav_fragment"
         android:name="com.yzy.baselibrary.base.CustomNavHostFragment"
         android:layout_width="match_parent"

@@ -1,18 +1,18 @@
 package com.yzy.example.repository
 
-import com.yzy.baselibrary.http.RetrofitAPi
+import com.yzy.baselibrary.base.BaseRepository
 import com.yzy.example.http.response.BaseResponse
 import com.yzy.example.repository.bean.*
 import com.yzy.example.repository.service.GankService
 
 class GankRepository : BaseRepository() {
-    private object SingletonHolder {
-        val holder = GankRepository()
-    }
-
-    companion object {
-        val instance = SingletonHolder.holder
-    }
+//    private object SingletonHolder {
+//        val holder = GankRepository()
+//    }
+//
+//    companion object {
+//        val instance = SingletonHolder.holder
+//    }
     private val service: GankService =mAPi.getApi(GankService::class.java)
 
     suspend fun getAndroidSuspend(

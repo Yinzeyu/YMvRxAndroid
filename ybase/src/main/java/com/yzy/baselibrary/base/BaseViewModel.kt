@@ -1,8 +1,6 @@
 package com.yzy.baselibrary.base
 
-import androidx.lifecycle.AndroidViewModel
-import androidx.lifecycle.LifecycleObserver
-import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.*
 import com.blankj.utilcode.util.Utils
 import com.yzy.baselibrary.http.ExceptionHandle
 import com.yzy.baselibrary.http.ResponseThrowable
@@ -14,6 +12,7 @@ import kotlinx.coroutines.flow.flow
 
 
 open class BaseViewModel : AndroidViewModel(Utils.getApp()), LifecycleObserver {
+//    fun <T : BaseRepository> repository(clazz: Class<T>): T =  clazz.newInstance()
 
     val defUI: UIChange by lazy { UIChange() }
 

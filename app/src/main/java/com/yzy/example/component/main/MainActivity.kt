@@ -9,11 +9,13 @@ import androidx.navigation.Navigation
 import androidx.databinding.ViewDataBinding
 import com.blankj.utilcode.util.ActivityUtils
 import com.yzy.baselibrary.base.BaseFragment
+import com.yzy.baselibrary.base.NavigateManager
 import com.yzy.baselibrary.base.NoViewModel
 import com.yzy.baselibrary.extention.startActivity
 import com.yzy.baselibrary.extention.toast
 import com.yzy.example.R
 import com.yzy.example.component.comm.CommActivity
+import kotlinx.android.synthetic.main.activity_main.*
 
 
 class MainActivity : CommActivity<NoViewModel, ViewDataBinding>() {
@@ -23,6 +25,8 @@ class MainActivity : CommActivity<NoViewModel, ViewDataBinding>() {
             context.startActivity<MainActivity>()
         }
     }
+
+
 
     //不设置状态栏填充，即显示全屏
     override fun layoutResId(): Int = R.layout.activity_main
@@ -54,6 +58,7 @@ class MainActivity : CommActivity<NoViewModel, ViewDataBinding>() {
     fun registerMyTouchListener(listener: MyTouchListener) {
         myTouchListeners.add(listener)
     }
+
     /**
      * 提供给Fragment通过getActivity()方法来取消注册自己的触摸事件的方法
      * @param listener
@@ -76,7 +81,7 @@ class MainActivity : CommActivity<NoViewModel, ViewDataBinding>() {
         super.onActivityResult(requestCode, resultCode, data)
         try {
             getFragmentListLast().let {
-                if (it is BaseFragment<*,*>) {
+                if (it is BaseFragment<*, *>) {
                     it.onFragmentResult(requestCode, resultCode, data)
                 }
             }
