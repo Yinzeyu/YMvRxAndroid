@@ -1,4 +1,4 @@
-package com.yzy.example.component.main.item
+package com.yzy.example.component.main
 
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.viewholder.BaseDataBindingHolder
@@ -13,7 +13,6 @@ import com.yzy.example.repository.bean.ArticleBean
  */
 class HomeListAdapter : BaseQuickAdapter<ArticleBean, BaseDataBindingHolder<ItemArticleListBinding>>(R.layout.item_article_list) {
     override fun convert(holder: BaseDataBindingHolder<ItemArticleListBinding>, item: ArticleBean) {
-//        holder.dataBinding?.itemBean =item
         holder.dataBinding?.setVariable(BR.itemBean, item);
         holder.dataBinding?.executePendingBindings()
     }

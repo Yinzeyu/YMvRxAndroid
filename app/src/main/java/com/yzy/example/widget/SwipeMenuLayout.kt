@@ -11,6 +11,7 @@ import androidx.core.animation.addListener
 import androidx.core.view.isGone
 import com.yzy.baselibrary.extention.onEnd
 import com.yzy.example.R
+import kotlin.math.abs
 
 
 class SwipeMenuLayout @JvmOverloads constructor(
@@ -22,20 +23,26 @@ class SwipeMenuLayout @JvmOverloads constructor(
     private var mMaxVelocity = 0//计算滑动速度用
     private var mPointerId = 0//多点触摸只算第一根手指的速度
     private var mHeight = 0//自己的高度
+
     //右侧菜单宽度总和(最大滑动距离)
     private var mRightMenuWidths = 0
+
     //滑动判定临界值（右侧菜单宽度的40%） 手指抬起时，超过了展开，没超过收起menu
     private var mLimit = 0
     private var mContentView: View? = null //存储contentView(第一个View)
     private val mLastP = PointF()//上一次的xy
+
     //增加一个布尔值变量，dispatch函数里，每次down时，为true，move时判断，如果是滑动动作，设为false。
     //在Intercept函数的up时，判断这个变量，如果仍为true 说明是点击事件，则关闭菜单。
     private var isUnMoved = true // 仿QQ，侧滑菜单展开时，点击除侧滑菜单之外的区域，关闭侧滑菜单。
+
     //up-down的坐标，判断是否是滑动，如果是，则屏蔽一切点击事件
     private val mFirstP = PointF()//判断手指起始落点，如果距离属于滑动了，就屏蔽一切点击事件。
     private var isUserSwiped = false
+
     //存储的是当前正在展开的View
     private var mViewCache: SwipeMenuLayout? = null
+
     //防止多只手指一起滑我的flag 在每次down里判断， touch事件结束清空
     private var isTouching = false
     private var mVelocityTracker: VelocityTracker? = null  //滑动速度变量
@@ -273,7 +280,7 @@ class SwipeMenuLayout @JvmOverloads constructor(
 //求伪瞬时速度
                         verTracker.computeCurrentVelocity(1000, mMaxVelocity.toFloat())
                         val velocityX = verTracker.getXVelocity(mPointerId)
-                        if (Math.abs(velocityX) > 1000) { //滑动速度超过阈值
+                        if (abs(velocityX) > 1000) { //滑动速度超过阈值
                             if (velocityX < -1000) {
                                 if (isLeftSwipe) { //左滑
 //平滑展开Menu
@@ -362,6 +369,7 @@ class SwipeMenuLayout @JvmOverloads constructor(
      * 平滑展开
      */
     private var mExpandAnim: ValueAnimator? = null
+
     /**
      * 平滑展开
      */

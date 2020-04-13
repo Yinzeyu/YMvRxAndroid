@@ -6,13 +6,7 @@ import androidx.lifecycle.Observer
 //import com.yzy.baselibrary.base.MvRxEpoxyController
 import com.yzy.example.R
 import com.yzy.example.component.comm.CommFragment
-import com.yzy.example.component.main.model.DynViewModel
 import com.yzy.example.databinding.FragmentDynBinding
-import com.yzy.example.extention.startNavigate
-import com.yzy.example.http.response.ApiException
-import com.yzy.example.http.response.EmptyException
-import com.yzy.example.repository.bean.BaseDataBean
-import com.yzy.example.repository.bean.GankAndroidBean
 import kotlinx.android.synthetic.main.fragment_dyn.*
 
 class DynFragment : CommFragment<DynViewModel, FragmentDynBinding>() {

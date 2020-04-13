@@ -26,13 +26,14 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <TextView
+        <com.yzy.example.widget.CommonShapeTextView
             android:id="@+id/splashTime"
             android:layout_width="30dp"
             android:layout_height="30dp"
             android:layout_marginTop="5dp"
             android:layout_marginEnd="5dp"
-            android:background="@drawable/shape_half_dark_green"
+            app:csb_fillColor="@color/style_Primary"
+            app:csb_cornerRadius="1000dp"
             android:gravity="center"
             android:textColor="@color/white"
             android:textSize="20sp"

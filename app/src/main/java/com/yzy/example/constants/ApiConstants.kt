@@ -21,9 +21,6 @@ interface ApiConstants {
                 HTTPS + REL
             }
 
-            //下面是外部访问需要的地址
-            val H5_PROTOCOL_USER = "$H5_PREFIX/$AGREEMENT/user.html"//用户协议
-            val H5_APP = H5_PREFIX + ""//分享出去的APP链接
         }
     }
 }

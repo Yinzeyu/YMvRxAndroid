@@ -1,4 +1,4 @@
-package com.yzy.example.component.main.model
+package com.yzy.example.component.main
 
 
 import androidx.lifecycle.viewModelScope

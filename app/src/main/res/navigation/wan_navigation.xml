@@ -25,33 +25,8 @@
         <action
             android:id="@+id/action_mainFragment_to_websiteDetailFragment"
             app:destination="@id/websiteDetailFragment" />
-
-        <action
-            android:id="@+id/action_mainFragment_to_chatFragment"
-            app:destination="@id/chatFragment" />
-
-        <action
-            android:id="@+id/action_mainFragment_to_cameraFragment"
-            app:destination="@id/cameraFragment" />
-
-        <action
-            android:id="@+id/action_match_to_in_game_nav_graph"
-            app:destination="@id/form" />
-
-        <action
-            android:id="@+id/action_mainFragment_to_fFmpegFragment"
-            app:destination="@id/fFmpegFragment" />
-        <action
-            android:id="@+id/action_mainFragment_to_playListFragment"
-            app:destination="@id/playListFragment" />
-
-        <action
-            android:id="@+id/action_mainFragment_to_playPagerFragment"
-            app:destination="@id/playPagerFragment" />
-
     </tab_fragment>
 
-    <include app:graph="@navigation/form" />
 
 
     <tab_fragment
@@ -63,85 +38,5 @@
             android:name="url"
             android:defaultValue="value"
             app:argType="string" />
-    </tab_fragment>
-
-
-    <tab_fragment
-        android:id="@+id/chatFragment"
-        android:name="com.yzy.example.component.message.ChatFragment"
-        android:label="chatFragment"
-        tools:layout="@layout/fragment_chat">
-        <action
-            android:id="@+id/action_chatFragment_to_albumFragment"
-            app:destination="@id/albumFragment" />
-    </tab_fragment>
-
-    <tab_fragment
-        android:id="@+id/albumFragment"
-        android:name="com.yzy.example.component.album.AlbumFragment"
-        android:label="AlbumFragment"
-        tools:layout="@layout/fragment_album">
-        <action
-            android:id="@+id/action_albumFragment_to_picCutFragment"
-            app:destination="@id/picCutFragment" />
-    </tab_fragment>
-
-    <tab_fragment
-        android:id="@+id/picCutFragment"
-        android:name="com.yzy.example.component.album.PicCutFragment"
-        android:label="PicCutFragment"
-        tools:layout="@layout/fragment_pic_cut">
-        <argument
-            android:name="imageUrl"
-            android:defaultValue="value"
-            app:argType="string" />
-
-        <argument
-            android:name="square"
-            android:defaultValue="false"
-            app:argType="boolean" />
-        <argument
-            android:name="layerCircle"
-            android:defaultValue="false"
-            app:argType="boolean" />
-    </tab_fragment>
-
-    <tab_fragment
-        android:id="@+id/cameraFragment"
-        android:name="com.yzy.example.component.camera.CameraFragment"
-        android:label="CameraFragment"
-        tools:layout="@layout/fragment_camera_layout" />
-
-    <tab_fragment
-        android:id="@+id/playListFragment"
-        android:name="com.yzy.example.component.playlist.PlayListFragment"
-        android:label="PlayListFragment"
-        tools:layout="@layout/activity_play_list" />
-
-    <tab_fragment
-        android:id="@+id/playPagerFragment"
-        android:name="com.yzy.example.component.playlist.PlayPagerFragment"
-        android:label="PlayPagerFragment"
-        tools:layout="@layout/activity_play_pager" />
-
-    <tab_fragment
-        android:id="@+id/fFmpegFragment"
-        android:name="com.yzy.example.component.ffmpeg.FFmpegFragment"
-        android:label="FFmpegFragment"
-        tools:layout="@layout/activity_rxffmpeg" >
-        <action
-            android:id="@+id/action_fFmpegFragment_to_videoDetailFragment"
-            app:destination="@id/videoDetailFragment" />
-    </tab_fragment>
-
-
-    <tab_fragment
-        android:id="@+id/videoDetailFragment"
-        android:name="com.yzy.example.component.ffmpeg.VideoDetailFragment"
-        android:label="VideoDetailFragment"
-        tools:layout="@layout/activity_video_detail" >
-        <argument android:name="video_url"
-            android:defaultValue="value"
-            app:argType="string"/>
     </tab_fragment>
 </navigation>

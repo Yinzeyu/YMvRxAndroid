@@ -2,24 +2,16 @@ package com.yzy.example.component.web
 
 import android.annotation.SuppressLint
 import android.graphics.Color
-import android.os.Bundle
 import android.view.View
 import android.view.ViewGroup
-import androidx.annotation.IdRes
 import androidx.databinding.ViewDataBinding
-import androidx.navigation.NavController
 import androidx.navigation.fragment.navArgs
-import com.blankj.utilcode.util.BarUtils
 import com.just.agentweb.AgentWeb
 import com.just.agentweb.DefaultWebClient
 import com.yzy.baselibrary.base.NoViewModel
 import com.yzy.baselibrary.extention.getResColor
 import com.yzy.example.R
-import com.yzy.example.component.album.AlbumFragmentDirections
 import com.yzy.example.component.comm.CommFragment
-import com.yzy.example.component.main.MainFragmentDirections
-import com.yzy.example.extention.options
-import com.yzy.example.extention.startNavigate
 import com.yzy.example.widget.LollipopFixedWebView
 import kotlinx.android.synthetic.main.fragment_wesite_detail.*
 

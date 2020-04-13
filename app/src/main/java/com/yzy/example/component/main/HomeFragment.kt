@@ -4,7 +4,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
-import androidx.databinding.ViewDataBinding
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -12,7 +11,6 @@ import androidx.viewpager2.widget.CompositePageTransformer
 import com.yzy.baselibrary.extention.inflate
 import com.yzy.example.R
 import com.yzy.example.component.comm.CommFragment
-import com.yzy.example.component.main.item.HomeListAdapter
 import com.yzy.example.databinding.FragmentHomeBinding
 import com.yzy.example.extention.load
 import com.yzy.example.repository.bean.BannerBean

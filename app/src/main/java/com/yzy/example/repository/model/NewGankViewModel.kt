@@ -22,8 +22,6 @@ class NewGankViewModel : BaseViewModel() {
     private var pageSize = 20
     private val ganRepository: GankRepository by lazy { GankRepository() }
     private var articleBean: MutableList<ArticleBean> = mutableListOf()
-//    private val _bannerAndArticleResult: BaseLiveData<BaseUiModel<BannerAndArticleBean>> = BaseLiveData()
-//    val uiState: BaseLiveData<BaseUiModel<BannerAndArticleBean>> get() = _bannerAndArticleResult
 
 
     var uiState = MutableLiveData<BannerAndArticleBean>()
@@ -64,17 +62,5 @@ class NewGankViewModel : BaseViewModel() {
         }
         return uiState
     }
-//    private fun emitArticleUiState(
-//        showLoading: Boolean = false,
-//        isRefresh: Boolean = false,
-//        success: BannerAndArticleBean? = null
-//    ) {
-//        val uiModel = BaseUiModel(showLoading =showLoading, success = success)
-//        viewModelScope.launch {
-//            withContext(Dispatchers.Main) {
-//                _bannerAndArticleResult.value=uiModel
-//            }
-//        }
-//    }
 }
 
