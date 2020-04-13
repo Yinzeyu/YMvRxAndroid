@@ -33,7 +33,7 @@
 ##  2020/4/13
 ##### 删除MvRx epoxy 采用databinding  来构建mvvm
 ##### 删除MMKV 因为项目不大的话，采用MMKV 会增加apk 大小直接采用SharePreferences 做数据存储
-
+##### 删除除主页外，其他所有模块，从新开发
 
 
 ##  2019/1/9
