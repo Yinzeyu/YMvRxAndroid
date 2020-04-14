@@ -2,6 +2,7 @@ package com.yzy.baselibrary.base
 
 import android.content.Intent
 import android.os.Bundle
+import android.view.MotionEvent
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
@@ -12,6 +13,7 @@ import com.yzy.baselibrary.extention.StatusBarHelper
 import com.yzy.baselibrary.extention.StatusBarHelper.translucent
 import com.yzy.baselibrary.toast.YToast
 import com.yzy.baselibrary.utils.CleanLeakUtils
+import com.yzy.baselibrary.utils.MyTouchListener
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.cancel
@@ -70,7 +72,34 @@ abstract class BaseActivity : AppCompatActivity(), CoroutineScope by MainScope()
             e.printStackTrace()
         }
     }
+    // 保存MyTouchListener接口的列表
+    private val myTouchListeners = mutableListOf<MyTouchListener>()
 
+    /**
+     * 提供给Fragment通过getActivity()方法来注册自己的触摸事件的方法
+     * @param listener
+     */
+    fun registerMyTouchListener(listener: MyTouchListener) {
+        myTouchListeners.add(listener)
+    }
+
+    /**
+     * 提供给Fragment通过getActivity()方法来取消注册自己的触摸事件的方法
+     * @param listener
+     */
+    fun unRegisterMyTouchListener(listener: MyTouchListener?) {
+        myTouchListeners.remove(listener)
+    }
+
+    /**
+     * 分发触摸事件给所有注册了MyTouchListener的接口
+     */
+    override fun dispatchTouchEvent(ev: MotionEvent?): Boolean {
+        for (listener in myTouchListeners) {
+            listener.onTouchEvent(ev)
+        }
+        return super.dispatchTouchEvent(ev)
+    }
 
     /**
      * 页面内容布局resId
