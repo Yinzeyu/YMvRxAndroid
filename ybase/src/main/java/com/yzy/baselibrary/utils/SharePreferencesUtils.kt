@@ -11,7 +11,7 @@ import com.yzy.baselibrary.app.BaseApplication
  */
 object SharePreferencesUtils {
     private const val SHARED_PREFERENCES_NAME = "com.base.share.preference"
-    private val sp = BaseApplication.getApp().getSharedPreferences(SHARED_PREFERENCES_NAME, Context.MODE_PRIVATE)
+    private val sp = BaseApplication.instance().getSharedPreferences(SHARED_PREFERENCES_NAME, Context.MODE_PRIVATE)
     @JvmStatic
     fun saveString( key: String, value: String) {
         sp.edit { putString(key, value) }

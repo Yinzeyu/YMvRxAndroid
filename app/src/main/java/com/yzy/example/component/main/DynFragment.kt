@@ -5,9 +5,10 @@ import androidx.lifecycle.Observer
 import com.yzy.example.R
 import com.yzy.example.component.comm.CommFragment
 import kotlinx.android.synthetic.main.fragment_dyn.*
+import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.FlowPreview
 
-class DynFragment(override val contentLayout: Int=R.layout.fragment_dyn) : CommFragment<DynViewModel>() {
-
+class DynFragment() : CommFragment<DynViewModel>() {
     companion object {
         fun newInstance(): DynFragment {
             return DynFragment()
@@ -15,9 +16,9 @@ class DynFragment(override val contentLayout: Int=R.layout.fragment_dyn) : CommF
     }
 
     override fun fillStatus(): Boolean = false
+    override fun layoutResContentId(): Int =R.layout.fragment_dyn
 
-
-    override fun initView(root: View?) {
+    override fun initContentView() {
         viewModel.getAndroidSuspend(true)
         smDynRefresh.setOnRefreshListener {
             viewModel.getAndroidSuspend(true)

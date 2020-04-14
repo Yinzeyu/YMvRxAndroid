@@ -1,15 +1,16 @@
 package com.yzy.example.component.main
 
-import android.view.View
-import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.Fragment
+import androidx.navigation.Navigation
 import com.blankj.utilcode.util.FragmentUtils
+import com.blankj.utilcode.util.LogUtils
 import com.yzy.baselibrary.base.NoViewModel
+import com.yzy.baselibrary.extention.click
 import com.yzy.example.R
 import com.yzy.example.component.comm.CommFragment
 import kotlinx.android.synthetic.main.fragment_main.*
 
-class MainFragment(override val contentLayout: Int=R.layout.fragment_main) : CommFragment<NoViewModel>() {
+class MainFragment : CommFragment<NoViewModel>() {
     //页面
     private lateinit var homeFragment: Fragment
     private lateinit var dynFragment: Fragment
@@ -18,8 +19,16 @@ class MainFragment(override val contentLayout: Int=R.layout.fragment_main) : Com
     private var currentFragment: Fragment? = null
     //子列表合集，方便外部调用选中那个
     private var fragmentList = mutableListOf<Fragment>()
-    override fun initView(root: View?) {
-        //初始化
+    override fun layoutResContentId(): Int =R.layout.fragment_main
+
+    override fun initContentView() {
+//        LogUtils.e("initContentView")
+//        btn.click {
+//            Navigation.findNavController(it).navigate(  MainFragmentDirections.actionMainFragmentToWebsiteDetailFragment(" https:\\/\\/blog.csdn.net\\/HarryWeasley\\/article\\/details\\/105363078"))
+//        }
+
+
+//        初始化
         homeFragment = HomeFragment.newInstance()
         dynFragment = DynFragment.newInstance()
         mineFragment = MineFragment.newInstance()
@@ -43,7 +52,7 @@ class MainFragment(override val contentLayout: Int=R.layout.fragment_main) : Com
     override fun initData() {
     }
 
-    //设置选中的fragment
+//    设置选中的fragment
     private fun selectFragment(@androidx.annotation.IntRange(from = 0, to = 2) index: Int) {
         //需要显示的fragment
         val fragment = fragmentList[index]

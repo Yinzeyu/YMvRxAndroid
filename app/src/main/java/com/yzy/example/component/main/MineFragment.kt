@@ -1,12 +1,10 @@
 package com.yzy.example.component.main
 
-import android.view.View
-import androidx.databinding.ViewDataBinding
 import com.yzy.baselibrary.base.NoViewModel
 import com.yzy.example.R
 import com.yzy.example.component.comm.CommFragment
 
-class MineFragment(override val contentLayout: Int = R.layout.fragment_mine) : CommFragment<NoViewModel>() {
+class MineFragment : CommFragment<NoViewModel>() {
 
     companion object {
         fun newInstance(): MineFragment {
@@ -15,8 +13,9 @@ class MineFragment(override val contentLayout: Int = R.layout.fragment_mine) : C
     }
 
     override fun fillStatus(): Boolean = false
+    override fun layoutResContentId(): Int =R.layout.fragment_mine
 
-    override fun initView(root: View?) {
+    override fun initContentView() {
     }
 
     override fun initData() {

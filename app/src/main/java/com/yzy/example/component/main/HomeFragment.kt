@@ -5,6 +5,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import androidx.lifecycle.Observer
+import androidx.navigation.Navigation
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.CompositePageTransformer
 import com.yzy.baselibrary.extention.inflate
@@ -32,12 +34,12 @@ class HomeFragment : CommFragment<NewGankViewModel>() {
 
     override fun fillStatus(): Boolean = true
 
-    override val contentLayout: Int = R.layout.fragment_home
+
+    override fun layoutResContentId(): Int =R.layout.fragment_home
+
     @FlowPreview
     @ExperimentalCoroutinesApi
-    override fun initView(root: View?) {
-        setRootView(contentView)
-        setTitleBarHeight(baseStatusView)
+    override fun initContentView() {
         smRefresh.setOnRefreshListener {
             viewModel.getBanner(true)
         }
@@ -46,6 +48,8 @@ class HomeFragment : CommFragment<NewGankViewModel>() {
 
     override fun initData() {
         with(rv_home) {
+            layoutManager=LinearLayoutManager(mContext)
+            adapter=mAdapter
            val  bannerView = mContext.inflate(R.layout.item_banner)
            banner= bannerView.itemBanner
            banner.mViewPager2?.setPageTransformer(CompositePageTransformer())
@@ -57,9 +61,9 @@ class HomeFragment : CommFragment<NewGankViewModel>() {
             addLoadMoreModule.setOnLoadMoreListener {
 
             }
-            setOnItemClickListener { adapter, _, position ->
+            setOnItemClickListener { adapter, v, position ->
                 val bean:ArticleBean = adapter.data[position] as ArticleBean
-                startNavigate(view, MainFragmentDirections.actionMainFragmentToWebsiteDetailFragment(bean.link ?: ""))
+                Navigation.findNavController(v).navigate( MainFragmentDirections.actionMainFragmentToWebsiteDetailFragment(bean.link ?: ""))
             }
         }
         viewModel.uiState.observe(viewLifecycleOwner, Observer {
@@ -74,15 +78,6 @@ class HomeFragment : CommFragment<NewGankViewModel>() {
                     mAdapter.setList(it.articleBean)
         })
 
-        viewModel.defUI.showDialog.observe(this, Observer {
-//            if (!viewController!!.hasRestore) {
-//                showLoadingView()
-//            }
-        })
-
-        viewModel.defUI.dismissDialog.observe(this, Observer {
-//            dismissLoadingView()
-        })
     }
 
     private class ViewPagerAdapter(var list: MutableList<BannerBean>) :
@@ -111,5 +106,7 @@ class HomeFragment : CommFragment<NewGankViewModel>() {
 
         }
     }
+
+
 
 }

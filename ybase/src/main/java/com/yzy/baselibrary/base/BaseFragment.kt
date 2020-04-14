@@ -11,6 +11,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.NavHostFragment
 import com.yzy.baselibrary.extention.StatusBarHelper
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.MainScope
@@ -70,11 +71,6 @@ abstract class BaseFragment<VM : BaseViewModel<*>> : Fragment(),
         super.onResume()
         onVisible()
     }
-
-    fun statusBarHeight(view: View) {
-        view.layoutParams.height = view.height + StatusBarHelper.getStatusBarHeight(mContext)
-    }
-
     /**
      * 是否需要懒加载
      */

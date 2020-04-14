@@ -1,7 +1,7 @@
 package com.yzy.example.component.main
 
 
-import com.yzy.baselibrary.base.BaseLiveData
+import androidx.lifecycle.MutableLiveData
 import com.yzy.baselibrary.base.BaseViewModel
 import com.yzy.example.repository.GankRepository
 import com.yzy.example.repository.bean.BaseDataBean
@@ -11,9 +11,9 @@ class DynViewModel : BaseViewModel<GankRepository>() {
     private var page = 1
     private var pageSize = 20
     private var articleBean: MutableList<GankAndroidBean> = mutableListOf()
-    private val _bannerAndArticleResult: BaseLiveData<BaseUiModel<BaseDataBean<MutableList<GankAndroidBean>>>> =
-        BaseLiveData()
-    val uiState: BaseLiveData<BaseUiModel<BaseDataBean<MutableList<GankAndroidBean>>>> get() = _bannerAndArticleResult
+    private val _bannerAndArticleResult: MutableLiveData<BaseUiModel<BaseDataBean<MutableList<GankAndroidBean>>>> =
+        MutableLiveData()
+    val uiState: MutableLiveData<BaseUiModel<BaseDataBean<MutableList<GankAndroidBean>>>> get() = _bannerAndArticleResult
     fun getAndroidSuspend(isRefresh: Boolean = false) {
 
         emitArticleUiState(true)
@@ -35,6 +35,6 @@ class DynViewModel : BaseViewModel<GankRepository>() {
         success: BaseDataBean<MutableList<GankAndroidBean>>? = null
     ) {
         val uiModel = BaseUiModel(showLoading = showLoading, success = success)
-        _bannerAndArticleResult.update(uiModel)
+        _bannerAndArticleResult.value=uiModel
     }
 }

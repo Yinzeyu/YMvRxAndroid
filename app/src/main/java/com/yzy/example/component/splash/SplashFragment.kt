@@ -5,8 +5,12 @@ import android.Manifest
 import android.util.Log
 import android.view.View
 import androidx.databinding.ViewDataBinding
+import androidx.navigation.Navigation
 import com.blankj.utilcode.constant.PermissionConstants
 import com.blankj.utilcode.util.PermissionUtils
+import com.yzy.baselibrary.base.BaseActivity
+import com.yzy.baselibrary.base.BaseFragment
+import com.yzy.baselibrary.base.NavigationHelper
 import com.yzy.baselibrary.base.NoViewModel
 import com.yzy.example.extention.load
 import com.yzy.baselibrary.extention.toast
@@ -19,7 +23,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
-class SplashFragment(override val contentLayout: Int= R.layout.fragment_splash) : CommFragment<NoViewModel>() {
+class SplashFragment : CommFragment<NoViewModel>() {
 
     //是否有SD卡读写权限
     private var hasSDPermission: Boolean? = null
@@ -28,9 +32,9 @@ class SplashFragment(override val contentLayout: Int= R.layout.fragment_splash) 
     private var countDownFinish: Boolean? = null
 
     override fun fillStatus(): Boolean = false
-    override fun initView(root: View?) {
-//        hasFinish = checkReOpenHome()
-//        if (hasFinish) return
+    override fun layoutResContentId(): Int = R.layout.fragment_splash
+
+    override fun initContentView() {
         iv_sp.load("http://pic1.win4000.com/pic/7/0f/2cab03e09e.jpg")
         launch(Dispatchers.Main) {
             for (i in 5 downTo 1) {
@@ -44,7 +48,7 @@ class SplashFragment(override val contentLayout: Int= R.layout.fragment_splash) 
     }
 
     override fun onRestartNavigate() {
-        startNavigate(clRootView,R.id.action_splashFragment_to_mainFragment)
+        Navigation.findNavController(rootView).navigate(R.id.action_rootFragment_to_middleFragment)
     }
 
     override fun initData() {
@@ -95,7 +99,9 @@ class SplashFragment(override val contentLayout: Int= R.layout.fragment_splash) 
             }
         }
         if (!isNavigate){
-            startNavigate(clRootView, R.id.action_splashFragment_to_mainFragment)
+            Navigation.findNavController(rootView).navigate(R.id.action_rootFragment_to_middleFragment)
+//           NavigationHelper.navigateUp(rootView,R.id.action_splashFragment_to_mainFragment)
+//            mNavController.navigate(R.id.mainFragment)
         }
 
     }

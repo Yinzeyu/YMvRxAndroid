@@ -1,16 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/mainRootView"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-
-    <androidx.fragment.app.FragmentContainerView
-        android:id="@+id/nav_fragment"
-        android:name="com.yzy.baselibrary.base.CustomNavHostFragment"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        app:defaultNavHost="true"
-        app:navGraph="@navigation/wan_navigation" />
-</FrameLayout>
+    <fragment
+        android:id="@+id/fragment"
+        android:name="androidx.navigation.fragment.NavHostFragment"
+        android:layout_width="0dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_height="0dp"
+        app:defaultNavHost="true" />
+<!--    <androidx.fragment.app.FragmentContainerView-->
+<!--        android:id="@+id/nav_fragment"-->
+<!--        android:name="androidx.navigation.fragment.NavHostFragment"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="match_parent"-->
+<!--        android:orientation="vertical"-->
+<!--        app:defaultNavHost="true"-->
+<!--        app:navGraph="@navigation/wan_navigation" />-->
+</androidx.constraintlayout.widget.ConstraintLayout>

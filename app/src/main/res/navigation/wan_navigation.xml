@@ -10,12 +10,21 @@
         android:label="splashFragment"
         tools:layout="@layout/fragment_splash">
         <action
-            android:id="@+id/action_splashFragment_to_mainFragment"
+            android:id="@+id/action_rootFragment_to_middleFragment"
             app:destination="@id/mainFragment"
+            app:enterAnim="@anim/slide_right_in"
+            app:exitAnim="@anim/slide_right_out"
+            app:popEnterAnim="@anim/slide_left_in"
+            app:popExitAnim="@anim/slide_left_in"
             app:popUpTo="@id/splashFragment"
             app:popUpToInclusive="true"
-            app:launchSingleTop="true"
             />
+<!--        <action-->
+<!--            android:id="@+id/action_splashFragment_to_mainFragment"-->
+<!--            app:destination="@id/mainFragment"-->
+<!--            app:popUpTo="@id/splashFragment"-->
+<!--            app:popUpToInclusive="true"-->
+<!--            />-->
     </tab_fragment>
     <tab_fragment
         android:id="@+id/mainFragment"

@@ -15,7 +15,7 @@ import com.yzy.example.component.comm.CommFragment
 import com.yzy.example.widget.LollipopFixedWebView
 import kotlinx.android.synthetic.main.fragment_wesite_detail.*
 
-class WebsiteDetailFragment(override val contentLayout: Int= R.layout.fragment_wesite_detail) : CommFragment<NoViewModel>() {
+class WebsiteDetailFragment : CommFragment<NoViewModel>() {
 
     private val url: WebsiteDetailFragmentArgs by navArgs()
     //AgentWeb相关
@@ -24,7 +24,10 @@ class WebsiteDetailFragment(override val contentLayout: Int= R.layout.fragment_w
 
     override fun statusColor(): Int = Color.parseColor("#008577")
 
-    override fun initView(root: View?) {
+    override fun layoutResContentId(): Int =R.layout.fragment_wesite_detail
+    override fun layoutTitleContentId(): Int =R.layout.web_fragment_title
+
+    override fun initContentView() {
         webRootView.removeAllViews()
         initAgentBuilder()
     }

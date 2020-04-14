@@ -41,10 +41,6 @@ abstract class BaseApplication : Application() {
     abstract fun baseInitCreate()
 
     companion object {
-        fun getApp(): BaseApplication {
-            return Utils.getApp() as BaseApplication
-        }
-
         fun instance(): BaseApplication {
             return Utils.getApp() as BaseApplication
         }

@@ -80,7 +80,7 @@ fun ImageView.load(
 
 fun ImageView.load(url: String?, placeholderId: Int = 0, config: ImageConfig) {
     url?.let {
-        config.context = BaseApplication.getApp()
+        config.context = BaseApplication.instance()
         config.imageView = this
         config.url = url
         config.errorSrc = placeholderId
@@ -95,7 +95,7 @@ fun ImageView.load(url: String?, placeholderId: Int = 0, config: ImageConfig) {
  */
 fun ImageView.load(config: ImageConfig) {
     config.url?.let {
-        config.context = BaseApplication.getApp()
+        config.context = BaseApplication.instance()
         config.imageView = this
         loader.loadImage(config)
     }

@@ -8,7 +8,9 @@ import androidx.navigation.NavDirections
 import androidx.navigation.NavOptions
 import androidx.navigation.Navigation
 import androidx.navigation.navOptions
+import com.yzy.baselibrary.base.BaseActivity
 import com.yzy.example.R
+import com.yzy.example.component.main.MainActivity
 
 //当前属于弹出栈
 //app:popUpToInclusive="true/false"
@@ -35,14 +37,12 @@ val options = navOptions {
 //    popUpTo = R.id.categoryFragment
 }
 
-fun startNavigate(view: View?, @IdRes resId: Int, args: Bundle? = null) {
-    view?.let {
-        Navigation.findNavController(it).navigate(resId, args)
-    }
+fun startNavigate(activity: MainActivity, @IdRes resId: Int, args: Bundle? = null) {
+    val rootView = activity.getRootView()
+     Navigation.findNavController(rootView).navigate(resId, args)
 }
 
-fun startNavigate(view: View?,  navDirections: NavDirections) {
-    view?.let {
-        Navigation.findNavController(it).navigate(navDirections)
-    }
+fun startNavigate(activity: MainActivity,  navDirections: NavDirections) {
+    val rootView = activity.getRootView()
+        Navigation.findNavController(rootView).navigate(navDirections)
 }
