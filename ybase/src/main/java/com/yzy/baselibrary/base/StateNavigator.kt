@@ -12,7 +12,7 @@ import androidx.navigation.fragment.FragmentNavigator
 import java.util.*
 
 @Navigator.Name("tab_fragment")
-class KeepStateNavigator(
+class StateNavigator(
     private val mContext: Context,
     private val mFragmentManager: FragmentManager,
     private val mContainerId: Int
@@ -23,18 +23,13 @@ class KeepStateNavigator(
         navOptions: NavOptions?,
         navigatorExtras: Navigator.Extras?
     ): NavDestination?{
-
             try {
-                // 反射获取mBackStack mIsPendingBackStackOperation
+                // 反射获取mBackStack
                 val mBackStackField = FragmentNavigator::class.java.getDeclaredField("mBackStack")
                 mBackStackField.isAccessible = true
 
                 @Suppress("UNCHECKED_CAST")
                 val mBackStack: ArrayDeque<Int> = mBackStackField.get(this) as ArrayDeque<Int>
-
-//                val mIsPendingBackStackOperationField =
-//                    FragmentNavigator::class.java.getDeclaredField("mIsPendingBackStackOperation")
-//                mIsPendingBackStackOperationField.isAccessible = true
                 if (mFragmentManager.isStateSaved) {
                     Log.i(
                         "TAG",
@@ -128,119 +123,3 @@ class KeepStateNavigator(
         }
 
 }
-
-//    override fun popBackStack(): Boolean {
-//        if (mBackStack.isEmpty()) {
-//            return false
-//        }
-//        //        if (manager.getBackStackEntryCount() > 0) {
-////            manager.popBackStack(
-////                    generateBackStackName(mBackStack.size(), mBackStack.peekLast()),
-////                    FragmentManager.POP_BACK_STACK_INCLUSIVE);
-////        } // else, we're on the first Fragment, so there's nothing to pop from FragmentManager
-//        val removeTag = mBackStack.removeLast()
-//        return doNavigate(removeTag)
-//    }
-//
-//    /**
-//     * 使用场景：A 打开 B, B 打开 C。然后需要关闭 B
-//     *
-//     * @param destId 是在 Navigation 节点中 keep_state_fragment 中的 id 值，不能是 action 的 id！！！
-//     * @return true 移除成功，false 移除失败
-//     */
-//    fun closeMiddle(destId: Int): Boolean {
-//        val removeTag = destId.toString()
-//        if (!mBackStack.contains(removeTag)) {
-//            return false
-//        }
-//        val remove = mBackStack.remove(removeTag)
-//        return if (remove) {
-//            doNavigate(removeTag)
-//        } else {
-//            false
-//        }
-//    }
-//
-//    /**
-//     * 使用场景：A 打开 B，B 打开 C。在返回过程中，需要跳过 B 直接回到 A。
-//     *
-//     * @param destId 是在 Navigation 节点中 keep_state_fragment 中的 id 值，不能是 action 的 id！！！
-//     * @return true 移除成功，false 移除失败
-//     */
-//    fun navigateUp(destId: Int): Boolean {
-//        val distTag = destId.toString()
-//        if (!mBackStack.contains(distTag)) {
-//            return false
-//        }
-//        val transaction = manager.beginTransaction()
-//        while (!mBackStack.isEmpty()) {
-//            val tmp = mBackStack.last
-//            val fragmentByTag = manager.findFragmentByTag(tmp)
-//            if (tmp == distTag) {
-//                if (fragmentByTag != null) {
-//                    transaction.show(fragmentByTag)
-//                    transaction.setPrimaryNavigationFragment(fragmentByTag)
-//                    transaction.setReorderingAllowed(true)
-//                }
-//                break
-//            }
-//            if (fragmentByTag != null) {
-//                mBackStack.removeLast()
-//                transaction.remove(fragmentByTag)
-//            }
-//        }
-//        if (manager.isStateSaved) {
-//            transaction.commitNowAllowingStateLoss()
-//        } else {
-//            transaction.commit()
-//        }
-//        return true
-//    }
-//
-//    /**
-//     * 移除 Fragment 并把当前栈顶的 Fragment 显示出来。
-//     *
-//     * @param removeTag 待移除 Fragment tag
-//     * @return true 移除成功，false 移除失败
-//     */
-//    private fun doNavigate(removeTag: String): Boolean {
-//        val transaction = manager.beginTransaction()
-//        val removeFrag = manager.findFragmentByTag(removeTag)
-//        if (removeFrag != null) {
-//            transaction.remove(removeFrag)
-//        } else {
-//            return false
-//        }
-//        try {
-//            val showTag = mBackStack.last
-//            val showFrag = manager.findFragmentByTag(showTag)
-//            if (showFrag != null) {
-//                transaction.show(showFrag)
-//                transaction.setPrimaryNavigationFragment(showFrag)
-//                transaction.setReorderingAllowed(true)
-//                val stateSaved = manager.isStateSaved
-//                Log.d(
-//                    TAG,
-//                    "popBackStack: 当前是否在进行状态保存$stateSaved"
-//                )
-//                if (stateSaved) {
-//                    transaction.commitNowAllowingStateLoss()
-//                } else {
-//                    transaction.commitNow()
-//                }
-//            } else {
-//                return false
-//            }
-//        } catch (e: Exception) {
-//            e.printStackTrace()
-//            return false
-//        }
-//        return true
-//    }
-//
-//    companion object {
-//        const val NODE_NAME = "tab_fragment"
-//        private const val TAG = "KeepStateNavigator"
-//    }
-
-//}

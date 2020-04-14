@@ -2,12 +2,11 @@ package com.yzy.example.component.main
 
 import android.content.Context
 import androidx.constraintlayout.widget.ConstraintLayout
-import androidx.fragment.app.FragmentContainerView
 import androidx.navigation.Navigation
 import androidx.navigation.fragment.NavHostFragment
 import com.blankj.utilcode.util.ActivityUtils
 import com.yzy.baselibrary.base.BaseActivity
-import com.yzy.baselibrary.base.KeepStateNavigator
+import com.yzy.baselibrary.base.StateNavigator
 import com.yzy.baselibrary.extention.startActivity
 import com.yzy.baselibrary.extention.toast
 import com.yzy.example.R
@@ -26,7 +25,7 @@ class MainActivity : BaseActivity() {
     override fun initView() {
         val navController = Navigation.findNavController(this, R.id.fragment)
         val navHostFragment = supportFragmentManager.findFragmentById(R.id.fragment) as NavHostFragment?
-        val navigator = KeepStateNavigator(this, navHostFragment!!.childFragmentManager, R.id.fragment)
+        val navigator = StateNavigator(this, navHostFragment!!.childFragmentManager, R.id.fragment)
         navController.navigatorProvider.addNavigator(navigator)
         navController.setGraph(R.navigation.wan_navigation)
     }

@@ -3,21 +3,15 @@ package com.yzy.example.component.splash
 
 import android.Manifest
 import android.util.Log
-import android.view.View
-import androidx.databinding.ViewDataBinding
 import androidx.navigation.Navigation
 import com.blankj.utilcode.constant.PermissionConstants
 import com.blankj.utilcode.util.PermissionUtils
-import com.yzy.baselibrary.base.BaseActivity
-import com.yzy.baselibrary.base.BaseFragment
-import com.yzy.baselibrary.base.NavigationHelper
 import com.yzy.baselibrary.base.NoViewModel
 import com.yzy.example.extention.load
 import com.yzy.baselibrary.extention.toast
 import com.yzy.example.R
 import com.yzy.example.component.comm.CommFragment
 import com.yzy.example.component.main.MainActivity
-import com.yzy.example.extention.startNavigate
 import kotlinx.android.synthetic.main.fragment_splash.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
