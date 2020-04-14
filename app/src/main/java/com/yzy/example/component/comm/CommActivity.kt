@@ -19,7 +19,7 @@ import com.yzy.example.component.dialog.ActionDialog
  * @author: caiyoufei
  * @date: 2019/10/8 10:03
  */
-abstract class CommActivity<VM : BaseViewModel, DB : ViewDataBinding> : BaseActivity<VM, DB>() {
+abstract class CommActivity<VM : BaseViewModel<*>, DB : ViewDataBinding> : BaseActivity<VM, DB>() {
     //lottie的加载动画
     lateinit var loadingView: LottieAnimationView
 

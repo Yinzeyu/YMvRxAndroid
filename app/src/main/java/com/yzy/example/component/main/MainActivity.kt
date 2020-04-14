@@ -2,20 +2,15 @@ package com.yzy.example.component.main
 
 import android.content.Context
 import android.content.Intent
-import android.os.Bundle
-import android.os.PersistableBundle
 import android.view.MotionEvent
-import androidx.navigation.Navigation
 import androidx.databinding.ViewDataBinding
 import com.blankj.utilcode.util.ActivityUtils
 import com.yzy.baselibrary.base.BaseFragment
-import com.yzy.baselibrary.base.NavigateManager
 import com.yzy.baselibrary.base.NoViewModel
 import com.yzy.baselibrary.extention.startActivity
 import com.yzy.baselibrary.extention.toast
 import com.yzy.example.R
 import com.yzy.example.component.comm.CommActivity
-import kotlinx.android.synthetic.main.activity_main.*
 
 
 class MainActivity : CommActivity<NoViewModel, ViewDataBinding>() {

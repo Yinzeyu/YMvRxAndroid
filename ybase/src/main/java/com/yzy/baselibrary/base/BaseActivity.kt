@@ -16,7 +16,7 @@ import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.cancel
 import java.lang.reflect.ParameterizedType
 
-abstract class BaseActivity<VM : BaseViewModel, DB : ViewDataBinding>  : AppCompatActivity(), CoroutineScope by MainScope() {
+abstract class BaseActivity<VM : BaseViewModel<*>, DB : ViewDataBinding>  : AppCompatActivity(), CoroutineScope by MainScope() {
     private lateinit var viewModel: VM
     private var mBinding: DB? = null
     override fun onCreate(savedInstanceState: Bundle?) {

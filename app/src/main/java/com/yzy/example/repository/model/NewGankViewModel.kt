@@ -1,14 +1,10 @@
 package com.yzy.example.repository.model
 
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.viewModelScope
-import com.blankj.utilcode.util.LogUtils
-import com.yzy.baselibrary.base.BaseLiveData
 import com.yzy.baselibrary.base.BaseViewModel
 import com.yzy.baselibrary.base.ThrowableBean
 import com.yzy.baselibrary.http.ExceptionHandle
 import com.yzy.baselibrary.http.ResponseThrowable
-import com.yzy.baselibrary.http.event.SingleLiveEvent
 import com.yzy.example.repository.GankRepository
 import com.yzy.example.repository.bean.ArticleBean
 import com.yzy.example.repository.bean.BannerAndArticleBean
@@ -17,14 +13,10 @@ import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.*
 
 
-class NewGankViewModel : BaseViewModel() {
+class NewGankViewModel : BaseViewModel<GankRepository>() {
     private var page = 0
     private var pageSize = 20
-    private val ganRepository: GankRepository by lazy { GankRepository() }
     private var articleBean: MutableList<ArticleBean> = mutableListOf()
-
-//    private  var repository  =repository(GankRepository::class.java)
-
     var uiState = MutableLiveData<BannerAndArticleBean>()
     @ExperimentalCoroutinesApi
     @FlowPreview
@@ -35,11 +27,11 @@ class NewGankViewModel : BaseViewModel() {
         }
         var bannerBean: MutableList<BannerBean> = mutableListOf()
         launchUI {
-            launchFlow { ganRepository.banner(1) }
+            launchFlow { repository.banner(1) }
                 .flatMapConcat {
                     return@flatMapConcat if (it.isSuccess()) {
                         bannerBean = it.data
-                        launchFlow { ganRepository.article(page) }
+                        launchFlow { repository.article(page) }
                     } else throw ResponseThrowable(it.code(), it.msg())
                 }
                 .onStart {defUI.showDialog.postValue(null)}

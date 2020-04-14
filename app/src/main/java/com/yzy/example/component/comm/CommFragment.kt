@@ -17,7 +17,7 @@ import com.yzy.example.component.dialog.ActionDialog
  * @author: caiyoufei
  * @date: 2019/10/8 10:47
  */
-abstract class CommFragment <VM : BaseViewModel, DB : ViewDataBinding>: BaseFragment<VM,DB>() {
+abstract class CommFragment <VM : BaseViewModel<*>, DB : ViewDataBinding>: BaseFragment<VM,DB>() {
 
 
     //lottie的加载动画
@@ -58,6 +58,7 @@ abstract class CommFragment <VM : BaseViewModel, DB : ViewDataBinding>: BaseFrag
             prams.gravity = gravity
             loadingView.translationY = transY
             loadingView.setBackgroundColor(bgColor)
+            loadingView.tag="loadingView"
             parent.addView(loadingView, prams)
         }
         loadingView.playAnimation()
@@ -69,7 +70,7 @@ abstract class CommFragment <VM : BaseViewModel, DB : ViewDataBinding>: BaseFrag
             loadingView.pauseAnimation()
             loadingView.cancelAnimation()
             loadingView.removeParent()
-//            rootView?.removeAllViews()
+            rootView?.requestLayout()
         }
     }
 

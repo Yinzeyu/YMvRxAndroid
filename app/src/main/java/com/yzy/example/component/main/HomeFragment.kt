@@ -8,6 +8,7 @@ import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.CompositePageTransformer
+import com.blankj.utilcode.util.LogUtils
 import com.yzy.baselibrary.extention.inflate
 import com.yzy.example.R
 import com.yzy.example.component.comm.CommFragment
@@ -73,11 +74,13 @@ class HomeFragment : CommFragment<NewGankViewModel,FragmentHomeBinding>() {
                     mAdapter.setList(it.articleBean)
         })
 
-        viewModel.defUI.showDialog.observe(viewLifecycleOwner, Observer {
+        viewModel.defUI.showDialog.observe(this, Observer {
+            LogUtils.e("dismissDialog=showDialog")
             showLoadingView()
         })
 
-        viewModel.defUI.dismissDialog.observe(viewLifecycleOwner, Observer {
+        viewModel.defUI.dismissDialog.observe(this, Observer {
+            LogUtils.e("dismissDialog=dismissDialog")
             dismissLoadingView()
         })
     }

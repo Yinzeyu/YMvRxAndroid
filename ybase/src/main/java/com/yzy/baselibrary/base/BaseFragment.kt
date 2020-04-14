@@ -34,7 +34,7 @@ import java.lang.reflect.ParameterizedType
  *@date 2019/7/15
  *@author: yzy.
  */
-abstract class BaseFragment<VM : BaseViewModel, DB : ViewDataBinding> : Fragment(),
+abstract class BaseFragment<VM : BaseViewModel<*>, DB : ViewDataBinding> : Fragment(),
     CoroutineScope by MainScope() {
     lateinit var viewModel: VM
     private var mBinding: DB? = null
@@ -99,36 +99,9 @@ abstract class BaseFragment<VM : BaseViewModel, DB : ViewDataBinding> : Fragment
         initData()
     }
 
-    private var isShow: Boolean = false
     override fun onResume() {
         super.onResume()
         onVisible()
-        if (isShow) {
-            if (NavigateManager.instance.getDestination() != null) {
-                NavigateManager.instance.getDestination()?.let {
-                    rootView?.let { it1 ->
-                        Navigation.findNavController(it1).navigate(
-                            it.id
-                        )
-                    }
-                    NavigateManager.instance.setDestination(null)
-                    isShow = false
-                }
-            }
-        }
-    }
-
-
-    //    override fun onSaveInstanceState(outState: Bundle) {
-//
-//        if (this.isAdded){
-//            LogUtils.e("mFragment",this.javaClass.name)
-//            parentFragmentManager.putFragment(outState, "mFragment", this);
-//        }
-//        super.onSaveInstanceState(outState)
-//    }
-    fun setVis() {
-        isShow = true
     }
 
     /**
@@ -177,7 +150,7 @@ abstract class BaseFragment<VM : BaseViewModel, DB : ViewDataBinding> : Fragment
         if (isNavigate) {
             onRestartNavigate()
             isNavigate = false
-        }
+    }
     }
 
     open fun onRestartNavigate() {
@@ -200,9 +173,6 @@ abstract class BaseFragment<VM : BaseViewModel, DB : ViewDataBinding> : Fragment
     protected open fun isBack(): Boolean {
         return true
     }
-
-    fun <T : ViewModel> getViewModel(clazz: Class<T>): T =
-        ViewModelProvider(requireActivity(), ViewModelProvider.NewInstanceFactory()).get(clazz)
 
     override fun onDestroyView() {
         cancel()
