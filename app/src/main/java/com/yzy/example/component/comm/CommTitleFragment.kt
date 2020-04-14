@@ -18,39 +18,41 @@ import kotlinx.android.synthetic.main.layout_comm_title.*
  * @author: yzy
  * @date: 2019/10/8 10:48
  */
-abstract class CommTitleFragment <VM : BaseViewModel<*>, DB : ViewDataBinding>:  CommFragment<VM,DB>() {
+abstract class CommTitleFragment<VM : BaseViewModel<*>, DB : ViewDataBinding> :
+    CommFragment<VM, DB>() {
+//    abstract fun layoutTitleContentId(): Int
 
-    override val contentLayout: Int= R.layout.activity_comm_title
+//    override fun layoutTitleContentId(): Int = R.layout.layout_comm_title
     override fun initView(root: View?) {
         commTitleBack.pressEffectAlpha()
         commonTitleRightTv.pressEffectAlpha()
-        commTitleBack.click {  mContext.onBackPressed() }
-        //添加子view
-        if (commonRootView.childCount == 1) {
-            commonRootView.addView(
-                View.inflate(mContext, layoutResContentId(), null),
-                ViewGroup.LayoutParams(
-                    ViewGroup.LayoutParams.MATCH_PARENT,
-                    ViewGroup.LayoutParams.MATCH_PARENT
-                )
-            )
-        }
-        //调用初始化
-        initContentView()
+        commTitleBack.click { mContext.onBackPressed() }
+//        //添加子view
+//        if (layoutTitleContentId() > 0) {
+//            titleView.addView(
+//                View.inflate(mContext, layoutResContentId(), null),
+//                ViewGroup.LayoutParams(
+//                    ViewGroup.LayoutParams.MATCH_PARENT,
+//                    ViewGroup.LayoutParams.WRAP_CONTENT
+//                )
+//            )
+//        }
     }
 
     //设置标题
     fun setTitleText(title: CharSequence) {
         commTitleText.text = title
     }
+
     //设置右边文字
     fun setTitleRightTv(txt: String) {
         commonTitleRightTv.text = txt
         commonTitleRightTv.visible()
     }
+
     //设置右边文字显示状态
     fun setTitleRightTv(visible: Boolean) {
-        commonTitleRightTv.isVisible=visible
+        commonTitleRightTv.isVisible = visible
         commonTitleRightTv.textSize
     }
 
@@ -59,13 +61,10 @@ abstract class CommTitleFragment <VM : BaseViewModel<*>, DB : ViewDataBinding>: 
         commonTitleRightTv.click { onClick?.invoke() }
     }
     //子xml
-    abstract fun layoutResContentId(): Int
+//    abstract fun layoutResContentId(): Int
 
     //子控件初始化
-    abstract fun initContentView()
-
-
-
+//    abstract fun initContentView()
 
 
     override fun initData() {

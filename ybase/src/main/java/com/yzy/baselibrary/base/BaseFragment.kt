@@ -5,25 +5,15 @@ import android.content.Context
 import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.FrameLayout
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Lifecycle
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.Navigation
-import com.blankj.utilcode.util.LogUtils
-import com.yzy.baselibrary.R
 import com.yzy.baselibrary.extention.StatusBarHelper
-import com.yzy.baselibrary.extention.backgroundColor
-import com.yzy.baselibrary.extention.inflate
-import com.yzy.baselibrary.extention.removeParent
-import kotlinx.android.synthetic.main.base_fragment.view.*
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.cancel
@@ -37,16 +27,15 @@ import java.lang.reflect.ParameterizedType
 abstract class BaseFragment<VM : BaseViewModel<*>, DB : ViewDataBinding> : Fragment(),
     CoroutineScope by MainScope() {
     lateinit var viewModel: VM
-    private var mBinding: DB? = null
+    var binding: DB? = null
 
     //是否第一次加载
     private var isFirst: Boolean = true
-     var isNavigate: Boolean = false
+    var isNavigate: Boolean = false
 
 
     //页面基础信息
     lateinit var mContext: Activity
-    protected var rootView: FrameLayout? = null
     override fun onAttach(context: Context) {
         super.onAttach(context)
         mContext = context as Activity
@@ -63,26 +52,14 @@ abstract class BaseFragment<VM : BaseViewModel<*>, DB : ViewDataBinding> : Fragm
         savedInstanceState: Bundle?
     ): View? {
         retainInstance = true
-        var view = inflater.inflate(R.layout.base_fragment, container, false)
-        rootView = view.contentView
-        if (contentLayout > 0) {
-            rootView?.addView(mContext.inflate(contentLayout, container, false))
-        } else {
-            rootView?.removeParent()
-        }
-        view.baseStatusView?.let {
-            it.layoutParams.height =
-                if (fillStatus()) StatusBarHelper.getStatusBarHeight(mContext) else 0
-            it.backgroundColor = statusColor()
-        }
         val cls =
             (javaClass.genericSuperclass as ParameterizedType).actualTypeArguments[1] as Class<*>
         if (ViewDataBinding::class.java != cls && ViewDataBinding::class.java.isAssignableFrom(cls)) {
-            mBinding = DataBindingUtil.bind(view)
-            mBinding?.lifecycleOwner = this
-            view = mBinding?.root
+            binding = DataBindingUtil.inflate(inflater, contentLayout, container, false)
+            binding?.lifecycleOwner = this
+            return binding?.root
         }
-        return view
+        return inflater.inflate(contentLayout, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -102,6 +79,10 @@ abstract class BaseFragment<VM : BaseViewModel<*>, DB : ViewDataBinding> : Fragm
     override fun onResume() {
         super.onResume()
         onVisible()
+    }
+
+    fun statusBarHeight(view: View) {
+        view.layoutParams.height = view.height + StatusBarHelper.getStatusBarHeight(mContext)
     }
 
     /**
@@ -150,7 +131,7 @@ abstract class BaseFragment<VM : BaseViewModel<*>, DB : ViewDataBinding> : Fragm
         if (isNavigate) {
             onRestartNavigate()
             isNavigate = false
-    }
+        }
     }
 
     open fun onRestartNavigate() {

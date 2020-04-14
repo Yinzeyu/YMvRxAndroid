@@ -52,7 +52,6 @@ open class BaseViewModel<BR> : AndroidViewModel(Utils.getApp()), LifecycleObserv
                 withContext(Dispatchers.IO) { block },
                 { error(it) },
                 {
-                    defUI.dismissDialog.call()
                     complete()
                 }
             )
@@ -87,7 +86,6 @@ open class BaseViewModel<BR> : AndroidViewModel(Utils.getApp()), LifecycleObserv
                     error(it)
                 },
                 {
-                    defUI.dismissDialog.call()
                     complete()
                 }
             )

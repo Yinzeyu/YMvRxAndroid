@@ -1,78 +1,78 @@
 package com.yzy.example.component.comm
 
 import android.graphics.Color
-import android.os.Bundle
 import android.view.*
 import android.widget.FrameLayout
 import androidx.databinding.ViewDataBinding
-import com.airbnb.lottie.*
 import com.yzy.baselibrary.base.BaseActivity
 import com.yzy.baselibrary.base.BaseFragment
-import com.yzy.baselibrary.base.BaseRepository
 import com.yzy.baselibrary.base.BaseViewModel
-import com.yzy.baselibrary.extention.removeParent
+import com.yzy.baselibrary.extention.StatusBarHelper
+import com.yzy.example.component.comm.view.ViewController
 import com.yzy.example.component.dialog.ActionDialog
 
-/**
- * Description:
- * @author: caiyoufei
- * @date: 2019/10/8 10:47
- */
-abstract class CommFragment <VM : BaseViewModel<*>, DB : ViewDataBinding>: BaseFragment<VM,DB>() {
 
+abstract class CommFragment<VM : BaseViewModel<*>, DB : ViewDataBinding> : BaseFragment<VM, DB>() {
+//    override val contentLayout: Int = R.layout.base_fragment
 
-    //lottie的加载动画
-    lateinit var loadingView: LottieAnimationView
+    /**
+     * 替换view
+     */
+    var viewController: ViewController? = null
+//    abstract fun layoutResContentId(): Int
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        loadingView = LottieAnimationView(mContext)
-        loadingView.setAnimation("loading.json")
-        loadingView.imageAssetsFolder = "images/"
-        loadingView.setRenderMode(RenderMode.HARDWARE)
-        loadingView.repeatCount = LottieDrawable.INFINITE
-        loadingView.repeatMode = LottieDrawable.RESTART
-        loadingView.setOnClickListener { }
-        return super.onCreateView(inflater, container, savedInstanceState)
+//    override fun initView(root: View?) {
+//
+//        titleView = baseStatusView
+//
+//
+//        if (layoutTitleContentId() != 0) {
+//            val titleView = View.inflate(mContext, layoutTitleContentId(), null)
+//            baseStatusView.addView(
+//                titleView,
+//                ViewGroup.LayoutParams(
+//                    ViewGroup.LayoutParams.MATCH_PARENT,
+//                    titleView.height + statusBarHeight
+//                )
+//            )
+//        } else {
+//
+//        }
+//
+//        contentView.addView(
+//            View.inflate(mContext, layoutResContentId(), null),
+//            ViewGroup.LayoutParams(
+//                ViewGroup.LayoutParams.MATCH_PARENT,
+//                ViewGroup.LayoutParams.MATCH_PARENT
+//            )
+//        )
+//
+//        initContentView()
+//    }
+    fun  setRootView(rootView: FrameLayout){
+        viewController = ViewController(rootView)
     }
+    fun setTitleBarHeight(titleView: FrameLayout){
+        val statusBarHeight = if (fillStatus()) StatusBarHelper.getStatusBarHeight(mContext) else 0
+        titleView.layoutParams.height = titleView.height + statusBarHeight
+    }
+
+//    abstract fun initContentView()
+//
+//    //是否需要默认填充状态栏,默认填充为白色view
+//    protected open fun layoutTitleContentId(): Int {
+//        return 0
+//    }
 
     //#################################镶嵌在页面中的loading->Start#################################//
     //显示json动画的loading
     fun showLoadingView() {
-        //防止获取不到高度
-        rootView?.post { startShowLoadingView() }
-    }
-
-    //显示loadingView
-    private fun startShowLoadingView(
-        transY: Float = getLoadingViewTransY(),
-        height: Int = getLoadingViewHeight(),
-        gravity: Int = getLoadingViewGravity(),
-        bgColor: Int = getLoadingViewBgColor()
-    ) {
-        val parent = rootView
-        if (loadingView.parent == null && parent != null) {
-            val prams = FrameLayout.LayoutParams(-1, height)
-            prams.gravity = gravity
-            loadingView.translationY = transY
-            loadingView.setBackgroundColor(bgColor)
-            loadingView.tag="loadingView"
-            parent.addView(loadingView, prams)
-        }
-        loadingView.playAnimation()
+       viewController?.showLoading()
     }
 
     //关闭loadingView
     fun dismissLoadingView() {
-        mContext.runOnUiThread {
-            loadingView.pauseAnimation()
-            loadingView.cancelAnimation()
-            loadingView.removeParent()
-            rootView?.requestLayout()
-        }
+        viewController?.restore()
     }
 
     //设置偏移量
@@ -80,10 +80,10 @@ abstract class CommFragment <VM : BaseViewModel<*>, DB : ViewDataBinding>: BaseF
         return 0f
     }
 
-    //设置动画高度
-    open fun getLoadingViewHeight(): Int {
-        return rootView?.width ?: 680
-    }
+//    //设置动画高度
+//    open fun getLoadingViewHeight(): Int {
+//        return rootView.width
+//    }
 
     //设置动画的位置，默认居中
     open fun getLoadingViewGravity(): Int {
@@ -108,7 +108,7 @@ abstract class CommFragment <VM : BaseViewModel<*>, DB : ViewDataBinding>: BaseF
         }
         mActionDialog?.let {
             if (!text.isNullOrBlank()) it.hintText = text
-            it.show((mContext as BaseActivity<*,*>).supportFragmentManager)
+            it.show((mContext as BaseActivity<*, *>).supportFragmentManager)
         }
     }
 

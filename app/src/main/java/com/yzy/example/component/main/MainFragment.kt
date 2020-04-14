@@ -7,11 +7,9 @@ import com.blankj.utilcode.util.FragmentUtils
 import com.yzy.baselibrary.base.NoViewModel
 import com.yzy.example.R
 import com.yzy.example.component.comm.CommFragment
-import com.yzy.example.component.splash.SplashFragment
 import kotlinx.android.synthetic.main.fragment_main.*
 
-class MainFragment : CommFragment<NoViewModel,ViewDataBinding>() {
-    override val contentLayout: Int = R.layout.fragment_main
+class MainFragment(override val contentLayout: Int=R.layout.fragment_main) : CommFragment<NoViewModel,ViewDataBinding>() {
     //页面
     private lateinit var homeFragment: Fragment
     private lateinit var dynFragment: Fragment
@@ -20,7 +18,6 @@ class MainFragment : CommFragment<NoViewModel,ViewDataBinding>() {
     private var currentFragment: Fragment? = null
     //子列表合集，方便外部调用选中那个
     private var fragmentList = mutableListOf<Fragment>()
-
     override fun initView(root: View?) {
         //初始化
         homeFragment = HomeFragment.newInstance()
@@ -77,4 +74,6 @@ class MainFragment : CommFragment<NoViewModel,ViewDataBinding>() {
             if (mainNavigation.selectedItemId != selectId) mainNavigation.selectedItemId = selectId
         }
     }
+
+
 }

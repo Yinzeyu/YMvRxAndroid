@@ -2,10 +2,10 @@
 <layout>
 
     <data>
-        
+        <import type="com.yzy.example.repository.bean.ArticleBean" />
         <variable
             name="itemBean"
-            type="com.yzy.example.repository.bean.ArticleBean" />
+            type="ArticleBean" />
     </data>
     <androidx.constraintlayout.widget.ConstraintLayout
         xmlns:android="http://schemas.android.com/apk/res/android"

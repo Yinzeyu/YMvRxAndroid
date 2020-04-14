@@ -15,7 +15,6 @@
  */
 package com.yzy.baselibrary.extention
 
-import android.R
 import android.annotation.SuppressLint
 import android.annotation.TargetApi
 import android.app.Activity
@@ -31,6 +30,7 @@ import android.provider.Settings
 import android.util.DisplayMetrics
 import android.util.TypedValue
 import android.view.*
+import com.yzy.baselibrary.R
 import java.util.*
 
 /**
@@ -166,17 +166,15 @@ object DisplayHelper {
             heightPixels = Display::class.java.getMethod("getRawHeight").invoke(d) as Int
         } catch (ignored: Exception) {
         }
-        if (Build.VERSION.SDK_INT >= 17) {
-            try {
-                // used when SDK_INT >= 17; includes window decorations (statusbar bar/menu bar)
-                val realSize = Point()
-                d.getRealSize(realSize)
-                Display::class.java.getMethod("getRealSize", Point::class.java)
-                    .invoke(d, realSize)
-                widthPixels = realSize.x
-                heightPixels = realSize.y
-            } catch (ignored: Exception) {
-            }
+        try {
+            // used when SDK_INT >= 17; includes window decorations (statusbar bar/menu bar)
+            val realSize = Point()
+            d.getRealSize(realSize)
+            Display::class.java.getMethod("getRealSize", Point::class.java)
+                .invoke(d, realSize)
+            widthPixels = realSize.x
+            heightPixels = realSize.y
+        } catch (ignored: Exception) {
         }
         size[0] = widthPixels
         size[1] = heightPixels
@@ -429,11 +427,7 @@ object DisplayHelper {
      * @return
      */
     fun hasHardwareMenuKey(context: Context?): Boolean {
-        val flag: Boolean
-        flag = if (Build.VERSION.SDK_INT < 11) true else if (Build.VERSION.SDK_INT >= 14) {
-            ViewConfiguration.get(context).hasPermanentMenuKey()
-        } else false
-        return flag
+        return  ViewConfiguration.get(context).hasPermanentMenuKey()
     }
 
     /**

@@ -2,17 +2,16 @@ package com.yzy.example.component.splash
 
 
 import android.Manifest
-import android.os.Bundle
 import android.util.Log
 import android.view.View
 import androidx.databinding.ViewDataBinding
 import com.blankj.utilcode.constant.PermissionConstants
 import com.blankj.utilcode.util.PermissionUtils
-import com.yzy.baselibrary.base.BaseFragment
 import com.yzy.baselibrary.base.NoViewModel
 import com.yzy.example.extention.load
 import com.yzy.baselibrary.extention.toast
 import com.yzy.example.R
+import com.yzy.example.component.comm.CommFragment
 import com.yzy.example.component.main.MainActivity
 import com.yzy.example.extention.startNavigate
 import kotlinx.android.synthetic.main.fragment_splash.*
@@ -20,7 +19,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
-class SplashFragment : BaseFragment<NoViewModel,ViewDataBinding>() {
+class SplashFragment(override val contentLayout: Int= R.layout.fragment_splash) : CommFragment<NoViewModel, ViewDataBinding>() {
 
     //是否有SD卡读写权限
     private var hasSDPermission: Boolean? = null
@@ -28,7 +27,6 @@ class SplashFragment : BaseFragment<NoViewModel,ViewDataBinding>() {
     //倒计时是否结束
     private var countDownFinish: Boolean? = null
 
-    override val contentLayout: Int = R.layout.fragment_splash
     override fun fillStatus(): Boolean = false
     override fun initView(root: View?) {
 //        hasFinish = checkReOpenHome()
@@ -46,7 +44,7 @@ class SplashFragment : BaseFragment<NoViewModel,ViewDataBinding>() {
     }
 
     override fun onRestartNavigate() {
-        startNavigate(rootView, R.id.action_splashFragment_to_mainFragment)
+        startNavigate(clRootView,R.id.action_splashFragment_to_mainFragment)
     }
 
     override fun initData() {
@@ -97,10 +95,12 @@ class SplashFragment : BaseFragment<NoViewModel,ViewDataBinding>() {
             }
         }
         if (!isNavigate){
-            startNavigate(rootView, R.id.action_splashFragment_to_mainFragment)
+            startNavigate(clRootView, R.id.action_splashFragment_to_mainFragment)
         }
 
     }
+
+
 
     //https://www.cnblogs.com/xqz0618/p/thistaskroot.html
 //    private fun checkReOpenHome(): Boolean {

@@ -215,25 +215,38 @@
         </attr>
     </declare-styleable>
 
-    <declare-styleable name="VideoControlView">
-        <!--录制最小时间-->
-        <attr name="minTime" format="integer" />
-        <!--录制最大时间-->
-        <attr name="maxTime" format="integer" />
-        <!--内圆颜色-->
-        <attr name="innerCircleColor" format="color" />
-        <!--外圆颜色-->
-        <attr name="annulusColor" format="color" />
-        <!--进度条颜色-->
-        <attr name="progressColor" format="color" />
-        <!--内圆半径-->
-        <attr name="innerCircleRadius" format="dimension" />
-        <!--外圆半径-->
-        <attr name="excircleRadius" format="dimension" />
-        <!--外圆放大倍数-->
-        <attr name="excicleMagnification" format="float" />
-        <!--内圆缩小倍数-->
-        <attr name="innerCircleShrinks" format="float" />
+
+    <!-- require ItemView {@link me.tatarka.bindingcollectionadapter.ItemView} or ItemViewSelector {{@link me.tatarka.bindingcollectionadapter.ItemViewSelector}.} -->
+    <attr name="itemView" format="reference" />
+    <!-- require List<ViewModel> bind to ItemView to presentation.-->
+    <attr name="items" format="reference" />
+    <!-- require a adapter which type of BindingRecyclerViewAdapter<T> to AdapterView-->
+    <attr name="adapter" format="reference" />
+
+    <attr name="onScrollChangeCommand" format="reference" />
+    <attr name="onScrollStateChangedCommand" format="reference" />
+    <attr name="url" format="string" />
+    <attr name="onTouchCommand" format="reference" />
+
+    <!-- require BindingCommand {@link com.kelin.mvvmlight.command.BindingCommand } to deal with view click event. -->
+    <attr name="onClickCommand" format="reference" />
+    <attr name="onLongClickCommand" format="reference" />
+    <declare-styleable name="AdapterView">
+        <!-- require ItemView {@link me.tatarka.bindingcollectionadapter.ItemView} or ItemViewSelector {{@link me.tatarka.bindingcollectionadapter.ItemViewSelector}.} -->
+        <attr name="itemView" />
+        <!-- require List<ViewModel> bind to ItemView to presentation.-->
+        <attr name="items" />
+        <!-- require a adapter which type of BindingRecyclerViewAdapter<T> to AdapterView-->
+        <attr name="adapter" />
+        <attr name="dropDownItemView" format="reference" />
+        <attr name="itemIds" format="reference" />
+        <attr name="itemIsEnabled" format="reference" />
+        <!-- require BindingCommand<Integer> -->
+        <attr name="onScrollStateChangedCommand" />
+        <!-- require BindingCommand<ListViewScrollDataWrapper> -->
+        <attr name="onScrollChangeCommand" />
+        <!-- require BindingCommand<Integer> count of list items-->
+        <attr name="onLoadMoreCommand" format="reference" />
     </declare-styleable>
 
 </resources>

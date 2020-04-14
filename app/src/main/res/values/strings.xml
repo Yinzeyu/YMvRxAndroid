@@ -11,10 +11,13 @@
     <string name="load_more_fail">加载失败，点击重试</string>
     <string name="net_error_retry">网络异常，点击屏幕重试</string>
     <string name="net_fail_retry">加载失败，点击屏幕重试</string>
-    <string name="no_data">该模块暂时还没有数据哦</string>
         <string name="double_exit">再按一次退出</string>
     <string name="chat_title">聊天模拟</string>
-
+    <string name="prompt_loading">Loading..</string>
+    <string name="network_error_please_refresh">网络状态异常，请刷新重试</string>
+    <string name="no_data">暂无数据</string>
+    <string name="network_error">网络异常</string>
+    <string name="net_retry">重试</string>
 
     <dimen name="imui_default_custom_keyboard_size">220dp</dimen>
     <string name="imui_app_name">imui</string>

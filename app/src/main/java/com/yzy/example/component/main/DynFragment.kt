@@ -8,8 +8,10 @@ import com.yzy.example.R
 import com.yzy.example.component.comm.CommFragment
 import com.yzy.example.databinding.FragmentDynBinding
 import kotlinx.android.synthetic.main.fragment_dyn.*
+import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.FlowPreview
 
-class DynFragment : CommFragment<DynViewModel, FragmentDynBinding>() {
+class DynFragment(override val contentLayout: Int=R.layout.fragment_dyn) : CommFragment<DynViewModel, FragmentDynBinding>() {
 
     companion object {
         fun newInstance(): DynFragment {
@@ -19,19 +21,8 @@ class DynFragment : CommFragment<DynViewModel, FragmentDynBinding>() {
 
     override fun fillStatus(): Boolean = false
 
-//    private val viewModel: DynViewModel by lazy {
-//        ViewModelProvider(
-//            requireActivity(),
-//            ViewModelFactory()
-//        ).get(DynViewModel::class.java)
-//    }
-    override val contentLayout: Int = R.layout.fragment_dyn
-
 
     override fun initView(root: View?) {
-//        dynEpoxyRecycler.setController(epoxyController)
-//        //把加载更多全部显示出来开始回调加载更多
-//        EpoxyVisibilityTracker().attach(dynEpoxyRecycler)
         viewModel.getAndroidSuspend(true)
         smDynRefresh.setOnRefreshListener {
             viewModel.getAndroidSuspend(true)
@@ -58,6 +49,7 @@ class DynFragment : CommFragment<DynViewModel, FragmentDynBinding>() {
             })
         }
     }
+
 
 //    private val epoxyController =
 //        MvRxEpoxyController<BaseDataBean<MutableList<GankAndroidBean>>> { state ->

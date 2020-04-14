@@ -8,12 +8,14 @@ import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.CompositePageTransformer
-import com.blankj.utilcode.util.LogUtils
+import com.yzy.baselibrary.base.BaseFragment
 import com.yzy.baselibrary.extention.inflate
 import com.yzy.example.R
 import com.yzy.example.component.comm.CommFragment
 import com.yzy.example.databinding.FragmentHomeBinding
 import com.yzy.example.extention.load
+import com.yzy.example.extention.startNavigate
+import com.yzy.example.repository.bean.ArticleBean
 import com.yzy.example.repository.bean.BannerBean
 import com.yzy.example.repository.model.NewGankViewModel
 import com.yzy.example.widget.CycleViewPager
@@ -22,7 +24,7 @@ import kotlinx.android.synthetic.main.item_banner.view.*
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.FlowPreview
 
-class HomeFragment : CommFragment<NewGankViewModel,FragmentHomeBinding>() {
+class HomeFragment : CommFragment<NewGankViewModel, FragmentHomeBinding>() {
     private val mAdapter by lazy { HomeListAdapter() }
     private lateinit var banner: CycleViewPager
     companion object {
@@ -31,12 +33,14 @@ class HomeFragment : CommFragment<NewGankViewModel,FragmentHomeBinding>() {
         }
     }
 
-    override fun fillStatus(): Boolean = false
+    override fun fillStatus(): Boolean = true
 
     override val contentLayout: Int = R.layout.fragment_home
     @FlowPreview
     @ExperimentalCoroutinesApi
     override fun initView(root: View?) {
+        setRootView(contentView)
+        setTitleBarHeight(baseStatusView)
         smRefresh.setOnRefreshListener {
             viewModel.getBanner(true)
         }
@@ -44,11 +48,9 @@ class HomeFragment : CommFragment<NewGankViewModel,FragmentHomeBinding>() {
     }
 
     override fun initData() {
+        binding?.adapter = mAdapter
+        binding?.layoutManager = LinearLayoutManager(mContext)
         with(rv_home) {
-            layoutManager = LinearLayoutManager(context)
-            adapter = mAdapter
-            //banner
-
            val  bannerView = mContext.inflate(R.layout.item_banner)
            banner= bannerView.itemBanner
            banner.mViewPager2?.setPageTransformer(CompositePageTransformer())
@@ -61,9 +63,12 @@ class HomeFragment : CommFragment<NewGankViewModel,FragmentHomeBinding>() {
 
             }
             setOnItemClickListener { adapter, _, position ->
+                val bean:ArticleBean = adapter.data[position] as ArticleBean
+                startNavigate(view, MainFragmentDirections.actionMainFragmentToWebsiteDetailFragment(bean.link ?: ""))
             }
         }
         viewModel.uiState.observe(viewLifecycleOwner, Observer {
+            smRefresh.finishRefresh()
             val bannerBean = it.bannerBean
                     if (bannerBean.isNotEmpty()){
                         banner.listSize = bannerBean.size
@@ -75,13 +80,13 @@ class HomeFragment : CommFragment<NewGankViewModel,FragmentHomeBinding>() {
         })
 
         viewModel.defUI.showDialog.observe(this, Observer {
-            LogUtils.e("dismissDialog=showDialog")
-            showLoadingView()
+//            if (!viewController!!.hasRestore) {
+//                showLoadingView()
+//            }
         })
 
         viewModel.defUI.dismissDialog.observe(this, Observer {
-            LogUtils.e("dismissDialog=dismissDialog")
-            dismissLoadingView()
+//            dismissLoadingView()
         })
     }
 
@@ -111,4 +116,5 @@ class HomeFragment : CommFragment<NewGankViewModel,FragmentHomeBinding>() {
 
         }
     }
+
 }
