@@ -63,7 +63,6 @@ abstract class BaseActivity<VM : BaseViewModel, DB : ViewDataBinding>  : AppComp
     abstract fun initData()
 
 
-
     /** 这里可以做一些setContentView之前的操作,如全屏、常亮、设置Navigation颜色、状态栏颜色等  */
     protected open fun onCreateBefore() {}
 

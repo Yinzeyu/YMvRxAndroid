@@ -2,6 +2,7 @@ package com.yzy.baselibrary.base
 
 import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import androidx.annotation.IdRes
 import androidx.fragment.app.FragmentManager
 import androidx.navigation.NavDestination
@@ -29,7 +30,11 @@ class CustomNavHostFragment : NavHostFragment() {
     // https://stackoverflow.com/questions/50485988/is-there-a-way-to-keep-fragment-alive-when-using-bottomnavigationview-with-new-n/51684125
     // https://www.jianshu.com/p/ebd2f6d7a349
     @Navigator.Name("tab_fragment")
-    open class CustomNavigator(private var mContext: Context, private var mFragmentManager: FragmentManager, private var mContainerId: Int) :
+    open class CustomNavigator(
+        private var mContext: Context,
+        private var mFragmentManager: FragmentManager,
+        private var mContainerId: Int
+    ) :
         FragmentNavigator(mContext, mFragmentManager, mContainerId) {
 
         override fun navigate(
@@ -48,21 +53,18 @@ class CustomNavHostFragment : NavHostFragment() {
 //                val mIsPendingBackStackOperationField =
 //                    FragmentNavigator::class.java.getDeclaredField("mIsPendingBackStackOperation")
 //                mIsPendingBackStackOperationField.isAccessible = true
-//                if (mFragmentManager.isStateSaved) {
-                    //Log.i("TAG", "Ignoring navigate() call: FragmentManager has already" + " saved its state")
-//                    return null
-//                }
-                if (mFragmentManager.isStateSaved){
-                    NavigateManager.instance.setDestination(destination)
+                if (mFragmentManager.isStateSaved) {
+                    Log.i(
+                        "TAG",
+                        "Ignoring navigate() call: FragmentManager has already" + " saved its state"
+                    )
                     return null
                 }
                 var className = destination.className
                 if (className[0] == '.') {
                     className = mContext.packageName + className
                 }
-
                 val ft = mFragmentManager.beginTransaction()
-
                 var enterAnim = navOptions?.enterAnim ?: -1
                 var exitAnim = navOptions?.exitAnim ?: -1
                 var popEnterAnim = navOptions?.popEnterAnim ?: -1
@@ -74,18 +76,17 @@ class CustomNavHostFragment : NavHostFragment() {
                     popExitAnim = if (popExitAnim != -1) popExitAnim else 0
                     ft.setCustomAnimations(enterAnim, exitAnim, popEnterAnim, popExitAnim)
                 }
-
                 val tag = destination.id.toString()
-                //ft.replace(mContainerId, frag)
-
                 val currentFragment = mFragmentManager.primaryNavigationFragment
                 if (currentFragment != null) {
                     ft.hide(currentFragment)
                 }
-
                 var frag = mFragmentManager.findFragmentByTag(tag)
                 if (frag == null) {
-                    frag=    mFragmentManager.fragmentFactory.instantiate(mContext.classLoader, className)
+                    frag = mFragmentManager.fragmentFactory.instantiate(
+                        mContext.classLoader,
+                        className
+                    )
                     frag.arguments = args
                     ft.add(mContainerId, frag, tag)
                 } else {
@@ -109,10 +110,7 @@ class CustomNavHostFragment : NavHostFragment() {
                             // back stack, a simple replace() isn't enough so we
                             // remove it from the back stack and put our replacement
                             // on the back stack in its place
-                            mFragmentManager.popBackStack(
-                                generateMyBackStackName(mBackStack.size, mBackStack.peekLast() ?: 0),
-                                FragmentManager.POP_BACK_STACK_INCLUSIVE
-                            )
+                            mFragmentManager.popBackStack(generateMyBackStackName(mBackStack.size, mBackStack.peekLast() ?: 0), FragmentManager.POP_BACK_STACK_INCLUSIVE)
                             ft.addToBackStack(generateMyBackStackName(mBackStack.size, destId))
                         }
                         false
@@ -122,7 +120,6 @@ class CustomNavHostFragment : NavHostFragment() {
                         true
                     }
                 }
-
                 if (navigatorExtras is Extras) {
                     val extras = navigatorExtras as Extras?
                     for ((key, value) in extras!!.sharedElements) {
@@ -130,11 +127,7 @@ class CustomNavHostFragment : NavHostFragment() {
                     }
                 }
                 ft.setReorderingAllowed(true)
-//                if (stateSaved){
-//                    ft.commitAllowingStateLoss()
-//                }else{
-                    ft.commitNow()
-//                }
+                ft.commitNow()
                 return if (isAdded) {
                     mBackStack.add(destId)
                     destination
@@ -144,12 +137,7 @@ class CustomNavHostFragment : NavHostFragment() {
                 // The commit succeeded, update our view of the world
 
             } catch (e: Throwable) {
-                var primaryNavigationFragment = mFragmentManager.primaryNavigationFragment as? BaseFragment<*,*>
-                LogUtils.e("destination"+destination)
-                    NavigateManager.instance.setDestination(destination)
-                primaryNavigationFragment?.setVis()
-                LogUtils.e("destination"+e.message)
-                return null
+                return super.navigate(destination, args, navOptions, navigatorExtras)
             }
         }
 

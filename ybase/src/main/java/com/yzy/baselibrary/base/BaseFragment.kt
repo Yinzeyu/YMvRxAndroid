@@ -41,6 +41,7 @@ abstract class BaseFragment<VM : BaseViewModel, DB : ViewDataBinding> : Fragment
 
     //是否第一次加载
     private var isFirst: Boolean = true
+     var isNavigate: Boolean = false
 
 
     //页面基础信息
@@ -118,7 +119,7 @@ abstract class BaseFragment<VM : BaseViewModel, DB : ViewDataBinding> : Fragment
     }
 
 
-//    override fun onSaveInstanceState(outState: Bundle) {
+    //    override fun onSaveInstanceState(outState: Bundle) {
 //
 //        if (this.isAdded){
 //            LogUtils.e("mFragment",this.javaClass.name)
@@ -126,9 +127,10 @@ abstract class BaseFragment<VM : BaseViewModel, DB : ViewDataBinding> : Fragment
 //        }
 //        super.onSaveInstanceState(outState)
 //    }
-    fun  setVis(){
-    isShow=true
-}
+    fun setVis() {
+        isShow = true
+    }
+
     /**
      * 是否需要懒加载
      */
@@ -169,6 +171,21 @@ abstract class BaseFragment<VM : BaseViewModel, DB : ViewDataBinding> : Fragment
 
     open fun onFragmentResult(requestCode: Int, resultCode: Int, data: Intent?) {
 
+    }
+
+    open fun onFragmentRestart() {
+        if (isNavigate) {
+            onRestartNavigate()
+            isNavigate = false
+        }
+    }
+
+    open fun onRestartNavigate() {
+
+    }
+
+    open fun onFragmentStop() {
+        isNavigate = true
     }
 
     //是否需要默认填充状态栏,默认填充为白色view

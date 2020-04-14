@@ -110,4 +110,30 @@ class MainActivity : CommActivity<NoViewModel, ViewDataBinding>() {
             }
         }
     }
+
+    override fun onRestart() {
+        super.onRestart()
+        try {
+            getFragmentListLast().let {
+                if (it is BaseFragment<*, *>) {
+                    it.onFragmentRestart()
+                }
+            }
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
+    }
+
+    override fun onStop() {
+        super.onStop()
+        try {
+            getFragmentListLast().let {
+                if (it is BaseFragment<*, *>) {
+                    it.onFragmentStop()
+                }
+            }
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
+    }
 }

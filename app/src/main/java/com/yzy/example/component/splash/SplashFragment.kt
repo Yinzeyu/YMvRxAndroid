@@ -2,6 +2,7 @@ package com.yzy.example.component.splash
 
 
 import android.Manifest
+import android.os.Bundle
 import android.util.Log
 import android.view.View
 import androidx.databinding.ViewDataBinding
@@ -42,6 +43,10 @@ class SplashFragment : BaseFragment<NoViewModel,ViewDataBinding>() {
             goNextPage()
             splashTime.text = "0"
         }
+    }
+
+    override fun onRestartNavigate() {
+        startNavigate(rootView, R.id.action_splashFragment_to_mainFragment)
     }
 
     override fun initData() {
@@ -91,7 +96,10 @@ class SplashFragment : BaseFragment<NoViewModel,ViewDataBinding>() {
                 else -> MainActivity.starMainActivity(mContext)
             }
         }
-        startNavigate(rootView, R.id.action_splashFragment_to_mainFragment)
+        if (!isNavigate){
+            startNavigate(rootView, R.id.action_splashFragment_to_mainFragment)
+        }
+
     }
 
     //https://www.cnblogs.com/xqz0618/p/thistaskroot.html
@@ -106,4 +114,5 @@ class SplashFragment : BaseFragment<NoViewModel,ViewDataBinding>() {
 //        }
 //        return false
 //    }
+
 }
