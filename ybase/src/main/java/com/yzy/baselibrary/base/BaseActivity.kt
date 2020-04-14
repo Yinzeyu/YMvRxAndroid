@@ -1,5 +1,6 @@
 package com.yzy.baselibrary.base
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
@@ -16,44 +17,61 @@ import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.cancel
 import java.lang.reflect.ParameterizedType
 
-abstract class BaseActivity<VM : BaseViewModel<*>, DB : ViewDataBinding>  : AppCompatActivity(), CoroutineScope by MainScope() {
-    private lateinit var viewModel: VM
-    private var mBinding: DB? = null
+abstract class BaseActivity : AppCompatActivity(), CoroutineScope by MainScope() {
     override fun onCreate(savedInstanceState: Bundle?) {
         translucent(this)
         this.onCreateBefore()
         super.onCreate(savedInstanceState)
-        initViewDataBinding()
-        lifecycle.addObserver(viewModel)
+        setContentView(layoutResId())
 
         initView()
         initData()
     }
-    /**
-     * DataBinding
-     */
-    private fun initViewDataBinding() {
-        val cls =
-            (javaClass.genericSuperclass as ParameterizedType).actualTypeArguments[1] as Class<*>
-        if (ViewDataBinding::class.java != cls && ViewDataBinding::class.java.isAssignableFrom(cls)) {
-            mBinding = DataBindingUtil.setContentView(this, layoutResId())
-            mBinding?.lifecycleOwner = this
-        } else setContentView(layoutResId())
-        createViewModel()
+
+    override fun onRestart() {
+        super.onRestart()
+        acEventType("restart")
     }
 
-    /**
-     * 创建 ViewModel
-     */
-    @Suppress("UNCHECKED_CAST")
-    private fun createViewModel() {
-        val type = javaClass.genericSuperclass
-        if (type is ParameterizedType) {
-            val tp = type.actualTypeArguments[0]
-            val tClass = tp as? Class<VM> ?: BaseViewModel::class.java
-            viewModel = ViewModelProvider(this, ViewModelFactory()).get(tClass) as VM
+    override fun onStop() {
+        super.onStop()
+        acEventType("stop")
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        acEventType("activityResult", requestCode, resultCode, data)
+    }
+
+    private fun acEventType(
+        type: String,
+        requestCode: Int = -1,
+        resultCode: Int = -1,
+        data: Intent? = null
+    ) {
+        try {
+            getFragmentListLast().let {
+                if (it is BaseFragment<*, *>) {
+                    when (type) {
+                        "stop" -> {
+                            it.onFragmentStop()
+                        }
+                        "restart" -> {
+                            it.onFragmentRestart()
+                        }
+                        "activityResult" -> {
+                            it.onFragmentResult(requestCode, resultCode, data)
+                        }
+                    }
+
+                }
+            }
+        } catch (e: Exception) {
+            e.printStackTrace()
         }
     }
+
+
     /**
      * 页面内容布局resId
      */
@@ -74,7 +92,7 @@ abstract class BaseActivity<VM : BaseViewModel<*>, DB : ViewDataBinding>  : AppC
         CleanLeakUtils.instance.fixInputMethodManagerLeak(this)
         super.onDestroy()
     }
-    
+
     fun getFragmentListLast(): Fragment =
         supportFragmentManager.fragments.first().childFragmentManager.fragments.last()
 

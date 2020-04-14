@@ -1,19 +1,15 @@
 package com.yzy.example.component.main
 
 import android.content.Context
-import android.content.Intent
 import android.view.MotionEvent
-import androidx.databinding.ViewDataBinding
 import com.blankj.utilcode.util.ActivityUtils
-import com.yzy.baselibrary.base.BaseFragment
-import com.yzy.baselibrary.base.NoViewModel
+import com.yzy.baselibrary.base.BaseActivity
 import com.yzy.baselibrary.extention.startActivity
 import com.yzy.baselibrary.extention.toast
 import com.yzy.example.R
-import com.yzy.example.component.comm.CommActivity
 
 
-class MainActivity : CommActivity<NoViewModel, ViewDataBinding>() {
+class MainActivity : BaseActivity() {
 
     companion object {
         fun starMainActivity(context: Context) {
@@ -72,18 +68,6 @@ class MainActivity : CommActivity<NoViewModel, ViewDataBinding>() {
         return super.dispatchTouchEvent(ev)
     }
 
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-        try {
-            getFragmentListLast().let {
-                if (it is BaseFragment<*, *>) {
-                    it.onFragmentResult(requestCode, resultCode, data)
-                }
-            }
-        } catch (e: Exception) {
-            e.printStackTrace()
-        }
-    }
 
 
     private var touchTime = 0L
@@ -103,32 +87,6 @@ class MainActivity : CommActivity<NoViewModel, ViewDataBinding>() {
             } else {
                 super.onBackPressed()
             }
-        }
-    }
-
-    override fun onRestart() {
-        super.onRestart()
-        try {
-            getFragmentListLast().let {
-                if (it is BaseFragment<*, *>) {
-                    it.onFragmentRestart()
-                }
-            }
-        } catch (e: Exception) {
-            e.printStackTrace()
-        }
-    }
-
-    override fun onStop() {
-        super.onStop()
-        try {
-            getFragmentListLast().let {
-                if (it is BaseFragment<*, *>) {
-                    it.onFragmentStop()
-                }
-            }
-        } catch (e: Exception) {
-            e.printStackTrace()
         }
     }
 }
