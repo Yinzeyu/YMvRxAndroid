@@ -1,21 +1,15 @@
 package com.yzy.example.component.main
 
 
-import androidx.lifecycle.viewModelScope
 import com.yzy.baselibrary.base.BaseLiveData
 import com.yzy.baselibrary.base.BaseViewModel
 import com.yzy.example.repository.GankRepository
 import com.yzy.example.repository.bean.BaseDataBean
-import com.yzy.example.repository.bean.DataResult
 import com.yzy.example.repository.bean.GankAndroidBean
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 
-class DynViewModel : BaseViewModel() {
+class DynViewModel : BaseViewModel<GankRepository>() {
     private var page = 1
     private var pageSize = 20
-    private val ganRepository: GankRepository by lazy { GankRepository() }
     private var articleBean: MutableList<GankAndroidBean> = mutableListOf()
     private val _bannerAndArticleResult: BaseLiveData<BaseUiModel<BaseDataBean<MutableList<GankAndroidBean>>>> =
         BaseLiveData()
@@ -24,7 +18,7 @@ class DynViewModel : BaseViewModel() {
 
         emitArticleUiState(true)
         val tempPage = if (isRefresh) 1 else page + 1
-        launchOnlyresult1({ ganRepository.getAndroidSuspend(pageSize, tempPage) }, {
+        launchOnlyresult1({ repository.getAndroidSuspend(pageSize, tempPage) }, {
             if (isRefresh) {
                 articleBean.clear()
             }

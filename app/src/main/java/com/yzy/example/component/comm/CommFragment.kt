@@ -8,6 +8,7 @@ import androidx.databinding.ViewDataBinding
 import com.airbnb.lottie.*
 import com.yzy.baselibrary.base.BaseActivity
 import com.yzy.baselibrary.base.BaseFragment
+import com.yzy.baselibrary.base.BaseRepository
 import com.yzy.baselibrary.base.BaseViewModel
 import com.yzy.baselibrary.extention.removeParent
 import com.yzy.example.component.dialog.ActionDialog

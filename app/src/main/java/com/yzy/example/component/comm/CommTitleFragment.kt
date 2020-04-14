@@ -4,6 +4,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.isVisible
 import androidx.databinding.ViewDataBinding
+import com.yzy.baselibrary.base.BaseRepository
 import com.yzy.baselibrary.base.BaseViewModel
 import com.yzy.baselibrary.extention.click
 import com.yzy.baselibrary.extention.pressEffectAlpha
@@ -17,7 +18,7 @@ import kotlinx.android.synthetic.main.layout_comm_title.*
  * @author: yzy
  * @date: 2019/10/8 10:48
  */
-abstract class CommTitleFragment <VM : BaseViewModel, DB : ViewDataBinding>:  CommFragment<VM,DB>() {
+abstract class CommTitleFragment <VM : BaseViewModel<*>, DB : ViewDataBinding>:  CommFragment<VM,DB>() {
 
     override val contentLayout: Int= R.layout.activity_comm_title
     override fun initView(root: View?) {

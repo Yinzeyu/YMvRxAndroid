@@ -7,6 +7,7 @@ import android.widget.FrameLayout
 import androidx.databinding.ViewDataBinding
 import com.airbnb.lottie.*
 import com.yzy.baselibrary.base.BaseActivity
+import com.yzy.baselibrary.base.BaseRepository
 import com.yzy.baselibrary.base.BaseViewModel
 import com.yzy.baselibrary.extention.mContentView
 import com.yzy.baselibrary.extention.mContext
