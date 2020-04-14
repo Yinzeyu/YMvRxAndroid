@@ -2,16 +2,11 @@ package com.yzy.example.component.main
 
 import android.view.View
 import androidx.lifecycle.Observer
-//import com.airbnb.epoxy.EpoxyVisibilityTracker
-//import com.yzy.baselibrary.base.MvRxEpoxyController
 import com.yzy.example.R
 import com.yzy.example.component.comm.CommFragment
-import com.yzy.example.databinding.FragmentDynBinding
 import kotlinx.android.synthetic.main.fragment_dyn.*
-import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.FlowPreview
 
-class DynFragment(override val contentLayout: Int=R.layout.fragment_dyn) : CommFragment<DynViewModel, FragmentDynBinding>() {
+class DynFragment(override val contentLayout: Int=R.layout.fragment_dyn) : CommFragment<DynViewModel>() {
 
     companion object {
         fun newInstance(): DynFragment {

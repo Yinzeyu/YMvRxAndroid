@@ -9,7 +9,7 @@ import com.yzy.example.R
 import com.yzy.example.component.comm.CommFragment
 import kotlinx.android.synthetic.main.fragment_main.*
 
-class MainFragment(override val contentLayout: Int=R.layout.fragment_main) : CommFragment<NoViewModel,ViewDataBinding>() {
+class MainFragment(override val contentLayout: Int=R.layout.fragment_main) : CommFragment<NoViewModel>() {
     //页面
     private lateinit var homeFragment: Fragment
     private lateinit var dynFragment: Fragment

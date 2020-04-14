@@ -19,7 +19,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
-class SplashFragment(override val contentLayout: Int= R.layout.fragment_splash) : CommFragment<NoViewModel, ViewDataBinding>() {
+class SplashFragment(override val contentLayout: Int= R.layout.fragment_splash) : CommFragment<NoViewModel>() {
 
     //是否有SD卡读写权限
     private var hasSDPermission: Boolean? = null

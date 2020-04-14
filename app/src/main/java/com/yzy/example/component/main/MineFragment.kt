@@ -6,7 +6,7 @@ import com.yzy.baselibrary.base.NoViewModel
 import com.yzy.example.R
 import com.yzy.example.component.comm.CommFragment
 
-class MineFragment(override val contentLayout: Int = R.layout.fragment_mine) : CommFragment<NoViewModel, ViewDataBinding>() {
+class MineFragment(override val contentLayout: Int = R.layout.fragment_mine) : CommFragment<NoViewModel>() {
 
     companion object {
         fun newInstance(): MineFragment {

@@ -19,7 +19,7 @@ import kotlinx.android.synthetic.main.item_banner_child.*
  * Created by lwj on 2018/2/6.
  * A simple [Fragment] subclass.
  */
-class BannerFragment(  var data: BannerBean,override val contentLayout: Int = R.layout.item_banner_child) : BaseFragment<NoViewModel,ViewDataBinding>() {
+class BannerFragment(  var data: BannerBean,override val contentLayout: Int = R.layout.item_banner_child) : BaseFragment<NoViewModel>() {
 
     override fun initView(root: View?) {
         itemBannerIV.load(data.imagePath)

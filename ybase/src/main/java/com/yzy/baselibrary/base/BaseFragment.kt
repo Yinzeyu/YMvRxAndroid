@@ -8,8 +8,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.databinding.DataBindingUtil
-import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.ViewModelProvider
@@ -24,21 +22,20 @@ import java.lang.reflect.ParameterizedType
  *@date 2019/7/15
  *@author: yzy.
  */
-abstract class BaseFragment<VM : BaseViewModel<*>, DB : ViewDataBinding> : Fragment(),
+abstract class BaseFragment<VM : BaseViewModel<*>> : Fragment(),
     CoroutineScope by MainScope() {
     lateinit var viewModel: VM
-    var binding: DB? = null
 
     //是否第一次加载
     private var isFirst: Boolean = true
     var isNavigate: Boolean = false
-
-
     //页面基础信息
-    lateinit var mContext: Activity
+    lateinit var mActivity:BaseActivity
+    lateinit var mContext:Context
     override fun onAttach(context: Context) {
         super.onAttach(context)
-        mContext = context as Activity
+        mActivity = requireActivity() as BaseActivity
+        mContext=context
     }
 
     /**
@@ -52,22 +49,15 @@ abstract class BaseFragment<VM : BaseViewModel<*>, DB : ViewDataBinding> : Fragm
         savedInstanceState: Bundle?
     ): View? {
         retainInstance = true
-        val cls =
-            (javaClass.genericSuperclass as ParameterizedType).actualTypeArguments[1] as Class<*>
-        if (ViewDataBinding::class.java != cls && ViewDataBinding::class.java.isAssignableFrom(cls)) {
-            binding = DataBindingUtil.inflate(inflater, contentLayout, container, false)
-            binding?.lifecycleOwner = this
-            return binding?.root
-        }
         return inflater.inflate(contentLayout, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         if (isBack()) {
-            StatusBarHelper.setStatusBarLightMode(mContext)
+            StatusBarHelper.setStatusBarLightMode(mActivity)
         } else {
-            StatusBarHelper.setStatusBarDarkMode(mContext)
+            StatusBarHelper.setStatusBarDarkMode(mActivity)
         }
         onVisible()
         createViewModel()
@@ -162,6 +152,6 @@ abstract class BaseFragment<VM : BaseViewModel<*>, DB : ViewDataBinding> : Fragm
 
 
     open fun onBackPressed() {
-        (mContext as BaseActivity<*, *>).onBackPressed()
+        (mContext as BaseActivity).onBackPressed()
     }
 }

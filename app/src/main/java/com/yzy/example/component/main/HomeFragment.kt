@@ -5,14 +5,11 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import androidx.lifecycle.Observer
-import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.CompositePageTransformer
-import com.yzy.baselibrary.base.BaseFragment
 import com.yzy.baselibrary.extention.inflate
 import com.yzy.example.R
 import com.yzy.example.component.comm.CommFragment
-import com.yzy.example.databinding.FragmentHomeBinding
 import com.yzy.example.extention.load
 import com.yzy.example.extention.startNavigate
 import com.yzy.example.repository.bean.ArticleBean
@@ -24,7 +21,7 @@ import kotlinx.android.synthetic.main.item_banner.view.*
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.FlowPreview
 
-class HomeFragment : CommFragment<NewGankViewModel, FragmentHomeBinding>() {
+class HomeFragment : CommFragment<NewGankViewModel>() {
     private val mAdapter by lazy { HomeListAdapter() }
     private lateinit var banner: CycleViewPager
     companion object {
@@ -48,8 +45,6 @@ class HomeFragment : CommFragment<NewGankViewModel, FragmentHomeBinding>() {
     }
 
     override fun initData() {
-        binding?.adapter = mAdapter
-        binding?.layoutManager = LinearLayoutManager(mContext)
         with(rv_home) {
            val  bannerView = mContext.inflate(R.layout.item_banner)
            banner= bannerView.itemBanner

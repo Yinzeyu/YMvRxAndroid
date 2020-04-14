@@ -18,15 +18,15 @@ import kotlinx.android.synthetic.main.layout_comm_title.*
  * @author: yzy
  * @date: 2019/10/8 10:48
  */
-abstract class CommTitleFragment<VM : BaseViewModel<*>, DB : ViewDataBinding> :
-    CommFragment<VM, DB>() {
+abstract class CommTitleFragment<VM : BaseViewModel<*>> :
+    CommFragment<VM>() {
 //    abstract fun layoutTitleContentId(): Int
 
 //    override fun layoutTitleContentId(): Int = R.layout.layout_comm_title
     override fun initView(root: View?) {
         commTitleBack.pressEffectAlpha()
         commonTitleRightTv.pressEffectAlpha()
-        commTitleBack.click { mContext.onBackPressed() }
+        commTitleBack.click { mActivity.onBackPressed() }
 //        //添加子view
 //        if (layoutTitleContentId() > 0) {
 //            titleView.addView(

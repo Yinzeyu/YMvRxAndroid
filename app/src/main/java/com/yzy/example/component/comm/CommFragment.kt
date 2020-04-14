@@ -12,7 +12,7 @@ import com.yzy.example.component.comm.view.ViewController
 import com.yzy.example.component.dialog.ActionDialog
 
 
-abstract class CommFragment<VM : BaseViewModel<*>, DB : ViewDataBinding> : BaseFragment<VM, DB>() {
+abstract class CommFragment<VM : BaseViewModel<*>> : BaseFragment<VM>() {
 //    override val contentLayout: Int = R.layout.base_fragment
 
     /**
@@ -108,7 +108,7 @@ abstract class CommFragment<VM : BaseViewModel<*>, DB : ViewDataBinding> : BaseF
         }
         mActionDialog?.let {
             if (!text.isNullOrBlank()) it.hintText = text
-            it.show((mContext as BaseActivity<*, *>).supportFragmentManager)
+            it.show((mContext as BaseActivity).supportFragmentManager)
         }
     }
 

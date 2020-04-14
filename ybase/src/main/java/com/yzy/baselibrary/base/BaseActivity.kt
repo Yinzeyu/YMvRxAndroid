@@ -4,12 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.MotionEvent
 import androidx.appcompat.app.AppCompatActivity
-import androidx.databinding.DataBindingUtil
-import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
-import com.yzy.baselibrary.extention.StatusBarHelper
 import com.yzy.baselibrary.extention.StatusBarHelper.translucent
 import com.yzy.baselibrary.toast.YToast
 import com.yzy.baselibrary.utils.CleanLeakUtils
@@ -17,7 +12,6 @@ import com.yzy.baselibrary.utils.MyTouchListener
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.cancel
-import java.lang.reflect.ParameterizedType
 
 abstract class BaseActivity : AppCompatActivity(), CoroutineScope by MainScope() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -53,7 +47,7 @@ abstract class BaseActivity : AppCompatActivity(), CoroutineScope by MainScope()
     ) {
         try {
             getFragmentListLast().let {
-                if (it is BaseFragment<*, *>) {
+                if (it is BaseFragment<*>) {
                     when (type) {
                         "stop" -> {
                             it.onFragmentStop()

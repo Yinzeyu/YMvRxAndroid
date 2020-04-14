@@ -101,7 +101,7 @@ abstract class CommDialogFragment : BaseFragmentDialog() {
         }
         mActionDialog?.let {
             if (!text.isNullOrBlank()) it.hintText = text
-            it.show((mActivity as BaseActivity<*,*>).supportFragmentManager)
+            it.show((mActivity as BaseActivity).supportFragmentManager)
         }
     }
 
