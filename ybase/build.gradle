@@ -61,5 +61,4 @@ dependencies {
     api rootProject.ext.dependencies.coroutines_android
     api rootProject.ext.dependencies.lifecycle_viewmodel_ktx
     api rootProject.ext.dependencies.lifecycle_livedata_ktx
-//    api rootProject.ext.dependencies.lifecycle_extensions
 }
