@@ -13,7 +13,7 @@ class MineFragment : CommFragment<NoViewModel>() {
     }
 
     override fun fillStatus(): Boolean = false
-    override fun layoutResContentId(): Int =R.layout.fragment_mine
+    override val contentLayout: Int =R.layout.fragment_mine
 
     override fun initContentView() {
     }

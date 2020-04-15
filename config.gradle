@@ -23,7 +23,7 @@ ext {
     android = [
             applicationId          : "com.yzy.example",
             compileSdkVersion      : 29,
-            minSdkVersion          : 23,
+            minSdkVersion          : 21,
             buildToolsVersion      : "29.0.3",
             targetSdkVersion       : 29,
             versionName            : version_Name,

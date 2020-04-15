@@ -151,12 +151,20 @@ open class BaseViewModel<BR> : AndroidViewModel(Utils.getApp()), LifecycleObserv
         error: suspend CoroutineScope.(ResponseThrowable) -> Unit = {
             defUI.errorEvent.postValue(ThrowableBean(it.code,it.errMsg))
         },
-        complete: () -> Unit = {}) {
+        complete: () -> Unit = {},
+        isShowDialog: Boolean = true) {
+        if (isShowDialog) defUI.showDialog.call()
         launchUI {
-            handleException1({
-                withContext(Dispatchers.IO) { block() } },
+            handleException1(
+                {
+                withContext(Dispatchers.IO) { block() }
+                },
                 { res ->
-                    executeResponse1(res) { success(it) }
+                    executeResponse1(res) {
+                        withContext(Dispatchers.Main) {
+                            success(it)
+                        }
+                    }
                 } ,{
                     error(it)
                 },

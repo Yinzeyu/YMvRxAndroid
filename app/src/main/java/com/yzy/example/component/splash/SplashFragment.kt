@@ -26,7 +26,7 @@ class SplashFragment : CommFragment<NoViewModel>() {
     private var countDownFinish: Boolean? = null
 
     override fun fillStatus(): Boolean = false
-    override fun layoutResContentId(): Int = R.layout.fragment_splash
+    override val contentLayout: Int = R.layout.fragment_splash
 
     override fun initContentView() {
         iv_sp.load("http://pic1.win4000.com/pic/7/0f/2cab03e09e.jpg")

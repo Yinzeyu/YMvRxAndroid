@@ -1,43 +1,37 @@
 package com.yzy.example.component.comm
 
 import android.view.*
-import android.widget.FrameLayout
 import androidx.lifecycle.Observer
 import com.blankj.utilcode.util.BarUtils
 import com.blankj.utilcode.util.ToastUtils
 import com.yzy.baselibrary.base.BaseActivity
 import com.yzy.baselibrary.base.BaseFragment
 import com.yzy.baselibrary.base.BaseViewModel
-import com.yzy.baselibrary.extention.StatusBarHelper
-import com.yzy.baselibrary.extention.backgroundColor
 import com.yzy.baselibrary.http.event.Message
 import com.yzy.example.component.comm.view.ViewController
 import com.yzy.example.component.dialog.ActionDialog
-import kotlinx.android.synthetic.main.base_fragment.*
 
 
 abstract class CommFragment<VM : BaseViewModel<*>> : BaseFragment<VM>() {
-    override val contentLayout: Int = com.yzy.example.R.layout.base_fragment
+//    override val contentLayout: Int = com.yzy.example.R.layout.base_fragment
     /**
      * 填充布局 空布局 loading 网络异常等
      */
    private lateinit var viewController: ViewController
-    abstract fun layoutResContentId(): Int
-    lateinit var rootView:View
     override fun initView(root: View?) {
-        val statusBarHeight = if (fillStatus()) BarUtils.getStatusBarHeight() else 0
-        viewController = ViewController(contentView)
-        rootView =View.inflate(mContext, layoutResContentId(), null)
-        contentView.addView(rootView, ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT))
+//        val statusBarHeight = if (fillStatus()) BarUtils.getStatusBarHeight() else 0
+        viewController = ViewController(rootView)
+//        rootView =View.inflate(mContext, layoutResContentId(), null)
+//        contentView.addView(rootView, ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT))
         //注册 UI事件
         registorDefUIChange()
         initContentView()
-        baseStatusView?.let {
-            it.backgroundColor =statusColor()
-            it.layoutParams.height =
-                if (fillStatus())  BarUtils.getStatusBarHeight() else 0
-            it.backgroundColor = statusColor()
-        }
+//        baseStatusView?.let {
+//            it.backgroundColor =statusColor()
+//            it.layoutParams.height =
+//                if (fillStatus())  BarUtils.getStatusBarHeight() else 0
+//            it.backgroundColor = statusColor()
+//        }
 
 //        if (layoutTitleContentId() != 0) {
 //            val titleView = View.inflate(mContext, layoutTitleContentId(), null)

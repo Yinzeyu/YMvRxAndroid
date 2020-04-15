@@ -4,7 +4,6 @@ import android.annotation.SuppressLint
 import android.graphics.Color
 import android.view.View
 import android.view.ViewGroup
-import androidx.databinding.ViewDataBinding
 import androidx.navigation.fragment.navArgs
 import com.just.agentweb.AgentWeb
 import com.just.agentweb.DefaultWebClient
@@ -24,7 +23,7 @@ class WebsiteDetailFragment : CommFragment<NoViewModel>() {
 
     override fun statusColor(): Int = Color.parseColor("#008577")
 
-    override fun layoutResContentId(): Int =R.layout.fragment_wesite_detail
+    override val contentLayout: Int =R.layout.fragment_wesite_detail
     override fun layoutTitleContentId(): Int =R.layout.web_fragment_title
 
     override fun initContentView() {
@@ -67,5 +66,6 @@ class WebsiteDetailFragment : CommFragment<NoViewModel>() {
             .setOpenOtherPageWays(DefaultWebClient.OpenOtherPageWays.ASK)//打开其他应用时，弹窗咨询用户是否前往其他应用
             .interceptUnkownUrl() //拦截找不到相关页面的Scheme
     }
+
 
 }

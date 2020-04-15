@@ -119,7 +119,7 @@ dependencies {
     kapt rootProject.ext.dependencies.glide_compiler
     implementation rootProject.ext.dependencies.bugly
     implementation rootProject.ext.dependencies.bugly_native
-    implementation rootProject.ext.dependencies.smart
+//    implementation rootProject.ext.dependencies.smart
     implementation rootProject.ext.dependencies.viewpager2
     implementation rootProject.ext.dependencies.lottie
     implementation rootProject.ext.dependencies.live_event_bus

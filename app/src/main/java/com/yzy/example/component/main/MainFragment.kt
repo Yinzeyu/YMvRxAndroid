@@ -19,15 +19,9 @@ class MainFragment : CommFragment<NoViewModel>() {
     private var currentFragment: Fragment? = null
     //子列表合集，方便外部调用选中那个
     private var fragmentList = mutableListOf<Fragment>()
-    override fun layoutResContentId(): Int =R.layout.fragment_main
-
+    override val contentLayout: Int=R.layout.fragment_main
+    override fun fillStatus(): Boolean = false
     override fun initContentView() {
-//        LogUtils.e("initContentView")
-//        btn.click {
-//            Navigation.findNavController(it).navigate(  MainFragmentDirections.actionMainFragmentToWebsiteDetailFragment(" https:\\/\\/blog.csdn.net\\/HarryWeasley\\/article\\/details\\/105363078"))
-//        }
-
-
 //        初始化
         homeFragment = HomeFragment.newInstance()
         dynFragment = DynFragment.newInstance()

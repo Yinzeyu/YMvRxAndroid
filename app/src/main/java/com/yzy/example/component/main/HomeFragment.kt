@@ -13,7 +13,6 @@ import com.yzy.baselibrary.extention.inflate
 import com.yzy.example.R
 import com.yzy.example.component.comm.CommFragment
 import com.yzy.example.extention.load
-import com.yzy.example.extention.startNavigate
 import com.yzy.example.repository.bean.ArticleBean
 import com.yzy.example.repository.bean.BannerBean
 import com.yzy.example.repository.model.NewGankViewModel
@@ -35,7 +34,7 @@ class HomeFragment : CommFragment<NewGankViewModel>() {
     override fun fillStatus(): Boolean = true
 
 
-    override fun layoutResContentId(): Int =R.layout.fragment_home
+    override val contentLayout: Int =R.layout.fragment_home
 
     @FlowPreview
     @ExperimentalCoroutinesApi

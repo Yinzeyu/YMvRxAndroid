@@ -284,4 +284,7 @@
     <color name="m1D7BEA">#1D7BEA</color>
     <color name="m177AE6">#177AE6</color>
     <color name="mCCE4FF">#CCE4FF</color>
+
+    <!--分割线颜色-->
+    <color name="lineGray">#ebebeb</color>
 </resources>

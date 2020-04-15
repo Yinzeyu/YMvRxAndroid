@@ -5,11 +5,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.widget.TextView
 import com.airbnb.lottie.LottieAnimationView
-import com.scwang.smart.refresh.layout.api.RefreshHeader
-import com.scwang.smart.refresh.layout.api.RefreshKernel
-import com.scwang.smart.refresh.layout.api.RefreshLayout
-import com.scwang.smart.refresh.layout.constant.RefreshState
-import com.scwang.smart.refresh.layout.constant.SpinnerStyle
+import com.yzy.baselibrary.widget.refresh.api.RefreshHeader
+import com.yzy.baselibrary.widget.refresh.api.RefreshKernel
+import com.yzy.baselibrary.widget.refresh.api.RefreshLayout
+import com.yzy.baselibrary.widget.refresh.constant.RefreshState
+import com.yzy.baselibrary.widget.refresh.constant.SpinnerStyle
 import com.yzy.example.R
 
 /**
@@ -60,9 +60,9 @@ class RefreshHeader(context: Context) : RefreshHeader {
     }
 
     override fun onStateChanged(
-            refreshLayout: RefreshLayout,
-            oldState: RefreshState,
-            newState: RefreshState
+        refreshLayout: RefreshLayout,
+        oldState: RefreshState,
+        newState: RefreshState
     ) {
         when (newState) {
             RefreshState.None -> {

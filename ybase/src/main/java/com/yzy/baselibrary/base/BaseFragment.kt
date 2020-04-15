@@ -1,18 +1,22 @@
 package com.yzy.baselibrary.base
 
-import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.FrameLayout
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.fragment.NavHostFragment
+import com.yzy.baselibrary.R
 import com.yzy.baselibrary.extention.StatusBarHelper
+import com.yzy.baselibrary.extention.backgroundColor
+import com.yzy.baselibrary.extention.inflate
+import com.yzy.baselibrary.extention.removeParent
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.cancel
@@ -30,19 +34,21 @@ abstract class BaseFragment<VM : BaseViewModel<*>> : Fragment(),
     //是否第一次加载
     private var isFirst: Boolean = true
     var isNavigate: Boolean = false
+
     //页面基础信息
-    lateinit var mActivity:BaseActivity
-    lateinit var mContext:Context
+    lateinit var mActivity: BaseActivity
+    lateinit var mContext: Context
     override fun onAttach(context: Context) {
         super.onAttach(context)
         mActivity = requireActivity() as BaseActivity
-        mContext=context
+        mContext = context
     }
 
     /**
      * 内容布局的ResId
      */
     protected abstract val contentLayout: Int
+    lateinit var rootView: FrameLayout
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -50,7 +56,22 @@ abstract class BaseFragment<VM : BaseViewModel<*>> : Fragment(),
         savedInstanceState: Bundle?
     ): View? {
         retainInstance = true
-        return inflater.inflate(contentLayout, container, false)
+        Log.e("fragment", this.javaClass.name)
+        val contentView = inflater.inflate(R.layout.base_fragment, container,false)
+        val noteView = mContext.inflate(contentLayout)
+        rootView = contentView.findViewById(R.id.contentView)
+        if (contentLayout > 0) {
+            rootView.addView(noteView)
+        } else {
+            rootView.removeParent()
+        }
+        val baseStatusView = contentView.findViewById<View>(R.id.baseStatusView)
+        baseStatusView?.let {
+            it.layoutParams.height =
+                if (fillStatus()) StatusBarHelper.getStatusBarHeight(mContext) else 0
+            it.backgroundColor = statusColor()
+        }
+        return contentView
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -71,6 +92,7 @@ abstract class BaseFragment<VM : BaseViewModel<*>> : Fragment(),
         super.onResume()
         onVisible()
     }
+
     /**
      * 是否需要懒加载
      */

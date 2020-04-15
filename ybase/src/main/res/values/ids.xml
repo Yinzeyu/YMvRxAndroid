@@ -4,4 +4,5 @@
     <item name="id_tag_click" type="id"/>
     <item type="id" name="bar_fake_status_bar_view" />
     <item type="id" name="bar_translucent_view" />
+    <item type="id" name="srl_tag"/>
 </resources>
