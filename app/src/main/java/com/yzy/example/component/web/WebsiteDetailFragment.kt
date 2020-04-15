@@ -9,11 +9,13 @@ import com.blankj.utilcode.util.SizeUtils
 import com.just.agentweb.AgentWeb
 import com.just.agentweb.DefaultWebClient
 import com.yzy.baselibrary.base.NoViewModel
+import com.yzy.baselibrary.extention.click
 import com.yzy.baselibrary.extention.getResColor
 import com.yzy.example.R
 import com.yzy.example.component.comm.CommFragment
 import com.yzy.example.widget.LollipopFixedWebView
 import kotlinx.android.synthetic.main.fragment_wesite_detail.*
+import kotlinx.android.synthetic.main.web_fragment_title.*
 
 class WebsiteDetailFragment : CommFragment<NoViewModel>() {
 
@@ -48,6 +50,9 @@ class WebsiteDetailFragment : CommFragment<NoViewModel>() {
             //扩大比例的缩放
             ws.useWideViewPort = true
             ws.loadWithOverviewMode = true
+        }
+        commTitleBack.click {
+            onBackPressed()
         }
     }
 

@@ -1,16 +1,11 @@
 package com.yzy.example.component.comm
 
 import android.view.View
-import android.view.ViewGroup
 import androidx.core.view.isVisible
-import androidx.databinding.ViewDataBinding
-import com.yzy.baselibrary.base.BaseRepository
 import com.yzy.baselibrary.base.BaseViewModel
 import com.yzy.baselibrary.extention.click
 import com.yzy.baselibrary.extention.pressEffectAlpha
 import com.yzy.baselibrary.extention.visible
-import com.yzy.example.R
-import kotlinx.android.synthetic.main.activity_comm_title.*
 import kotlinx.android.synthetic.main.layout_comm_title.*
 
 /**
