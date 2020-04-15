@@ -1,9 +1,9 @@
 package com.yzy.example.app
 
 import com.jeremyliao.liveeventbus.LiveEventBus
-import com.scwang.smart.refresh.layout.SmartRefreshLayout
 import com.yzy.baselibrary.app.BaseApplication
 import com.yzy.baselibrary.http.RetrofitConfig
+import com.yzy.baselibrary.widget.refresh.SmartRefreshLayout
 import com.yzy.example.R
 import com.yzy.example.constants.ApiConstants
 import com.yzy.example.http.RequestIntercept
