@@ -209,15 +209,6 @@ open class BaseViewModel<BR> : AndroidViewModel(Utils.getApp()), LifecycleObserv
             }
         }
     }
-
-
-    open class BaseUiModel<T>(
-        var showEnd: Boolean = false, // 加载更多
-        var success: T? = null, // 加载更多
-        var showLoading: Boolean = false,
-        var isRefresh: Boolean = false // 刷新
-
-    )
     /**
      * UI事件
      */

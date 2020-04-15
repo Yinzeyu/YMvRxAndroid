@@ -4,10 +4,10 @@ import com.jeremyliao.liveeventbus.LiveEventBus
 import com.yzy.baselibrary.app.BaseApplication
 import com.yzy.baselibrary.http.RetrofitConfig
 import com.yzy.baselibrary.widget.refresh.SmartRefreshLayout
+import com.yzy.baselibrary.widget.refresh.header.ClassicsHeader
 import com.yzy.example.R
 import com.yzy.example.constants.ApiConstants
 import com.yzy.example.http.RequestIntercept
-import com.yzy.example.widget.RefreshHeader
 
 
 class App : BaseApplication() {
@@ -36,8 +36,8 @@ class App : BaseApplication() {
         //设置全局的Header构建器
         //设置全局的Header构建器
         SmartRefreshLayout.setDefaultRefreshHeaderCreator { context, layout ->
-            layout.setPrimaryColorsId(R.color.colorPrimary, android.R.color.white)//全局设置主题颜色
-            RefreshHeader(context)
+            layout.setPrimaryColorsId(R.color.white, android.R.color.black)//全局设置主题颜色
+            ClassicsHeader(context)
         }
     }
 }

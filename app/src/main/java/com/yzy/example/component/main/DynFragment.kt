@@ -25,6 +25,7 @@ class DynFragment() : CommFragment<DynViewModel>() {
     private var page: Int = 0
     override fun initContentView() {
        dropDownRefresh()
+        smDynRefresh.setEnableRefresh(false)
         smDynRefresh.setOnRefreshListener {
             dropDownRefresh()
         }
@@ -37,6 +38,7 @@ class DynFragment() : CommFragment<DynViewModel>() {
             addItemDecoration(dividerItemDecoration)
         }
         viewModel.uiState.observe(this, Observer {
+            smDynRefresh.setEnableRefresh(true)
             if (smDynRefresh.isRefreshing) smDynRefresh.finishRefresh()
             if (page == 1) dynAdapter.setList(it)
             else dynAdapter.addData(it)

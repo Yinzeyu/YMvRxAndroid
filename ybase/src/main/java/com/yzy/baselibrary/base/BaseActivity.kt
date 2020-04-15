@@ -28,17 +28,14 @@ abstract class BaseActivity : AppCompatActivity(), CoroutineScope by MainScope()
         super.onRestart()
         acEventType("restart")
     }
-
     override fun onStop() {
         super.onStop()
         acEventType("stop")
     }
-
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         acEventType("activityResult", requestCode, resultCode, data)
     }
-
     private fun acEventType(
         type: String,
         requestCode: Int = -1,

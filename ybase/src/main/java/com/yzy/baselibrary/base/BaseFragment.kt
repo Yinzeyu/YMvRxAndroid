@@ -65,12 +65,12 @@ abstract class BaseFragment<VM : BaseViewModel<*>> : Fragment(),
         } else {
             rootView.removeParent()
         }
-        val baseStatusView = contentView.findViewById<View>(R.id.baseStatusView)
-        baseStatusView?.let {
-            it.layoutParams.height =
-                if (fillStatus()) StatusBarHelper.getStatusBarHeight(mContext) else 0
-            it.backgroundColor = statusColor()
-        }
+//        val baseStatusView = contentView.findViewById<View>(R.id.baseStatusView)
+//        baseStatusView?.let {
+//            it.layoutParams.height =
+//                if (fillStatus()) StatusBarHelper.getStatusBarHeight(mContext) else 0
+//            it.backgroundColor = statusColor()
+//        }
         return contentView
     }
 

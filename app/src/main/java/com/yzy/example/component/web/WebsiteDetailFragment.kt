@@ -5,6 +5,7 @@ import android.graphics.Color
 import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.fragment.navArgs
+import com.blankj.utilcode.util.SizeUtils
 import com.just.agentweb.AgentWeb
 import com.just.agentweb.DefaultWebClient
 import com.yzy.baselibrary.base.NoViewModel
@@ -22,10 +23,9 @@ class WebsiteDetailFragment : CommFragment<NoViewModel>() {
     private var agentBuilder: AgentWeb.CommonBuilder? = null
 
     override fun statusColor(): Int = Color.parseColor("#008577")
-
     override val contentLayout: Int =R.layout.fragment_wesite_detail
     override fun layoutTitleContentId(): Int =R.layout.web_fragment_title
-
+    override fun titleHeight(): Int  = SizeUtils.dp2px(48f)
     override fun initContentView() {
         webRootView.removeAllViews()
         initAgentBuilder()

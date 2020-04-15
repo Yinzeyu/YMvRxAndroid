@@ -1,13 +1,16 @@
 package com.yzy.example.component.comm
 
 import android.view.*
+import android.widget.FrameLayout
 import androidx.lifecycle.Observer
 import com.blankj.utilcode.util.BarUtils
 import com.blankj.utilcode.util.ToastUtils
 import com.yzy.baselibrary.base.BaseActivity
 import com.yzy.baselibrary.base.BaseFragment
 import com.yzy.baselibrary.base.BaseViewModel
+import com.yzy.baselibrary.extention.backgroundColor
 import com.yzy.baselibrary.http.event.Message
+import com.yzy.example.R
 import com.yzy.example.component.comm.view.ViewController
 import com.yzy.example.component.dialog.ActionDialog
 
@@ -19,30 +22,29 @@ abstract class CommFragment<VM : BaseViewModel<*>> : BaseFragment<VM>() {
      */
    private lateinit var viewController: ViewController
     override fun initView(root: View?) {
-//        val statusBarHeight = if (fillStatus()) BarUtils.getStatusBarHeight() else 0
+
         viewController = ViewController(rootView)
-//        rootView =View.inflate(mContext, layoutResContentId(), null)
-//        contentView.addView(rootView, ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT))
         //注册 UI事件
         registorDefUIChange()
         initContentView()
-//        baseStatusView?.let {
-//            it.backgroundColor =statusColor()
-//            it.layoutParams.height =
-//                if (fillStatus())  BarUtils.getStatusBarHeight() else 0
-//            it.backgroundColor = statusColor()
-//        }
-
-//        if (layoutTitleContentId() != 0) {
-//            val titleView = View.inflate(mContext, layoutTitleContentId(), null)
-//            titleView.backgroundColor=statusColor()
-//            titleView.post {
-//                baseStatusView.addView(titleView, ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, titleView.height + statusBarHeight))
-//            }
-//
-//        } else {
-//            baseStatusView.layoutParams.height =baseStatusView.height+ statusBarHeight
-//        }
+        root?.let {
+            val statusView = it.findViewById<FrameLayout>(R.id.baseStatusView)
+            if (layoutTitleContentId() != 0) {
+                statusView.layoutParams.height=titleHeight() + BarUtils.getStatusBarHeight()
+                statusView.backgroundColor= statusColor()
+                val titleView = View.inflate(mContext, layoutTitleContentId(), null)
+//                titleView.backgroundColor=statusColor()
+                val layoutParams = FrameLayout.LayoutParams(
+                    ViewGroup.LayoutParams.MATCH_PARENT,
+                    titleHeight()
+                )
+                layoutParams.gravity= Gravity.BOTTOM
+                statusView.addView(titleView,layoutParams)
+            } else {
+                val statusBarHeight = if (fillStatus()) BarUtils.getStatusBarHeight() else 0
+                statusView.layoutParams.height = statusBarHeight
+            }
+        }
     }
     /**
      * 注册 UI 事件
@@ -67,6 +69,10 @@ abstract class CommFragment<VM : BaseViewModel<*>> : BaseFragment<VM>() {
 
     //是否需要默认填充状态栏,默认填充为白色view
     protected open fun layoutTitleContentId(): Int {
+        return 0
+    }
+
+    protected open fun titleHeight(): Int {
         return 0
     }
   open  fun getViewController():ViewController{
