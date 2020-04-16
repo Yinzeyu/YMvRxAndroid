@@ -2,7 +2,8 @@ package com.yzy.example.app
 
 import com.jeremyliao.liveeventbus.LiveEventBus
 import com.yzy.baselibrary.app.BaseApplication
-import com.yzy.baselibrary.http.RetrofitConfig
+import com.yzy.baselibrary.http.ClientUtils
+import com.yzy.baselibrary.http.retrofitConfig
 import com.yzy.baselibrary.widget.refresh.SmartRefreshLayout
 import com.yzy.baselibrary.widget.refresh.header.ClassicsHeader
 import com.yzy.example.R
@@ -13,7 +14,7 @@ import com.yzy.example.http.RequestIntercept
 class App : BaseApplication() {
     override fun initInMainThread() {
         initLiveBus()
-        RetrofitConfig {
+        retrofitConfig {
             context = this@App
             baseUrl = ApiConstants.Address.BASE_URL
             interceptors.add(RequestIntercept())

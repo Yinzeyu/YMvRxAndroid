@@ -1,14 +1,10 @@
 package com.yzy.example.extention
 
 import android.os.Bundle
-import android.view.View
 import androidx.annotation.IdRes
-import androidx.annotation.Nullable
 import androidx.navigation.NavDirections
-import androidx.navigation.NavOptions
 import androidx.navigation.Navigation
 import androidx.navigation.navOptions
-import com.yzy.baselibrary.base.BaseActivity
 import com.yzy.example.R
 import com.yzy.example.component.main.MainActivity
 
@@ -27,10 +23,10 @@ import com.yzy.example.component.main.MainActivity
 
 val options = navOptions {
     anim {
-        enter = R.anim.slide_right_in // 进入页面动画
-        exit = R.anim.slide_left_out
-        popEnter = R.anim.slide_left_in  // 弹出栈动画
-        popExit = R.anim.slide_right_out
+        enter = R.anim.slide_in_bottom // 进入页面动画
+        exit = R.anim.slide_out_top
+        popEnter = R.anim.slide_in_top  // 弹出栈动画
+        popExit = R.anim.slide_out_bottom
     }
 
 //    launchSingleTop = true

@@ -18,7 +18,7 @@ import java.util.*
 import java.util.concurrent.TimeUnit
 
 
-fun RetrofitConfig(config: ClientUtils.InitRetrofitConfig.() -> Unit) {
+fun retrofitConfig(config: ClientUtils.InitRetrofitConfig.() -> Unit) {
     val configBean = ClientUtils.InitRetrofitConfig()
     configBean.apply(config)
     inItConfig(configBean)

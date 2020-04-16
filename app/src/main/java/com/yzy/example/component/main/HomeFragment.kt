@@ -17,7 +17,6 @@ import com.yzy.example.repository.bean.ArticleBean
 import com.yzy.example.repository.bean.BannerBean
 import com.yzy.example.repository.model.NewGankViewModel
 import com.yzy.example.widget.CycleViewPager
-import kotlinx.android.synthetic.main.fragment_dyn.*
 import kotlinx.android.synthetic.main.fragment_home.*
 import kotlinx.android.synthetic.main.item_banner.view.*
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -49,7 +48,7 @@ class HomeFragment : CommFragment<NewGankViewModel>() {
     }
 
     override fun initData() {
-        with(rv_home) {
+        with(rvHomeRecycler) {
             layoutManager = LinearLayoutManager(mContext)
             adapter = mAdapter
             val bannerView = mContext.inflate(R.layout.item_banner)

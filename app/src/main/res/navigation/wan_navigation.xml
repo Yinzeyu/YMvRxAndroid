@@ -12,19 +12,13 @@
         <action
             android:id="@+id/action_rootFragment_to_middleFragment"
             app:destination="@id/mainFragment"
-            app:enterAnim="@anim/slide_right_in"
-            app:exitAnim="@anim/slide_right_out"
-            app:popEnterAnim="@anim/slide_left_in"
-            app:popExitAnim="@anim/slide_left_in"
+            app:enterAnim="@anim/slide_in_top"
+            app:exitAnim="@anim/slide_out_top"
+            app:popEnterAnim="@anim/slide_in_bottom"
+            app:popExitAnim="@anim/slide_out_bottom"
             app:popUpTo="@id/splashFragment"
             app:popUpToInclusive="true"
             />
-<!--        <action-->
-<!--            android:id="@+id/action_splashFragment_to_mainFragment"-->
-<!--            app:destination="@id/mainFragment"-->
-<!--            app:popUpTo="@id/splashFragment"-->
-<!--            app:popUpToInclusive="true"-->
-<!--            />-->
     </tab_fragment>
     <tab_fragment
         android:id="@+id/mainFragment"
@@ -33,7 +27,12 @@
         tools:layout="@layout/fragment_main">
         <action
             android:id="@+id/action_mainFragment_to_websiteDetailFragment"
-            app:destination="@id/websiteDetailFragment" />
+            app:destination="@id/websiteDetailFragment"
+            app:enterAnim="@anim/slide_in_top"
+            app:exitAnim="@anim/slide_out_top"
+            app:popEnterAnim="@anim/slide_in_bottom"
+            app:popExitAnim="@anim/slide_out_bottom"
+            />
     </tab_fragment>
 
 
