@@ -8,14 +8,25 @@ import com.yzy.example.repository.bean.GankAndroidBean
 
 class DynViewModel : BaseViewModel<GankRepository>() {
     val uiState = MutableLiveData<MutableList<GankAndroidBean>>()
-    fun getAndroidSuspend(page: Int,loading:Boolean=true) {
-
-        launchOnlyresult1({ repository.getAndroidSuspend(20, page) },
-            success =  {
-            uiState.value=it
-        },complete = {
-            defUI.dismissDialog.postValue(null)
-        },isShowDialog = loading)
+    var pageSize = 20
+    var page = 0
+    private fun getAndroidSuspend(loading: Boolean = true) {
+        launchOnlyresult1({ repository.getAndroidSuspend(pageSize, page) },
+            success = {
+                uiState.value = it
+            }, complete = {
+                defUI.dismissDialog.postValue(null)
+            }, isShowDialog = loading
+        )
     }
 
+    fun refreshRequest(loading: Boolean = true) {
+        page =0
+        getAndroidSuspend(loading)
+    }
+
+    fun loadRequest(loading: Boolean = true) {
+        page += 1
+        getAndroidSuspend(loading)
+    }
 }

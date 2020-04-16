@@ -8,7 +8,5 @@ package com.yzy.example.repository.bean
  */
 data class BannerAndArticleBean(
     var bannerBean: MutableList<BannerBean> = mutableListOf(),
-    var articleBean: MutableList<ArticleBean> = mutableListOf(),
-    var hasMore: Boolean = false,
-    val exception: Exception? = null
+    var articleBean: MutableList<ArticleBean> = mutableListOf()
     )

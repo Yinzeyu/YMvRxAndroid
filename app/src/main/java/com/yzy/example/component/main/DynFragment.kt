@@ -6,6 +6,7 @@ import androidx.navigation.Navigation
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.chad.library.adapter.base.module.BaseLoadMoreModule
+import com.yzy.baselibrary.http.event.Message
 import com.yzy.example.R
 import com.yzy.example.component.comm.CommFragment
 import com.yzy.example.repository.bean.ArticleBean
@@ -19,10 +20,8 @@ class DynFragment() : CommFragment<DynViewModel>() {
         }
     }
     private val dynAdapter by lazy { DynAdapter() }
-
     override fun fillStatus(): Boolean = true
     override val contentLayout: Int =R.layout.fragment_dyn
-    private var page: Int = 0
     override fun initContentView() {
        dropDownRefresh()
         smDynRefresh.setEnableRefresh(false)
@@ -40,23 +39,25 @@ class DynFragment() : CommFragment<DynViewModel>() {
         viewModel.uiState.observe(this, Observer {
             smDynRefresh.setEnableRefresh(true)
             if (smDynRefresh.isRefreshing) smDynRefresh.finishRefresh()
-            if (page == 1) dynAdapter.setList(it)
+            if (viewModel.page == 0) dynAdapter.setList(it)
             else dynAdapter.addData(it)
-            if (it.size != 20)  dynAdapter.loadMoreModule.loadMoreEnd()
+            if (it.size != 20)  dynAdapter.loadMoreModule.loadMoreEnd(true)
             else dynAdapter.loadMoreModule.loadMoreComplete()
-            page++
         })
     }
     private fun dropDownRefresh() {
-        page = 0
-        smDynRefresh.setEnableRefresh(true)
-        viewModel.getAndroidSuspend(page,dynAdapter.data.size <=0)
+        viewModel.refreshRequest(dynAdapter.data.size <=0)
+    }
+
+    override fun handleEvent(msg: Message) {
+        smDynRefresh.finishRefresh()
+        dynAdapter.loadMoreModule.loadMoreComplete()
     }
 
     override fun initData() {
         dynAdapter.apply {
             loadMoreModule.setOnLoadMoreListener {
-                viewModel.getAndroidSuspend(page + 1,dynAdapter.data.size <=0)
+                viewModel.loadRequest(dynAdapter.data.size <=0)
             }
 
             setOnItemClickListener { adapter, v, position ->

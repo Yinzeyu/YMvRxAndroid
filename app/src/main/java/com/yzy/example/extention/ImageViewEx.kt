@@ -31,8 +31,8 @@ fun ImageView.load(url: String?, placeholderId: Int = 0, errorRes: Int = 0) {
         val config = ImageConfig(
             useCrossFade = false,
             url = it,
-            errorSrc = placeholderId,
-            placeholder = errorRes
+            errorSrc = errorRes,
+            placeholder =placeholderId
         )
         load(config)
     }
