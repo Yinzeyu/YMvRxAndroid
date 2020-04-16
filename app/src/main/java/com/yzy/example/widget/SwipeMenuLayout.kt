@@ -248,8 +248,9 @@ class SwipeMenuLayout @JvmOverloads constructor(
                         isUnMoved = false
                     }
                     //2016 10 22 add , 仿QQ，侧滑菜单展开时，点击内容区域，关闭侧滑菜单。end
-//如果scroller还没有滑动结束 停止滑动动画
-/*                    if (!mScroller.isFinished()) {
+                    //如果scroller还没有滑动结束 停止滑动动画
+                    /*
+                        if (!mScroller.isFinished()) {
                         mScroller.abortAnimation();
                     }*/scrollBy(gap.toInt(), 0) //滑动使用scrollBy
                     //越界修正
@@ -277,20 +278,20 @@ class SwipeMenuLayout @JvmOverloads constructor(
                     }
                     //add by 2016 09 11 ，IOS模式开启的话，且当前有侧滑菜单的View，且不是自己的，就该拦截事件咯。滑动也不该出现
                     if (!iosInterceptFlag) { //且滑动了 才判断是否要收起、展开menu
-//求伪瞬时速度
+                    //求伪瞬时速度
                         verTracker.computeCurrentVelocity(1000, mMaxVelocity.toFloat())
                         val velocityX = verTracker.getXVelocity(mPointerId)
                         if (abs(velocityX) > 1000) { //滑动速度超过阈值
                             if (velocityX < -1000) {
                                 if (isLeftSwipe) { //左滑
-//平滑展开Menu
+                                    //平滑展开Menu
                                     smoothExpand()
                                 } else { //平滑关闭Menu
                                     smoothClose()
                                 }
                             } else {
                                 if (isLeftSwipe) { //左滑
-// 平滑关闭Menu
+                                    // 平滑关闭Menu
                                     smoothClose()
                                 } else { //平滑展开Menu
                                     smoothExpand()
@@ -319,8 +320,8 @@ class SwipeMenuLayout @JvmOverloads constructor(
     }
 
     override fun onInterceptTouchEvent(ev: MotionEvent): Boolean { //Log.d(TAG, "onInterceptTouchEvent() called with: ev = [" + ev + "]");
-//add by zhangxutong 2016 12 07 begin:
-//禁止侧滑时，点击事件不受干扰。
+        //add by zhangxutong 2016 12 07 begin:
+        //禁止侧滑时，点击事件不受干扰。
         if (isSwipeEnable) {
             when (ev.action) {
                 MotionEvent.ACTION_MOVE ->  //屏蔽滑动时的事件
@@ -331,7 +332,7 @@ class SwipeMenuLayout @JvmOverloads constructor(
                     //为了在侧滑时，屏蔽子View的点击事件
                     if (isLeftSwipe) {
                         if (scrollX > mScaleTouchSlop) { //add by 2016 09 10 解决一个智障问题~ 居然不给点击侧滑菜单 我跪着谢罪
-//这里判断落点在内容区域屏蔽点击，内容区域外，允许传递事件继续向下的的。。。
+                            //这里判断落点在内容区域屏蔽点击，内容区域外，允许传递事件继续向下的的。。。
                             if (ev.x < width - scrollX) { //2016 10 22 add , 仿QQ，侧滑菜单展开时，点击内容区域，关闭侧滑菜单。
                                 if (isUnMoved) {
                                     smoothClose()
@@ -342,7 +343,7 @@ class SwipeMenuLayout @JvmOverloads constructor(
                     } else {
                         if (-scrollX > mScaleTouchSlop) {
                             if (ev.x > -scrollX) { //点击范围在菜单外 屏蔽
-//2016 10 22 add , 仿QQ，侧滑菜单展开时，点击内容区域，关闭侧滑菜单。
+                                //2016 10 22 add , 仿QQ，侧滑菜单展开时，点击内容区域，关闭侧滑菜单。
                                 if (isUnMoved) {
                                     smoothClose()
                                 }
@@ -351,7 +352,7 @@ class SwipeMenuLayout @JvmOverloads constructor(
                         }
                     }
                     //add by zhangxutong 2016 11 03 begin:
-// 判断手指起始落点，如果距离属于滑动了，就屏蔽一切点击事件。
+                    // 判断手指起始落点，如果距离属于滑动了，就屏蔽一切点击事件。
                     if (isUserSwiped) {
                         return true
                     }
@@ -480,8 +481,8 @@ class SwipeMenuLayout @JvmOverloads constructor(
     }
 
     //每次ViewDetach的时候，判断一下 ViewCache是不是自己，如果是自己，关闭侧滑菜单，且ViewCache设置为null，
-// 理由：1 防止内存泄漏(ViewCache是一个静态变量)
-// 2 侧滑删除后自己后，这个View被Recycler回收，复用，下一个进入屏幕的View的状态应该是普通状态，而不是展开状态。
+    // 理由：1 防止内存泄漏(ViewCache是一个静态变量)
+    // 2 侧滑删除后自己后，这个View被Recycler回收，复用，下一个进入屏幕的View的状态应该是普通状态，而不是展开状态。
     override fun onDetachedFromWindow() {
         if (this === mViewCache) {
             mViewCache?.smoothClose()
