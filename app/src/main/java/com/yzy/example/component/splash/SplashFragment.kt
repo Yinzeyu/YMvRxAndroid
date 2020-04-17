@@ -7,11 +7,11 @@ import androidx.navigation.Navigation
 import com.blankj.utilcode.constant.PermissionConstants
 import com.blankj.utilcode.util.PermissionUtils
 import com.yzy.baselibrary.base.NoViewModel
-import com.yzy.example.extention.load
 import com.yzy.baselibrary.extention.toast
 import com.yzy.example.R
 import com.yzy.example.component.comm.CommFragment
 import com.yzy.example.component.main.MainActivity
+import com.yzy.example.imageloader.GlideApp
 import kotlinx.android.synthetic.main.fragment_splash.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
@@ -29,7 +29,7 @@ class SplashFragment : CommFragment<NoViewModel>() {
     override val contentLayout: Int = R.layout.fragment_splash
 
     override fun initContentView() {
-        iv_sp.load("http://pic1.win4000.com/pic/7/0f/2cab03e09e.jpg")
+        GlideApp.with(mActivity).load(R.drawable.aaa).into(iv_sp)
         launch(Dispatchers.Main) {
             for (i in 5 downTo 1) {
                 splashTime.text = String.format("%d", i)
