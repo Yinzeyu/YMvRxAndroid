@@ -24,15 +24,19 @@ import android.content.pm.PackageManager;
 import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.util.DisplayMetrics;
+import android.util.Log;
 
+import com.blankj.utilcode.util.BarUtils;
 import com.yzy.baselibrary.utils.autosize.external.ExternalAdaptManager;
 import com.yzy.baselibrary.utils.autosize.unit.Subunits;
 import com.yzy.baselibrary.utils.autosize.unit.UnitsManager;
-import com.yzy.baselibrary.utils.autosize.utils.AutoSizeLog;
 import com.yzy.baselibrary.utils.autosize.utils.Preconditions;
-import com.yzy.baselibrary.utils.autosize.utils.ScreenUtils;
+
+import org.jetbrains.annotations.NotNull;
 
 import java.lang.reflect.Field;
+
+import static com.yzy.baselibrary.extention.ContextExKt.getScreenSize;
 
 /**
  * ================================================
@@ -98,7 +102,7 @@ public final class AutoSizeConfig {
     private int mScreenHeight;
     /**
      * 状态栏高度, 当 {@link #isUseDeviceSize} 为 {@code false} 时, AndroidAutoSize 会将 {@link #mScreenHeight} 减去状态栏高度
-     * AndroidAutoSize 默认使用 {@link ScreenUtils#getStatusBarHeight()} 方法获取状态栏高度
+     * AndroidAutoSize 默认使用 {@link BarUtils#getStatusBarHeight()} 方法获取状态栏高度
      * AndroidAutoSize 使用者可使用 {@link #setStatusBarHeight(int)} 自行设置状态栏高度
      */
     private int mStatusBarHeight;
@@ -238,11 +242,11 @@ public final class AutoSizeConfig {
 
         getMetaData(application);
         isVertical = application.getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT;
-        int[] screenSize = ScreenUtils.getScreenSize(application);
+        int[] screenSize = getScreenSize(application);
         mScreenWidth = screenSize[0];
         mScreenHeight = screenSize[1];
-        mStatusBarHeight = ScreenUtils.getStatusBarHeight();
-        AutoSizeLog.d("designWidthInDp = " + mDesignWidthInDp + ", designHeightInDp = " + mDesignHeightInDp + ", screenWidth = " + mScreenWidth + ", screenHeight = " + mScreenHeight);
+        mStatusBarHeight = BarUtils.getStatusBarHeight();
+        Log.d("AndroidAutoSize","designWidthInDp = " + mDesignWidthInDp + ", designHeightInDp = " + mDesignHeightInDp + ", screenWidth = " + mScreenWidth + ", screenHeight = " + mScreenHeight);
 
         mInitDensity = displayMetrics.density;
         mInitDensityDpi = displayMetrics.densityDpi;
@@ -252,15 +256,12 @@ public final class AutoSizeConfig {
         mInitScreenHeightDp = configuration.screenHeightDp;
         application.registerComponentCallbacks(new ComponentCallbacks() {
             @Override
-            public void onConfigurationChanged(Configuration newConfig) {
-                if (newConfig != null) {
+            public void onConfigurationChanged(@NotNull Configuration newConfig) {
                     if (newConfig.fontScale > 0) {
-                        mInitScaledDensity =
-                                Resources.getSystem().getDisplayMetrics().scaledDensity;
-                        AutoSizeLog.d("initScaledDensity = " + mInitScaledDensity + " on ConfigurationChanged");
-                    }
+                        mInitScaledDensity = Resources.getSystem().getDisplayMetrics().scaledDensity;
+                        Log.d("AndroidAutoSize","initScaledDensity = " + mInitScaledDensity + " on ConfigurationChanged");
                     isVertical = newConfig.orientation == Configuration.ORIENTATION_PORTRAIT;
-                    int[] screenSize = ScreenUtils.getScreenSize(application);
+                    int[] screenSize = getScreenSize(application);
                     mScreenWidth = screenSize[0];
                     mScreenHeight = screenSize[1];
                 }
@@ -271,7 +272,7 @@ public final class AutoSizeConfig {
 
             }
         });
-        AutoSizeLog.d("initDensity = " + mInitDensity + ", initScaledDensity = " + mInitScaledDensity);
+        Log.d("AndroidAutoSize","initDensity = " + mInitDensity + ", initScaledDensity = " + mInitScaledDensity);
         mActivityLifecycleCallbacks = new ActivityLifecycleCallbacksImpl(new WrapperAutoAdaptStrategy(strategy == null ? new DefaultAutoAdaptStrategy() : strategy));
         application.registerActivityLifecycleCallbacks(mActivityLifecycleCallbacks);
         if ("MiuiResources".equals(application.getResources().getClass().getSimpleName()) || "XResources".equals(application.getResources().getClass().getSimpleName())) {
@@ -357,16 +358,6 @@ public final class AutoSizeConfig {
      */
     public AutoSizeConfig setUseDeviceSize(boolean useDeviceSize) {
         isUseDeviceSize = useDeviceSize;
-        return this;
-    }
-
-    /**
-     * 是否打印 Log
-     *
-     * @param log {@code true} 为打印
-     */
-    public AutoSizeConfig setLog(boolean log) {
-        AutoSizeLog.setDebug(log);
         return this;
     }
 
@@ -683,25 +674,22 @@ public final class AutoSizeConfig {
      * @param context {@link Context}
      */
     private void getMetaData(final Context context) {
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                PackageManager packageManager = context.getPackageManager();
-                ApplicationInfo applicationInfo;
-                try {
-                    applicationInfo = packageManager.getApplicationInfo(context
-                            .getPackageName(), PackageManager.GET_META_DATA);
-                    if (applicationInfo != null && applicationInfo.metaData != null) {
-                        if (applicationInfo.metaData.containsKey(KEY_DESIGN_WIDTH_IN_DP)) {
-                            mDesignWidthInDp = (int) applicationInfo.metaData.get(KEY_DESIGN_WIDTH_IN_DP);
-                        }
-                        if (applicationInfo.metaData.containsKey(KEY_DESIGN_HEIGHT_IN_DP)) {
-                            mDesignHeightInDp = (int) applicationInfo.metaData.get(KEY_DESIGN_HEIGHT_IN_DP);
-                        }
+        new Thread(() -> {
+            PackageManager packageManager = context.getPackageManager();
+            ApplicationInfo applicationInfo;
+            try {
+                applicationInfo = packageManager.getApplicationInfo(context
+                        .getPackageName(), PackageManager.GET_META_DATA);
+                if (applicationInfo.metaData != null) {
+                    if (applicationInfo.metaData.containsKey(KEY_DESIGN_WIDTH_IN_DP)) {
+                        mDesignWidthInDp = (int) applicationInfo.metaData.get(KEY_DESIGN_WIDTH_IN_DP);
                     }
-                } catch (PackageManager.NameNotFoundException e) {
-                    e.printStackTrace();
+                    if (applicationInfo.metaData.containsKey(KEY_DESIGN_HEIGHT_IN_DP)) {
+                        mDesignHeightInDp = (int) applicationInfo.metaData.get(KEY_DESIGN_HEIGHT_IN_DP);
+                    }
                 }
+            } catch (PackageManager.NameNotFoundException e) {
+                e.printStackTrace();
             }
         }).start();
     }

@@ -21,6 +21,8 @@ import android.os.Bundle;
 
 import androidx.fragment.app.FragmentActivity;
 
+import org.jetbrains.annotations.NotNull;
+
 
 /**
  * ================================================
@@ -40,17 +42,17 @@ public class ActivityLifecycleCallbacksImpl implements Application.ActivityLifec
     /**
      * 让 Fragment 支持自定义适配参数
      */
-    private FragmentLifecycleCallbacksImpl mFragmentLifecycleCallbacksToAndroidx;
+    private FragmentLifecycleCallbacksImpl mFragmentLifecycleCallbacks;
 
     public ActivityLifecycleCallbacksImpl(AutoAdaptStrategy autoAdaptStrategy) {
-            mFragmentLifecycleCallbacksToAndroidx = new FragmentLifecycleCallbacksImpl(autoAdaptStrategy);
+            mFragmentLifecycleCallbacks = new FragmentLifecycleCallbacksImpl(autoAdaptStrategy);
         mAutoAdaptStrategy = autoAdaptStrategy;
     }
 
     @Override
-    public void onActivityCreated(Activity activity, Bundle savedInstanceState) {
+    public void onActivityCreated(@NotNull Activity activity, Bundle savedInstanceState) {
         if (AutoSizeConfig.getInstance().isCustomFragment()) {
-        ((FragmentActivity) activity).getSupportFragmentManager().registerFragmentLifecycleCallbacks(mFragmentLifecycleCallbacksToAndroidx, true);
+        ((FragmentActivity) activity).getSupportFragmentManager().registerFragmentLifecycleCallbacks(mFragmentLifecycleCallbacks, true);
         }
 
         //Activity 中的 setContentView(View) 一定要在 super.onCreate(Bundle); 之后执行
@@ -60,44 +62,44 @@ public class ActivityLifecycleCallbacksImpl implements Application.ActivityLifec
     }
 
     @Override
-    public void onActivityStarted(Activity activity) {
+    public void onActivityStarted(@NotNull Activity activity) {
         if (mAutoAdaptStrategy != null) {
             mAutoAdaptStrategy.applyAdapt(activity, activity);
         }
     }
 
     @Override
-    public void onActivityResumed(Activity activity) {
+    public void onActivityResumed(@NotNull Activity activity) {
 
     }
 
     @Override
-    public void onActivityPaused(Activity activity) {
+    public void onActivityPaused(@NotNull Activity activity) {
 
     }
 
     @Override
-    public void onActivityStopped(Activity activity) {
+    public void onActivityStopped(@NotNull Activity activity) {
 
     }
 
     @Override
-    public void onActivitySaveInstanceState(Activity activity, Bundle outState) {
+    public void onActivitySaveInstanceState(@NotNull Activity activity, @NotNull Bundle outState) {
 
     }
 
     @Override
-    public void onActivityDestroyed(Activity activity) {
+    public void onActivityDestroyed(@NotNull Activity activity) {
 
     }
 
     /**
      * 设置屏幕适配逻辑策略类
      *
-     * @param autoAdaptStrategy {@link me.jessyan.autosize.AutoAdaptStrategy}
+     * @param autoAdaptStrategy {@link AutoAdaptStrategy}
      */
     public void setAutoAdaptStrategy(AutoAdaptStrategy autoAdaptStrategy) {
         mAutoAdaptStrategy = autoAdaptStrategy;
-            mFragmentLifecycleCallbacksToAndroidx.setAutoAdaptStrategy(autoAdaptStrategy);
+        mFragmentLifecycleCallbacks.setAutoAdaptStrategy(autoAdaptStrategy);
     }
 }

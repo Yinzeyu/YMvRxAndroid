@@ -35,7 +35,6 @@ abstract class BaseApplication : Application() {
         val instance = AutoSizeConfig.getInstance()
         instance.isUseDeviceSize = false
         instance.isExcludeFontScale = true
-        instance.setLog(true)
         instance .init(this)
     }
 

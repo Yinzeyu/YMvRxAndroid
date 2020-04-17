@@ -3,6 +3,7 @@ package com.yzy.baselibrary.extention
 import android.app.Activity
 import android.content.Context
 import android.graphics.drawable.Drawable
+import android.util.DisplayMetrics
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -69,4 +70,15 @@ val Activity.mContentView: FrameLayout
 //常亮
 fun Activity.extKeepScreenOn() {
     window?.addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
+}
+fun getScreenSize(context: Context): IntArray {
+    val size = IntArray(2)
+    val w =
+        context.getSystemService(Context.WINDOW_SERVICE) as WindowManager
+    val d = w.defaultDisplay
+    val metrics = DisplayMetrics()
+    d.getMetrics(metrics)
+    size[0] = metrics.widthPixels
+    size[1] = metrics.heightPixels
+    return size
 }

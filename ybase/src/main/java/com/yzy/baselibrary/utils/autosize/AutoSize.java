@@ -23,13 +23,13 @@ import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.net.Uri;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.util.SparseArray;
 import android.view.View;
 
 import com.yzy.baselibrary.utils.autosize.external.ExternalAdaptInfo;
 import com.yzy.baselibrary.utils.autosize.external.ExternalAdaptManager;
 import com.yzy.baselibrary.utils.autosize.internal.CustomAdapt;
-import com.yzy.baselibrary.utils.autosize.utils.AutoSizeLog;
 import com.yzy.baselibrary.utils.autosize.utils.Preconditions;
 
 import java.util.Locale;
@@ -51,9 +51,9 @@ import java.util.Locale;
 public final class AutoSize {
     private static SparseArray<DisplayMetricsInfo> mCache = new SparseArray<>();
     private static final int MODE_SHIFT = 30;
-    private static final int MODE_MASK  = 0x3 << MODE_SHIFT;
-    private static final int MODE_ON_WIDTH  = 1 << MODE_SHIFT;
-    private static final int MODE_DEVICE_SIZE  = 2 << MODE_SHIFT;
+    private static final int MODE_MASK = 0x3 << MODE_SHIFT;
+    private static final int MODE_ON_WIDTH = 1 << MODE_SHIFT;
+    private static final int MODE_DEVICE_SIZE = 2 << MODE_SHIFT;
 
     private AutoSize() {
         throw new IllegalStateException("you can't instantiate me!");
@@ -79,7 +79,6 @@ public final class AutoSize {
     public static void checkAndInit(Application application) {
         if (!checkInit()) {
             AutoSizeConfig.getInstance()
-                    .setLog(true)
                     .init(application)
                     .setUseDeviceSize(false);
         }
@@ -232,8 +231,7 @@ public final class AutoSize {
 
         setDensity(activity, targetDensity, targetDensityDpi, targetScaledDensity, targetXdpi);
         setScreenSizeDp(activity, targetScreenWidthDp, targetScreenHeightDp);
-
-        AutoSizeLog.d(String.format(Locale.ENGLISH, "The %s has been adapted! \n%s Info: isBaseOnWidth = %s, %s = %f, %s = %f, targetDensity = %f, targetScaledDensity = %f, targetDensityDpi = %d, targetXdpi = %f, targetScreenWidthDp = %d, targetScreenHeightDp = %d"
+        Log.d("AndroidAutoSize", String.format(Locale.ENGLISH, "The %s has been adapted! \n%s Info: isBaseOnWidth = %s, %s = %f, %s = %f, targetDensity = %f, targetScaledDensity = %f, targetDensityDpi = %d, targetXdpi = %f, targetScreenWidthDp = %d, targetScreenHeightDp = %d"
                 , activity.getClass().getName(), activity.getClass().getSimpleName(), isBaseOnWidth, isBaseOnWidth ? "designWidthInDp"
                         : "designHeightInDp", sizeInDp, isBaseOnWidth ? "designWidthInSubunits" : "designHeightInSubunits", subunitsDesignSize
                 , targetDensity, targetScaledDensity, targetDensityDpi, targetXdpi, targetScreenWidthDp, targetScreenHeightDp));
