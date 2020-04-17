@@ -1,5 +1,3 @@
-import kotlin.math.abs
-
 plugins {
     id("com.android.application")
     kotlin("android")
@@ -12,7 +10,6 @@ android {
     compileSdkVersion(29)
     defaultConfig {
         applicationId = "com.yzy.myapplication"
-//        applicationId=""
         minSdkVersion(21)
         targetSdkVersion(29)
         versionCode = 1
@@ -67,8 +64,6 @@ android {
             if (this is com.android.build.gradle.internal.api.ApkVariantOutputImpl) {
                 val appName = "demo"
                 val path = projectDir.path + "/src/main/res/values/strings.xml"
-                val customers=  groovy.util.XmlSlurper().parse(path)
-                println( customers )
                 //正式版还是测试版
                 var typeName = buildType.name
                 typeName = typeName.substring(0, 1).toUpperCase() + typeName.substring(1).toLowerCase()
@@ -90,7 +85,7 @@ dependencies {
     implementation(fileTree(mapOf("include" to listOf("*.jar"), "dir" to "libs")))
     implementation(project(":ybase"))
     implementation("com.just.agentweb:agentweb:4.1.3")
-    implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.3.72")
+    implementation(Deps.Kotlin.stdlib)
     kapt("com.github.bumptech.glide:compiler:4.11.0")
     implementation("com.github.CymChad:BaseRecyclerViewAdapterHelper:3.0.2")
 }
