@@ -24,13 +24,13 @@ abstract class BaseActivity : AppCompatActivity(), CoroutineScope by MainScope()
         initData()
     }
 
-    override fun onRestart() {
-        super.onRestart()
-        acEventType("restart")
+    override fun onResume() {
+        acEventType("onResume")
+        super.onResume()
     }
     override fun onStop() {
         super.onStop()
-        acEventType("stop")
+        acEventType("onStop")
     }
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
@@ -46,10 +46,10 @@ abstract class BaseActivity : AppCompatActivity(), CoroutineScope by MainScope()
             getFragmentListLast().let {
                 if (it is BaseFragment<*>) {
                     when (type) {
-                        "stop" -> {
+                        "onStop" -> {
                             it.onFragmentStop()
                         }
-                        "restart" -> {
+                        "onResume" -> {
                             it.onFragmentRestart()
                         }
                         "activityResult" -> {

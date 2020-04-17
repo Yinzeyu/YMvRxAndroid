@@ -10,7 +10,6 @@ import com.yzy.baselibrary.base.NoViewModel
 import com.yzy.baselibrary.extention.toast
 import com.yzy.example.R
 import com.yzy.example.component.comm.CommFragment
-import com.yzy.example.component.main.MainActivity
 import com.yzy.example.extention.load
 import com.yzy.example.imageloader.GlideApp
 import kotlinx.android.synthetic.main.fragment_splash.*
@@ -44,7 +43,15 @@ class SplashFragment : CommFragment<NoViewModel>() {
     }
 
     override fun onRestartNavigate() {
-        Navigation.findNavController(rootView).navigate(R.id.action_rootFragment_to_middleFragment)
+        if (countDownFinish == true){
+//            launch(Dispatchers.Main) {
+//                    delay(300)
+                Navigation.findNavController(rootView).navigate(R.id.action_rootFragment_to_middleFragment)
+//            }
+
+            Log.e("fragment", this.javaClass.name+"=onRestartNavigate")
+        }
+
     }
 
     override fun initData() {
@@ -91,18 +98,13 @@ class SplashFragment : CommFragment<NoViewModel>() {
                 //是否登录
 //                UserRepository.instance.isLogin() -> MainActivity.startActivity(mContext)
                 //没有其他需要，进入主页
-                else -> MainActivity.starMainActivity(mContext)
+                else -> {
+                    if (!isNavigate){
+                        Navigation.findNavController(rootView).navigate(R.id.action_rootFragment_to_middleFragment)
+                    }
+                }
             }
-        }
-        if (!isNavigate){
-            Navigation.findNavController(rootView).navigate(R.id.action_rootFragment_to_middleFragment)
-//           NavigationHelper.navigateUp(rootView,R.id.action_splashFragment_to_mainFragment)
-//            mNavController.navigate(R.id.mainFragment)
         }
 
     }
-
-
-
-
 }
