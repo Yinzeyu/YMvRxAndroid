@@ -11,6 +11,7 @@ import com.yzy.baselibrary.extention.toast
 import com.yzy.example.R
 import com.yzy.example.component.comm.CommFragment
 import com.yzy.example.component.main.MainActivity
+import com.yzy.example.extention.load
 import com.yzy.example.imageloader.GlideApp
 import kotlinx.android.synthetic.main.fragment_splash.*
 import kotlinx.coroutines.Dispatchers
@@ -29,6 +30,7 @@ class SplashFragment : CommFragment<NoViewModel>() {
     override val contentLayout: Int = R.layout.fragment_splash
 
     override fun initContentView() {
+        iv_sp.load("http://pic1.win4000.com/pic/7/0f/2cab03e09e.jpg")
         GlideApp.with(mActivity).load(R.drawable.aaa).into(iv_sp)
         launch(Dispatchers.Main) {
             for (i in 5 downTo 1) {
@@ -102,17 +104,5 @@ class SplashFragment : CommFragment<NoViewModel>() {
 
 
 
-    //https://www.cnblogs.com/xqz0618/p/thistaskroot.html
-//    private fun checkReOpenHome(): Boolean {
-//        // 避免从桌面启动程序后，会重新实例化入口类的activity
-//        if (!this.isTaskRoot && intent != null // 判断当前activity是不是所在任务栈的根
-//            && intent.hasCategory(Intent.CATEGORY_LAUNCHER)
-//            && Intent.ACTION_MAIN == intent.action
-//        ) {
-//            finish()
-//            return true
-//        }
-//        return false
-//    }
 
 }

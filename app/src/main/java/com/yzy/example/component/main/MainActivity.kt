@@ -1,6 +1,7 @@
 package com.yzy.example.component.main
 
 import android.content.Context
+import android.content.Intent
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.navigation.Navigation
 import androidx.navigation.fragment.NavHostFragment
@@ -21,8 +22,11 @@ class MainActivity : BaseActivity() {
         }
     }
     override fun layoutResId(): Int = R.layout.activity_main
-
+    //是否需要关闭页面
+    private var hasFinish = false
     override fun initView() {
+        hasFinish = checkReOpenHome()
+        if (hasFinish) return
         val navController = Navigation.findNavController(this, R.id.fragment)
         val navHostFragment = supportFragmentManager.findFragmentById(R.id.fragment) as NavHostFragment?
         val navigator = StateNavigator(this, navHostFragment!!.childFragmentManager, R.id.fragment)
@@ -30,6 +34,18 @@ class MainActivity : BaseActivity() {
         navController.setGraph(R.navigation.wan_navigation)
     }
 
+    //    https://www.cnblogs.com/xqz0618/p/thistaskroot.html
+    private fun checkReOpenHome(): Boolean {
+        // 避免从桌面启动程序后，会重新实例化入口类的activity
+        if (!this.isTaskRoot && intent != null // 判断当前activity是不是所在任务栈的根
+            && intent.hasCategory(Intent.CATEGORY_LAUNCHER)
+            && Intent.ACTION_MAIN == intent.action
+        ) {
+            finish()
+            return true
+        }
+        return false
+    }
     fun getRootView(): ConstraintLayout {
         return mainRootView
     }
