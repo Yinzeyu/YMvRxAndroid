@@ -14,7 +14,6 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.ViewModelProvider
 import com.yzy.baselibrary.R
 import com.yzy.baselibrary.extention.StatusBarHelper
-import com.yzy.baselibrary.extention.backgroundColor
 import com.yzy.baselibrary.extention.inflate
 import com.yzy.baselibrary.extention.removeParent
 import kotlinx.coroutines.CoroutineScope
@@ -33,8 +32,6 @@ abstract class BaseFragment<VM : BaseViewModel<*>> : Fragment(),
 
     //是否第一次加载
     private var isFirst: Boolean = true
-    var isNavigate: Boolean = false
-
     //页面基础信息
     lateinit var mActivity: BaseActivity
     lateinit var mContext: Context
@@ -135,19 +132,9 @@ abstract class BaseFragment<VM : BaseViewModel<*>> : Fragment(),
 
     }
 
-    open fun onFragmentRestart() {
-        if (isNavigate) {
-            onRestartNavigate()
-            isNavigate = false
-        }
-    }
 
     open fun onRestartNavigate() {
 
-    }
-
-    open fun onFragmentStop() {
-        isNavigate = true
     }
 
     //是否需要默认填充状态栏,默认填充为白色view

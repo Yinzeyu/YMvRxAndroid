@@ -99,7 +99,7 @@ class SplashFragment : CommFragment<NoViewModel>() {
 //                UserRepository.instance.isLogin() -> MainActivity.startActivity(mContext)
                 //没有其他需要，进入主页
                 else -> {
-                    if (!isNavigate){
+                    if (!mActivity.getIsNavigate()){
                         Navigation.findNavController(rootView).navigate(R.id.action_rootFragment_to_middleFragment)
                     }
                 }

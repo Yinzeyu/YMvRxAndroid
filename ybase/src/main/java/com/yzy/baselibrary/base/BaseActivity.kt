@@ -14,6 +14,7 @@ import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.cancel
 
 abstract class BaseActivity : AppCompatActivity(), CoroutineScope by MainScope() {
+
     override fun onCreate(savedInstanceState: Bundle?) {
         translucent(this)
         this.onCreateBefore()
@@ -24,13 +25,23 @@ abstract class BaseActivity : AppCompatActivity(), CoroutineScope by MainScope()
         initData()
     }
 
+    /**
+     * 记录是否需要跳转
+     */
+  private  var startNavigation: Boolean = false
+    fun  getIsNavigate():Boolean{
+        return startNavigation
+    }
     override fun onResume() {
-        acEventType("onResume")
+        if (startNavigation) {
+            acEventType("onResume")
+            startNavigation = false
+        }
         super.onResume()
     }
     override fun onStop() {
+        startNavigation=true
         super.onStop()
-        acEventType("onStop")
     }
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
@@ -46,11 +57,8 @@ abstract class BaseActivity : AppCompatActivity(), CoroutineScope by MainScope()
             getFragmentListLast().let {
                 if (it is BaseFragment<*>) {
                     when (type) {
-                        "onStop" -> {
-                            it.onFragmentStop()
-                        }
                         "onResume" -> {
-                            it.onFragmentRestart()
+                            it.onRestartNavigate()
                         }
                         "activityResult" -> {
                             it.onFragmentResult(requestCode, resultCode, data)
