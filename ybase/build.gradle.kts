@@ -36,7 +36,7 @@ android {
 }
 dependencies {
     api(fileTree(mapOf("include" to listOf("*.jar"), "dir" to "libs")))
-    api("org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.3.72")
+    implementation(Deps.Kotlin.stdlib)
     api("androidx.appcompat:appcompat:1.1.0")
     api("androidx.core:core-ktx:1.2.0")
     api("androidx.cardview:cardview:1.0.0")
@@ -52,6 +52,7 @@ dependencies {
     api("com.squareup.retrofit2:converter-gson:2.8.1")
     api("com.google.code.gson:gson:2.8.6")
     api("androidx.multidex:multidex:2.0.1")
+    //https://github.com/airbnb/lottie-android
     api("com.airbnb.android:lottie:3.4.0")
     api("com.jeremyliao:live-event-bus-x:1.5.7")
     api("androidx.viewpager2:viewpager2:1.0.0")

@@ -37,6 +37,7 @@ class ActionDialog : BaseFragmentDialog() {
         dialogActionHint?.text = hintText
         show(fragmentManager, "ActionDialog")
     }
+
 }
 
 //  DSL style

@@ -93,6 +93,7 @@ android {
 dependencies {
     implementation(fileTree(mapOf("include" to listOf("*.jar"), "dir" to "libs")))
     implementation(project(":ybase"))
+    //https://github.com/Justson/AgentWeb
     implementation("com.just.agentweb:agentweb:4.1.3")
     implementation(Deps.Kotlin.stdlib)
     kapt("com.github.bumptech.glide:compiler:4.11.0")
