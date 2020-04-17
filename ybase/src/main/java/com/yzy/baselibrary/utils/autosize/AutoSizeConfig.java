@@ -30,7 +30,6 @@ import com.blankj.utilcode.util.BarUtils;
 import com.yzy.baselibrary.utils.autosize.external.ExternalAdaptManager;
 import com.yzy.baselibrary.utils.autosize.unit.Subunits;
 import com.yzy.baselibrary.utils.autosize.unit.UnitsManager;
-import com.yzy.baselibrary.utils.autosize.utils.Preconditions;
 
 import org.jetbrains.annotations.NotNull;
 

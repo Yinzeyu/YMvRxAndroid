@@ -17,7 +17,7 @@ package com.yzy.baselibrary.utils.autosize.unit;
 
 import android.util.DisplayMetrics;
 
-import com.yzy.baselibrary.utils.autosize.utils.Preconditions;
+import com.yzy.baselibrary.utils.autosize.Preconditions;
 
 
 /**

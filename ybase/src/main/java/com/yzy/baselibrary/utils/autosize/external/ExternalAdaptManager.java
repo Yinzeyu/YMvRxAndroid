@@ -18,7 +18,7 @@ package com.yzy.baselibrary.utils.autosize.external;
 import android.app.Activity;
 
 import com.yzy.baselibrary.utils.autosize.AutoSizeConfig;
-import com.yzy.baselibrary.utils.autosize.utils.Preconditions;
+import com.yzy.baselibrary.utils.autosize.Preconditions;
 
 import java.util.ArrayList;
 import java.util.HashMap;

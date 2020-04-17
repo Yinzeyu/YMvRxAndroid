@@ -30,7 +30,6 @@ import android.view.View;
 import com.yzy.baselibrary.utils.autosize.external.ExternalAdaptInfo;
 import com.yzy.baselibrary.utils.autosize.external.ExternalAdaptManager;
 import com.yzy.baselibrary.utils.autosize.internal.CustomAdapt;
-import com.yzy.baselibrary.utils.autosize.utils.Preconditions;
 
 import java.util.Locale;
 
