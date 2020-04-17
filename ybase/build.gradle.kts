@@ -6,12 +6,13 @@ plugins {
 }
 
 android {
-    compileSdkVersion(29)
+    compileSdkVersion(Build.compileSdkVersion)
+    buildToolsVersion(Build.buildToolsVersion)
     defaultConfig{
-        minSdkVersion(21)
-        targetSdkVersion(29)
-        versionCode=1
-        versionName="1.0"
+        minSdkVersion(Build.minSdk)
+        targetSdkVersion(Build.targetSdk)
+        versionCode = Build.versionCode
+        versionName = Build.versionName
     }
 
     androidExtensions{
@@ -26,6 +27,10 @@ android {
     }
     lintOptions {
         isAbortOnError = false
+    }
+    compileOptions {
+        sourceCompatibility = JavaVersion.VERSION_1_8
+        targetCompatibility = JavaVersion.VERSION_1_8
     }
     packagingOptions {
         exclude("META-INF/DEPENDENCIES")
@@ -61,7 +66,7 @@ dependencies {
     api("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.3.5")
     api("androidx.lifecycle:lifecycle-viewmodel-ktx:2.2.0")
     api("androidx.lifecycle:lifecycle-livedata-ktx:2.2.0")
-    api("me.jessyan:autosize:1.2.1")
+//    api("me.jessyan:autosize:1.2.1")
     api("com.blankj:utilcodex:1.26.0")
 }
 //apply plugin: 'com.android.library'

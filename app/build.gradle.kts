@@ -7,13 +7,14 @@ plugins {
 }
 
 android {
-    compileSdkVersion(29)
+    compileSdkVersion(Build.compileSdkVersion)
+    buildToolsVersion(Build.buildToolsVersion)
     defaultConfig {
         applicationId = "com.yzy.myapplication"
-        minSdkVersion(21)
-        targetSdkVersion(29)
-        versionCode = 1
-        versionName = "1.0"
+        minSdkVersion(Build.minSdk)
+        targetSdkVersion(Build.targetSdk)
+        versionCode = Build.versionCode
+        versionName = Build.versionName
         multiDexEnabled = true
         ndk {
             abiFilter("armeabi-v7a")

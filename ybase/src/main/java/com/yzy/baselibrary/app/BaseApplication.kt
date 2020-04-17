@@ -8,7 +8,7 @@ import com.blankj.utilcode.util.LogUtils
 import com.blankj.utilcode.util.ProcessUtils
 import com.blankj.utilcode.util.Utils
 import com.yzy.baselibrary.BuildConfig
-import me.jessyan.autosize.AutoSizeConfig
+import com.yzy.baselibrary.utils.autosize.AutoSizeConfig
 
 abstract class BaseApplication : Application() {
     var launcherTime = 0L
@@ -32,7 +32,11 @@ abstract class BaseApplication : Application() {
         //主线程中的初始化(必要的放在这,不然APP打开会比较慢)
         initInMainThread()
         //字体sp不跟随系统大小变化
-        AutoSizeConfig.getInstance().isExcludeFontScale = true
+        val instance = AutoSizeConfig.getInstance()
+        instance.isUseDeviceSize = false
+        instance.isExcludeFontScale = true
+        instance.setLog(true)
+        instance .init(this)
     }
 
     //主线程中的初始化(只在主进程中调用)

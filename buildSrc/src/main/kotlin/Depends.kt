@@ -1,8 +1,5 @@
-import groovy.util.XmlSlurper
 import org.gradle.api.artifacts.dsl.RepositoryHandler
 import org.gradle.kotlin.dsl.DependencyHandlerScope
-import java.io.File
-import javax.xml.parsers.SAXParserFactory
 
 /**
  * Created by haipo
