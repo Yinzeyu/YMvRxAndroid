@@ -6,8 +6,8 @@ import android.view.MotionEvent
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.yzy.baselibrary.extention.StatusBarHelper.translucent
+import com.yzy.baselibrary.extention.fixInputMethodManagerLeak
 import com.yzy.baselibrary.toast.YToast
-import com.yzy.baselibrary.utils.CleanLeakUtils
 import com.yzy.baselibrary.utils.MyTouchListener
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.MainScope
@@ -109,13 +109,11 @@ abstract class BaseActivity : AppCompatActivity(), CoroutineScope by MainScope()
         cancel()
         //移除所有Activity类型的Toast防止内存泄漏
         YToast.cancelActivityToast(this)
-        CleanLeakUtils.instance.fixInputMethodManagerLeak(this)
+        fixInputMethodManagerLeak(this)
         super.onDestroy()
     }
 
-    fun getFragmentListLast(): Fragment =
-        supportFragmentManager.fragments.first().childFragmentManager.fragments.last()
+    fun getFragmentListLast(): Fragment = supportFragmentManager.fragments.first().childFragmentManager.fragments.last()
 
-    fun getFragmentLists(): List<Fragment> =
-        supportFragmentManager.fragments.first().childFragmentManager.fragments
+    fun getFragmentLists(): List<Fragment> = supportFragmentManager.fragments.first().childFragmentManager.fragments
 }
