@@ -22,6 +22,9 @@ android {
     kapt{
         correctErrorTypes=true
     }
+    lintOptions {
+        isAbortOnError = false
+    }
     packagingOptions {
         exclude("META-INF/DEPENDENCIES")
         exclude("META-INF/NOTICE")

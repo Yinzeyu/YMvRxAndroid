@@ -51,10 +51,18 @@ android {
     }
     buildTypes {
         getByName("release") {
+            isDebuggable = false
+            isMinifyEnabled = true
+            isZipAlignEnabled = true
+            isShrinkResources = true
             proguardFiles(getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro")
             signingConfig = signingConfigs.getByName("release")
         }
         getByName("debug") {
+            isDebuggable = true
+            isMinifyEnabled = false
+            isZipAlignEnabled = false
+            isShrinkResources = false
             proguardFiles(getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro")
             signingConfig = signingConfigs.getByName("debug")
         }
@@ -66,7 +74,8 @@ android {
                 val path = projectDir.path + "/src/main/res/values/strings.xml"
                 //正式版还是测试版
                 var typeName = buildType.name
-                typeName = typeName.substring(0, 1).toUpperCase() + typeName.substring(1).toLowerCase()
+                typeName =
+                    typeName.substring(0, 1).toUpperCase() + typeName.substring(1).toLowerCase()
                 //build名称
                 val buildVer = versionCode.toString()
                 val buildName = "_build$buildVer"
