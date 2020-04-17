@@ -13,7 +13,9 @@ android {
         versionCode=1
         versionName="1.0"
     }
+
     androidExtensions{
+//        configure(delegateClosureOf<org.jetbrains.kotlin.gradle.internal.AndroidExtensionsExtension> {  isExperimental=true  }
         isExperimental=true
     }
     kotlinOptions{
