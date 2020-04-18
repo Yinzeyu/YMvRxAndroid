@@ -7,6 +7,7 @@ import android.graphics.drawable.GradientDrawable
 import android.view.MotionEvent
 import android.view.View
 import com.blankj.utilcode.util.SizeUtils
+import kotlinx.coroutines.*
 
 /**
  *description: 按下效果工具类.
@@ -19,9 +20,8 @@ class PressEffectHelper private constructor() {
         private val location = IntArray(2)
         private var isDown: Boolean = false
         private var time: Long = 0
-
         private const val LONGPRESS_TIME = 600L
-//        private var longPressDisposable: Disposable? = null
+        private var longPressDisposable: CoroutineScope? = null
         private var isLongClick = false
 
         /**
@@ -39,14 +39,14 @@ class PressEffectHelper private constructor() {
                 val width = view.width
                 val height = view.height
                 val contains =
-                        rawX > location[0] && rawX < location[0] + width && rawY > location[1] && rawY < location[1] + height
+                    rawX > location[0] && rawX < location[0] + width && rawY > location[1] && rawY < location[1] + height
                 when (event.action) {
                     MotionEvent.ACTION_DOWN -> {
                         isDown = true
                         v.alpha = 1f
                         //为了解决列表按下滑动不执行按压效果，所以增加一点延时执行按压效果
                         v.postDelayed({ v.alpha = if (isDown) pressAlpha else 1.0f }, 150)
-//                        longClick(view)
+                        longClick(view)
                         return@setOnTouchListener true
                     }
                     MotionEvent.ACTION_MOVE ->
@@ -103,65 +103,65 @@ class PressEffectHelper private constructor() {
          * 按下改变背景色的效果
          */
         fun bgColorEffect(
-                view: View,
-                bgColor: Int = Color.parseColor("#f7f7f7"),
-                topLeftRadiusDp: Float = 0f,
-                topRightRadiusDp: Float = 0f,
-                bottomRightRadiusDp: Float = 0f,
-                bottomLeftRadiusDp: Float = 0f
+            view: View,
+            bgColor: Int = Color.parseColor("#f7f7f7"),
+            topLeftRadiusDp: Float = 0f,
+            topRightRadiusDp: Float = 0f,
+            bottomRightRadiusDp: Float = 0f,
+            bottomLeftRadiusDp: Float = 0f
         ) {
             val originalBgColor = view.background
             val pressDrawable: Drawable =
-                    if (topLeftRadiusDp == 0f && topRightRadiusDp == 0f && bottomLeftRadiusDp == 0f && bottomRightRadiusDp == 0f) {
-                        ColorDrawable(bgColor)
-                    } else {
-                        val gradientDrawable = GradientDrawable()
-                        gradientDrawable.setColor(bgColor)
-                        gradientDrawable.cornerRadii =
-                                floatArrayOf(
-                                        if (topLeftRadiusDp != 0.0f) {
-                                            SizeUtils.dp2px(8.0f).toFloat()
-                                        } else {
-                                            0.0f
-                                        },//top-left-x
-                                        if (topLeftRadiusDp != 0.0f) {
-                                            SizeUtils.dp2px(8.0f).toFloat()
-                                        } else {
-                                            0.0f
-                                        },//top-left-y
-                                        if (topRightRadiusDp != 0.0f) {
-                                            SizeUtils.dp2px(8.0f).toFloat()
-                                        } else {
-                                            0.0f
-                                        },//top-right-x
-                                        if (topRightRadiusDp != 0.0f) {
-                                            SizeUtils.dp2px(8.0f).toFloat()
-                                        } else {
-                                            0.0f
-                                        },//top-right-y
-                                        if (bottomRightRadiusDp != 0.0f) {
-                                            SizeUtils.dp2px(8.0f).toFloat()
-                                        } else {
-                                            0.0f
-                                        },//bottom-right-y
-                                        if (bottomRightRadiusDp != 0.0f) {
-                                            SizeUtils.dp2px(8.0f).toFloat()
-                                        } else {
-                                            0.0f
-                                        },//bottom-right-y
-                                        if (bottomLeftRadiusDp != 0.0f) {
-                                            SizeUtils.dp2px(8.0f).toFloat()
-                                        } else {
-                                            0.0f
-                                        },//bottom-left-x
-                                        if (bottomLeftRadiusDp != 0.0f) {
-                                            SizeUtils.dp2px(8.0f).toFloat()
-                                        } else {
-                                            0.0f
-                                        }//bottom-left-y
-                                )
-                        gradientDrawable
-                    }
+                if (topLeftRadiusDp == 0f && topRightRadiusDp == 0f && bottomLeftRadiusDp == 0f && bottomRightRadiusDp == 0f) {
+                    ColorDrawable(bgColor)
+                } else {
+                    val gradientDrawable = GradientDrawable()
+                    gradientDrawable.setColor(bgColor)
+                    gradientDrawable.cornerRadii =
+                        floatArrayOf(
+                            if (topLeftRadiusDp != 0.0f) {
+                                SizeUtils.dp2px(8.0f).toFloat()
+                            } else {
+                                0.0f
+                            },//top-left-x
+                            if (topLeftRadiusDp != 0.0f) {
+                                SizeUtils.dp2px(8.0f).toFloat()
+                            } else {
+                                0.0f
+                            },//top-left-y
+                            if (topRightRadiusDp != 0.0f) {
+                                SizeUtils.dp2px(8.0f).toFloat()
+                            } else {
+                                0.0f
+                            },//top-right-x
+                            if (topRightRadiusDp != 0.0f) {
+                                SizeUtils.dp2px(8.0f).toFloat()
+                            } else {
+                                0.0f
+                            },//top-right-y
+                            if (bottomRightRadiusDp != 0.0f) {
+                                SizeUtils.dp2px(8.0f).toFloat()
+                            } else {
+                                0.0f
+                            },//bottom-right-y
+                            if (bottomRightRadiusDp != 0.0f) {
+                                SizeUtils.dp2px(8.0f).toFloat()
+                            } else {
+                                0.0f
+                            },//bottom-right-y
+                            if (bottomLeftRadiusDp != 0.0f) {
+                                SizeUtils.dp2px(8.0f).toFloat()
+                            } else {
+                                0.0f
+                            },//bottom-left-x
+                            if (bottomLeftRadiusDp != 0.0f) {
+                                SizeUtils.dp2px(8.0f).toFloat()
+                            } else {
+                                0.0f
+                            }//bottom-left-y
+                        )
+                    gradientDrawable
+                }
             view.setOnTouchListener { v, event ->
                 if (System.currentTimeMillis() - time < 200) {
                     return@setOnTouchListener true
@@ -173,7 +173,7 @@ class PressEffectHelper private constructor() {
                 val width = view.width
                 val height = view.height
                 val contains =
-                        rawX > location[0] && rawX < location[0] + width && rawY > location[1] && rawY < location[1] + height
+                    rawX > location[0] && rawX < location[0] + width && rawY > location[1] && rawY < location[1] + height
                 when (event.action) {
                     MotionEvent.ACTION_DOWN -> {
                         isDown = true
@@ -182,7 +182,7 @@ class PressEffectHelper private constructor() {
                         v.postDelayed({
                             v.background = if (isDown) pressDrawable else originalBgColor
                         }, 150)
-//                        longClick(view)
+                        longClick(view)
                         return@setOnTouchListener true
                     }
                     MotionEvent.ACTION_MOVE ->
@@ -234,23 +234,22 @@ class PressEffectHelper private constructor() {
             }
         }
 
-//        private fun longClick(view: View) {
-//            cancelLongClick()
-//            longPressDisposable = Observable.just(view)
-//                    .delay(LONGPRESS_TIME, TimeUnit.MILLISECONDS)
-//                    .compose(applySchedulers())
-//                    .subscribe({
-//                        isLongClick = true
-//                        view.performLongClick()
-//                    }, {
-//                    })
-//        }
+        private fun longClick(view: View) {
+            cancelLongClick()
+            longPressDisposable = MainScope()
+            longPressDisposable?.launch {
+                    delay(LONGPRESS_TIME)
+                isLongClick = true
+                view.performLongClick()
+
+            }
+        }
 
         private fun cancelLongClick() {
-//            if (longPressDisposable != null && longPressDisposable?.isDisposed != true) {
-//                longPressDisposable?.dispose()
-//            }
-//            longPressDisposable = null
+            if (longPressDisposable!=null ) {
+                longPressDisposable?.cancel()
+                longPressDisposable=null
+            }
             isLongClick = false
         }
     }
