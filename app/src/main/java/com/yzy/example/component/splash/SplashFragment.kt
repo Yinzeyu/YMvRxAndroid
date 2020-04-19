@@ -29,8 +29,6 @@ class SplashFragment : CommFragment<NoViewModel>() {
     override val contentLayout: Int = R.layout.fragment_splash
 
     override fun initContentView() {
-//        iv_sp.load("http://pic1.win4000.com/pic/7/0f/2cab03e09e.jpg")
-//        GlideApp.with(mActivity).load(R.drawable.aaa).into(iv_sp)
         launch(Dispatchers.Main) {
             for (i in 5 downTo 1) {
                 splashTime.text = String.format("%d", i)
