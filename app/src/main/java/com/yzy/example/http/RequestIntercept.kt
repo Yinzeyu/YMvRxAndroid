@@ -97,7 +97,7 @@ class RequestIntercept : Interceptor {
                 val map: HashMap<String, String> = HashMap()
                 if (request.body is FormBody) {
                     val size = (request.body as FormBody).size
-                    for (index in 0 downTo size) {
+                    for (index   in 0 until size) {
                         val value = (request.body as FormBody).value(index)
                         val name = (request.body as FormBody).name(index)
                         map[name] = value
