@@ -42,11 +42,7 @@ class SplashFragment : CommFragment<NoViewModel>() {
 
     override fun onRestartNavigate() {
         if (countDownFinish == true){
-//            launch(Dispatchers.Main) {
-//                    delay(300)
                 Navigation.findNavController(rootView).navigate(R.id.action_rootFragment_to_middleFragment)
-//            }
-
             Log.e("fragment", this.javaClass.name+"=onRestartNavigate")
         }
 

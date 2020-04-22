@@ -5,10 +5,17 @@ buildscript {
         classpath(Deps.Kotlin.plugin)
         classpath(Deps.navigationPlugin)
     }
+    repositories {
+        google()
+        flatDir {
+            dirs("libs")
+        }
+    }
 }
 
 allprojects {
     Deps.addRepos(repositories)
+
 }
 tasks.register("clean",Delete::class){
     delete(rootProject.buildDir)

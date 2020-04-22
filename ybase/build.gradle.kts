@@ -51,6 +51,8 @@ dependencies {
     api("androidx.constraintlayout:constraintlayout:2.0.0-beta4")
     api("androidx.navigation:navigation-fragment-ktx:2.2.2")
     api("androidx.navigation:navigation-ui-ktx:2.2.2")
+    api("androidx.fragment:fragment:1.2.4")
+    api("androidx.fragment:fragment-ktx:1.2.4")
     api("com.github.bumptech.glide:glide:4.11.0")
     api("com.github.bumptech.glide:okhttp3-integration:4.11.0")
     api("com.squareup.okhttp3:okhttp:4.5.0")
@@ -59,15 +61,12 @@ dependencies {
     api("com.squareup.retrofit2:converter-gson:2.8.1")
     api("com.google.code.gson:gson:2.8.6")
     api("androidx.multidex:multidex:2.0.1")
-    //https://github.com/airbnb/lottie-android
-    api("com.airbnb.android:lottie:3.4.0")
-    api("com.jeremyliao:live-event-bus-x:1.5.7")
     api("androidx.viewpager2:viewpager2:1.0.0")
     api("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.3.5")
     api("androidx.lifecycle:lifecycle-viewmodel-ktx:2.2.0")
     api("androidx.lifecycle:lifecycle-livedata-ktx:2.2.0")
-//    api("me.jessyan:autosize:1.2.1")
     api("com.blankj:utilcodex:1.26.0")
+
 }
 //apply plugin: 'com.android.library'
 //apply plugin: 'kotlin-android'

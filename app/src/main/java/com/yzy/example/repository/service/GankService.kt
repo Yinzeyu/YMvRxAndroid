@@ -18,7 +18,9 @@ import retrofit2.http.Query
  *@author: yzy.
  */
 interface GankService {
-
+    //多api  和 from 提交 或者json 提交可以随意切换
+    //默认from 提交
+//    @Headers("urlName:requestJson&&Domain${ApiConstants.Address.GANK_URL}")
     @Headers("urlName:Domain${ApiConstants.Address.GANK_URL}")
     @GET("api/data/Android/{pageSize}/{page}")
     suspend fun getAndroidSuspend(

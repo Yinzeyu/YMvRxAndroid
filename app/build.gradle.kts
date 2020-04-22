@@ -97,6 +97,13 @@ dependencies {
     //https://github.com/Justson/AgentWeb
     implementation("com.just.agentweb:agentweb:4.1.3")
     implementation(Deps.Kotlin.stdlib)
+    //https://github.com/airbnb/lottie-android
+    implementation("com.airbnb.android:lottie:3.4.0")
+    implementation("com.jeremyliao:live-event-bus-x:1.5.7")
+//    implementation("com.github.Victory-Over:SuperWeb:v1.0.2"){
+//        exclude(module = "tbs_sdk_thirdapp_v3.6.0.1249_43610_sharewithdownload_withoutGame_obfs_20180608_114954")
+//    }
+//    implementation("com.tencent.tbs.tbssdk:sdk:43903")
     kapt("com.github.bumptech.glide:compiler:4.11.0")
     implementation("com.github.CymChad:BaseRecyclerViewAdapterHelper:3.0.2")
 }
