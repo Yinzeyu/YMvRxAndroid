@@ -1,7 +1,10 @@
 package com.yzy.example.http.integration
 
+import android.os.UserManager
 import com.blankj.utilcode.util.AppUtils
 import com.google.gson.Gson
+import com.yzy.example.http.integration.HeaderManger.Companion.getInstance
+import com.yzy.example.utils.MMkvUtils
 import java.util.*
 
 /**
@@ -49,5 +52,15 @@ internal class HeaderManger {
         baseUrl =url
         return baseUrl
     }
-
+    //获取动态header
+    fun getDynamicHeaders(): Map<String, String> {
+        val headers = HashMap<String, String>()
+        val token = MMkvUtils.instance.getToken()
+        if (token != null) {
+            headers["token"] = "$token"
+        } else {
+            headers["token"] = ""
+        }
+        return headers
+    }
 }
