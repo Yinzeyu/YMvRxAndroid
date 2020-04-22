@@ -18,15 +18,12 @@ class HeaderRequestIntercept : Interceptor {
         val builder = chain.request().newBuilder()
         val staticHeaders = HeaderManger.getInstance().getStaticHeaders()
         val dynamicHeaders = HeaderManger.getInstance().getDynamicHeaders()
-
         for ((key, value) in staticHeaders) {
             builder.addHeader(key, value)
         }
-
         for ((key, value) in dynamicHeaders) {
             builder.addHeader(key, value)
         }
-
         return chain.proceed(builder.build())
 
     }
