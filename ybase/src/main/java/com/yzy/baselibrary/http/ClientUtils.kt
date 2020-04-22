@@ -67,6 +67,7 @@ object ClientUtils {
             builder.sslSocketFactory(it, SSLManager.TrustAllCerts())
             builder.hostnameVerifier(SSLManager.hostnameVerifier)
         }
+
         return builder.build()
     }
 
