@@ -174,17 +174,7 @@ class RequestIntercept : Interceptor {
         var request = chain.request()
         val builder = request.newBuilder()
         var newBaseUrl: HttpUrl? = null
-        val staticHeaders = HeaderManger.getInstance().getStaticHeaders()
-        val dynamicHeaders = HeaderManger.getInstance().getDynamicHeaders()
         val dynamicBaseUrl = HeaderManger.getInstance().getDynamicBaseUrl()
-        for ((key, value) in staticHeaders) {
-            builder.addHeader(key, value)
-        }
-
-        for ((key, value) in dynamicHeaders) {
-            builder.addHeader(key, value)
-        }
-
         val headerValues = request.headers("urlName")
         if ((null !=dynamicBaseUrl  && "" != dynamicBaseUrl)|| headerValues.isNotEmpty()) {
             if (headerValues.isNotEmpty()) {
@@ -213,7 +203,6 @@ class RequestIntercept : Interceptor {
             Log.e("Url", "intercept: $newFullUrl")
             request = builder.url(newFullUrl).build()
         }
-//        request.body?.writeTo(Buffer())
         return chain.proceed(request)
 
     }

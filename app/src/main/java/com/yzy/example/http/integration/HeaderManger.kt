@@ -57,7 +57,7 @@ internal class HeaderManger {
         val headers = HashMap<String, String>()
         val token = MMkvUtils.instance.getToken()
         if (token != null) {
-            headers["token"] = "$token"
+            headers["token"] = "12345678"
         } else {
             headers["token"] = ""
         }

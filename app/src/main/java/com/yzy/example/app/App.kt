@@ -8,6 +8,7 @@ import com.yzy.baselibrary.widget.refresh.SmartRefreshLayout
 import com.yzy.baselibrary.widget.refresh.header.ClassicsHeader
 import com.yzy.example.R
 import com.yzy.example.constants.ApiConstants
+import com.yzy.example.http.HeaderRequestIntercept
 import com.yzy.example.http.RequestIntercept
 
 
@@ -18,6 +19,7 @@ class App : BaseApplication() {
             context = this@App
             baseUrl = ApiConstants.Address.BASE_URL
             interceptors.add(RequestIntercept())
+            interceptors.add(HeaderRequestIntercept())
         }
     }
 
