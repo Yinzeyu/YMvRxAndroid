@@ -46,29 +46,46 @@ abstract class BaseFragment<VM : BaseViewModel<*>> : Fragment(),
      * 内容布局的ResId
      */
     protected abstract val contentLayout: Int
-    lateinit var rootView: FrameLayout
+    protected var rootView: FrameLayout? = null
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        //第一次的时候加载xml
         Log.e("fragment", this.javaClass.name)
-        val contentView = inflater.inflate(R.layout.base_fragment, container,false)
-        val noteView = mContext.inflate(contentLayout)
-        rootView = contentView.findViewById(R.id.contentView)
-        if (contentLayout > 0) {
-            rootView.addView(noteView)
+        if (contentLayout > 0 && rootView == null) {
+            val contentView = inflater.inflate(contentLayout, null)
+            if (contentView is FrameLayout) {
+                contentView.layoutParams = ViewGroup.LayoutParams(-1, -1)
+                rootView = contentView
+            } else {
+                rootView = FrameLayout(mContext)
+                rootView?.layoutParams = ViewGroup.LayoutParams(-1, -1)
+                rootView?.addView(contentView, ViewGroup.LayoutParams(-1, -1))
+            }
         } else {
-            rootView.removeParent()
+            //防止重新create时还存在
+            rootView?.removeParent()
         }
-//        val baseStatusView = contentView.findViewById<View>(R.id.baseStatusView)
-//        baseStatusView?.let {
-//            it.layoutParams.height =
-//                if (fillStatus()) StatusBarHelper.getStatusBarHeight(mContext) else 0
-//            it.backgroundColor = statusColor()
+        return rootView
+
+//        val contentView = inflater.inflate(R.layout.base_fragment, container,false)
+//        val noteView = mContext.inflate(contentLayout)
+//        rootView = contentView.findViewById(R.id.contentView)
+//        if (contentLayout > 0) {
+//            rootView.addView(noteView)
+//        } else {
+//            rootView.removeParent()
 //        }
-        return contentView
+////        val baseStatusView = contentView.findViewById<View>(R.id.baseStatusView)
+////        baseStatusView?.let {
+////            it.layoutParams.height =
+////                if (fillStatus()) StatusBarHelper.getStatusBarHeight(mContext) else 0
+////            it.backgroundColor = statusColor()
+////        }
+//        return contentView
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

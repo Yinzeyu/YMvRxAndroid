@@ -42,7 +42,7 @@ class SplashFragment : CommFragment<NoViewModel>() {
 
     override fun onRestartNavigate() {
         if (countDownFinish == true){
-                Navigation.findNavController(rootView).navigate(R.id.action_rootFragment_to_middleFragment)
+                Navigation.findNavController(clRootView).navigate(R.id.action_rootFragment_to_middleFragment)
             Log.e("fragment", this.javaClass.name+"=onRestartNavigate")
         }
 
@@ -94,7 +94,7 @@ class SplashFragment : CommFragment<NoViewModel>() {
                 //没有其他需要，进入主页
                 else -> {
                     if (!mActivity.getIsNavigate()){
-                        Navigation.findNavController(rootView).navigate(R.id.action_rootFragment_to_middleFragment)
+                        Navigation.findNavController(clRootView).navigate(R.id.action_rootFragment_to_middleFragment)
                     }
                 }
             }

@@ -22,29 +22,30 @@ abstract class CommFragment<VM : BaseViewModel<*>> : BaseFragment<VM>() {
      */
    private lateinit var viewController: ViewController
     override fun initView(root: View?) {
+        if (rootView != null){
+            viewController = ViewController(rootView!!)
+        }
 
-        viewController = ViewController(rootView)
         //注册 UI事件
         registorDefUIChange()
         initContentView()
-        root?.let {
-            val statusView = it.findViewById<FrameLayout>(R.id.baseStatusView)
-            if (layoutTitleContentId() != 0) {
-                statusView.layoutParams.height=titleHeight() + BarUtils.getStatusBarHeight()
-                statusView.backgroundColor= statusColor()
-                val titleView = View.inflate(mContext, layoutTitleContentId(), null)
-//                titleView.backgroundColor=statusColor()
-                val layoutParams = FrameLayout.LayoutParams(
-                    ViewGroup.LayoutParams.MATCH_PARENT,
-                    titleHeight()
-                )
-                layoutParams.gravity= Gravity.BOTTOM
-                statusView.addView(titleView,layoutParams)
-            } else {
-                val statusBarHeight = if (fillStatus()) BarUtils.getStatusBarHeight() else 0
-                statusView.layoutParams.height = statusBarHeight
-            }
-        }
+//        root?.let {
+//            val statusView = it.findViewById<FrameLayout>(R.id.baseStatusView)
+//            if (layoutTitleContentId() != 0) {
+//                statusView.layoutParams.height=titleHeight() + BarUtils.getStatusBarHeight()
+//                statusView.backgroundColor= statusColor()
+//                val titleView = View.inflate(mContext, layoutTitleContentId(), null)
+//                val layoutParams = FrameLayout.LayoutParams(
+//                    ViewGroup.LayoutParams.MATCH_PARENT,
+//                    titleHeight()
+//                )
+//                layoutParams.gravity= Gravity.BOTTOM
+//                statusView.addView(titleView,layoutParams)
+//            } else {
+//                val statusBarHeight = if (fillStatus()) BarUtils.getStatusBarHeight() else 0
+//                statusView.layoutParams.height = statusBarHeight
+//            }
+//        }
     }
     /**
      * 注册 UI 事件
