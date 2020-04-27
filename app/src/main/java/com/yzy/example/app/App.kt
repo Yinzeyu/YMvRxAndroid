@@ -1,8 +1,10 @@
 package com.yzy.example.app
 
 import com.jeremyliao.liveeventbus.LiveEventBus
+import com.yzy.baselibrary.BuildConfig
 import com.yzy.baselibrary.app.BaseApplication
 import com.yzy.baselibrary.http.ClientUtils
+import com.yzy.baselibrary.http.LoggingInterceptor
 import com.yzy.baselibrary.http.retrofitConfig
 import com.yzy.baselibrary.widget.refresh.SmartRefreshLayout
 import com.yzy.baselibrary.widget.refresh.header.ClassicsHeader
@@ -10,6 +12,8 @@ import com.yzy.example.R
 import com.yzy.example.constants.ApiConstants
 import com.yzy.example.http.HeaderRequestIntercept
 import com.yzy.example.http.RequestIntercept
+import okhttp3.internal.platform.Platform
+import okhttp3.logging.HttpLoggingInterceptor
 
 
 class App : BaseApplication() {

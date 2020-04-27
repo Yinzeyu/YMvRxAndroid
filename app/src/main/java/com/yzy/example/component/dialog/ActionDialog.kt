@@ -2,6 +2,7 @@ package com.yzy.example.component.dialog
 
 import android.view.Gravity
 import android.view.View
+import android.view.ViewGroup
 import androidx.fragment.app.FragmentManager
 import com.blankj.utilcode.util.ScreenUtils
 import com.yzy.baselibrary.base.BaseFragmentDialog
@@ -28,7 +29,7 @@ class ActionDialog : BaseFragmentDialog() {
             val dialog = ActionDialog()
             dialog.mGravity = Gravity.CENTER
             dialog.touchOutside = touchCancel
-            dialog.mWidth = ScreenUtils.getScreenWidth() / 3
+            dialog.mWidth = ViewGroup.LayoutParams.MATCH_PARENT
             return dialog
         }
     }

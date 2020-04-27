@@ -9,6 +9,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.FrameLayout
+import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.ViewModelProvider
@@ -52,7 +53,6 @@ abstract class BaseFragment<VM : BaseViewModel<*>> : Fragment(),
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        retainInstance = true
         Log.e("fragment", this.javaClass.name)
         val contentView = inflater.inflate(R.layout.base_fragment, container,false)
         val noteView = mContext.inflate(contentLayout)
@@ -118,6 +118,16 @@ abstract class BaseFragment<VM : BaseViewModel<*>> : Fragment(),
         }
     }
 
+    /**
+     * 是否屏蔽返回键
+     */
+    fun onBack(enabled:Boolean,onBackPressed:()->Unit){
+        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner, object : OnBackPressedCallback(enabled) {
+            override fun handleOnBackPressed() {
+                onBackPressed.invoke()
+            }
+        })
+    }
     /**
      * 初始化View
      */
