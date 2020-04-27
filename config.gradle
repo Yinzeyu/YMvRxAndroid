@@ -1,101 +1,101 @@
-////★修改version后需要将versionCode重置为从1开始★
-//def version_Name = "1.0.8"//只能是X.X.X格式，X为数字
-////build版本从1开始：偶数测试版、奇数正式版
-//def version_Build = 29//只能是1-999的数字(预想999次build应该可以发版)
-//
-///**********************************************************************打包后续事项**********************************************************************
-// 1.打包(使用V1签名)完毕后，需要使用360加固助手进行加固和多渠道操作
-// 2.设置签名：选择应用加固-签名设置-添加签名后勾选启用自动签名
-// 3.加固助手多渠道配置：将Channel_Info.txt文件中的Channel信息复制到txt文件中，选择应用加固-多渠道设置-导入摸板-勾选启用多渠道打包
-// 4.设置生成包的地址：选择应用加固-基础设置-选择加固包的输出路径
-// 5.加固和多渠道：选择应用加固-添加应用-等待加固和多渠道整个流程完成
-// 6.查看加固情况：选择应用加固-右键加固包-选择任务详情-即可查看加固情况
-// 7.手动设置渠道和签名(当遇到有加固失败的情况，就需要手动设置渠道和签名)：
-// ①选择失败的渠道，将Channel_Info.txt文件中对应的Channel信息复制到新的txt文件中
-// ②选择工具包-渠道打包-自己选择APK和输出路径(选择加固后没有渠道的包，结尾为_jiagu_sign.apk)-使用多渠道配置文件(刚才自己新建的txt)-生成渠道包
-// ③选择工具包-签名APK-自己选择APK和输出路径(选择第②步生成的渠道包)-使用已配置的签名(V1)-开始签名-->完成失败APK的签名
-// *******************************************************************************************************************************************************/
-//
-////默认显示的version_Code信息为:三位之前表示版本号、后三位表示当前版本的build次数
-//def version_Code = (version_Name.replace(".", "")).toInteger() * 1000 + version_Build
-//ext {
-//    isApplication = true
-//    android = [
-//            applicationId          : "com.yzy.example",
-//            compileSdkVersion      : 29,
-//            minSdkVersion          : 21,
-//            buildToolsVersion      : "29.0.3",
-//            targetSdkVersion       : 29,
-//            versionName            : version_Name,
-//            versionCode            : version_Code,
-//            //渠道信息详见APP下Channel_Info.txt文件
-//            buildTime              : new Date().format("yyyyMMdd"), //编译日期
-//            computer               : Math.abs((System.getProperty("user.name") + "@"
-//                    + InetAddress.localHost.hostName).hashCode()),
-//            javaSourceCompatibility: JavaVersion.VERSION_1_8,
-//            javaTargetCompatibility: JavaVersion.VERSION_1_8
-//    ]
-//
-//    dependencies = [
-//            appcompat_v7           : "androidx.appcompat:appcompat:1.1.0",
-//            core_ktx               : "androidx.core:core-ktx:1.2.0",
-//            recycleview            : "androidx.recyclerview:recyclerview:1.1.0",
-//            cardview               : "androidx.cardview:cardview:1.0.0",
-////            constraintLayout       : "androidx.constraintlayout:constraintlayout:1.1.3",
-//            constraintLayout       : "androidx.constraintlayout:constraintlayout:2.0.0-beta4",
-//            navigation_fragment_ktx: "androidx.navigation:navigation-fragment-ktx:2.2.1",
-//            navigation_ui_ktx      : "androidx.navigation:navigation-ui-ktx:2.2.1",
-//            fragment               : "androidx.fragment:fragment:1.2.4",
-//            fragment_ktx           : "androidx.fragment:fragment-ktx:1.2.4",
-//            //kotlin
-//            kotlin_jdk             : "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version",
-//            //https://github.com/bumptech/glide
-//            glide                  : "com.github.bumptech.glide:glide:4.11.0",
-//            glide_okhttp           : "com.github.bumptech.glide:okhttp3-integration:4.11.0",
-//            glide_compiler         : "com.github.bumptech.glide:compiler:4.11.0",
-////            //https://github.com/tbruyelle/RxPermissions
-////            rxpermission           : "com.github.tbruyelle:rxpermissions:0.10.2",
-//            //https://github.com/square/okhttp
-//            okhttp3                : "com.squareup.okhttp3:okhttp:4.5.0",
-//            okhttp3_log            : "com.squareup.okhttp3:logging-interceptor:4.5.0",
-//            //https://github.com/square/retrofit
-//            retrofit               : "com.squareup.retrofit2:retrofit:2.8.1",
-//            retrofit_converter_gson: "com.squareup.retrofit2:converter-gson:2.8.1",
-////            retrofit_converter_scalars: "com.squareup.retrofit2:converter-scalars:2.7.0",
-//            //https://github.com/JakeWharton/RxBinding
-////            rxBinding              : "com.jakewharton.rxbinding3:rxbinding:3.1.0-rc04",
-//            //https://github.com/google/gson
-//            gson                   : "com.google.code.gson:gson:2.8.6",
-//            //multidex
-//            multidex               : "androidx.multidex:multidex:2.0.1",
-////            //https://github.com/Tencent/MMKV
-////            mmkv                   : "com.tencent:mmkv-static:1.1.0",
-//            //https://github.com/Blankj/AndroidUtilCode
-//            utilcode               : "com.blankj:utilcodex:1.26.0",
-//            //https://github.com/JessYanCoding/AndroidAutoSize
-//            autosize               : "me.jessyan:autosize:1.2.1",
-//            //https://github.com/square/leakcanary
-//            leakcanary_debug       : "com.squareup.leakcanary:leakcanary-android:2.0",
-//            //https://bugly.qq.com/docs/release-notes/release-android-ndk/?v=20181014122344
-//            bugly                  : "com.tencent.bugly:crashreport:3.1.0",
-//            bugly_native           : "com.tencent.bugly:nativecrashreport:3.7.1",
-//            //https://github.com/airbnb/MvRx
-////            mvrx                      : "com.airbnb.android:mvrx:2.0.0-alpha2",
-//            //https://github.com/airbnb/epoxy
-////            epoxy                  : "com.airbnb.android:epoxy:3.9.0",
-////            epoxyProcessor         : "com.airbnb.android:epoxy-processor:3.9.0",
-//            //https://github.com/airbnb/lottie-android
-//            lottie                 : "com.airbnb.android:lottie:3.4.0",
-//            //https://github.com/JeremyLiao/LiveEventBus
-//            live_event_bus         : "com.jeremyliao:live-event-bus-x:1.5.7",
-//            //https://github.com/scwang90/SmartRefreshLayout/
-//            smart                  : "com.scwang.smart:refresh-layout-kernel:2.0.0",
-//            viewpager2             : "androidx.viewpager2:viewpager2:1.0.0",
-////            coroutines_core           : "org.jetbrains.kotlinx:kotlinx-coroutines-core:1.3.3",
-//            coroutines_android     : "org.jetbrains.kotlinx:kotlinx-coroutines-android:1.3.5",
-////            lifecycle_extensions   : "androidx.lifecycle:lifecycle-extensions:2.2.0",
-//            lifecycle_viewmodel_ktx: "androidx.lifecycle:lifecycle-viewmodel-ktx:2.2.0",
-//            lifecycle_livedata_ktx : "androidx.lifecycle:lifecycle-livedata-ktx:2.2.0"
-//
-//    ]
-//}
+//★修改version后需要将versionCode重置为从1开始★
+def version_Name = "1.0.8"//只能是X.X.X格式，X为数字
+//build版本从1开始：偶数测试版、奇数正式版
+def version_Build = 29//只能是1-999的数字(预想999次build应该可以发版)
+
+/**********************************************************************打包后续事项**********************************************************************
+ 1.打包(使用V1签名)完毕后，需要使用360加固助手进行加固和多渠道操作
+ 2.设置签名：选择应用加固-签名设置-添加签名后勾选启用自动签名
+ 3.加固助手多渠道配置：将Channel_Info.txt文件中的Channel信息复制到txt文件中，选择应用加固-多渠道设置-导入摸板-勾选启用多渠道打包
+ 4.设置生成包的地址：选择应用加固-基础设置-选择加固包的输出路径
+ 5.加固和多渠道：选择应用加固-添加应用-等待加固和多渠道整个流程完成
+ 6.查看加固情况：选择应用加固-右键加固包-选择任务详情-即可查看加固情况
+ 7.手动设置渠道和签名(当遇到有加固失败的情况，就需要手动设置渠道和签名)：
+ ①选择失败的渠道，将Channel_Info.txt文件中对应的Channel信息复制到新的txt文件中
+ ②选择工具包-渠道打包-自己选择APK和输出路径(选择加固后没有渠道的包，结尾为_jiagu_sign.apk)-使用多渠道配置文件(刚才自己新建的txt)-生成渠道包
+ ③选择工具包-签名APK-自己选择APK和输出路径(选择第②步生成的渠道包)-使用已配置的签名(V1)-开始签名-->完成失败APK的签名
+ *******************************************************************************************************************************************************/
+
+//默认显示的version_Code信息为:三位之前表示版本号、后三位表示当前版本的build次数
+def version_Code = (version_Name.replace(".", "")).toInteger() * 1000 + version_Build
+ext {
+    isApplication = true
+    android = [
+            applicationId          : "com.yzy.example",
+            compileSdkVersion      : 29,
+            minSdkVersion          : 21,
+            buildToolsVersion      : "29.0.3",
+            targetSdkVersion       : 29,
+            versionName            : version_Name,
+            versionCode            : version_Code,
+            //渠道信息详见APP下Channel_Info.txt文件
+            buildTime              : new Date().format("yyyyMMdd"), //编译日期
+            computer               : Math.abs((System.getProperty("user.name") + "@"
+                    + InetAddress.localHost.hostName).hashCode()),
+            javaSourceCompatibility: JavaVersion.VERSION_1_8,
+            javaTargetCompatibility: JavaVersion.VERSION_1_8
+    ]
+
+    dependencies = [
+            appcompat_v7           : "androidx.appcompat:appcompat:1.1.0",
+            core_ktx               : "androidx.core:core-ktx:1.2.0",
+            recycleview            : "androidx.recyclerview:recyclerview:1.1.0",
+            cardview               : "androidx.cardview:cardview:1.0.0",
+//            constraintLayout       : "androidx.constraintlayout:constraintlayout:1.1.3",
+            constraintLayout       : "androidx.constraintlayout:constraintlayout:2.0.0-beta4",
+            navigation_fragment_ktx: "androidx.navigation:navigation-fragment-ktx:2.2.1",
+            navigation_ui_ktx      : "androidx.navigation:navigation-ui-ktx:2.2.1",
+            fragment               : "androidx.fragment:fragment:1.2.4",
+            fragment_ktx           : "androidx.fragment:fragment-ktx:1.2.4",
+            //kotlin
+            kotlin_jdk             : "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version",
+            //https://github.com/bumptech/glide
+            glide                  : "com.github.bumptech.glide:glide:4.11.0",
+            glide_okhttp           : "com.github.bumptech.glide:okhttp3-integration:4.11.0",
+            glide_compiler         : "com.github.bumptech.glide:compiler:4.11.0",
+//            //https://github.com/tbruyelle/RxPermissions
+//            rxpermission           : "com.github.tbruyelle:rxpermissions:0.10.2",
+            //https://github.com/square/okhttp
+            okhttp3                : "com.squareup.okhttp3:okhttp:4.5.0",
+            okhttp3_log            : "com.squareup.okhttp3:logging-interceptor:4.5.0",
+            //https://github.com/square/retrofit
+            retrofit               : "com.squareup.retrofit2:retrofit:2.8.1",
+            retrofit_converter_gson: "com.squareup.retrofit2:converter-gson:2.8.1",
+//            retrofit_converter_scalars: "com.squareup.retrofit2:converter-scalars:2.7.0",
+            //https://github.com/JakeWharton/RxBinding
+//            rxBinding              : "com.jakewharton.rxbinding3:rxbinding:3.1.0-rc04",
+            //https://github.com/google/gson
+            gson                   : "com.google.code.gson:gson:2.8.6",
+            //multidex
+            multidex               : "androidx.multidex:multidex:2.0.1",
+//            //https://github.com/Tencent/MMKV
+//            mmkv                   : "com.tencent:mmkv-static:1.1.0",
+            //https://github.com/Blankj/AndroidUtilCode
+            utilcode               : "com.blankj:utilcodex:1.26.0",
+            //https://github.com/JessYanCoding/AndroidAutoSize
+            autosize               : "me.jessyan:autosize:1.2.1",
+            //https://github.com/square/leakcanary
+            leakcanary_debug       : "com.squareup.leakcanary:leakcanary-android:2.0",
+            //https://bugly.qq.com/docs/release-notes/release-android-ndk/?v=20181014122344
+            bugly                  : "com.tencent.bugly:crashreport:3.1.0",
+            bugly_native           : "com.tencent.bugly:nativecrashreport:3.7.1",
+            //https://github.com/airbnb/MvRx
+//            mvrx                      : "com.airbnb.android:mvrx:2.0.0-alpha2",
+            //https://github.com/airbnb/epoxy
+//            epoxy                  : "com.airbnb.android:epoxy:3.9.0",
+//            epoxyProcessor         : "com.airbnb.android:epoxy-processor:3.9.0",
+            //https://github.com/airbnb/lottie-android
+            lottie                 : "com.airbnb.android:lottie:3.4.0",
+            //https://github.com/JeremyLiao/LiveEventBus
+            live_event_bus         : "com.jeremyliao:live-event-bus-x:1.5.7",
+            //https://github.com/scwang90/SmartRefreshLayout/
+            smart                  : "com.scwang.smart:refresh-layout-kernel:2.0.0",
+            viewpager2             : "androidx.viewpager2:viewpager2:1.0.0",
+//            coroutines_core           : "org.jetbrains.kotlinx:kotlinx-coroutines-core:1.3.3",
+            coroutines_android     : "org.jetbrains.kotlinx:kotlinx-coroutines-android:1.3.5",
+//            lifecycle_extensions   : "androidx.lifecycle:lifecycle-extensions:2.2.0",
+            lifecycle_viewmodel_ktx: "androidx.lifecycle:lifecycle-viewmodel-ktx:2.2.0",
+            lifecycle_livedata_ktx : "androidx.lifecycle:lifecycle-livedata-ktx:2.2.0"
+
+    ]
+}
