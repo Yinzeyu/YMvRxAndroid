@@ -1,17 +1,13 @@
-apply from: "config.gradle"
 buildscript {
     ext.kotlin_version = '1.3.72'
-    ext.objectboxVersion = '2.5.0'
-    ext.android_plugin_version = '3.1.4'
-    ext.nav_version = "2.2.1"
     repositories {
         google()
         jcenter()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:3.6.2'
+        classpath 'com.android.tools.build:gradle:3.6.3'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
-        classpath "androidx.navigation:navigation-safe-args-gradle-plugin:$nav_version"
+        classpath "androidx.navigation:navigation-safe-args-gradle-plugin:2.2.2"
         classpath 'com.jfrog.bintray.gradle:gradle-bintray-plugin:1.8.4'
         classpath 'com.github.dcendents:android-maven-gradle-plugin:2.1'
         //更新R8版本，解决正式版无法打包的问题 https://github.com/square/okhttp/issues/4604
@@ -37,4 +33,29 @@ allprojects {
 
 task clean(type: Delete) {
     delete rootProject.buildDir
+}
+
+//★修改version后需要将versionCode重置为从1开始★
+def version_Name = "1.0.0"//只能是X.X.X格式，X为数字
+//build版本从1开始：偶数测试版、奇数正式版
+def version_Build = 1//只能是1-999的数字(预想999次build应该可以发版)
+//默认显示的version_Code信息为:三位之前表示版本号、后三位表示当前版本的build次数
+def version_Code = (version_Name.replace(".", "")).toInteger() * 1000 + version_Build
+
+ext {
+    android = [
+            applicationId          : "com.yzy.example",
+            compileSdkVersion      : 29,
+            minSdkVersion          : 21,
+            buildToolsVersion      : "29.0.3",
+            targetSdkVersion       : 29,
+            versionName            : version_Name,
+            versionCode            : version_Code,
+            //渠道信息详见APP下Channel_Info.txt文件
+            buildTime              : new Date().format("yyyyMMdd"), //编译日期
+            computer               : Math.abs((System.getProperty("user.name") + "@"
+                    + InetAddress.localHost.hostName).hashCode()),
+            javaSourceCompatibility: JavaVersion.VERSION_1_8,
+            javaTargetCompatibility: JavaVersion.VERSION_1_8
+    ]
 }
