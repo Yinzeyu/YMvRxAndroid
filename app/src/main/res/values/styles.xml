@@ -125,4 +125,26 @@
         </attr>
     </declare-styleable>
 
+    <!-- Define your custom dialog theme here extending from base -->
+    <style name="AppDialogTheme" parent="Theme.AppCompat.Light.Dialog">
+        <!-- Define color properties as desired -->
+        <item name="colorPrimary">@color/white</item>
+        <item name="colorAccent">@color/black</item>
+        <item name="colorPrimaryDark">#000</item>
+        <item name="colorControlNormal">@color/white</item>
+        <item name="android:textColorHighlight">@color/black</item>
+        <!-- Define window properties as desired -->
+        <!--是否显示title-->
+        <item name="android:windowNoTitle">false</item>
+        <!--是否是全屏-->
+        <item name="android:windowFullscreen">false</item>
+        <!--背景颜色-->
+        <item name="android:windowBackground">@color/transparent</item>
+        <!--是否浮现在activity之上-->
+        <item name="android:windowIsFloating">true</item>
+        <!--点击空白是否消失-->
+        <item name="android:windowCloseOnTouchOutside">true</item>
+    </style>
+
+
 </resources>

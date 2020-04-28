@@ -6,10 +6,7 @@ import android.content.DialogInterface
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
-import android.view.Gravity
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import android.view.ViewGroup.LayoutParams.WRAP_CONTENT
 import android.view.WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN
 import androidx.fragment.app.DialogFragment
@@ -144,7 +141,7 @@ abstract class BaseFragmentDialog : DialogFragment() , CoroutineScope by MainSco
         //设置偏移量
         wlp.x = dialog?.context?.dp2px(mOffsetX) ?: 0
         wlp.y = dialog?.context?.dp2px(mOffsetY) ?: 0
-        wlp.softInputMode = mSoftInputMode
+//        wlp.softInputMode = mSoftInputMode
         //设置动画
         mAnimation?.also { window.setWindowAnimations(it) }
         window.attributes = wlp
