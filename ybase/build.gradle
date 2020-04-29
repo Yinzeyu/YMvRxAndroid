@@ -33,9 +33,9 @@ android {
         sourceCompatibility rootProject.ext.android.javaSourceCompatibility
         targetCompatibility rootProject.ext.android.javaTargetCompatibility
     }
-//    dataBinding {
-//        enabled = true
-//    }
+    dataBinding {
+        enabled = true
+    }
     sourceSets { main { assets.srcDirs = ['src/main/assets', 'src/main/assets/'] } }
 }
 dependencies {

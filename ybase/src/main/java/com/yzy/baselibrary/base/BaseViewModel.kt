@@ -144,71 +144,6 @@ open class BaseViewModel<BR> : AndroidViewModel(Utils.getApp()), LifecycleObserv
             }
         }
     }
-
-    fun <T> launchOnlyresult1(
-        block: suspend CoroutineScope.() -> IBaseResponse1<T>,
-        success: (T) -> Unit,
-        error: suspend CoroutineScope.(ResponseThrowable) -> Unit = {
-            defUI.errorEvent.postValue(ThrowableBean(it.code,it.errMsg))
-        },
-        complete: () -> Unit = {},
-        isShowDialog: Boolean = true) {
-        if (isShowDialog) defUI.showDialog.call()
-        launchUI {
-            handleException1(
-                {
-                withContext(Dispatchers.IO) { block() }
-                },
-                { res ->
-                    executeResponse1(res) {
-                        withContext(Dispatchers.Main) {
-                            success(it)
-                        }
-                    }
-                } ,{
-                    error(it)
-                },
-                {
-                    complete()
-                }
-            )
-        }
-    }
-
-    /**
-     * 请求结果过滤
-     */
-    private suspend fun <T> executeResponse1(
-        response: IBaseResponse1<T>,
-        success: suspend CoroutineScope.(T) -> Unit
-    ) {
-        coroutineScope {
-            if (response.data() !=null){
-                success(response.data())
-            }else{
-
-            }
-
-
-        }
-    }
-
-    private suspend fun <T> handleException1(
-        block: suspend CoroutineScope.() -> IBaseResponse1<T>,
-        success: suspend CoroutineScope.(IBaseResponse1<T>) -> Unit,
-        error: suspend CoroutineScope.(ResponseThrowable) -> Unit,
-        complete: suspend CoroutineScope.() -> Unit
-    ) {
-        coroutineScope {
-            try {
-                success(block())
-            } catch (e: Throwable) {
-                error(ExceptionHandle.handleException(e))
-            } finally {
-                complete()
-            }
-        }
-    }
     /**
      * UI事件
      */
@@ -217,6 +152,5 @@ open class BaseViewModel<BR> : AndroidViewModel(Utils.getApp()), LifecycleObserv
         val dismissDialog by lazy { SingleLiveEvent<Void>() }
         val errorEvent by lazy { SingleLiveEvent<ThrowableBean>() }
         val toastEvent by lazy { SingleLiveEvent<String>() }
-        val msgEvent by lazy { SingleLiveEvent<Message>() }
     }
 }

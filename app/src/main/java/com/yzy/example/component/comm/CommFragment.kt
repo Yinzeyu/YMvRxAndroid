@@ -1,22 +1,17 @@
 package com.yzy.example.component.comm
 
 import android.view.*
-import android.widget.FrameLayout
 import androidx.lifecycle.Observer
-import com.blankj.utilcode.util.BarUtils
 import com.blankj.utilcode.util.ToastUtils
 import com.yzy.baselibrary.base.BaseActivity
 import com.yzy.baselibrary.base.BaseFragment
 import com.yzy.baselibrary.base.BaseViewModel
-import com.yzy.baselibrary.extention.backgroundColor
-import com.yzy.baselibrary.http.event.Message
-import com.yzy.example.R
+import com.yzy.baselibrary.base.ThrowableBean
 import com.yzy.example.component.comm.view.ViewController
 import com.yzy.example.component.dialog.ActionDialog
 
 
 abstract class CommFragment<VM : BaseViewModel<*>> : BaseFragment<VM>() {
-//    override val contentLayout: Int = com.yzy.example.R.layout.base_fragment
     /**
      * 填充布局 空布局 loading 网络异常等
      */
@@ -29,23 +24,6 @@ abstract class CommFragment<VM : BaseViewModel<*>> : BaseFragment<VM>() {
         //注册 UI事件
         registorDefUIChange()
         initContentView()
-//        root?.let {
-//            val statusView = it.findViewById<FrameLayout>(R.id.baseStatusView)
-//            if (layoutTitleContentId() != 0) {
-//                statusView.layoutParams.height=titleHeight() + BarUtils.getStatusBarHeight()
-//                statusView.backgroundColor= statusColor()
-//                val titleView = View.inflate(mContext, layoutTitleContentId(), null)
-//                val layoutParams = FrameLayout.LayoutParams(
-//                    ViewGroup.LayoutParams.MATCH_PARENT,
-//                    titleHeight()
-//                )
-//                layoutParams.gravity= Gravity.BOTTOM
-//                statusView.addView(titleView,layoutParams)
-//            } else {
-//                val statusBarHeight = if (fillStatus()) BarUtils.getStatusBarHeight() else 0
-//                statusView.layoutParams.height = statusBarHeight
-//            }
-//        }
     }
     /**
      * 注册 UI 事件
@@ -60,11 +38,11 @@ abstract class CommFragment<VM : BaseViewModel<*>> : BaseFragment<VM>() {
         viewModel.defUI.toastEvent.observe(viewLifecycleOwner, Observer {
             ToastUtils.showShort(it)
         })
-        viewModel.defUI.msgEvent.observe(viewLifecycleOwner, Observer {
+        viewModel.defUI.errorEvent.observe(viewLifecycleOwner, Observer {
             handleEvent(it)
         })
     }
-    open fun handleEvent(msg: Message) {}
+    open fun handleEvent(msg: ThrowableBean) {}
 
     abstract fun initContentView()
 

@@ -1,11 +1,8 @@
 package com.yzy.example.repository.service
 
-import com.yzy.example.constants.ApiConstants
 import com.yzy.example.http.response.BaseResponse
 import com.yzy.example.repository.bean.ArticleDataBean
 import com.yzy.example.repository.bean.BannerBean
-import com.yzy.example.repository.bean.GankAndroidBean
-import com.yzy.example.repository.bean.GankBaseBean
 import retrofit2.http.*
 
 
@@ -18,12 +15,12 @@ interface GankService {
     //多api  和 from 提交 或者json 提交可以随意切换
     //默认from 提交
 //    @Headers("urlName:requestJson&&Domain${ApiConstants.Address.GANK_URL}")
-    @Headers("urlName:Domain${ApiConstants.Address.GANK_URL}")
-    @GET("api/data/Android/{pageSize}/{page}")
-    suspend fun getAndroidSuspend(
-        @Path("pageSize") pageSize: Int,
-        @Path("page") page: Int
-    ): GankBaseBean<MutableList<GankAndroidBean>>
+//    @Headers("urlName:Domain${ApiConstants.Address.GANK_URL}")
+//    @GET("api/data/Android/{pageSize}/{page}")
+//    suspend fun getAndroidSuspend(
+//        @Path("pageSize") pageSize: Int,
+//        @Path("page") page: Int
+//    ): GankBaseBean<MutableList<GankAndroidBean>>
 
     @GET("banner/json")
     suspend fun banner(
