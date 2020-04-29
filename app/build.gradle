@@ -39,6 +39,7 @@ android {
 //    }
     buildFeatures{
         dataBinding = true
+        viewBinding = false
     }
     compileOptions {
         sourceCompatibility rootProject.ext.android.javaSourceCompatibility

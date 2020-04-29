@@ -38,6 +38,7 @@ android {
 //    }
     buildFeatures{
         dataBinding = true
+        viewBinding = false
     }
     sourceSets { main { assets.srcDirs = ['src/main/assets', 'src/main/assets/'] } }
 }
