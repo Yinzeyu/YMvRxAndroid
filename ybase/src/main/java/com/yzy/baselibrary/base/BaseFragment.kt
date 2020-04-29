@@ -26,7 +26,7 @@ import java.lang.reflect.ParameterizedType
 abstract class BaseFragment<VM : BaseViewModel<*>, DB : ViewDataBinding>  : Fragment(),
     CoroutineScope by MainScope() {
     lateinit var viewModel: VM
-     var mBinding: DB? = null
+    lateinit var binding: DB
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -37,8 +37,10 @@ abstract class BaseFragment<VM : BaseViewModel<*>, DB : ViewDataBinding>  : Frag
         val cls =
             (javaClass.genericSuperclass as ParameterizedType).actualTypeArguments[1] as Class<*>
         if (ViewDataBinding::class.java != cls && ViewDataBinding::class.java.isAssignableFrom(cls)) {
-            mBinding = DataBindingUtil.inflate(inflater, getLayoutId(), container, false)
-            return mBinding?.root
+            binding = DataBindingUtil.inflate(inflater, getLayoutId(), container, false)
+            //databinding监听activity的生命周期，实时更新数据
+            binding.lifecycleOwner = this
+            return binding.root
         }
         return inflater.inflate(getLayoutId(), container, false)
     }

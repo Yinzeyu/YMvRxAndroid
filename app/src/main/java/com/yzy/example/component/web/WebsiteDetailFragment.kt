@@ -44,9 +44,9 @@ class WebsiteDetailFragment : CommFragment<NoViewModel,ViewDataBinding>() {
             ws.useWideViewPort = true
             ws.loadWithOverviewMode = true
         }
-        commTitleBack.click {
-            onBackPressed()
-        }
+//        commTitleBack.click {
+//            onBackPressed()
+//        }
     }
 
 
