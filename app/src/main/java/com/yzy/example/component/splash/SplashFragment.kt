@@ -19,11 +19,9 @@ import kotlinx.coroutines.launch
 
 class SplashFragment : CommFragment<NoViewModel,ViewDataBinding>() {
 
-    //是否有SD卡读写权限
-    private var hasSDPermission: Boolean? = null
 
     //倒计时是否结束
-    private var countDownFinish: Boolean? = null
+    private var countDownFinish: Boolean=false
 
 
     override fun initContentView() {
@@ -39,7 +37,7 @@ class SplashFragment : CommFragment<NoViewModel,ViewDataBinding>() {
     }
 
     override fun onRestartNavigate() {
-        if (countDownFinish == true){
+        if (countDownFinish){
                 Navigation.findNavController(clRootView).navigate(R.id.action_rootFragment_to_middleFragment)
             Log.e("fragment", this.javaClass.name+"=onRestartNavigate")
         }
@@ -48,9 +46,7 @@ class SplashFragment : CommFragment<NoViewModel,ViewDataBinding>() {
 
     //打开下个页面
     private fun goNextPage() {
-        if (hasSDPermission == null) return
-        if (countDownFinish != true) return
-        if (hasSDPermission == true) {
+        if (countDownFinish) {
             when {
                 //是否引导
 //                MMkvUtils.instance.getNeedGuide() -> GuideActivity.startActivity(mContext)

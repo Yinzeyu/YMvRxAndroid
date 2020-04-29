@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/wan_navigation"
     app:startDestination="@id/splashFragment">
-    <tab_fragment
+    <fragment
         android:id="@+id/splashFragment"
         android:name="com.yzy.example.component.splash.SplashFragment"
         android:label="splashFragment"
@@ -19,8 +19,8 @@
             app:popUpTo="@id/splashFragment"
             app:popUpToInclusive="true"
             />
-    </tab_fragment>
-    <tab_fragment
+    </fragment>
+    <fragment
         android:id="@+id/mainFragment"
         android:name="com.yzy.example.component.main.MainFragment"
         android:label="MainFragment"
@@ -33,11 +33,11 @@
             app:popEnterAnim="@anim/slide_in_bottom"
             app:popExitAnim="@anim/slide_out_bottom"
             />
-    </tab_fragment>
+    </fragment>
 
 
 
-    <tab_fragment
+    <fragment
         android:id="@+id/websiteDetailFragment"
         android:name="com.yzy.example.component.web.WebsiteDetailFragment"
         android:label="WebsiteDetailFragment"
@@ -46,5 +46,5 @@
             android:name="url"
             android:defaultValue="value"
             app:argType="string" />
-    </tab_fragment>
+    </fragment>
 </navigation>

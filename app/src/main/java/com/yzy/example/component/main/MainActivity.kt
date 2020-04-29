@@ -29,11 +29,11 @@ class MainActivity : BaseActivity() {
     override fun initView() {
         hasFinish = checkReOpenHome()
         if (hasFinish) return
-        val navController = Navigation.findNavController(this, R.id.fragment)
-        val navHostFragment = supportFragmentManager.findFragmentById(R.id.fragment) as NavHostFragment?
-        val navigator = StateNavigator(this, navHostFragment!!.childFragmentManager, R.id.fragment)
-        navController.navigatorProvider.addNavigator(navigator)
-        navController.setGraph(R.navigation.wan_navigation)
+//        val navController = Navigation.findNavController(this, R.id.fragment)
+//        val navHostFragment = supportFragmentManager.findFragmentById(R.id.fragment) as NavHostFragment?
+//        val navigator = StateNavigator(this, navHostFragment!!.childFragmentManager, R.id.fragment)
+//        navController.navigatorProvider.addNavigator(navigator)
+//        navController.setGraph(R.navigation.wan_navigation)
     }
 
     //    https://www.cnblogs.com/xqz0618/p/thistaskroot.html
