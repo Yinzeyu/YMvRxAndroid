@@ -34,7 +34,7 @@ import com.yzy.baselibrary.R
 import java.util.*
 
 /**
- * @author cginechen
+ * @author yzy
  * @date 2016-03-17
  */
 object DisplayHelper {

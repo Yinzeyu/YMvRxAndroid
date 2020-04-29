@@ -3,6 +3,7 @@ package com.yzy.baselibrary.extention
 import java.io.Closeable
 import java.io.IOException
 import java.util.*
+import kotlin.math.log10
 
 /**
  * 获取数值的位数，例如9返回1，99返回2，999返回3
@@ -11,12 +12,12 @@ import java.util.*
  * @return 数值的位数，若传的参数小于等于0，则返回0
  */
 fun getNumberDigits(number: Int): Int {
-    return if (number <= 0) 0 else (Math.log10(number.toDouble()) + 1).toInt()
+    return if (number <= 0) 0 else (log10(number.toDouble()) + 1).toInt()
 }
 
 
 fun getNumberDigits(number: Long): Int {
-    return if (number <= 0) 0 else (Math.log10(number.toDouble()) + 1).toInt()
+    return if (number <= 0) 0 else (log10(number.toDouble()) + 1).toInt()
 }
 
 
@@ -55,7 +56,7 @@ fun regularizePrice(price: Double): String? {
 
 
 fun isNullOrEmpty(string: CharSequence?): Boolean {
-    return string == null || string.length == 0
+    return string == null || string.isEmpty()
 }
 
 fun close(c: Closeable?) {

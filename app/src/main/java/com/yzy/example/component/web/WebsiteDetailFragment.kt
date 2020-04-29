@@ -10,7 +10,7 @@ import com.just.agentweb.AgentWeb
 import com.just.agentweb.DefaultWebClient
 import com.yzy.baselibrary.base.NoViewModel
 import com.yzy.baselibrary.extention.click
-import com.yzy.baselibrary.extention.getResColor
+import com.yzy.baselibrary.extention.getColorRes
 import com.yzy.example.R
 import com.yzy.example.component.comm.CommFragment
 import com.yzy.example.widget.LollipopFixedWebView
@@ -64,7 +64,7 @@ class WebsiteDetailFragment : CommFragment<NoViewModel>() {
         webView.scrollBarStyle = View.SCROLLBARS_INSIDE_INSET
         agentBuilder = AgentWeb.with(this)
             .setAgentWebParent(webRootView, ViewGroup.LayoutParams(-1, -1))//添加到父容器
-            .useDefaultIndicator(mContext.getResColor(R.color.colorPrimary))//设置进度条颜色
+            .useDefaultIndicator(mContext.getColorRes(R.color.colorPrimary))//设置进度条颜色
             .setWebView(webView)//真正的webview
             .setMainFrameErrorView(R.layout.agentweb_error_page, -1)//失败的布局
             .setSecurityType(AgentWeb.SecurityType.STRICT_CHECK)
