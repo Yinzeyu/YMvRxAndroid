@@ -1,22 +1,18 @@
 package com.yzy.baselibrary.base
 
-import android.content.Context
 import android.content.Intent
-import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.FrameLayout
 import androidx.activity.OnBackPressedCallback
+import androidx.annotation.LayoutRes
+import androidx.databinding.DataBindingUtil
+import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.ViewModelProvider
-import com.yzy.baselibrary.R
 import com.yzy.baselibrary.extention.StatusBarHelper
-import com.yzy.baselibrary.extention.inflate
-import com.yzy.baselibrary.extention.removeParent
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.cancel
@@ -27,27 +23,10 @@ import java.lang.reflect.ParameterizedType
  *@date 2019/7/15
  *@author: yzy.
  */
-abstract class BaseFragment<VM : BaseViewModel<*>> : Fragment(),
+abstract class BaseFragment<VM : BaseViewModel<*>, DB : ViewDataBinding>  : Fragment(),
     CoroutineScope by MainScope() {
     lateinit var viewModel: VM
-
-    //是否第一次加载
-    private var isFirst: Boolean = true
-    //页面基础信息
-    lateinit var mActivity: BaseActivity
-    lateinit var mContext: Context
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
-        mActivity = requireActivity() as BaseActivity
-        mContext = context
-    }
-
-    /**
-     * 内容布局的ResId
-     */
-    protected abstract val contentLayout: Int
-    protected var rootView: FrameLayout? = null
-
+     var mBinding: DB? = null
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -55,72 +34,26 @@ abstract class BaseFragment<VM : BaseViewModel<*>> : Fragment(),
     ): View? {
         //第一次的时候加载xml
         Log.e("fragment", this.javaClass.name)
-        if (contentLayout > 0 && rootView == null) {
-            val contentView = inflater.inflate(contentLayout, null)
-            if (contentView is FrameLayout) {
-                contentView.layoutParams = ViewGroup.LayoutParams(-1, -1)
-                rootView = contentView
-            } else {
-                rootView = FrameLayout(mContext)
-                rootView?.layoutParams = ViewGroup.LayoutParams(-1, -1)
-                rootView?.addView(contentView, ViewGroup.LayoutParams(-1, -1))
-            }
-        } else {
-            //防止重新create时还存在
-            rootView?.removeParent()
+        val cls =
+            (javaClass.genericSuperclass as ParameterizedType).actualTypeArguments[1] as Class<*>
+        if (ViewDataBinding::class.java != cls && ViewDataBinding::class.java.isAssignableFrom(cls)) {
+            mBinding = DataBindingUtil.inflate(inflater, getLayoutId(), container, false)
+            return mBinding?.root
         }
-        return rootView
-
-//        val contentView = inflater.inflate(R.layout.base_fragment, container,false)
-//        val noteView = mContext.inflate(contentLayout)
-//        rootView = contentView.findViewById(R.id.contentView)
-//        if (contentLayout > 0) {
-//            rootView.addView(noteView)
-//        } else {
-//            rootView.removeParent()
-//        }
-////        val baseStatusView = contentView.findViewById<View>(R.id.baseStatusView)
-////        baseStatusView?.let {
-////            it.layoutParams.height =
-////                if (fillStatus()) StatusBarHelper.getStatusBarHeight(mContext) else 0
-////            it.backgroundColor = statusColor()
-////        }
-//        return contentView
+        return inflater.inflate(getLayoutId(), container, false)
     }
+
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
         if (isBack()) {
-            StatusBarHelper.setStatusBarLightMode(mActivity)
+            StatusBarHelper.setStatusBarLightMode(requireActivity())
         } else {
-            StatusBarHelper.setStatusBarDarkMode(mActivity)
+            StatusBarHelper.setStatusBarDarkMode(requireActivity())
         }
-        onVisible()
         createViewModel()
         lifecycle.addObserver(viewModel)
-        initView(view)
-        initData()
+        initView(savedInstanceState)
     }
-
-    override fun onResume() {
-        super.onResume()
-        onVisible()
-    }
-
-    /**
-     * 是否需要懒加载
-     */
-    private fun onVisible() {
-        if (lifecycle.currentState == Lifecycle.State.STARTED && isFirst) {
-            lazyLoadData()
-            isFirst = false
-        }
-    }
-
-    /**
-     * 懒加载
-     */
-    open fun lazyLoadData() {}
 
     /**
      * 创建 ViewModel
@@ -145,34 +78,30 @@ abstract class BaseFragment<VM : BaseViewModel<*>> : Fragment(),
             }
         })
     }
+    @LayoutRes
+    abstract fun getLayoutId(): Int
     /**
-     * 初始化View
+     * 初始化
      */
-    protected abstract fun initView(root: View?)
+    abstract fun initView(savedSate: Bundle?)
 
     /**
-     * 初始化数据
+     * activityResult
      */
-    protected abstract fun initData()
-
     open fun onFragmentResult(requestCode: Int, resultCode: Int, data: Intent?) {
 
     }
 
-
+    /**
+     * 锁屏之后从起会调用此方法
+     */
     open fun onRestartNavigate() {
 
     }
 
-    //是否需要默认填充状态栏,默认填充为白色view
-    protected open fun fillStatus(): Boolean {
-        return true
-    }
-
-    protected open fun statusColor(): Int {
-        return Color.TRANSPARENT
-    }
-
+    /**
+     * 默认状态栏黑色字体图标
+     */
     protected open fun isBack(): Boolean {
         return true
     }
@@ -184,6 +113,6 @@ abstract class BaseFragment<VM : BaseViewModel<*>> : Fragment(),
 
 
     open fun onBackPressed() {
-        (mContext as BaseActivity).onBackPressed()
+       requireActivity().onBackPressed()
     }
 }

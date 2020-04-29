@@ -1,27 +1,21 @@
 package com.yzy.example.component.dialog
 
+import android.os.Bundle
 import android.view.Gravity
-import android.view.View
 import android.view.ViewGroup
-import android.view.WindowManager
 import android.view.WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN
-import android.view.WindowManager.LayoutParams.SOFT_INPUT_IS_FORWARD_NAVIGATION
+import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.FragmentManager
-import com.blankj.utilcode.util.ScreenUtils
-import com.yzy.baselibrary.base.BaseFragmentDialog
+import com.yzy.baselibrary.base.NoViewModel
 import com.yzy.example.R
 import com.yzy.example.component.comm.CommDialogFragment
-import kotlinx.android.synthetic.main.dialog_action.*
 
 /**
  * Description:
- * @author: caiyoufei
  * @date: 2019/9/24 13:03
  */
-class UpdateDialog : CommDialogFragment() {
-    override fun contentLayout(): Int = R.layout.dialog_update
-    override fun initView(view: View) {
-    }
+class UpdateDialog : CommDialogFragment<NoViewModel,ViewDataBinding>() {
+    override fun getLayoutId(): Int = R.layout.dialog_update
 
 
     companion object {
@@ -40,6 +34,8 @@ class UpdateDialog : CommDialogFragment() {
 
     fun show(fragmentManager: FragmentManager) {
         show(fragmentManager, "UpdateDialog")
+    }
+    override fun initView(savedState: Bundle?) {
     }
 
 }

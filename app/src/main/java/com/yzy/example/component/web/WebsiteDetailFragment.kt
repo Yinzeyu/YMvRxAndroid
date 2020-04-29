@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.graphics.Color
 import android.view.View
 import android.view.ViewGroup
+import androidx.databinding.ViewDataBinding
 import androidx.navigation.fragment.navArgs
 import com.blankj.utilcode.util.SizeUtils
 import com.just.agentweb.AgentWeb
@@ -17,24 +18,16 @@ import com.yzy.example.widget.LollipopFixedWebView
 import kotlinx.android.synthetic.main.fragment_wesite_detail.*
 import kotlinx.android.synthetic.main.web_fragment_title.*
 
-class WebsiteDetailFragment : CommFragment<NoViewModel>() {
+class WebsiteDetailFragment : CommFragment<NoViewModel,ViewDataBinding>() {
 
     private val url: WebsiteDetailFragmentArgs by navArgs()
     //AgentWeb相关
     private var agentWeb: AgentWeb? = null
     private var agentBuilder: AgentWeb.CommonBuilder? = null
 
-    override fun statusColor(): Int = Color.parseColor("#008577")
-    override val contentLayout: Int =R.layout.fragment_wesite_detail
-    override fun layoutTitleContentId(): Int =R.layout.web_fragment_title
-    override fun titleHeight(): Int  = SizeUtils.dp2px(48f)
     override fun initContentView() {
         webRootView.removeAllViews()
         initAgentBuilder()
-    }
-
-    @SuppressLint("SetJavaScriptEnabled")
-    override fun initData() {
         agentWeb = agentBuilder?.createAgentWeb()?.ready()?.go(url.url)//创建web并打开
         //设置适配
         val web = agentWeb?.webCreator?.webView
@@ -56,21 +49,25 @@ class WebsiteDetailFragment : CommFragment<NoViewModel>() {
         }
     }
 
+
+
     //初始化web
     private fun initAgentBuilder() {
         //为了解决安卓5.x的bug
-        val webView = LollipopFixedWebView(mContext)
+        val webView = LollipopFixedWebView(requireContext())
         webView.overScrollMode = View.OVER_SCROLL_NEVER
         webView.scrollBarStyle = View.SCROLLBARS_INSIDE_INSET
         agentBuilder = AgentWeb.with(this)
             .setAgentWebParent(webRootView, ViewGroup.LayoutParams(-1, -1))//添加到父容器
-            .useDefaultIndicator(mContext.getColorRes(R.color.colorPrimary))//设置进度条颜色
+            .useDefaultIndicator(requireContext().getColorRes(R.color.colorPrimary))//设置进度条颜色
             .setWebView(webView)//真正的webview
             .setMainFrameErrorView(R.layout.agentweb_error_page, -1)//失败的布局
             .setSecurityType(AgentWeb.SecurityType.STRICT_CHECK)
             .setOpenOtherPageWays(DefaultWebClient.OpenOtherPageWays.ASK)//打开其他应用时，弹窗咨询用户是否前往其他应用
             .interceptUnkownUrl() //拦截找不到相关页面的Scheme
     }
+
+    override fun getLayoutId(): Int= R.layout.fragment_wesite_detail
 
 
 }

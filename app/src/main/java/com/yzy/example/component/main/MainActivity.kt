@@ -3,10 +3,12 @@ package com.yzy.example.component.main
 import android.content.Context
 import android.content.Intent
 import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.databinding.ViewDataBinding
 import androidx.navigation.Navigation
 import androidx.navigation.fragment.NavHostFragment
 import com.blankj.utilcode.util.ActivityUtils
 import com.yzy.baselibrary.base.BaseActivity
+import com.yzy.baselibrary.base.NoViewModel
 import com.yzy.baselibrary.base.StateNavigator
 import com.yzy.baselibrary.extention.startActivity
 import com.yzy.baselibrary.extention.toast

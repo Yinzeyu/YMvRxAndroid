@@ -34,8 +34,11 @@ android {
     kotlinOptions {
         jvmTarget = "1.8"
     }
-    dataBinding {
-        enabled = true
+//    dataBinding {
+//        enabled = true
+//    }
+    buildFeatures{
+        dataBinding = true
     }
     compileOptions {
         sourceCompatibility rootProject.ext.android.javaSourceCompatibility

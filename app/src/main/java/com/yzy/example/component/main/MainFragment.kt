@@ -1,16 +1,14 @@
 package com.yzy.example.component.main
 
+import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.Fragment
-import androidx.navigation.Navigation
 import com.blankj.utilcode.util.FragmentUtils
-import com.blankj.utilcode.util.LogUtils
 import com.yzy.baselibrary.base.NoViewModel
-import com.yzy.baselibrary.extention.click
 import com.yzy.example.R
 import com.yzy.example.component.comm.CommFragment
 import kotlinx.android.synthetic.main.fragment_main.*
 
-class MainFragment : CommFragment<NoViewModel>() {
+class MainFragment : CommFragment<NoViewModel,ViewDataBinding>() {
     //页面
     private lateinit var homeFragment: Fragment
     private lateinit var dynFragment: Fragment
@@ -19,8 +17,6 @@ class MainFragment : CommFragment<NoViewModel>() {
     private var currentFragment: Fragment? = null
     //子列表合集，方便外部调用选中那个
     private var fragmentList = mutableListOf<Fragment>()
-    override val contentLayout: Int=R.layout.fragment_main
-    override fun fillStatus(): Boolean = false
     override fun initContentView() {
 //        初始化
         homeFragment = HomeFragment.newInstance()
@@ -41,9 +37,6 @@ class MainFragment : CommFragment<NoViewModel>() {
             true//返回true让其默认选中点击的选项
         }
 
-    }
-
-    override fun initData() {
     }
 
 //    设置选中的fragment
@@ -78,5 +71,6 @@ class MainFragment : CommFragment<NoViewModel>() {
         }
     }
 
+    override fun getLayoutId(): Int =R.layout.fragment_main
 
 }

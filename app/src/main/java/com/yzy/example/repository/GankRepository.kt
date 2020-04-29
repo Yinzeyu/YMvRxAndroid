@@ -15,12 +15,12 @@ class GankRepository : BaseRepository() {
 //    }
     private val service: GankService =mAPi.getApi(GankService::class.java)
 
-    suspend fun getAndroidSuspend(
-        pageSize: Int,
-        page: Int
-    ): GankBaseBean<MutableList<GankAndroidBean>> {
-        return service.getAndroidSuspend(pageSize, page)
-    }
+//    suspend fun getAndroidSuspend(
+//        pageSize: Int,
+//        page: Int
+//    ): GankBaseBean<MutableList<GankAndroidBean>> {
+//        return service.getAndroidSuspend(pageSize, page)
+//    }
 
     suspend fun banner(page: Int): BaseResponse<MutableList<BannerBean>> {
         return service.banner(page.toString(), "20")

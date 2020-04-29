@@ -35,7 +35,8 @@ import org.jetbrains.annotations.NotNull;
 
 import java.lang.reflect.Field;
 
-import static com.yzy.baselibrary.extention.ContextExKt.getScreenSize;
+import static com.yzy.baselibrary.extention.ContextExtKt.getScreenSize;
+
 
 /**
  * ================================================

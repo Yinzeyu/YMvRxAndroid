@@ -11,13 +11,13 @@ class DynViewModel : BaseViewModel<GankRepository>() {
     var pageSize = 20
     var page = 0
     private fun getAndroidSuspend(loading: Boolean = true) {
-        launchOnlyresult1({ repository.getAndroidSuspend(pageSize, page) },
-            success = {
-                uiState.value = it
-            }, complete = {
-                defUI.dismissDialog.postValue(null)
-            }, isShowDialog = loading
-        )
+//        launchOnlyresult1({ repository.getAndroidSuspend(pageSize, page) },
+//            success = {
+//                uiState.value = it
+//            }, complete = {
+//                defUI.dismissDialog.postValue(null)
+//            }, isShowDialog = loading
+//        )
     }
 
     fun refreshRequest(loading: Boolean = true) {

@@ -2,6 +2,7 @@ package com.yzy.baselibrary.extention
 
 import android.content.Context
 import android.graphics.drawable.Drawable
+import android.util.DisplayMetrics
 import android.view.*
 import android.widget.Toast
 import androidx.annotation.*
@@ -66,4 +67,16 @@ fun Context.inflate(
   attachToRoot: Boolean = false
 ): View {
   return LayoutInflater.from(this).inflate(layoutResource, parent, attachToRoot)
+}
+
+fun getScreenSize(context: Context): IntArray {
+  val size = IntArray(2)
+  val w =
+    context.getSystemService(Context.WINDOW_SERVICE) as WindowManager
+  val d = w.defaultDisplay
+  val metrics = DisplayMetrics()
+  d.getMetrics(metrics)
+  size[0] = metrics.widthPixels
+  size[1] = metrics.heightPixels
+  return size
 }

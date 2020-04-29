@@ -4,6 +4,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import androidx.databinding.ViewDataBinding
 import androidx.lifecycle.Observer
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -22,7 +23,7 @@ import kotlinx.android.synthetic.main.item_banner.view.*
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.FlowPreview
 
-class HomeFragment : CommFragment<NewGankViewModel>() {
+class HomeFragment : CommFragment<NewGankViewModel,ViewDataBinding>() {
     private val mAdapter by lazy { HomeListAdapter() }
     private lateinit var banner: CycleViewPager
 
@@ -32,10 +33,6 @@ class HomeFragment : CommFragment<NewGankViewModel>() {
         }
     }
 
-    override fun fillStatus(): Boolean = true
-
-
-    override val contentLayout: Int = R.layout.fragment_home
 
     @FlowPreview
     @ExperimentalCoroutinesApi
@@ -45,13 +42,10 @@ class HomeFragment : CommFragment<NewGankViewModel>() {
             viewModel.getBanner()
         }
         viewModel.getBanner()
-    }
-
-    override fun initData() {
         with(rvHomeRecycler) {
-            layoutManager = LinearLayoutManager(mContext)
+            layoutManager = LinearLayoutManager(context)
             adapter = mAdapter
-            val bannerView = mContext.inflate(R.layout.item_banner)
+            val bannerView = context.inflate(R.layout.item_banner)
             banner = bannerView.itemBanner
             banner.mViewPager2?.setPageTransformer(CompositePageTransformer())
             mAdapter.addHeaderView(bannerView)
@@ -87,8 +81,8 @@ class HomeFragment : CommFragment<NewGankViewModel>() {
             mAdapter.addData(it)
             loadMore(it.size)
         })
-
     }
+
 
     private fun loadMore(size: Int) {
         if (size == 0) mAdapter.loadMoreModule.loadMoreEnd(true)
@@ -121,6 +115,8 @@ class HomeFragment : CommFragment<NewGankViewModel>() {
 
         }
     }
+
+    override fun getLayoutId(): Int = R.layout.fragment_home
 
 
 }

@@ -6,7 +6,6 @@ import android.view.MotionEvent
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.yzy.baselibrary.extention.StatusBarHelper.translucent
-import com.yzy.baselibrary.extention.fixInputMethodManagerLeak
 import com.yzy.baselibrary.toast.YToast
 import com.yzy.baselibrary.utils.MyTouchListener
 import kotlinx.coroutines.CoroutineScope
@@ -55,7 +54,7 @@ abstract class BaseActivity : AppCompatActivity(), CoroutineScope by MainScope()
     ) {
         try {
             getFragmentListLast().let {
-                if (it is BaseFragment<*>) {
+                if (it is BaseFragment<*, *>) {
                     when (type) {
                         "onResume" -> {
                             it.onRestartNavigate()
@@ -117,7 +116,7 @@ abstract class BaseActivity : AppCompatActivity(), CoroutineScope by MainScope()
         cancel()
         //移除所有Activity类型的Toast防止内存泄漏
         YToast.cancelActivityToast(this)
-        fixInputMethodManagerLeak(this)
+//        fixInputMethodManagerLeak(this)
         super.onDestroy()
     }
 

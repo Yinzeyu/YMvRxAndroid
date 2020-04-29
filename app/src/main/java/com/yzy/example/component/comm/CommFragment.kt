@@ -1,6 +1,8 @@
 package com.yzy.example.component.comm
 
+import android.os.Bundle
 import android.view.*
+import androidx.databinding.ViewDataBinding
 import androidx.lifecycle.Observer
 import com.blankj.utilcode.util.ToastUtils
 import com.yzy.baselibrary.base.BaseActivity
@@ -11,15 +13,15 @@ import com.yzy.example.component.comm.view.ViewController
 import com.yzy.example.component.dialog.ActionDialog
 
 
-abstract class CommFragment<VM : BaseViewModel<*>> : BaseFragment<VM>() {
+abstract class CommFragment<VM : BaseViewModel<*>,DB :ViewDataBinding> : BaseFragment<VM,DB>() {
     /**
      * 填充布局 空布局 loading 网络异常等
      */
-   private lateinit var viewController: ViewController
-    override fun initView(root: View?) {
-        if (rootView != null){
-            viewController = ViewController(rootView!!)
-        }
+//   private lateinit var viewController: ViewController
+    override fun initView(savedSate: Bundle?) {
+//        if (rootView != null){
+//            viewController = ViewController(rootView!!)
+//        }
 
         //注册 UI事件
         registorDefUIChange()
@@ -46,27 +48,16 @@ abstract class CommFragment<VM : BaseViewModel<*>> : BaseFragment<VM>() {
 
     abstract fun initContentView()
 
-    //是否需要默认填充状态栏,默认填充为白色view
-    protected open fun layoutTitleContentId(): Int {
-        return 0
-    }
-
-    protected open fun titleHeight(): Int {
-        return 0
-    }
-  open  fun getViewController():ViewController{
-        return viewController
-    }
 
     //#################################镶嵌在页面中的loading->Start#################################//
     //显示json动画的loading
     fun showLoadingView() {
-        viewController.showLoading()
+      showActionLoading()
     }
 
     //关闭loadingView
     fun dismissLoadingView() {
-        viewController.restore()
+       dismissActionLoading()
     }
     //#################################镶嵌在页面中的loading<-END#################################//
 
@@ -81,7 +72,7 @@ abstract class CommFragment<VM : BaseViewModel<*>> : BaseFragment<VM>() {
         }
         mActionDialog?.let {
             if (!text.isNullOrBlank()) it.hintText = text
-            it.show((mContext as BaseActivity).supportFragmentManager)
+            it.show(requireActivity().supportFragmentManager)
         }
     }
 
