@@ -1,5 +1,7 @@
 ##### 三方库收集模块
 ## 收集常用的三方框架：https://github.com/Yinzeyu/lib
+## github clone 很慢用gitee拉取 https://gitee.com/yinzeyu/YMvRxAndroid
+
 # YMvRxAndroid(采用AndroidX)
 ##### 准备实践框架
 整体架构采用
