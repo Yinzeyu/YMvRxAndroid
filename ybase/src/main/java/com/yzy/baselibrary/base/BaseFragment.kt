@@ -12,6 +12,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.NavHostFragment
 import com.yzy.baselibrary.extention.StatusBarHelper
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.MainScope
@@ -34,8 +35,7 @@ abstract class BaseFragment<VM : BaseViewModel<*>, DB : ViewDataBinding>  : Frag
     ): View? {
         //第一次的时候加载xml
         Log.e("fragment", this.javaClass.name)
-        val cls =
-            (javaClass.genericSuperclass as ParameterizedType).actualTypeArguments[1] as Class<*>
+        val cls = (javaClass.genericSuperclass as ParameterizedType).actualTypeArguments[1] as Class<*>
         if (ViewDataBinding::class.java != cls && ViewDataBinding::class.java.isAssignableFrom(cls)) {
             binding = DataBindingUtil.inflate(inflater, getLayoutId(), container, false)
             //databinding监听activity的生命周期，实时更新数据
