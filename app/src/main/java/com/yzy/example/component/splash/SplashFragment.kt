@@ -8,12 +8,13 @@ import com.yzy.baselibrary.base.BaseActivity
 import com.yzy.baselibrary.base.NoViewModel
 import com.yzy.example.R
 import com.yzy.example.component.comm.CommFragment
+import com.yzy.example.databinding.FragmentSplashBinding
 import kotlinx.android.synthetic.main.fragment_splash.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
-class SplashFragment : CommFragment<NoViewModel,ViewDataBinding>() {
+class SplashFragment : CommFragment<NoViewModel,FragmentSplashBinding>() {
 
 
     //倒计时是否结束
