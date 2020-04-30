@@ -14,11 +14,12 @@ import com.yzy.baselibrary.extention.click
 import com.yzy.baselibrary.extention.getColorRes
 import com.yzy.example.R
 import com.yzy.example.component.comm.CommFragment
+import com.yzy.example.databinding.FragmentWesiteDetailBinding
 import com.yzy.example.widget.LollipopFixedWebView
 import kotlinx.android.synthetic.main.fragment_wesite_detail.*
 import kotlinx.android.synthetic.main.web_fragment_title.*
 
-class WebsiteDetailFragment : CommFragment<NoViewModel,ViewDataBinding>() {
+class WebsiteDetailFragment : CommFragment<NoViewModel,FragmentWesiteDetailBinding>() {
 
     private val url: WebsiteDetailFragmentArgs by navArgs()
     //AgentWeb相关

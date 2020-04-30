@@ -13,6 +13,7 @@ import androidx.viewpager2.widget.CompositePageTransformer
 import com.yzy.baselibrary.extention.inflate
 import com.yzy.example.R
 import com.yzy.example.component.comm.CommFragment
+import com.yzy.example.databinding.FragmentHomeBinding
 import com.yzy.example.extention.load
 import com.yzy.example.repository.bean.ArticleBean
 import com.yzy.example.repository.bean.BannerBean
@@ -23,7 +24,7 @@ import kotlinx.android.synthetic.main.item_banner.view.*
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.FlowPreview
 
-class HomeFragment : CommFragment<NewGankViewModel,ViewDataBinding>() {
+class HomeFragment : CommFragment<NewGankViewModel,FragmentHomeBinding>() {
     private val mAdapter by lazy { HomeListAdapter() }
     private lateinit var banner: CycleViewPager
 

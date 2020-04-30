@@ -6,9 +6,10 @@ import com.blankj.utilcode.util.FragmentUtils
 import com.yzy.baselibrary.base.NoViewModel
 import com.yzy.example.R
 import com.yzy.example.component.comm.CommFragment
+import com.yzy.example.databinding.FragmentMainBinding
 import kotlinx.android.synthetic.main.fragment_main.*
 
-class MainFragment : CommFragment<NoViewModel,ViewDataBinding>() {
+class MainFragment : CommFragment<NoViewModel,FragmentMainBinding>() {
     //页面
     private lateinit var homeFragment: Fragment
     private lateinit var dynFragment: Fragment

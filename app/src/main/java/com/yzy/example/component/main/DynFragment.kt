@@ -11,11 +11,12 @@ import com.yzy.baselibrary.base.ThrowableBean
 import com.yzy.baselibrary.http.event.Message
 import com.yzy.example.R
 import com.yzy.example.component.comm.CommFragment
+import com.yzy.example.databinding.FragmentDynBinding
 import com.yzy.example.repository.bean.ArticleBean
 import com.yzy.example.repository.bean.GankAndroidBean
 import kotlinx.android.synthetic.main.fragment_dyn.*
 
-class DynFragment() : CommFragment<DynViewModel,ViewDataBinding>() {
+class DynFragment() : CommFragment<DynViewModel,FragmentDynBinding>() {
     companion object {
         fun newInstance(): DynFragment {
             return DynFragment()
