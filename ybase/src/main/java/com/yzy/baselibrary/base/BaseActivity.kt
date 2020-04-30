@@ -19,7 +19,6 @@ abstract class BaseActivity : AppCompatActivity(), CoroutineScope by MainScope()
         this.onCreateBefore()
         super.onCreate(savedInstanceState)
         setContentView(layoutResId())
-
         initView()
         initData()
     }

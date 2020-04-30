@@ -112,7 +112,7 @@
 }
 #-------14.避免Parcelable混淆-------
 -keep class * implements android.os.Parcelable {
-  public static final android.os.Parcelable$Creator *;
+  public static final  android.os.Parcelable$Creator *;
 }
 #-------15.Serializable接口的子类中指定的某些成员变量和方法混淆-------
 -keepclassmembers class * implements java.io.Serializable {
@@ -397,3 +397,5 @@
 
 #RxHttp https://github.com/liujingxing/okhttp-RxHttp
 -keep class rxhttp.**{*;}
+
+-keep class androidx.databinding.DataBindingComponent {*;}

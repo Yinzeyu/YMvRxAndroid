@@ -1,15 +1,11 @@
 package com.yzy.example.component.splash
 
 
-import android.Manifest
 import android.util.Log
 import androidx.databinding.ViewDataBinding
 import androidx.navigation.Navigation
-import com.blankj.utilcode.constant.PermissionConstants
-import com.blankj.utilcode.util.PermissionUtils
 import com.yzy.baselibrary.base.BaseActivity
 import com.yzy.baselibrary.base.NoViewModel
-import com.yzy.baselibrary.extention.toast
 import com.yzy.example.R
 import com.yzy.example.component.comm.CommFragment
 import kotlinx.android.synthetic.main.fragment_splash.*

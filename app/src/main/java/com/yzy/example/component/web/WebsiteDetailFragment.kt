@@ -23,16 +23,16 @@ class WebsiteDetailFragment : CommFragment<NoViewModel,FragmentWesiteDetailBindi
 
     private val url: WebsiteDetailFragmentArgs by navArgs()
     //AgentWeb相关
-    private var agentWeb: AgentWeb? = null
+//    private var agentWeb: AgentWeb? = null
     private var agentBuilder: AgentWeb.CommonBuilder? = null
 
     override fun initContentView() {
-        webRootView.removeAllViews()
-        initAgentBuilder()
-        agentWeb = agentBuilder?.createAgentWeb()?.ready()?.go(url.url)//创建web并打开
+//        webRootView.removeAllViews()
+//        initAgentBuilder()
+//        agentWeb = agentBuilder?.createAgentWeb()?.ready()?.go(url.url)//创建web并打开
         //设置适配
-        val web = agentWeb?.webCreator?.webView
-        web?.settings?.let { ws ->
+        binding.webRootView.loadUrl(url.url)
+        binding.webRootView?.settings?.let { ws ->
             //支持javascript
             ws.javaScriptEnabled = true
             //设置可以支持缩放
@@ -52,21 +52,21 @@ class WebsiteDetailFragment : CommFragment<NoViewModel,FragmentWesiteDetailBindi
 
 
 
-    //初始化web
-    private fun initAgentBuilder() {
-        //为了解决安卓5.x的bug
-        val webView = LollipopFixedWebView(requireContext())
-        webView.overScrollMode = View.OVER_SCROLL_NEVER
-        webView.scrollBarStyle = View.SCROLLBARS_INSIDE_INSET
-        agentBuilder = AgentWeb.with(this)
-            .setAgentWebParent(webRootView, ViewGroup.LayoutParams(-1, -1))//添加到父容器
-            .useDefaultIndicator(requireContext().getColorRes(R.color.colorPrimary))//设置进度条颜色
-            .setWebView(webView)//真正的webview
-            .setMainFrameErrorView(R.layout.agentweb_error_page, -1)//失败的布局
-            .setSecurityType(AgentWeb.SecurityType.STRICT_CHECK)
-            .setOpenOtherPageWays(DefaultWebClient.OpenOtherPageWays.ASK)//打开其他应用时，弹窗咨询用户是否前往其他应用
-            .interceptUnkownUrl() //拦截找不到相关页面的Scheme
-    }
+//    //初始化web
+//    private fun initAgentBuilder() {
+//        //为了解决安卓5.x的bug
+//        val webView = LollipopFixedWebView(requireContext())
+//        webView.overScrollMode = View.OVER_SCROLL_NEVER
+//        webView.scrollBarStyle = View.SCROLLBARS_INSIDE_INSET
+//        agentBuilder = AgentWeb.with(this)
+//            .setAgentWebParent(webRootView, ViewGroup.LayoutParams(-1, -1))//添加到父容器
+//            .useDefaultIndicator(requireContext().getColorRes(R.color.colorPrimary))//设置进度条颜色
+//            .setWebView(webView)//真正的webview
+//            .setMainFrameErrorView(R.layout.agentweb_error_page, -1)//失败的布局
+//            .setSecurityType(AgentWeb.SecurityType.STRICT_CHECK)
+//            .setOpenOtherPageWays(DefaultWebClient.OpenOtherPageWays.ASK)//打开其他应用时，弹窗咨询用户是否前往其他应用
+//            .interceptUnkownUrl() //拦截找不到相关页面的Scheme
+//    }
 
     override fun getLayoutId(): Int= R.layout.fragment_wesite_detail
 
