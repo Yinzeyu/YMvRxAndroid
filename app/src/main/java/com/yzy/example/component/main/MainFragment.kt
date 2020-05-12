@@ -37,7 +37,6 @@ class MainFragment : CommFragment<NoViewModel,FragmentMainBinding>() {
             }
             true//返回true让其默认选中点击的选项
         }
-
     }
 
 //    设置选中的fragment

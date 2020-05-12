@@ -126,7 +126,7 @@ dependencies {
     //https://github.com/airbnb/lottie-android
     implementation 'com.airbnb.android:lottie:3.4.0'
     //https://github.com/JeremyLiao/LiveEventBus
-    implementation 'com.jeremyliao:live-event-bus-x:1.5.7'
+    implementation 'com.jeremyliao:live-event-bus-x:1.6.1'
     //web https://github.com/Justson/AgentWeb
     implementation 'com.just.agentweb:agentweb:4.1.3'
     implementation 'com.github.CymChad:BaseRecyclerViewAdapterHelper:3.0.2'

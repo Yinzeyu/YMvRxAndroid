@@ -44,7 +44,6 @@ class HomeFragment : CommFragment<NewGankViewModel,FragmentHomeBinding>() {
         }
         viewModel.getBanner()
         with(rvHomeRecycler) {
-            layoutManager = LinearLayoutManager(context)
             adapter = mAdapter
             val bannerView = context.inflate(R.layout.item_banner)
             banner = bannerView.itemBanner

@@ -28,6 +28,7 @@ class WebsiteDetailFragment : CommFragment<NoViewModel,FragmentWesiteDetailBindi
             ws.useWideViewPort = true
             ws.loadWithOverviewMode = true
         }
+
     }
 
 
