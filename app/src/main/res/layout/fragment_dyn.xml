@@ -1,25 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:background="#f3f3f3"
-    android:orientation="vertical">
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+    <data>
 
-    <com.yzy.baselibrary.widget.refresh.SmartRefreshLayout
-        android:id="@+id/smDynRefresh"
+    </data>
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:background="#f3f3f3"
+        android:orientation="vertical">
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/dynEpoxyRecycler"
+        <com.yzy.baselibrary.widget.refresh.SmartRefreshLayout
+            android:id="@+id/smDynRefresh"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@color/white"
-            tools:listitem="@layout/item_gank_android"
-            android:overScrollMode="never"
-            android:scrollbars="none" />
-    </com.yzy.baselibrary.widget.refresh.SmartRefreshLayout>
+            android:layout_height="match_parent">
 
-</LinearLayout>
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/dynEpoxyRecycler"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/white"
+                tools:listitem="@layout/item_gank_android"
+                android:overScrollMode="never"
+                android:scrollbars="none" />
+        </com.yzy.baselibrary.widget.refresh.SmartRefreshLayout>
+
+    </LinearLayout>
+
+</layout>
+
 

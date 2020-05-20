@@ -34,7 +34,6 @@ class App : BaseApplication() {
     private fun initLiveBus() {
         LiveEventBus
             .config()
-            .supportBroadcast(this)
             .lifecycleObserverAlwaysActive(true)
             .autoClear(false)
     }
