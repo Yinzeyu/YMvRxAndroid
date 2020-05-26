@@ -100,7 +100,6 @@ abstract class BaseFragment<VM : BaseViewModel<*>, DB : ViewDataBinding>  : Frag
     open fun onRestartNavigate() {
 
     }
-
     /**
      * 默认状态栏黑色字体图标
      */

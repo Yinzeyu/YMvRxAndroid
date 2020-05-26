@@ -27,21 +27,17 @@ abstract class CommFragment<VM : BaseViewModel<*>,DB :ViewDataBinding> : BaseFra
         registorDefUIChange()
         initContentView()
     }
+
+
     /**
      * 注册 UI 事件
      */
     private fun registorDefUIChange() {
-        viewModel.defUI.showDialog.observe(viewLifecycleOwner, Observer {
+        viewModel.loadingChange.showDialog.observe(viewLifecycleOwner, Observer {
             showLoadingView()
         })
-        viewModel.defUI.dismissDialog.observe(viewLifecycleOwner, Observer {
+        viewModel.loadingChange.dismissDialog.observe(viewLifecycleOwner, Observer {
             dismissLoadingView()
-        })
-        viewModel.defUI.toastEvent.observe(viewLifecycleOwner, Observer {
-            ToastUtils.showShort(it)
-        })
-        viewModel.defUI.errorEvent.observe(viewLifecycleOwner, Observer {
-            handleEvent(it)
         })
     }
     open fun handleEvent(msg: ThrowableBean) {}

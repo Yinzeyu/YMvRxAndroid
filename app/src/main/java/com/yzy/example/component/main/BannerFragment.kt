@@ -32,8 +32,6 @@ class BannerFragment(  var data: BannerBean) : BaseFragment<NoViewModel,ViewData
     override fun initView(savedSate: Bundle?) {
         itemBannerIV.load(data.imagePath)
         itemBannerIV.click {
-//            mNavController.navigate(MainFragmentDirections.actionMainFragmentToWebsiteDetailFragment(data.url ?: ""))
-//            startNavigate(mActivity as MainActivity, MainFragmentDirections.actionMainFragmentToWebsiteDetailFragment(data.url ?: ""))
         }
     }
 }

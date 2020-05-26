@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.yzy.example.widget.CycleViewPager xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/itemBanner"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="200dp">
-</com.yzy.example.widget.CycleViewPager>
+    android:layout_height="200dp"  >
+    <com.yzy.example.widget.CycleViewPager
+        android:id="@+id/itemBanner"
+        android:layout_width="match_parent"
+        android:layout_height="200dp">
+    </com.yzy.example.widget.CycleViewPager>
+</LinearLayout>

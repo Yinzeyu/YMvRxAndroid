@@ -1,6 +1,7 @@
 package com.yzy.example.repository.service
 
 import com.yzy.example.http.response.BaseResponse
+import com.yzy.example.repository.bean.PagerResponse
 import com.yzy.example.repository.bean.ArticleDataBean
 import com.yzy.example.repository.bean.BannerBean
 import retrofit2.http.*
@@ -29,7 +30,13 @@ interface GankService {
     ): BaseResponse<MutableList<BannerBean>>
 
     @GET("article/list/{page}/json")
-    suspend fun article(
-        @Path("page") page: String
-    ): BaseResponse<ArticleDataBean>
+    suspend fun getAritrilList(
+        @Path("page") page: Int
+    ): BaseResponse<PagerResponse<MutableList<ArticleDataBean>>>
+
+    /**
+     * 获取置顶文章集合数据
+     */
+    @GET("article/top/json")
+    suspend fun getTopAritrilList(): BaseResponse<MutableList<ArticleDataBean>>
 }

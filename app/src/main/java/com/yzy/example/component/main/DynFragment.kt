@@ -1,18 +1,14 @@
 package com.yzy.example.component.main
 
 import androidx.core.content.ContextCompat
-import androidx.databinding.ViewDataBinding
 import androidx.lifecycle.Observer
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.chad.library.adapter.base.module.BaseLoadMoreModule
 import com.yzy.baselibrary.base.ThrowableBean
-import com.yzy.baselibrary.http.event.Message
 import com.yzy.example.R
 import com.yzy.example.component.comm.CommFragment
 import com.yzy.example.databinding.FragmentDynBinding
-import com.yzy.example.repository.bean.ArticleBean
 import com.yzy.example.repository.bean.GankAndroidBean
 import kotlinx.android.synthetic.main.fragment_dyn.*
 

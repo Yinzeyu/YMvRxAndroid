@@ -12,8 +12,7 @@ class ResponseThrowable : Exception {
         code = error.getKey()
         errMsg = error.getValue()
     }
-
-    constructor(code: Int, msg: String, e: Throwable? = null) : super(e) {
+    constructor(code: Int, msg: String) : super(msg) {
         this.code = code
         this.errMsg = msg
     }

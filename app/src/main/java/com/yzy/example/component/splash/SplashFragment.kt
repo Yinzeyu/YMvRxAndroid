@@ -6,6 +6,7 @@ import androidx.databinding.ViewDataBinding
 import androidx.navigation.Navigation
 import com.yzy.baselibrary.base.BaseActivity
 import com.yzy.baselibrary.base.NoViewModel
+import com.yzy.baselibrary.extention.nav
 import com.yzy.example.R
 import com.yzy.example.component.comm.CommFragment
 import com.yzy.example.databinding.FragmentSplashBinding
@@ -52,7 +53,7 @@ class SplashFragment : CommFragment<NoViewModel,FragmentSplashBinding>() {
                 //没有其他需要，进入主页
                 else -> {
                     if (!(requireActivity() as BaseActivity).getIsNavigate()){
-                        Navigation.findNavController(clRootView).navigate(R.id.action_rootFragment_to_middleFragment)
+                       nav(clRootView).navigate(R.id.action_rootFragment_to_middleFragment)
                     }
                 }
             }

@@ -4,6 +4,9 @@ import com.yzy.baselibrary.base.BaseRepository
 import com.yzy.example.http.response.BaseResponse
 import com.yzy.example.repository.bean.*
 import com.yzy.example.repository.service.GankService
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.async
+import kotlinx.coroutines.withContext
 
 class GankRepository : BaseRepository() {
 //    private object SingletonHolder {
@@ -26,7 +29,33 @@ class GankRepository : BaseRepository() {
         return service.banner(page.toString(), "20")
     }
 
-    suspend fun article(page: Int): BaseResponse<ArticleDataBean> {
-        return service.article(page.toString())
+//    suspend fun getAritrilList(page: Int): BaseResponse<ArticleDataBean> {
+//        return service.getAritrilList(page)
+//    }
+
+    /**
+     * 获取首页文章数据
+     */
+    suspend fun getHomeData(pageNo: Int): BaseResponse<PagerResponse<MutableList<ArticleDataBean>>> {
+        //同时异步请求2个接口，请求完成后合并数据
+        return withContext(Dispatchers.IO) {
+            val data = async { service.getAritrilList(pageNo) }
+            //如果App配置打开了首页请求置顶文章，且是第一页
+            if (pageNo == 0) {
+                val topData = async { getTopData() }
+                data.await().data.datas.addAll(0, topData.await().data)
+                data.await()
+            } else {
+                data.await()
+            }
+        }
     }
+
+    /**
+     * 获取置顶文章数据
+     */
+    private suspend fun getTopData(): BaseResponse<MutableList<ArticleDataBean>> {
+        return service.getTopAritrilList()
+    }
+
 }
