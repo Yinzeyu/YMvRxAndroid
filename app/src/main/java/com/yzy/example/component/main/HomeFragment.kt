@@ -20,8 +20,6 @@ import com.yzy.example.repository.model.NewGankViewModel
 import com.yzy.example.widget.CycleViewPager
 import kotlinx.android.synthetic.main.fragment_home.*
 import kotlinx.android.synthetic.main.item_banner.view.*
-import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.FlowPreview
 import me.hgj.jetpackmvvm.demo.app.weight.recyclerview.SpaceItemDecoration
 
 class HomeFragment : CommFragment<NewGankViewModel,FragmentHomeBinding>() {
@@ -35,8 +33,6 @@ class HomeFragment : CommFragment<NewGankViewModel,FragmentHomeBinding>() {
     }
 
 
-    @FlowPreview
-    @ExperimentalCoroutinesApi
     override fun initContentView() {
         smRefresh.setEnableRefresh(false)
         smRefresh.setOnRefreshListener {

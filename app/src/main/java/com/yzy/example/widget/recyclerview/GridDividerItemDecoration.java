@@ -12,10 +12,10 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
-/**
-  * @Author:         hegaojian
-  * @CreateDate:     2019/10/11 14:29
- */
+import org.jetbrains.annotations.NotNull;
+
+import java.util.Objects;
+
 public class GridDividerItemDecoration extends RecyclerView.ItemDecoration {
     private Paint mPaint;
     private int mDividerWidth;//您所需指定的间隔宽度，主要为第一列和最后一列与父控件的间隔；行间距，列间距将动态分配
@@ -72,17 +72,17 @@ public class GridDividerItemDecoration extends RecyclerView.ItemDecoration {
 
 
     @Override
-    public void getItemOffsets(Rect outRect, View view, RecyclerView parent, RecyclerView.State state) {
+    public void getItemOffsets(@NotNull Rect outRect, @NotNull View view, @NotNull RecyclerView parent, @NotNull RecyclerView.State state) {
         super.getItemOffsets(outRect, view, parent, state);
 
         int top = 0;
-        int left = 0;
-        int right = 0;
-        int bottom = 0;
+        int left;
+        int right;
+        int bottom;
 
         int itemPosition = ((RecyclerView.LayoutParams) view.getLayoutParams()).getViewLayoutPosition();
         spanCount = getSpanCount(parent);
-        int childCount = parent.getAdapter().getItemCount();
+        int childCount = Objects.requireNonNull(parent.getAdapter()).getItemCount();
         int maxAllDividerWidth = getMaxDividerWidth(view); //
 
         int spaceWidth = 0;//首尾两列与父布局之间的间隔
@@ -95,7 +95,7 @@ public class GridDividerItemDecoration extends RecyclerView.ItemDecoration {
         left = itemPosition % spanCount * (dividerItemWidth - eachItemWidth) + spaceWidth;
         right = eachItemWidth - left;
         bottom = mDividerWidth;
-        if (mFirstRowTopMargin > 0 && isFirstRow(parent, itemPosition, spanCount, childCount))//第一行顶部是否需要间隔
+        if (mFirstRowTopMargin > 0 && isFirstRow(parent, itemPosition, spanCount))//第一行顶部是否需要间隔
             top = mFirstRowTopMargin;
         if (!isLastRowNeedSpace && isLastRow(parent, itemPosition, spanCount, childCount)) {//最后一行是否需要间隔
             bottom = 0;
@@ -107,21 +107,17 @@ public class GridDividerItemDecoration extends RecyclerView.ItemDecoration {
     /**
      * 获取Item View的大小，若无则自动分配空间
      * 并根据 屏幕宽度-View的宽度*spanCount 得到屏幕剩余空间
-     *
-     * @param view
-     * @return
      */
     private int getMaxDividerWidth(View view) {
         int itemWidth = view.getLayoutParams().width;
         int itemHeight = view.getLayoutParams().height;
 
-        int screenWidth = mContext.getResources().getDisplayMetrics().widthPixels > mContext.getResources().getDisplayMetrics().heightPixels
-                ? mContext.getResources().getDisplayMetrics().heightPixels : mContext.getResources().getDisplayMetrics().widthPixels;
+        int screenWidth = Math.min(mContext.getResources().getDisplayMetrics().widthPixels, mContext.getResources().getDisplayMetrics().heightPixels);
 
         int maxDividerWidth = screenWidth - itemWidth * spanCount;
         if (itemHeight < 0 || itemWidth < 0 || (isNeedSpace && maxDividerWidth <= (spanCount - 1) * mDividerWidth)) {
-            view.getLayoutParams().width = getAttachCloumnWidth();
-            view.getLayoutParams().height = getAttachCloumnWidth();
+            view.getLayoutParams().width = getAttachColumnWidth();
+            view.getLayoutParams().height = getAttachColumnWidth();
 
             maxDividerWidth = screenWidth - view.getLayoutParams().width * spanCount;
         }
@@ -131,14 +127,12 @@ public class GridDividerItemDecoration extends RecyclerView.ItemDecoration {
     /**
      * 根据屏幕宽度和item数量分配 item View的width和height
      *
-     * @return
      */
-    private int getAttachCloumnWidth() {
+    private int getAttachColumnWidth() {
         int itemWidth = 0;
         int spaceWidth = 0;
         try {
-            int width = mContext.getResources().getDisplayMetrics().widthPixels > mContext.getResources().getDisplayMetrics().heightPixels
-                    ? mContext.getResources().getDisplayMetrics().heightPixels : mContext.getResources().getDisplayMetrics().widthPixels;
+            int width = Math.min(mContext.getResources().getDisplayMetrics().widthPixels, mContext.getResources().getDisplayMetrics().heightPixels);
             if (isNeedSpace)
                 spaceWidth = 2 * mDividerWidth;
             itemWidth = (width - spaceWidth) / spanCount - 40;
@@ -150,7 +144,7 @@ public class GridDividerItemDecoration extends RecyclerView.ItemDecoration {
     }
 
     @Override
-    public void onDraw(Canvas c, RecyclerView parent, RecyclerView.State state) {
+    public void onDraw(@NotNull Canvas c, @NotNull RecyclerView parent, @NotNull RecyclerView.State state) {
         super.onDraw(c, parent, state);
         draw(c, parent);
     }
@@ -185,26 +179,17 @@ public class GridDividerItemDecoration extends RecyclerView.ItemDecoration {
      * 判读是否是第一列
      *
      * @param parent
-     * @param pos
-     * @param spanCount
-     * @param childCount
-     * @return
      */
-    private boolean isFirstColumn(RecyclerView parent, int pos, int spanCount, int childCount) {
+    private boolean isFirstColumn(RecyclerView parent, int pos, int spanCount) {
         RecyclerView.LayoutManager layoutManager = parent.getLayoutManager();
         if (layoutManager instanceof GridLayoutManager) {
-            if (pos % spanCount == 0) {
-                return true;
-            }
+            return pos % spanCount == 0;
         } else if (layoutManager instanceof StaggeredGridLayoutManager) {
             int orientation = ((StaggeredGridLayoutManager) layoutManager)
                     .getOrientation();
             if (orientation == StaggeredGridLayoutManager.VERTICAL) {
-                if (pos % spanCount == 0) {// 第一列
-                    return true;
-                }
-            } else {
-
+                // 第一列
+                return pos % spanCount == 0;
             }
         }
         return false;
@@ -213,27 +198,18 @@ public class GridDividerItemDecoration extends RecyclerView.ItemDecoration {
     /**
      * 判断是否是最后一列
      *
-     * @param parent
-     * @param pos
-     * @param spanCount
-     * @param childCount
-     * @return
      */
-    private boolean isLastColumn(RecyclerView parent, int pos, int spanCount, int childCount) {
+    private boolean isLastColumn(RecyclerView parent, int pos, int spanCount) {
         RecyclerView.LayoutManager layoutManager = parent.getLayoutManager();
         if (layoutManager instanceof GridLayoutManager) {
-            if ((pos + 1) % spanCount == 0) {// 如果是最后一列，则不需要绘制右边
-                return true;
-            }
+            // 如果是最后一列，则不需要绘制右边
+            return (pos + 1) % spanCount == 0;
         } else if (layoutManager instanceof StaggeredGridLayoutManager) {
             int orientation = ((StaggeredGridLayoutManager) layoutManager)
                     .getOrientation();
             if (orientation == StaggeredGridLayoutManager.VERTICAL) {
-                if ((pos + 1) % spanCount == 0) {// 最后一列
-                    return true;
-                }
-            } else {
-
+                // 最后一列
+                return (pos + 1) % spanCount == 0;
             }
         }
         return false;
@@ -241,52 +217,29 @@ public class GridDividerItemDecoration extends RecyclerView.ItemDecoration {
 
     /**
      * 判读是否是最后一行
-     *
-     * @param parent
-     * @param pos
-     * @param spanCount
-     * @param childCount
-     * @return
      */
     private boolean isLastRow(RecyclerView parent, int pos, int spanCount, int childCount) {
         RecyclerView.LayoutManager layoutManager = parent.getLayoutManager();
         if (layoutManager instanceof GridLayoutManager) {
             int lines = childCount % spanCount == 0 ? childCount / spanCount : childCount / spanCount + 1;
             return lines == pos / spanCount + 1;
-        } else if (layoutManager instanceof StaggeredGridLayoutManager) {
-
         }
         return false;
     }
 
     /**
      * 判断是否是第一行
-     *
-     * @param parent
-     * @param pos
-     * @param spanCount
-     * @param childCount
-     * @return
      */
-    private boolean isFirstRow(RecyclerView parent, int pos, int spanCount, int childCount) {
+    private boolean isFirstRow(RecyclerView parent, int pos, int spanCount) {
         RecyclerView.LayoutManager layoutManager = parent.getLayoutManager();
         if (layoutManager instanceof GridLayoutManager) {
-            if ((pos / spanCount + 1) == 1) {
-                return true;
-            } else {
-                return false;
-            }
-        } else if (layoutManager instanceof StaggeredGridLayoutManager) {
-
+            return (pos / spanCount + 1) == 1;
         }
         return false;
     }
 
     /**
      * 获取列数
-     *
-     * @param parent
-     * @return
      */
     private int getSpanCount(RecyclerView parent) {
         int spanCount = -1;
