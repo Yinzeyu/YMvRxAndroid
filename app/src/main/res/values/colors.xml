@@ -9,9 +9,6 @@
     <color name="c_666666">#666666</color>
     <color name="c_41c961">#41c961</color>
     <color name="c_ccffffff">#ccffffff</color>
-    <color name="colorPrimary">#008577</color>
-    <color name="colorPrimaryDark">#00574B</color>
-    <color name="colorAccent">#D81B60</color>
     <color name="white">#ffffff</color>
     <color name="c_ff30d18b">#FF30D18B</color>
     <color name="c_ff999999">#FF999999</color>
@@ -298,4 +295,8 @@
     <color name="diverColoe">#cecece</color>
     <color name="accent">#E91E63</color>
     <color name="chinaHoliDay">#e10015</color>
+
+    <color name="colorPrimary">#2196F3</color>
+    <color name="colorPrimaryDark">#2196F3</color>
+    <color name="colorAccent">#2196F3</color>
 </resources>

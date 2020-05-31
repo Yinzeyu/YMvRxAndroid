@@ -10,15 +10,19 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.CompositePageTransformer
 import com.blankj.utilcode.util.ConvertUtils
 import com.yzy.baselibrary.extention.inflate
+import com.yzy.baselibrary.extention.nav
 import com.yzy.example.R
 import com.yzy.example.component.comm.CommFragment
 import com.yzy.example.databinding.FragmentHomeBinding
+import com.yzy.example.extention.init
+import com.yzy.example.extention.initFloatBtn
 import com.yzy.example.extention.load
 import com.yzy.example.repository.bean.ArticleDataBean
 import com.yzy.example.repository.bean.BannerBean
 import com.yzy.example.repository.model.NewGankViewModel
 import com.yzy.example.widget.CycleViewPager
 import kotlinx.android.synthetic.main.fragment_home.*
+import kotlinx.android.synthetic.main.include_toolbar.*
 import kotlinx.android.synthetic.main.item_banner.view.*
 import me.hgj.jetpackmvvm.demo.app.weight.recyclerview.SpaceItemDecoration
 
@@ -34,6 +38,19 @@ class HomeFragment : CommFragment<NewGankViewModel,FragmentHomeBinding>() {
 
 
     override fun initContentView() {
+        //初始化 toolbar
+        toolbar.run {
+            init("首页")
+            inflateMenu(R.menu.home_menu)
+            setOnMenuItemClickListener {
+                when (it.itemId) {
+                    R.id.home_search -> {
+//                        nav().navigate(R.id.action_mainfragment_to_searchFragment)
+                    }
+                }
+                true
+            }
+        }
         smRefresh.setEnableRefresh(false)
         smRefresh.setOnRefreshListener {
             viewModel.getBanner(true)
@@ -46,6 +63,7 @@ class HomeFragment : CommFragment<NewGankViewModel,FragmentHomeBinding>() {
             banner.mViewPager2?.setPageTransformer(CompositePageTransformer())
             mAdapter.addHeaderView(bannerView)
             addItemDecoration(SpaceItemDecoration(0, ConvertUtils.dp2px(8f), false))
+            initFloatBtn(floatbtn)
         }
 
         mAdapter.apply {
@@ -65,6 +83,7 @@ class HomeFragment : CommFragment<NewGankViewModel,FragmentHomeBinding>() {
         viewModel.run {
             //监听首页文章列表请求的数据变化
             homeDataState.observe(viewLifecycleOwner, Observer {
+                smRefresh.finishRefresh()
 //                recyclerView.loadMoreFinish(it.isEmpty, it.hasMore)
                 if (it.isSuccess) {
                     //成功

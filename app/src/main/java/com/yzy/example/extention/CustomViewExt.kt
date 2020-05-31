@@ -26,6 +26,11 @@ import androidx.viewpager2.adapter.FragmentStateAdapter
 import androidx.viewpager2.widget.ViewPager2
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.google.android.material.floatingactionbutton.FloatingActionButton
+import com.yzy.baselibrary.app.BaseApplication
+import com.yzy.example.R
+import com.yzy.example.app.App
+import com.yzy.example.utils.SettingUtil
+
 //
 //
 //fun BannerViewPager<*, *>.setPageListener(onPageSelected: (Int) -> Unit) {
@@ -107,28 +112,28 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton
 //    return footerView
 //}
 //
-//fun RecyclerView.initFloatBtn(floatbtn: FloatingActionButton) {
-//    //监听recyclerview滑动到顶部的时候，需要把向上返回顶部的按钮隐藏
-//    addOnScrollListener(object : RecyclerView.OnScrollListener() {
-//        @SuppressLint("RestrictedApi")
-//        override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
-//            super.onScrolled(recyclerView, dx, dy)
-//            if (!canScrollVertically(-1)) {
-//                floatbtn.visibility = View.INVISIBLE
-//            }
-//        }
-//    })
-//    floatbtn.backgroundTintList = SettingUtil.getOneColorStateList(App.instance)
-//    floatbtn.setOnClickListener {
-//        val layoutManager = layoutManager as LinearLayoutManager
-//        //如果当前recyclerview 最后一个视图位置的索引大于等于40，则迅速返回顶部，否则带有滚动动画效果返回到顶部
-//        if (layoutManager.findLastVisibleItemPosition() >= 40) {
-//            scrollToPosition(0)//没有动画迅速返回到顶部(马上)
-//        } else {
-//            smoothScrollToPosition(0)//有滚动动画返回到顶部(有点慢)
-//        }
-//    }
-//}
+fun RecyclerView.initFloatBtn(floatbtn: FloatingActionButton) {
+    //监听recyclerview滑动到顶部的时候，需要把向上返回顶部的按钮隐藏
+    addOnScrollListener(object : RecyclerView.OnScrollListener() {
+        @SuppressLint("RestrictedApi")
+        override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+            super.onScrolled(recyclerView, dx, dy)
+            if (!canScrollVertically(-1)) {
+                floatbtn.visibility = View.INVISIBLE
+            }
+        }
+    })
+    floatbtn.backgroundTintList = SettingUtil.getOneColorStateList(BaseApplication.instance())
+    floatbtn.setOnClickListener {
+        val layoutManager = layoutManager as LinearLayoutManager
+        //如果当前recyclerview 最后一个视图位置的索引大于等于40，则迅速返回顶部，否则带有滚动动画效果返回到顶部
+        if (layoutManager.findLastVisibleItemPosition() >= 40) {
+            scrollToPosition(0)//没有动画迅速返回到顶部(马上)
+        } else {
+            smoothScrollToPosition(0)//有滚动动画返回到顶部(有点慢)
+        }
+    }
+}
 //
 ////初始化 SwipeRefreshLayout
 //fun SwipeRefreshLayout.init(onRefreshListener: () -> Unit) {
@@ -144,26 +149,26 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton
 ///**
 // * 初始化普通的toolbar 只设置标题
 // */
-//fun Toolbar.init(titleStr: String = ""): Toolbar {
-//    setBackgroundColor(SettingUtil.getColor(App.instance))
-//    title = titleStr
-//    return this
-//}
-//
-///**
-// * 初始化有返回键的toolbar
-// */
-//fun Toolbar.initClose(
-//    titleStr: String = "",
-//    backImg: Int = R.drawable.ic_back,
-//    onBack: (toolbar: Toolbar) -> Unit
-//): Toolbar {
-//    setBackgroundColor(SettingUtil.getColor(App.instance))
-//    title = titleStr.toHtml()
-//    setNavigationIcon(backImg)
-//    setNavigationOnClickListener { onBack.invoke(this) }
-//    return this
-//}
+fun Toolbar.init(titleStr: String = ""): Toolbar {
+    setBackgroundColor(SettingUtil.getColor(BaseApplication.instance()))
+    title = titleStr
+    return this
+}
+
+/**
+ * 初始化有返回键的toolbar
+ */
+fun Toolbar.initClose(
+    titleStr: String = "",
+    backImg: Int = R.drawable.ic_back,
+    onBack: (toolbar: Toolbar) -> Unit
+): Toolbar {
+    setBackgroundColor(SettingUtil.getColor(BaseApplication.instance()))
+    title = titleStr.toHtml()
+    setNavigationIcon(backImg)
+    setNavigationOnClickListener { onBack.invoke(this) }
+    return this
+}
 //
 ///**
 // * 根据控件的类型设置主题，注意，控件具有优先级， 基本类型的控件建议放到最后，像 Textview，FragmentLayout，不然会出现问题，

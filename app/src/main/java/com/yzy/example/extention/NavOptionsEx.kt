@@ -20,18 +20,18 @@ import com.yzy.example.component.main.MainActivity
 //
 //app:popEnterAnim=""
 //app:popExitAnim=""
-
-val options = navOptions {
-    anim {
-        enter = R.anim.slide_in_bottom // 进入页面动画
-        exit = R.anim.slide_out_top
-        popEnter = R.anim.slide_in_top  // 弹出栈动画
-        popExit = R.anim.slide_out_bottom
-    }
+//
+//val options = navOptions {
+//    anim {
+//        enter = R.anim.slide_in_bottom // 进入页面动画
+//        exit = R.anim.slide_out_top
+//        popEnter = R.anim.slide_in_top  // 弹出栈动画
+//        popExit = R.anim.slide_out_bottom
+//    }
 
 //    launchSingleTop = true
 //    popUpTo = R.id.categoryFragment
-}
+//}
 
 fun startNavigate(activity: MainActivity, @IdRes resId: Int, args: Bundle? = null) {
     val rootView = activity.getRootView()

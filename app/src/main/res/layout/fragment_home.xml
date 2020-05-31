@@ -3,27 +3,51 @@
     <data >
 
     </data>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical">
+    <LinearLayout
+        android:orientation="vertical"
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <include layout="@layout/include_toolbar" />
 
-        <com.yzy.baselibrary.widget.refresh.SmartRefreshLayout
-            android:id="@+id/smRefresh"
+        <androidx.coordinatorlayout.widget.CoordinatorLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/rvHomeRecycler"
+            android:layout_height="match_parent"
+            android:background="@color/windowBackground"
+            android:orientation="vertical">
+            <com.yzy.baselibrary.widget.refresh.SmartRefreshLayout
+                android:id="@+id/smRefresh"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="@color/white"
-                android:overScrollMode="never"
-                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                android:scrollbars="none"
-                />
-        </com.yzy.baselibrary.widget.refresh.SmartRefreshLayout>
-</androidx.constraintlayout.widget.ConstraintLayout>
+                android:layout_height="match_parent">
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rvHomeRecycler"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+                    android:background="@color/white"
+                    android:overScrollMode="never"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    android:scrollbars="none"
+                    />
+            </com.yzy.baselibrary.widget.refresh.SmartRefreshLayout>
+
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:id="@+id/floatbtn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom|end"
+                android:layout_marginEnd="12dp"
+                android:layout_marginBottom="24dp"
+                android:scaleType="center"
+                android:src="@drawable/fab_up"
+                android:visibility="invisible"
+                app:elevation="5dp"
+                app:fabSize="mini"
+                app:layout_behavior="com.yzy.example.widget.recyclerview.FatScrollAwareFABBehavior" />
+
+        </androidx.coordinatorlayout.widget.CoordinatorLayout>
+    </LinearLayout>
 </layout>
 
