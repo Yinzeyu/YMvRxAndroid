@@ -1,6 +1,5 @@
 package com.yzy.baselibrary.base
 
-import android.content.Intent
 import android.os.Bundle
 import android.view.MotionEvent
 import androidx.appcompat.app.AppCompatActivity
@@ -23,52 +22,6 @@ abstract class BaseActivity : AppCompatActivity(), CoroutineScope by MainScope()
         initData()
     }
 
-    /**
-     * 记录是否需要跳转
-     */
-  private  var startNavigation: Boolean = false
-    fun  getIsNavigate():Boolean{
-        return startNavigation
-    }
-    override fun onResume() {
-        if (startNavigation) {
-            acEventType("onResume")
-            startNavigation = false
-        }
-        super.onResume()
-    }
-    override fun onStop() {
-        startNavigation=true
-        super.onStop()
-    }
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-        acEventType("activityResult", requestCode, resultCode, data)
-    }
-    private fun acEventType(
-        type: String,
-        requestCode: Int = -1,
-        resultCode: Int = -1,
-        data: Intent? = null
-    ) {
-        try {
-            getFragmentListLast().let {
-                if (it is BaseFragment<*, *>) {
-                    when (type) {
-                        "onResume" -> {
-                            it.onRestartNavigate()
-                        }
-                        "activityResult" -> {
-                            it.onFragmentResult(requestCode, resultCode, data)
-                        }
-                    }
-
-                }
-            }
-        } catch (e: Exception) {
-            e.printStackTrace()
-        }
-    }
     // 保存MyTouchListener接口的列表
     private val myTouchListeners = mutableListOf<MyTouchListener>()
 

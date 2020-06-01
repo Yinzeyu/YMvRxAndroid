@@ -1,15 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
-        android:id="@+id/menu_main_home"
-        android:icon="@drawable/svg_main_home"
+        android:id="@+id/menu_main"
+        android:checked="true"
+        android:icon="@drawable/menu_main"
         android:title="@string/main_home" />
+
     <item
-        android:id="@+id/menu_main_dyn"
-        android:icon="@drawable/svg_main_dyn"
-        android:title="@string/main_dyn" />
+        android:id="@+id/menu_project"
+        android:icon="@drawable/menu_project"
+        android:title="@string/main_project" />
+
     <item
-        android:id="@+id/menu_main_mine"
-        android:icon="@drawable/svg_main_mine"
+        android:id="@+id/menu_system"
+        android:icon="@drawable/menu_tree"
+        android:title="@string/main_square" />
+    <item
+        android:id="@+id/menu_public"
+        android:icon="@drawable/menu_public"
+        android:title="@string/main_official_account" />
+    <item
+        android:id="@+id/menu_me"
+        android:icon="@drawable/menu_me"
         android:title="@string/main_mine" />
 </menu>

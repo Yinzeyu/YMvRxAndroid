@@ -34,13 +34,13 @@ class SplashFragment : CommFragment<NoViewModel,FragmentSplashBinding>() {
         }
     }
 
-    override fun onRestartNavigate() {
-        if (countDownFinish){
-                Navigation.findNavController(clRootView).navigate(R.id.action_rootFragment_to_middleFragment)
-            Log.e("fragment", this.javaClass.name+"=onRestartNavigate")
-        }
-
-    }
+//    override fun onRestartNavigate() {
+//        if (countDownFinish){
+//                Navigation.findNavController(clRootView).navigate(R.id.action_rootFragment_to_middleFragment)
+//            Log.e("fragment", this.javaClass.name+"=onRestartNavigate")
+//        }
+//
+//    }
 
     //打开下个页面
     private fun goNextPage() {
@@ -52,9 +52,9 @@ class SplashFragment : CommFragment<NoViewModel,FragmentSplashBinding>() {
 //                UserRepository.instance.isLogin() -> MainActivity.startActivity(mContext)
                 //没有其他需要，进入主页
                 else -> {
-                    if (!(requireActivity() as BaseActivity).getIsNavigate()){
+//                    if (!(requireActivity() as BaseActivity).getIsNavigate()){
                        nav(clRootView).navigate(R.id.action_rootFragment_to_middleFragment)
-                    }
+//                    }
                 }
             }
         }

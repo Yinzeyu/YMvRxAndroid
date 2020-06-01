@@ -15,16 +15,15 @@
         android:layout_height="match_parent"
         android:clipChildren="false"
         android:orientation="vertical">
-
-        <FrameLayout
-            android:id="@+id/mainContainer"
+        <androidx.viewpager2.widget.ViewPager2
             android:layout_width="0dp"
             android:layout_height="0dp"
             app:layout_constraintBottom_toTopOf="@id/mainNavigation"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
+            app:layout_constraintTop_toTopOf="parent"
+            android:id="@+id/mainViewpager"
+            />
         <com.google.android.material.bottomnavigation.BottomNavigationView
             android:id="@+id/mainNavigation"
             android:layout_width="match_parent"

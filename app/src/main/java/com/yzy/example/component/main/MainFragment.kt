@@ -1,75 +1,60 @@
 package com.yzy.example.component.main
 
-import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.Fragment
-import com.blankj.utilcode.util.FragmentUtils
 import com.yzy.baselibrary.base.NoViewModel
 import com.yzy.example.R
 import com.yzy.example.component.comm.CommFragment
 import com.yzy.example.databinding.FragmentMainBinding
+import com.yzy.example.extention.init
 import kotlinx.android.synthetic.main.fragment_main.*
 
 class MainFragment : CommFragment<NoViewModel,FragmentMainBinding>() {
-    //页面
-    private lateinit var homeFragment: Fragment
-    private lateinit var dynFragment: Fragment
-    private lateinit var mineFragment: Fragment
-    //当前页面
-    private var currentFragment: Fragment? = null
-    //子列表合集，方便外部调用选中那个
-    private var fragmentList = mutableListOf<Fragment>()
+
+    var fragments = arrayListOf<Fragment>()
+    private val homeFragment: HomeFragment by lazy { HomeFragment() }
+    private val projectFragment: ProjectFragment by lazy { ProjectFragment() }
+    private val treeArrFragment: TreeArrFragment by lazy { TreeArrFragment() }
+    private val publicNumberFragment: PublicNumberFragment by lazy { PublicNumberFragment() }
+    private val meFragment: MineFragment by lazy { MineFragment() }
+
+    init {
+        fragments.apply {
+            add(homeFragment)
+            add(projectFragment)
+            add(treeArrFragment)
+            add(publicNumberFragment)
+            add(meFragment)
+        }
+    }
     override fun initContentView() {
-//        初始化
-        homeFragment = HomeFragment.newInstance()
-        dynFragment = DynFragment.newInstance()
-        mineFragment = MineFragment.newInstance()
-        //添加
-        fragmentList = mutableListOf(homeFragment, dynFragment, mineFragment)
-        //设置选中
-        selectFragment(0)
-        setSelectIndex(0)
-        //切换
-        mainNavigation.setOnNavigationItemSelectedListener {
-            when (it.itemId) {
-                R.id.menu_main_home -> selectFragment(0)
-                R.id.menu_main_dyn -> selectFragment(1)
-                R.id.menu_main_mine -> selectFragment(2)
+ //初始化viewpager2
+        mainViewpager.init(this,fragments,false).run {
+            offscreenPageLimit = fragments.size
+        }
+        //初始化 bottombar
+        mainNavigation.run {
+//            enableAnimation(false)
+//            enableShiftingMode(false)
+//            enableItemShiftingMode(false)
+//            shareViewModel.appColor.value.let {
+//                itemIconTintList = SettingUtil.getColorStateList(it)
+//                itemTextColor = SettingUtil.getColorStateList(it)
+//            }
+//            setTextSize(12F)
+            setOnNavigationItemSelectedListener {
+                when (it.itemId) {
+                    R.id.menu_main -> mainViewpager.setCurrentItem(0, false)
+                    R.id.menu_project -> mainViewpager.setCurrentItem(1, false)
+                    R.id.menu_system -> mainViewpager.setCurrentItem(2, false)
+                    R.id.menu_public -> mainViewpager.setCurrentItem(3, false)
+                    R.id.menu_me -> mainViewpager.setCurrentItem(4, false)
+                }
+                true
             }
-            true//返回true让其默认选中点击的选项
         }
     }
 
-//    设置选中的fragment
-    private fun selectFragment(@androidx.annotation.IntRange(from = 0, to = 2) index: Int) {
-        //需要显示的fragment
-        val fragment = fragmentList[index]
-        //和当前选中的一样，则不再处理
-        if (currentFragment == fragment) return
-        //先关闭之前显示的
-        currentFragment?.let { FragmentUtils.hide(it) }
-        //设置现在需要显示的
-        currentFragment = fragment
-        if (!fragment.isAdded) { //没有添加，则添加并显示
-            val tag = fragment::class.java.simpleName
-            FragmentUtils.add(
-                childFragmentManager, fragment, mainContainer.id, tag, false
-            )
-        } else { //添加了就直接显示
-            FragmentUtils.show(fragment)
-        }
-    }
 
-    //外部调用选中哪一个tab
-    private fun setSelectIndex(@androidx.annotation.IntRange(from = 0, to = 2) index: Int) {
-        val selectId = when (index) {
-            1 -> R.id.menu_main_dyn
-            2 -> R.id.menu_main_mine
-            else -> R.id.menu_main_home
-        }
-        mainNavigation?.post {
-            if (mainNavigation.selectedItemId != selectId) mainNavigation.selectedItemId = selectId
-        }
-    }
 
     override fun getLayoutId(): Int =R.layout.fragment_main
 

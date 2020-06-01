@@ -1,8 +1,6 @@
 package com.yzy.baselibrary.base
 
-import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,7 +10,6 @@ import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.fragment.NavHostFragment
 import com.yzy.baselibrary.extention.StatusBarHelper
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.MainScope
@@ -28,22 +25,17 @@ abstract class BaseFragment<VM : BaseViewModel<*>, DB : ViewDataBinding>  : Frag
     CoroutineScope by MainScope() {
     lateinit var viewModel: VM
     lateinit var binding: DB
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        //第一次的时候加载xml
-        Log.e("fragment", this.javaClass.name)
-        val cls = (javaClass.genericSuperclass as ParameterizedType).actualTypeArguments[1] as Class<*>
-        if (ViewDataBinding::class.java != cls && ViewDataBinding::class.java.isAssignableFrom(cls)) {
-            binding = DataBindingUtil.inflate(inflater, getLayoutId(), container, false)
-            //databinding监听activity的生命周期，实时更新数据
-            binding.lifecycleOwner = this
-            return binding.root
-        }
-        return inflater.inflate(getLayoutId(), container, false)
+        binding = DataBindingUtil.inflate(inflater, getLayoutId(), container, false)
+        binding.lifecycleOwner = this
+        return binding.root
     }
+
 
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -86,20 +78,6 @@ abstract class BaseFragment<VM : BaseViewModel<*>, DB : ViewDataBinding>  : Frag
      * 初始化
      */
     abstract fun initView(savedSate: Bundle?)
-
-    /**
-     * activityResult
-     */
-    open fun onFragmentResult(requestCode: Int, resultCode: Int, data: Intent?) {
-
-    }
-
-    /**
-     * 锁屏之后从起会调用此方法
-     */
-    open fun onRestartNavigate() {
-
-    }
     /**
      * 默认状态栏黑色字体图标
      */
