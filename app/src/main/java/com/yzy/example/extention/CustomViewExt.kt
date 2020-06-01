@@ -29,7 +29,16 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.yzy.baselibrary.app.BaseApplication
 import com.yzy.example.R
 import com.yzy.example.app.App
+import com.yzy.example.repository.bean.ClassifyBean
 import com.yzy.example.utils.SettingUtil
+import me.hgj.jetpackmvvm.demo.app.weight.viewpager.ScaleTransitionPagerTitleView
+import net.lucode.hackware.magicindicator.MagicIndicator
+import net.lucode.hackware.magicindicator.buildins.UIUtil
+import net.lucode.hackware.magicindicator.buildins.commonnavigator.CommonNavigator
+import net.lucode.hackware.magicindicator.buildins.commonnavigator.abs.CommonNavigatorAdapter
+import net.lucode.hackware.magicindicator.buildins.commonnavigator.abs.IPagerIndicator
+import net.lucode.hackware.magicindicator.buildins.commonnavigator.abs.IPagerTitleView
+import net.lucode.hackware.magicindicator.buildins.commonnavigator.indicators.LinePagerIndicator
 
 //
 //
@@ -67,18 +76,18 @@ import com.yzy.example.utils.SettingUtil
 //    return loadsir
 //}
 //
-////绑定普通的Recyclerview
-//fun RecyclerView.init(
-//    layoutManger: RecyclerView.LayoutManager,
-//    bindAdapter: RecyclerView.Adapter<*>,
-//    isScroll: Boolean = true
-//): RecyclerView {
-//    layoutManager = layoutManger
-//    setHasFixedSize(true)
-//    adapter = bindAdapter
-//    isNestedScrollingEnabled = isScroll
-//    return this
-//}
+//绑定普通的Recyclerview
+fun RecyclerView.init(
+    layoutManger: RecyclerView.LayoutManager,
+    bindAdapter: RecyclerView.Adapter<*>,
+    isScroll: Boolean = true
+): RecyclerView {
+    layoutManager = layoutManger
+    setHasFixedSize(true)
+    adapter = bindAdapter
+    isNestedScrollingEnabled = isScroll
+    return this
+}
 //
 ////绑定SwipeRecyclerView
 //fun SwipeRecyclerView.init(
@@ -92,8 +101,8 @@ import com.yzy.example.utils.SettingUtil
 //    isNestedScrollingEnabled = isScroll
 //    return this
 //}
-//
-//fun SwipeRecyclerView.initFooter(loadmoreListener: SwipeRecyclerView.LoadMoreListener): DefineLoadMoreView {
+////
+//fun RecyclerView.initFooter(loadmoreListener: RecyclerView.LoadMoreListener): DefineLoadMoreView {
 //    val footerView = DefineLoadMoreView(App.instance)
 //    //给尾部设置颜色
 //    footerView.setLoadViewColor(SettingUtil.getOneColorStateList(App.instance))
@@ -215,79 +224,79 @@ fun String.toHtml(flag: Int =-1 ): Spanned {
 }
 
 
-//fun MagicIndicator.bindViewPager2(
-//    viewPager: ViewPager2,
-//    mDataList: ArrayList<ClassifyResponse> = arrayListOf(),
-//    mStringList: ArrayList<String> = arrayListOf(),
-//    action: (index: Int) -> Unit = {}
-//) {
-//    val commonNavigator = CommonNavigator(App.instance)
-//    commonNavigator.adapter = object : CommonNavigatorAdapter() {
-//        override fun getCount(): Int {
-//            return if (mDataList.size != 0) {
-//                mDataList.size
-//            } else {
-//                mStringList.size
-//            }
-//        }
-//
-//        override fun getTitleView(context: Context, index: Int): IPagerTitleView {
-//            return ScaleTransitionPagerTitleView(App.instance).apply {
-//                text = if (mDataList.size != 0) {
-//                    mDataList[index].name.toHtml()
-//                } else {
-//                    mStringList[index].toHtml()
-//                }
-//                textSize = 17f
-//                normalColor = Color.WHITE
-//                selectedColor = Color.WHITE
-//                setOnClickListener {
-//                    viewPager.currentItem = index
-//                    action.invoke(index)
-//                }
-//            }
-//        }
-//
-//        override fun getIndicator(context: Context): IPagerIndicator {
-//            return LinePagerIndicator(context).apply {
-//                mode = LinePagerIndicator.MODE_EXACTLY
-//                //线条的宽高度
-//                lineHeight = UIUtil.dip2px(App.instance, 3.0).toFloat()
-//                lineWidth = UIUtil.dip2px(App.instance, 30.0).toFloat()
-//                //线条的圆角
-//                roundRadius = UIUtil.dip2px(App.instance, 6.0).toFloat()
-//                startInterpolator = AccelerateInterpolator()
-//                endInterpolator = DecelerateInterpolator(2.0f)
-//                //线条的颜色
-//                setColors(Color.WHITE)
-//            }
-//        }
-//    }
-//    this.navigator = commonNavigator
-//
-//    viewPager.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
-//        override fun onPageSelected(position: Int) {
-//            super.onPageSelected(position)
-//            this@bindViewPager2.onPageSelected(position)
-//            action.invoke(position)
-//        }
-//
-//        override fun onPageScrolled(
-//            position: Int,
-//            positionOffset: Float,
-//            positionOffsetPixels: Int
-//        ) {
-//            super.onPageScrolled(position, positionOffset, positionOffsetPixels)
-//            this@bindViewPager2.onPageScrolled(position, positionOffset, positionOffsetPixels)
-//        }
-//
-//        override fun onPageScrollStateChanged(state: Int) {
-//            super.onPageScrollStateChanged(state)
-//            this@bindViewPager2.onPageScrollStateChanged(state)
-//        }
-//    })
-//}
-//
+fun MagicIndicator.bindViewPager2(
+    viewPager: ViewPager2,
+    mDataList: ArrayList<ClassifyBean> = arrayListOf(),
+    mStringList: ArrayList<String> = arrayListOf(),
+    action: (index: Int) -> Unit = {}
+) {
+    val commonNavigator = CommonNavigator(BaseApplication.instance())
+    commonNavigator.adapter = object : CommonNavigatorAdapter() {
+        override fun getCount(): Int {
+            return if (mDataList.size != 0) {
+                mDataList.size
+            } else {
+                mStringList.size
+            }
+        }
+
+        override fun getTitleView(context: Context, index: Int): IPagerTitleView {
+            return ScaleTransitionPagerTitleView(BaseApplication.instance()).apply {
+                text = if (mDataList.size != 0) {
+                    mDataList[index].name.toHtml()
+                } else {
+                    mStringList[index].toHtml()
+                }
+                textSize = 17f
+                normalColor = Color.WHITE
+                selectedColor = Color.WHITE
+                setOnClickListener {
+                    viewPager.currentItem = index
+                    action.invoke(index)
+                }
+            }
+        }
+
+        override fun getIndicator(context: Context): IPagerIndicator {
+            return LinePagerIndicator(context).apply {
+                mode = LinePagerIndicator.MODE_EXACTLY
+                //线条的宽高度
+                lineHeight = UIUtil.dip2px(BaseApplication.instance(), 3.0).toFloat()
+                lineWidth = UIUtil.dip2px(BaseApplication.instance(), 30.0).toFloat()
+                //线条的圆角
+                roundRadius = UIUtil.dip2px(BaseApplication.instance(), 6.0).toFloat()
+                startInterpolator = AccelerateInterpolator()
+                endInterpolator = DecelerateInterpolator(2.0f)
+                //线条的颜色
+                setColors(Color.WHITE)
+            }
+        }
+    }
+    this.navigator = commonNavigator
+
+    viewPager.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
+        override fun onPageSelected(position: Int) {
+            super.onPageSelected(position)
+            this@bindViewPager2.onPageSelected(position)
+            action.invoke(position)
+        }
+
+        override fun onPageScrolled(
+            position: Int,
+            positionOffset: Float,
+            positionOffsetPixels: Int
+        ) {
+            super.onPageScrolled(position, positionOffset, positionOffsetPixels)
+            this@bindViewPager2.onPageScrolled(position, positionOffset, positionOffsetPixels)
+        }
+
+        override fun onPageScrollStateChanged(state: Int) {
+            super.onPageScrollStateChanged(state)
+            this@bindViewPager2.onPageScrollStateChanged(state)
+        }
+    })
+}
+
 fun ViewPager2.init(
     fragment: Fragment,
     fragments: ArrayList<Fragment>,

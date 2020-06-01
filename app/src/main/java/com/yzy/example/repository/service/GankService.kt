@@ -4,6 +4,7 @@ import com.yzy.example.http.response.BaseResponse
 import com.yzy.example.repository.bean.PagerResponse
 import com.yzy.example.repository.bean.ArticleDataBean
 import com.yzy.example.repository.bean.BannerBean
+import com.yzy.example.repository.bean.ClassifyBean
 import retrofit2.http.*
 
 
@@ -39,4 +40,34 @@ interface GankService {
      */
     @GET("article/top/json")
     suspend fun getTopAritrilList(): BaseResponse<MutableList<ArticleDataBean>>
+
+    /**
+     * 获取最新项目数据
+     */
+    @GET("article/listproject/{page}/json")
+    suspend fun getProjecNewData(@Path("page") pageNo: Int): BaseResponse<PagerResponse<ArrayList<ArticleDataBean>>>
+
+    /**
+     * 公众号分类
+     */
+    @GET("wxarticle/chapters/json")
+    suspend fun getPublicTitle(): BaseResponse<ArrayList<ClassifyBean>>
+
+    /**
+     * 获取公众号数据
+     */
+    @GET("wxarticle/list/{id}/{page}/json")
+    suspend fun getPublicData(@Path("page") pageNo: Int, @Path("id") id: Int): BaseResponse<PagerResponse<ArrayList<ArticleDataBean>>>
+
+    /**
+     * 项目分类标题
+     */
+    @GET("project/tree/json")
+    suspend fun getProjecTitle(): BaseResponse<ArrayList<ClassifyBean>>
+    /**
+     * 根据分类id获取项目数据
+     */
+    @GET("project/list/{page}/json")
+    suspend fun getProjecDataByType(@Path("page") pageNo: Int, @Query("cid") cid: Int): BaseResponse<PagerResponse<ArrayList<ArticleDataBean>>>
+
 }

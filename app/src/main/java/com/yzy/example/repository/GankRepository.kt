@@ -29,9 +29,28 @@ class GankRepository : BaseRepository() {
         return service.banner(page.toString(), "20")
     }
 
-//    suspend fun getAritrilList(page: Int): BaseResponse<ArticleDataBean> {
-//        return service.getAritrilList(page)
-//    }
+    /**
+     * 获取项目标题数据
+     */
+    suspend fun getProjecTitle(): BaseResponse<ArrayList<ClassifyBean>> {
+        return service.getProjecTitle()
+    }
+
+    /**
+     * 获取项目标题数据
+     */
+    suspend fun getProjectData(
+        pageNo: Int,
+        cid: Int = 0,
+        isNew: Boolean = false
+    ): BaseResponse<PagerResponse<ArrayList<ArticleDataBean>>> {
+        return if (isNew) {
+            service.getProjecNewData(pageNo)
+        } else {
+          service.getProjecDataByType(pageNo, cid)
+        }
+    }
+
 
     /**
      * 获取首页文章数据

@@ -1,7 +1,9 @@
 package com.yzy.baselibrary.extention
 
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
+import com.yzy.baselibrary.base.BaseFragment
 import com.yzy.baselibrary.base.BaseViewModel
 import com.yzy.baselibrary.base.IBaseResponse
 import com.yzy.baselibrary.http.ExceptionHandle
@@ -17,7 +19,33 @@ import kotlinx.coroutines.*
  * 描述　:BaseViewModel请求协程封装
  */
 
+/**
+ * 显示页面状态，这里有个技巧，成功回调在第一个，其后两个带默认值的回调可省
+ * @param resultState 接口返回值
+ * @param onLoading 加载中
+ * @param onSuccess 成功回调
+ * @param onError 失败回调
+ *
+ */
+fun <T> BaseFragment<*, *>.parseState(
+    resultState: ResultState<T>,
+    onSuccess: (T?) -> Unit,
+    onError: ((ResponseThrowable) -> Unit)? = null,
+    onLoading: (() -> Unit)? = null
+) {
+    when (resultState) {
+        is ResultState.Loading -> {
 
+            onLoading?.run { this }
+        }
+        is ResultState.Success -> {
+            onSuccess(resultState.data)
+        }
+        is ResultState.Error -> {
+            onError?.run { this(resultState.error) }
+        }
+    }
+}
 /**
  * net request 不校验请求结果数据是否是成功
  * @param block 请求体方法0
