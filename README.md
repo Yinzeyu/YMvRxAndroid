@@ -17,34 +17,6 @@
 **[AndroidAutoSize](https://github.com/JessYanCoding/AndroidAutoSize)**|今日头条UI适配方案
 **[LiveEventBus](https://github.com/JeremyLiao/LiveEventBus)**|跨进程通信、跨APP通信、自动取消订阅
 
-## Screenshots
-
-<div align:left;display:inline; xmlns:align="http://www.w3.org/1999/xhtml">
-<img width="200" height="360" src="/image/5kzlc-ahlcy.gif"/>
-<img width="200" height="360" src="/image/41746fb31b2f35ab163758701c50cb0.jpg"/>
-<img width="200" height="360" src="/image/748c85e9d8b8067950386266786bdad5.gif"/>
-<img width="200" height="360" src="/image/41576023150c0c75b97a84d54a9f95f.jpg"/>
-<img width="200" height="360" src="/image/vertical_banner.gif"/>
-<img width="200" height="360" src="/image/video_cover_compress.gif"/>
-<img width="200" height="360" src="/image/video_list_play.gif"/>
-<img width="200" height="360" src="/image/play_pager.gif"/>
-
-</div>
-
-## 更新日志
-##  2020/4/18
-##### 将build.gradle   修改成 build.gradle.kts   buildSrc负责管理三方包版本信息
-##### 优化  BaseFragment   BaseActivity  并优化 锁屏之后navigation 锁屏跳转问题，修复fragment 从新onCreate 问题
-
-
-##  2019/1/9
-##### 不增加其他状态栏管理，使用qumi 的 做成统一封装
-##### 增加lib ZXing   github地址：https://github.com/devilsen/CZXing
-##### 分享模块lib 地址：https://github.com/apiosource/YSocialApi
-##### 推送模块lib 地址：https://github.com/Yinzeyu/YUMPush
-
-##  2019/7/23
-##### 创建项目 删除原更新日志
 
 ## 联系方式
 ##### QQ群：118116509
