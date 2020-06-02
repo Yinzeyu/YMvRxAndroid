@@ -1,52 +1,61 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="49dp"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_gravity="bottom"
-    android:orientation="vertical">
+    android:layout_height="wrap_content"
+    android:background="@color/colorPrimary"
+    android:fitsSystemWindows="true">
 
-    <ImageView
-        android:id="@+id/commTitleBack"
-        android:layout_width="49dp"
+    <FrameLayout
+        android:layout_width="match_parent"
         android:layout_height="49dp"
-        android:contentDescription="@null"
-        android:padding="12dp"
-        android:src="@drawable/svg_back_black" />
-
-    <TextView
-        android:id="@+id/commTitleText"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginStart="49dp"
-        android:layout_marginEnd="49dp"
-        android:gravity="center"
-        android:singleLine="true"
-        android:textColor="@color/black"
-        android:textSize="17sp"
-        android:textStyle="bold"
-        tools:text="标题" />
-    <com.yzy.example.widget.CommonShapeTextView
-        android:id="@+id/commonTitleRightTv"
-        android:layout_width="wrap_content"
-        android:layout_height="27dp"
-        android:layout_gravity="center_vertical|end"
-        android:layout_marginEnd="16dp"
-        android:gravity="center"
-        android:paddingEnd="13dp"
-        android:paddingStart="13dp"
-        android:textColor="#fffefefe"
-        app:csb_fillColor="#30D18B"
-        app:csb_cornerRadius="5dp"
-        android:textSize="14sp"
-        android:visibility="gone"
-        tools:text="发布"
-        tools:visibility="visible"
-        />
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1px"
         android:layout_gravity="bottom"
-        android:background="#ebebeb" />
+        android:orientation="vertical"
+        tools:ignore="UselessParent">
+
+        <ImageView
+            android:id="@+id/commTitleBack"
+            android:layout_width="49dp"
+            android:layout_height="49dp"
+            android:contentDescription="@null"
+            android:padding="12dp"
+            android:src="@drawable/svg_back_white" />
+
+        <TextView
+            android:id="@+id/commTitleText"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginStart="49dp"
+            android:layout_marginEnd="49dp"
+            android:gravity="center"
+            android:singleLine="true"
+            android:textColor="@color/white"
+            android:textSize="17sp"
+            android:textStyle="bold"
+            tools:text="标题" />
+
+        <com.yzy.example.widget.CommonShapeTextView
+            android:id="@+id/commonTitleRightTv"
+            android:layout_width="wrap_content"
+            android:layout_height="27dp"
+            android:layout_gravity="center_vertical|end"
+            android:layout_marginEnd="16dp"
+            android:gravity="center"
+            android:paddingStart="13dp"
+            android:paddingEnd="13dp"
+            android:textColor="#fffefefe"
+            android:textSize="14sp"
+            android:visibility="gone"
+            app:csb_cornerRadius="5dp"
+            app:csb_fillColor="#30D18B"
+            tools:text="发布"
+            tools:visibility="visible" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:layout_gravity="bottom"
+            android:background="#ebebeb" />
+    </FrameLayout>
 </FrameLayout>

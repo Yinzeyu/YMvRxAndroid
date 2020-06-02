@@ -2,10 +2,9 @@ package com.yzy.example.app
 
 import cat.ereza.customactivityoncrash.config.CaocConfig
 import com.jeremyliao.liveeventbus.LiveEventBus
-import com.yzy.baselibrary.BuildConfig
 import com.yzy.baselibrary.app.BaseApplication
-import com.yzy.baselibrary.http.ClientUtils
-import com.yzy.baselibrary.http.LoggingInterceptor
+import com.yzy.baselibrary.http.interceptor.CacheInterceptor
+import com.yzy.baselibrary.http.interceptor.HeadInterceptor
 import com.yzy.baselibrary.http.retrofitConfig
 import com.yzy.baselibrary.widget.refresh.SmartRefreshLayout
 import com.yzy.baselibrary.widget.refresh.header.ClassicsHeader
@@ -14,8 +13,6 @@ import com.yzy.example.component.main.MainActivity
 import com.yzy.example.constants.ApiConstants
 import com.yzy.example.http.HeaderRequestIntercept
 import com.yzy.example.http.RequestIntercept
-import okhttp3.internal.platform.Platform
-import okhttp3.logging.HttpLoggingInterceptor
 
 
 class App : BaseApplication() {
@@ -25,7 +22,10 @@ class App : BaseApplication() {
             context = this@App
             baseUrl = ApiConstants.Address.BASE_URL
             interceptors.add(RequestIntercept())
-            interceptors.add(HeaderRequestIntercept())
+            interceptors.add(HeadInterceptor(mapOf()))
+            //添加缓存拦截器 可传入缓存天数，不传默认7天
+            interceptors.add(CacheInterceptor())
+//            interceptors.add(HeaderRequestIntercept())
         }
         //防止项目崩溃，崩溃后打开错误界面
         CaocConfig.Builder.create()

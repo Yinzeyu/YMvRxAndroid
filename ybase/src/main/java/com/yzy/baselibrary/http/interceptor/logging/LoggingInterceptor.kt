@@ -1,4 +1,4 @@
-package com.yzy.baselibrary.http
+package com.yzy.baselibrary.http.interceptor.logging
 
 import com.blankj.utilcode.util.JsonUtils
 import okhttp3.*
@@ -28,7 +28,8 @@ class LoggingInterceptor : Interceptor {
         fun log(level: Int, tag: String, msg: String)
 
         companion object {
-            val DEFAULT: Logger = object : Logger {
+            val DEFAULT: Logger = object :
+                Logger {
                 override fun log(level: Int, tag: String, msg: String) {
                     Platform.get().log( msg, level,null)
                 }
@@ -113,7 +114,14 @@ class LoggingInterceptor : Interceptor {
             )
             body = ResponseBody.create(contentType, bodyString)
         } else {
-            Printer.printFileResponse(this, chainMs, isSuccessful, code, header, segmentList)
+            Printer.printFileResponse(
+                this,
+                chainMs,
+                isSuccessful,
+                code,
+                header,
+                segmentList
+            )
             return response
         }
         return response.newBuilder().body(body).build()

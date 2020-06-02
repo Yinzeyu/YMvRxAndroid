@@ -1,10 +1,7 @@
 package com.yzy.example.repository.service
 
 import com.yzy.example.http.response.BaseResponse
-import com.yzy.example.repository.bean.PagerResponse
-import com.yzy.example.repository.bean.ArticleDataBean
-import com.yzy.example.repository.bean.BannerBean
-import com.yzy.example.repository.bean.ClassifyBean
+import com.yzy.example.repository.bean.*
 import retrofit2.http.*
 
 
@@ -70,4 +67,22 @@ interface GankService {
     @GET("project/list/{page}/json")
     suspend fun getProjecDataByType(@Path("page") pageNo: Int, @Query("cid") cid: Int): BaseResponse<PagerResponse<ArrayList<ArticleDataBean>>>
 
+    /**
+     * 获取当前账户的个人积分
+     */
+    @GET("lg/coin/userinfo/json")
+    suspend fun getIntegral(): BaseResponse<IntegralBean>
+    /**
+     * 登录
+     */
+    @FormUrlEncoded
+    @POST("user/login")
+    suspend fun login(@Field("username") username: String, @Field("password") pwd: String): BaseResponse<UserInfo>
+
+    /**
+     * 注册
+     */
+    @FormUrlEncoded
+    @POST("user/register")
+    suspend fun register(@Field("username") username: String, @Field("password") pwd: String, @Field("repassword") rpwd: String): BaseResponse<Any>
 }

@@ -1,25 +1,22 @@
 package com.yzy.example.component.splash
 
 
-import android.util.Log
-import androidx.databinding.ViewDataBinding
-import androidx.navigation.Navigation
-import com.yzy.baselibrary.base.BaseActivity
 import com.yzy.baselibrary.base.NoViewModel
 import com.yzy.baselibrary.extention.nav
 import com.yzy.example.R
 import com.yzy.example.component.comm.CommFragment
 import com.yzy.example.databinding.FragmentSplashBinding
+import com.yzy.example.utils.MMkvUtils
 import kotlinx.android.synthetic.main.fragment_splash.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
-class SplashFragment : CommFragment<NoViewModel,FragmentSplashBinding>() {
+class SplashFragment : CommFragment<NoViewModel, FragmentSplashBinding>() {
 
 
     //倒计时是否结束
-    private var countDownFinish: Boolean=false
+    private var countDownFinish: Boolean = false
 
 
     override fun initContentView() {
@@ -34,14 +31,6 @@ class SplashFragment : CommFragment<NoViewModel,FragmentSplashBinding>() {
         }
     }
 
-//    override fun onRestartNavigate() {
-//        if (countDownFinish){
-//                Navigation.findNavController(clRootView).navigate(R.id.action_rootFragment_to_middleFragment)
-//            Log.e("fragment", this.javaClass.name+"=onRestartNavigate")
-//        }
-//
-//    }
-
     //打开下个页面
     private fun goNextPage() {
         if (countDownFinish) {
@@ -49,16 +38,19 @@ class SplashFragment : CommFragment<NoViewModel,FragmentSplashBinding>() {
                 //是否引导
 //                MMkvUtils.instance.getNeedGuide() -> GuideActivity.startActivity(mContext)
                 //是否登录
-//                UserRepository.instance.isLogin() -> MainActivity.startActivity(mContext)
+                !MMkvUtils.instance.isLogin() -> nav(clRootView).navigate(R.id.action_splashFragment_to_loginFragment)
                 //没有其他需要，进入主页
                 else -> {
-//                    if (!(requireActivity() as BaseActivity).getIsNavigate()){
-                       nav(clRootView).navigate(R.id.action_rootFragment_to_middleFragment)
-//                    }
+                    nav(clRootView).navigate(R.id.action_rootFragment_to_middleFragment)
                 }
             }
         }
 
+    }
+
+    override fun onDestroyView() {
+        requireActivity().setTheme(R.style.AppTheme)
+        super.onDestroyView()
     }
 
     override fun getLayoutId(): Int = R.layout.fragment_splash

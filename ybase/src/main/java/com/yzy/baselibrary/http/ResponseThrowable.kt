@@ -1,9 +1,5 @@
 package com.yzy.baselibrary.http
 
-/**
- *   @auther : Aleyn
- *   time   : 2019/08/12
- */
 class ResponseThrowable : Exception {
     var code: Int
     var errMsg: String

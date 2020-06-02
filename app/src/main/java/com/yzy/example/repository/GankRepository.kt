@@ -1,6 +1,7 @@
 package com.yzy.example.repository
 
 import com.yzy.baselibrary.base.BaseRepository
+import com.yzy.baselibrary.http.ResponseThrowable
 import com.yzy.example.http.response.BaseResponse
 import com.yzy.example.repository.bean.*
 import com.yzy.example.repository.service.GankService
@@ -75,6 +76,33 @@ class GankRepository : BaseRepository() {
      */
     private suspend fun getTopData(): BaseResponse<MutableList<ArticleDataBean>> {
         return service.getTopAritrilList()
+    }
+    /**
+     * 获取个人信息积分
+     */
+    suspend fun getIntegral(): BaseResponse<IntegralBean> {
+        return service.getIntegral()
+    }
+
+    /**
+     * 登录
+     */
+    suspend fun login(username: String, password: String): BaseResponse<UserInfo> {
+        return service.login(username, password)
+    }
+
+    /**
+     * 注册并登陆
+     */
+    suspend fun register(username: String, password: String): BaseResponse<UserInfo> {
+        val registerData = service.register(username, password, password)
+        //判断注册结果 注册成功，调用登录接口
+        if (registerData.isSuccess()) {
+            return login(username, password)
+        } else {
+            //抛出错误异常
+            throw ResponseThrowable(registerData.code, registerData.message)
+        }
     }
 
 }

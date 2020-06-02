@@ -1,12 +1,19 @@
 package com.yzy.baselibrary.http
 
 import android.content.Context
+import com.blankj.utilcode.util.Utils
 import com.google.gson.GsonBuilder
 import com.google.gson.JsonPrimitive
 import com.google.gson.JsonSerializer
 import com.yzy.baselibrary.BuildConfig
+import com.yzy.baselibrary.app.BaseApplication
 import com.yzy.baselibrary.http.ClientUtils.inItConfig
 import com.yzy.baselibrary.http.ClientUtils.inItGsonBuilder
+import com.yzy.baselibrary.http.cookie.PersistentCookieJar
+import com.yzy.baselibrary.http.cookie.cache.SetCookieCache
+import com.yzy.baselibrary.http.cookie.persistence.SharedPrefsCookiePersistor
+import com.yzy.baselibrary.http.interceptor.logging.LoggingInterceptor
+import okhttp3.Cache
 import okhttp3.ConnectionPool
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
@@ -14,6 +21,7 @@ import okhttp3.internal.platform.Platform
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import java.io.File
 import java.util.*
 import java.util.concurrent.TimeUnit
 
@@ -55,13 +63,23 @@ object ClientUtils {
         config.interceptors.forEach {
             builder.addInterceptor(it)
         }
-        builder.addNetworkInterceptor(LoggingInterceptor().apply {
-            isDebug = BuildConfig.DEBUG
-            level = HttpLoggingInterceptor.Level.BASIC
-            type = Platform.INFO
-            requestTag = "Request"
-            requestTag = "Response"
-        })
+        builder.addNetworkInterceptor(
+            LoggingInterceptor().apply {
+                isDebug = BuildConfig.DEBUG
+                level = HttpLoggingInterceptor.Level.BASIC
+                type = Platform.INFO
+                requestTag = "Request"
+                requestTag = "Response"
+            })
+        //设置缓存配置 缓存最大10M
+        builder.cache(
+            Cache(
+                File(BaseApplication.instance().cacheDir, "cxk_cache"),
+                10 * 1024 * 1024
+            )
+        )
+        //添加Cookies自动持久化
+        builder.cookieJar(cookieJar)
         //测试服忽略证书校验
         SSLManager.createSSLSocketFactory()?.let {
             builder.sslSocketFactory(it, SSLManager.TrustAllCerts())
@@ -69,6 +87,10 @@ object ClientUtils {
         }
 
         return builder.build()
+    }
+
+    private val cookieJar: PersistentCookieJar by lazy {
+        PersistentCookieJar(SetCookieCache(), SharedPrefsCookiePersistor(Utils.getApp()))
     }
 
     private fun initRetrofit(config: InitRetrofitConfig, okHttpClient: OkHttpClient): Retrofit {

@@ -1,4 +1,4 @@
-package com.yzy.baselibrary.http
+package com.yzy.baselibrary.http.interceptor.logging
 
 import com.blankj.utilcode.util.JsonUtils
 import okhttp3.FormBody
@@ -41,12 +41,33 @@ object Printer {
         line.isEmpty() || N == line || T == line || line.trim().isEmpty()
 
     internal fun printJsonRequest(builder: LoggingInterceptor, request: Request) {
-        val requestBody = LINE_SEPARATOR + BODY_TAG + LINE_SEPARATOR + bodyToString(request)
+        val requestBody = LINE_SEPARATOR + BODY_TAG + LINE_SEPARATOR + bodyToString(
+            request
+        )
         val tag = builder.requestTag
         if (builder.logger == null)
-            log(builder.type, tag, REQUEST_UP_LINE)
-        logLines(builder.type, tag, arrayOf(URL_TAG + request.url), builder.logger, false)
-        logLines(builder.type, tag, getRequest(request, builder.level), builder.logger, true)
+            log(
+                builder.type,
+                tag,
+                REQUEST_UP_LINE
+            )
+        logLines(
+            builder.type,
+            tag,
+            arrayOf(URL_TAG + request.url),
+            builder.logger,
+            false
+        )
+        logLines(
+            builder.type,
+            tag,
+            getRequest(
+                request,
+                builder.level
+            ),
+            builder.logger,
+            true
+        )
         if (request.body is FormBody) {
             val formBody = StringBuilder()
             val body = request.body as FormBody?
@@ -55,21 +76,32 @@ object Printer {
                     formBody.append(body.encodedName(i) + "=" + body.encodedValue(i) + "&")
                 }
                 formBody.delete(formBody.length - 1, formBody.length)
-                logLines(builder.type, tag, arrayOf(formBody.toString()), builder.logger, true)
+                logLines(
+                    builder.type,
+                    tag,
+                    arrayOf(formBody.toString()),
+                    builder.logger,
+                    true
+                )
             }
         }
         if (builder.level == Level.BASIC || builder.level == Level.BODY) {
             logLines(
                 builder.type,
                 tag,
-                requestBody.split(LINE_SEPARATOR.toRegex()).dropLastWhile { it.isEmpty() }
+                requestBody.split(LINE_SEPARATOR.toRegex())
+                    .dropLastWhile { it.isEmpty() }
                     .toTypedArray(),
                 builder.logger,
                 true
             )
         }
         if (builder.logger == null)
-            log(builder.type, tag, END_LINE)
+            log(
+                builder.type,
+                tag,
+                END_LINE
+            )
     }
 
     internal fun printJsonResponse(
@@ -80,34 +112,66 @@ object Printer {
             LINE_SEPARATOR + BODY_TAG + LINE_SEPARATOR + JsonUtils.formatJson(bodyString)
         val tag = builder.responseTag
         if (builder.logger == null)
-            log(builder.type, tag, RESPONSE_UP_LINE)
+            log(
+                builder.type,
+                tag,
+                RESPONSE_UP_LINE
+            )
 
         logLines(
-            builder.type, tag, getResponse(
+            builder.type,
+            tag,
+            getResponse(
                 headers, chainMs, code, isSuccessful,
                 builder.level, segments
-            ), builder.logger, true
+            ),
+            builder.logger,
+            true
         )
         if (builder.level == Level.BASIC || builder.level == Level.BODY) {
             logLines(
                 builder.type,
                 tag,
-                responseBody.split(LINE_SEPARATOR.toRegex()).dropLastWhile { it.isEmpty() }
+                responseBody.split(LINE_SEPARATOR.toRegex())
+                    .dropLastWhile { it.isEmpty() }
                     .toTypedArray(),
                 builder.logger,
                 true
             )
         }
         if (builder.logger == null)
-            log(builder.type, tag, END_LINE)
+            log(
+                builder.type,
+                tag,
+                END_LINE
+            )
     }
 
     internal fun printFileRequest(builder: LoggingInterceptor, request: Request) {
         val tag = builder.responseTag
         if (builder.logger == null)
-            log(builder.type, tag, REQUEST_UP_LINE)
-        logLines(builder.type, tag, arrayOf(URL_TAG + request.url), builder.logger, false)
-        logLines(builder.type, tag, getRequest(request, builder.level), builder.logger, true)
+            log(
+                builder.type,
+                tag,
+                REQUEST_UP_LINE
+            )
+        logLines(
+            builder.type,
+            tag,
+            arrayOf(URL_TAG + request.url),
+            builder.logger,
+            false
+        )
+        logLines(
+            builder.type,
+            tag,
+            getRequest(
+                request,
+                builder.level
+            ),
+            builder.logger,
+            true
+        )
         if (request.body is FormBody) {
             val formBody = StringBuilder()
             val body = request.body as FormBody?
@@ -116,14 +180,30 @@ object Printer {
                     formBody.append(body.encodedName(i) + "=" + body.encodedValue(i) + "&")
                 }
                 formBody.delete(formBody.length - 1, formBody.length)
-                logLines(builder.type, tag, arrayOf(formBody.toString()), builder.logger, true)
+                logLines(
+                    builder.type,
+                    tag,
+                    arrayOf(formBody.toString()),
+                    builder.logger,
+                    true
+                )
             }
         }
         if (builder.level == Level.BASIC || builder.level == Level.BODY) {
-            logLines(builder.type, tag, OMITTED_REQUEST, builder.logger, true)
+            logLines(
+                builder.type,
+                tag,
+                OMITTED_REQUEST,
+                builder.logger,
+                true
+            )
         }
         if (builder.logger == null)
-            log(builder.type, tag, END_LINE)
+            log(
+                builder.type,
+                tag,
+                END_LINE
+            )
     }
 
     internal fun printFileResponse(
@@ -132,17 +212,35 @@ object Printer {
     ) {
         val tag = builder.responseTag
         if (builder.logger == null)
-            log(builder.type, tag, RESPONSE_UP_LINE)
+            log(
+                builder.type,
+                tag,
+                RESPONSE_UP_LINE
+            )
 
         logLines(
-            builder.type, tag, getResponse(
+            builder.type,
+            tag,
+            getResponse(
                 headers, chainMs, code, isSuccessful,
                 builder.level, segments
-            ), builder.logger, true
+            ),
+            builder.logger,
+            true
         )
-        logLines(builder.type, tag, OMITTED_RESPONSE, builder.logger, true)
+        logLines(
+            builder.type,
+            tag,
+            OMITTED_RESPONSE,
+            builder.logger,
+            true
+        )
         if (builder.logger == null)
-            log(builder.type, tag, END_LINE)
+            log(
+                builder.type,
+                tag,
+                END_LINE
+            )
     }
 
     private fun getRequest(request: Request, level: Level): Array<String> {
@@ -151,7 +249,9 @@ object Printer {
         val loggableHeader = level == Level.HEADERS || level == Level.BASIC
         message = METHOD_TAG + request.method + DOUBLE_SEPARATOR +
                 when {
-                    loggableHeader -> "${HEADERS_TAG}${LINE_SEPARATOR}${dotHeaders(header)}"
+                    loggableHeader -> "$HEADERS_TAG$LINE_SEPARATOR${dotHeaders(
+                        header
+                    )}"
                     else -> ""
                 }
         return message.split(LINE_SEPARATOR.toRegex()).dropLastWhile { it.isEmpty() }
@@ -164,7 +264,10 @@ object Printer {
     ): Array<String> {
         val message: String
         val loggableHeader = level == Level.HEADERS || level == Level.BASIC
-        val segmentString = slashSegments(segments)
+        val segmentString =
+            slashSegments(
+                segments
+            )
         message =
             "${if (segmentString.isNotEmpty()) "$segmentString - " else ""}is success : $isSuccessful - $RECEIVED_TAG$tookMs ms $DOUBLE_SEPARATOR $STATUS_CODE_TAG " +
                     "$code $DOUBLE_SEPARATOR ${if (loggableHeader) HEADERS_TAG + LINE_SEPARATOR + dotHeaders(
@@ -220,7 +323,14 @@ object Printer {
                 var end = (i + 1) * maxSize
                 end = if (end > line.length) line.length else end
                 if (logger == null) {
-                    log(type, tag, DEFAULT_LINE + line.substring(start, end))
+                    log(
+                        type,
+                        tag,
+                        DEFAULT_LINE + line.substring(
+                            start,
+                            end
+                        )
+                    )
                 } else {
                     logger.log(type, tag, line.substring(start, end))
                 }

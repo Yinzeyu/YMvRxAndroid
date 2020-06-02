@@ -144,16 +144,16 @@ fun RecyclerView.initFloatBtn(floatbtn: FloatingActionButton) {
     }
 }
 //
-////初始化 SwipeRefreshLayout
-//fun SwipeRefreshLayout.init(onRefreshListener: () -> Unit) {
-//    this.run {
-//        setOnRefreshListener {
-//            onRefreshListener.invoke()
-//        }
-//        //设置主题颜色
-//        setColorSchemeColors(SettingUtil.getColor(App.instance))
-//    }
-//}
+//初始化 SwipeRefreshLayout
+fun SwipeRefreshLayout.init(onRefreshListener: () -> Unit) {
+    this.run {
+        setOnRefreshListener {
+            onRefreshListener.invoke()
+        }
+        //设置主题颜色
+        setColorSchemeColors(SettingUtil.getColor(BaseApplication.instance()))
+    }
+}
 //
 ///**
 // * 初始化普通的toolbar 只设置标题

@@ -1,10 +1,12 @@
 package com.yzy.example.utils
 
+import com.blankj.utilcode.util.GsonUtils
 import com.yzy.baselibrary.utils.SharePreferencesUtils
+import com.yzy.example.repository.bean.UserInfo
 
 /**
  * Description:
- * @author: caiyoufei
+ * @author: yzy
  * @date: 2019/10/10 15:14
  */
 class MMkvUtils private constructor() {
@@ -16,28 +18,52 @@ class MMkvUtils private constructor() {
         val instance = SingletonHolder.holder
     }
 
-    private val USER_UID = "KKMV_KEY_USER_UID"
-    private val USER_TOKEN = "KKMV_KEY_USER_TOKEN"
+    private val KEY_PERSONAL_BEAN = "KEY_PERSONAL_BEAN"
+    private val KEY_PERSONAL_TOKEN = "KEY_PERSONAL_TOKEN"
+    private val KEY_PERSONAL_EXPIRE = "KEY_PERSONAL_EXPIRE"
 
-    fun getUid(): Long {
-        return SharePreferencesUtils.getLong(USER_UID)
+    fun setPersonalBean(personal: UserInfo) {
+        SharePreferencesUtils.saveString(KEY_PERSONAL_BEAN, GsonUtils.toJson(personal))
     }
 
-
-    fun setUid(uid: Long) {
-        SharePreferencesUtils.saveLong(USER_UID, uid)
-    }
-
-    fun getToken(): String? {
-        return SharePreferencesUtils.getString(USER_TOKEN)
+    fun getPersonalBean(): UserInfo? {
+        var personalBean: UserInfo? = null
+        val strBean = SharePreferencesUtils.getString(KEY_PERSONAL_BEAN)
+        if (strBean.isNotEmpty() && strBean != "") {
+            personalBean = GsonUtils.fromJson(strBean, UserInfo::class.java)
+        }
+        return personalBean
     }
 
     fun setToken(token: String) {
-        SharePreferencesUtils.saveString(USER_TOKEN,token)
+        SharePreferencesUtils.saveString(KEY_PERSONAL_TOKEN, token)
     }
 
-    fun clearUserInfo() {
-        SharePreferencesUtils.saveString(USER_UID,"")
-        SharePreferencesUtils.saveString(USER_TOKEN,"")
+    fun getToken(): String {
+        return SharePreferencesUtils.getString(KEY_PERSONAL_TOKEN)
+    }
+
+    fun setExpire(expire: Long) {
+        SharePreferencesUtils.saveLong(KEY_PERSONAL_EXPIRE, expire)
+    }
+
+    fun getExpire(): Long {
+        return SharePreferencesUtils.getLong(KEY_PERSONAL_EXPIRE)
+    }
+
+
+    fun isLogin(): Boolean {
+        val token = getToken()
+        if (token != "" && token.isNotEmpty()) {
+            return true
+        }
+        return false
+    }
+
+
+    fun remove() {
+        SharePreferencesUtils.remove(KEY_PERSONAL_BEAN)
+        SharePreferencesUtils.remove(KEY_PERSONAL_TOKEN)
+        SharePreferencesUtils.remove(KEY_PERSONAL_EXPIRE)
     }
 }

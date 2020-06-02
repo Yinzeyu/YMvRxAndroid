@@ -71,4 +71,11 @@ object SharePreferencesUtils {
     fun getStringSet( key: String): MutableSet<String>? {
         return sp.getStringSet(key, null)
     }
+
+    @JvmStatic
+    fun remove( key: String) {
+        sp.edit {
+            remove(key)
+        }
+    }
 }
