@@ -48,9 +48,7 @@ class MainActivity : BaseActivity() {
         }
         return false
     }
-    fun getRootView(): ConstraintLayout {
-        return mainRootView
-    }
+
     override fun initData() {
         ActivityUtils.finishOtherActivities(javaClass)
     }
