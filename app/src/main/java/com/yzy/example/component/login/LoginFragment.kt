@@ -9,18 +9,10 @@ import com.yzy.baselibrary.extention.parseState
 import com.yzy.example.R
 import com.yzy.example.component.comm.CommFragment
 import com.yzy.example.databinding.FragmentLoginBinding
-import com.yzy.example.extention.initClose
 import com.yzy.example.repository.model.LoginViewModel
 import com.yzy.example.utils.MMkvUtils
-import kotlinx.android.synthetic.main.include_toolbar.*
 import kotlinx.android.synthetic.main.layout_comm_title.*
 
-
-/**
- * 作者　: hegaojian
- * 时间　: 2019/12/23
- * 描述　: 登录页面
- */
 class LoginFragment : CommFragment<LoginViewModel, FragmentLoginBinding>() {
     override fun getLayoutId(): Int = R.layout.fragment_login
     override fun initContentView() {

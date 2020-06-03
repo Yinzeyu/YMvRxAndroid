@@ -11,8 +11,8 @@ import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import com.blankj.utilcode.util.LogUtils
-import com.yzy.baselibrary.extention.StatusBarHelper
+import com.yzy.baselibrary.extention.StatusBarUtil.setDarkMode
+import com.yzy.baselibrary.extention.StatusBarUtil.setLightMode
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.cancel
@@ -43,9 +43,9 @@ abstract class BaseFragment<VM : BaseViewModel<*>, DB : ViewDataBinding>  : Frag
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         if (isBack()) {
-            StatusBarHelper.setStatusBarLightMode(requireActivity())
+            setLightMode(requireActivity())
         } else {
-            StatusBarHelper.setStatusBarDarkMode(requireActivity())
+            setDarkMode(requireActivity())
         }
         createViewModel()
         lifecycle.addObserver(viewModel)

@@ -5,28 +5,28 @@ import android.widget.CompoundButton
 import androidx.lifecycle.Observer
 import com.blankj.utilcode.util.ToastUtils
 import com.yzy.baselibrary.base.BaseFragment
+import com.yzy.baselibrary.extention.click
 import com.yzy.baselibrary.extention.nav
 import com.yzy.baselibrary.extention.parseState
+import com.yzy.baselibrary.extention.pressEffectAlpha
 import com.yzy.example.R
 import com.yzy.example.databinding.FragmentRegisterBinding
 import com.yzy.example.extention.initClose
 import com.yzy.example.repository.model.RegisterViewModel
 import com.yzy.example.utils.MMkvUtils
 import kotlinx.android.synthetic.main.include_toolbar.*
+import kotlinx.android.synthetic.main.layout_comm_title.*
 
 class RegisterFragment : BaseFragment<RegisterViewModel, FragmentRegisterBinding>() {
     override fun getLayoutId(): Int = R.layout.fragment_register
     override fun initView(savedSate: Bundle?) {
         binding.vm = viewModel
         binding.click = ProxyClick()
-        toolbar.initClose("注册") {
+        commTitleText.text="注册"
+        commTitleBack.pressEffectAlpha()
+        commTitleBack.click {
             nav().navigateUp()
         }
-//        //设置颜色跟主题颜色一致
-//        shareViewModel.appColor.value.let {
-//            SettingUtil.setShapColor(registerSub, it)
-//            toolbar.setBackgroundColor(it)
-//        }
         viewModel.loginResult.observe(
             viewLifecycleOwner,
             Observer { resultState ->

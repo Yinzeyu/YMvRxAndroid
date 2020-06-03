@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <item name="id_tag_guide" type="id"/>
-    <item name="id_tag_click" type="id"/>
-    <item type="id" name="bar_fake_status_bar_view" />
-    <item type="id" name="bar_translucent_view" />
-    <item type="id" name="srl_tag"/>
+    <item name="id_tag_guide" type="id" />
+    <item name="id_tag_click" type="id" />
+    <item name="bar_fake_status_bar_view" type="id" />
+    <item name="bar_translucent_view" type="id" />
+    <item name="srl_tag" type="id" />
 </resources>
