@@ -33,7 +33,7 @@ abstract class BaseFragment<VM : BaseViewModel<*>, DB : ViewDataBinding>  : Frag
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        Log.e("baseFragment",javaClass.name)
+        Log.e("baseFragment","onCreateView=${javaClass.name}")
         binding = DataBindingUtil.inflate(inflater, getLayoutId(), container, false)
         binding.lifecycleOwner = this
         return binding.root
@@ -90,7 +90,7 @@ abstract class BaseFragment<VM : BaseViewModel<*>, DB : ViewDataBinding>  : Frag
 
     override fun onDestroyView() {
         cancel()
-        Log.e("baseFragment",javaClass.name)
+        Log.e("baseFragment","onDestroyView=${javaClass.name}")
         super.onDestroyView()
     }
 

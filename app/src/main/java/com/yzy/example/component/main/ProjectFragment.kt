@@ -21,6 +21,7 @@ class ProjectFragment :CommFragment<ProjectViewModel,FragmentPorjectBinding>() {
     //标题集合
     var mDataList: ArrayList<ClassifyBean> = arrayListOf()
     override fun initContentView() {
+        binding.vm=viewModel
         //初始化viewpager2
         viewPager.init(this, fragments)
         //初始化 magic_indicator

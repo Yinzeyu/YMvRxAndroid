@@ -14,8 +14,6 @@ import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import com.bumptech.glide.request.RequestOptions
 
 /**
- * 作者　: hegaojian
- * 时间　: 2019/12/23
  * 描述　: 自定义 BindingAdapter
  */
 object CustomBindAdapter {
@@ -73,18 +71,5 @@ object CustomBindAdapter {
             }
         })
     }
-
-    /* @BindingAdapter(value = ["android:onClick"])
-     fun setOnClick(view: View, clickListener: View.OnClickListener) {
-         val mHits = LongArray(2)
-         view.setOnClickListener {
-             System.arraycopy(mHits, 1, mHits, 0, mHits.size - 1);
-             mHits[mHits.size - 1] = SystemClock.uptimeMillis()
-             if (mHits[0] < (SystemClock.uptimeMillis() - 500)) {
-                 clickListener.onClick(it)
-             }
-         }
-     }*/
-
 
 }

@@ -11,19 +11,19 @@
     android:layout_width="match_parent"
     android:id="@+id/clRootView"
     android:layout_height="match_parent"
-    tools:context=".component.splash.SplashFragment">
+    tools:context=".component.splash.EmFragment">
 
-    <ImageView
-        android:contentDescription="@null"
-        android:id="@+id/iv_sp"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:scaleType="centerCrop"
-        android:src="@drawable/splash_bg"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+<!--    <ImageView-->
+<!--        android:contentDescription="@null"-->
+<!--        android:id="@+id/iv_sp"-->
+<!--        android:layout_width="0dp"-->
+<!--        android:layout_height="0dp"-->
+<!--        android:scaleType="centerCrop"-->
+<!--        android:src="@drawable/splash_bg"-->
+<!--        app:layout_constraintBottom_toBottomOf="parent"-->
+<!--        app:layout_constraintLeft_toLeftOf="parent"-->
+<!--        app:layout_constraintRight_toRightOf="parent"-->
+<!--        app:layout_constraintTop_toTopOf="parent" />-->
 
 
     <!--倒计时-->

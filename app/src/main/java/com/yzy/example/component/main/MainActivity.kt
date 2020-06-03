@@ -10,10 +10,13 @@ import com.blankj.utilcode.util.ActivityUtils
 import com.yzy.baselibrary.base.BaseActivity
 import com.yzy.baselibrary.base.NoViewModel
 import com.yzy.baselibrary.base.StateNavigator
+import com.yzy.baselibrary.extention.nav
 import com.yzy.baselibrary.extention.startActivity
 import com.yzy.baselibrary.extention.toast
 import com.yzy.example.R
+import com.yzy.example.utils.MMkvUtils
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.fragment_splash.*
 
 
 class MainActivity : BaseActivity() {
@@ -34,6 +37,9 @@ class MainActivity : BaseActivity() {
 //        val navigator = StateNavigator(this, navHostFragment!!.childFragmentManager, R.id.fragment)
 //        navController.navigatorProvider.addNavigator(navigator)
 //        navController.setGraph(R.navigation.wan_navigation)
+//        val navHostFragment = supportFragmentManager.findFragmentById(R.id.fragment) as NavHostFragment?
+
+
     }
 
     //    https://www.cnblogs.com/xqz0618/p/thistaskroot.html

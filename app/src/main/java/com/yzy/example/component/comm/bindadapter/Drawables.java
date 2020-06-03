@@ -14,13 +14,12 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 import java.lang.reflect.Field;
+import java.util.Objects;
 
 import static java.lang.annotation.ElementType.FIELD;
 import static java.lang.annotation.ElementType.PARAMETER;
 
 /**
- * 作者　: hegaojian
- * 时间　: 2020/4/10
  * 描述　:使用DataBinding时强烈推荐该库 https://github.com/whataa/noDrawable
  * 只需要复制核心类 ProxyDrawable，Drawables至项目中即可
  * 可以减少大量的drawable.xml文件，很香
@@ -887,7 +886,7 @@ public class Drawables {
         try {
             Field mGradientState = drawable.getClass().getDeclaredField("mGradientState");
             mGradientState.setAccessible(true);
-            Class mGradientStateClass = mGradientState.get(drawable).getClass();
+            Class mGradientStateClass = Objects.requireNonNull(mGradientState.get(drawable)).getClass();
             Field mUseLevelForShape = mGradientStateClass.getDeclaredField("mUseLevelForShape");
             mUseLevelForShape.setAccessible(true);
             mUseLevelForShape.setBoolean(mGradientState.get(drawable), false);
@@ -911,9 +910,7 @@ public class Drawables {
                 mInnerRadiusRatio.setAccessible(true);
                 mInnerRadiusRatio.setFloat(mGradientState.get(drawable), dip2px(innerRadiusRatio));
             }
-        } catch (NoSuchFieldException t) {
-            t.printStackTrace();
-        } catch (IllegalAccessException t) {
+        } catch (NoSuchFieldException | IllegalAccessException t) {
             t.printStackTrace();
         }
     }

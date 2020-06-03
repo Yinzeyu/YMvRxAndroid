@@ -49,8 +49,7 @@ object ClientUtils {
     fun inItConfig(config: InitRetrofitConfig) {
         config.context?.let {
             val initOkHttp = initOkHttp(config)
-            retrofit =
-                initRetrofit(config, initOkHttp)
+            retrofit = initRetrofit(config, initOkHttp)
         }
     }
 
@@ -72,14 +71,9 @@ object ClientUtils {
                 requestTag = "Response"
             })
         //设置缓存配置 缓存最大10M
-        builder.cache(
-            Cache(
-                File(BaseApplication.instance().cacheDir, "cxk_cache"),
-                10 * 1024 * 1024
-            )
-        )
+        builder.cache(Cache(File(BaseApplication.instance().cacheDir, "cxk_cache"), 10 * 1024 * 1024))
         //添加Cookies自动持久化
-        builder.cookieJar(cookieJar)
+//        builder.cookieJar(cookieJar)
         //测试服忽略证书校验
         SSLManager.createSSLSocketFactory()?.let {
             builder.sslSocketFactory(it, SSLManager.TrustAllCerts())
@@ -89,9 +83,9 @@ object ClientUtils {
         return builder.build()
     }
 
-    private val cookieJar: PersistentCookieJar by lazy {
-        PersistentCookieJar(SetCookieCache(), SharedPrefsCookiePersistor(Utils.getApp()))
-    }
+//    private val cookieJar: PersistentCookieJar by lazy {
+//        PersistentCookieJar(SetCookieCache(), SharedPrefsCookiePersistor(Utils.getApp()))
+//    }
 
     private fun initRetrofit(config: InitRetrofitConfig, okHttpClient: OkHttpClient): Retrofit {
         return Retrofit.Builder()

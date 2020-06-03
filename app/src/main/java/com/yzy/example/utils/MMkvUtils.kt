@@ -21,6 +21,7 @@ class MMkvUtils private constructor() {
     private val KEY_PERSONAL_BEAN = "KEY_PERSONAL_BEAN"
     private val KEY_PERSONAL_TOKEN = "KEY_PERSONAL_TOKEN"
     private val KEY_PERSONAL_EXPIRE = "KEY_PERSONAL_EXPIRE"
+    private val KEY_COOKIE = "KEY_COOKIE"
 
     fun setPersonalBean(personal: UserInfo) {
         SharePreferencesUtils.saveString(KEY_PERSONAL_BEAN, GsonUtils.toJson(personal))
@@ -41,6 +42,14 @@ class MMkvUtils private constructor() {
 
     fun getToken(): String {
         return SharePreferencesUtils.getString(KEY_PERSONAL_TOKEN)
+    }
+
+    fun setCookie(cookie: MutableSet<String>) {
+        SharePreferencesUtils.saveStringSet(KEY_COOKIE, cookie)
+    }
+
+    fun getCookie(): MutableSet<String>? {
+        return SharePreferencesUtils.getStringSet(KEY_COOKIE)
     }
 
     fun setExpire(expire: Long) {

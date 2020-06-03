@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.view.MotionEvent
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
-import com.yzy.baselibrary.extention.StatusBarHelper.translucent
 import com.yzy.baselibrary.toast.YToast
 import com.yzy.baselibrary.utils.MyTouchListener
 import kotlinx.coroutines.CoroutineScope
@@ -14,7 +13,6 @@ import kotlinx.coroutines.cancel
 abstract class BaseActivity : AppCompatActivity(), CoroutineScope by MainScope() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        translucent(this)
         this.onCreateBefore()
         super.onCreate(savedInstanceState)
         setContentView(layoutResId())

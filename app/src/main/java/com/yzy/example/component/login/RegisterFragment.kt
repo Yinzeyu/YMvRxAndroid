@@ -33,7 +33,6 @@ class RegisterFragment : BaseFragment<RegisterViewModel, FragmentRegisterBinding
                 parseState(resultState, {
                     it?.let { it1 ->
                         MMkvUtils.instance.setPersonalBean(it1)
-                        MMkvUtils.instance.setToken(it1.token)
                     }
 //                    shareViewModel.isLogin.postValue(true)
 //                    CacheUtil.setUser(it)

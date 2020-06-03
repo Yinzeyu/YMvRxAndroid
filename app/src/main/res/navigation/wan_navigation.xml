@@ -3,30 +3,21 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/wan_navigation"
-    app:startDestination="@id/splashFragment">
+    app:startDestination="@id/EmFragment">
     <fragment
-        android:id="@+id/splashFragment"
-        android:name="com.yzy.example.component.splash.SplashFragment"
-        android:label="splashFragment"
-        tools:layout="@layout/fragment_splash">
+        android:id="@+id/EmFragment"
+        android:name="com.yzy.example.component.splash.EmFragment"
+        android:label="EmFragment">
         <action
             android:id="@+id/action_rootFragment_to_middleFragment"
             app:destination="@id/mainFragment"
-            app:enterAnim="@anim/slide_in_right"
-            app:exitAnim="@anim/slide_out_left"
-            app:popEnterAnim="@anim/slide_in_left"
-            app:popExitAnim="@anim/slide_out_right"
-            app:popUpTo="@id/splashFragment"
+            app:popUpTo="@id/EmFragment"
             app:popUpToInclusive="true" />
 
         <action
             android:id="@+id/action_splashFragment_to_loginFragment"
             app:destination="@id/loginFragment"
-            app:enterAnim="@anim/slide_in_right"
-            app:exitAnim="@anim/slide_out_left"
-            app:popEnterAnim="@anim/slide_in_left"
-            app:popExitAnim="@anim/slide_out_right"
-            app:popUpTo="@id/splashFragment"
+            app:popUpTo="@id/EmFragment"
             app:popUpToInclusive="true" />
 
     </fragment>
@@ -81,7 +72,7 @@
         android:id="@+id/RegisterFragment"
         android:name="com.yzy.example.component.login.RegisterFragment"
         android:label="RegisterFragment"
-        tools:layout="@layout/fragment_register" >
+        tools:layout="@layout/fragment_register">
         <action
             android:id="@+id/action_registerFragment_to_mainFragment"
             app:destination="@id/mainFragment"

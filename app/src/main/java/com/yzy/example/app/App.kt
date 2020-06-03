@@ -13,6 +13,8 @@ import com.yzy.example.component.main.MainActivity
 import com.yzy.example.constants.ApiConstants
 import com.yzy.example.http.HeaderRequestIntercept
 import com.yzy.example.http.RequestIntercept
+import com.yzy.example.http.integration.AddCookiesInterceptor
+import com.yzy.example.http.integration.ReceivedCookiesInterceptor
 
 
 class App : BaseApplication() {
@@ -25,7 +27,8 @@ class App : BaseApplication() {
             interceptors.add(HeadInterceptor(mapOf()))
             //添加缓存拦截器 可传入缓存天数，不传默认7天
             interceptors.add(CacheInterceptor())
-//            interceptors.add(HeaderRequestIntercept())
+            interceptors.add(AddCookiesInterceptor())
+            interceptors.add(ReceivedCookiesInterceptor())
         }
         //防止项目崩溃，崩溃后打开错误界面
         CaocConfig.Builder.create()

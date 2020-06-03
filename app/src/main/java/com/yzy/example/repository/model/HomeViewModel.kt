@@ -10,7 +10,7 @@ import com.yzy.example.repository.bean.ArticleDataBean
 import com.yzy.example.repository.bean.BannerAndArticleBean
 
 
-class NewGankViewModel : BaseViewModel<GankRepository>() {
+class HomeViewModel : BaseViewModel<GankRepository>() {
     private var page = 0
 
     //首页文章列表数据

@@ -1,16 +1,17 @@
 package com.yzy.example.component.main
 
+import android.os.Bundle
+import androidx.annotation.IntRange
 import androidx.fragment.app.Fragment
+import com.blankj.utilcode.util.FragmentUtils
 import com.yzy.baselibrary.base.NoViewModel
 import com.yzy.example.R
 import com.yzy.example.component.comm.CommFragment
 import com.yzy.example.component.me.MineFragment
 import com.yzy.example.databinding.FragmentMainBinding
-import com.yzy.example.extention.init
 import kotlinx.android.synthetic.main.fragment_main.*
 
-class MainFragment : CommFragment<NoViewModel,FragmentMainBinding>() {
-
+class MainFragment : CommFragment<NoViewModel, FragmentMainBinding>() {
     var fragments = arrayListOf<Fragment>()
     private val homeFragment: HomeFragment by lazy { HomeFragment() }
     private val projectFragment: ProjectFragment by lazy { ProjectFragment() }
@@ -27,36 +28,44 @@ class MainFragment : CommFragment<NoViewModel,FragmentMainBinding>() {
             add(meFragment)
         }
     }
+
     override fun initContentView() {
- //初始化viewpager2
-        mainViewpager.init(this,fragments,false).run {
-//            offscreenPageLimit = fragments.size
-        }
-        //初始化 bottombar
+        selectFragment(0)
         mainNavigation.run {
-//            enableAnimation(false)
-//            enableShiftingMode(false)
-//            enableItemShiftingMode(false)
-//            shareViewModel.appColor.value.let {
-//                itemIconTintList = SettingUtil.getColorStateList(it)
-//                itemTextColor = SettingUtil.getColorStateList(it)
-//            }
-//            setTextSize(12F)
             setOnNavigationItemSelectedListener {
                 when (it.itemId) {
-                    R.id.menu_main -> mainViewpager.setCurrentItem(0, false)
-                    R.id.menu_project -> mainViewpager.setCurrentItem(1, false)
-                    R.id.menu_system -> mainViewpager.setCurrentItem(2, false)
-                    R.id.menu_public -> mainViewpager.setCurrentItem(3, false)
-                    R.id.menu_me -> mainViewpager.setCurrentItem(4, false)
+                    R.id.menu_main -> selectFragment(0)
+                    R.id.menu_project -> selectFragment(1)
+                    R.id.menu_system -> selectFragment(2)
+                    R.id.menu_public -> selectFragment(3)
+                    R.id.menu_me -> selectFragment(4)
                 }
                 true
             }
         }
     }
 
+    //当前页面
+    private var currentFragment: Fragment? = null
 
+    //设置选中的fragment
+    private fun selectFragment(@IntRange(from = 0, to = 4) index: Int) {
+        //需要显示的fragment
+        val fragment = fragments[index]
+        //和当前选中的一样，则不再处理
+        if (currentFragment == fragment) return
+        //先关闭之前显示的
+        currentFragment?.let { FragmentUtils.hide(it) }
+        //设置现在需要显示的
+        currentFragment = fragment
+        if (!fragment.isAdded) { //没有添加，则添加并显示
+            val tag = fragment::class.java.simpleName
+            FragmentUtils.add(parentFragmentManager, fragment, mainContainer.id, tag, false)
+        } else { //添加了就直接显示
+            FragmentUtils.show(fragment)
+        }
+    }
 
-    override fun getLayoutId(): Int =R.layout.fragment_main
+    override fun getLayoutId(): Int = R.layout.fragment_main
 
 }

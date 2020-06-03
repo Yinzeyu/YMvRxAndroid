@@ -34,9 +34,7 @@ class LoginFragment : CommFragment<LoginViewModel, FragmentLoginBinding>() {
                     //登录成功
                     it?.let { it1 ->
                         MMkvUtils.instance.setPersonalBean(it1)
-                        MMkvUtils.instance.setToken(it1.token)}
-//                    shareViewModel.isLogin.postValue(true)
-//                    shareViewModel.userinfo.postValue(it)
+                    }
                     nav().navigate(R.id.action_loginFragment_to_mainFragment)
                 }, {
                     //登录失败
@@ -75,7 +73,7 @@ class LoginFragment : CommFragment<LoginViewModel, FragmentLoginBinding>() {
         }
 
         var onCheckedChangeListener =
-            CompoundButton.OnCheckedChangeListener { buttonView, isChecked ->
+            CompoundButton.OnCheckedChangeListener { _, isChecked ->
                 viewModel.isShowPwd.postValue(isChecked)
             }
 

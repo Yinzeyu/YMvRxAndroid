@@ -54,7 +54,7 @@
         tools:replace="android:allowBackup"
         tools:targetApi="q">
         <activity
-            android:name=".component.main.MainActivity"
+            android:name=".component.splash.SplashActivity"
             android:launchMode="singleTask"
             android:configChanges="keyboardHidden|screenSize|orientation"
             android:screenOrientation="portrait"
@@ -66,6 +66,14 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+        <activity
+            android:name=".component.main.MainActivity"
+            android:launchMode="singleTask"
+            android:configChanges="keyboardHidden|screenSize|orientation"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme"
+            android:windowSoftInputMode="adjustPan|stateHidden">
         </activity>
 
         <meta-data
