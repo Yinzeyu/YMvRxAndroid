@@ -1,5 +1,8 @@
 package com.yzy.example.component.me
 
+import android.content.Intent
+import android.net.Uri
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import com.blankj.utilcode.util.ToastUtils
 import com.yzy.baselibrary.base.NoViewModel
@@ -8,6 +11,7 @@ import com.yzy.example.R
 import com.yzy.example.component.comm.CommFragment
 import com.yzy.example.databinding.FragmentMineBinding
 import com.yzy.example.extention.init
+import com.yzy.example.extention.joinQQGroup
 import com.yzy.example.repository.model.MeViewModel
 import com.yzy.example.utils.MMkvUtils
 import kotlinx.android.synthetic.main.fragment_mine.*
@@ -96,7 +100,7 @@ class MineFragment : CommFragment<MeViewModel, FragmentMineBinding>() {
 
         /** 加入我们 */
         fun join() {
-//            joinQQGroup("9n4i5sHt4189d4DvbotKiCHy-5jZtD4D")
+            joinQQGroup("1nLU15GhxIe9MT3cM6djdKEDNIjwqUK6")
         }
 
         /** 设置 */
