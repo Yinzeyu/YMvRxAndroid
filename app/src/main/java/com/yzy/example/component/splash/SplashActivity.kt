@@ -4,7 +4,7 @@ import android.content.Context
 import com.yzy.baselibrary.base.BaseActivity
 import com.yzy.baselibrary.extention.startActivity
 import com.yzy.example.R
-import com.yzy.example.component.main.MainActivity
+import com.yzy.example.component.MainActivity
 import kotlinx.android.synthetic.main.fragment_splash.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay

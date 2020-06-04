@@ -1,8 +1,9 @@
-package com.yzy.example.component.main
+package com.yzy.example.component.home
 
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.viewpager2.adapter.FragmentStateAdapter
+import com.yzy.example.component.home.BannerFragment
 import com.yzy.example.repository.bean.BannerBean
 
 class BannerPagerAdapter(fragment: FragmentActivity, var list: MutableList<BannerBean>) : FragmentStateAdapter(fragment) {

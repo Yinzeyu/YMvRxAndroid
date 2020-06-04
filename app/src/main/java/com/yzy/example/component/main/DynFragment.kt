@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.yzy.baselibrary.base.ThrowableBean
 import com.yzy.example.R
+import com.yzy.example.component.MainFragmentDirections
 import com.yzy.example.component.comm.CommFragment
 import com.yzy.example.databinding.FragmentDynBinding
 import com.yzy.example.repository.bean.GankAndroidBean

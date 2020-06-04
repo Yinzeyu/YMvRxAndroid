@@ -1,16 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
-    <data >
+
+    <data>
 
         <variable
             name="vm"
             type="com.yzy.example.repository.model.ProjectViewModel" />
     </data>
+
     <LinearLayout
-        android:orientation="vertical"
-       android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <include layout="@layout/layout_comm_title" />
+
         <FrameLayout
             android:id="@+id/viewpagerLinear"
             android:layout_width="match_parent"
@@ -18,17 +23,9 @@
             android:background="@color/colorPrimary"
             android:padding="2dp">
 
-            <androidx.appcompat.widget.Toolbar
-                android:id="@+id/includeViewpagerToolbar"
-                android:layout_width="match_parent"
-                android:layout_height="?attr/actionBarSize"
-                android:theme="@style/AppTheme.AppBarOverlay"
-                app:contentInsetStart="0dp"
-                app:popupTheme="@style/AppTheme.PopupOverlay" />
-
             <net.lucode.hackware.magicindicator.MagicIndicator
                 android:id="@+id/magicIndicator"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="40dp"
                 android:layout_gravity="center"
                 android:layout_marginLeft="8dp"

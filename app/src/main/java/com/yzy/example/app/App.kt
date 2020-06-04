@@ -9,7 +9,7 @@ import com.yzy.baselibrary.http.retrofitConfig
 import com.yzy.baselibrary.widget.refresh.SmartRefreshLayout
 import com.yzy.baselibrary.widget.refresh.header.ClassicsHeader
 import com.yzy.example.R
-import com.yzy.example.component.main.MainActivity
+import com.yzy.example.component.MainActivity
 import com.yzy.example.constants.ApiConstants
 import com.yzy.example.http.RequestIntercept
 import com.yzy.example.http.integration.AddCookiesInterceptor

@@ -1,4 +1,4 @@
-package com.yzy.example.component.main
+package com.yzy.example.component.home
 
 import android.view.LayoutInflater
 import android.view.View
@@ -12,6 +12,7 @@ import com.blankj.utilcode.util.ConvertUtils
 import com.yzy.baselibrary.extention.gone
 import com.yzy.baselibrary.extention.inflate
 import com.yzy.example.R
+import com.yzy.example.component.MainFragmentDirections
 import com.yzy.example.component.comm.CommFragment
 import com.yzy.example.databinding.FragmentHomeBinding
 import com.yzy.example.extention.initFloatBtn
@@ -26,15 +27,13 @@ import kotlinx.android.synthetic.main.layout_comm_title.*
 import me.hgj.jetpackmvvm.demo.app.weight.recyclerview.SpaceItemDecoration
 
 class HomeFragment : CommFragment<HomeViewModel,FragmentHomeBinding>() {
-    private val mAdapter by lazy { HomeListAdapter(mutableListOf(),true) }
-    private lateinit var banner: CycleViewPager
-
-    companion object {
-        fun newInstance(): HomeFragment {
-            return HomeFragment()
-        }
+    private val mAdapter by lazy {
+        HomeListAdapter(
+            mutableListOf(),
+            true
+        )
     }
-
+    private lateinit var banner: CycleViewPager
 
     override fun initContentView() {
         binding.vm =viewModel
@@ -62,7 +61,9 @@ class HomeFragment : CommFragment<HomeViewModel,FragmentHomeBinding>() {
             setOnItemClickListener { adapter, v, position ->
                 val bean: ArticleDataBean = adapter.data[position] as ArticleDataBean
                 Navigation.findNavController(v).navigate(
-                    MainFragmentDirections.actionMainFragmentToWebsiteDetailFragment(bean.link ?: "")
+                    MainFragmentDirections.actionMainFragmentToWebsiteDetailFragment(
+                        bean.link ?: ""
+                    )
                 )
             }
         }
@@ -104,7 +105,10 @@ class HomeFragment : CommFragment<HomeViewModel,FragmentHomeBinding>() {
                 val bannerBean = resultState.bannerBean?: mutableListOf()
                 if (bannerBean.isNotEmpty()) {
                     banner.listSize = bannerBean.size
-                    val bannerAdapter = ViewPagerAdapter(bannerBean)
+                    val bannerAdapter =
+                        ViewPagerAdapter(
+                            bannerBean
+                        )
                     banner.setAdapter(bannerAdapter)
                     banner.setAutoTurning(3000L)
                 }

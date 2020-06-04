@@ -16,7 +16,7 @@
             android:layout_height="match_parent"
             android:orientation="vertical">
 
-            <FrameLayout
+            <com.yzy.baselibrary.widget.FragmentWindowsView
                 android:id="@+id/mainContainer"
                 android:layout_width="0dp"
                 android:layout_height="0dp"

@@ -1,13 +1,16 @@
-package com.yzy.example.component.main
+package com.yzy.example.component
 
-import android.os.Bundle
 import androidx.annotation.IntRange
 import androidx.fragment.app.Fragment
 import com.blankj.utilcode.util.FragmentUtils
 import com.yzy.baselibrary.base.NoViewModel
 import com.yzy.example.R
 import com.yzy.example.component.comm.CommFragment
+import com.yzy.example.component.home.HomeFragment
+import com.yzy.example.component.main.PublicNumberFragment
+import com.yzy.example.component.main.TreeArrFragment
 import com.yzy.example.component.me.MineFragment
+import com.yzy.example.component.project.ProjectFragment
 import com.yzy.example.databinding.FragmentMainBinding
 import kotlinx.android.synthetic.main.fragment_main.*
 

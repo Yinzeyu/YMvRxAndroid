@@ -1,4 +1,4 @@
-package com.yzy.example.component.main
+package com.yzy.example.component.home
 
 import android.text.TextUtils
 import com.bumptech.glide.Glide

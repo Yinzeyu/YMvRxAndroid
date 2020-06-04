@@ -1,8 +1,7 @@
-package com.yzy.example.component.main
+package com.yzy.example.component.home
 
 
 import android.os.Bundle
-import android.view.View
 import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.Fragment
 import com.yzy.baselibrary.base.BaseFragment

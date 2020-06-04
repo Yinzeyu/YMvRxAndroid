@@ -5,4 +5,7 @@
     <item name="bar_fake_status_bar_view" type="id" />
     <item name="bar_translucent_view" type="id" />
     <item name="srl_tag" type="id" />
+    <item name="qmui_window_inset_keyboard_area_consumer" type="id" />
+
+    <item name="qmui_do_not_intercept_keyboard_inset" type="id" />
 </resources>

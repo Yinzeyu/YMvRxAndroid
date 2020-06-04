@@ -1,4 +1,4 @@
-package com.yzy.example.component.main
+package com.yzy.example.component
 
 import android.content.Context
 import android.content.Intent
@@ -16,20 +16,14 @@ class MainActivity : BaseActivity() {
             context.startActivity<MainActivity>()
         }
     }
+
     override fun layoutResId(): Int = R.layout.activity_main
+
     //是否需要关闭页面
     private var hasFinish = false
     override fun initView() {
         hasFinish = checkReOpenHome()
         if (hasFinish) return
-//        val navController = Navigation.findNavController(this, R.id.fragment)
-//        val navHostFragment = supportFragmentManager.findFragmentById(R.id.fragment) as NavHostFragment?
-//        val navigator = StateNavigator(this, navHostFragment!!.childFragmentManager, R.id.fragment)
-//        navController.navigatorProvider.addNavigator(navigator)
-//        navController.setGraph(R.navigation.wan_navigation)
-//        val navHostFragment = supportFragmentManager.findFragmentById(R.id.fragment) as NavHostFragment?
-
-
     }
 
     //    https://www.cnblogs.com/xqz0618/p/thistaskroot.html
@@ -48,6 +42,7 @@ class MainActivity : BaseActivity() {
     override fun initData() {
         ActivityUtils.finishOtherActivities(javaClass)
     }
+
     private var touchTime = 0L
     private val waitTime = 2000L
     override fun onBackPressed() {
@@ -59,7 +54,7 @@ class MainActivity : BaseActivity() {
                     toast(R.string.double_exit)
                     touchTime = currentTime
                 } else {
-                finish()
+                    finish()
                 }
                 return
             } else {
