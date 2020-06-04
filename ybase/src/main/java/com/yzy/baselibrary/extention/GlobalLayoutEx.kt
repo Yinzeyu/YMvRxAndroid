@@ -12,6 +12,9 @@ import android.util.Log
 import android.view.ViewTreeObserver
 import android.view.WindowManager
 import androidx.annotation.NonNull
+import androidx.fragment.app.Fragment
+import com.blankj.utilcode.util.BarUtils
+import com.blankj.utilcode.util.Utils
 import kotlinx.coroutines.*
 import java.lang.reflect.Method
 import kotlin.math.max
@@ -34,27 +37,27 @@ private var tempNavigationBarHeight = 0
 private var lastSetSetKeyboardHeight = 0
 
 /**获取当前键盘高度*/
-fun Activity.getHeightKeyboard(): Int {
+fun Fragment.getHeightKeyboard(): Int {
     val rect = Rect()
     //使用最外层布局填充，进行测算计算
-    window.decorView.getWindowVisibleDisplayFrame(rect)
-    val heightDiff = window.decorView.height - (rect.bottom - rect.top)
-    return max(0, heightDiff - mStatusBarHeight - getBottomStatusHeight(mActivity))
+    requireActivity().window.decorView.getWindowVisibleDisplayFrame(rect)
+    val heightDiff =  requireActivity().window.decorView.height - (rect.bottom - rect.top)
+    return max(0, heightDiff - BarUtils.getStatusBarHeight() - getBottomStatusHeight(requireActivity()))
 }
 
 /**添加键盘监听*/
-fun Activity.addListerKeyboard(
+fun Fragment.addListerKeyboard(
     naHeight: ((naHeight: Int) -> Unit)? = null,
     keyboardHeight: ((keyboardHeight: Int) -> Unit)? = null
 ) {
     val onGlobalLayoutListener = ViewTreeObserver.OnGlobalLayoutListener {
         val realKeyboardHeight = getHeightKeyboard()
-        if (realKeyboardHeight != lastSetSetKeyboardHeight && window.decorView.height > 0
+        if (realKeyboardHeight != lastSetSetKeyboardHeight && requireActivity().window.decorView.height > 0
             && (realKeyboardHeight > 300 || realKeyboardHeight == 0)
         ) {
             lastSetSetKeyboardHeight = realKeyboardHeight
 
-            val navigationHeight = getBottomStatusHeight(mActivity)
+            val navigationHeight = getBottomStatusHeight(requireContext())
             if (navigationHeight != tempNavigationBarHeight) {
                 naHeight?.invoke(navigationHeight)
                 Log.i(TAG, "虚拟导航键高度=$naHeight")
@@ -70,11 +73,11 @@ fun Activity.addListerKeyboard(
             }
         }
     }
-    window.decorView.viewTreeObserver.addOnGlobalLayoutListener(onGlobalLayoutListener)
+    requireActivity(). window.decorView.viewTreeObserver.addOnGlobalLayoutListener(onGlobalLayoutListener)
 }
 
 /**状态栏高度*/
-val Activity.mStatusBarHeight: Int
+val Fragment.mStatusBarHeight: Int
     get() {
         return Resources.getSystem().getDimensionPixelSize(resources.getIdentifier("status_bar_height", "dimen", "android"))
     }

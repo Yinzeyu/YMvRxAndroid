@@ -2,12 +2,9 @@ package com.yzy.example.component.splash
 
 import android.content.Context
 import com.yzy.baselibrary.base.BaseActivity
-import com.yzy.baselibrary.extention.mContext
-import com.yzy.baselibrary.extention.nav
 import com.yzy.baselibrary.extention.startActivity
 import com.yzy.example.R
 import com.yzy.example.component.main.MainActivity
-import com.yzy.example.utils.MMkvUtils
 import kotlinx.android.synthetic.main.fragment_splash.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
@@ -37,7 +34,7 @@ class SplashActivity : BaseActivity(){
     //打开下个页面
     private fun goNextPage() {
         if (countDownFinish) {
-            MainActivity.starMainActivity(mContext)
+            MainActivity.starMainActivity(this)
         }
 
     }

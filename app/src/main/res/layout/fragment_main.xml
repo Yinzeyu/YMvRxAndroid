@@ -52,7 +52,6 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_gravity="start"
-            android:fitsSystemWindows="true"
             android:overScrollMode="never"
             app:menu="@menu/user_profile_menu" />
     </androidx.drawerlayout.widget.DrawerLayout>

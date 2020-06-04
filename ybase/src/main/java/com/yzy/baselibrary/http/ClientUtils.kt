@@ -1,6 +1,7 @@
 package com.yzy.baselibrary.http
 
 import android.content.Context
+import android.os.Build
 import com.blankj.utilcode.util.Utils
 import com.google.gson.GsonBuilder
 import com.google.gson.JsonPrimitive
@@ -9,9 +10,6 @@ import com.yzy.baselibrary.BuildConfig
 import com.yzy.baselibrary.app.BaseApplication
 import com.yzy.baselibrary.http.ClientUtils.inItConfig
 import com.yzy.baselibrary.http.ClientUtils.inItGsonBuilder
-import com.yzy.baselibrary.http.cookie.PersistentCookieJar
-import com.yzy.baselibrary.http.cookie.cache.SetCookieCache
-import com.yzy.baselibrary.http.cookie.persistence.SharedPrefsCookiePersistor
 import com.yzy.baselibrary.http.interceptor.logging.LoggingInterceptor
 import okhttp3.Cache
 import okhttp3.ConnectionPool
@@ -26,10 +24,10 @@ import java.util.*
 import java.util.concurrent.TimeUnit
 
 
-fun retrofitConfig(config: ClientUtils.InitRetrofitConfig.() -> Unit) {
+fun retrofitConfig(config: ClientUtils.InitRetrofitConfig.() -> Unit,okHttpBuild:(OkHttpClient.Builder)->Unit) {
     val configBean = ClientUtils.InitRetrofitConfig()
     configBean.apply(config)
-    inItConfig(configBean)
+    inItConfig(configBean,okHttpBuild)
     inItGsonBuilder()
 }
 
@@ -46,14 +44,15 @@ object ClientUtils {
             })
     }
 
-    fun inItConfig(config: InitRetrofitConfig) {
+    fun inItConfig(config: InitRetrofitConfig,okHttpBuild:(OkHttpClient.Builder)->Unit) {
         config.context?.let {
             val initOkHttp = initOkHttp(config)
-            retrofit = initRetrofit(config, initOkHttp)
+            okHttpBuild.invoke(initOkHttp)
+            retrofit = initRetrofit(config, initOkHttp.build())
         }
     }
 
-    private fun initOkHttp(config: InitRetrofitConfig): OkHttpClient {
+    private fun initOkHttp(config: InitRetrofitConfig): OkHttpClient.Builder {
         val builder = OkHttpClient.Builder()
             .connectTimeout(config.TIME_OUT, TimeUnit.SECONDS)
             .writeTimeout(config.TIME_OUT, TimeUnit.SECONDS)
@@ -72,20 +71,8 @@ object ClientUtils {
             })
         //设置缓存配置 缓存最大10M
         builder.cache(Cache(File(BaseApplication.instance().cacheDir, "cxk_cache"), 10 * 1024 * 1024))
-        //添加Cookies自动持久化
-//        builder.cookieJar(cookieJar)
-        //测试服忽略证书校验
-        SSLManager.createSSLSocketFactory()?.let {
-            builder.sslSocketFactory(it, SSLManager.TrustAllCerts())
-            builder.hostnameVerifier(SSLManager.hostnameVerifier)
-        }
-
-        return builder.build()
+        return builder
     }
-
-//    private val cookieJar: PersistentCookieJar by lazy {
-//        PersistentCookieJar(SetCookieCache(), SharedPrefsCookiePersistor(Utils.getApp()))
-//    }
 
     private fun initRetrofit(config: InitRetrofitConfig, okHttpClient: OkHttpClient): Retrofit {
         return Retrofit.Builder()

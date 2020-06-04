@@ -1,4 +1,4 @@
-package com.yzy.example.http
+package com.yzy.example.http.integration
 
 import com.yzy.example.http.integration.HeaderManger
 import okhttp3.Interceptor
@@ -11,7 +11,7 @@ import java.io.IOException
  *@date 2019/7/15
  *@author: yzy.
  */
-class HeaderRequestIntercept : Interceptor {
+class HeaderIntercept : Interceptor {
 
     @Throws(IOException::class)
     override fun intercept(chain: Interceptor.Chain): Response {

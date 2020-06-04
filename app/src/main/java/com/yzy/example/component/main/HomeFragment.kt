@@ -9,6 +9,7 @@ import androidx.navigation.Navigation
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.CompositePageTransformer
 import com.blankj.utilcode.util.ConvertUtils
+import com.yzy.baselibrary.extention.StatusBarUtil.setTranslucentForDrawerLayout
 import com.yzy.baselibrary.extention.gone
 import com.yzy.baselibrary.extention.inflate
 import com.yzy.example.R

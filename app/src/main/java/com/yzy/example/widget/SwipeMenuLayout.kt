@@ -8,8 +8,8 @@ import android.view.*
 import android.view.animation.AccelerateInterpolator
 import android.view.animation.OvershootInterpolator
 import androidx.core.animation.addListener
+import androidx.core.animation.doOnEnd
 import androidx.core.view.isGone
-import com.yzy.baselibrary.extention.onEnd
 import com.yzy.example.R
 import kotlin.math.abs
 
@@ -397,11 +397,10 @@ class SwipeMenuLayout @JvmOverloads constructor(
                 )
             }
             interpolator = OvershootInterpolator()
-            addListener {
-                onEnd {
-                    isExpand = true
-                }
+            doOnEnd {
+                isExpand = true
             }
+
             duration = 300
             start()
         }
@@ -443,10 +442,8 @@ class SwipeMenuLayout @JvmOverloads constructor(
                 scrollTo((it.animatedValue as Int), 0)
             }
             interpolator = AccelerateInterpolator()
-            addListener {
-                onEnd {
-                    isExpand = false
-                }
+            doOnEnd {
+                isExpand = true
             }
             duration = 300
             start()
@@ -493,7 +490,7 @@ class SwipeMenuLayout @JvmOverloads constructor(
 
     //展开时，禁止长按
     override fun performLongClick(): Boolean {
-        return if (Math.abs(scrollX) > mScaleTouchSlop) {
+        return if (abs(scrollX) > mScaleTouchSlop) {
             false
         } else super.performLongClick()
     }
