@@ -1,6 +1,7 @@
 package com.yzy.example.extention
 
 import android.content.Intent
+import android.graphics.Color
 import android.net.Uri
 import android.text.TextUtils
 import androidx.fragment.app.Fragment
@@ -8,8 +9,21 @@ import com.blankj.utilcode.util.ToastUtils
 import java.io.BufferedReader
 import java.io.FileReader
 import java.io.IOException
+import java.util.*
 
-
+/**
+ * 获取随机rgb颜色值
+ */
+fun randomColor(): Int {
+    Random().run {
+        //0-190, 如果颜色值过大,就越接近白色,就看不清了,所以需要限定范围
+        val red = nextInt(190)
+        val green = nextInt(190)
+        val blue = nextInt(190)
+        //使用rgb混合生成一种新的颜色,Color.rgb生成的是一个int数
+        return Color.rgb(red, green, blue)
+    }
+}
 
 /**
  * 加入qq聊天群

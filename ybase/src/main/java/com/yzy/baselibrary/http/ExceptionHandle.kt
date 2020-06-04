@@ -31,8 +31,18 @@ object ExceptionHandle {
         } else if (e is java.net.UnknownHostException) {
             ex = ResponseThrowable(ERROR.TIMEOUT_ERROR, e)
         } else {
-            ex = if (!e.message.isNullOrEmpty()) ResponseThrowable(1000, e.message?:"")
-            else ResponseThrowable(ERROR.UNKNOWN, e)
+               ex = when(e){
+                is ResponseThrowable -> {
+                    val message = e.message ?: e.errMsg
+                    ResponseThrowable(e.code, message)
+                }
+                else -> {
+                    ResponseThrowable(ERROR.UNKNOWN, e)
+                }
+            }
+//            var es = if ( e is ResponseThrowable) e else ResponseThrowable(1000,e.message?:"")
+//            ex = if (!e.message.isNullOrEmpty()) ResponseThrowable(es.code, e.message?:"")
+//            else ResponseThrowable(ERROR.UNKNOWN, e)
         }
         return ex
     }

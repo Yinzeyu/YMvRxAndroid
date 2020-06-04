@@ -4,8 +4,37 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
         <include layout="@layout/layout_comm_title" />
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/colorPrimary">
+
+            <net.lucode.hackware.magicindicator.MagicIndicator
+                android:id="@+id/magicIndicator"
+                android:layout_width="wrap_content"
+                android:layout_height="50dp"
+                android:layout_gravity="center" />
+
+            <ImageView
+                android:id="@+id/todoAdd"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical|end"
+                android:contentDescription="@null"
+                android:src="@drawable/ic_add">
+
+            </ImageView>
+        </FrameLayout>
+
+
+        <androidx.viewpager2.widget.ViewPager2
+            android:id="@+id/viewPager"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
     </LinearLayout>
 </layout>

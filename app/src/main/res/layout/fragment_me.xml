@@ -11,7 +11,7 @@
 
         <variable
             name="click"
-            type="com.yzy.example.component.me.MineFragment.ProxyClick" />
+            type="com.yzy.example.component.me.MeFragment.ProxyClick" />
     </data>
 
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout

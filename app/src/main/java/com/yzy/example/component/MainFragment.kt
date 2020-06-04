@@ -2,16 +2,20 @@ package com.yzy.example.component
 
 import androidx.annotation.IntRange
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
 import com.blankj.utilcode.util.FragmentUtils
+import com.blankj.utilcode.util.LogUtils
 import com.yzy.baselibrary.base.NoViewModel
+import com.yzy.baselibrary.extention.getViewModel
 import com.yzy.example.R
 import com.yzy.example.component.comm.CommFragment
 import com.yzy.example.component.home.HomeFragment
-import com.yzy.example.component.main.PublicNumberFragment
-import com.yzy.example.component.main.TreeArrFragment
-import com.yzy.example.component.me.MineFragment
+import com.yzy.example.component.publicNumber.PublicNumberFragment
+import com.yzy.example.component.tree.TreeArrFragment
+import com.yzy.example.component.me.MeFragment
 import com.yzy.example.component.project.ProjectFragment
 import com.yzy.example.databinding.FragmentMainBinding
+import com.yzy.baselibrary.app.ExceptionTokenViewModel
 import kotlinx.android.synthetic.main.fragment_main.*
 
 class MainFragment : CommFragment<NoViewModel, FragmentMainBinding>() {
@@ -20,8 +24,8 @@ class MainFragment : CommFragment<NoViewModel, FragmentMainBinding>() {
     private val projectFragment: ProjectFragment by lazy { ProjectFragment() }
     private val treeArrFragment: TreeArrFragment by lazy { TreeArrFragment() }
     private val publicNumberFragment: PublicNumberFragment by lazy { PublicNumberFragment() }
-    private val meFragment: MineFragment by lazy { MineFragment() }
-
+    private val meFragment: MeFragment by lazy { MeFragment() }
+//    private val requestCollectViewModel: ExceptionTokenViewModel by lazy { getViewModel<ExceptionTokenViewModel>() }
     init {
         fragments.apply {
             add(homeFragment)
@@ -46,6 +50,9 @@ class MainFragment : CommFragment<NoViewModel, FragmentMainBinding>() {
                 true
             }
         }
+//        requestCollectViewModel.loginResult.observe(this, Observer {
+//            LogUtils.e("11="+it)
+//        })
     }
 
     //当前页面
@@ -68,6 +75,7 @@ class MainFragment : CommFragment<NoViewModel, FragmentMainBinding>() {
             FragmentUtils.show(fragment)
         }
     }
+
 
     override fun getLayoutId(): Int = R.layout.fragment_main
 

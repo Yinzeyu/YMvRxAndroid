@@ -104,5 +104,56 @@ class GankRepository : BaseRepository() {
             throw ResponseThrowable(registerData.code, registerData.message)
         }
     }
+    /**
+     * 获取广场数据
+     */
+    suspend fun getPlazaData(pageNo: Int): BaseResponse<PagerResponse<ArrayList<ArticleDataBean>>> {
+        return service.getSquareData(pageNo)
+    }
 
+    /**
+     * 获取每日一问数据
+     */
+    suspend fun getAskData(pageNo: Int):  BaseResponse<PagerResponse<ArrayList<ArticleDataBean>>> {
+        return service.getAskData(pageNo)
+    }
+    /**
+     * 获取体系数据
+     */
+    suspend fun getSystemData(): BaseResponse<ArrayList<SystemBean>> {
+        return service.getSystemData()
+    }
+
+    /**
+     * 获取导航数据
+     */
+    suspend fun getNavigationData(): BaseResponse<ArrayList<NavigationBean>> {
+        return service.getNavigationData()
+    }
+
+    /**
+     * 获取体系子数据
+     */
+    suspend fun getSystemChildData(
+        pageNo: Int,
+        cid: Int
+    ): BaseResponse<PagerResponse<ArrayList<ArticleDataBean>>> {
+        return service.getSystemChildData(pageNo, cid)
+    }
+    /**
+     * 获取公众号标题数据
+     */
+    suspend fun getTitleData(): BaseResponse<ArrayList<ClassifyBean>> {
+        return service.getPublicTitle()
+    }
+
+    /**
+     * 根据公众号标题获取数据
+     */
+    suspend fun getPublicData(
+        pageNo: Int,
+        cid: Int = 0
+    ): BaseResponse<PagerResponse<ArrayList<ArticleDataBean>>> {
+        return service.getPublicData(pageNo, cid)
+    }
 }

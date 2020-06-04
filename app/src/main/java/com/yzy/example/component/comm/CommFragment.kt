@@ -5,15 +5,18 @@ import android.view.*
 import androidx.databinding.ViewDataBinding
 import androidx.lifecycle.Observer
 import com.blankj.utilcode.util.ToastUtils
+import com.yzy.baselibrary.app.ExceptionTokenViewModel
 import com.yzy.baselibrary.base.BaseActivity
 import com.yzy.baselibrary.base.BaseFragment
 import com.yzy.baselibrary.base.BaseViewModel
 import com.yzy.baselibrary.base.ThrowableBean
+import com.yzy.baselibrary.extention.getViewModel
 import com.yzy.example.component.comm.view.ViewController
 import com.yzy.example.component.dialog.ActionDialog
 
 
 abstract class CommFragment<VM : BaseViewModel<*>,DB :ViewDataBinding> : BaseFragment<VM,DB>() {
+    private val requestCollectViewModel: ExceptionTokenViewModel by lazy { getViewModel<ExceptionTokenViewModel>() }
     /**
      * 填充布局 空布局 loading 网络异常等
      */
@@ -39,8 +42,11 @@ abstract class CommFragment<VM : BaseViewModel<*>,DB :ViewDataBinding> : BaseFra
         viewModel.loadingChange.dismissDialog.observe(viewLifecycleOwner, Observer {
             dismissLoadingView()
         })
+        viewModel.loadingChange.tokenError.observe(viewLifecycleOwner, Observer {
+            requestCollectViewModel.loginReq(it)
+        })
     }
-    open fun handleEvent(msg: ThrowableBean) {}
+    open fun handleEvent(i:Int) {}
 
     abstract fun initContentView()
 

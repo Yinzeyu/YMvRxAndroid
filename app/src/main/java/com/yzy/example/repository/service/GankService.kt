@@ -85,4 +85,37 @@ interface GankService {
     @FormUrlEncoded
     @POST("user/register")
     suspend fun register(@Field("username") username: String, @Field("password") pwd: String, @Field("repassword") rpwd: String): BaseResponse<Any>
+
+    /**
+     * 广场列表数据
+     */
+    @GET("user_article/list/{page}/json")
+    suspend fun getSquareData(@Path("page") page: Int): BaseResponse<PagerResponse<ArrayList<ArticleDataBean>>>
+
+    /**
+     * 每日一问列表数据
+     */
+    @GET("wenda/list/{page}/json")
+    suspend fun getAskData(@Path("page") page: Int): BaseResponse<PagerResponse<ArrayList<ArticleDataBean>>>
+
+
+    /**
+     * 获取体系数据
+     */
+    @GET("tree/json")
+    suspend fun getSystemData(): BaseResponse<ArrayList<SystemBean>>
+
+    /**
+     * 知识体系下的文章数据
+     */
+    @GET("article/list/{page}/json")
+    suspend fun getSystemChildData(@Path("page") pageNo: Int, @Query("cid") cid: Int): BaseResponse<PagerResponse<ArrayList<ArticleDataBean>>>
+
+
+    /**
+     * 获取导航数据
+     */
+    @GET("navi/json")
+    suspend fun getNavigationData(): BaseResponse<ArrayList<NavigationBean>>
+
 }

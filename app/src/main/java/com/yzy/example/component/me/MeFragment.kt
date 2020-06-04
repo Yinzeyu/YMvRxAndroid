@@ -1,28 +1,24 @@
 package com.yzy.example.component.me
 
-import android.content.Intent
-import android.net.Uri
-import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import com.blankj.utilcode.util.ToastUtils
-import com.yzy.baselibrary.base.NoViewModel
 import com.yzy.baselibrary.extention.parseState
 import com.yzy.example.R
 import com.yzy.example.component.comm.CommFragment
-import com.yzy.example.databinding.FragmentMineBinding
+import com.yzy.example.databinding.FragmentMeBinding
 import com.yzy.example.extention.init
 import com.yzy.example.extention.joinQQGroup
 import com.yzy.example.repository.model.MeViewModel
 import com.yzy.example.utils.MMkvUtils
-import kotlinx.android.synthetic.main.fragment_mine.*
+import kotlinx.android.synthetic.main.fragment_me.*
 
-class MineFragment : CommFragment<MeViewModel, FragmentMineBinding>() {
+class MeFragment : CommFragment<MeViewModel, FragmentMeBinding>() {
 
-    companion object {
-        fun newInstance(): MineFragment {
-            return MineFragment()
-        }
-    }
+//    companion object {
+//        fun newInstance(): MeFragment {
+//            return MeFragment()
+//        }
+//    }
 
     override fun initContentView() {
         binding.vm = viewModel
@@ -34,18 +30,19 @@ class MineFragment : CommFragment<MeViewModel, FragmentMineBinding>() {
         MMkvUtils.instance.getPersonalBean()?.let {
             viewModel.name.postValue(if (it.nickname.isEmpty()) it.username else it.nickname)
         }
-        viewModel.meData.observe(viewLifecycleOwner, Observer { resultState ->
+        viewModel.meData.observe(viewLifecycleOwner, Observer {
             me_swipe.isRefreshing = false
-            parseState(resultState, {
-                viewModel.info.postValue("id：${it?.userId}　排名：${it?.rank}")
-                viewModel.integral.postValue(it?.coinCount)
-            }, {
-                ToastUtils.showShort(it.errMsg)
-            })
+            if (it.isSuccess) {
+                viewModel.info.postValue("id：${it?.data?.userId}　排名：${it?.data?.rank}")
+                viewModel.integral.postValue(it?.data?.coinCount)
+            } else {
+                ToastUtils.showShort(it.errMessage)
+            }
+
         })
     }
 
-    override fun getLayoutId(): Int = R.layout.fragment_mine
+    override fun getLayoutId(): Int = R.layout.fragment_me
 
     inner class ProxyClick {
         /** 登录 */

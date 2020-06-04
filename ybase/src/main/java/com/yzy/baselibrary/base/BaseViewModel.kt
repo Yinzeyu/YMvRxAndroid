@@ -17,6 +17,7 @@ open class BaseViewModel<BR> : AndroidViewModel(Utils.getApp()), LifecycleObserv
     inner class UiLoadingChange {
         //显示加载框
         val showDialog by lazy { SingleLiveEvent<String>() }
+        val tokenError by lazy { SingleLiveEvent<Int>() }
         //隐藏
         val dismissDialog by lazy { SingleLiveEvent<Void>() }
     }

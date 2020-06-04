@@ -16,23 +16,13 @@
 
         <include layout="@layout/layout_comm_title" />
 
-        <FrameLayout
-            android:id="@+id/viewpagerLinear"
+
+        <net.lucode.hackware.magicindicator.MagicIndicator
+            android:id="@+id/magicIndicator"
             android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            android:background="@color/colorPrimary"
-            android:padding="2dp">
-
-            <net.lucode.hackware.magicindicator.MagicIndicator
-                android:id="@+id/magicIndicator"
-                android:layout_width="match_parent"
-                android:layout_height="40dp"
-                android:layout_gravity="center"
-                android:layout_marginLeft="8dp"
-                android:layout_marginRight="8dp" />
-
-        </FrameLayout>
-
+            android:layout_height="50dp"
+            android:layout_gravity="center"
+            android:background="@color/colorPrimary" />
 
         <androidx.viewpager2.widget.ViewPager2
             android:id="@+id/viewPager"

@@ -3,6 +3,8 @@ package com.yzy.baselibrary.app
 import android.annotation.SuppressLint
 import android.app.Application
 import android.content.Context
+import androidx.lifecycle.ViewModelStore
+import androidx.lifecycle.ViewModelStoreOwner
 import androidx.multidex.MultiDex
 import com.blankj.utilcode.util.LogUtils
 import com.blankj.utilcode.util.ProcessUtils
@@ -10,11 +12,12 @@ import com.blankj.utilcode.util.Utils
 import com.yzy.baselibrary.BuildConfig
 import com.yzy.baselibrary.utils.autosize.AutoSizeConfig
 
-abstract class BaseApplication : Application() {
+abstract class BaseApplication : Application(), ViewModelStoreOwner {
     var launcherTime = 0L
-
+    private lateinit var mAppViewModelStore: ViewModelStore
     override fun onCreate() {
         super.onCreate()
+        mAppViewModelStore = ViewModelStore()
         Utils.init(this)
         this.baseInitCreate()
         if (ProcessUtils.isMainProcess()) {
@@ -48,7 +51,9 @@ abstract class BaseApplication : Application() {
             return Utils.getApp() as BaseApplication
         }
     }
-
+    override fun getViewModelStore(): ViewModelStore {
+        return mAppViewModelStore
+    }
     override fun attachBaseContext(base: Context) {
         super.attachBaseContext(base)
         MultiDex.install(this)

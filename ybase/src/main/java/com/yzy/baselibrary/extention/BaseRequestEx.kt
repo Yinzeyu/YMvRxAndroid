@@ -1,6 +1,5 @@
 package com.yzy.baselibrary.extention
 
-import androidx.fragment.app.Fragment
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.yzy.baselibrary.base.BaseFragment
@@ -12,13 +11,11 @@ import com.yzy.baselibrary.http.state.ResultState
 import com.yzy.baselibrary.http.state.paresException
 import com.yzy.baselibrary.http.state.paresResult
 import kotlinx.coroutines.*
-
 /**
  * 作者　: yzy
  * 时间　: 2020/5/26
  * 描述　:BaseViewModel请求协程封装
  */
-
 /**
  * 显示页面状态，这里有个技巧，成功回调在第一个，其后两个带默认值的回调可省
  * @param resultState 接口返回值
@@ -124,8 +121,12 @@ fun <T> BaseViewModel<*>.request(
                 //因为要判断请求的数据结果是否成功，失败会抛出自定义异常，所以在这里try一下
                 executeResponse(it) { tIt -> success(tIt) }
             }catch (e:Exception){
+                val handleException = ExceptionHandle.handleException(e)
+                if (handleException.code == -1001){
+                    loadingChange.tokenError.postValue(1001)
+                }
                 //失败回调
-                error(ExceptionHandle.handleException(e))
+                error(handleException)
             }
         }.onFailure {
             //网络请求异常 关闭弹窗

@@ -57,10 +57,6 @@ class DynFragment() : CommFragment<DynViewModel,FragmentDynBinding>() {
         viewModel.refreshRequest(dynAdapter.data.size <=0)
     }
 
-    override fun handleEvent(msg: ThrowableBean) {
-        smDynRefresh.finishRefresh()
-        dynAdapter.loadMoreModule.loadMoreComplete()
-    }
 
     override fun getLayoutId(): Int =R.layout.fragment_dyn
 
