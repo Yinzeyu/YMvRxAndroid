@@ -41,11 +41,10 @@ abstract class BaseFragment<VM : BaseViewModel<*>, DB : ViewDataBinding>  : Frag
 
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        StatusBarHelper.translucent(requireActivity())
         if (isBack()) {
-            StatusBarHelper.setStatusBarLightMode(requireActivity())
-        } else {
             StatusBarHelper.setStatusBarDarkMode(requireActivity())
+        } else {
+            StatusBarHelper.setStatusBarLightMode(requireActivity())
         }
         createViewModel()
         lifecycle.addObserver(viewModel)

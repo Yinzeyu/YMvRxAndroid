@@ -153,23 +153,15 @@ object StatusBarHelper {
      *
      * @param activity 需要被处理的 Activity
      */
-    fun setStatusBarLightMode(activity: Activity?): Boolean {
-        if (activity == null) return false
+    fun setStatusBarLightMode(activity: Activity): Boolean {
         // 无语系列：ZTK C2016只能时间和电池图标变色。。。。
         if (DeviceHelper.isZTKC2016) {
             return false
         }
         if (mStatusBarType != STATUS_BAR_TYPE_DEFAULT) {
-            return setStatusBarLightMode(
-                activity,
-                mStatusBarType
-            )
+            return setStatusBarLightMode(activity, mStatusBarType)
         }
-        if (isMIUICustomStatusBarLightModeImpl && setMIUISetStatusBarLightMode(
-                activity.window,
-                true
-            )
-        ) {
+        if (isMIUICustomStatusBarLightModeImpl && setMIUISetStatusBarLightMode(activity.window, true)) {
             mStatusBarType = STATUS_BAR_TYPE_MI_UI
             return true
         } else if (setFlSetStatusBarLightMode(activity.window, true)) {
@@ -212,8 +204,7 @@ object StatusBarHelper {
      * 设置状态栏白色字体图标
      * 支持 4.4 以上版本 MIUI 和 Flyme，以及 6.0 以上版本的其他 Android
      */
-    fun setStatusBarDarkMode(activity: Activity?): Boolean {
-        if (activity == null) return false
+    fun setStatusBarDarkMode(activity: Activity): Boolean {
         if (mStatusBarType == STATUS_BAR_TYPE_DEFAULT) {
             // 默认状态，不需要处理
             return true
@@ -262,13 +253,9 @@ object StatusBarHelper {
      * @return boolean 成功执行返回true
      */
     @TargetApi(23)
-    private fun setAndroid6SetStatusBarLightMode(
-        window: Window,
-        light: Boolean
-    ): Boolean {
+    private fun setAndroid6SetStatusBarLightMode(window: Window, light: Boolean): Boolean {
         val decorView = window.decorView
-        var systemUi =
-            if (light) View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR else View.SYSTEM_UI_FLAG_LAYOUT_STABLE
+        var systemUi = if (light) View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR else View.SYSTEM_UI_FLAG_LAYOUT_STABLE
         systemUi = changeStatusBarModeRetainFlag(window, systemUi)
         decorView.systemUiVisibility = systemUi
         if (DeviceHelper.isMIUIV9) {
