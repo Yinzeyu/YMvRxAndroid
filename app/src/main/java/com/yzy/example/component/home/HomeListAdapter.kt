@@ -28,7 +28,7 @@ class HomeListAdapter (data: MutableList<ArticleDataBean>?) : BaseDelegateMultiA
     }
 
     init {
-        setAdapterAnimion(2)
+//        setAdapterAnimion(2)
         // 第一步，设置代理
         setMultiTypeDelegate(object : BaseMultiTypeDelegate<ArticleDataBean>() {
             override fun getItemType(data: List<ArticleDataBean>, position: Int): Int {

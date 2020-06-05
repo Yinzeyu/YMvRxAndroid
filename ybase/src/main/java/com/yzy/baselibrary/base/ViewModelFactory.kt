@@ -13,3 +13,4 @@ class ViewModelFactory : ViewModelProvider.NewInstanceFactory() {
         return modelClass.newInstance()
     }
 }
+

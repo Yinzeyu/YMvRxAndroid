@@ -3,19 +3,22 @@ package com.yzy.example.component
 import androidx.annotation.IntRange
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import com.blankj.utilcode.util.FragmentUtils
 import com.blankj.utilcode.util.LogUtils
+import com.yzy.baselibrary.app.BaseApplication
+import com.yzy.baselibrary.app.ExceptionTokenViewModel
 import com.yzy.baselibrary.base.NoViewModel
-import com.yzy.baselibrary.extention.getViewModel
+import com.yzy.baselibrary.base.ViewModelFactory
 import com.yzy.example.R
 import com.yzy.example.component.comm.CommFragment
 import com.yzy.example.component.home.HomeFragment
-import com.yzy.example.component.publicNumber.PublicNumberFragment
-import com.yzy.example.component.tree.TreeArrFragment
 import com.yzy.example.component.me.MeFragment
 import com.yzy.example.component.project.ProjectFragment
+import com.yzy.example.component.publicNumber.PublicNumberFragment
+import com.yzy.example.component.tree.TreeArrFragment
 import com.yzy.example.databinding.FragmentMainBinding
-import com.yzy.baselibrary.app.ExceptionTokenViewModel
+import com.yzy.example.repository.TokenStateManager
 import kotlinx.android.synthetic.main.fragment_main.*
 
 class MainFragment : CommFragment<NoViewModel, FragmentMainBinding>() {
@@ -25,7 +28,7 @@ class MainFragment : CommFragment<NoViewModel, FragmentMainBinding>() {
     private val treeArrFragment: TreeArrFragment by lazy { TreeArrFragment() }
     private val publicNumberFragment: PublicNumberFragment by lazy { PublicNumberFragment() }
     private val meFragment: MeFragment by lazy { MeFragment() }
-//    private val requestCollectViewModel: ExceptionTokenViewModel by lazy { getViewModel<ExceptionTokenViewModel>() }
+
     init {
         fragments.apply {
             add(homeFragment)
@@ -50,9 +53,7 @@ class MainFragment : CommFragment<NoViewModel, FragmentMainBinding>() {
                 true
             }
         }
-//        requestCollectViewModel.loginResult.observe(this, Observer {
-//            LogUtils.e("11="+it)
-//        })
+
     }
 
     //当前页面
@@ -70,7 +71,7 @@ class MainFragment : CommFragment<NoViewModel, FragmentMainBinding>() {
         currentFragment = fragment
         if (!fragment.isAdded) { //没有添加，则添加并显示
             val tag = fragment::class.java.simpleName
-            FragmentUtils.add(parentFragmentManager, fragment, mainContainer.id, tag, false)
+            FragmentUtils.add(childFragmentManager, fragment, mainContainer.id, tag, false)
         } else { //添加了就直接显示
             FragmentUtils.show(fragment)
         }

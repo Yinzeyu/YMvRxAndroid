@@ -6,6 +6,7 @@ import com.yzy.baselibrary.base.NoViewModel
 import com.yzy.example.R
 import com.yzy.example.component.comm.CommFragment
 import com.yzy.example.databinding.FragmentWesiteDetailBinding
+import com.yzy.example.repository.TokenStateManager
 
 class WebsiteDetailFragment : CommFragment<NoViewModel,FragmentWesiteDetailBinding>() {
 
@@ -28,7 +29,7 @@ class WebsiteDetailFragment : CommFragment<NoViewModel,FragmentWesiteDetailBindi
             ws.useWideViewPort = true
             ws.loadWithOverviewMode = true
         }
-
+        TokenStateManager.instance.mNetworkStateCallback.postValue(true)
     }
 
 

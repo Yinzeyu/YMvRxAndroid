@@ -26,7 +26,7 @@ import kotlinx.android.synthetic.main.item_banner.view.*
 import kotlinx.android.synthetic.main.layout_comm_title.*
 import me.hgj.jetpackmvvm.demo.app.weight.recyclerview.SpaceItemDecoration
 
-class HomeFragment : CommFragment<HomeViewModel,FragmentHomeBinding>() {
+class HomeFragment : CommFragment<HomeViewModel, FragmentHomeBinding>() {
     private val mAdapter by lazy {
         HomeListAdapter(
             mutableListOf(),
@@ -49,6 +49,7 @@ class HomeFragment : CommFragment<HomeViewModel,FragmentHomeBinding>() {
             val bannerView = context.inflate(R.layout.item_banner)
             banner = bannerView.itemBanner
             banner.mViewPager2?.setPageTransformer(CompositePageTransformer())
+            mAdapter.removeAllHeaderView()
             mAdapter.addHeaderView(bannerView)
             addItemDecoration(SpaceItemDecoration(0, ConvertUtils.dp2px(8f), false))
             initFloatBtn(floatbtn)

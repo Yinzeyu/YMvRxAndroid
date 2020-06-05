@@ -1,6 +1,8 @@
 package com.yzy.example.repository.model
 
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.SavedStateHandle
+import com.blankj.utilcode.util.LogUtils
 import com.yzy.baselibrary.base.BaseViewModel
 import com.yzy.baselibrary.extention.request
 import com.yzy.example.http.DataUiState
@@ -10,7 +12,8 @@ import com.yzy.example.repository.bean.ArticleDataBean
 import com.yzy.example.repository.bean.BannerAndArticleBean
 
 
-class HomeViewModel : BaseViewModel<GankRepository>() {
+class HomeViewModel() : BaseViewModel<GankRepository>() {
+
     private var page = 0
 
     //首页文章列表数据

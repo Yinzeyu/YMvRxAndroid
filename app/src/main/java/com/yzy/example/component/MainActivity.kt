@@ -2,11 +2,14 @@ package com.yzy.example.component
 
 import android.content.Context
 import android.content.Intent
+import androidx.lifecycle.Observer
 import com.blankj.utilcode.util.ActivityUtils
+import com.blankj.utilcode.util.LogUtils
 import com.yzy.baselibrary.base.BaseActivity
 import com.yzy.baselibrary.extention.startActivity
 import com.yzy.baselibrary.extention.toast
 import com.yzy.example.R
+import com.yzy.example.repository.TokenStateManager
 
 
 class MainActivity : BaseActivity() {
@@ -41,6 +44,9 @@ class MainActivity : BaseActivity() {
 
     override fun initData() {
         ActivityUtils.finishOtherActivities(javaClass)
+        TokenStateManager.instance.mNetworkStateCallback.observe(this, Observer {
+            LogUtils.e("11=" + it)
+        })
     }
 
     private var touchTime = 0L
