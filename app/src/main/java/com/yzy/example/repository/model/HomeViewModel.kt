@@ -5,10 +5,8 @@ import androidx.lifecycle.SavedStateHandle
 import com.yzy.baselibrary.base.BaseViewModel
 import com.yzy.baselibrary.extention.request
 import com.yzy.example.http.DataUiState
-import com.yzy.example.http.ListDataUiState
 import com.yzy.example.repository.GankRepository
 import com.yzy.example.repository.bean.ArticleDataBean
-import com.yzy.example.repository.bean.BannerAndArticleBean
 import com.yzy.example.repository.bean.BannerBean
 
 
