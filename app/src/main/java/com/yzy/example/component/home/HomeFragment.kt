@@ -79,12 +79,12 @@ class HomeFragment : CommFragment<HomeViewModel, FragmentHomeBinding>() {
                     when {
                         //是第一页
                         it.isRefresh -> {
-                            mAdapter.setNewInstance(it.data)
+                            mAdapter.setNewInstance(it.listData)
                             loadMore(it.isEmpty)
                         }
                         //不是第一页
                         else -> {
-                            mAdapter.addData(it.data ?: mutableListOf())
+                            mAdapter.addData(it.listData ?: mutableListOf())
                             loadMore(it.isEmpty)
                         }
                     }
@@ -94,7 +94,7 @@ class HomeFragment : CommFragment<HomeViewModel, FragmentHomeBinding>() {
             })
             //监听轮播图请求的数据变化
             bannerDataState.observe(viewLifecycleOwner, Observer { resultState ->
-                val bannerBean = resultState.data ?: mutableListOf()
+                val bannerBean = resultState.listData ?: mutableListOf()
                 if (bannerBean.isNotEmpty()) {
                     banner.listSize = bannerBean.size
                     val bannerAdapter =
@@ -146,7 +146,8 @@ class HomeFragment : CommFragment<HomeViewModel, FragmentHomeBinding>() {
 
     override fun onDestroyView() {
         LogUtils.e("onSaveInstanceState" + "HomeSaveInstanceState")
-        viewModel.bannerDataState.value?.data?.let { viewModel.setValue(it) }
+//        viewModel.bannerDataState.value?.data?.let { viewModel.setValue(it) }
+        viewModel.homeDataState.value?.let { viewModel.setHomeListValue(it) }
         super.onDestroyView()
     }
 }
