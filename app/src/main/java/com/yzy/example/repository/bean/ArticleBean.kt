@@ -40,3 +40,13 @@ data class ArticleDataBean(
 @SuppressLint("ParcelCreator")
 @Parcelize
 data class TagsResponse(var name:String, var url:String): Parcelable
+
+/**
+ * 文章的标签
+ */
+@SuppressLint("ParcelCreator")
+@Parcelize
+data class ArticlePageBean(var name:String, var url:String): Parcelable
+
+
+

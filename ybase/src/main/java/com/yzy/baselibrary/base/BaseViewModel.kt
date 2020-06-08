@@ -1,11 +1,11 @@
 package com.yzy.baselibrary.base
 
-import androidx.lifecycle.*
-import com.blankj.utilcode.util.Utils
+import androidx.lifecycle.LifecycleObserver
+import androidx.lifecycle.ViewModel
 import com.yzy.baselibrary.http.state.SingleLiveEvent
 
 
-open class BaseViewModel<BR> : AndroidViewModel(Utils.getApp()), LifecycleObserver {
+open class BaseViewModel<BR> : ViewModel(), LifecycleObserver {
 
     val repository: BR by lazy { Clazz.getClass<BR>(this).newInstance() }
 

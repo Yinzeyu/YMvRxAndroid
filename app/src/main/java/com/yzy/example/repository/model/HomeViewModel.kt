@@ -2,7 +2,6 @@ package com.yzy.example.repository.model
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.SavedStateHandle
-import com.blankj.utilcode.util.LogUtils
 import com.yzy.baselibrary.base.BaseViewModel
 import com.yzy.baselibrary.extention.request
 import com.yzy.example.http.DataUiState
@@ -10,70 +9,43 @@ import com.yzy.example.http.ListDataUiState
 import com.yzy.example.repository.GankRepository
 import com.yzy.example.repository.bean.ArticleDataBean
 import com.yzy.example.repository.bean.BannerAndArticleBean
+import com.yzy.example.repository.bean.BannerBean
 
 
-class HomeViewModel() : BaseViewModel<GankRepository>() {
+class HomeViewModel(var state:SavedStateHandle ) : BaseViewModel<GankRepository>() {
+    private val key = "key"
+    fun setValue(value:  MutableList<BannerBean>) = state.set(key, value)
+    fun getValue(): MutableList<BannerBean>? = state.get(key)
 
     private var page = 0
 
     //首页文章列表数据
-    var homeDataState: MutableLiveData<ListDataUiState<ArticleDataBean>> = MutableLiveData()
-
+    var homeDataState: MutableLiveData<DataUiState<MutableList<ArticleDataBean>>> = MutableLiveData()
     //首页轮播图数据
-    var bannerData: MutableLiveData<BannerAndArticleBean> = MutableLiveData()
+    var bannerDataState: MutableLiveData<DataUiState<MutableList<BannerBean>>> = MutableLiveData()
 
     fun getBanner(isRefresh: Boolean) {
         if (isRefresh) {
             page = 0
         }
-        request({ repository.getHomeData(page) }, {homeData->
+        request({ repository.getHomeData(page) },success =  {homeData->
             if (page == 0) {
-                request({ repository.banner(page) }, { bannerList ->
-                    val bannerAndArticleBean = BannerAndArticleBean(
-                        bannerBean = bannerList, articleBean = DataUiState(
-                            isSuccess = true,
-                            isRefresh = isRefresh,
-                            isEmpty = homeData?.isEmpty() ?: true,
-                            hasMore = homeData?.hasMore() ?: false,
-                            isFirstEmpty = isRefresh && homeData?.isEmpty() ?: true,
-                            data = homeData?.datas
-                        )
-                    )
-                    bannerData.postValue(bannerAndArticleBean)
-                },{
-                    val listDataUiState = ListDataUiState(
-                            isSuccess = true,
-                            isRefresh = isRefresh,
-                            isEmpty = homeData?.isEmpty() ?: true,
-                            hasMore = homeData?.hasMore() ?: false,
-                            isFirstEmpty = isRefresh && homeData?.isEmpty() ?: true,
-                            listData = homeData?.datas
-                        )
-                    homeDataState.postValue(listDataUiState)
-                },false)
+                request({ repository.banner(page) }, success = { bannerList ->
+                    bannerDataState.postValue(DataUiState(isSuccess = true,data = bannerList,isRefresh = isRefresh))
+                    homeDataState.postValue(DataUiState(isSuccess = true,isEmpty =homeData.isEmpty(),isRefresh = isRefresh))
+                },emptyView = {
+                    bannerDataState.postValue(DataUiState(isSuccess = false,isEmpty = true))
+                }, error={
+                    homeDataState.postValue( DataUiState(isSuccess = false,errMessage = it.message?:""))
+                },isShowDialog = false)
                 page++
             } else {
-                val listDataUiState =
-                    ListDataUiState(
-                        isSuccess = true,
-                        isRefresh = isRefresh,
-                        isEmpty = homeData?.isEmpty() ?: true,
-                        hasMore = homeData?.hasMore() ?: false,
-                        isFirstEmpty = isRefresh && homeData?.isEmpty() ?: true,
-                        listData = homeData?.datas
-                    )
-                homeDataState.postValue(listDataUiState)
+                homeDataState.postValue( DataUiState(isSuccess = true,  data = homeData.datas, hasMore = homeData.hasMore()))
             }
-        }, {
-            //请求失败
-            val listDataUiState =
-                ListDataUiState(
-                    isSuccess = false,
-                    errMessage = it.message?:"",
-                    isRefresh = isRefresh,
-                    listData = mutableListOf<ArticleDataBean>()
-                )
-            homeDataState.postValue(listDataUiState)
+        },emptyView = {
+            homeDataState.postValue(DataUiState(isSuccess = false,isEmpty =true))
+        },error =  {
+            homeDataState.postValue(DataUiState(isSuccess = false,errMessage = it.message?:"",errCode = it.code))
         })
     }
 

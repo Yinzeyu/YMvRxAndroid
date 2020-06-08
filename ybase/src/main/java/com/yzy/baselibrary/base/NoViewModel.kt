@@ -1,3 +1,5 @@
 package com.yzy.baselibrary.base
 
-class NoViewModel : BaseViewModel<BaseRepository>()
+import androidx.lifecycle.SavedStateHandle
+
+class NoViewModel(var savedStateHandle: SavedStateHandle) : BaseViewModel<BaseRepository>()

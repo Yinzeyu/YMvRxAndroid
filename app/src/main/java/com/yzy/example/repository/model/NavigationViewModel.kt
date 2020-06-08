@@ -18,7 +18,7 @@ class NavigationViewModel : BaseViewModel<GankRepository>() {
      * 获取导航数据
      */
     fun getNavigationData() {
-        request({ repository.getNavigationData() }, {
+        request({ repository.getNavigationData() }, success = {
             //请求成功
             val dataUiState =
                 ListDataUiState(
@@ -26,7 +26,7 @@ class NavigationViewModel : BaseViewModel<GankRepository>() {
                     listData = it
                 )
             navigationDataState.postValue(dataUiState)
-        }, {
+        }, error = {
             //请求失败
             val dataUiState =
                 ListDataUiState(
@@ -34,6 +34,10 @@ class NavigationViewModel : BaseViewModel<GankRepository>() {
                     errMessage = it.message ?: "",
                     listData = arrayListOf<NavigationBean>()
                 )
+            navigationDataState.postValue(dataUiState)
+        }, emptyView = {
+            //请求失败
+            val dataUiState = ListDataUiState<NavigationBean>(isSuccess = true,isEmpty = true)
             navigationDataState.postValue(dataUiState)
         })
     }

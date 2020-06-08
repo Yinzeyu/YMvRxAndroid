@@ -38,6 +38,8 @@ class RegisterFragment : BaseFragment<RegisterViewModel, FragmentRegisterBinding
 //                    CacheUtil.setUser(it)
 //                    shareViewModel.userinfo.postValue(it)
                     nav().navigate(R.id.action_registerFragment_to_mainFragment)
+                },{
+
                 }, {
                     ToastUtils.showLong(it.errMsg)
                 })

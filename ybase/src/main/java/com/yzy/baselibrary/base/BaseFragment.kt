@@ -10,6 +10,7 @@ import androidx.annotation.LayoutRes
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.SavedStateViewModelFactory
 import androidx.lifecycle.ViewModelProvider
 import com.yzy.baselibrary.utils.bar.StatusBarHelper
 import kotlinx.coroutines.CoroutineScope
@@ -60,7 +61,7 @@ abstract class BaseFragment<VM : BaseViewModel<*>, DB : ViewDataBinding>  : Frag
         if (type is ParameterizedType) {
             val tp = type.actualTypeArguments[0]
             val tClass = tp as? Class<VM> ?: BaseViewModel::class.java
-            viewModel = ViewModelProvider(this, ViewModelFactory()).get(tClass) as VM
+            viewModel = ViewModelProvider(this, SavedStateViewModelFactory(requireActivity().application, this)).get(tClass) as VM
         }
     }
 

@@ -10,14 +10,16 @@ data class DataUiState<T>(
     val isSuccess: Boolean,
     //错误消息 isSuccess为false才会有
     val errMessage: String = "",
+    /**
+     * 错误类型
+     */
+    val errCode: Int = 0,
     //是否为刷新
     val isRefresh: Boolean = false,
     //是否为空
     val isEmpty: Boolean = false,
     //是否还有更多
     val hasMore: Boolean = false,
-    //是第一页且没有数据
-    val isFirstEmpty:Boolean = false,
     //列表数据
-    val data: T?
-    )
+    var data: T? = null
+)

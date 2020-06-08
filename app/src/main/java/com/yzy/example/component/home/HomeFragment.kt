@@ -9,6 +9,7 @@ import androidx.navigation.Navigation
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.CompositePageTransformer
 import com.blankj.utilcode.util.ConvertUtils
+import com.blankj.utilcode.util.LogUtils
 import com.yzy.baselibrary.extention.gone
 import com.yzy.baselibrary.extention.inflate
 import com.yzy.example.R
@@ -36,8 +37,8 @@ class HomeFragment : CommFragment<HomeViewModel, FragmentHomeBinding>() {
     private lateinit var banner: CycleViewPager
 
     override fun initContentView() {
-        binding.vm =viewModel
-        commTitleText.text="首页"
+        binding.vm = viewModel
+        commTitleText.text = "首页"
         commTitleBack.gone()
         smRefresh.setEnableRefresh(false)
         smRefresh.setOnRefreshListener {
@@ -76,34 +77,24 @@ class HomeFragment : CommFragment<HomeViewModel, FragmentHomeBinding>() {
                 if (it.isSuccess) {
                     //成功
                     when {
-                        //第一页并没有数据 显示空布局界面
-                        it.isFirstEmpty -> {
-                        }
                         //是第一页
                         it.isRefresh -> {
-                            mAdapter.setNewInstance(it.listData)
+                            mAdapter.setNewInstance(it.data)
                             loadMore(it.isEmpty)
                         }
                         //不是第一页
                         else -> {
-                            mAdapter.addData(it.listData?: mutableListOf())
+                            mAdapter.addData(it.data ?: mutableListOf())
                             loadMore(it.isEmpty)
                         }
                     }
                 } else {
-                    //失败
-                    if (it.isRefresh) {
-                        //如果是第一页，则显示错误界面，并提示错误信息
-//                        loadsir.setErrorText(it.errMessage)
-//                        loadsir.showCallback(ErrorCallback::class.java)
-                    } else {
-//                        recyclerView.loadMoreError(0, it.errMessage)
-                    }
+                    loadMore(false)
                 }
             })
             //监听轮播图请求的数据变化
-            bannerData.observe(viewLifecycleOwner, Observer { resultState ->
-                val bannerBean = resultState.bannerBean?: mutableListOf()
+            bannerDataState.observe(viewLifecycleOwner, Observer { resultState ->
+                val bannerBean = resultState.data ?: mutableListOf()
                 if (bannerBean.isNotEmpty()) {
                     banner.listSize = bannerBean.size
                     val bannerAdapter =
@@ -112,12 +103,6 @@ class HomeFragment : CommFragment<HomeViewModel, FragmentHomeBinding>() {
                         )
                     banner.setAdapter(bannerAdapter)
                     banner.setAutoTurning(3000L)
-                }
-                smRefresh.setEnableRefresh(true)
-                val articleBean = resultState.articleBean
-                articleBean?.let {
-                    mAdapter.setList( it.data)
-                    loadMore(it.isEmpty)
                 }
             })
         }
@@ -159,4 +144,9 @@ class HomeFragment : CommFragment<HomeViewModel, FragmentHomeBinding>() {
     override fun getLayoutId(): Int = R.layout.fragment_home
 
 
+    override fun onDestroyView() {
+        LogUtils.e("onSaveInstanceState" + "HomeSaveInstanceState")
+        viewModel.bannerDataState.value?.data?.let { viewModel.setValue(it) }
+        super.onDestroyView()
+    }
 }

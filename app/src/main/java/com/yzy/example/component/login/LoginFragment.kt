@@ -29,6 +29,8 @@ class LoginFragment : CommFragment<LoginViewModel, FragmentLoginBinding>() {
                     }
                     nav().navigate(R.id.action_loginFragment_to_mainFragment)
                 }, {
+
+                },{
                     //登录失败
                     ToastUtils.showLong(it.message)
                 })
