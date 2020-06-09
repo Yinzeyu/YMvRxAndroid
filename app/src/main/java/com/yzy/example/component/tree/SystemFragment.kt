@@ -11,7 +11,7 @@ import com.yzy.example.extention.init
 import com.yzy.example.extention.initFloatBtn
 import com.yzy.example.repository.model.SystemViewModel
 import kotlinx.android.synthetic.main.fragment_system.*
-import me.hgj.jetpackmvvm.demo.app.weight.recyclerview.SpaceItemDecoration
+import com.yzy.example.widget.recyclerview.SpaceItemDecoration
 
 class SystemFragment  : CommFragment<SystemViewModel, FragmentSystemBinding>(){
     private val systemAdapter: SystemAdapter by lazy {

@@ -45,7 +45,6 @@ class MainActivity : BaseActivity() {
     override fun initData() {
         ActivityUtils.finishOtherActivities(javaClass)
         TokenStateManager.instance.mNetworkStateCallback.observe(this, Observer {
-            LogUtils.e("11=" + it)
         })
     }
 

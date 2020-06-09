@@ -3,8 +3,6 @@ package com.yzy.example.component.comm
 import android.os.Bundle
 import androidx.databinding.ViewDataBinding
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
-import com.yzy.baselibrary.app.ExceptionTokenViewModel
 import com.yzy.baselibrary.base.*
 import com.yzy.example.component.dialog.ActionDialog
 import com.yzy.example.repository.TokenStateManager

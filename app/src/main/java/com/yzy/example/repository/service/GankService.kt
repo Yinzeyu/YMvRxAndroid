@@ -60,7 +60,7 @@ interface GankService {
      * 项目分类标题
      */
     @GET("project/tree/json")
-    suspend fun getProjecTitle(): BaseResponse<ArrayList<ClassifyBean>>
+    suspend fun getProjecTitle(): BaseResponse<MutableList<ClassifyBean>>
     /**
      * 根据分类id获取项目数据
      */

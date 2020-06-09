@@ -8,7 +8,7 @@ import retrofit2.HttpException
 import java.net.ConnectException
 
 /**
- *   @auther : Aleyn
+ *   @auther : yzy
  *   time   : 2019/08/12
  */
 object ExceptionHandle {
@@ -40,9 +40,6 @@ object ExceptionHandle {
                     ResponseThrowable(ERROR.UNKNOWN, e)
                 }
             }
-//            var es = if ( e is ResponseThrowable) e else ResponseThrowable(1000,e.message?:"")
-//            ex = if (!e.message.isNullOrEmpty()) ResponseThrowable(es.code, e.message?:"")
-//            else ResponseThrowable(ERROR.UNKNOWN, e)
         }
         return ex
     }

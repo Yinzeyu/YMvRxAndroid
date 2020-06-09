@@ -1,7 +1,7 @@
 package com.yzy.baselibrary.http
 
 /**
- *   @auther : Aleyn
+ *   @auther : yzy
  *   time   : 2019/08/12
  */
 enum class ERROR(private val code: Int, private val err: String) {

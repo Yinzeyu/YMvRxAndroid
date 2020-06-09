@@ -4,24 +4,23 @@ import android.os.Bundle
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.blankj.utilcode.util.ConvertUtils
-import com.kingja.loadsir.core.LoadService
 import com.yzy.baselibrary.base.BaseFragment
 import com.yzy.example.R
 import com.yzy.example.databinding.FragmentProjectChildBinding
 import com.yzy.example.extention.init
 import com.yzy.example.extention.initFloatBtn
 import com.yzy.example.repository.bean.ArticleDataBean
-import com.yzy.example.repository.model.ProjectViewModel
+import com.yzy.example.repository.model.ProjectChildViewModel
 import com.yzy.example.widget.CollectView
 import kotlinx.android.synthetic.main.fragment_project_child.*
-import me.hgj.jetpackmvvm.demo.app.weight.recyclerview.SpaceItemDecoration
+import com.yzy.example.widget.recyclerview.SpaceItemDecoration
 
 /**
- * 作者　: hegaojian
+ * 作者　: yzy
  * 时间　: 2020/2/28
  * 描述　:
  */
-class ProjectChildFragment : BaseFragment<ProjectViewModel, FragmentProjectChildBinding>() {
+class ProjectChildFragment : BaseFragment<ProjectChildViewModel, FragmentProjectChildBinding>() {
 
     //适配器
     private val articleAdapter: AriticleAdapter by lazy { AriticleAdapter(arrayListOf()) }
@@ -78,7 +77,7 @@ class ProjectChildFragment : BaseFragment<ProjectViewModel, FragmentProjectChild
                 //初始化FloatingActionButton
                 it.initFloatBtn(floatbtn)
             }
-            viewModel.getProjectData(true, cid, isNew)
+            viewModel.loadLocal(true, cid, isNew)
             viewModel.projectDataState.observe(viewLifecycleOwner, Observer {
                 swipeRefresh.isRefreshing = false
 //                recyclerView.loadMoreFinish(it.isEmpty, it.hasMore)
@@ -218,6 +217,11 @@ class ProjectChildFragment : BaseFragment<ProjectViewModel, FragmentProjectChild
             fragment.arguments = args
             return fragment
         }
+    }
+
+    override fun onDestroyView() {
+        viewModel.projectDataState.value?.let { viewModel.setValue( "projectChild$cid",it) }
+        super.onDestroyView()
     }
 
     override fun getLayoutId(): Int =R.layout.fragment_project_child

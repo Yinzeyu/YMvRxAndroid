@@ -1,4 +1,4 @@
-package me.hgj.jetpackmvvm.demo.app.weight.viewpager
+package com.yzy.example.widget.viewpager
 
 import android.content.Context
 

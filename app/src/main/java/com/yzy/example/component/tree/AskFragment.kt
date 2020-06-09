@@ -11,8 +11,7 @@ import com.yzy.example.extention.init
 import com.yzy.example.extention.initFloatBtn
 import com.yzy.example.repository.model.AskViewModel
 import kotlinx.android.synthetic.main.fragment_ask.*
-import kotlinx.android.synthetic.main.fragment_plaza.*
-import me.hgj.jetpackmvvm.demo.app.weight.recyclerview.SpaceItemDecoration
+import com.yzy.example.widget.recyclerview.SpaceItemDecoration
 
 class AskFragment : CommFragment<AskViewModel, FragmentAskBinding>() {
     private val articleAdapter: AriticleAdapter by lazy { AriticleAdapter(arrayListOf(),showTag = true) }

@@ -11,7 +11,7 @@ import com.yzy.example.extention.init
 import com.yzy.example.extention.initFloatBtn
 import com.yzy.example.repository.model.NavigationViewModel
 import kotlinx.android.synthetic.main.fragment_navigation.*
-import me.hgj.jetpackmvvm.demo.app.weight.recyclerview.SpaceItemDecoration
+import com.yzy.example.widget.recyclerview.SpaceItemDecoration
 
 class NavigationFragment : CommFragment<NavigationViewModel, FragmentNavigationBinding>() {
     private val navigationAdapter: NavigationAdapter by lazy { NavigationAdapter(arrayListOf()) }

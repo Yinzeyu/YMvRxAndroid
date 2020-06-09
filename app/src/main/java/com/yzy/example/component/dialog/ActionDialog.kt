@@ -12,7 +12,7 @@ import kotlinx.android.synthetic.main.dialog_action.*
 
 /**
  * Description:
- * @author: caiyoufei
+ * @author: yzy
  * @date: 2019/9/24 13:03
  */
 class ActionDialog : BaseDialogFragment<NoViewModel,ViewDataBinding>() {

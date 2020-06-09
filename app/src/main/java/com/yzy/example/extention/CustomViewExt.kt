@@ -1,7 +1,6 @@
 package com.yzy.example.extention
 
 import android.annotation.SuppressLint
-import android.app.Activity
 import android.content.Context
 import android.graphics.Color
 import android.os.Build
@@ -10,28 +9,20 @@ import android.text.Spanned
 import android.view.View
 import android.view.animation.AccelerateInterpolator
 import android.view.animation.DecelerateInterpolator
-import android.view.inputmethod.InputMethodManager
-import android.widget.FrameLayout
-import android.widget.LinearLayout
-import android.widget.TextView
-import androidx.annotation.RequiresApi
 import androidx.appcompat.widget.Toolbar
-import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-import androidx.viewpager.widget.ViewPager
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import androidx.viewpager2.widget.ViewPager2
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.yzy.baselibrary.app.BaseApplication
 import com.yzy.example.R
-import com.yzy.example.app.App
 import com.yzy.example.repository.bean.ClassifyBean
 import com.yzy.example.utils.SettingUtil
-import me.hgj.jetpackmvvm.demo.app.weight.viewpager.ScaleTransitionPagerTitleView
+import com.yzy.example.widget.viewpager.ScaleTransitionPagerTitleView
 import net.lucode.hackware.magicindicator.MagicIndicator
 import net.lucode.hackware.magicindicator.buildins.UIUtil
 import net.lucode.hackware.magicindicator.buildins.commonnavigator.CommonNavigator

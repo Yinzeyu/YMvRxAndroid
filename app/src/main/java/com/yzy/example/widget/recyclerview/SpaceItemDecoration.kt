@@ -1,4 +1,4 @@
-package me.hgj.jetpackmvvm.demo.app.weight.recyclerview
+package com.yzy.example.widget.recyclerview
 
 import android.annotation.SuppressLint
 import android.graphics.Canvas

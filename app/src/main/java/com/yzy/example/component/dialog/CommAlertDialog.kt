@@ -20,7 +20,7 @@ import kotlinx.android.synthetic.main.layout_apply2_join_circle.*
 /**
  * description: 通用的提示框
  * @date: 2019-05-21 17:55
- * @author: Grieey
+ * @author: yzy
  */
 class CommAlertDialog : BaseDialogFragment<NoViewModel,ViewDataBinding>() {
 

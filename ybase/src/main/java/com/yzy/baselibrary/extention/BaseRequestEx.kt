@@ -4,7 +4,6 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.yzy.baselibrary.base.BaseViewModel
 import com.yzy.baselibrary.base.IBaseResponse
-import com.yzy.baselibrary.http.ERROR
 import com.yzy.baselibrary.http.ExceptionHandle
 import com.yzy.baselibrary.http.ResponseThrowable
 import com.yzy.baselibrary.http.state.ResultState

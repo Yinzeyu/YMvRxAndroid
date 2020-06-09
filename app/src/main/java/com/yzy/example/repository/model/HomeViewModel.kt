@@ -10,7 +10,7 @@ import com.yzy.example.repository.bean.ArticleDataBean
 import com.yzy.example.repository.bean.BannerBean
 
 
-class HomeViewModel(var state:SavedStateHandle ) : BaseViewModel<GankRepository>() {
+class HomeViewModel(var state:SavedStateHandle) : BaseViewModel<GankRepository>() {
     private val key = "key"
     private val homeListKey = "homeListKey"
     fun setValue(value:  ListDataUiState<BannerBean>) = state.set(key, value)
@@ -23,7 +23,7 @@ class HomeViewModel(var state:SavedStateHandle ) : BaseViewModel<GankRepository>
     }
     private var page = 0
 
-    //首页文章列表数据
+    //首页列表数据
     var homeDataState: MutableLiveData<ListDataUiState<ArticleDataBean>> = MutableLiveData()
     //首页轮播图数据
     var bannerDataState: MutableLiveData<ListDataUiState<BannerBean>> = MutableLiveData()

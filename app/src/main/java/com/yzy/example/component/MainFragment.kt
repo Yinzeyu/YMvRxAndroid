@@ -2,14 +2,8 @@ package com.yzy.example.component
 
 import androidx.annotation.IntRange
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
 import com.blankj.utilcode.util.FragmentUtils
-import com.blankj.utilcode.util.LogUtils
-import com.yzy.baselibrary.app.BaseApplication
-import com.yzy.baselibrary.app.ExceptionTokenViewModel
 import com.yzy.baselibrary.base.NoViewModel
-import com.yzy.baselibrary.base.ViewModelFactory
 import com.yzy.example.R
 import com.yzy.example.component.comm.CommFragment
 import com.yzy.example.component.home.HomeFragment
@@ -18,7 +12,6 @@ import com.yzy.example.component.project.ProjectFragment
 import com.yzy.example.component.publicNumber.PublicNumberFragment
 import com.yzy.example.component.tree.TreeArrFragment
 import com.yzy.example.databinding.FragmentMainBinding
-import com.yzy.example.repository.TokenStateManager
 import kotlinx.android.synthetic.main.fragment_main.*
 
 class MainFragment : CommFragment<NoViewModel, FragmentMainBinding>() {

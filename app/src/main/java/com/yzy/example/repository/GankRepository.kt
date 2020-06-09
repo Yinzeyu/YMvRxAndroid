@@ -33,7 +33,7 @@ class GankRepository : BaseRepository() {
     /**
      * 获取项目标题数据
      */
-    suspend fun getProjecTitle(): BaseResponse<ArrayList<ClassifyBean>> {
+    suspend fun getProjecTitle(): BaseResponse<MutableList<ClassifyBean>> {
         return service.getProjecTitle()
     }
 

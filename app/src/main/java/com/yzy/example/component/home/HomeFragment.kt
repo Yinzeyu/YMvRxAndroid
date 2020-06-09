@@ -1,5 +1,6 @@
 package com.yzy.example.component.home
 
+import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,7 +10,6 @@ import androidx.navigation.Navigation
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.CompositePageTransformer
 import com.blankj.utilcode.util.ConvertUtils
-import com.blankj.utilcode.util.LogUtils
 import com.yzy.baselibrary.extention.gone
 import com.yzy.baselibrary.extention.inflate
 import com.yzy.example.R
@@ -25,7 +25,7 @@ import com.yzy.example.widget.CycleViewPager
 import kotlinx.android.synthetic.main.fragment_home.*
 import kotlinx.android.synthetic.main.item_banner.view.*
 import kotlinx.android.synthetic.main.layout_comm_title.*
-import me.hgj.jetpackmvvm.demo.app.weight.recyclerview.SpaceItemDecoration
+import com.yzy.example.widget.recyclerview.SpaceItemDecoration
 
 class HomeFragment : CommFragment<HomeViewModel, FragmentHomeBinding>() {
     private val mAdapter by lazy {
@@ -144,10 +144,9 @@ class HomeFragment : CommFragment<HomeViewModel, FragmentHomeBinding>() {
     override fun getLayoutId(): Int = R.layout.fragment_home
 
 
-    override fun onDestroyView() {
-        LogUtils.e("onSaveInstanceState" + "HomeSaveInstanceState")
+    override fun onViewStateRestored(savedInstanceState: Bundle?) {
         viewModel.bannerDataState.value?.let { viewModel.setValue(it) }
         viewModel.homeDataState.value?.let { viewModel.setHomeListValue(it) }
-        super.onDestroyView()
+        super.onViewStateRestored(savedInstanceState)
     }
 }

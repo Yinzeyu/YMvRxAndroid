@@ -6,7 +6,7 @@ import javax.net.ssl.*
 
 /**
  * Description:
- * @author: caiyoufei
+ * @author: yzy
  * @date: 2019/9/22 18:47
  */
 object SSLManager {
@@ -31,7 +31,7 @@ object SSLManager {
     /**
      * description: X509证书信任管理器类
      *
-     * @author: caiyoufei
+     * @author: yzy
      * @date: 2019/9/22 18:47
      */
     class TrustAllCerts : X509TrustManager {

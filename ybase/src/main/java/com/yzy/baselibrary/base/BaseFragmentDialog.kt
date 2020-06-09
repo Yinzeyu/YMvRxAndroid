@@ -1,10 +1,6 @@
 package com.yzy.baselibrary.base
 
-import android.app.Activity
-import android.content.Context
 import android.content.DialogInterface
-import android.graphics.Color
-import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.view.*
 import android.view.ViewGroup.LayoutParams.WRAP_CONTENT
@@ -14,6 +10,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.FragmentManager
+import androidx.lifecycle.SavedStateViewModelFactory
 import androidx.lifecycle.ViewModelProvider
 import com.yzy.baselibrary.R
 import com.yzy.baselibrary.extention.dp2px
@@ -69,7 +66,7 @@ abstract class BaseDialogFragment<VM : BaseViewModel<*>, DB : ViewDataBinding> :
         if (type is ParameterizedType) {
             val tp = type.actualTypeArguments[0]
             val tClass = tp as? Class<VM> ?: BaseViewModel::class.java
-            viewModel = ViewModelProvider(this, ViewModelFactory()).get(tClass) as VM
+            viewModel = ViewModelProvider(this, SavedStateViewModelFactory(requireActivity().application, this)).get(tClass) as VM
         }
     }
 

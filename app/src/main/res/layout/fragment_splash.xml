@@ -35,14 +35,14 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <com.yzy.example.widget.CommonShapeTextView
+        <com.yzy.example.widget.RoundTextLayout
             android:id="@+id/splashTime"
             android:layout_width="30dp"
             android:layout_height="30dp"
             android:layout_marginTop="5dp"
             android:layout_marginEnd="5dp"
-            app:csb_fillColor="@color/style_Primary"
-            app:csb_cornerRadius="1000dp"
+            app:qmui_backgroundColor="@color/style_Primary"
+            app:qmui_radius="1000dp"
             android:gravity="center"
             android:textColor="@color/white"
             android:textSize="20sp"

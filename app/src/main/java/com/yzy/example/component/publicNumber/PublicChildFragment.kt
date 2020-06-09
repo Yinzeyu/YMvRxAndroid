@@ -12,7 +12,7 @@ import com.yzy.example.extention.init
 import com.yzy.example.extention.initFloatBtn
 import com.yzy.example.repository.model.PublicChildViewModelViewModel
 import kotlinx.android.synthetic.main.fragment_public_number_child.*
-import me.hgj.jetpackmvvm.demo.app.weight.recyclerview.SpaceItemDecoration
+import com.yzy.example.widget.recyclerview.SpaceItemDecoration
 
 class PublicChildFragment :
     BaseFragment<PublicChildViewModelViewModel, FragmentProjectChildBinding>() {

@@ -11,7 +11,7 @@ import com.yzy.baselibrary.widget.refresh.header.ClassicsHeader
 import com.yzy.example.R
 import com.yzy.example.component.MainActivity
 import com.yzy.example.constants.ApiConstants
-import com.yzy.example.http.RequestIntercept
+import com.yzy.example.http.integration.RequestIntercept
 import com.yzy.example.http.integration.AddCookiesInterceptor
 import com.yzy.example.http.integration.HeaderIntercept
 import com.yzy.example.http.integration.ReceivedCookiesInterceptor
