@@ -44,7 +44,7 @@ class HomeFragment : CommFragment<HomeViewModel, FragmentHomeBinding>() {
         smRefresh.setOnRefreshListener {
             viewModel.getBanner(true)
         }
-        viewModel.getBanner(true)
+        viewModel.loadLocal(true)
         with(rvHomeRecycler) {
             adapter = mAdapter
             val bannerView = context.inflate(R.layout.item_banner)
@@ -146,7 +146,7 @@ class HomeFragment : CommFragment<HomeViewModel, FragmentHomeBinding>() {
 
     override fun onDestroyView() {
         LogUtils.e("onSaveInstanceState" + "HomeSaveInstanceState")
-//        viewModel.bannerDataState.value?.data?.let { viewModel.setValue(it) }
+        viewModel.bannerDataState.value?.let { viewModel.setValue(it) }
         viewModel.homeDataState.value?.let { viewModel.setHomeListValue(it) }
         super.onDestroyView()
     }

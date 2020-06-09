@@ -1,11 +1,9 @@
 package com.yzy.example.repository.model
 
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.SavedStateHandle
 import com.yzy.baselibrary.base.BaseViewModel
 import com.yzy.baselibrary.extention.request
-import com.yzy.example.http.DataUiState
 import com.yzy.example.http.ListDataUiState
 import com.yzy.example.repository.GankRepository
 import com.yzy.example.repository.bean.ArticleDataBean
@@ -14,12 +12,15 @@ import com.yzy.example.repository.bean.BannerBean
 
 class HomeViewModel(var state:SavedStateHandle ) : BaseViewModel<GankRepository>() {
     private val key = "key"
-    private val homeListKey = "key"
-    fun setValue(value:  MutableList<BannerBean>) = state.set(key, value)
+    private val homeListKey = "homeListKey"
+    fun setValue(value:  ListDataUiState<BannerBean>) = state.set(key, value)
+    private fun getValue():MutableLiveData<ListDataUiState<BannerBean>>? = state.getLiveData(key)
     fun setHomeListValue(value: ListDataUiState<ArticleDataBean>) = state.set(homeListKey, value)
-    fun getValue(): MutableList<BannerBean>? = state.get(key)
-    fun getHomeListValue(): MutableLiveData<ListDataUiState<ArticleDataBean>>? = state.getLiveData(homeListKey)
-
+    private fun getHomeListValue(): MutableLiveData<ListDataUiState<ArticleDataBean>>? = state.getLiveData(homeListKey)
+    fun clear(){
+        state.remove<ListDataUiState<ArticleDataBean>>(key)
+        state.remove<ListDataUiState<ArticleDataBean>>(homeListKey)
+    }
     private var page = 0
 
     //首页文章列表数据
@@ -27,6 +28,16 @@ class HomeViewModel(var state:SavedStateHandle ) : BaseViewModel<GankRepository>
     //首页轮播图数据
     var bannerDataState: MutableLiveData<ListDataUiState<BannerBean>> = MutableLiveData()
 
+    fun loadLocal(isRefresh: Boolean){
+        if (getHomeListValue() != null && getValue() != null && getHomeListValue()?.value != null && getValue()?.value != null){
+            page = 0
+            homeDataState.postValue(getHomeListValue()?.value)
+            bannerDataState.postValue(getValue()?.value)
+            clear()
+            return
+        }
+        getBanner(isRefresh)
+    }
     fun getBanner(isRefresh: Boolean) {
         if (isRefresh) {
             page = 0

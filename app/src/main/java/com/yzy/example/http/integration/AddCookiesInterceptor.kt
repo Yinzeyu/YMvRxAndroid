@@ -18,13 +18,6 @@ class AddCookiesInterceptor : Interceptor {
             }
 
         }
-//        val preferences: HashSet<String> = MyApplication.getContext().getSharedPreferences(
-//            "config",
-//            MyApplication.getContext().MODE_PRIVATE
-//        ).getStringSet("cookie", null)
-//        if (preferences != null) {
-//
-//        }
         return chain.proceed(builder.build())
     }
 }
