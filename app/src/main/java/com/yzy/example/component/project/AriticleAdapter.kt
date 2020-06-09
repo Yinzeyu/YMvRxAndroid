@@ -73,7 +73,7 @@ class AriticleAdapter(data: MutableList<ArticleDataBean>?) :
                 helper.getView<CollectView>(R.id.item_home_collect)
                     .setOnCollectViewClickListener(object : CollectView.OnCollectViewClickListener {
                         override fun onClick(v: CollectView) {
-                            mOnCollectViewClickListener?.onClick(item, v, helper.adapterPosition)
+                            mOnCollectViewClickListener?.onClick(item, v, helper.layoutPosition)
                         }
                     })
             }
@@ -112,7 +112,7 @@ class AriticleAdapter(data: MutableList<ArticleDataBean>?) :
                 helper.getView<CollectView>(R.id.item_project_collect)
                     .setOnCollectViewClickListener(object : CollectView.OnCollectViewClickListener {
                         override fun onClick(v: CollectView) {
-                            mOnCollectViewClickListener?.onClick(item, v, helper.adapterPosition)
+                            mOnCollectViewClickListener?.onClick(item, v, helper.layoutPosition)
                         }
                     })
             }

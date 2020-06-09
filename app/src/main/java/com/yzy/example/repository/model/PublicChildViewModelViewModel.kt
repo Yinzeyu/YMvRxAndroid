@@ -28,10 +28,10 @@ class PublicChildViewModelViewModel : BaseViewModel<GankRepository>() {
                 ListDataUiState(
                     isSuccess = true,
                     isRefresh = isRefresh,
-                    isEmpty = it?.isEmpty() ?: false,
-                    hasMore = it?.hasMore() ?: false,
-                    isFirstEmpty = isRefresh && it?.isEmpty() ?: false,
-                    listData = it?.datas
+                    isEmpty = it.isEmpty(),
+                    hasMore = it.hasMore(),
+                    isFirstEmpty = isRefresh && it.isEmpty(),
+                    listData = it.datas
                 )
             publicDataState.postValue(listDataUiState)
         }, {

@@ -26,7 +26,7 @@ class DynAdapter : BaseQuickAdapter<GankAndroidBean, BaseViewHolder>(R.layout.it
         val nieView = holder.getView<NineGridView<PicBean>>(R.id.itemGankAndroidNine)
         nieView.isVisible=!item.images.isNullOrEmpty()
         if (!item.images.isNullOrEmpty()) {
-            setMultiImages(item.images ?: emptyList(), item.urlImgs, nieView)
+            setMultiImages(item.urlImgs, nieView)
         }
 
         //item点击
@@ -36,7 +36,6 @@ class DynAdapter : BaseQuickAdapter<GankAndroidBean, BaseViewHolder>(R.layout.it
     }
     @Suppress("UNCHECKED_CAST")
     private fun setMultiImages(
-        picStr: List<String?>,
         picBeans: MutableList<PicBean>,
         nineGridView: NineGridView<PicBean>
     ) {

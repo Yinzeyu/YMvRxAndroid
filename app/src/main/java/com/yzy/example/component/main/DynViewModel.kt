@@ -10,7 +10,7 @@ class DynViewModel : BaseViewModel<GankRepository>() {
     val uiState = MutableLiveData<MutableList<GankAndroidBean>>()
     var pageSize = 20
     var page = 0
-    private fun getAndroidSuspend(loading: Boolean = true) {
+    private fun getAndroidSuspend() {
 //        launchOnlyresult1({ repository.getAndroidSuspend(pageSize, page) },
 //            success = {
 //                uiState.value = it
@@ -22,11 +22,11 @@ class DynViewModel : BaseViewModel<GankRepository>() {
 
     fun refreshRequest(loading: Boolean = true) {
         page =0
-        getAndroidSuspend(loading)
+        getAndroidSuspend()
     }
 
     fun loadRequest(loading: Boolean = true) {
         page += 1
-        getAndroidSuspend(loading)
+        getAndroidSuspend()
     }
 }

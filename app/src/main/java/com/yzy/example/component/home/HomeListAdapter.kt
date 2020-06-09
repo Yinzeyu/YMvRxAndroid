@@ -8,7 +8,6 @@ import com.chad.library.adapter.base.delegate.BaseMultiTypeDelegate
 import com.chad.library.adapter.base.module.LoadMoreModule
 import com.chad.library.adapter.base.viewholder.BaseViewHolder
 import com.yzy.example.R
-import com.yzy.example.extention.setAdapterAnimion
 import com.yzy.example.extention.toHtml
 import com.yzy.example.repository.bean.ArticleDataBean
 import com.yzy.example.widget.CollectView
@@ -43,79 +42,79 @@ class HomeListAdapter (data: MutableList<ArticleDataBean>?) : BaseDelegateMultiA
         }
     }
 
-    override fun convert(helper: BaseViewHolder, item: ArticleDataBean) {
-        when (helper.itemViewType) {
+    override fun convert(holder: BaseViewHolder, item: ArticleDataBean) {
+        when (holder.itemViewType) {
             Ariticle -> {
                 //文章布局的赋值
                 item.run {
-                    helper.setText(
+                    holder.setText(
                         R.id.item_home_author,
                         if (author.isNotEmpty()) author else shareUser
                     )
-                    helper.setText(R.id.item_home_content, title.toHtml())
-                    helper.setText(R.id.item_home_type2, "$superChapterName·$chapterName".toHtml())
-                    helper.setText(R.id.item_home_date, niceDate)
-                    helper.getView<CollectView>(R.id.item_home_collect).isChecked = collect
+                    holder.setText(R.id.item_home_content, title.toHtml())
+                    holder.setText(R.id.item_home_type2, "$superChapterName·$chapterName".toHtml())
+                    holder.setText(R.id.item_home_date, niceDate)
+                    holder.getView<CollectView>(R.id.item_home_collect).isChecked = collect
                     if (showTag) {
                         //展示标签
-                        helper.setGone(R.id.item_home_new, !fresh)
-                        helper.setGone(R.id.item_home_top, type != 1)
+                        holder.setGone(R.id.item_home_new, !fresh)
+                        holder.setGone(R.id.item_home_top, type != 1)
                         if (tags.isNotEmpty()) {
-                            helper.setGone(R.id.item_home_type1, false)
-                            helper.setText(R.id.item_home_type1, tags[0].name)
+                            holder.setGone(R.id.item_home_type1, false)
+                            holder.setText(R.id.item_home_type1, tags[0].name)
                         } else {
-                            helper.setGone(R.id.item_home_type1, true)
+                            holder.setGone(R.id.item_home_type1, true)
                         }
                     } else {
                         //隐藏所有标签
-                        helper.setGone(R.id.item_home_top, true)
-                        helper.setGone(R.id.item_home_type1, true)
-                        helper.setGone(R.id.item_home_new, true)
+                        holder.setGone(R.id.item_home_top, true)
+                        holder.setGone(R.id.item_home_type1, true)
+                        holder.setGone(R.id.item_home_new, true)
                     }
                 }
-                helper.getView<CollectView>(R.id.item_home_collect)
+                holder.getView<CollectView>(R.id.item_home_collect)
                     .setOnCollectViewClickListener(object : CollectView.OnCollectViewClickListener {
                         override fun onClick(v: CollectView) {
-                            mOnCollectViewClickListener?.onClick(item, v, helper.adapterPosition)
+                            mOnCollectViewClickListener?.onClick(item, v, holder.layoutPosition)
                         }
                     })
             }
             Project -> {
                 //项目布局的赋值
                 item.run {
-                    helper.setText(
+                    holder.setText(
                         R.id.item_project_author,
                         if (author.isNotEmpty()) author else shareUser
                     )
-                    helper.setText(R.id.item_project_title, title.toHtml())
-                    helper.setText(R.id.item_project_content, desc.toHtml())
-                    helper.setText(R.id.item_project_type, "$superChapterName·$chapterName".toHtml())
-                    helper.setText(R.id.item_project_date, niceDate)
+                    holder.setText(R.id.item_project_title, title.toHtml())
+                    holder.setText(R.id.item_project_content, desc.toHtml())
+                    holder.setText(R.id.item_project_type, "$superChapterName·$chapterName".toHtml())
+                    holder.setText(R.id.item_project_date, niceDate)
                     if (showTag) {
                         //展示标签
-                        helper.setGone(R.id.item_project_new, !fresh)
-                        helper.setGone(R.id.item_project_top, type != 1)
+                        holder.setGone(R.id.item_project_new, !fresh)
+                        holder.setGone(R.id.item_project_top, type != 1)
                         if (tags.isNotEmpty()) {
-                            helper.setGone(R.id.item_project_type1, false)
-                            helper.setText(R.id.item_project_type1, tags[0].name)
+                            holder.setGone(R.id.item_project_type1, false)
+                            holder.setText(R.id.item_project_type1, tags[0].name)
                         } else {
-                            helper.setGone(R.id.item_project_type1, true)
+                            holder.setGone(R.id.item_project_type1, true)
                         }
                     } else {
                         //隐藏所有标签
-                        helper.setGone(R.id.item_project_top, true)
-                        helper.setGone(R.id.item_project_type1, true)
-                        helper.setGone(R.id.item_project_new, true)
+                        holder.setGone(R.id.item_project_top, true)
+                        holder.setGone(R.id.item_project_type1, true)
+                        holder.setGone(R.id.item_project_new, true)
                     }
-                    helper.getView<CollectView>(R.id.item_project_collect).isChecked = collect
+                    holder.getView<CollectView>(R.id.item_project_collect).isChecked = collect
                     Glide.with(context.applicationContext).load(envelopePic)
                         .transition(DrawableTransitionOptions.withCrossFade(500))
-                        .into(helper.getView(R.id.item_project_imageview))
+                        .into(holder.getView(R.id.item_project_imageview))
                 }
-                helper.getView<CollectView>(R.id.item_project_collect)
+                holder.getView<CollectView>(R.id.item_project_collect)
                     .setOnCollectViewClickListener(object : CollectView.OnCollectViewClickListener {
                         override fun onClick(v: CollectView) {
-                            mOnCollectViewClickListener?.onClick(item, v, helper.adapterPosition)
+                            mOnCollectViewClickListener?.onClick(item, v, holder.layoutPosition)
                         }
                     })
             }
