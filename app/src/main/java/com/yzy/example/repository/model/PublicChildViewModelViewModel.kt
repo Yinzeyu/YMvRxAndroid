@@ -25,24 +25,11 @@ class PublicChildViewModelViewModel : BaseViewModel<GankRepository>() {
             //请求成功
             pageNo++
             val listDataUiState =
-                ListDataUiState(
-                    isSuccess = true,
-                    isRefresh = isRefresh,
-                    isEmpty = it.isEmpty(),
-                    hasMore = it.hasMore(),
-                    isFirstEmpty = isRefresh && it.isEmpty(),
-                    listData = it.datas
-                )
+                ListDataUiState(isSuccess = true, isRefresh = isRefresh, isEmpty = it.isEmpty(), hasMore = it.hasMore(), isFirstEmpty = isRefresh && it.isEmpty(), listData = it.datas)
             publicDataState.postValue(listDataUiState)
         }, {
             //请求失败
-            val listDataUiState =
-                ListDataUiState(
-                    isSuccess = false,
-                    errMessage = it.message ?: "",
-                    isRefresh = isRefresh,
-                    listData = arrayListOf<ArticleDataBean>()
-                )
+            val listDataUiState = ListDataUiState(isSuccess = false, errMessage = it.message ?: "", isRefresh = isRefresh, listData = arrayListOf<ArticleDataBean>())
             publicDataState.postValue(listDataUiState)
         })
     }

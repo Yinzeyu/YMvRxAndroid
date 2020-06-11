@@ -7,6 +7,22 @@
     <string name="main_official_account">公众号</string>
     <string name="main_mine">我的</string>
 
+    <string name="theme">主题</string>
+    <string name="setting">设置</string>
+    <string name="mine_logout">退出登录</string>
+    <string name="rank">排行榜</string>
+    <string name="square">广场</string>
+    <string name="question">每日一问</string>
+    <string name="mine_collect">我的收藏</string>
+
+
+    <string name="setting_about">关于</string>
+    <string name="night_mode">夜间模式</string>
+    <string name="clear_cache">清除缓存</string>
+    <string name="clear_success">清理成功</string>
+    <string name="project_address">项目源码</string>
+    <string name="github_url">https://github.com/Yinzeyu/YMvRxAndroid</string>
+    <string name="title">温馨提示</string>
 
     <string name="exit_app">再按一次退出程序</string>
     <string name="loadMore_tips">数据加载中…</string>
@@ -22,53 +38,13 @@
     <string name="no_data">暂无数据</string>
     <string name="network_error">网络异常</string>
     <string name="net_retry">重试</string>
-
-    <dimen name="imui_default_custom_keyboard_size">220dp</dimen>
-    <string name="imui_app_name">imui</string>
-    <string name="imui_please_to_talk">按住 说话</string>
-    <string name="imui_send">发送</string>
-    <string name="imui_voice_cancel">松开手指，取消发送</string>
-    <string name="imui_voice_rec">手指上滑，取消发送</string>
-    <string name="imui_voice_short">录音时间太短</string>
-    <string name="info_about">关于</string>
-    <string name="about_us">关于我们</string>
-    <string name="statement">一些说明</string>
-    <string name="chat_send">发送</string>
-    <string name="name">Name</string>
-    <string name="email">Email</string>
-    <string name="password">Password</string>
-    <string name="sign_up">sign up</string>
-    <string name="select_an_avatar">Select an Avatar</string>
-    <string name="done">Done</string>
-    <string name="title_register">Register</string>
-    <string name="title_registered">Registered</string>
-
     <string name="data_request_time_error">手机时间错误</string>
     <string name="action_loading">加载中…</string>
-    <string name="compress_video_fail">视频压缩失败</string>
-    <string name="pic_first_frame_fail">视频封面获取失败</string>
-    <string name="select_a_video">请选择一个视频</string>
-    <string name="start_compress">开始压缩</string>
-    <string name="ffmpeg_title">视频压缩与封面获取</string>
-    <string name="update_app">APP更新</string>
-    <string name="play_compress_video">播放网络视频</string>
-    <string name="title_sticky">Sticky吸顶效果</string>
-    <string name="title_drag">九宫格拖拽效果</string>
-    <string name="title_spedit">\@或#展示效果</string>
-    <string name="over_max_len">字数超出限制</string>
-    <string name="already_at">你已经@过Ta啦！</string>
-    <string name="spedit_input_hint">在这里输入内容</string>
-    <string name="coordinator_refresh">Coordinator嵌套下拉刷新</string>
-    <string name="epoxy_expandable">Epoxy收缩展开效果</string>
-    <string name="title_play_list">列表中视频播放</string>
-    <string name="title_play_pager">仿抖音视频播放</string>
-    <string name="title_decoration">列表分割线效果</string>
-    <string name="title_rxhttp">RxHttp请求</string>
-    <string name="title_flexbox">FlexboxLayout</string>
-    <string name="title_marquee">跑马灯</string>
+
 
 
 
 
     <string name="appbar_scrolling_float_view_behavior" translatable="false">com.yzy.example.widget.recyclerview.FatScrollAwareFABBehavior</string>
+    <string name="mine_add">加入我们</string>
 </resources>

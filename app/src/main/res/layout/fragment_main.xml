@@ -8,6 +8,8 @@
 
     <androidx.drawerlayout.widget.DrawerLayout
         android:id="@+id/drawer"
+        android:overScrollMode="never"
+        android:scrollbars="none"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
@@ -48,11 +50,13 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <com.google.android.material.navigation.NavigationView
-            android:id="@+id/user_profile_drawer"
+            android:id="@+id/navigationDraw"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_gravity="start"
             android:overScrollMode="never"
+            android:scrollbars="none"
+            app:headerLayout="@layout/layout_navigation_header"
             app:menu="@menu/user_profile_menu" />
     </androidx.drawerlayout.widget.DrawerLayout>
 </layout>

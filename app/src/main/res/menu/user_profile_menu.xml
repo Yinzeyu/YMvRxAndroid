@@ -1,18 +1,39 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
-    <item
-        android:id="@+id/app_about"
-        android:title="@string/info_about">
-        <menu>
-            <item
-                android:id="@+id/about"
-                android:icon="@drawable/ic_info_outline_24dp"
-                android:title="@string/about_us" />
 
-            <item
-                android:id="@+id/helper"
-                android:icon="@drawable/ic_data_usage_black_24dp"
-                android:title="@string/statement" />
-        </menu>
-    </item>
+    <item
+        android:id="@+id/nav_menu_collect"
+        android:icon="@drawable/collect"
+        android:title="@string/mine_collect" />
+
+    <item
+        android:id="@+id/nav_menu_rank"
+        android:icon="@drawable/ic_rank"
+        android:title="@string/rank" />
+    <item
+        android:id="@+id/nav_menu_square"
+        android:icon="@drawable/ic_square"
+        android:title="@string/square" />
+    <item
+        android:id="@+id/nav_menu_question"
+        android:icon="@drawable/ic_question"
+        android:title="@string/question" />
+    <item
+        android:id="@+id/nav_menu_theme"
+        android:icon="@drawable/ic_theme"
+        android:title="@string/theme" />
+
+    <item
+        android:id="@+id/nav_menu_add"
+        android:icon="@drawable/jairu"
+        android:title="@string/mine_add" />
+
+    <item
+        android:id="@+id/nav_menu_setting"
+        android:icon="@drawable/ic_setting"
+        android:title="@string/setting" />
+    <item
+        android:id="@+id/nav_menu_logout"
+        android:icon="@drawable/ic_logout"
+        android:title="@string/mine_logout" />
 </menu>

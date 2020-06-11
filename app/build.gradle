@@ -149,6 +149,7 @@ dependencies {
     implementation 'com.kingja.loadsir:loadsir:1.3.6'
     //指示器库
     implementation 'com.github.hackware1993:MagicIndicator:1.6.0'
+    implementation 'androidx.preference:preference:1.1.1'
 }
 //放在这省的忘
 //@SuppressLint("ParcelCreator")

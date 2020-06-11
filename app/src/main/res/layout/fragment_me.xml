@@ -359,7 +359,7 @@
                                     android:layout_width="24dp"
                                     android:layout_height="24dp"
                                     android:layout_marginRight="16dp"
-                                    android:src="@drawable/shezhi" />
+                                    android:src="@drawable/ic_setting" />
 
                                 <TextView
                                     android:layout_width="match_parent"

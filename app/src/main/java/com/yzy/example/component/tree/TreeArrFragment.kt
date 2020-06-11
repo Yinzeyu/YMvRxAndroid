@@ -3,6 +3,7 @@ package com.yzy.example.component.tree
 import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.Fragment
 import com.yzy.baselibrary.base.NoViewModel
+import com.yzy.baselibrary.extention.click
 import com.yzy.baselibrary.extention.gone
 import com.yzy.baselibrary.extention.visible
 import com.yzy.example.component.comm.CommFragment
@@ -30,6 +31,9 @@ class TreeArrFragment :CommFragment<NoViewModel,ViewDataBinding>() {
             } else {
                 todoAdd.visible()
             }
+        }
+        todoAdd.click {
+
         }
     }
     private var fragments: ArrayList<Fragment> = arrayListOf()

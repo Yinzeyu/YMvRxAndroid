@@ -11,10 +11,8 @@ import com.yzy.baselibrary.extention.parseState
 import com.yzy.baselibrary.extention.pressEffectAlpha
 import com.yzy.example.R
 import com.yzy.example.databinding.FragmentRegisterBinding
-import com.yzy.example.extention.initClose
 import com.yzy.example.repository.model.RegisterViewModel
 import com.yzy.example.utils.MMkvUtils
-import kotlinx.android.synthetic.main.include_toolbar.*
 import kotlinx.android.synthetic.main.layout_comm_title.*
 
 class RegisterFragment : BaseFragment<RegisterViewModel, FragmentRegisterBinding>() {

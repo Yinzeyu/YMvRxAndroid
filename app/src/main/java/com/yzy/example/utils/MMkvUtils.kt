@@ -22,6 +22,7 @@ class MMkvUtils private constructor() {
     private val KEY_PERSONAL_TOKEN = "KEY_PERSONAL_TOKEN"
     private val KEY_PERSONAL_EXPIRE = "KEY_PERSONAL_EXPIRE"
     private val KEY_COOKIE = "KEY_COOKIE"
+    private val NIGHT_MODE = "NIGHT_MODE"
 
     fun setPersonalBean(personal: UserInfo) {
         SharePreferencesUtils.saveString(KEY_PERSONAL_BEAN, GsonUtils.toJson(personal))
@@ -60,6 +61,13 @@ class MMkvUtils private constructor() {
         return SharePreferencesUtils.getLong(KEY_PERSONAL_EXPIRE)
     }
 
+    fun getNightMode(): Boolean {
+        return SharePreferencesUtils.getBoolean(NIGHT_MODE)
+    }
+
+    fun setNightMode(mode: Boolean) {
+        SharePreferencesUtils.getBoolean(NIGHT_MODE, mode)
+    }
 
     fun isLogin(): Boolean {
         val token = getToken()
