@@ -53,16 +53,18 @@ class MainFragment : CommFragment<NoViewModel, FragmentMainBinding>() {
 
         navigationDraw.setNavigationItemSelectedListener {
             // 关闭侧边栏
-            drawer.closeDrawers()
+            drawer.close()
             when (it.itemId) {
                 R.id.nav_menu_rank -> {
                 }
                 R.id.nav_menu_square -> {
+                    nav().navigate(MainFragmentDirections.actionMainFragmentToPlazaFragment())
                 }
                 R.id.nav_menu_collect -> {
                 }
 
                 R.id.nav_menu_question -> {
+                    nav().navigate(MainFragmentDirections.actionMainFragmentToAskFragment())
                 }
 
                 R.id.nav_menu_theme -> {

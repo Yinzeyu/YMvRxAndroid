@@ -3,6 +3,7 @@ package com.yzy.example.component.tree
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.blankj.utilcode.util.ConvertUtils
+import com.yzy.baselibrary.extention.click
 import com.yzy.example.component.comm.CommFragment
 import com.yzy.example.R
 import com.yzy.example.component.project.AriticleAdapter
@@ -12,11 +13,16 @@ import com.yzy.example.extention.initFloatBtn
 import com.yzy.example.repository.model.AskViewModel
 import kotlinx.android.synthetic.main.fragment_ask.*
 import com.yzy.example.widget.recyclerview.SpaceItemDecoration
+import kotlinx.android.synthetic.main.layout_comm_title.*
 
 class AskFragment : CommFragment<AskViewModel, FragmentAskBinding>() {
     private val articleAdapter: AriticleAdapter by lazy { AriticleAdapter(arrayListOf(),showTag = true) }
 
     override fun initContentView() {
+        commTitleText.text = "每日一问"
+        commTitleBack.click {
+            onBackPressed()
+        }
         //初始化recyclerView
         recyclerAskView.init(LinearLayoutManager(context), articleAdapter).let {
             it.addItemDecoration(SpaceItemDecoration(0, ConvertUtils.dp2px(8f)))

@@ -40,6 +40,22 @@
             app:exitAnim="@anim/slide_out_left"
             app:popEnterAnim="@anim/slide_in_left"
             app:popExitAnim="@anim/slide_out_right" />
+
+        <action
+            android:id="@+id/action_mainFragment_to_plazaFragment"
+            app:destination="@id/plazaFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+
+        <action
+            android:id="@+id/action_mainFragment_to_askFragment"
+            app:destination="@id/askFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
     </fragment>
 
 
@@ -96,6 +112,32 @@
         android:label="SettingFragment">
         <action
             android:id="@+id/action_settingFragment_to_webFragment"
+            app:destination="@id/websiteDetailFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/plazaFragment"
+        android:name="com.yzy.example.component.tree.PlazaFragment"
+        android:label="PlazaFragment">
+        <action
+            android:id="@+id/action_plazaFragment_to_webFragment"
+            app:destination="@id/websiteDetailFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/askFragment"
+        android:name="com.yzy.example.component.tree.AskFragment"
+        android:label="AskFragment">
+        <action
+            android:id="@+id/action_askFragment_to_webFragment"
             app:destination="@id/websiteDetailFragment"
             app:enterAnim="@anim/slide_in_right"
             app:exitAnim="@anim/slide_out_left"

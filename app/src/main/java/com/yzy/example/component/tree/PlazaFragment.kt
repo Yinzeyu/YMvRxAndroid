@@ -3,6 +3,8 @@ package com.yzy.example.component.tree
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.blankj.utilcode.util.ConvertUtils
+import com.yzy.baselibrary.extention.click
+import com.yzy.baselibrary.extention.gone
 import com.yzy.example.R
 import com.yzy.example.component.comm.CommFragment
 import com.yzy.example.component.project.AriticleAdapter
@@ -12,10 +14,15 @@ import com.yzy.example.extention.initFloatBtn
 import com.yzy.example.repository.model.TreeViewModel
 import kotlinx.android.synthetic.main.fragment_plaza.*
 import com.yzy.example.widget.recyclerview.SpaceItemDecoration
+import kotlinx.android.synthetic.main.layout_comm_title.*
 
 class PlazaFragment  : CommFragment<TreeViewModel, FragmentPlazaBinding>(){
     private val articleAdapter: AriticleAdapter by lazy { AriticleAdapter(arrayListOf(),showTag = true ) }
     override fun initContentView() {
+        commTitleText.text = "广场"
+        commTitleBack.click {
+            onBackPressed()
+        }
         //初始化recyclerView
         recyclerPlazaView.init(LinearLayoutManager(context), articleAdapter).let {
             it.addItemDecoration(SpaceItemDecoration(0, ConvertUtils.dp2px(8f)))

@@ -9,21 +9,17 @@ import android.widget.FrameLayout
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
-import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
-import androidx.appcompat.widget.Toolbar
-import androidx.core.content.ContextCompat
-import androidx.preference.CheckBoxPreference
 import androidx.preference.Preference
 import androidx.preference.PreferenceFragmentCompat
 import androidx.preference.SwitchPreference
-import com.blankj.utilcode.util.AppUtils
 import com.yzy.baselibrary.base.BaseActivity
 import com.yzy.baselibrary.extention.click
 import com.yzy.baselibrary.extention.nav
-import com.yzy.baselibrary.toast.YToast.cancel
 import com.yzy.example.R
+import com.yzy.example.component.MainFragmentDirections
 import com.yzy.example.component.dialog.commAlertDialog
+import com.yzy.example.component.web.WebsiteDetailFragmentArgs
 import com.yzy.example.utils.DataCleanManager
 import com.yzy.example.utils.MMkvUtils
 
@@ -104,9 +100,9 @@ class SettingFragment : PreferenceFragmentCompat(),
         // 绑定清理缓存响应事件
         findPreference<Preference>("clearCache")?.setOnPreferenceClickListener {
             commAlertDialog(childFragmentManager) {
-                title=getString(R.string.title)
-                content="确定清除缓存吗？"
-                confirmCallback={
+                title = getString(R.string.title)
+                content = "确定清除缓存吗？"
+                confirmCallback = {
                     DataCleanManager.clearAllCache(requireContext())
                     findPreference<Preference>("clearCache")?.summary =
                         DataCleanManager.getTotalCacheSize(requireContext())
@@ -126,15 +122,10 @@ class SettingFragment : PreferenceFragmentCompat(),
 //        }
 
         findPreference<Preference>("project")?.setOnPreferenceClickListener {
-//            CommonUtil.startWebView(
-//                parentActivity,
-//                "https://github.com/wangjianxiandev/WanAndroidMvvm",
-//                "WanAndroid"
-//            )
+            nav().navigate(SettingFragmentDirections.actionSettingFragmentToWebFragment("https://github.com/Yinzeyu/YMvRxAndroid"))
             false
         }
     }
-
 
 
     override fun onResume() {
