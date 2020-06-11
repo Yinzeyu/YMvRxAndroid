@@ -10,11 +10,11 @@ import com.yzy.example.R
 import com.yzy.example.extention.bindViewPager2
 import com.yzy.example.extention.init
 import com.yzy.example.repository.bean.ClassifyBean
-import com.yzy.example.repository.model.PublicNumberViewModelViewModel
+import com.yzy.example.repository.model.PublicNumberViewModel
 import kotlinx.android.synthetic.main.fragment_public_number.*
 import kotlinx.android.synthetic.main.layout_comm_title.*
 
-class PublicNumberFragment :CommFragment<PublicNumberViewModelViewModel,ViewDataBinding>() {
+class PublicNumberFragment :CommFragment<PublicNumberViewModel,ViewDataBinding>() {
     //fragment集合
     private var fragments: ArrayList<Fragment> = arrayListOf()
 

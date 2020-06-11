@@ -1,6 +1,7 @@
 package com.yzy.example.component
 
 import androidx.annotation.IntRange
+import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.Fragment
 import com.blankj.utilcode.util.FragmentUtils
 import com.yzy.baselibrary.base.NoViewModel
@@ -12,39 +13,48 @@ import com.yzy.example.component.me.MeFragment
 import com.yzy.example.component.project.ProjectFragment
 import com.yzy.example.component.publicNumber.PublicNumberFragment
 import com.yzy.example.component.setting.SettingFragmentDirections
+import com.yzy.example.component.tree.NavigationFragment
+import com.yzy.example.component.tree.SystemFragment
 import com.yzy.example.component.tree.TreeArrFragment
 import com.yzy.example.databinding.FragmentMainBinding
 import com.yzy.example.extention.joinQQGroup
+import com.yzy.example.repository.model.MainViewModel
 import kotlinx.android.synthetic.main.fragment_main.*
 
-class MainFragment : CommFragment<NoViewModel, FragmentMainBinding>() {
+class MainFragment : CommFragment<MainViewModel, FragmentMainBinding>() {
     var fragments = arrayListOf<Fragment>()
     private val homeFragment: HomeFragment by lazy { HomeFragment() }
     private val projectFragment: ProjectFragment by lazy { ProjectFragment() }
-    private val treeArrFragment: TreeArrFragment by lazy { TreeArrFragment() }
+    private val systemFragment: SystemFragment by lazy { SystemFragment() }
+    private val navigationFragment: NavigationFragment by lazy { NavigationFragment() }
     private val publicNumberFragment: PublicNumberFragment by lazy { PublicNumberFragment() }
-    private val meFragment: MeFragment by lazy { MeFragment() }
 
     init {
         fragments.apply {
             add(homeFragment)
             add(projectFragment)
-            add(treeArrFragment)
+            add(systemFragment)
+            add(navigationFragment)
             add(publicNumberFragment)
-            add(meFragment)
         }
     }
 
     override fun initContentView() {
-        selectFragment(0)
+        if (viewModel.loadPosition() == -1){
+            selectFragment(0)
+        }else{
+            selectFragment(viewModel.loadPosition())
+        }
+
         mainNavigation.run {
             setOnNavigationItemSelectedListener {
                 when (it.itemId) {
                     R.id.menu_main -> selectFragment(0)
                     R.id.menu_project -> selectFragment(1)
                     R.id.menu_system -> selectFragment(2)
-                    R.id.menu_public -> selectFragment(3)
-                    R.id.menu_me -> selectFragment(4)
+                    R.id.menu_navigation -> selectFragment(3)
+                    R.id.menu_public -> selectFragment(4)
+
                 }
                 true
             }
@@ -85,6 +95,7 @@ class MainFragment : CommFragment<NoViewModel, FragmentMainBinding>() {
 
     //当前页面
     private var currentFragment: Fragment? = null
+    private var currentPosition: Int = 0
 
     //设置选中的fragment
     private fun selectFragment(@IntRange(from = 0, to = 4) index: Int) {
@@ -92,7 +103,8 @@ class MainFragment : CommFragment<NoViewModel, FragmentMainBinding>() {
         val fragment = fragments[index]
         //和当前选中的一样，则不再处理
         if (currentFragment == fragment) return
-        drawer.isEnabled = index == 0
+        currentPosition=index
+        drawer.setDrawerLockMode( if ( index == 0) DrawerLayout.LOCK_MODE_UNLOCKED else DrawerLayout.LOCK_MODE_LOCKED_CLOSED)
         //先关闭之前显示的
         currentFragment?.let { FragmentUtils.hide(it) }
         //设置现在需要显示的
@@ -107,5 +119,8 @@ class MainFragment : CommFragment<NoViewModel, FragmentMainBinding>() {
 
 
     override fun getLayoutId(): Int = R.layout.fragment_main
-
+    override fun onDestroyView() {
+        viewModel.setValue(currentPosition)
+        super.onDestroyView()
+    }
 }

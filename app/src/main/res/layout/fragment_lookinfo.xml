@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:bind="http://schemas.android.com/tools"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="vm"
+            type="com.yzy.example.repository.model.LookInfoViewModel" />
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white"
+        android:orientation="vertical">
+
+        <include layout="@layout/layout_comm_title" />
+
+        <LinearLayout
+            android:id="@+id/share_linear"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/share_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/colorPrimary"
+                android:paddingTop="16dp"
+                android:paddingBottom="32dp">
+
+                <ImageView
+                    android:id="@+id/share_logo"
+                    android:layout_width="72dp"
+                    android:layout_height="72dp"
+                    android:layout_marginStart="16dp"
+                    android:src="@drawable/ic_account"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    bind:circleImageUrl="@{vm.imageUrl}" />
+
+                <TextView
+                    android:id="@+id/share_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:text="@{vm.name}"
+                    android:textColor="@color/white"
+                    android:textSize="16dp"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toTopOf="@+id/share_info"
+                    app:layout_constraintStart_toEndOf="@+id/share_logo"
+                    app:layout_constraintTop_toTopOf="@+id/share_logo"
+                    app:layout_constraintVertical_chainStyle="packed"
+                    tools:text="有何高见" />
+
+                <TextView
+                    android:id="@+id/share_info"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="12dp"
+                    android:text="@{vm.info}"
+                    android:textColor="@color/white"
+                    android:textSize="12dp"
+                    app:layout_constraintBottom_toBottomOf="@+id/share_logo"
+                    app:layout_constraintStart_toEndOf="@+id/share_logo"
+                    app:layout_constraintTop_toBottomOf="@+id/share_name"
+                    tools:text="id：xxx 排名：999" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="-16dp"
+                app:cardCornerRadius="16dp"
+                app:cardElevation="0dp">
+
+                <androidx.coordinatorlayout.widget.CoordinatorLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@color/windowBackground"
+                    android:orientation="vertical">
+
+                    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+                        android:id="@+id/swipeInfoRefresh"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                        <androidx.recyclerview.widget.RecyclerView
+                            android:id="@+id/recyclerInfoView"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:scrollbars="none"
+                            app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+
+                    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
+                    <com.google.android.material.floatingactionbutton.FloatingActionButton
+                        android:id="@+id/fabInfo"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="bottom|end"
+                        android:layout_marginEnd="12dp"
+                        android:layout_marginBottom="24dp"
+                        android:scaleType="center"
+                        android:src="@drawable/fab_up"
+                        android:visibility="invisible"
+                        app:elevation="5dp"
+                        app:fabSize="mini"
+                        app:layout_behavior="@string/appbar_scrolling_float_view_behavior" />
+
+                </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
+            </androidx.cardview.widget.CardView>
+        </LinearLayout>
+
+    </LinearLayout>
+</layout>

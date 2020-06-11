@@ -10,17 +10,25 @@
         android:id="@+id/menu_project"
         android:icon="@drawable/menu_project"
         android:title="@string/main_project" />
-
     <item
         android:id="@+id/menu_system"
-        android:icon="@drawable/menu_tree"
-        android:title="@string/main_square" />
+        android:icon="@drawable/navigation_system"
+        android:title="@string/navigation_system" />
+    <item
+        android:id="@+id/menu_navigation"
+        android:icon="@drawable/navigation_navigation"
+        android:title="@string/navigation_navigation" />
+
+<!--    <item-->
+<!--        android:id="@+id/menu_system"-->
+<!--        android:icon="@drawable/menu_tree"-->
+<!--        android:title="@string/main_square" />-->
     <item
         android:id="@+id/menu_public"
         android:icon="@drawable/menu_public"
         android:title="@string/main_official_account" />
-    <item
-        android:id="@+id/menu_me"
-        android:icon="@drawable/menu_me"
-        android:title="@string/main_mine" />
+<!--    <item-->
+<!--        android:id="@+id/menu_me"-->
+<!--        android:icon="@drawable/menu_me"-->
+<!--        android:title="@string/main_mine" />-->
 </menu>

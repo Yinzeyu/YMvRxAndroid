@@ -117,5 +117,11 @@ interface GankService {
      */
     @GET("navi/json")
     suspend fun getNavigationData(): BaseResponse<ArrayList<NavigationBean>>
+    /**
+     * 获取他人分享文章列表数据
+     */
+    @GET("user/{id}/share_articles/{page}/json")
+    suspend fun getShareByidData(@Path("page") page: Int, @Path("id") id: Int): BaseResponse<ShareBean>
+
 
 }

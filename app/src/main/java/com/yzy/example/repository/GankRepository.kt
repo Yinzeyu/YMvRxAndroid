@@ -156,4 +156,11 @@ class GankRepository : BaseRepository() {
     ): BaseResponse<PagerResponse<ArrayList<ArticleDataBean>>> {
         return service.getPublicData(pageNo, cid)
     }
+    /**
+     * 获取某某的个人信息
+     */
+    suspend fun getLookinfoById(id: Int, pageNo: Int): BaseResponse<ShareBean> {
+        return service.getShareByidData(pageNo, id)
+    }
+
 }

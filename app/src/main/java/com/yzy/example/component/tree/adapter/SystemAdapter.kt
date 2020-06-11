@@ -9,12 +9,12 @@ import com.google.android.flexbox.FlexDirection
 import com.google.android.flexbox.FlexboxLayoutManager
 import com.google.android.flexbox.JustifyContent
 import com.yzy.example.R
+import com.yzy.example.extention.setNbOnItemClickListener
 import com.yzy.example.extention.toHtml
 import com.yzy.example.repository.bean.SystemBean
 
 
-class SystemAdapter(data: ArrayList<SystemBean>) :
-    BaseQuickAdapter<SystemBean, BaseViewHolder>(R.layout.item_system, data), LoadMoreModule {
+class SystemAdapter(data: ArrayList<SystemBean>) : BaseQuickAdapter<SystemBean, BaseViewHolder>(R.layout.item_system, data), LoadMoreModule {
 
     private var method: (data: SystemBean, view: View, position: Int) -> Unit =
         { _: SystemBean, _: View, _: Int -> }
@@ -42,9 +42,9 @@ class SystemAdapter(data: ArrayList<SystemBean>) :
                 item.children
             )
                 .apply {
-//                setNbOnItemClickListener { _, view, position ->
-//                    method(item, view, position)
-//                }
+                setNbOnItemClickListener { _, view, position ->
+                    method(item, view, position)
+                }
             }
 
         }

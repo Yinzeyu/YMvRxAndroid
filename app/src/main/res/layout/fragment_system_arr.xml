@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/colorPrimary"
+            android:fitsSystemWindows="true">
+
+            <net.lucode.hackware.magicindicator.MagicIndicator
+                android:id="@+id/systemArrMagicIndicator"
+                android:layout_width="match_parent"
+                android:layout_height="50dp" />
+        </FrameLayout>
+
+
+        <androidx.viewpager2.widget.ViewPager2
+            android:id="@+id/systemArrViewPager"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+    </LinearLayout>
+
+
+</layout>

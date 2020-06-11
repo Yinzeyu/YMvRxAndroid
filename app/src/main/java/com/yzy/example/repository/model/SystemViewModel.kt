@@ -25,6 +25,9 @@ class SystemViewModel : BaseViewModel<GankRepository>() {
                     isSuccess = true,
                     listData = it
                 )
+            it.forEach {
+
+            }
             systemDataState.postValue(dataUiState)
         }, {
             //请求失败

@@ -7,6 +7,8 @@
     <string name="main_official_account">公众号</string>
     <string name="main_mine">我的</string>
 
+    <string name="exit_app">再按一次退出程序</string>
+
     <string name="theme">主题</string>
     <string name="setting">设置</string>
     <string name="mine_logout">退出登录</string>
@@ -23,8 +25,12 @@
     <string name="project_address">项目源码</string>
     <string name="github_url">https://github.com/Yinzeyu/YMvRxAndroid</string>
     <string name="title">温馨提示</string>
+    <string name="navigation_system">体系</string>
+    <string name="navigation_navigation">导航</string>
 
-    <string name="exit_app">再按一次退出程序</string>
+
+
+
     <string name="loadMore_tips">数据加载中…</string>
     <string name="noMore_tips">没有更多了~</string>
     <string name="load_more_info">数据加载中</string>

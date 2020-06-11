@@ -10,12 +10,12 @@ import com.yzy.example.component.project.AriticleAdapter
 import com.yzy.example.databinding.FragmentProjectChildBinding
 import com.yzy.example.extention.init
 import com.yzy.example.extention.initFloatBtn
-import com.yzy.example.repository.model.PublicChildViewModelViewModel
+import com.yzy.example.repository.model.PublicChildViewModel
 import kotlinx.android.synthetic.main.fragment_public_number_child.*
 import com.yzy.example.widget.recyclerview.SpaceItemDecoration
 
 class PublicChildFragment :
-    BaseFragment<PublicChildViewModelViewModel, FragmentProjectChildBinding>() {
+    BaseFragment<PublicChildViewModel, FragmentProjectChildBinding>() {
 
     //适配器
     private val articleAdapter: AriticleAdapter by lazy { AriticleAdapter(arrayListOf()) }

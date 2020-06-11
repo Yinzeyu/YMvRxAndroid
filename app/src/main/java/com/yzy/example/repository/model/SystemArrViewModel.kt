@@ -11,31 +11,32 @@ import com.yzy.example.repository.bean.ClassifyBean
 import com.yzy.example.repository.bean.NavigationBean
 
 
-class PublicChildViewModelViewModel : BaseViewModel<GankRepository>() {
+class SystemArrViewModel : BaseViewModel<GankRepository>() {
 
-    var pageNo = 1
+    var pageNo = 0
 
-    var publicDataState: MutableLiveData<ListDataUiState<ArticleDataBean>> = MutableLiveData()
+    //体系子栏目列表数据
+    var systemChildDataState: MutableLiveData<ListDataUiState<ArticleDataBean>> = MutableLiveData()
 
-    fun getPublicData(isRefresh: Boolean, cid: Int) {
+    fun getSystemChildData(isRefresh: Boolean, cid: Int) {
         if (isRefresh) {
-            pageNo = 1
+            pageNo = 0
         }
-        request({ repository.getPublicData(pageNo, cid) }, {
+        request({ repository.getSystemChildData(pageNo, cid) }, {
             //请求成功
             pageNo++
             val listDataUiState =
                 ListDataUiState(isSuccess = true, isRefresh = isRefresh, isEmpty = it.isEmpty(), hasMore = it.hasMore(), isFirstEmpty = isRefresh && it.isEmpty(), listData = it.datas)
-            publicDataState.postValue(listDataUiState)
+            systemChildDataState.postValue(listDataUiState)
         }, {
             //请求失败
             val listDataUiState = ListDataUiState(isSuccess = false, errMessage = it.message ?: "", isRefresh = isRefresh, listData = arrayListOf<ArticleDataBean>())
-            publicDataState.postValue(listDataUiState)
+            systemChildDataState.postValue(listDataUiState)
         })
     }
     fun loadData(cid: Int) {
         pageNo++
-        getPublicData(false,cid)
+        getSystemChildData(false,cid)
     }
 }
 

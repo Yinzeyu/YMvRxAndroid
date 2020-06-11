@@ -56,6 +56,14 @@
             app:exitAnim="@anim/slide_out_left"
             app:popEnterAnim="@anim/slide_in_left"
             app:popExitAnim="@anim/slide_out_right" />
+
+        <action
+            android:id="@+id/action_mainFragment_to_systemArrFragment"
+            app:destination="@id/systemArrFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
     </fragment>
 
 
@@ -136,6 +144,52 @@
         android:id="@+id/askFragment"
         android:name="com.yzy.example.component.tree.AskFragment"
         android:label="AskFragment">
+        <action
+            android:id="@+id/action_askFragment_to_webFragment"
+            app:destination="@id/websiteDetailFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/systemArrFragment"
+        android:name="com.yzy.example.component.tree.SystemArrFragment"
+        android:label="SystemArrFragment">
+        <argument
+            android:name="dataBean"
+            app:nullable="false"
+            app:argType="com.yzy.example.repository.bean.SystemBean" />
+
+        <argument
+            android:name="index"
+            android:defaultValue="0"
+            app:argType="integer" />
+        <action
+            android:id="@+id/action_systemArrFragment_to_webFragment"
+            app:destination="@id/websiteDetailFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+        <action
+            android:id="@+id/action_systemArrFragment_to_lookInfoFragment"
+            app:destination="@id/lookInfoFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/lookInfoFragment"
+        android:name="com.yzy.example.component.info.LookInfoFragment"
+        android:label="LookInfoFragment">
+        <argument
+            android:name="id"
+            android:defaultValue="0"
+            app:argType="integer" />
         <action
             android:id="@+id/action_askFragment_to_webFragment"
             app:destination="@id/websiteDetailFragment"
