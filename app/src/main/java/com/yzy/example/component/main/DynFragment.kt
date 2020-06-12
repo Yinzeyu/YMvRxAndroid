@@ -48,7 +48,7 @@ class DynFragment() : CommFragment<DynViewModel,FragmentDynBinding>() {
 
             setOnItemClickListener { adapter, v, position ->
                 val bean: GankAndroidBean = adapter.data[position] as GankAndroidBean
-                Navigation.findNavController(v).navigate( MainFragmentDirections.actionMainFragmentToWebsiteDetailFragment(bean.url ?: ""))
+//                Navigation.findNavController(v).navigate( MainFragmentDirections.actionMainFragmentToWebsiteDetailFragment(bean.url ?: ""))
             }
         }
     }

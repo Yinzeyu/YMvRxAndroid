@@ -4,10 +4,10 @@ import android.os.Bundle
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.blankj.utilcode.util.ConvertUtils
-import com.kingja.loadsir.core.LoadService
 import com.yzy.baselibrary.base.BaseFragment
 import com.yzy.baselibrary.extention.nav
 import com.yzy.example.R
+import com.yzy.example.component.MainFragmentDirections
 import com.yzy.example.component.project.AriticleAdapter
 import com.yzy.example.databinding.FragmentSystemChildBinding
 import com.yzy.example.extention.init
@@ -81,7 +81,7 @@ class SystemChildFragment : BaseFragment<SystemArrViewModel, FragmentSystemChild
                 }
             })
             setNbOnItemClickListener { adapter, view, position ->
-                nav().navigate(SystemArrFragmentDirections.actionSystemArrFragmentToWebFragment( articleAdapter.data[position].apkLink))
+                nav().navigate( MainFragmentDirections.actionMainFragmentToWebsiteDetailFragment(ariticleData =  articleAdapter.data[position]))
 //
 //                    , Bundle().apply {
 //                    putParcelable("ariticleData",)

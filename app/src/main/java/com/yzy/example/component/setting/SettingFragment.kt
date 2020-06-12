@@ -122,7 +122,7 @@ class SettingFragment : PreferenceFragmentCompat(),
 //        }
 
         findPreference<Preference>("project")?.setOnPreferenceClickListener {
-            nav().navigate(SettingFragmentDirections.actionSettingFragmentToWebFragment("https://github.com/Yinzeyu/YMvRxAndroid"))
+//            nav().navigate(SettingFragmentDirections.actionSettingFragmentToWebFragment("https://github.com/Yinzeyu/YMvRxAndroid"))
             false
         }
     }

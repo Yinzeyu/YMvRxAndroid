@@ -63,9 +63,7 @@ class HomeFragment : CommFragment<HomeViewModel, FragmentHomeBinding>() {
             setOnItemClickListener { adapter, v, position ->
                 val bean: ArticleDataBean = adapter.data[position] as ArticleDataBean
                 Navigation.findNavController(v).navigate(
-                    MainFragmentDirections.actionMainFragmentToWebsiteDetailFragment(
-                        bean.link
-                    )
+                    MainFragmentDirections.actionMainFragmentToWebsiteDetailFragment(ariticleData = bean)
                 )
             }
         }

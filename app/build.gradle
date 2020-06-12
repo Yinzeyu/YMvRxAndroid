@@ -146,7 +146,7 @@ dependencies {
     //防崩溃
     implementation 'cat.ereza:customactivityoncrash:2.3.0'
     //管理界面状态库
-    implementation 'com.kingja.loadsir:loadsir:1.3.6'
+//    implementation 'com.kingja.loadsir:loadsir:1.3.6'
     //指示器库
     implementation 'com.github.hackware1993:MagicIndicator:1.6.0'
     implementation 'androidx.preference:preference:1.1.1'

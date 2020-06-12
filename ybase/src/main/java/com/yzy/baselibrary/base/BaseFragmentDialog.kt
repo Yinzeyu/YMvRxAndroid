@@ -42,13 +42,10 @@ abstract class BaseDialogFragment<VM : BaseViewModel<*>, DB : ViewDataBinding> :
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val cls =
-            (javaClass.genericSuperclass as ParameterizedType).actualTypeArguments[1] as Class<*>
-        if (ViewDataBinding::class.java != cls && ViewDataBinding::class.java.isAssignableFrom(cls)) {
-            mBinding = DataBindingUtil.inflate(inflater, getLayoutId(), container, false)
-            return mBinding?.root
-        }
-        return inflater.inflate(getLayoutId(), container, false)
+        setStyle()
+        mBinding = DataBindingUtil.inflate(inflater, getLayoutId(), container, false)
+        mBinding?.lifecycleOwner=this
+        return mBinding?.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

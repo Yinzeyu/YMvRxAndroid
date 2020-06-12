@@ -17,6 +17,7 @@ data class ArticleDataBean(
     var envelopePic: String,
     var fresh: Boolean,
     var id: Int,
+    var originId: Int,
     var link: String,
     var niceDate: String,
     var origin: String,

@@ -44,7 +44,7 @@ class GankRepository : BaseRepository() {
         pageNo: Int,
         cid: Int = 0,
         isNew: Boolean = false
-    ): BaseResponse<PagerResponse<ArrayList<ArticleDataBean>>> {
+    ): BaseResponse<PagerResponse<MutableList<ArticleDataBean>>> {
         return if (isNew) {
             service.getProjecNewData(pageNo)
         } else {
@@ -107,27 +107,27 @@ class GankRepository : BaseRepository() {
     /**
      * 获取广场数据
      */
-    suspend fun getPlazaData(pageNo: Int): BaseResponse<PagerResponse<ArrayList<ArticleDataBean>>> {
+    suspend fun getPlazaData(pageNo: Int): BaseResponse<PagerResponse<MutableList<ArticleDataBean>>> {
         return service.getSquareData(pageNo)
     }
 
     /**
      * 获取每日一问数据
      */
-    suspend fun getAskData(pageNo: Int):  BaseResponse<PagerResponse<ArrayList<ArticleDataBean>>> {
+    suspend fun getAskData(pageNo: Int):  BaseResponse<PagerResponse<MutableList<ArticleDataBean>>> {
         return service.getAskData(pageNo)
     }
     /**
      * 获取体系数据
      */
-    suspend fun getSystemData(): BaseResponse<ArrayList<SystemBean>> {
+    suspend fun getSystemData(): BaseResponse<MutableList<SystemBean>> {
         return service.getSystemData()
     }
 
     /**
      * 获取导航数据
      */
-    suspend fun getNavigationData(): BaseResponse<ArrayList<NavigationBean>> {
+    suspend fun getNavigationData(): BaseResponse<MutableList<NavigationBean>> {
         return service.getNavigationData()
     }
 
@@ -137,13 +137,13 @@ class GankRepository : BaseRepository() {
     suspend fun getSystemChildData(
         pageNo: Int,
         cid: Int
-    ): BaseResponse<PagerResponse<ArrayList<ArticleDataBean>>> {
+    ): BaseResponse<PagerResponse<MutableList<ArticleDataBean>>> {
         return service.getSystemChildData(pageNo, cid)
     }
     /**
      * 获取公众号标题数据
      */
-    suspend fun getTitleData(): BaseResponse<ArrayList<ClassifyBean>> {
+    suspend fun getTitleData(): BaseResponse<MutableList<ClassifyBean>> {
         return service.getPublicTitle()
     }
 
@@ -153,7 +153,7 @@ class GankRepository : BaseRepository() {
     suspend fun getPublicData(
         pageNo: Int,
         cid: Int = 0
-    ): BaseResponse<PagerResponse<ArrayList<ArticleDataBean>>> {
+    ): BaseResponse<PagerResponse<MutableList<ArticleDataBean>>> {
         return service.getPublicData(pageNo, cid)
     }
     /**
@@ -161,6 +161,46 @@ class GankRepository : BaseRepository() {
      */
     suspend fun getLookinfoById(id: Int, pageNo: Int): BaseResponse<ShareBean> {
         return service.getShareByidData(pageNo, id)
+    }
+    /**
+     * 收藏文章
+     */
+    suspend fun collect(id: Int): BaseResponse<Any?> {
+        return service.collect(id)
+    }
+
+    /**
+     * 收藏网址
+     */
+    suspend fun collectUrl(name: String, link: String): BaseResponse<CollectUrlBean> {
+        return service.collectUrl(name, link)
+    }
+
+    /**
+     * 取消收藏文章
+     */
+    suspend fun uncollect(id: Int): BaseResponse<Any?> {
+        return service.uncollect(id)
+    }
+
+    /**
+     * 取消收藏网址
+     */
+    suspend fun uncollectUrl(id: Int): BaseResponse<Any?> {
+        return service.deletetool(id)
+    }
+
+    /**
+     * 收藏的文章数据
+     */
+    suspend fun collectAriticleData(pageNo: Int): BaseResponse<PagerResponse<MutableList<ArticleDataBean>>> {
+        return service.getCollectData(pageNo)
+    }
+    /**
+     * 收藏的网址数据
+     */
+    suspend fun collectUrlData(): BaseResponse<MutableList<CollectUrlBean>> {
+        return service.getCollectUrlData()
     }
 
 }

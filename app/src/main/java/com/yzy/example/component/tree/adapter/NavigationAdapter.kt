@@ -8,6 +8,7 @@ import com.google.android.flexbox.FlexDirection
 import com.google.android.flexbox.FlexboxLayoutManager
 import com.google.android.flexbox.JustifyContent
 import com.yzy.example.R
+import com.yzy.example.extention.setNbOnItemClickListener
 import com.yzy.example.extention.toHtml
 import com.yzy.example.repository.bean.ArticleDataBean
 import com.yzy.example.repository.bean.NavigationBean
@@ -36,11 +37,11 @@ class NavigationAdapter(data: ArrayList<NavigationBean>) :
             layoutManager = foxayoutManager
             setHasFixedSize(true)
             adapter = NavigationChildAdapter(item.articles).apply {
-//                setNbOnItemClickListener { adapter, view, position ->
-//                    navigationClickInterFace.onNavigationClickListener(
-//                        item.articles[position], view
-//                    )
-//                }
+                setNbOnItemClickListener { adapter, view, position ->
+                    navigationClickInterFace.onNavigationClickListener(
+                        item.articles[position], view
+                    )
+                }
             }
         }
     }

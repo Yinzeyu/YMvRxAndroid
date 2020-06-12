@@ -8,6 +8,7 @@ import com.yzy.baselibrary.base.NoViewModel
 import com.yzy.baselibrary.extention.nav
 import com.yzy.example.R
 import com.yzy.example.component.comm.CommFragment
+import com.yzy.example.component.dialog.initThemeColorDialog
 import com.yzy.example.component.home.HomeFragment
 import com.yzy.example.component.me.MeFragment
 import com.yzy.example.component.project.ProjectFragment
@@ -71,6 +72,7 @@ class MainFragment : CommFragment<MainViewModel, FragmentMainBinding>() {
                     nav().navigate(MainFragmentDirections.actionMainFragmentToPlazaFragment())
                 }
                 R.id.nav_menu_collect -> {
+                    nav().navigate(MainFragmentDirections.actionMainFragmentToCollectFragment())
                 }
 
                 R.id.nav_menu_question -> {
@@ -78,7 +80,9 @@ class MainFragment : CommFragment<MainViewModel, FragmentMainBinding>() {
                 }
 
                 R.id.nav_menu_theme -> {
+                    initThemeColorDialog(childFragmentManager) {
 
+                    }
                 }
                 R.id.nav_menu_add -> {
                     joinQQGroup("1nLU15GhxIe9MT3cM6djdKEDNIjwqUK6")

@@ -35,7 +35,7 @@ class RegisterFragment : BaseFragment<RegisterViewModel, FragmentRegisterBinding
 //                    shareViewModel.isLogin.postValue(true)
 //                    CacheUtil.setUser(it)
 //                    shareViewModel.userinfo.postValue(it)
-                    nav().navigate(R.id.action_registerFragment_to_mainFragment)
+                    nav().navigate(R.id.action_registerFragment_to_emFragment)
                 },{
 
                 }, {

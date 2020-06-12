@@ -64,6 +64,14 @@
             app:exitAnim="@anim/slide_out_left"
             app:popEnterAnim="@anim/slide_in_left"
             app:popExitAnim="@anim/slide_out_right" />
+
+        <action
+            android:id="@+id/action_mainFragment_to_collectFragment"
+            app:destination="@id/collectFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
     </fragment>
 
 
@@ -73,9 +81,28 @@
         android:label="WebsiteDetailFragment"
         tools:layout="@layout/fragment_wesite_detail">
         <argument
-            android:name="url"
-            android:defaultValue="value"
-            app:argType="string" />
+            android:name="ariticleData"
+            android:defaultValue="@null"
+            app:argType="com.yzy.example.repository.bean.ArticleDataBean"
+            app:nullable="true" />
+        <argument
+            android:name="bannerdata"
+            android:defaultValue="@null"
+            app:argType="com.yzy.example.repository.bean.BannerBean"
+            app:nullable="true" />
+        <argument
+            android:name="collect"
+            android:defaultValue="@null"
+            app:argType="com.yzy.example.repository.bean.ArticleDataBean"
+            app:nullable="true" />
+
+        <argument
+            android:name="collectUrlBean"
+            android:defaultValue="@null"
+            app:argType="com.yzy.example.repository.bean.CollectUrlBean"
+            app:nullable="true" />
+
+
     </fragment>
     <fragment
         android:id="@+id/loginFragment"
@@ -105,8 +132,8 @@
         android:label="RegisterFragment"
         tools:layout="@layout/fragment_register">
         <action
-            android:id="@+id/action_registerFragment_to_mainFragment"
-            app:destination="@id/mainFragment"
+            android:id="@+id/action_registerFragment_to_emFragment"
+            app:destination="@id/EmFragment"
             app:enterAnim="@anim/slide_in_right"
             app:exitAnim="@anim/slide_out_left"
             app:popEnterAnim="@anim/slide_in_left"
@@ -159,8 +186,8 @@
         android:label="SystemArrFragment">
         <argument
             android:name="dataBean"
-            app:nullable="false"
-            app:argType="com.yzy.example.repository.bean.SystemBean" />
+            app:argType="com.yzy.example.repository.bean.SystemBean"
+            app:nullable="false" />
 
         <argument
             android:name="index"
@@ -198,4 +225,18 @@
             app:popEnterAnim="@anim/slide_in_left"
             app:popExitAnim="@anim/slide_out_right" />
     </fragment>
+
+    <fragment
+        android:id="@+id/collectFragment"
+        android:name="com.yzy.example.component.collect.CollectFragment"
+        android:label="CollectFragment">
+        <action
+            android:id="@+id/action_collectFragment_to_webFragment"
+            app:destination="@id/websiteDetailFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+    </fragment>
+
 </navigation>

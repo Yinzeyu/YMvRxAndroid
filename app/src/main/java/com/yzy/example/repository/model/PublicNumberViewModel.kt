@@ -14,7 +14,7 @@ import com.yzy.example.repository.bean.NavigationBean
 class PublicNumberViewModel : BaseViewModel<GankRepository>() {
 
 
-    var titleData: MutableLiveData<ResultState<ArrayList<ClassifyBean>>> = MutableLiveData()
+    var titleData: MutableLiveData<ResultState<MutableList<ClassifyBean>>> = MutableLiveData()
 
 
     fun getPublicTitleData() {
