@@ -19,13 +19,13 @@
 ## Screenshots
 
 <div align:left;display:inline; xmlns:align="http://www.w3.org/1999/xhtml">
-<img width="200" height="360" src="/image/Screenshot_20200615-132913_demo"/>
-<img width="200" height="360" src="/image/Screenshot_20200615-132918_demo"/>
-<img width="200" height="360" src="/image/Screenshot_20200615-132939_demo"/>
-<img width="200" height="360" src="/image/Screenshot_20200615-132951_demo"/>
-<img width="200" height="360" src="/image/Screenshot_20200615-133004_demo"/>
-<img width="200" height="360" src="/image/Screenshot_20200615-133016_demo"/>
-<img width="200" height="360" src="/Screenshot_20200615-133032_demo"/>
+<img width="200" height="360" src="/image/Screenshot_20200615-132913_demo.jpg"/>
+<img width="200" height="360" src="/image/Screenshot_20200615-132918_demo.jpg"/>
+<img width="200" height="360" src="/image/Screenshot_20200615-132939_demo.jpg"/>
+<img width="200" height="360" src="/image/Screenshot_20200615-132951_demo.jpg"/>
+<img width="200" height="360" src="/image/Screenshot_20200615-133004_demo.jpg"/>
+<img width="200" height="360" src="/image/Screenshot_20200615-133016_demo.jpg"/>
+<img width="200" height="360" src="/Screenshot_20200615-133032_demo.jpg"/>
 
 </div>
 
