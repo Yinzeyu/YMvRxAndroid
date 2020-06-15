@@ -14,7 +14,6 @@ class ReceivedCookiesInterceptor : Interceptor {
         originalResponse.headers.toMultimap().filter { it.key.contains("cookie") } .forEach { map ->
             for (value in map.value) {
                 if (value.contains("JSESSIONID", true)) {
-                    LogUtils.e(value)
                     MMkvUtils.instance.setToken(value)
                 }
             }

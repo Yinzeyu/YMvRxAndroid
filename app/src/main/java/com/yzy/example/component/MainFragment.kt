@@ -3,24 +3,26 @@ package com.yzy.example.component
 import androidx.annotation.IntRange
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
 import com.blankj.utilcode.util.FragmentUtils
-import com.yzy.baselibrary.base.NoViewModel
+import com.blankj.utilcode.util.ToastUtils
 import com.yzy.baselibrary.extention.nav
 import com.yzy.example.R
 import com.yzy.example.component.comm.CommFragment
+import com.yzy.example.component.dialog.initLoginDialog
 import com.yzy.example.component.dialog.initThemeColorDialog
 import com.yzy.example.component.home.HomeFragment
-import com.yzy.example.component.me.MeFragment
 import com.yzy.example.component.project.ProjectFragment
 import com.yzy.example.component.publicNumber.PublicNumberFragment
-import com.yzy.example.component.setting.SettingFragmentDirections
 import com.yzy.example.component.tree.NavigationFragment
 import com.yzy.example.component.tree.SystemFragment
-import com.yzy.example.component.tree.TreeArrFragment
 import com.yzy.example.databinding.FragmentMainBinding
 import com.yzy.example.extention.joinQQGroup
 import com.yzy.example.repository.model.MainViewModel
+import com.yzy.example.utils.MMkvUtils
 import kotlinx.android.synthetic.main.fragment_main.*
+import kotlinx.android.synthetic.main.fragment_me.*
+import kotlinx.android.synthetic.main.layout_navigation_header.view.*
 
 class MainFragment : CommFragment<MainViewModel, FragmentMainBinding>() {
     var fragments = arrayListOf<Fragment>()
@@ -46,7 +48,33 @@ class MainFragment : CommFragment<MainViewModel, FragmentMainBinding>() {
         }else{
             selectFragment(viewModel.loadPosition())
         }
+      val view=  navigationDraw.getHeaderView(0)
+        MMkvUtils.instance.getPersonalBean()?.let {
+            viewModel.name.postValue(if (it.nickname.isEmpty()) it.username else it.nickname)
+        }
+        viewModel.meData.observe(viewLifecycleOwner, Observer {
+            if (it.isSuccess) {
+                viewModel.info.postValue("id：${it?.data?.userId}　排名：${it?.data?.rank}")
+                viewModel.integral.postValue(it?.data?.coinCount)
+            } else {
+                if (it.errCode == -1001){
+                    initLoginDialog(childFragmentManager){
+                        mainToLogin ={
+                            nav().navigate(MainFragmentDirections.actionMainFragmentToLoginFragment())
+                        }
+                    }
+                }
+//                ToastUtils.showShort(it.errMessage+it.errCode)
+            }
+        })
+        viewModel.getIntegral()
+        viewModel.name.observe(viewLifecycleOwner, Observer {
+            view.me_name.text=it
+        })
 
+        viewModel.info.observe(viewLifecycleOwner, Observer {
+            view.me_info.text=it
+        })
         mainNavigation.run {
             setOnNavigationItemSelectedListener {
                 when (it.itemId) {

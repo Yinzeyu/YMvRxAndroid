@@ -2,7 +2,6 @@ package com.yzy.example.widget
 
 import android.content.Context
 import android.util.AttributeSet
-import android.widget.FrameLayout
 import android.widget.LinearLayout
 import com.yzy.example.utils.QMUIRoundButtonDrawable
 import com.yzy.example.utils.QMUIViewHelper
