@@ -6,7 +6,7 @@
 ##### 准备实践框架
 整体架构采用
 ##### Retrofit+okHttp+Gson+coroutines +LiveData +ViewModel 网络请求模块
-##### 使用 navigation +fragment 实现单activity  多Fragment 
+##### 使用 navigation +fragment 实现单activity  多Fragment  采用 SavedStateHandle 来解决fragment replace 保存数据问题
 ##### 使用 LiveEventBus 做消息事件
 使用了[干货集中营开源API](http://gank.io/api)和[玩Android开源API](https://www.wanandroid.com/blog/show/2)
 
