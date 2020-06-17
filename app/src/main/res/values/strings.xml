@@ -28,7 +28,9 @@
     <string name="navigation_system">体系</string>
     <string name="navigation_navigation">导航</string>
 
-
+    <string name="done">确定</string>
+    <string name="cancel">取消</string>
+    <string name="theme_color">主题颜色</string>
 
 
     <string name="loadMore_tips">数据加载中…</string>

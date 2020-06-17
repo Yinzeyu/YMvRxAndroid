@@ -4,6 +4,8 @@ import androidx.annotation.IntRange
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
+import com.afollestad.materialdialogs.MaterialDialog
+import com.afollestad.materialdialogs.color.colorChooser
 import com.blankj.utilcode.util.FragmentUtils
 import com.blankj.utilcode.util.ToastUtils
 import com.yzy.baselibrary.extention.nav
@@ -19,6 +21,7 @@ import com.yzy.example.component.tree.SystemFragment
 import com.yzy.example.databinding.FragmentMainBinding
 import com.yzy.example.extention.joinQQGroup
 import com.yzy.example.repository.model.MainViewModel
+import com.yzy.example.utils.ColorUtil
 import com.yzy.example.utils.MMkvUtils
 import kotlinx.android.synthetic.main.fragment_main.*
 import kotlinx.android.synthetic.main.fragment_me.*
@@ -108,8 +111,20 @@ class MainFragment : CommFragment<MainViewModel, FragmentMainBinding>() {
                 }
 
                 R.id.nav_menu_theme -> {
-                    initThemeColorDialog(childFragmentManager) {
 
+                    MaterialDialog(requireContext()).show {
+                        title(R.string.theme_color)
+                        cornerRadius(16.0f)
+                        colorChooser(
+                            ColorUtil.ACCENT_COLORS,
+                            initialSelection = ColorUtil.getColor(requireContext()),
+                            subColors = ColorUtil.PRIMARY_COLORS_SUB
+                        ) { dialog, color ->
+                            ColorUtil.setColor(color)
+//                            ChangeThemeEvent().post()
+                        }
+                        positiveButton(R.string.done)
+                        negativeButton(R.string.cancel)
                     }
                 }
                 R.id.nav_menu_add -> {

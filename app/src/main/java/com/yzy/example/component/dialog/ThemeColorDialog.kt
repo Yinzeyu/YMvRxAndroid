@@ -24,13 +24,13 @@ class ThemeColorDialog : BaseDialogFragment<NoViewModel,DialogThemeColorBinding>
 
     override fun initView(savedState: Bundle?) {
 
-        val adapter = ColorGridAdapter()
-        val mutableList :MutableList<ColorBean<Int>> = mutableListOf()
-        ColorUtil.ACCENT_COLORS.forEach {
-            mutableList.add(ColorBean(bean =it,itemBeanType = ColorBean.COLOR_LIST))
-        }
-        adapter.setNewInstance(mutableList)
-        rvThemeColorView.adapter = adapter
+//        val adapter = ColorGridAdapter()
+//        val mutableList :MutableList<ColorBean<Int>> = mutableListOf()
+//        ColorUtil.ACCENT_COLORS.forEach {
+//            mutableList.add(ColorBean(bean =it,itemBeanType = ColorBean.COLOR_LIST))
+//        }
+//        adapter.setNewInstance(mutableList)
+//        rvThemeColorView.adapter = adapter
     }
 
     companion object {

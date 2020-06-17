@@ -150,6 +150,8 @@ dependencies {
     //指示器库
     implementation 'com.github.hackware1993:MagicIndicator:1.6.0'
     implementation 'androidx.preference:preference:1.1.1'
+    implementation 'com.afollestad.material-dialogs:core:3.3.0'
+    implementation 'com.afollestad.material-dialogs:color:3.3.0'
 }
 //放在这省的忘
 //@SuppressLint("ParcelCreator")
