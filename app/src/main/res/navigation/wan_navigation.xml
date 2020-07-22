@@ -110,8 +110,6 @@
             android:defaultValue="@null"
             app:argType="com.yzy.example.repository.bean.CollectUrlBean"
             app:nullable="true" />
-
-
     </fragment>
     <fragment
         android:id="@+id/loginFragment"

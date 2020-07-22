@@ -80,47 +80,50 @@ android {
 //            assets.srcDirs = ['src/assets', 'src/assets/']
         }
     }
-}
-android.applicationVariants.all { variant ->
-    variant.outputs.all { output ->
-        //名称
-        String appName = ""
-        String path = getProjectDir().getPath() + "/src/main/res/values/strings.xml"
-        new XmlSlurper().parse(path)."string".find { name ->
-            if (name."@name" == "app_name") {
-                appName = name
-                return true
+    getApplicationVariants().all { variant ->
+        variant.outputs.each { output ->
+            //名称
+            String appName = ""
+            String path = getProjectDir().getPath() + "/src/main/res/values/strings.xml"
+            new XmlSlurper().parse(path)."string".find { name ->
+                if (name."@name" == "app_name") {
+                    appName = name
+                    return true
+                }
             }
-        }
-        //正式版还是测试版
-        String typeName = buildType.name
-        typeName = typeName.substring(0, 1).toUpperCase() + typeName.substring(1).toLowerCase()
-        //build名称
-        String buildVer = String.valueOf(rootProject.ext.android.versionCode)
-        String buildName = "_build" + buildVer
-        //编译日期
-        String buildTime = "_" + String.valueOf(rootProject.ext.android.buildTime)
-        //打包的电脑
-        String computer = "_" + String.valueOf(rootProject.ext.android.computer)
-        //后缀名
-        String suffix = ".apk"
-        //生成输出文件名称
-        String fileName = "${appName}${typeName}${buildName}${buildTime}${computer}${suffix}"
-        //是否需要删除旧文件APK
-        boolean needDelOldApk = false
-        //输入文件设置
-        if (needDelOldApk) outputFileName = fileName
-        else assemble.doLast { //解决Android Studio3.6删除安卓包的问题
-            String buildEndTime = "_${new Date().format("yyyyMMdd_HHmm")}"
-            fileName = "${appName}${typeName}${buildName}${buildEndTime}${computer}${suffix}"
-            project.copy {
-                from("${output.outputFile}")
-                into("${output.outputFile.parent}")
-                rename("${output.outputFile.name}", "${fileName}")
+            //正式版还是测试版
+            String typeName = buildType.name
+            typeName = typeName.substring(0, 1).toUpperCase() + typeName.substring(1).toLowerCase()
+            //build名称
+            String buildVer = String.valueOf(rootProject.ext.android.versionCode)
+            String buildName = "_build" + buildVer
+            //编译日期
+            String buildTime = "_" + String.valueOf(rootProject.ext.android.buildTime)
+            //打包的电脑
+            String computer = "_" + String.valueOf(rootProject.ext.android.computer)
+            //后缀名
+            String suffix = ".apk"
+            //生成输出文件名称
+            String fileName = "${appName}${typeName}${buildName}${buildTime}${computer}${suffix}"
+            //是否需要删除旧文件APK
+            boolean needDelOldApk = false
+            //输入文件设置
+            if (needDelOldApk) outputFileName = fileName
+            else getAssembleProvider().configure() {
+                it.doLast { //解决Android Studio3.6删除安卓包的问题
+                    String buildEndTime = "_${new Date().format("yyyyMMdd_HHmm")}"
+                    fileName = "${appName}${typeName}${buildName}${buildEndTime}${computer}${suffix}"
+                    project.copy {
+                        from("${output.outputFile}")
+                        into("${output.outputFile.parent}")
+                        rename("${output.outputFile.name}", "${fileName}")
+                    }
+                }
             }
         }
     }
 }
+
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     api "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
@@ -149,7 +152,7 @@ dependencies {
 //    implementation 'com.kingja.loadsir:loadsir:1.3.6'
     //指示器库
     implementation 'com.github.hackware1993:MagicIndicator:1.6.0'
-    implementation 'androidx.preference:preference:1.1.1'
+    implementation 'androidx.preference:preference-ktx:1.1.1'
     implementation 'com.afollestad.material-dialogs:core:3.3.0'
     implementation 'com.afollestad.material-dialogs:color:3.3.0'
 }
