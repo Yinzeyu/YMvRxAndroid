@@ -117,11 +117,11 @@ class SystemTN private constructor() : Handler(Looper.getMainLooper()) {
         sendRemoveMsgDelay(toast)
     }
 
-    override fun handleMessage(message: Message?) {
-        if (message == null)
+    override fun handleMessage(msg: Message) {
+        if (msg == null)
             return
-        when (message.what) {
-            REMOVE -> remove(message.obj as SystemToast)
+        when (msg.what) {
+            REMOVE -> remove(msg.obj as SystemToast)
             else -> {
             }
         }

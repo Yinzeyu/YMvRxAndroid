@@ -67,7 +67,6 @@ class MainFragment : CommFragment<MainViewModel, FragmentMainBinding>() {
                         }
                     }
                 }
-//                ToastUtils.showShort(it.errMessage+it.errCode)
             }
         })
         viewModel.getIntegral()

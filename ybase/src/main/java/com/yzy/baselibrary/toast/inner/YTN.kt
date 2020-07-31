@@ -214,12 +214,12 @@ class YTN : Handler(Looper.getMainLooper()) {
 
     }
 
-    override fun handleMessage(message: Message?) {
-        if (message == null) return
-        when (message.what) {
+    override fun handleMessage(msg: Message) {
+        if (msg == null) return
+        when (msg.what) {
             REMOVE -> {
                 //移除当前
-                remove(message.obj as BaseToast)
+                remove(msg.obj as BaseToast)
                 // 展示下一个Toast
                 showNextToast()
             }

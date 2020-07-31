@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.Intent
 import androidx.lifecycle.Observer
 import com.blankj.utilcode.util.ActivityUtils
+import com.blankj.utilcode.util.FragmentUtils
 import com.blankj.utilcode.util.LogUtils
 import com.yzy.baselibrary.base.BaseActivity
 import com.yzy.baselibrary.extention.startActivity
@@ -27,6 +28,7 @@ class MainActivity : BaseActivity() {
     override fun initView() {
         hasFinish = checkReOpenHome()
         if (hasFinish) return
+        ActivityUtils.finishOtherActivities(MainActivity::class.java)
     }
 
     //    https://www.cnblogs.com/xqz0618/p/thistaskroot.html

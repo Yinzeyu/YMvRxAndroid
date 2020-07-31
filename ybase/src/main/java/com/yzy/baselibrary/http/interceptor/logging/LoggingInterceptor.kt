@@ -2,6 +2,7 @@ package com.yzy.baselibrary.http.interceptor.logging
 
 import com.blankj.utilcode.util.JsonUtils
 import okhttp3.*
+import okhttp3.ResponseBody.Companion.toResponseBody
 import okhttp3.internal.platform.Platform
 import okhttp3.internal.platform.Platform.Companion.INFO
 import okhttp3.logging.HttpLoggingInterceptor
@@ -112,7 +113,7 @@ class LoggingInterceptor : Interceptor {
                 bodyJson,
                 segmentList
             )
-            body = ResponseBody.create(contentType, bodyString)
+            body = bodyString.toResponseBody(contentType)
         } else {
             Printer.printFileResponse(
                 this,

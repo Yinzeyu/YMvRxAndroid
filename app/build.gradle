@@ -147,7 +147,7 @@ dependencies {
     //RevealLayout
     implementation 'com.github.goweii:RevealLayout:1.1.1'
     //防崩溃
-    implementation 'cat.ereza:customactivityoncrash:2.3.0'
+//    implementation 'cat.ereza:customactivityoncrash:2.3.0'
     //管理界面状态库
 //    implementation 'com.kingja.loadsir:loadsir:1.3.6'
     //指示器库

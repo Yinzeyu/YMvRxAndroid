@@ -5,7 +5,7 @@ buildscript {
         jcenter()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:4.1.0-beta04'
+        classpath 'com.android.tools.build:gradle:4.1.0-beta05'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
         classpath "androidx.navigation:navigation-safe-args-gradle-plugin:2.3.0"
     }
@@ -41,10 +41,10 @@ def version_Code = (version_Name.replace(".", "")).toInteger() * 1000 + version_
 ext {
     android = [
             applicationId          : "com.yzy.example",
-            compileSdkVersion      : 29,
+            compileSdkVersion      : 30,
             minSdkVersion          : 21,
-            buildToolsVersion      : "29.0.3",
-            targetSdkVersion       : 29,
+            buildToolsVersion      : "30.0.0",
+            targetSdkVersion       : 30,
             versionName            : version_Name,
             versionCode            : version_Code,
             //渠道信息详见APP下Channel_Info.txt文件
