@@ -1,4 +1,4 @@
-package com.yzy.baselibrary.widget.refresh.footer;
+package com.yzy.example.widget.footer;
 
 import android.content.Context;
 import android.content.res.TypedArray;
@@ -10,15 +10,15 @@ import android.widget.RelativeLayout;
 import androidx.annotation.ColorInt;
 import androidx.annotation.NonNull;
 
+import com.scwang.smart.refresh.layout.api.RefreshFooter;
+import com.scwang.smart.refresh.layout.api.RefreshLayout;
+import com.scwang.smart.refresh.layout.constant.RefreshState;
+import com.scwang.smart.refresh.layout.constant.SpinnerStyle;
+import com.scwang.smart.refresh.layout.util.SmartUtil;
 import com.yzy.baselibrary.R;
-import com.yzy.baselibrary.widget.refresh.api.RefreshFooter;
-import com.yzy.baselibrary.widget.refresh.api.RefreshLayout;
-import com.yzy.baselibrary.widget.refresh.classics.ArrowDrawable;
-import com.yzy.baselibrary.widget.refresh.classics.ClassicsAbstract;
-import com.yzy.baselibrary.widget.refresh.constant.RefreshState;
-import com.yzy.baselibrary.widget.refresh.constant.SpinnerStyle;
-import com.yzy.baselibrary.widget.refresh.drawable.ProgressDrawable;
-import com.yzy.baselibrary.widget.refresh.util.SmartUtil;
+import com.yzy.example.widget.header.classics.ArrowDrawable;
+import com.yzy.example.widget.header.classics.ClassicsAbstract;
+import com.yzy.example.widget.header.drawable.ProgressDrawable;
 
 
 /**

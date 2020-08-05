@@ -43,7 +43,6 @@ ext {
             applicationId          : "com.yzy.example",
             compileSdkVersion      : 30,
             minSdkVersion          : 21,
-            buildToolsVersion      : "30.0.0",
             targetSdkVersion       : 30,
             versionName            : version_Name,
             versionCode            : version_Code,

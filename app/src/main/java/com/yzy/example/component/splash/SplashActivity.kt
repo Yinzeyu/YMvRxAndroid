@@ -37,6 +37,7 @@ class SplashActivity : BaseActivity(){
     //打开下个页面
     private fun goNextPage() {
         if (countDownFinish) {
+            finish()
             MainActivity.starMainActivity(this)
         }
 

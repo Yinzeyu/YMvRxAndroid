@@ -1,4 +1,4 @@
-package com.yzy.baselibrary.widget.refresh.classics;
+package com.yzy.example.widget.header.classics;
 
 import android.graphics.Canvas;
 import android.graphics.Path;
@@ -7,7 +7,7 @@ import android.graphics.drawable.Drawable;
 
 import androidx.annotation.NonNull;
 
-import com.yzy.baselibrary.widget.refresh.drawable.PaintDrawable;
+import com.yzy.example.widget.header.drawable.PaintDrawable;
 
 
 /**

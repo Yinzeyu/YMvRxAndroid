@@ -18,7 +18,7 @@ class LoginFragment : CommFragment<LoginViewModel, FragmentLoginBinding>() {
     override fun initContentView() {
         binding.vm = viewModel
         binding.click = ProxyClick()
-        commTitleText.text="登录"
+//        commTitleText.text="登录"
         viewModel.loginResult.observe(
             viewLifecycleOwner,
             Observer { resultState ->

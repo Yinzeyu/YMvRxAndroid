@@ -19,7 +19,7 @@
             android:background="@color/windowBackground"
             android:orientation="vertical">
 
-            <com.yzy.baselibrary.widget.refresh.SmartRefreshLayout
+            <com.scwang.smart.refresh.layout.SmartRefreshLayout
                 android:id="@+id/smCollectAriticleRefresh"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
@@ -33,7 +33,7 @@
                     android:scrollbars="none"
                     app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                     app:layout_behavior="@string/appbar_scrolling_view_behavior" />
-            </com.yzy.baselibrary.widget.refresh.SmartRefreshLayout>
+            </com.scwang.smart.refresh.layout.SmartRefreshLayout>
 
             <com.google.android.material.floatingactionbutton.FloatingActionButton
                 android:id="@+id/fabCollectAriticleView"

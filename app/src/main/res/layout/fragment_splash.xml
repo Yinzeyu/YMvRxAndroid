@@ -11,7 +11,7 @@
     android:layout_width="match_parent"
     android:id="@+id/clRootView"
     android:layout_height="match_parent"
-    tools:context=".component.splash.EmFragment">
+   >
 
 <!--    <ImageView-->
 <!--        android:contentDescription="@null"-->

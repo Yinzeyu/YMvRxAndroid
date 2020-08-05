@@ -10,7 +10,7 @@
         android:background="#f3f3f3"
         android:orientation="vertical">
 
-        <com.yzy.baselibrary.widget.refresh.SmartRefreshLayout
+        <com.scwang.smart.refresh.layout.SmartRefreshLayout
             android:id="@+id/smDynRefresh"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
@@ -23,7 +23,7 @@
                 tools:listitem="@layout/item_gank_android"
                 android:overScrollMode="never"
                 android:scrollbars="none" />
-        </com.yzy.baselibrary.widget.refresh.SmartRefreshLayout>
+        </com.scwang.smart.refresh.layout.SmartRefreshLayout>
 
     </LinearLayout>
 

@@ -1,4 +1,4 @@
-package com.yzy.baselibrary.widget.refresh.header;
+package com.yzy.example.widget.header;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
@@ -18,15 +18,15 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentManager;
 
+import com.scwang.smart.refresh.layout.api.RefreshHeader;
+import com.scwang.smart.refresh.layout.api.RefreshLayout;
+import com.scwang.smart.refresh.layout.constant.RefreshState;
+import com.scwang.smart.refresh.layout.constant.SpinnerStyle;
+import com.scwang.smart.refresh.layout.util.SmartUtil;
 import com.yzy.baselibrary.R;
-import com.yzy.baselibrary.widget.refresh.api.RefreshHeader;
-import com.yzy.baselibrary.widget.refresh.api.RefreshLayout;
-import com.yzy.baselibrary.widget.refresh.classics.ArrowDrawable;
-import com.yzy.baselibrary.widget.refresh.classics.ClassicsAbstract;
-import com.yzy.baselibrary.widget.refresh.constant.RefreshState;
-import com.yzy.baselibrary.widget.refresh.constant.SpinnerStyle;
-import com.yzy.baselibrary.widget.refresh.drawable.ProgressDrawable;
-import com.yzy.baselibrary.widget.refresh.util.SmartUtil;
+import com.yzy.example.widget.header.classics.ArrowDrawable;
+import com.yzy.example.widget.header.classics.ClassicsAbstract;
+import com.yzy.example.widget.header.drawable.ProgressDrawable;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;

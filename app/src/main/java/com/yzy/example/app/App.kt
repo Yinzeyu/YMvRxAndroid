@@ -1,18 +1,18 @@
 package com.yzy.example.app
 
 import com.jeremyliao.liveeventbus.LiveEventBus
+import com.scwang.smart.refresh.layout.SmartRefreshLayout
 import com.yzy.baselibrary.app.BaseApplication
 import com.yzy.baselibrary.http.SSLManager
 import com.yzy.baselibrary.http.interceptor.CacheInterceptor
 import com.yzy.baselibrary.http.retrofitConfig
-import com.yzy.baselibrary.widget.refresh.SmartRefreshLayout
-import com.yzy.baselibrary.widget.refresh.header.ClassicsHeader
 import com.yzy.example.R
 import com.yzy.example.constants.ApiConstants
 import com.yzy.example.http.integration.RequestIntercept
 import com.yzy.example.http.integration.AddCookiesInterceptor
 import com.yzy.example.http.integration.HeaderIntercept
 import com.yzy.example.http.integration.ReceivedCookiesInterceptor
+import com.yzy.example.widget.header.ClassicsHeader
 
 
 class App : BaseApplication() {

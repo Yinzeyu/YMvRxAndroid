@@ -1,4 +1,4 @@
-package com.yzy.baselibrary.widget.refresh.classics;
+package com.yzy.example.widget.header.classics;
 
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -17,14 +17,14 @@ import androidx.annotation.DrawableRes;
 import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
 
+import com.scwang.smart.refresh.layout.api.RefreshComponent;
+import com.scwang.smart.refresh.layout.api.RefreshKernel;
+import com.scwang.smart.refresh.layout.api.RefreshLayout;
+import com.scwang.smart.refresh.layout.constant.SpinnerStyle;
+import com.scwang.smart.refresh.layout.simple.SimpleComponent;
+import com.scwang.smart.refresh.layout.util.SmartUtil;
 import com.yzy.baselibrary.R;
-import com.yzy.baselibrary.widget.refresh.api.RefreshComponent;
-import com.yzy.baselibrary.widget.refresh.api.RefreshKernel;
-import com.yzy.baselibrary.widget.refresh.api.RefreshLayout;
-import com.yzy.baselibrary.widget.refresh.constant.SpinnerStyle;
-import com.yzy.baselibrary.widget.refresh.drawable.PaintDrawable;
-import com.yzy.baselibrary.widget.refresh.simple.SimpleComponent;
-import com.yzy.baselibrary.widget.refresh.util.SmartUtil;
+import com.yzy.example.widget.header.drawable.PaintDrawable;
 
 import static android.view.View.MeasureSpec.EXACTLY;
 
