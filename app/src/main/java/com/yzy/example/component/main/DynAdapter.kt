@@ -51,8 +51,5 @@ class DynAdapter : BaseQuickAdapter<GankAndroidBean, BaseViewHolder>(R.layout.it
             }
 
         }
-//        nineGridView.setImageClickListener { _, imageView, index, list ->
-//            BrowserUtils.instance.show(picStr as ArrayList<String>, index)
-//        }
     }
 }

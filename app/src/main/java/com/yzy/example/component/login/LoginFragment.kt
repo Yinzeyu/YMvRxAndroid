@@ -11,7 +11,6 @@ import com.yzy.example.component.comm.CommFragment
 import com.yzy.example.databinding.FragmentLoginBinding
 import com.yzy.example.repository.model.LoginViewModel
 import com.yzy.example.utils.MMkvUtils
-import kotlinx.android.synthetic.main.layout_comm_title.*
 
 class LoginFragment : CommFragment<LoginViewModel, FragmentLoginBinding>() {
     override fun getLayoutId(): Int = R.layout.fragment_login

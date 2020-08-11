@@ -1,13 +1,13 @@
 package com.yzy.example.component.project
 
 import android.text.TextUtils
-import com.bumptech.glide.Glide
-import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
+import android.widget.ImageView
 import com.chad.library.adapter.base.BaseDelegateMultiAdapter
 import com.chad.library.adapter.base.delegate.BaseMultiTypeDelegate
 import com.chad.library.adapter.base.module.LoadMoreModule
 import com.chad.library.adapter.base.viewholder.BaseViewHolder
 import com.yzy.example.R
+import com.yzy.example.extention.loadUrl
 import com.yzy.example.extention.toHtml
 import com.yzy.example.repository.bean.ArticleDataBean
 import com.yzy.example.widget.CollectView
@@ -105,9 +105,10 @@ class AriticleAdapter(data: MutableList<ArticleDataBean>?) :
                         helper.setGone(R.id.item_project_new, true)
                     }
                     helper.getView<CollectView>(R.id.item_project_collect).isChecked = collect
-                    Glide.with(context.applicationContext).load(envelopePic)
-                        .transition(DrawableTransitionOptions.withCrossFade(500))
-                        .into(helper.getView(R.id.item_project_imageview))
+                    helper.getView<ImageView>(R.id.item_project_imageview).loadUrl(envelopePic)
+//                    Glide.with(context.applicationContext).load(envelopePic)
+//                        .transition(DrawableTransitionOptions.withCrossFade(500))
+//                        .into(helper.getView(R.id.item_project_imageview))
                 }
                 helper.getView<CollectView>(R.id.item_project_collect)
                     .setOnCollectViewClickListener(object : CollectView.OnCollectViewClickListener {

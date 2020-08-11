@@ -1,12 +1,10 @@
 package com.yzy.example.extention
 
-import android.graphics.Bitmap
 import android.widget.ImageView
-import com.yzy.baselibrary.app.BaseApplication
+import coil.api.load
+import coil.transform.CircleCropTransformation
+import coil.transform.Transformation
 import com.yzy.example.R
-import com.yzy.example.imageloader.ImageConfig
-import com.yzy.example.imageloader.GlideImageLoaderStrategy
-import com.yzy.example.imageloader.ImageLoadScaleType
 
 /**
  *description: ImageView的扩展.
@@ -14,112 +12,129 @@ import com.yzy.example.imageloader.ImageLoadScaleType
  *@author: yzy.
  *  加载url图片,默认CenterCrop和CrossFade效果
  */
-fun ImageView.load(url: String?, placeholderId: Int = 0) {
-    url?.let {
-        val config = ImageConfig(
-            useCrossFade = false,
-            url = it,
-            errorSrc = placeholderId,
-            placeholder = placeholderId
-        )
-        load(config)
-    }
-}
-
-fun ImageView.load(url: String?, placeholderId: Int = 0, errorRes: Int = 0) {
-    url?.let {
-        val config = ImageConfig(
-            useCrossFade = false,
-            url = it,
-            errorSrc = errorRes,
-            placeholder =placeholderId
-        )
-        load(config)
-    }
-}
-
-fun ImageView.load(
+fun ImageView.loadUrl(
     url: String?,
     placeholderId: Int = 0,
-    success: (bitmap: Bitmap?) -> Unit,
-    failed: () -> Unit
+    transformations: Transformation? = null
 ) {
-    url?.let {
-        val config = ImageConfig(
-            useCrossFade = false,
-            url = it,
-            errorSrc = placeholderId,
-            placeholder = placeholderId,
-            success = success,
-            failed = failed
-        )
-        load(config)
-    }
+   if (!url.isNullOrEmpty()){
+       this.load(url) {
+           crossfade(true)
+           placeholder(placeholderId)
+           error(placeholderId)
+           transformations?.let {
+               transformations(it)
+           }
+       }
+   }
 }
 
-fun ImageView.load(
-    url: String?,
-    placeholderId: Int = 0,
-    success: (bitmap: Bitmap?) -> Unit,
-    failed: () -> Unit,
-    progress: ((url: String, isComplete: Boolean, percentage: Int, bytesRead: Long, totalBytes: Long) -> Unit)? = null
-) {
-    url?.let {
-        val config = ImageConfig(
-            useCrossFade = false,
-            url = it,
-            errorSrc = placeholderId,
-            placeholder = placeholderId,
-            success = success,
-            failed = failed,
-            progress = progress
-        )
-        load(config)
-    }
-}
-
-fun ImageView.load(url: String?, placeholderId: Int = 0, config: ImageConfig) {
-    url?.let {
-        config.context = BaseApplication.instance()
-        config.imageView = this
-        config.url = url
-        config.errorSrc = placeholderId
-        config.placeholder = placeholderId
-        config.useCrossFade = false
-        loader.loadImage(config)
-    }
-}
-
-/**
- * 根据配置加载图片
- */
-fun ImageView.load(config: ImageConfig) {
-    config.url?.let {
-        config.context = BaseApplication.instance()
-        config.imageView = this
-        loader.loadImage(config)
-    }
-}
-
-val loader: GlideImageLoaderStrategy by lazy {
-    GlideImageLoaderStrategy()
-}
-
-/**
- * 加载圆形
- */
-fun ImageView.loadCircle(
-    url: String?
-) {
-    url?.let {
-        val config = ImageConfig(
-            useCrossFade = true,
-            url = it,
-            imageLoadScaleType = ImageLoadScaleType.CircleCrop
-        )
-        load(config)
-    }
-}
+//fun ImageView.load(url: String?, placeholderId: Int = 0) {
+//    url?.let {
+//        val config = ImageConfig(
+//            useCrossFade = false,
+//            url = it,
+//            errorSrc = placeholderId,
+//            placeholder = placeholderId
+//        )
+//        load(config)
+//    }
+//}
+//
+//fun ImageView.load(url: String?, placeholderId: Int = 0, errorRes: Int = 0) {
+//    url?.let {
+//        val config = ImageConfig(
+//            useCrossFade = false,
+//            url = it,
+//            errorSrc = errorRes,
+//            placeholder =placeholderId
+//        )
+//        load(config)
+//    }
+//}
+//
+//fun ImageView.load(
+//    url: String?,
+//    placeholderId: Int = 0,
+//    success: (bitmap: Bitmap?) -> Unit,
+//    failed: () -> Unit
+//) {
+//    url?.let {
+//        val config = ImageConfig(
+//            useCrossFade = false,
+//            url = it,
+//            errorSrc = placeholderId,
+//            placeholder = placeholderId,
+//            success = success,
+//            failed = failed
+//        )
+//        load(config)
+//    }
+//}
+//
+//fun ImageView.load(
+//    url: String?,
+//    placeholderId: Int = 0,
+//    success: (bitmap: Bitmap?) -> Unit,
+//    failed: () -> Unit,
+//    progress: ((url: String, isComplete: Boolean, percentage: Int, bytesRead: Long, totalBytes: Long) -> Unit)? = null
+//) {
+//    url?.let {
+//        val config = ImageConfig(
+//            useCrossFade = false,
+//            url = it,
+//            errorSrc = placeholderId,
+//            placeholder = placeholderId,
+//            success = success,
+//            failed = failed,
+//            progress = progress
+//        )
+//        load(config)
+//    }
+//}
+//
+//fun ImageView.load(url: String?, placeholderId: Int = 0, config: ImageConfig) {
+//    url?.let {
+//        config.context = BaseApplication.instance()
+//        config.imageView = this
+//        config.url = url
+//        config.errorSrc = placeholderId
+//        config.placeholder = placeholderId
+//        config.useCrossFade = false
+//        loader.loadImage(config)
+//    }
+//}
+//
+///**
+// * 根据配置加载图片
+// */
+//fun ImageView.load(config: ImageConfig) {
+//    config.url?.let {
+//        config.context = BaseApplication.instance()
+//        config.imageView = this
+//        loader.loadImage(config)
+//    }
+//}
+//
+//val loader: GlideImageLoaderStrategy by lazy {
+//    GlideImageLoaderStrategy()
+//}
+//
+///**
+// * 加载圆形
+// */
+//fun ImageView.loadCircle(
+//    url: String?
+//) {
+//    url?.let {
+//        val config = ImageConfig(
+//            useCrossFade = true,
+//            url = it,
+//            imageLoadScaleType = ImageLoadScaleType.CircleCrop
+//        )
+//        load(config)
+//    }
+//}
 ///**
 // * 加载uri图片,默认CenterCrop和CrossFade效果
 // */

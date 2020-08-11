@@ -8,10 +8,10 @@ import android.widget.CompoundButton
 import android.widget.EditText
 import android.widget.ImageView
 import androidx.databinding.BindingAdapter
-import com.bumptech.glide.Glide
-import com.bumptech.glide.load.resource.bitmap.CircleCrop
-import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
-import com.bumptech.glide.request.RequestOptions
+import coil.api.load
+import coil.transform.CircleCropTransformation
+import com.yzy.example.R
+import com.yzy.example.extention.loadUrl
 
 /**
  * 描述　: 自定义 BindingAdapter
@@ -38,20 +38,23 @@ object CustomBindAdapter {
     @BindingAdapter(value = ["imageUrl"])
     @JvmStatic
     fun imageUrl(view: ImageView, url: String) {
-        Glide.with(view.context.applicationContext)
-            .load(url)
-            .transition(DrawableTransitionOptions.withCrossFade(500))
-            .into(view)
+        view.loadUrl(url)
+//        holder.getView<ImageView>(R.id.item_project_imageview).load(envelopePic)
+//        Glide.with(view.context.applicationContext)
+//            .load(url)
+//            .transition(DrawableTransitionOptions.withCrossFade(500))
+//            .into(view)
     }
 
     @BindingAdapter(value = ["circleImageUrl"])
     @JvmStatic
     fun circleImageUrl(view: ImageView, url: String) {
-        Glide.with(view.context.applicationContext)
-            .load(url)
-            .apply(RequestOptions.bitmapTransform(CircleCrop()))
-            .transition(DrawableTransitionOptions.withCrossFade(500))
-            .into(view)
+        view.loadUrl(url,transformations = CircleCropTransformation())
+//        Glide.with(view.context.applicationContext)
+//            .load(url)
+//            .apply(RequestOptions.bitmapTransform(CircleCrop()))
+//            .transition(DrawableTransitionOptions.withCrossFade(500))
+//            .into(view)
     }
 
 

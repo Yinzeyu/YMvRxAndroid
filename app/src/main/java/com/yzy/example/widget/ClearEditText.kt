@@ -8,6 +8,7 @@ import android.util.AttributeSet
 import android.view.MotionEvent
 
 import androidx.appcompat.widget.AppCompatEditText
+import androidx.core.widget.doBeforeTextChanged
 import com.yzy.example.R
 
 

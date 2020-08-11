@@ -17,7 +17,7 @@ import com.yzy.example.component.MainFragmentDirections
 import com.yzy.example.component.comm.CommFragment
 import com.yzy.example.databinding.FragmentHomeBinding
 import com.yzy.example.extention.initFloatBtn
-import com.yzy.example.extention.load
+import com.yzy.example.extention.loadUrl
 import com.yzy.example.repository.bean.ArticleDataBean
 import com.yzy.example.repository.bean.BannerBean
 import com.yzy.example.repository.model.HomeViewModel
@@ -134,7 +134,7 @@ class HomeFragment : CommFragment<HomeViewModel, FragmentHomeBinding>() {
 
         override fun onBindViewHolder(holder: ViewPagerViewHolder, position: Int) {
             holder.mContainer.tag = list[position % list.size]
-            holder.mContainer.load(list[position % list.size].imagePath)
+            holder.mContainer.loadUrl(list[position % list.size].imagePath)
 
         }
     }

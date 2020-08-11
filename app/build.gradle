@@ -126,11 +126,11 @@ android {
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-    api "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
     implementation project(":ybase")
-    api 'com.github.bumptech.glide:glide:4.11.0'
-    api 'com.github.bumptech.glide:okhttp3-integration:4.11.0'
-    kapt 'com.github.bumptech.glide:compiler:4.11.0'
+//    api 'com.github.bumptech.glide:glide:4.11.0'
+//    api 'com.github.bumptech.glide:okhttp3-integration:4.11.0'
+//    kapt 'com.github.bumptech.glide:compiler:4.11.0'
     implementation 'com.tencent.bugly:crashreport:3.1.9'
     implementation 'com.tencent.bugly:nativecrashreport:3.7.1'
     //https://github.com/airbnb/lottie-android
@@ -156,6 +156,7 @@ dependencies {
     implementation 'com.afollestad.material-dialogs:core:3.3.0'
     implementation 'com.afollestad.material-dialogs:color:3.3.0'
     implementation  'com.scwang.smart:refresh-layout-kernel:2.0.1'
+    implementation  'io.coil-kt:coil:0.11.0'
 }
 //放在这省的忘
 //@SuppressLint("ParcelCreator")

@@ -4,7 +4,7 @@ import android.content.Context
 import android.widget.ImageView
 import com.blankj.utilcode.util.SizeUtils
 import com.yzy.example.R
-import com.yzy.example.extention.load
+import com.yzy.example.extention.loadUrl
 import com.yzy.example.repository.bean.PicBean
 
 /**
@@ -21,7 +21,7 @@ class NineGridAdapter(private val imageSize: Int = SizeUtils.dp2px(100f)) :
     override fun onDisplayImage(context: Context, imageView: ImageView, t: PicBean) {
         t.let {bean->
             context.let { c ->
-                imageView.load(bean.url, R.drawable.svg_placeholder_fail,R.drawable.svg_placeholder_fail)
+                imageView.loadUrl(bean.url, R.drawable.svg_placeholder_fail)
             }
         }
     }

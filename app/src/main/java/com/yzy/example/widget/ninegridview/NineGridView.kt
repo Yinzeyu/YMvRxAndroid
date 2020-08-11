@@ -42,13 +42,13 @@ class NineGridView<T> @JvmOverloads constructor(context: Context, attrs: Attribu
     var imageList: List<ImageView> = mImageViewList
 
     init {
-        val typedArray = context.obtainStyledAttributes(attrs, R.styleable.NineGridView)
-        this.mGap = typedArray.getDimension(R.styleable.NineGridView_imgGap, 0f).toInt()
-        this.mSingleImgSize =
-            typedArray.getDimensionPixelSize(R.styleable.NineGridView_singleImgSize, -1)
-        this.mShowStyle = typedArray.getInt(R.styleable.NineGridView_showStyle, STYLE_GRID)
-        this.mMaxSize = typedArray.getInt(R.styleable.NineGridView_maxSize, 9)
-        typedArray.recycle()
+        context.obtainStyledAttributes(attrs, R.styleable.NineGridView).apply {
+            mGap = getDimension(R.styleable.NineGridView_imgGap, 0f).toInt()
+            mSingleImgSize = getDimensionPixelSize(R.styleable.NineGridView_singleImgSize, -1)
+            mShowStyle = getInt(R.styleable.NineGridView_showStyle, STYLE_GRID)
+            mMaxSize = getInt(R.styleable.NineGridView_maxSize, 9)
+            recycle()
+        }
     }
 
     override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
@@ -57,10 +57,10 @@ class NineGridView<T> @JvmOverloads constructor(context: Context, attrs: Attribu
         var height = MeasureSpec.getSize(heightMeasureSpec)
         val totalWidth = width - paddingLeft - paddingRight
         if (mImgDataList.isNotEmpty()) {
-            if (mImgDataList.size == 1 && mSingleImgSize != -1) {
-                mGridSize = if (mSingleImgSize > totalWidth) totalWidth else mSingleImgSize
+            mGridSize = if (mImgDataList.size == 1 && mSingleImgSize != -1) {
+                if (mSingleImgSize > totalWidth) totalWidth else mSingleImgSize
             } else {
-                mGridSize = (totalWidth - mGap * (mColumnCount - 1)) / mColumnCount
+                (totalWidth - mGap * (mColumnCount - 1)) / mColumnCount
             }
             height = mGridSize * mRowCount + mGap * (mRowCount - 1) + paddingTop + paddingBottom
         }
@@ -147,7 +147,7 @@ class NineGridView<T> @JvmOverloads constructor(context: Context, attrs: Attribu
                     }
                     childrenView.layout(left, top, right, bottom)
                 }
-               BOTTOMCOLSPAN //2行2列,末行跨列
+                BOTTOMCOLSPAN //2行2列,末行跨列
                 -> {
                     when (i) {
                         0 -> {
@@ -303,7 +303,7 @@ class NineGridView<T> @JvmOverloads constructor(context: Context, attrs: Attribu
                 else -> {
                 }
             }
-                mAdapter?.onDisplayImage(context, childrenView, mImgDataList[i])
+            mAdapter?.onDisplayImage(context, childrenView, mImgDataList[i])
         }
     }
 
@@ -692,7 +692,7 @@ class NineGridView<T> @JvmOverloads constructor(context: Context, attrs: Attribu
                 mImageViewList.add(imageView)
                 imageView.setOnClickListener { v ->
                     mAdapter?.onItemImageClick(context, v as ImageView, position, mImgDataList)
-                        mItemClickListener?.onItemClick(context, v as ImageView, position, mImgDataList)
+                    mItemClickListener?.onItemClick(context, v as ImageView, position, mImgDataList)
                 }
                 imageView.setOnLongClickListener { v ->
                     var consumedEvent = mAdapter?.onItemImageLongClick(
@@ -700,9 +700,14 @@ class NineGridView<T> @JvmOverloads constructor(context: Context, attrs: Attribu
                         v as ImageView,
                         position,
                         mImgDataList
-                    )?:false
+                    ) ?: false
                     mItemLongClickListener?.let {
-                        consumedEvent = it.onItemLongClick(context,  v as ImageView, position, mImgDataList) || consumedEvent
+                        consumedEvent = it.onItemLongClick(
+                            context,
+                            v as ImageView,
+                            position,
+                            mImgDataList
+                        ) || consumedEvent
                     }
                     consumedEvent
                 }
@@ -727,7 +732,7 @@ class NineGridView<T> @JvmOverloads constructor(context: Context, attrs: Attribu
     private fun calculateGridParam(imagesSize: Int, showStyle: Int): IntArray {
         val gridParam = IntArray(2)
         when (showStyle) {
-         STYLE_FILL -> generatUnitRowAndColumnForSpanType(imagesSize, gridParam)
+            STYLE_FILL -> generatUnitRowAndColumnForSpanType(imagesSize, gridParam)
             STYLE_GRID -> {
                 gridParam[0] = imagesSize / 3 + if (imagesSize % 3 == 0) 0 else 1
                 gridParam[1] = 3
@@ -744,6 +749,7 @@ class NineGridView<T> @JvmOverloads constructor(context: Context, attrs: Attribu
     companion object {
         const val STYLE_GRID = 0     // 宫格布局
         const val STYLE_FILL = 1     // 全填充布局
+
         ///////////////////////////////////////////////////////////////////////////
         // 跨行跨列的类型
         ///////////////////////////////////////////////////////////////////////////
