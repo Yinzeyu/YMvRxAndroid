@@ -4,7 +4,8 @@ import android.content.Context
 import android.content.res.ColorStateList
 import android.graphics.Color
 import androidx.core.content.ContextCompat
-import com.yzy.baselibrary.utils.SharePreferencesUtils
+import com.yzy.baselibrary.utils.getSpValue
+import com.yzy.baselibrary.utils.putSpValue
 import com.yzy.example.R
 import java.util.*
 import kotlin.jvm.internal.Intrinsics
@@ -246,7 +247,7 @@ object ColorUtil {
      */
     fun getColor(context: Context): Int {
         val defaultColor = ContextCompat.getColor(context, R.color.colorPrimaryDark)
-        val colorTheme: Int = SharePreferencesUtils.getInteger("color", defaultColor)
+        val colorTheme: Int = getSpValue("color", defaultColor)
         return if (colorTheme != 0 && Color.alpha(colorTheme) != 255) {
             defaultColor
         } else {
@@ -261,7 +262,7 @@ object ColorUtil {
      * @param color
      */
     fun setColor(color: Int) {
-        SharePreferencesUtils.saveInteger("color", color)
+        putSpValue("color", color)
     }
 
     /**
@@ -304,7 +305,7 @@ object ColorUtil {
      * @param color
      */
     fun setLastColor(color: Int) {
-        SharePreferencesUtils.saveInteger("lastColor", color)
+        putSpValue("lastColor", color)
     }
 
     /**
@@ -315,7 +316,7 @@ object ColorUtil {
      */
     fun getLastColor(context: Context): Int {
         val defaultColor = ContextCompat.getColor(context, R.color.colorPrimary)
-        val lastColor: Int = SharePreferencesUtils.getInteger("lastColor", 0)
+        val lastColor: Int = getSpValue("lastColor", 0)
         return if (lastColor != 0 && Color.alpha(lastColor) != 255) {
             defaultColor
         } else {

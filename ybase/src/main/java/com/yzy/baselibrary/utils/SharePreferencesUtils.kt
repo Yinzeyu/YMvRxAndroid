@@ -1,81 +1,57 @@
+@file:Suppress("UNCHECKED_CAST")
+
 package com.yzy.baselibrary.utils
 
 import android.content.Context
-
 import androidx.core.content.edit
 import com.yzy.baselibrary.app.BaseApplication
 
 /**
  * @author yzy.
- * @description
+ * @description sp 管理工具类
  */
-object SharePreferencesUtils {
-    private const val SHARED_PREFERENCES_NAME = "com.base.share.preference"
-    private val sp = BaseApplication.instance().getSharedPreferences(SHARED_PREFERENCES_NAME, Context.MODE_PRIVATE)
-    @JvmStatic
-    fun saveString( key: String, value: String) {
-        sp.edit { putString(key, value) }
-    }
+private val sp = BaseApplication.instance().getSharedPreferences("com.base.share.preference", Context.MODE_PRIVATE)
 
-    @JvmStatic
-    fun getString( key: String, default: String = ""): String {
-        return sp.getString(key, default) ?: ""
+fun <T> getSpValue(
+    key: String,
+    defaultVal: T
+): T {
+    return when (defaultVal) {
+        is Boolean -> sp.getBoolean(key, defaultVal) as T
+        is String -> sp.getString(key, defaultVal) as T
+        is Int -> sp.getInt(key, defaultVal) as T
+        is Long -> sp.getLong(key, defaultVal) as T
+        is Float -> sp.getFloat(key, defaultVal) as T
+        is Set<*> -> sp.getStringSet(key, defaultVal as Set<String>) as T
+        else -> throw IllegalArgumentException("Unrecognized default value $defaultVal")
     }
+}
 
-    @JvmStatic
-    fun saveInteger( key: String, value: Int) {
-        sp.edit { putInt(key, value) }
-    }
-
-    @JvmStatic
-    fun getInteger( key: String, default: Int = 0): Int {
-        return sp.getInt(key, default)
-    }
-
-    @JvmStatic
-    fun saveLong( key: String, value: Long) {
-        sp.edit { putLong(key, value) }
-    }
-
-    @JvmStatic
-    fun getLong( key: String, default: Long = 0L): Long {
-        return sp.getLong(key, default)
-    }
-
-    @JvmStatic
-    fun saveFloat( key: String, value: Float) {
-        sp.edit { putFloat(key, value) }
-    }
-
-    @JvmStatic
-    fun getFloat( key: String, default: Float = 0F): Float {
-        return sp.getFloat(key, default)
-    }
-
-    @JvmStatic
-    fun saveBoolean( key: String, value: Boolean) {
-        sp.edit { putBoolean(key, value) }
-    }
-
-    @JvmStatic
-    fun getBoolean( key: String, default: Boolean = false): Boolean {
-        return sp.getBoolean(key, default)
-    }
-
-    @JvmStatic
-    fun saveStringSet( key: String, value: MutableSet<String>?) {
-        sp.edit { putStringSet(key, value) }
-    }
-
-    @JvmStatic
-    fun getStringSet( key: String): MutableSet<String>? {
-        return sp.getStringSet(key, null)
-    }
-
-    @JvmStatic
-    fun remove( key: String) {
-        sp.edit {
-            remove(key)
+fun  putSpValue(
+    key: String,
+    value: Any
+) {
+    sp.edit(commit = false) {
+        when (value) {
+            is Boolean -> putBoolean(key, value)
+            is String -> putString(key, value)
+            is Int -> putInt(key, value)
+            is Long -> putLong(key, value)
+            is Float -> putFloat(key, value)
+            is Set<*> -> putStringSet(key, value as Set<String>)
+            else -> throw UnsupportedOperationException("Unrecognized value $value")
         }
+    }
+}
+
+fun removeSpValue(key: String) {
+    sp.edit(commit = false) {
+        remove(key)
+    }
+}
+
+fun clearSpValue() {
+    sp.edit(commit = false) {
+        clear()
     }
 }

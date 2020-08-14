@@ -8,7 +8,8 @@ import android.graphics.drawable.StateListDrawable
 import android.view.View
 import androidx.core.content.ContextCompat
 import com.blankj.utilcode.util.Utils
-import com.yzy.baselibrary.utils.SharePreferencesUtils
+import com.yzy.baselibrary.utils.getSpValue
+import com.yzy.baselibrary.utils.putSpValue
 import com.yzy.example.R
 import java.lang.reflect.InvocationTargetException
 import kotlin.math.roundToInt
@@ -21,7 +22,7 @@ object SettingUtil {
      */
     fun getColor(context: Context): Int {
         val defaultColor = ContextCompat.getColor(context, R.color.colorPrimary)
-        val color = SharePreferencesUtils.getInteger("color", defaultColor)
+        val color = getSpValue("color", defaultColor)
         return if (color != 0 && Color.alpha(color) != 255) {
             defaultColor
         } else {
@@ -33,29 +34,23 @@ object SettingUtil {
     /**
      * 设置主题颜色
      */
-    fun setColor(context: Context, color: Int) {
-            SharePreferencesUtils.saveInteger("color", color)
-    }
+    fun setColor(context: Context, color: Int) = putSpValue("color", color)
 
     /**
      * 获取列表动画模式
      */
-    fun getListMode(): Int {
-        //0 关闭动画 1.渐显 2.缩放 3.从下到上 4.从左到右 5.从右到左
-        return SharePreferencesUtils.getInteger("mode", 2)
-    }
+    //0 关闭动画 1.渐显 2.缩放 3.从下到上 4.从左到右 5.从右到左
+    fun getListMode(): Int  = getSpValue("mode", 2)
+
     /**
      * 设置列表动画模式
      */
-    fun setListMode(mode: Int) {
-        SharePreferencesUtils.saveInteger("mode", mode)
-    }
+    fun setListMode(mode: Int) = putSpValue("mode", mode)
     /**
      * 获取是否请求置顶文章
      */
-    fun getRequestTop(context: Context): Boolean {
-        return SharePreferencesUtils.getBoolean("top", true)
-    }
+    fun getRequestTop(context: Context): Boolean = getSpValue("top", true)
+
 
     fun getColorStateList(context: Context): ColorStateList {
         val colors = intArrayOf(getColor(context), ContextCompat.getColor(context, R.color.colorGray))

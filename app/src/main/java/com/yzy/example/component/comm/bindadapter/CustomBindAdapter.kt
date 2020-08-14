@@ -39,22 +39,12 @@ object CustomBindAdapter {
     @JvmStatic
     fun imageUrl(view: ImageView, url: String) {
         view.loadUrl(url)
-//        holder.getView<ImageView>(R.id.item_project_imageview).load(envelopePic)
-//        Glide.with(view.context.applicationContext)
-//            .load(url)
-//            .transition(DrawableTransitionOptions.withCrossFade(500))
-//            .into(view)
     }
 
     @BindingAdapter(value = ["circleImageUrl"])
     @JvmStatic
     fun circleImageUrl(view: ImageView, url: String) {
         view.loadUrl(url,transformations = CircleCropTransformation())
-//        Glide.with(view.context.applicationContext)
-//            .load(url)
-//            .apply(RequestOptions.bitmapTransform(CircleCrop()))
-//            .transition(DrawableTransitionOptions.withCrossFade(500))
-//            .into(view)
     }
 
 

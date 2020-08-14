@@ -1,7 +1,9 @@
 package com.yzy.example.utils
 
 import com.blankj.utilcode.util.GsonUtils
-import com.yzy.baselibrary.utils.SharePreferencesUtils
+import com.yzy.baselibrary.utils.getSpValue
+import com.yzy.baselibrary.utils.putSpValue
+import com.yzy.baselibrary.utils.removeSpValue
 import com.yzy.example.repository.bean.UserInfo
 
 /**
@@ -24,50 +26,31 @@ class MMkvUtils private constructor() {
     private val KEY_COOKIE = "KEY_COOKIE"
     private val NIGHT_MODE = "NIGHT_MODE"
 
-    fun setPersonalBean(personal: UserInfo) {
-        SharePreferencesUtils.saveString(KEY_PERSONAL_BEAN, GsonUtils.toJson(personal))
-    }
-
+    fun setPersonalBean(personal: UserInfo) =  putSpValue(KEY_PERSONAL_BEAN, GsonUtils.toJson(personal))
     fun getPersonalBean(): UserInfo? {
         var personalBean: UserInfo? = null
-        val strBean = SharePreferencesUtils.getString(KEY_PERSONAL_BEAN)
+        val strBean = getSpValue(KEY_PERSONAL_BEAN,"")
         if (strBean.isNotEmpty() && strBean != "") {
             personalBean = GsonUtils.fromJson(strBean, UserInfo::class.java)
         }
         return personalBean
     }
 
-    fun setToken(token: String) {
-        SharePreferencesUtils.saveString(KEY_PERSONAL_TOKEN, token)
-    }
+    fun setToken(token: String)= putSpValue(KEY_PERSONAL_TOKEN, token)
 
-    fun getToken(): String {
-        return SharePreferencesUtils.getString(KEY_PERSONAL_TOKEN)
-    }
+    fun getToken(): String = getSpValue(KEY_PERSONAL_TOKEN,"")
 
-    fun setCookie(cookie: MutableSet<String>) {
-        SharePreferencesUtils.saveStringSet(KEY_COOKIE, cookie)
-    }
+    fun setCookie(cookie: MutableSet<String>) =   putSpValue(KEY_COOKIE, cookie)
 
-    fun getCookie(): MutableSet<String>? {
-        return SharePreferencesUtils.getStringSet(KEY_COOKIE)
-    }
+    fun getCookie(): MutableSet<String>?  = getSpValue(KEY_COOKIE, mutableSetOf())
 
-    fun setExpire(expire: Long) {
-        SharePreferencesUtils.saveLong(KEY_PERSONAL_EXPIRE, expire)
-    }
+    fun setExpire(expire: Long)  = putSpValue(KEY_PERSONAL_EXPIRE, expire)
 
-    fun getExpire(): Long {
-        return SharePreferencesUtils.getLong(KEY_PERSONAL_EXPIRE)
-    }
+    fun getExpire(): Long = getSpValue(KEY_PERSONAL_EXPIRE, 0)
 
-    fun getNightMode(): Boolean {
-        return SharePreferencesUtils.getBoolean(NIGHT_MODE)
-    }
+    fun getNightMode(): Boolean = getSpValue(NIGHT_MODE,false)
 
-    fun setNightMode(mode: Boolean) {
-        SharePreferencesUtils.getBoolean(NIGHT_MODE, mode)
-    }
+    fun setNightMode(mode: Boolean) =  putSpValue(NIGHT_MODE, mode)
 
     fun isLogin(): Boolean {
         val token = getToken()
@@ -79,8 +62,8 @@ class MMkvUtils private constructor() {
 
 
     fun remove() {
-        SharePreferencesUtils.remove(KEY_PERSONAL_BEAN)
-        SharePreferencesUtils.remove(KEY_PERSONAL_TOKEN)
-        SharePreferencesUtils.remove(KEY_PERSONAL_EXPIRE)
+        removeSpValue(KEY_PERSONAL_BEAN)
+        removeSpValue(KEY_PERSONAL_TOKEN)
+        removeSpValue(KEY_PERSONAL_EXPIRE)
     }
 }
