@@ -155,12 +155,55 @@ fun <T> BaseViewModel<*>.request(
  * @param isShowDialog 是否显示加载框
  * @param loadingMessage 加载框提示内容
  */
+
+//inline fun BaseViewModel<*>.doSuccessView(crossinline success: (T) -> Unit) =
+//    addRequestResult(onSuccess = success)
+//
+//inline fun BaseViewModel<*>.doEmptyView(crossinline emptyView: () -> Unit) =
+//    addRequestResult<T>(onEmpty = emptyView)
+//
+//inline fun BaseViewModel<*>.doErrorView(crossinline error: (ResponseThrowable) -> Unit) = addRequestResult<T>(
+//    onError = error
+//)
+//
+//interface RequestResult<T> {
+//    fun onSuccess(any: T)
+//    fun onError(error: ResponseThrowable)
+//    fun onEmpty()
+//}
+//
+//inline fun <T> addRequestResult(
+//    crossinline onSuccess: ((T) -> Unit) = {},
+//    crossinline onError: ((ResponseThrowable) -> Unit) = {},
+//    crossinline onEmpty: (() -> Unit) = {}
+//): RequestResult<T> {
+//    return object : RequestResult<T> {
+//        override fun onSuccess(any: T) {
+//            onSuccess.invoke(any)
+//        }
+//
+//        override fun onError(error: ResponseThrowable) {
+//            onError.invoke(error)
+//        }
+//
+//        override fun onEmpty() {
+//            onEmpty.invoke()
+//        }
+//    }
+//}
+//
+// fun <T> BaseViewModel<*>.requestResult(
+//     block: suspend () -> IBaseResponse<T>,
+//    isShowDialog: Boolean = false) {
+//    var  addRequestResult = addRequestResult<T>
+//}
+
 fun <T> BaseViewModel<*>.request(
     block: suspend () -> IBaseResponse<T>,
     success: (T) -> Unit,
     error: (ResponseThrowable) -> Unit = {},
     isShowDialog: Boolean = false,
-    emptyView: suspend CoroutineScope.() -> Unit ={},
+    emptyView: suspend CoroutineScope.() -> Unit = {},
     loadingMessage: String = "请求网络中..."
 ) {
     //如果需要弹窗 通知Activity/fragment弹窗
@@ -172,6 +215,7 @@ fun <T> BaseViewModel<*>.request(
             //网络请求异常 关闭弹窗
             loadingChange.dismissDialog.call()
             executeResponse(res, success = {
+
                 success.invoke(it)
             }, emptyView = emptyView)
         }, {
