@@ -15,7 +15,6 @@ import com.yzy.example.repository.bean.CollectUrlBean
 import com.yzy.example.repository.model.CollectUrlViewModel
 import com.yzy.example.widget.CollectView
 import com.yzy.example.widget.recyclerview.SpaceItemDecoration
-import kotlinx.android.synthetic.main.fragment_collect_url.*
 
 /**
  * 描述　: 收藏的网址集合Fragment
@@ -28,60 +27,60 @@ class CollectUrlFragment : BaseFragment<CollectUrlViewModel, FragmentCollectUrlB
     private val articleAdapter: CollectUrlAdapter by lazy { CollectUrlAdapter(arrayListOf()) }
 
     override fun initView(savedSate: Bundle?)  {
-        viewModel.getCollectUrlData()
-        //状态页配置
-//        loadsir = LoadServiceInit(swipeRefresh) {
-//            //点击重试时触发的操作
-//            loadsir.showCallback(LoadingCallback::class.java)
-//            mViewModel.getCollectUrlData()
+//        viewModel.getCollectUrlData()
+//        //状态页配置
+////        loadsir = LoadServiceInit(swipeRefresh) {
+////            //点击重试时触发的操作
+////            loadsir.showCallback(LoadingCallback::class.java)
+////            mViewModel.getCollectUrlData()
+////        }
+//        //初始化recyclerView
+//        rvCollectUrlRecycler.init(LinearLayoutManager(context), articleAdapter).let {
+//            it.addItemDecoration(SpaceItemDecoration(0, ConvertUtils.dp2px(8f)))
+//            //初始化FloatingActionButton
+//            it.initFloatBtn(fabCollectUrlView)
 //        }
-        //初始化recyclerView
-        rvCollectUrlRecycler.init(LinearLayoutManager(context), articleAdapter).let {
-            it.addItemDecoration(SpaceItemDecoration(0, ConvertUtils.dp2px(8f)))
-            //初始化FloatingActionButton
-            it.initFloatBtn(fabCollectUrlView)
-        }
-        smCollectUrlRefresh.setOnRefreshListener {
-            viewModel.getCollectUrlData()
-        }
-        articleAdapter.run {
-            setOnCollectViewClickListener(object :
-                CollectUrlAdapter.OnCollectViewClickListener {
-                override fun onClick(item: CollectUrlBean, v: CollectView, position: Int) {
-//                    if (v.isChecked) {
-//                        mViewModel.uncollectUrl(item.id)
-//                    } else {
-//                        mViewModel.collectUrl(item.name, item.link)
+//        smCollectUrlRefresh.setOnRefreshListener {
+//            viewModel.getCollectUrlData()
+//        }
+//        articleAdapter.run {
+//            setOnCollectViewClickListener(object :
+//                CollectUrlAdapter.OnCollectViewClickListener {
+//                override fun onClick(item: CollectUrlBean, v: CollectView, position: Int) {
+////                    if (v.isChecked) {
+////                        mViewModel.uncollectUrl(item.id)
+////                    } else {
+////                        mViewModel.collectUrl(item.name, item.link)
+////                    }
+//                }
+//            })
+//            setNbOnItemClickListener { _, view, position ->
+////               nav().navigate(R.id.action_collectFragment_to_webFragment, Bundle().apply {
+////                        putParcelable("collectUrl", articleAdapter.data[position])
+////                    })
+//            }
+//        }
+//        viewModel.urlDataState.observe(viewLifecycleOwner, Observer {
+//            smCollectUrlRefresh.finishRefresh()
+////            recyclerView.loadMoreFinish(it.isEmpty, it.hasMore)
+//            if (it.isSuccess) {
+//                //成功
+//                when {
+//                    //第一页并没有数据 显示空布局界面
+//                    it.isEmpty -> {
+////                        loadsir.showCallback(EmptyCallback::class.java)
 //                    }
-                }
-            })
-            setNbOnItemClickListener { _, view, position ->
-//               nav().navigate(R.id.action_collectFragment_to_webFragment, Bundle().apply {
-//                        putParcelable("collectUrl", articleAdapter.data[position])
-//                    })
-            }
-        }
-        viewModel.urlDataState.observe(viewLifecycleOwner, Observer {
-            smCollectUrlRefresh.finishRefresh()
-//            recyclerView.loadMoreFinish(it.isEmpty, it.hasMore)
-            if (it.isSuccess) {
-                //成功
-                when {
-                    //第一页并没有数据 显示空布局界面
-                    it.isEmpty -> {
-//                        loadsir.showCallback(EmptyCallback::class.java)
-                    }
-                    else -> {
-//                        loadsir.showSuccess()
-                        articleAdapter.setNewInstance(it.listData)
-                    }
-                }
-            } else {
-                //失败
-//                loadsir.setErrorText(it.errMessage)
-//                loadsir.showCallback(ErrorCallback::class.java)
-            }
-        })
+//                    else -> {
+////                        loadsir.showSuccess()
+//                        articleAdapter.setNewInstance(it.listData)
+//                    }
+//                }
+//            } else {
+//                //失败
+////                loadsir.setErrorText(it.errMessage)
+////                loadsir.showCallback(ErrorCallback::class.java)
+//            }
+//        })
     }
 
 //    override fun lazyLoadData() {

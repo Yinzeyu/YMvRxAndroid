@@ -8,14 +8,11 @@ import com.yzy.baselibrary.base.BaseFragment
 import com.yzy.example.R
 import com.yzy.example.component.project.AriticleAdapter
 import com.yzy.example.databinding.FragmentLookinfoBinding
-import com.yzy.example.extention.init
-import com.yzy.example.extention.initFloatBtn
 import com.yzy.example.extention.setNbOnItemClickListener
 import com.yzy.example.repository.bean.ArticleDataBean
 import com.yzy.example.repository.model.LookInfoViewModel
 import com.yzy.example.widget.CollectView
 import com.yzy.example.widget.recyclerview.SpaceItemDecoration
-import kotlinx.android.synthetic.main.fragment_lookinfo.*
 
 /**
  * 描述　: 查看他人信息
@@ -53,75 +50,75 @@ class LookInfoFragment : BaseFragment<LookInfoViewModel, FragmentLookinfoBinding
 //            loadsir.showCallback(LoadingCallback::class.java)
 //            requestLookInfoViewModel.getLookinfo(shareId, true)
 //        }
-        recyclerInfoView.init(LinearLayoutManager(context), articleAdapter).let {
-            it.addItemDecoration(SpaceItemDecoration(0, ConvertUtils.dp2px(8f)))
-
-            it.initFloatBtn(fabInfo)
-        }
-        swipeInfoRefresh.init {
-            viewModel.getLookinfo(shareId, true)
-        }
-        articleAdapter.run {
-            setOnCollectViewClickListener(object :
-                AriticleAdapter.OnCollectViewClickListener {
-                override fun onClick(item: ArticleDataBean, v: CollectView, position: Int) {
-//                    if (shareViewModel.isLogin.value) {
-//                        if (v.isChecked) {
-//                            requestCollectViewModel.uncollect(item.id)
-//                        } else {
-//                            requestCollectViewModel.collect(item.id)
-//                        }
-//                    } else {
-//                        v.isChecked = true
-//                        nav().navigate(R.id.action_lookInfoFragment_to_loginFragment)
-//                    }
-                }
-            })
-            setNbOnItemClickListener { adapter, view, position ->
-//                nav().navigate(R.id.action_lookInfoFragment_to_webFragment, Bundle().apply {
-//                    putParcelable(
-//                        "ariticleData",
-//                        articleAdapter.data[position - recyclerView.headerCount]
-//                    )
-//                })
-            }
-        }
-        viewModel.shareResponse.observe(viewLifecycleOwner, Observer {
-            viewModel.name.postValue(it.coinInfo.username)
-            viewModel.info.postValue("积分 : ${it.coinInfo.coinCount}　排名 : ${it.coinInfo.rank}")
-        })
-        viewModel.shareListDataUistate.observe(viewLifecycleOwner, Observer {
-            swipeInfoRefresh.isRefreshing = false
-//            recyclerView.loadMoreFinish(it.isEmpty, it.hasMore)
-            if (it.isSuccess) {
-                //成功
-                when {
-                    //第一页并没有数据 显示空布局界面
-                    it.isFirstEmpty -> {
-//                        loadsir.showCallback(EmptyCallback::class.java)
-                    }
-                    //是第一页
-                    it.isRefresh -> {
-//                        loadsir.showSuccess()
-                        articleAdapter.setNewInstance(it.listData)
-                    }
-                    //不是第一页
-                    else -> {
-//                        loadsir.showSuccess()
-                        articleAdapter.addData(it.listData?: mutableListOf())
-                    }
-                }
-            } else {
-                //失败
-//                if (it.isRefresh) {
-//                    //如果是第一页，则显示错误界面，并提示错误信息
-//                    loadsir.setErrorText(it.errMessage)
-//                    loadsir.showCallback(ErrorCallback::class.java)
-//                } else {
-//                    recyclerView.loadMoreError(0, it.errMessage)
+//        recyclerInfoView.init(LinearLayoutManager(context), articleAdapter).let {
+//            it.addItemDecoration(SpaceItemDecoration(0, ConvertUtils.dp2px(8f)))
+//
+//            it.initFloatBtn(fabInfo)
+//        }
+//        swipeInfoRefresh.init {
+//            viewModel.getLookinfo(shareId, true)
+//        }
+//        articleAdapter.run {
+//            setOnCollectViewClickListener(object :
+//                AriticleAdapter.OnCollectViewClickListener {
+//                override fun onClick(item: ArticleDataBean, v: CollectView, position: Int) {
+////                    if (shareViewModel.isLogin.value) {
+////                        if (v.isChecked) {
+////                            requestCollectViewModel.uncollect(item.id)
+////                        } else {
+////                            requestCollectViewModel.collect(item.id)
+////                        }
+////                    } else {
+////                        v.isChecked = true
+////                        nav().navigate(R.id.action_lookInfoFragment_to_loginFragment)
+////                    }
 //                }
-            }
-        })
+//            })
+//            setNbOnItemClickListener { adapter, view, position ->
+////                nav().navigate(R.id.action_lookInfoFragment_to_webFragment, Bundle().apply {
+////                    putParcelable(
+////                        "ariticleData",
+////                        articleAdapter.data[position - recyclerView.headerCount]
+////                    )
+////                })
+//            }
+//        }
+//        viewModel.shareResponse.observe(viewLifecycleOwner, Observer {
+//            viewModel.name.postValue(it.coinInfo.username)
+//            viewModel.info.postValue("积分 : ${it.coinInfo.coinCount}　排名 : ${it.coinInfo.rank}")
+//        })
+//        viewModel.shareListDataUistate.observe(viewLifecycleOwner, Observer {
+//            swipeInfoRefresh.isRefreshing = false
+////            recyclerView.loadMoreFinish(it.isEmpty, it.hasMore)
+//            if (it.isSuccess) {
+//                //成功
+//                when {
+//                    //第一页并没有数据 显示空布局界面
+//                    it.isFirstEmpty -> {
+////                        loadsir.showCallback(EmptyCallback::class.java)
+//                    }
+//                    //是第一页
+//                    it.isRefresh -> {
+////                        loadsir.showSuccess()
+//                        articleAdapter.setNewInstance(it.listData)
+//                    }
+//                    //不是第一页
+//                    else -> {
+////                        loadsir.showSuccess()
+//                        articleAdapter.addData(it.listData?: mutableListOf())
+//                    }
+//                }
+//            } else {
+//                //失败
+////                if (it.isRefresh) {
+////                    //如果是第一页，则显示错误界面，并提示错误信息
+////                    loadsir.setErrorText(it.errMessage)
+////                    loadsir.showCallback(ErrorCallback::class.java)
+////                } else {
+////                    recyclerView.loadMoreError(0, it.errMessage)
+////                }
+//            }
+//        })
 //        requestCollectViewModel.collectUiState.observe(viewLifecycleOwner, Observer {
 //            if (it.isSuccess) {
 //                //收藏或取消收藏操作成功，发送全局收藏消息

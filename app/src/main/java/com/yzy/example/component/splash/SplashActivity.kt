@@ -6,10 +6,6 @@ import com.yzy.baselibrary.base.BaseActivity
 import com.yzy.baselibrary.extention.startActivity
 import com.yzy.example.R
 import com.yzy.example.component.MainActivity
-import kotlinx.android.synthetic.main.fragment_splash.*
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.launch
 
 class SplashActivity : BaseActivity(){
     companion object {
@@ -22,17 +18,17 @@ class SplashActivity : BaseActivity(){
     override fun layoutResId(): Int=R.layout.fragment_splash
     private var hasFinish = false
     override fun initView() {
-        hasFinish = checkReOpenHome()
-        if (hasFinish) return
-        launch(Dispatchers.Main) {
-            for (i in 5 downTo 1) {
-                splashTime.text = String.format("%d", i)
-                delay(1000)
-            }
-            countDownFinish = true
-            goNextPage()
-            splashTime.text = "0"
-        }
+//        hasFinish = checkReOpenHome()
+//        if (hasFinish) return
+//        launch(Dispatchers.Main) {
+//            for (i in 5 downTo 1) {
+//                splashTime.text = String.format("%d", i)
+//                delay(1000)
+//            }
+//            countDownFinish = true
+//            goNextPage()
+//            splashTime.text = "0"
+//        }
     }
     //打开下个页面
     private fun goNextPage() {

@@ -1,16 +1,13 @@
 package com.yzy.example.repository.model
 
-import androidx.lifecycle.MutableLiveData
 import com.yzy.baselibrary.base.BaseViewModel
 import com.yzy.baselibrary.extention.request
-import com.yzy.example.http.ListDataUiState
 import com.yzy.example.repository.GankRepository
-import com.yzy.example.repository.bean.ArticleDataBean
 
 
 class AskViewModel : BaseViewModel<GankRepository>() {
     //每日一问数据
-    var askDataState: MutableLiveData<ListDataUiState<ArticleDataBean>> = MutableLiveData()
+//    var askDataState: MutableLiveData<ListDataUiState<ArticleDataBean>> = MutableLiveData()
     private var pageNo = 0
 
     /**
@@ -23,26 +20,26 @@ class AskViewModel : BaseViewModel<GankRepository>() {
         request({ repository.getAskData(pageNo) }, {
             //请求成功
             pageNo++
-            val listDataUiState =
-                ListDataUiState(
-                    isSuccess = true,
-                    isRefresh = isRefresh,
-                    isEmpty = it.isEmpty(),
-                    hasMore = it.hasMore(),
-                    isFirstEmpty = isRefresh && it.isEmpty(),
-                    listData = it.datas
-                )
-            askDataState.postValue(listDataUiState)
+//            val listDataUiState =
+//                ListDataUiState(
+//                    isSuccess = true,
+//                    isRefresh = isRefresh,
+//                    isEmpty = it.isEmpty(),
+//                    hasMore = it.hasMore(),
+//                    isFirstEmpty = isRefresh && it.isEmpty(),
+//                    listData = it.datas
+//                )
+//            askDataState.postValue(listDataUiState)
         }, {
             //请求失败
-            val listDataUiState =
-                ListDataUiState(
-                    isSuccess = false,
-                    errMessage = it.message ?: "",
-                    isRefresh = isRefresh,
-                    listData = arrayListOf<ArticleDataBean>()
-                )
-            askDataState.postValue(listDataUiState)
+//            val listDataUiState =
+//                ListDataUiState(
+//                    isSuccess = false,
+//                    errMessage = it.message ?: "",
+//                    isRefresh = isRefresh,
+//                    listData = arrayListOf<ArticleDataBean>()
+//                )
+//            askDataState.postValue(listDataUiState)
         })
     }
 

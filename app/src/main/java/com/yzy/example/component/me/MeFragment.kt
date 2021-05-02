@@ -10,7 +10,6 @@ import com.yzy.example.extention.init
 import com.yzy.example.extention.joinQQGroup
 import com.yzy.example.repository.model.MeViewModel
 import com.yzy.example.utils.MMkvUtils
-import kotlinx.android.synthetic.main.fragment_me.*
 
 class MeFragment : CommFragment<MeViewModel, FragmentMeBinding>() {
 
@@ -21,25 +20,25 @@ class MeFragment : CommFragment<MeViewModel, FragmentMeBinding>() {
 //    }
 
     override fun initContentView() {
-        binding.vm = viewModel
-        binding.click = ProxyClick()
-        viewModel.getIntegral()
-        me_swipe.init {
-            viewModel.getIntegral()
-        }
-        MMkvUtils.instance.getPersonalBean()?.let {
-            viewModel.name.postValue(if (it.nickname.isEmpty()) it.username else it.nickname)
-        }
-        viewModel.meData.observe(viewLifecycleOwner, Observer {
-            me_swipe.isRefreshing = false
-            if (it.isSuccess) {
-                viewModel.info.postValue("id：${it?.data?.userId}　排名：${it?.data?.rank}")
-                viewModel.integral.postValue(it?.data?.coinCount)
-            } else {
-                ToastUtils.showShort(it.errMessage)
-            }
-
-        })
+//        binding.vm = viewModel
+//        binding.click = ProxyClick()
+//        viewModel.getIntegral()
+//        me_swipe.init {
+//            viewModel.getIntegral()
+//        }
+//        MMkvUtils.instance.getPersonalBean()?.let {
+//            viewModel.name.postValue(if (it.nickname.isEmpty()) it.username else it.nickname)
+//        }
+//        viewModel.meData.observe(viewLifecycleOwner, Observer {
+//            me_swipe.isRefreshing = false
+//            if (it.isSuccess) {
+//                viewModel.info.postValue("id：${it?.data?.userId}　排名：${it?.data?.rank}")
+//                viewModel.integral.postValue(it?.data?.coinCount)
+//            } else {
+//                ToastUtils.showShort(it.errMessage)
+//            }
+//
+//        })
     }
 
     override fun getLayoutId(): Int = R.layout.fragment_me

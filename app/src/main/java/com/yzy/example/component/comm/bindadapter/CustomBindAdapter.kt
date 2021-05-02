@@ -8,7 +8,6 @@ import android.widget.CompoundButton
 import android.widget.EditText
 import android.widget.ImageView
 import androidx.databinding.BindingAdapter
-import coil.api.load
 import coil.transform.CircleCropTransformation
 import com.yzy.example.R
 import com.yzy.example.extention.loadUrl

@@ -1,18 +1,11 @@
 package com.yzy.example.component.publicNumber
 
 import android.os.Bundle
-import androidx.lifecycle.Observer
-import androidx.recyclerview.widget.LinearLayoutManager
-import com.blankj.utilcode.util.ConvertUtils
 import com.yzy.baselibrary.base.BaseFragment
 import com.yzy.example.R
 import com.yzy.example.component.project.AriticleAdapter
 import com.yzy.example.databinding.FragmentProjectChildBinding
-import com.yzy.example.extention.init
-import com.yzy.example.extention.initFloatBtn
 import com.yzy.example.repository.model.PublicChildViewModel
-import kotlinx.android.synthetic.main.fragment_public_number_child.*
-import com.yzy.example.widget.recyclerview.SpaceItemDecoration
 
 class PublicChildFragment :
     BaseFragment<PublicChildViewModel, FragmentProjectChildBinding>() {
@@ -26,53 +19,53 @@ class PublicChildFragment :
     override fun getLayoutId(): Int = R.layout.fragment_public_number_child
 
     override fun initView(savedSate: Bundle?) {
-        arguments?.let {
-            cid = it.getInt("cid")
-        }
-        viewModel.getPublicData(true, cid)
-        //初始化recyclerView
-        recyclerPublicChildView.init(LinearLayoutManager(context), articleAdapter).let {
-            it.addItemDecoration(SpaceItemDecoration(0, ConvertUtils.dp2px(8f)))
-
-            //初始化FloatingActionButton
-            it.initFloatBtn(fabPublicChildView)
-        }
-
-        //初始化 SwipeRefreshLayout
-        swipePublicChildRefresh.init {
-            //触发刷新监听时请求数据
-            viewModel.getPublicData(true, cid)
-        }
-        viewModel.publicDataState.observe(viewLifecycleOwner, Observer {
-            swipePublicChildRefresh.isRefreshing = false
-            if (it.isSuccess) {
-                //成功
-                when {
-                    //第一页并没有数据 显示空布局界面
-                    it.isFirstEmpty -> {
-                    }
-                    //是第一页
-                    it.isRefresh -> {
-                        articleAdapter.setNewInstance(it.listData)
-                    }
-                    //不是第一页
-                    else -> {
-                        articleAdapter.addData(it.listData ?: mutableListOf())
-                    }
-                }
-            } else {
-                //失败
-                if (it.isRefresh) {
-                    //如果是第一页，则显示错误界面，并提示错误信息
-                } else {
-                }
-            }
-        })
-        articleAdapter.apply {
-            loadMoreModule.setOnLoadMoreListener {
-                viewModel.loadData(cid)
-            }
-        }
+//        arguments?.let {
+//            cid = it.getInt("cid")
+//        }
+//        viewModel.getPublicData(true, cid)
+//        //初始化recyclerView
+//        recyclerPublicChildView.init(LinearLayoutManager(context), articleAdapter).let {
+//            it.addItemDecoration(SpaceItemDecoration(0, ConvertUtils.dp2px(8f)))
+//
+//            //初始化FloatingActionButton
+//            it.initFloatBtn(fabPublicChildView)
+//        }
+//
+//        //初始化 SwipeRefreshLayout
+//        swipePublicChildRefresh.init {
+//            //触发刷新监听时请求数据
+//            viewModel.getPublicData(true, cid)
+//        }
+//        viewModel.publicDataState.observe(viewLifecycleOwner, Observer {
+//            swipePublicChildRefresh.isRefreshing = false
+//            if (it.isSuccess) {
+//                //成功
+//                when {
+//                    //第一页并没有数据 显示空布局界面
+//                    it.isFirstEmpty -> {
+//                    }
+//                    //是第一页
+//                    it.isRefresh -> {
+//                        articleAdapter.setNewInstance(it.listData)
+//                    }
+//                    //不是第一页
+//                    else -> {
+//                        articleAdapter.addData(it.listData ?: mutableListOf())
+//                    }
+//                }
+//            } else {
+//                //失败
+//                if (it.isRefresh) {
+//                    //如果是第一页，则显示错误界面，并提示错误信息
+//                } else {
+//                }
+//            }
+//        })
+//        articleAdapter.apply {
+//            loadMoreModule.setOnLoadMoreListener {
+//                viewModel.loadData(cid)
+//            }
+//        }
     }
 
 //    override fun lazyLoadData() {

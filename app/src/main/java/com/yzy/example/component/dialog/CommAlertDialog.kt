@@ -9,14 +9,8 @@ import androidx.fragment.app.FragmentManager
 import coil.transform.CircleCropTransformation
 import com.yzy.baselibrary.base.BaseDialogFragment
 import com.yzy.baselibrary.base.NoViewModel
-import com.yzy.baselibrary.extention.click
-import com.yzy.baselibrary.extention.pressEffectAlpha
-import com.yzy.baselibrary.extention.visible
 import com.yzy.example.R
-import com.yzy.example.extention.loadUrl
 import com.yzy.example.utils.AimyInputHelper
-import kotlinx.android.synthetic.main.dialog_comm_alert.*
-import kotlinx.android.synthetic.main.layout_apply2_join_circle.*
 
 /**
  * description: 通用的提示框
@@ -64,97 +58,97 @@ class CommAlertDialog : BaseDialogFragment<NoViewModel, ViewDataBinding>() {
     var edit2SomebodyStyle: (EditText.() -> Unit)? = null
 
     override fun initView(savedState: Bundle?) {
-        initType()
-        initEdit2Somebody()
-        commAlertCancel.pressEffectAlpha()
-        commAlertConfirm.pressEffectAlpha()
-        title?.let {
-            commAlertTitle.text = it
-        }
-        commAlertTitle.visibility = if (TextUtils.isEmpty(title)) View.GONE else View.VISIBLE
-        content?.let {
-            commAlertContent.post {
-                if (commAlertContent.lineCount == 1) {
-                    commAlertContent.gravity = Gravity.CENTER_HORIZONTAL
-                }
-            }
-            commAlertContent.text = it
-        }
-
-        commAlertCancel.click {
-            cancelCallback?.invoke()
-            dismiss()
-        }
-        cancelText?.let {
-            commAlertCancel.text = it
-        }
-
-        commAlertConfirm.click {
-            confirmCallback?.invoke()
-            dismiss()
-        }
-        confirmText?.let {
-            commAlertConfirm.text = it
-        }
-        confirmTextColor?.let {
-            commAlertConfirm.setTextColor(it)
-        }
-        if (centerHorizontal) commAlertContent.gravity = Gravity.CENTER_HORIZONTAL
+//        initType()
+//        initEdit2Somebody()
+//        commAlertCancel.pressEffectAlpha()
+//        commAlertConfirm.pressEffectAlpha()
+//        title?.let {
+//            commAlertTitle.text = it
+//        }
+//        commAlertTitle.visibility = if (TextUtils.isEmpty(title)) View.GONE else View.VISIBLE
+//        content?.let {
+//            commAlertContent.post {
+//                if (commAlertContent.lineCount == 1) {
+//                    commAlertContent.gravity = Gravity.CENTER_HORIZONTAL
+//                }
+//            }
+//            commAlertContent.text = it
+//        }
+//
+//        commAlertCancel.click {
+//            cancelCallback?.invoke()
+//            dismiss()
+//        }
+//        cancelText?.let {
+//            commAlertCancel.text = it
+//        }
+//
+//        commAlertConfirm.click {
+//            confirmCallback?.invoke()
+//            dismiss()
+//        }
+//        confirmText?.let {
+//            commAlertConfirm.text = it
+//        }
+//        confirmTextColor?.let {
+//            commAlertConfirm.setTextColor(it)
+//        }
+//        if (centerHorizontal) commAlertContent.gravity = Gravity.CENTER_HORIZONTAL
     }
 
-    private fun initEdit2Somebody() {
-        edit2SomebodyName?.let {
-            applyName.text = it
-        }
-        edit2SomebodyCover?.let {
-            applyCover.loadUrl(it,transformations = CircleCropTransformation())
-        }
-        edit2SomebodyCallback?.let { edT ->
-            AimyInputHelper.wrapCommLimit(applyEt, 40, 0) { hasInputLength, _ ->
-                if (edit2SomeBodyContentMust) {
-                    if (hasInputLength > 0) {
-                        commAlertConfirm.isEnabled = true
-                        commAlertConfirm.alpha = 1f
-                    } else {
-                        commAlertConfirm.isEnabled = false
-                        commAlertConfirm.alpha = 0.2f
-                    }
-                }
-            }
-            commAlertConfirm.click {
-                edT.invoke(applyEt.text.toString())
-                dismiss()
-            }
-        }
-        edit2SomebodyStyle?.let {
-            applyEt.apply(it)
-        }
-
-        if (edit2SomeBodyContentMust) {
-            commAlertConfirm.isEnabled = false
-            commAlertConfirm.alpha = 0.2f
-        }
-
-    }
-
-    private fun initType() {
-        when (type) {
-            AlertDialogType.SINGLE_BUTTON -> {
-                commAlertConfirm.visible()
-                commAlertContent.visible()
-            }
-            AlertDialogType.DOUBLE_BUTTON -> {
-                commAlertCancel.visible()
-                commBtnLine.visible()
-                commAlertContent.visible()
-            }
-            AlertDialogType.EDIT2_SOMEBODY -> {
-                commAlertCancel.visible()
-                commBtnLine.visible()
-                commApply.visible()
-            }
-        }
-    }
+//    private fun initEdit2Somebody() {
+//        edit2SomebodyName?.let {
+//            applyName.text = it
+//        }
+//        edit2SomebodyCover?.let {
+//            applyCover.loadUrl(it,transformations = CircleCropTransformation())
+//        }
+//        edit2SomebodyCallback?.let { edT ->
+//            AimyInputHelper.wrapCommLimit(applyEt, 40, 0) { hasInputLength, _ ->
+//                if (edit2SomeBodyContentMust) {
+//                    if (hasInputLength > 0) {
+//                        commAlertConfirm.isEnabled = true
+//                        commAlertConfirm.alpha = 1f
+//                    } else {
+//                        commAlertConfirm.isEnabled = false
+//                        commAlertConfirm.alpha = 0.2f
+//                    }
+//                }
+//            }
+//            commAlertConfirm.click {
+//                edT.invoke(applyEt.text.toString())
+//                dismiss()
+//            }
+//        }
+//        edit2SomebodyStyle?.let {
+//            applyEt.apply(it)
+//        }
+//
+//        if (edit2SomeBodyContentMust) {
+//            commAlertConfirm.isEnabled = false
+//            commAlertConfirm.alpha = 0.2f
+//        }
+//
+//    }
+//
+//    private fun initType() {
+//        when (type) {
+//            AlertDialogType.SINGLE_BUTTON -> {
+//                commAlertConfirm.visible()
+//                commAlertContent.visible()
+//            }
+//            AlertDialogType.DOUBLE_BUTTON -> {
+//                commAlertCancel.visible()
+//                commBtnLine.visible()
+//                commAlertContent.visible()
+//            }
+//            AlertDialogType.EDIT2_SOMEBODY -> {
+//                commAlertCancel.visible()
+//                commBtnLine.visible()
+//                commApply.visible()
+//            }
+//        }
+//    }
 
 
     companion object {

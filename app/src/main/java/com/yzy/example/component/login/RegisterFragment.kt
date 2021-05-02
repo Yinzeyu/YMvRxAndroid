@@ -13,35 +13,34 @@ import com.yzy.example.R
 import com.yzy.example.databinding.FragmentRegisterBinding
 import com.yzy.example.repository.model.RegisterViewModel
 import com.yzy.example.utils.MMkvUtils
-import kotlinx.android.synthetic.main.layout_comm_title.*
 
 class RegisterFragment : BaseFragment<RegisterViewModel, FragmentRegisterBinding>() {
     override fun getLayoutId(): Int = R.layout.fragment_register
     override fun initView(savedSate: Bundle?) {
-        binding.vm = viewModel
-        binding.click = ProxyClick()
-        commTitleText.text="注册"
-        commTitleBack.pressEffectAlpha()
-        commTitleBack.click {
-            nav().navigateUp()
-        }
-        viewModel.loginResult.observe(
-            viewLifecycleOwner,
-            Observer { resultState ->
-                parseState(resultState, {
-                    it?.let { it1 ->
-                        MMkvUtils.instance.setPersonalBean(it1)
-                    }
-//                    shareViewModel.isLogin.postValue(true)
-//                    CacheUtil.setUser(it)
-//                    shareViewModel.userinfo.postValue(it)
-                    nav().navigate(R.id.action_registerFragment_to_emFragment)
-                },{
-
-                }, {
-                    ToastUtils.showLong(it.errMsg)
-                })
-            })
+//        binding.vm = viewModel
+//        binding.click = ProxyClick()
+//        commTitleText.text="注册"
+//        commTitleBack.pressEffectAlpha()
+//        commTitleBack.click {
+//            nav().navigateUp()
+//        }
+//        viewModel.loginResult.observe(
+//            viewLifecycleOwner,
+//            Observer { resultState ->
+//                parseState(resultState, {
+//                    it?.let { it1 ->
+//                        MMkvUtils.instance.setPersonalBean(it1)
+//                    }
+////                    shareViewModel.isLogin.postValue(true)
+////                    CacheUtil.setUser(it)
+////                    shareViewModel.userinfo.postValue(it)
+//                    nav().navigate(R.id.action_registerFragment_to_emFragment)
+//                },{
+//
+//                }, {
+//                    ToastUtils.showLong(it.errMsg)
+//                })
+//            })
     }
 
     inner class ProxyClick {

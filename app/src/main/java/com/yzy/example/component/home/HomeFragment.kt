@@ -22,10 +22,6 @@ import com.yzy.example.repository.bean.ArticleDataBean
 import com.yzy.example.repository.bean.BannerBean
 import com.yzy.example.repository.model.HomeViewModel
 import com.yzy.example.widget.CycleViewPager
-import kotlinx.android.synthetic.main.fragment_home.*
-import kotlinx.android.synthetic.main.item_banner.view.*
-import kotlinx.android.synthetic.main.layout_comm_title.*
-import com.yzy.example.widget.recyclerview.SpaceItemDecoration
 
 class HomeFragment : CommFragment<HomeViewModel, FragmentHomeBinding>() {
     private val mAdapter by lazy {
@@ -37,73 +33,73 @@ class HomeFragment : CommFragment<HomeViewModel, FragmentHomeBinding>() {
     private lateinit var banner: CycleViewPager
 
     override fun initContentView() {
-        binding.vm = viewModel
-        commTitleText.text = "首页"
-        commTitleBack.gone()
-        smRefresh.setEnableRefresh(false)
-        smRefresh.setOnRefreshListener {
-            viewModel.getBanner(true)
-        }
-        viewModel.loadLocal(true)
-        with(rvHomeRecycler) {
-            adapter = mAdapter
-            val bannerView = context.inflate(R.layout.item_banner)
-            banner = bannerView.itemBanner
-            banner.mViewPager2?.setPageTransformer(CompositePageTransformer())
-            mAdapter.removeAllHeaderView()
-            mAdapter.addHeaderView(bannerView)
-            addItemDecoration(SpaceItemDecoration(0, ConvertUtils.dp2px(8f), false))
-            initFloatBtn(floatbtn)
-        }
-
-        mAdapter.apply {
-            loadMoreModule.setOnLoadMoreListener {
-                viewModel.loadData()
-            }
-            setOnItemClickListener { adapter, v, position ->
-                val bean: ArticleDataBean = adapter.data[position] as ArticleDataBean
-                Navigation.findNavController(v).navigate(
-                    MainFragmentDirections.actionMainFragmentToWebsiteDetailFragment(ariticleData = bean)
-                )
-            }
-        }
-
-        viewModel.run {
-            //监听首页文章列表请求的数据变化
-            homeDataState.observe(viewLifecycleOwner, Observer {
-                smRefresh.finishRefresh()
-                if (it.isSuccess) {
-                    //成功
-                    when {
-                        //是第一页
-                        it.isRefresh -> {
-                            mAdapter.setNewInstance(it.listData)
-                            loadMore(it.isEmpty)
-                        }
-                        //不是第一页
-                        else -> {
-                            mAdapter.addData(it.listData ?: mutableListOf())
-                            loadMore(it.isEmpty)
-                        }
-                    }
-                } else {
-                    loadMore(false)
-                }
-            })
-            //监听轮播图请求的数据变化
-            bannerDataState.observe(viewLifecycleOwner, Observer { resultState ->
-                val bannerBean = resultState.listData ?: mutableListOf()
-                if (bannerBean.isNotEmpty()) {
-                    banner.listSize = bannerBean.size
-                    val bannerAdapter =
-                        ViewPagerAdapter(
-                            bannerBean
-                        )
-                    banner.setAdapter(bannerAdapter)
-                    banner.setAutoTurning(3000L)
-                }
-            })
-        }
+//        binding.vm = viewModel
+//        commTitleText.text = "首页"
+//        commTitleBack.gone()
+//        smRefresh.setEnableRefresh(false)
+//        smRefresh.setOnRefreshListener {
+//            viewModel.getBanner(true)
+//        }
+//        viewModel.loadLocal(true)
+//        with(rvHomeRecycler) {
+//            adapter = mAdapter
+//            val bannerView = context.inflate(R.layout.item_banner)
+//            banner = bannerView.itemBanner
+//            banner.mViewPager2?.setPageTransformer(CompositePageTransformer())
+//            mAdapter.removeAllHeaderView()
+//            mAdapter.addHeaderView(bannerView)
+//            addItemDecoration(SpaceItemDecoration(0, ConvertUtils.dp2px(8f), false))
+//            initFloatBtn(floatbtn)
+//        }
+//
+//        mAdapter.apply {
+//            loadMoreModule.setOnLoadMoreListener {
+//                viewModel.loadData()
+//            }
+//            setOnItemClickListener { adapter, v, position ->
+//                val bean: ArticleDataBean = adapter.data[position] as ArticleDataBean
+//                Navigation.findNavController(v).navigate(
+//                    MainFragmentDirections.actionMainFragmentToWebsiteDetailFragment(ariticleData = bean)
+//                )
+//            }
+//        }
+//
+//        viewModel.run {
+//            //监听首页文章列表请求的数据变化
+//            homeDataState.observe(viewLifecycleOwner, Observer {
+//                smRefresh.finishRefresh()
+//                if (it.isSuccess) {
+//                    //成功
+//                    when {
+//                        //是第一页
+//                        it.isRefresh -> {
+//                            mAdapter.setNewInstance(it.listData)
+//                            loadMore(it.isEmpty)
+//                        }
+//                        //不是第一页
+//                        else -> {
+//                            mAdapter.addData(it.listData ?: mutableListOf())
+//                            loadMore(it.isEmpty)
+//                        }
+//                    }
+//                } else {
+//                    loadMore(false)
+//                }
+//            })
+//            //监听轮播图请求的数据变化
+//            bannerDataState.observe(viewLifecycleOwner, Observer { resultState ->
+//                val bannerBean = resultState.listData ?: mutableListOf()
+//                if (bannerBean.isNotEmpty()) {
+//                    banner.listSize = bannerBean.size
+//                    val bannerAdapter =
+//                        ViewPagerAdapter(
+//                            bannerBean
+//                        )
+//                    banner.setAdapter(bannerAdapter)
+//                    banner.setAutoTurning(3000L)
+//                }
+//            })
+//        }
     }
 
 
@@ -143,8 +139,8 @@ class HomeFragment : CommFragment<HomeViewModel, FragmentHomeBinding>() {
 
 
     override fun onViewStateRestored(savedInstanceState: Bundle?) {
-        viewModel.bannerDataState.value?.let { viewModel.setValue(it) }
-        viewModel.homeDataState.value?.let { viewModel.setHomeListValue(it) }
+//        viewModel.bannerDataState.value?.let { viewModel.setValue(it) }
+//        viewModel.homeDataState.value?.let { viewModel.setHomeListValue(it) }
         super.onViewStateRestored(savedInstanceState)
     }
 }

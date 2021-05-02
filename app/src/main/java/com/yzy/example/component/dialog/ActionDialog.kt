@@ -8,7 +8,6 @@ import androidx.fragment.app.FragmentManager
 import com.yzy.baselibrary.base.BaseDialogFragment
 import com.yzy.baselibrary.base.NoViewModel
 import com.yzy.example.R
-import kotlinx.android.synthetic.main.dialog_action.*
 
 /**
  * Description:
@@ -32,14 +31,14 @@ class ActionDialog : BaseDialogFragment<NoViewModel,ViewDataBinding>() {
     }
 
     fun show(fragmentManager: FragmentManager) {
-        dialogActionHint?.text = hintText
+//        dialogActionHint?.text = hintText
         show(fragmentManager, "ActionDialog")
     }
 
     override fun getLayoutId(): Int =R.layout.dialog_action
 
     override fun initView(savedState: Bundle?) {
-        dialogActionHint?.text = hintText
+//        dialogActionHint?.text = hintText
     }
 
 }

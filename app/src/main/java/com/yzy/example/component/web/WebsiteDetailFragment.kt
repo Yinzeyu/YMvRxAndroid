@@ -16,7 +16,6 @@ import com.yzy.example.repository.bean.BannerBean
 import com.yzy.example.repository.bean.CollectUrlBean
 import com.yzy.example.repository.enums.CollectType
 import com.yzy.example.repository.model.WebViewModel
-import kotlinx.android.synthetic.main.fragment_wesite_detail.*
 
 @Suppress("DEPRECATED_IDENTITY_EQUALS")
 class WebsiteDetailFragment : BaseFragment<WebViewModel, FragmentWesiteDetailBinding>() {
@@ -75,27 +74,27 @@ class WebsiteDetailFragment : BaseFragment<WebViewModel, FragmentWesiteDetailBin
 //            }
 //        }
 
-        //加载网页
-        mAgentWeb = AgentWeb.with(this)
-            .setAgentWebParent(webcontent, LinearLayout.LayoutParams(-1, -1))
-            .useDefaultIndicator()
-            .createAgentWeb()
-            .ready()
-            .go(viewModel.url)
-        //添加返回键逻辑
-        val callback: OnBackPressedCallback =
-            object : OnBackPressedCallback(true) {
-                override fun handleOnBackPressed() {
-                    mAgentWeb?.let {
-                        if (it.webCreator.webView.canGoBack()) {
-                            it.webCreator.webView.goBack()
-                        } else {
-                            nav().navigateUp()
-                        }
-                    }
-                }
-            }
-        requireActivity().onBackPressedDispatcher.addCallback(this, callback)
+//        //加载网页
+//        mAgentWeb = AgentWeb.with(this)
+//            .setAgentWebParent(webcontent, LinearLayout.LayoutParams(-1, -1))
+//            .useDefaultIndicator()
+//            .createAgentWeb()
+//            .ready()
+//            .go(viewModel.url)
+//        //添加返回键逻辑
+//        val callback: OnBackPressedCallback =
+//            object : OnBackPressedCallback(true) {
+//                override fun handleOnBackPressed() {
+//                    mAgentWeb?.let {
+//                        if (it.webCreator.webView.canGoBack()) {
+//                            it.webCreator.webView.goBack()
+//                        } else {
+//                            nav().navigateUp()
+//                        }
+//                    }
+//                }
+//            }
+//        requireActivity().onBackPressedDispatcher.addCallback(this, callback)
 //        requestCollectViewModel.collectUiState.observe(viewLifecycleOwner, Observer {
 //            if (it.isSuccess) {
 //                mViewModel.collect = it.collect

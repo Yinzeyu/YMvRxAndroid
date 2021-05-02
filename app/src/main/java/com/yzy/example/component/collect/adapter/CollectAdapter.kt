@@ -2,7 +2,6 @@ package com.yzy.example.component.collect.adapter
 
 import android.text.TextUtils
 import android.widget.ImageView
-import coil.api.load
 import com.chad.library.adapter.base.BaseDelegateMultiAdapter
 import com.chad.library.adapter.base.delegate.BaseMultiTypeDelegate
 import com.chad.library.adapter.base.viewholder.BaseViewHolder

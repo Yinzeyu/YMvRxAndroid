@@ -1,26 +1,17 @@
 package com.yzy.example.component.project
 
 import android.os.Bundle
-import androidx.lifecycle.Observer
-import androidx.recyclerview.widget.LinearLayoutManager
-import com.blankj.utilcode.util.ConvertUtils
 import com.yzy.baselibrary.base.BaseFragment
 import com.yzy.example.R
 import com.yzy.example.databinding.FragmentProjectChildBinding
-import com.yzy.example.extention.init
-import com.yzy.example.extention.initFloatBtn
-import com.yzy.example.repository.bean.ArticleDataBean
 import com.yzy.example.repository.model.ProjectChildViewModel
-import com.yzy.example.widget.CollectView
-import kotlinx.android.synthetic.main.fragment_project_child.*
-import com.yzy.example.widget.recyclerview.SpaceItemDecoration
 
 /**
  * 作者　: yzy
  * 时间　: 2020/2/28
  * 描述　:
  */
-class ProjectChildFragment : BaseFragment<ProjectChildViewModel, FragmentProjectChildBinding>() {
+ class ProjectChildFragment : BaseFragment<ProjectChildViewModel, FragmentProjectChildBinding>() {
 
     //适配器
     private val articleAdapter: AriticleAdapter by lazy { AriticleAdapter(arrayListOf()) }
@@ -46,71 +37,72 @@ class ProjectChildFragment : BaseFragment<ProjectChildViewModel, FragmentProject
 //    override fun layoutId() = R.layout.include_list
 
     override fun initView(savedSate: Bundle?) {
-        arguments?.let {
-            isNew = it.getBoolean("isNew")
-            cid = it.getInt("cid")
-        }
-        articleAdapter.run {
-            setOnCollectViewClickListener(object :
-                AriticleAdapter.OnCollectViewClickListener {
-                override fun onClick(item: ArticleDataBean, v: CollectView, position: Int) {
-//                    if (shareViewModel.isLogin.value) {
-//                        if (v.isChecked) {
-//                            requestCollectViewModel.uncollect(item.id)
-//                        } else {
-//                            requestCollectViewModel.collect(item.id)
-//                        }
-//                    } else {
-//                        v.isChecked = true
-//                        nav().navigate(R.id.action_mainFragment_to_loginFragment)
-//                    }
-                }
-            })
-            //初始化recyclerView
-            recyclerView.init(LinearLayoutManager(context), articleAdapter).let {
-                it.addItemDecoration(SpaceItemDecoration(0, ConvertUtils.dp2px(8f)))
-
-//                footView = it.initFooter(SwipeRecyclerView.LoadMoreListener {
-//                    //触发加载更多时请求数据
-//                    requestProjectViewModel.getProjectData(false, cid, isNew)
-//                })
-                //初始化FloatingActionButton
-                it.initFloatBtn(floatbtn)
-            }
-            viewModel.loadLocal(true, cid, isNew)
-            viewModel.projectDataState.observe(viewLifecycleOwner, Observer {
-                swipeRefresh.isRefreshing = false
-//                recyclerView.loadMoreFinish(it.isEmpty, it.hasMore)
-                if (it.isSuccess) {
-                    //成功
-                    when {
-                        //第一页并没有数据 显示空布局界面
-                        it.isFirstEmpty -> {
-//                            loadsir.showCallback(EmptyCallback::class.java)
-                        }
-                        //是第一页
-                        it.isRefresh -> {
-//                            loadsir.showSuccess()
-                            articleAdapter.setNewInstance(it.listData)
-                        }
-                        //不是第一页
-                        else -> {
-//                            loadsir.showSuccess()
-                            articleAdapter.addData(it.listData?: mutableListOf())
-                        }
-                    }
-                } else {
-                    //失败
-                    if (it.isRefresh) {
-                        //如果是第一页，则显示错误界面，并提示错误信息
-//                        loadsir.setErrorText(it.errMessage)
-//                        loadsir.showCallback(ErrorCallback::class.java)
-                    } else {
-//                        recyclerView.loadMoreError(0, it.errMessage)
-                    }
-                }
-            })
     }
+//        arguments?.let {
+//            isNew = it.getBoolean("isNew")
+//            cid = it.getInt("cid")
+//        }
+//        articleAdapter.run {
+//            setOnCollectViewClickListener(object :
+//                AriticleAdapter.OnCollectViewClickListener {
+//                override fun onClick(item: ArticleDataBean, v: CollectView, position: Int) {
+////                    if (shareViewModel.isLogin.value) {
+////                        if (v.isChecked) {
+////                            requestCollectViewModel.uncollect(item.id)
+////                        } else {
+////                            requestCollectViewModel.collect(item.id)
+////                        }
+////                    } else {
+////                        v.isChecked = true
+////                        nav().navigate(R.id.action_mainFragment_to_loginFragment)
+////                    }
+//                }
+//            })
+//            //初始化recyclerView
+//            recyclerView.init(LinearLayoutManager(context), articleAdapter).let {
+//                it.addItemDecoration(SpaceItemDecoration(0, ConvertUtils.dp2px(8f)))
+//
+////                footView = it.initFooter(SwipeRecyclerView.LoadMoreListener {
+////                    //触发加载更多时请求数据
+////                    requestProjectViewModel.getProjectData(false, cid, isNew)
+////                })
+//                //初始化FloatingActionButton
+//                it.initFloatBtn(floatbtn)
+//            }
+//            viewModel.loadLocal(true, cid, isNew)
+//            viewModel.projectDataState.observe(viewLifecycleOwner, Observer {
+//                swipeRefresh.isRefreshing = false
+////                recyclerView.loadMoreFinish(it.isEmpty, it.hasMore)
+//                if (it.isSuccess) {
+//                    //成功
+//                    when {
+//                        //第一页并没有数据 显示空布局界面
+//                        it.isFirstEmpty -> {
+////                            loadsir.showCallback(EmptyCallback::class.java)
+//                        }
+//                        //是第一页
+//                        it.isRefresh -> {
+////                            loadsir.showSuccess()
+//                            articleAdapter.setNewInstance(it.listData)
+//                        }
+//                        //不是第一页
+//                        else -> {
+////                            loadsir.showSuccess()
+//                            articleAdapter.addData(it.listData?: mutableListOf())
+//                        }
+//                    }
+//                } else {
+//                    //失败
+//                    if (it.isRefresh) {
+//                        //如果是第一页，则显示错误界面，并提示错误信息
+////                        loadsir.setErrorText(it.errMessage)
+////                        loadsir.showCallback(ErrorCallback::class.java)
+//                    } else {
+////                        recyclerView.loadMoreError(0, it.errMessage)
+//                    }
+//                }
+//            })
+//    }
 
 //    override fun lazyLoadData() {
 //        //状态页配置
@@ -206,7 +198,7 @@ class ProjectChildFragment : BaseFragment<ProjectChildViewModel, FragmentProject
 //                }
 //            })
 //        }
-    }
+//    }
 
     companion object {
         fun newInstance(cid: Int, isNew: Boolean): ProjectChildFragment {
@@ -220,7 +212,7 @@ class ProjectChildFragment : BaseFragment<ProjectChildViewModel, FragmentProject
     }
 
     override fun onDestroyView() {
-        viewModel.projectDataState.value?.let { viewModel.setValue( "projectChild$cid",it) }
+//        viewModel.projectDataState.value?.let { viewModel.setValue( "projectChild$cid",it) }
         super.onDestroyView()
     }
 

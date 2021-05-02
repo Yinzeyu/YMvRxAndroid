@@ -1,7 +1,6 @@
 package com.yzy.example.extention
 
 import android.widget.ImageView
-import coil.api.load
 import coil.transform.CircleCropTransformation
 import coil.transform.Transformation
 import com.yzy.example.R
@@ -17,16 +16,16 @@ fun ImageView.loadUrl(
     placeholderId: Int = 0,
     transformations: Transformation? = null
 ) {
-   if (!url.isNullOrEmpty()){
-       this.load(url) {
-           crossfade(true)
-           placeholder(placeholderId)
-           error(placeholderId)
-           transformations?.let {
-               transformations(it)
-           }
-       }
-   }
+//   if (!url.isNullOrEmpty()){
+//       this.load(url) {
+//           crossfade(true)
+//           placeholder(placeholderId)
+//           error(placeholderId)
+//           transformations?.let {
+//               transformations(it)
+//           }
+//       }
+//   }
 }
 
 //fun ImageView.load(url: String?, placeholderId: Int = 0) {

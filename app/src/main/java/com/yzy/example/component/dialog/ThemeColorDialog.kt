@@ -9,10 +9,6 @@ import com.yzy.baselibrary.base.BaseDialogFragment
 import com.yzy.baselibrary.base.NoViewModel
 import com.yzy.example.R
 import com.yzy.example.databinding.DialogThemeColorBinding
-import com.yzy.example.repository.bean.ColorBean
-import com.yzy.example.utils.ColorUtil
-import kotlinx.android.synthetic.main.dialog_action.*
-import kotlinx.android.synthetic.main.dialog_theme_color.*
 
 /**
  * Description:

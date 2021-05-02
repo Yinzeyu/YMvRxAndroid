@@ -10,16 +10,15 @@ import com.yzy.baselibrary.extention.click
 import com.yzy.example.R
 import com.yzy.example.databinding.FragmentLoginBinding
 import com.yzy.example.utils.MMkvUtils
-import kotlinx.android.synthetic.main.layout_login_dialog.*
 
 class LoginDialog : BaseDialogFragment<NoViewModel,FragmentLoginBinding>() {
     var mainToLogin: (() -> Unit)? = null
     override fun initView(savedState: Bundle?) {
-        loginBtn?.click {
-            dismiss()
-            MMkvUtils.instance.remove()
-            mainToLogin?.invoke()
-        }
+//        loginBtn?.click {
+//            dismiss()
+//            MMkvUtils.instance.remove()
+//            mainToLogin?.invoke()
+//        }
     }
 
     companion object {

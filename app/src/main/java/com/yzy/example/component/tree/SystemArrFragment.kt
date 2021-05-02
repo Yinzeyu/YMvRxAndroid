@@ -13,7 +13,6 @@ import com.yzy.example.extention.bindViewPager2
 import com.yzy.example.extention.init
 import com.yzy.example.repository.bean.SystemBean
 import com.yzy.example.repository.model.TreeViewModel
-import kotlinx.android.synthetic.main.fragment_system_arr.*
 
 class SystemArrFragment : BaseFragment<TreeViewModel, FragmentSystemArrBinding>() {
     private val systemArrFragmentArgs: SystemArrFragmentArgs by navArgs()
@@ -34,10 +33,10 @@ class SystemArrFragment : BaseFragment<TreeViewModel, FragmentSystemArrBinding>(
             fragments.add(SystemChildFragment.newInstance(it.id))
         }
         //初始化viewpager2
-        systemArrViewPager.init(this, fragments)
-        //初始化 magic_indicator
-        systemArrMagicIndicator.bindViewPager2(systemArrViewPager,  systemArrFragmentArgs.dataBean.children)
-        systemArrViewPager.currentItem = systemArrFragmentArgs.index
+//        systemArrViewPager.init(this, fragments)
+//        //初始化 magic_indicator
+//        systemArrMagicIndicator.bindViewPager2(systemArrViewPager,  systemArrFragmentArgs.dataBean.children)
+//        systemArrViewPager.currentItem = systemArrFragmentArgs.index
     }
 
     override fun getLayoutId(): Int  = R.layout.fragment_system_arr
