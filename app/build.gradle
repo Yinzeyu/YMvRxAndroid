@@ -107,18 +107,19 @@ android {
             //是否需要删除旧文件APK
             boolean needDelOldApk = true
             //输入文件设置
-            if (needDelOldApk) outputFileName = fileName
-            else getAssembleProvider().configure() {
-                it.doLast { //解决Android Studio3.6删除安卓包的问题
-                    String buildEndTime = "_${new Date().format("yyyyMMdd_HHmm")}"
-                    fileName = "${appName}${typeName}${buildName}${buildEndTime}${computer}${suffix}"
-                    project.copy {
-                        from("${output.outputFile}")
-                        into("${output.outputFile.parent}")
-                        rename("${output.outputFile.name}", "${fileName}")
-                    }
-                }
-            }
+            output.outputFileName = fileName
+//            if (needDelOldApk) outputFileName = fileName
+//            else getAssembleProvider().configure() {
+//                it.doLast { //解决Android Studio3.6删除安卓包的问题
+//                    String buildEndTime = "_${new Date().format("yyyyMMdd_HHmm")}"
+//                    fileName = "${appName}${typeName}${buildName}${buildEndTime}${computer}${suffix}"
+//                    project.copy {
+//                        from("${output.outputFile}")
+//                        into("${output.outputFile.parent}")
+//                        rename("${output.outputFile.name}", "${fileName}")
+//                    }
+//                }
+//            }
         }
     }
 }
