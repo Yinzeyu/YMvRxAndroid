@@ -82,14 +82,14 @@ android {
     getApplicationVariants().all { variant ->
         variant.outputs.each { output ->
             //名称
-            String appName = "1111"
-//            String path = getProjectDir().getPath() + "/src/main/res/values/strings.xml"
-//            new XmlSlurper().parse(path)."string".find { name ->
-//                if (name."@name" == "app_name") {
-//                    appName = name
-//                    return true
-//                }
-//            }
+            String appName = ""
+            String path = getProjectDir().getPath() + "/src/main/res/values/strings.xml"
+            new XmlSlurper().parse(path)."string".find { name ->
+                if (name."@name" == "app_name") {
+                    appName = name
+                    return true
+                }
+            }
             //正式版还是测试版
             String typeName = buildType.name
             typeName = typeName.substring(0, 1).toUpperCase() + typeName.substring(1).toLowerCase()
@@ -107,25 +107,25 @@ android {
             //是否需要删除旧文件APK
             boolean needDelOldApk = true
             //输入文件设置
-             output.outputFileName = fileName
-//            else getAssembleProvider().configure() {
-//                it.doLast { //解决Android Studio3.6删除安卓包的问题
-//                    String buildEndTime = "_${new Date().format("yyyyMMdd_HHmm")}"
-//                    fileName = "${appName}${typeName}${buildName}${buildEndTime}${computer}${suffix}"
-//                    project.copy {
-//                        from("${output.outputFile}")
-//                        into("${output.outputFile.parent}")
-//                        rename("${output.outputFile.name}", "${fileName}")
-//                    }
-//                }
-//            }
+            if (needDelOldApk) outputFileName = fileName
+            else getAssembleProvider().configure() {
+                it.doLast { //解决Android Studio3.6删除安卓包的问题
+                    String buildEndTime = "_${new Date().format("yyyyMMdd_HHmm")}"
+                    fileName = "${appName}${typeName}${buildName}${buildEndTime}${computer}${suffix}"
+                    project.copy {
+                        from("${output.outputFile}")
+                        into("${output.outputFile.parent}")
+                        rename("${output.outputFile.name}", "${fileName}")
+                    }
+                }
+            }
         }
     }
 }
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-    implementation 'org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.4.32'
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:${kotlin_version}"
     implementation project(":ybase")
 //    api 'com.github.bumptech.glide:glide:4.11.0'
 //    api 'com.github.bumptech.glide:okhttp3-integration:4.11.0'
